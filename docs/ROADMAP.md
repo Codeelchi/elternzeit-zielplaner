@@ -2,6 +2,8 @@
 
 Stand: 2026-10-14 · Ausgangspunkt v3.1
 
+**Umsetzungsstand 14.10.2026 / V3.1.1:** Der JSON-Regelkatalog wird als einzige redaktionelle Quelle in die Offline-App eingebettet, der Build prüft Datendrift. 34 reproduzierbare Monatsbetrags-Fälle (8 direkt veröffentlichte Beispiele, 4 amtliche Grenzwerte, 22 abgeleitete Berechnungsfälle) plus ein amtlicher Mutterschutz-Zeitfall sind als Tests erfasst. Das ist keine vollständige amtliche Fachabnahme: unter anderem Elterngeld-Netto-Berechnung, komplexe Zeitachsen und unabhängige Bescheidvergleiche bleiben offen. Siehe [Testnachweis](REFERENZFAELLE-UND-GRENZEN.md).
+
 ## P0 · Fachliche Absicherung vor produktiver Nutzung
 
 - Fachliche Testfälle gegen den amtlichen Elterngeldrechner und realistische Musterfälle vergleichen; Unterschiede dokumentieren.

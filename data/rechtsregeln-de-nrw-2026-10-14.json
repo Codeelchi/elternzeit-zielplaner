@@ -1,15 +1,43 @@
 {
   "name": "Elternzeit und Elterngeld - Referenz-Rechtsregeln DE/NRW",
-  "version": "DE-NRW-2026.10.14+r3.1.0",
+  "version": "DE-NRW-2026.10.14+r3.1.1",
   "verified_as_of": "2026-10-14",
   "target_birth_date": "2027-05-28",
   "applicable_standard_birth_window": {
     "from": "2025-04-01",
     "through": "2027-12-31"
   },
-  "source_policy": "Manuell anhand öffentlich erreichbarer Behörden/Gesetzesquellen überprüft. Kein rechtsverbindlicher Echtzeit-Dienst; vor Antragstellung erneut prüfen.",
+  "source_policy": "Die Quelle gilt als nachgelesen nur bei verification_status=official_source_checked; andernfalls ist sie ein Hinweis ohne Prüfung der geltenden Fassung. checked_at dokumentiert den Abruf, keine Rechtsberatung. Für Geburten 2027 erneut prüfen.",
   "warning": "Regelbasis ab ist kein Einzelklausel-Inkrafttretensnachweis; Maßstab ist die jeweils verlinkte geltende bzw. historische amtliche Fassung. Planung in 2027 ist vorläufig.",
   "rules": [
+    {
+      "id": "BE-2",
+      "t": "Elterngeldhöhe und Ersatzrate",
+      "from": "2021-09-01",
+      "effective_from": "2021-09-01",
+      "effective_to": null,
+      "where": "Bund",
+      "source": "§ 2 BEEG / Familienportal: Wie viel Elterngeld kann ich bekommen?",
+      "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616",
+      "summary": "Basis 300–1.800 €, Plus 150–900 €; Einkommen vor Geburt höchstens 2.770 € berücksichtigungsfähig, Ersatzrate regelmäßig 65 % mit Staffelung bei geringem Einkommen.",
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Vereinfachte Formel für abhängig Beschäftigte; maßgebliches pauschaliertes Elterngeld-Netto muss individuell ermittelt werden."
+    },
+    {
+      "id": "BE-4A",
+      "t": "ElterngeldPlus-Höchstgrenze bei Einkommen",
+      "from": "2021-09-01",
+      "effective_from": "2021-09-01",
+      "effective_to": null,
+      "where": "Bund",
+      "source": "§ 4a BEEG / Familienportal: Höhe ElterngeldPlus",
+      "url": "https://www.gesetze-im-internet.de/beeg/__4a.html",
+      "summary": "ElterngeldPlus höchstens die Hälfte des Basiselterngeldes ohne Einkommen nach der Geburt; Partnerschaftsbonus wird wie Plus berechnet.",
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Bei Teilzeit werden getrennte Durchschnittseinkommen innerhalb von Basis und Plus zugrunde gelegt."
+    },
     {
       "id": "BE-4",
       "t": "Kontingent Basis / ElterngeldPlus",
@@ -17,7 +45,12 @@
       "where": "Bund",
       "source": "§ 4 BEEG",
       "url": "https://www.gesetze-im-internet.de/beeg/__4.html",
-      "summary": "Regelfall: 12, bei zwei Partnermonaten 14 Basis-Äquivalente gemeinsam; höchstens 12 pro Person. Ein Basismonat entspricht zwei Plus-Monaten."
+      "summary": "Regelfall: 12, bei zwei Partnermonaten 14 Basis-Äquivalente gemeinsam; höchstens 12 pro Person. Ein Basismonat entspricht zwei Plus-Monaten.",
+      "effective_from": "2021-09-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "BE-2025",
@@ -26,7 +59,12 @@
       "where": "Bund",
       "source": "BMBFSFJ, Rechtsänderungen",
       "url": "https://familienportal.de/bmbfsfj/themen/familie/familienleistungen/neuregelungen-beim-elterngeld-fuer-geburten-ab-1-april-2024-sowie-ab-1-april-2025-228588",
-      "summary": "Mehr als 175.000 € gemeinsames zvE im Kalenderjahr vor der Geburt schließt Elterngeld aus."
+      "summary": "Mehr als 175.000 € gemeinsames zvE im Kalenderjahr vor der Geburt schließt Elterngeld aus.",
+      "effective_from": "2025-04-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "BE-PAR",
@@ -35,7 +73,12 @@
       "where": "Bund",
       "source": "BMBFSFJ, Rechtsänderungen",
       "url": "https://familienportal.de/bmbfsfj/themen/familie/familienleistungen/neuregelungen-beim-elterngeld-fuer-geburten-ab-1-april-2024-sowie-ab-1-april-2025-228588",
-      "summary": "Bei einer gewöhnlichen Einzelgeburt höchstens ein gemeinsamer Basismonat in den ersten zwölf Lebensmonaten; Sonderfälle existieren."
+      "summary": "Bei einer gewöhnlichen Einzelgeburt höchstens ein gemeinsamer Basismonat in den ersten zwölf Lebensmonaten; Sonderfälle existieren.",
+      "effective_from": "2024-04-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "BE-PLUS",
@@ -44,7 +87,12 @@
       "where": "Bund",
       "source": "§ 4 BEEG",
       "url": "https://www.gesetze-im-internet.de/beeg/__4.html",
-      "summary": "Plus kann in LM 15 beginnen; ab LM 15 anschließend ohne gemeinsamen Unterbrechungsmonat, längstens bis LM 32."
+      "summary": "Plus kann in LM 15 beginnen; ab LM 15 anschließend ohne gemeinsamen Unterbrechungsmonat, längstens bis LM 32.",
+      "effective_from": "2021-09-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "BE-AVG",
@@ -53,7 +101,12 @@
       "where": "Bund",
       "source": "§ 2 Abs. 3 BEEG / BEEG-Richtlinien",
       "url": "https://www.gesetze-im-internet.de/beeg/__2.html",
-      "summary": "Monate mit Erwerbseinkommen bei Basis und Plus getrennt mitteln; Monate ohne Erwerbseinkommen getrennt. Bonus mit Plus-Teilzeit mitteln."
+      "summary": "Monate mit Erwerbseinkommen bei Basis und Plus getrennt mitteln; Monate ohne Erwerbseinkommen getrennt. Bonus mit Plus-Teilzeit mitteln.",
+      "effective_from": "2021-09-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "BE-MUT",
@@ -62,7 +115,12 @@
       "where": "Bund",
       "source": "Familienportal – Mutterschaftsleistungen",
       "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/kann-ich-elterngeld-und-mutterschaftsleistungen-bekommen--124776",
-      "summary": "Taggenaue Anrechnung auf Elterngeld; jeder berührte Lebensmonat der Mutter zählt als Basis. Annahme: reguläre 8 Wochen nach Geburt."
+      "summary": "Taggenaue Anrechnung auf Elterngeld; jeder berührte Lebensmonat der Mutter zählt als Basis. Annahme: reguläre 8 Wochen nach Geburt.",
+      "effective_from": "2021-09-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "BE-BON",
@@ -71,7 +129,12 @@
       "where": "Bund",
       "source": "§ 4b BEEG",
       "url": "https://www.gesetze-im-internet.de/beeg/__4b.html",
-      "summary": "2–4 aufeinanderfolgende gemeinsame Bonusmonate, beide im Monatsdurchschnitt 24–32 Wochenstunden."
+      "summary": "2–4 aufeinanderfolgende gemeinsame Bonusmonate, beide im Monatsdurchschnitt 24–32 Wochenstunden.",
+      "effective_from": "2021-09-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "BE-32",
@@ -80,7 +143,12 @@
       "where": "Bund",
       "source": "Familienportal – Anspruch",
       "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/kann-ich-elterngeld-bekommen--155116",
-      "summary": "Während Elterngeldbezug grundsätzlich höchstens 32 Wochenstunden im Durchschnitt."
+      "summary": "Während Elterngeldbezug grundsätzlich höchstens 32 Wochenstunden im Durchschnitt.",
+      "effective_from": "2021-09-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "NRW-3",
@@ -89,7 +157,12 @@
       "where": "NRW",
       "source": "Recht.NRW, Ehrenpatenschaft",
       "url": "https://recht.nrw.de/lrmb/bekanntmachung/01012019-bekanntmachung-der-einfuehrung-einer-ehrenpatenschaft-des/",
-      "summary": "Nach geltendem Erlass einmalig 1.000 € je Kind ab Drillingen bei Wohnsitzvoraussetzungen; wegen abweichender Angaben zum Verfahren nicht automatisch verrechnet."
+      "summary": "Nach geltendem Erlass einmalig 1.000 € je Kind ab Drillingen bei Wohnsitzvoraussetzungen; wegen abweichender Angaben zum Verfahren nicht automatisch verrechnet.",
+      "effective_from": "2019-01-01",
+      "effective_to": null,
+      "checked_at": null,
+      "verification_status": "source_listed_review_pending",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "CG-25",
@@ -98,7 +171,12 @@
       "where": "Stadt Köln",
       "source": "Stadt Köln, Elternbeiträge Kita",
       "url": "https://www.stadt-koeln.de/service/produkte/00405/index.html",
-      "summary": "Beiträge abhängig von Alter, Betreuungsumfang und Jahreseinkommen. Für 2027/28 Satzung vorab erneut prüfen."
+      "summary": "Beiträge abhängig von Alter, Betreuungsumfang und Jahreseinkommen. Für 2027/28 Satzung vorab erneut prüfen.",
+      "effective_from": "2025-08-01",
+      "effective_to": null,
+      "checked_at": null,
+      "verification_status": "source_listed_review_pending",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "KI-2026",
@@ -107,7 +185,12 @@
       "where": "Bund",
       "source": "BMBFSFJ, Kindergeld",
       "url": "https://familienportal.de/bmbfsfj/themen/familie/familienleistungen/kindergeld/",
-      "summary": "259 € je Kind und Monat seit 01.01.2026."
+      "summary": "259 € je Kind und Monat seit 01.01.2026.",
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "checked_at": null,
+      "verification_status": "source_listed_review_pending",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "KI-ENT",
@@ -117,7 +200,12 @@
       "planned": true,
       "source": "Bundestag, Gesetzesentwurf Oktober 2026",
       "url": "https://www.bundestag.de/dokumente/textarchiv/2026/kw41-de-einkommensteuerreform-1217520",
-      "summary": "Vorgesehen: 267 € ab 2027 und 272 € ab 2028. Zum Prüfdatum noch nicht geltendes Recht."
+      "summary": "Vorgesehen: 267 € ab 2027 und 272 € ab 2028. Zum Prüfdatum noch nicht geltendes Recht.",
+      "effective_from": "2027-01-01",
+      "effective_to": null,
+      "checked_at": null,
+      "verification_status": "draft_not_in_force",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "BY-2025",
@@ -126,7 +214,12 @@
       "where": "Bayern",
       "source": "ZBFS, Familiengeld",
       "url": "https://www.zbfs.bayern.de/familienleistungen/familiengeld/",
-      "summary": "Für ab 01.01.2025 geborene Kinder kein Bayerisches Familiengeld; angekündigtes Kinderstartgeld wurde später gestrichen."
+      "summary": "Für ab 01.01.2025 geborene Kinder kein Bayerisches Familiengeld; angekündigtes Kinderstartgeld wurde später gestrichen.",
+      "effective_from": "2025-01-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     },
     {
       "id": "SN-LEG",
@@ -135,7 +228,12 @@
       "where": "Sachsen",
       "source": "REVOSax, Landeserziehungsgeldgesetz",
       "url": "https://revosax.sachsen.de/vorschrift/5132.11",
-      "summary": "Unter Voraussetzungen einkommensabhängige Leistung; ohne individuelle Anspruchsprüfung kein automatischer Betrag."
+      "summary": "Unter Voraussetzungen einkommensabhängige Leistung; ohne individuelle Anspruchsprüfung kein automatischer Betrag.",
+      "effective_from": "2007-01-01",
+      "effective_to": null,
+      "checked_at": null,
+      "verification_status": "source_listed_review_pending",
+      "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
     }
   ],
   "regional_tariff": {
@@ -152,5 +250,33 @@
     "https://www.elterngeldoptimierer.de/",
     "https://elterngeld-planung.de/",
     "https://elterngeldpilot.com/"
-  ]
+  ],
+  "standard_parameters": {
+    "basis_min_eur": 300,
+    "basis_max_eur": 1800,
+    "plus_min_eur": 150,
+    "plus_max_eur": 900,
+    "basis_income_cap_eur": 2770,
+    "income_limit_zve_eur": 175000,
+    "replacement_high": 0.65,
+    "replacement_low": 0.67,
+    "replacement_low_threshold_eur": 1000,
+    "replacement_high_threshold_eur": 1200,
+    "replacement_full_high_eur": 1240,
+    "replacement_rate_step_per_eur": 0.0005,
+    "replacement_rate_max": 1,
+    "joint_max_basis_equivalents": 14,
+    "per_parent_max_basis_equivalents": 12,
+    "basis_last_life_month": 14,
+    "plus_last_life_month": 32,
+    "plus_continuity_from_life_month": 15,
+    "concurrent_basis_latest_life_month": 12,
+    "concurrent_basis_max_months": 1,
+    "bonus_min_months": 2,
+    "bonus_max_months": 4,
+    "bonus_min_hours": 24,
+    "bonus_max_hours": 32,
+    "max_weekly_work_hours": 32,
+    "standard_maternity_days_after_birth": 56
+  }
 }

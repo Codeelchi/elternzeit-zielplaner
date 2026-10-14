@@ -67,9 +67,10 @@
  <div class="live-strip noprint" aria-live="polite">
    <div class="live-item"><span>Kindesalter im gewählten Monat</span><strong id="liveAge">0–1 Monat</strong></div>
    <div class="live-item"><span>Lebensmonat / Zeitraum</span><strong id="liveMonth">LM 3</strong></div>
-   <div class="live-item"><span>Familienbudget in diesem LM</span><strong id="liveBudget">4.549 €</strong></div>
+   <div class="live-item"><span>Budgetschätzung in diesem LM</span><strong id="liveBudget">4.549 €</strong></div>
    <button type="button" class="live-link" data-goto="slide-6">Monatsdetails ansehen →</button>
  </div>
+ <div id="globalPlanStatus" class="note warn" aria-live="polite" style="border-radius:0;padding:12px 23px"></div>
  <main class="stage" id="stage">
   <section class="slide active" data-title="Überblick" id="slide-1">
    <div class="hero">
@@ -1379,7 +1380,7 @@ function renderInputs(){document.querySelectorAll('[data-field], [data-build]').
  setTxt('ptEffectiveFather',euro(ptNet('f')));setTxt('ptEffectiveMother',euro(ptNet('m')));
  setTxt('ptHoursFather',s.hoursFather);setTxt('ptHoursMother',s.hoursMother);
 }
-function renderHeader(){setTxt('heroGross',euro(s.grossFather));const r=current.rows[s.month-1];setTxt('liveAge',ageSpan(s.month));setTxt('liveMonth','LM '+s.month+' · '+dateFor(s.month));setTxt('liveBudget',euro(r.income));}
+function renderHeader(){const labels={PLAUSIBEL_STANDARD:'Standardregeln plausibel',REGELKONFLIKT:'Regelkonflikt',NICHT_UNTERSTUETZT:'Konstellation nicht validiert',DATEN_UNVOLLSTAENDIG:'Angaben zur Prüfung fehlen'};setTxt('globalPlanStatus','Alle Finanzwerte sind Schätzungen, keine amtlichen Bewilligungsbeträge. '+labels[current.validation.status]+' ('+current.validation.status+'). '+(current.valid?'Unabhängige fachliche Abnahme steht noch aus.':current.validation.findings[0]?.message||'Plan bitte korrigieren.'));setTxt('heroGross',euro(s.grossFather));const r=current.rows[s.month-1];setTxt('liveAge',ageSpan(s.month));setTxt('liveMonth','LM '+s.month+' · '+dateFor(s.month));setTxt('liveBudget',euro(r.income));}
 function modelInfo(schedule,limit=s.horizon){const x=evaluate(schedule);return {total:x.sum(limit,'income'),eg:x.sum(N,'totalEg'),free:x.fFree,leave:x.fLeave,low:x.low(limit),valid:x.valid,errors:x.errors}}
 function renderModels(){
  $('modelGrid').innerHTML=SCENARIOS.map(x=>{const q=modelInfo(makeSchedule(x.id));return '<button type="button" class="model-card '+(s.model===x.id?'selected':'')+'" data-model="'+x.id+'" aria-pressed="'+(s.model===x.id)+'"><span class="model-title">'+esc(x.name)+'</span><span class="model-desc">'+esc(x.short)+'</span><span class="model-amount">'+euro(q.total)+'</span><span class="model-sub">Familienbudget / '+s.horizon+' LM (0–'+age(s.horizon)+')</span></button>';}).join('');
@@ -2072,7 +2073,7 @@ function renderRegion(){
  if(region==='NRW'){
   parts.push({label:'Allgemeines NRW-Familiengeld (Einzelgeburt)',state:'Nicht gefunden',message:'In den amtlich gesichteten NRW-Leistungsübersichten ist für eine einzelne Geburt kein allgemeiner zusätzlicher monatlicher Landesbetrag ausgewiesen. Deshalb 0 € im Modell.',url:'https://www.familienportal.nrw/'});
   parts.push({label:'NRW Mehrlingsgeld / Ehrenpatenschaft',state:Number(s.births)>=3?'Möglicher Anspruch':'Nicht zutreffend',message:'Ab Drillingen derzeit 1.000 € je Kind einmalig, an NRW-Hauptwohnsitz und weitere Voraussetzungen gebunden. Widersprüchliche Angaben zum Antragsverfahren: vor Verwendung bestätigen.',url:'https://recht.nrw.de/lrmb/bekanntmachung/01012019-bekanntmachung-der-einfuehrung-einer-ehrenpatenschaft-des/'});
-  if(String(s.city||'').toLowerCase().includes('köln'))parts.push({label:'Kölner Kita- / Tagespflegebeiträge',state:s.childcareMode==='cologne2025'?'2025-Tarif als Szenario aktiv':'Manuell oder historisches Szenario',message:'Tabelle gültig ab August 2025; unterschieden nach Kind unter 2 / ab 2, Jahresbemessung und 25/35/45 Stunden. 2027 nicht verifiziert. Kita-Essen separat.',url:'https://www.stadt-koeln.de/service/produkte/00405/index.html'});
+  if(String(s.city||'').toLowerCase().includes('köln'))parts.push({label:'Kölner Kita- / Tagespflegebeiträge',state:s.childcareMode==='cologne2025'?'Historische Referenz – Budget bleibt manuell':'Manuelle Kostenschätzung',message:'Tabelle gültig ab August 2025; unterschieden nach Kind unter 2 / ab 2, Jahresbemessung und 25/35/45 Stunden. 2027 nicht verifiziert. Kita-Essen separat.',url:'https://www.stadt-koeln.de/service/produkte/00405/index.html'});
  }else if(region==='BY')parts.push({label:'Bayerisches Familiengeld',state:year>=2025?'Nicht anspruchsberechtigt':'Prüfung',message:'Für Kinder ab 01.01.2025 entfallen; das zeitweilig geplante Kinderstartgeld wurde 2025 nicht eingeführt.',url:'https://www.zbfs.bayern.de/familienleistungen/familiengeld/'});
  else if(region==='SN')parts.push({label:'Sächsisches Landeserziehungsgeld',state:'Individuell prüfen',message:'Es existieren besondere Einkommens-, Alters- und Betreuungsbedingungen; ohne geprüften Anspruch kein pauschaler Betrag.',url:'https://revosax.sachsen.de/vorschrift/5132.11'});
  else parts.push({label:'Weitere Landesprogramme',state:'Recherche offen',message:'Für dieses Bundesland ist kein belastbarer vollständiger Landesregelbestand hinterlegt. Nicht als „keine Leistung“ interpretieren.',url:'https://familienportal.de/'});

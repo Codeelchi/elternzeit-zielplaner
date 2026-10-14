@@ -32,9 +32,12 @@ test('offline three-step navigation, keyboard and runtime integrity', async ({ p
   await page.reload();
   requests.length=0;
   await page.context().setOffline(true);
+  await expect(page.locator('#globalPlanStatus')).toContainText('NICHT_UNTERSTUETZT');
+  await expect(page.locator('#globalPlanStatus')).toContainText('Alle Finanzwerte sind Schätzungen');
   await page.getByRole('button',{name:'1 · Eure Daten',exact:true}).click();
   await expect(page.locator('#slide-2')).toBeVisible();
   await standardInputs(page);
+  await expect(page.locator('#globalPlanStatus')).toContainText('PLAUSIBEL_STANDARD');
   await expect(page.locator('#liveMonth')).toContainText('28.07.2026 bis 27.08.2026');
   await page.getByRole('button',{name:'Monatsdetails ansehen →',exact:true}).click();
   await expect(page.locator('#slide-6')).toBeVisible();

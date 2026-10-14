@@ -11,6 +11,7 @@ function setup(){
 test('unconfirmed future default cannot be called plausible or searched as an accepted standard',()=>{
  const {dom,ui,app,errors}=setup();
  assert.equal(ui.evaluate().valid,false);
+ assert.match(dom.window.document.querySelector('#globalPlanStatus').textContent,/Schätzungen.*NICHT_UNTERSTUETZT/);
  assert.equal(ui.evaluate().validation.status,'NICHT_UNTERSTUETZT');
  assert.equal(app.runGoalSearch().length,0);
  assert.match(dom.window.document.querySelector('#goalResult').textContent,/Keine passenden Vorschläge/);

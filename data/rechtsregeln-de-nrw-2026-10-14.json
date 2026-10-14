@@ -1,14 +1,14 @@
 {
   "name": "Elternzeit und Elterngeld - Referenz-Rechtsregeln DE/NRW",
-  "version": "DE-NRW-2026.10.14+r3.1.1",
+  "version": "DE-NRW-2026.10.14+r3.3.0",
   "verified_as_of": "2026-10-14",
   "target_birth_date": "2027-05-28",
   "applicable_standard_birth_window": {
     "from": "2025-04-01",
-    "through": "2027-12-31"
+    "through": "2026-12-31"
   },
   "source_policy": "Die Quelle gilt als nachgelesen nur bei verification_status=official_source_checked; andernfalls ist sie ein Hinweis ohne Prüfung der geltenden Fassung. checked_at dokumentiert den Abruf, keine Rechtsberatung. Für Geburten 2027 erneut prüfen.",
-  "warning": "Regelbasis ab ist kein Einzelklausel-Inkrafttretensnachweis; Maßstab ist die jeweils verlinkte geltende bzw. historische amtliche Fassung. Planung in 2027 ist vorläufig.",
+  "warning": "Geburten nach dem bestätigten Quellenjahr sind nicht als plausibler Standardfall freigegeben. Mutterschutz-Referenzabweichung muss vor Veröffentlichung unabhängig geklärt werden.",
   "rules": [
     {
       "id": "BE-2",
@@ -234,6 +234,76 @@
       "checked_at": null,
       "verification_status": "source_listed_review_pending",
       "applicability_note": "Abhängig von Geburtsdatum, Region und individuellen Voraussetzungen. Quelle nur mit konkret passender Rechtsfassung verwenden."
+    },
+    {
+      "id": "BGB-187-188",
+      "t": "Kalenderfristen und Lebensmonatsgrenzen",
+      "url": "https://www.gesetze-im-internet.de/bgb/__188.html",
+      "source": "Kalenderfristen und Lebensmonatsgrenzen",
+      "summary": "Geburtstag wird bei Lebensmonatsbeginn mitgezählt (§187 Absatz2); fehlt der Tag im Zielmonat, endet die Frist am letzten Tag (§188 Absatz3).",
+      "where": "Bund",
+      "effective_from": "2002-01-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Amtlicher Abruf 14.10.2026; Standardfall, Zukunftskohorten und individuelle Ausnahmen erneut prüfen.",
+      "from": "2002-01-01"
+    },
+    {
+      "id": "MUSCHG-3",
+      "t": "Mutterschutzfristen",
+      "url": "https://www.gesetze-im-internet.de/muschg_2018/__3.html",
+      "source": "Mutterschutzfristen",
+      "summary": "Regelfall: sechs Wochen vor Entbindung, acht Wochen nach Entbindung. Geburtstag zusätzlich geschützt; amtliches Zahlenbeispiel weicht einen Tag ab und bleibt Release-Gate.",
+      "where": "Bund",
+      "effective_from": "2018-01-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Amtlicher Abruf 14.10.2026; Standardfall, Zukunftskohorten und individuelle Ausnahmen erneut prüfen.",
+      "from": "2018-01-01"
+    },
+    {
+      "id": "BEEG-16",
+      "t": "Anmeldung der Elternzeit",
+      "url": "https://www.gesetze-im-internet.de/beeg/__16.html",
+      "source": "Anmeldung der Elternzeit",
+      "summary": "Vor dem dritten Geburtstag sieben Wochen, danach dreizehn Wochen. Textform für Geburten ab Mai2025 nach Übergangsregel §28; Bindungszeitraum zwei Jahre beachten.",
+      "where": "Bund",
+      "effective_from": "2025-05-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Amtlicher Abruf 14.10.2026; Standardfall, Zukunftskohorten und individuelle Ausnahmen erneut prüfen.",
+      "from": "2025-05-01"
+    },
+    {
+      "id": "BEEG-7",
+      "t": "Elterngeldantrag und Rückwirkung",
+      "url": "https://www.gesetze-im-internet.de/beeg/__7.html",
+      "source": "Elterngeldantrag und Rückwirkung",
+      "summary": "Rückwirkend für drei Lebensmonate vor dem Lebensmonat des Antragseingangs. Für Bezug ab LM1 spätestens Ende LM4; empfohlen früh nach Geburt.",
+      "where": "Bund",
+      "effective_from": "2021-09-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "applicability_note": "Amtlicher Abruf 14.10.2026; Standardfall, Zukunftskohorten und individuelle Ausnahmen erneut prüfen.",
+      "from": "2021-09-01"
+    },
+    {
+      "id": "BEEG-15",
+      "t": "Elternzeit und Erwerbstätigkeit",
+      "from": "2021-09-01",
+      "effective_from": "2021-09-01",
+      "effective_to": null,
+      "checked_at": "2026-10-14",
+      "verification_status": "official_source_checked",
+      "where": "Bund",
+      "source": "BEEG §15 – Anspruch auf Elternzeit",
+      "url": "https://www.gesetze-im-internet.de/beeg/__15.html",
+      "summary": "Während Elternzeit bis 32 Wochenstunden im Monatsdurchschnitt. Regelfall drei Zeitabschnitte; weitere Abschnitte brauchen Arbeitgeberzustimmung.",
+      "applicability_note": "Einzelvertrag, Monatsdurchschnitt und Anspruch auf Teilzeit individuell prüfen."
     }
   ],
   "regional_tariff": {

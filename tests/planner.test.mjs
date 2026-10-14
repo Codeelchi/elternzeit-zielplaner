@@ -20,14 +20,17 @@ function page() {
       window.URL.revokeObjectURL = () => {};
     }
   });
+  dom.window.__elternzeitTest.changeValue('date','2026-05-28');
+  dom.window.__elternzeitTest.changeValue('zve',95000);
+  dom.window.__elternzeitTest.changeValue('standardCaseConfirmed',true);
   return { dom, errors, app: dom.window.__elternzeitV3, ui: dom.window.__elternzeitTest };
 }
 
 test('application initializes with 36 child life months and tested rule version', () => {
   const p = page();
-  assert.equal(p.app.ruleVersion, '3.1.1');
+  assert.equal(p.app.ruleVersion, '3.3.0');
   assert.equal(p.ui.getState().schedule.length, 36);
-  assert.equal(p.ui.dateFor(1).includes('28.05.2027'), true);
+  assert.equal(p.ui.dateFor(1).includes('28.05.2026'), true);
   assert.equal(p.ui.ageSpan(25).startsWith('2 Jahre'), true);
   assert.deepEqual(p.errors, []);
   p.dom.window.close();

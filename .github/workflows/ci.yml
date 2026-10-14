@@ -23,3 +23,16 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Verify legal snapshot and regression fixtures
         run: npm test
+      - name: Install Chromium and operating system dependencies
+        run: npx playwright install --with-deps chromium
+      - name: Desktop, mobile, accessibility and local-first browser gates
+        run: npm run test:e2e
+      - name: Archive browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-qa
+          path: |
+            qa/browser-*.json
+            qa/browser-artifacts/
+          retention-days: 14

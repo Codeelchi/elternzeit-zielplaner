@@ -33,3 +33,7 @@ Stand: 2026-10-14 · Ausgangspunkt v3.1
 ## Qualitätskriterium
 
 Ein Suchergebnis darf erst als **rechtlich plausibel** markiert werden, wenn es den Validator durchläuft. Eine Zahl darf erst als **amtlich vergleichbar** markiert werden, wenn der entsprechende Berechnungsfall gegen eine verbindliche Quelle oder einen bewährten Referenzfall geprüft wurde. Ansonsten sichtbar als Näherung kennzeichnen.
+
+## Fortschritt 14.10.2026 / V3.3.0
+
+Issue #4: strukturierte Engine und UI integriert; Review offen. Issue #3: mehrere Kalenderabschnitte, unabhängige Arbeit/Leistung und tatsächliche Buchungen integriert; amtliche Mutterschutzabweichung bleibt Fachblocker. Issue #5: drei erläuterte Suchprofile und strenge Regel-/Budgetfilter integriert. Issues #6/#7/#8: Budgetreserven, NRW/Köln-Checkliste, lokale Einwilligung und Browser-/Axe-Gates vorhanden. Vollständige Abnahme, noch fehlende unabhängige Referenzrechnungen und echte Nutzertests bleiben offen; siehe MVP-Abnahmebericht. Keine Issues allein durch diese Teilimplementierungen schließen.

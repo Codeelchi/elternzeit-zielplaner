@@ -13,6 +13,12 @@ const PARENT_CODE = { father: 'f', mother: 'm' };
 const PART_TIME_CODES = new Set(['R', 'T', 'K', 'Q']);
 const LEAVE_CODES = new Set(['B', 'R', 'P', 'T', 'Q', 'K', 'U']);
 const BASIS_CODES = new Set(['B', 'R']);
+const BENEFIT_TYPES = new Set(['none','basis','plus','partnership_bonus','maternity_offset_basis']);
+const DATE_SOURCES = {
+  reviewedAt:'2026-10-14',
+  age:['https://www.gesetze-im-internet.de/bgb/__187.html','https://www.gesetze-im-internet.de/bgb/__188.html'],
+  maternity:['https://www.gesetze-im-internet.de/muschg_2018/__3.html','https://www.gesetze-im-internet.de/bgb/__187.html','https://www.gesetze-im-internet.de/bgb/__188.html']
+};
 
 function asDate(value, label='Datum') {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
@@ -39,7 +45,9 @@ function lifeBoundary(birthDate, completedMonths) {
   const birth = asDate(birthDate, 'Geburtsdatum');
   const monthStart = new Date(Date.UTC(birth.getUTCFullYear(),birth.getUTCMonth()+completedMonths,1));
   const lastDay = new Date(Date.UTC(monthStart.getUTCFullYear(),monthStart.getUTCMonth()+1,0)).getUTCDate();
-  monthStart.setUTCDate(Math.min(birth.getUTCDate(), lastDay));
+  // Age includes the birthday (§187(2)); an absent end day expires at
+  // month end (§188(3)), so the following interval starts on the next day.
+  monthStart.setUTCDate(birth.getUTCDate()>lastDay ? lastDay+1 : birth.getUTCDate());
   return iso(monthStart);
 }
 function lifeMonths(birthDate,count=36) {
@@ -62,12 +70,16 @@ function maternityTimeline({birthDate,expectedDueDate=birthDate,prenatalDays=42,
       !Number.isInteger(postnatalDays)||postnatalDays<0||postnatalDays>126)
     throw new RangeError('Mutterschutz-Tage außerhalb des unterstützten Bereichs');
   const earlyDays=Math.max(0,dayDiff(birthDate,expectedDueDate));
-  const actualPostnatalDays=postnatalDays+earlyDays;
+  const actualPostnatalDays=postnatalDays+Math.min(earlyDays,prenatalDays);
   const prenatalStart=addDays(expectedDueDate,-prenatalDays);
-  const postEndExclusive=addDays(birthDate,actualPostnatalDays);
+  // The birth event day is excluded when counting the eight weeks after
+  // delivery (§187(1), §188(2)); it is itself also protected.
+  const postEndExclusive=addDays(birthDate,actualPostnatalDays+1);
   return {
     expectedDueDate,birthDate,prenatalDays,postnatalDays,earlyDays,
     postnatalDaysWithEarlyExtension:actualPostnatalDays,
+    protectedCalendarDaysIncludingBirth:actualPostnatalDays+1,
+    sources:DATE_SOURCES.maternity,reviewedAt:DATE_SOURCES.reviewedAt,
     prenatal:{startDate:prenatalStart,endDate:addDays(birthDate,-1)},
     postnatal:{startDate:birthDate,endDate:addDays(postEndExclusive,-1),exclusiveEnd:postEndExclusive},
     requiresIndividualReview:earlyDays>0 || expectedDueDate!==birthDate || postnatalDays!==56,
@@ -100,7 +112,9 @@ function inferParentalLeave(months,schedule,parent){
 function verifiedPeriods(source,months,parent){
   if(source==null)return inferParentalLeave(months,[],parent);
   if(!Array.isArray(source))throw new TypeError('Elternzeitabschnitte müssen eine Liste sein: '+parent);
-  const from=months[0].startDate,to=months.at(-1).endDate;
+  const from=months[0].startDate;
+  const thirdBirthdayEnd=addDays(lifeBoundary(from,36),-1);
+  const to=months.at(-1).endDate<thirdBirthdayEnd?months.at(-1).endDate:thirdBirthdayEnd;
   return source.map((raw,i)=>{
     const label=parent+' Elternzeitabschnitt '+(i+1);
     const startDate=raw?.startDate, endDate=raw?.endDate;
@@ -153,16 +167,64 @@ function projectFinancial(row){
     projectedAfterCosts:Number(row.cashAfter)||0
   };
 }
+/** Sparse independent life-month axes. Omitted months retain legacy status. */
+function monthOverrides(value,kind,months,parent){
+  if(value==null)return new Map();
+  if(!Array.isArray(value))throw new TypeError(kind+' muss eine Liste sein: '+parent);
+  const result=new Map();
+  for(const row of value){
+    if(!row||!Number.isInteger(row.lm)||row.lm<1||row.lm>months||result.has(row.lm))
+      throw new RangeError(kind+': Lebensmonat fehlt, doppelt oder außerhalb des Planungshorizonts');
+    if(kind==='employment'){
+      if(typeof row.weeklyHours!=='number'||!Number.isFinite(row.weeklyHours)||row.weeklyHours<0||row.weeklyHours>80)
+        throw new RangeError('Wochenstunden müssen zwischen 0 und 80 liegen');
+      result.set(row.lm,{mode:row.weeklyHours===0?'no_employment':'user_hours',weeklyHours:row.weeklyHours,source:'user'});
+    }else{
+      if(!BENEFIT_TYPES.has(row.type))throw new RangeError('Unbekannter Elterngeldtyp');
+      result.set(row.lm,{type:row.type,source:'user'});
+    }
+  }
+  return result;
+}
+/** Actual recorded transfers are never inferred from a modeled entitlement. */
+function validateBankLedger(entries=[]){
+  if(!Array.isArray(entries))throw new TypeError('Finanzbuchungen müssen eine Liste sein');
+  const ids=new Set();
+  return entries.map((entry,i)=>{
+    if(!entry||typeof entry!=='object')throw new TypeError('Ungültige Finanzbuchung');
+    asDate(entry.paymentDate,'Buchungsdatum');
+    if(typeof entry.amount!=='number'||!Number.isFinite(entry.amount))throw new RangeError('Buchungsbetrag muss endlich sein');
+    if(entry.parent!=null&&!PARENT.includes(entry.parent))throw new RangeError('Unbekannter Elternteil');
+    const id=entry.id==null?'bank-'+(i+1):entry.id;
+    if(typeof id!=='string'||!id.length||id.length>100||ids.has(id))throw new RangeError('Buchungs-ID fehlt oder ist doppelt');
+    ids.add(id);
+    const categories=['wage','elterngeld','maternity','kindergeld','childcare','household','other'];
+    if(!categories.includes(entry.category))throw new RangeError('Unbekannte Buchungskategorie');
+    return {id,paymentDate:entry.paymentDate,amount:entry.amount,category:entry.category,parent:entry.parent??null,source:'recorded_transfer'};
+  }).sort((a,b)=>a.paymentDate.localeCompare(b.paymentDate)||a.id.localeCompare(b.id));
+}
+function calendarCashflow(ledger){
+  const sums=new Map();
+  for(const entry of ledger){
+    const month=entry.paymentDate.slice(0,7);
+    sums.set(month,(sums.get(month)||0)+entry.amount);
+  }
+  return Array.from(sums,([calendarMonth,netRecordedTransfers])=>({calendarMonth,netRecordedTransfers}));
+}
 function buildTimeAxes({
   birthDate,expectedDueDate=birthDate,schedule,financialRows=[],leaveOverrides=null,
+  employmentOverrides=null,benefitOverrides=null,bankLedger=[],
   weeklyHours={father:28,mother:28},fullTimeHours={father:40,mother:40},
   postnatalDays=56,prenatalDays=42,months=36
 }){
   if(!Array.isArray(schedule)||schedule.length<months)throw new RangeError('Monatsstatus unvollständig');
   const life=lifeMonths(birthDate,months);
   const mat=maternityTimeline({birthDate,expectedDueDate,prenatalDays,postnatalDays});
-  const notes=[],periods={};
+  const notes=[],periods={},employment={},benefits={};
+  const recordedTransfers=validateBankLedger(bankLedger);
   for(const parent of PARENT){
+    employment[parent]=monthOverrides(employmentOverrides?.[parent],'employment',months,parent);
+    benefits[parent]=monthOverrides(benefitOverrides?.[parent],'benefit',months,parent);
     const v=leaveOverrides&&Object.prototype.hasOwnProperty.call(leaveOverrides,parent)?leaveOverrides[parent]:null;
     periods[parent]=resolvePeriods(v,life,schedule,parent);
     if(periods[parent].length>3)notes.push({code:'LEAVE_MANY_SEGMENTS',parent,message:'Mehr als drei Elternzeitabschnitte: zusätzliche Abschnitte brauchen in der Regel Zustimmung des Arbeitgebers.'});
@@ -202,9 +264,9 @@ function buildTimeAxes({
       const hours=raw[key==='f'?'hf':'hm']??fallback;
       parents[parent]={
         legalLeaveDays:coverageForMonth(m,periods[parent]),
-        leaveSource:periods[parent].some(x=>x.source==='user')?'user':'derived',
-        employment:employmentFromCode(code,hours,fullTimeHours[parent]),
-        benefit:benefitFromCode(code)
+        leaveSource:leaveOverrides&&Object.prototype.hasOwnProperty.call(leaveOverrides,parent)&&leaveOverrides[parent]!=null?'user':'derived',
+        employment:employment[parent].get(m.lm)||{...employmentFromCode(code,hours,fullTimeHours[parent]),source:'derived'},
+        benefit:benefits[parent].get(m.lm)||{...benefitFromCode(code),source:'derived'}
       };
     }
     return {
@@ -217,11 +279,12 @@ function buildTimeAxes({
   return {
     birthDate,expectedDueDate,months:life,maternity:mat,leavePeriods:periods,
     deadlines,timeline,notices:notes,
+    recordedTransfers,calendarCashflow:calendarCashflow(recordedTransfers),dateSources:DATE_SOURCES,
     financialBasis:'estimated_by_child_life_month_not_real_bank_transfer_date'
   };
 }
 module.exports = {
   addDays,dayDiff,formatDateDE,lifeBoundary,lifeMonths,maternityTimeline,
   daysOverlapInclusive,coverageForMonth,inferParentalLeave,benefitFromCode,employmentFromCode,
-  buildTimeAxes
+  monthOverrides,validateBankLedger,calendarCashflow,buildTimeAxes
 };

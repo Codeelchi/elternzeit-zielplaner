@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-14",
+  "browser": "Chromium (/usr/bin/chromium)",
+  "transport": "local HTTP static server; network disabled during offline interaction test",
+  "fileProtocol": {
+    "status": "BLOCKED_BY_ENVIRONMENT",
+    "attemptedUrl": "file:///workspace/elternzeit-zielplaner/index.html",
+    "error": "net::ERR_BLOCKED_BY_ADMINISTRATOR",
+    "cause": "Managed Chromium URLBlocklist blocks file:// navigation; policies were not changed.",
+    "requiredFollowup": "Repeat the same suite with BROWSER_APP_URL=file:///absolute/path/index.html in an unmanaged browser before confirming direct-file distribution."
+  },
+  "limits": [
+    "Automated axe checks verify basic WCAG rules; they do not replace an assistive-technology or usability review.",
+    "Synthetic household data only.",
+    "Browser screenshots and Playwright traces are stored under qa/browser-artifacts."
+  ]
+}

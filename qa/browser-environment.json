@@ -1,13 +1,15 @@
 {
   "checkedAt": "2026-10-14",
-  "browser": "Chromium (/usr/bin/chromium)",
-  "transport": "local HTTP static server; network disabled during offline interaction test",
+  "browser": "Playwright Chrome Headless Shell 156.0.8078.4",
+  "transport": "Direct file:// HTML; network disabled during offline interaction test",
   "fileProtocol": {
-    "status": "BLOCKED_BY_ENVIRONMENT",
-    "attemptedUrl": "file:///workspace/elternzeit-zielplaner/index.html",
-    "error": "net::ERR_BLOCKED_BY_ADMINISTRATOR",
-    "cause": "Managed Chromium URLBlocklist blocks file:// navigation; policies were not changed.",
-    "requiredFollowup": "Repeat the same suite with BROWSER_APP_URL=file:///absolute/path/index.html in an unmanaged browser before confirming direct-file distribution."
+    "status": "PASS",
+    "testedUrl": "file:///workspace/elternzeit-zielplaner/index.html",
+    "browser": "Playwright Chrome Headless Shell 156.0.8078.4",
+    "testsPassed": 8,
+    "accessibilityScans": 50,
+    "accessibilityViolations": 0,
+    "managedChromiumLimitation": "Initial /usr/bin/chromium attempt returned net::ERR_BLOCKED_BY_ADMINISTRATOR; managed policies were not changed. Subsequent full validation used the standard Playwright browser."
   },
   "limits": [
     "Automated axe checks verify basic WCAG rules; they do not replace an assistive-technology or usability review.",

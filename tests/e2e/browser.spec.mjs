@@ -196,5 +196,7 @@ test('dynamic model timelines remain accessible across all 36 life months',async
     }
   }
   await writeFile('qa/browser-accessibility-models.json',JSON.stringify(findings,null,2));
-  expect(findings.filter(f=>f.violations.length).map(f=>({width:f.width,model:f.model,position:f.position,violations:f.violations.map(v=>({id:v.id,nodes:v.nodes.length}))}))).toEqual([]);
+  const failures=findings.filter(f=>f.violations.length);
+  if(failures.length)console.error('DYNAMIC_ACCESSIBILITY_FINDINGS '+JSON.stringify(failures,null,2));
+  expect(failures,JSON.stringify(failures,null,2)).toEqual([]);
 });

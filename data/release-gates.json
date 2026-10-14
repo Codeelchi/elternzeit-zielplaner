@@ -4,7 +4,8 @@
   "independentCalculationReview": "pending",
   "legalReview": "pending",
   "privacyReview": "pending",
-  "directFileBrowserReview": "pending",
+  "directFileBrowserReview": "approved",
   "userTesting": "pending",
-  "reason": "Mutterschutzreferenz weicht einen Tag ab; weitere Behördenreferenzen, unabhängige Fachprüfung und öffentliche Freigaben fehlen."
+  "reason": "Mutterschutzreferenz weicht einen Tag ab; weitere Behördenreferenzen, unabhängige Fachprüfung und öffentliche Freigaben fehlen.",
+  "directFileEvidence": "qa/browser-environment.json: 8/8 E2E via file:// in Playwright HeadlessShell156; 50 Axe scans without violations"
 }

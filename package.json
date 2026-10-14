@@ -1,0 +1,14 @@
+{
+  "name": "elternzeit-zielplaner",
+  "version": "3.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Offline-Elternzeit- und Elterngeld-Zielplaner mit datierten Rechtsregeln und Szenariensuche",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "npm test"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0"
+  }
+}

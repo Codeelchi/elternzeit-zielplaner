@@ -9,7 +9,7 @@
 - Drei erläuterte Suchprofile, Dublettenprüfung, echte Null-Ergebnisse, vollständiger Vergleichszeitraum für Mindestbudget und vorsichtiges Szenario beim Robustheitsziel.
 - Drei unabhängige Budget-Stresstests mit Engpassmonaten und erforderlicher Anfangsrücklage; NRW-/Köln-Antragscheckliste mit datierten Fristen und Unterlagen.
 - Dreischritt-Einstieg, korrigierte Navigation, mobile Layoutprüfung, Kontrast-/Tastaturverbesserungen, optionale lokale Speicherung, vollständige Löschung und geprüfter JSON-Import.
-- Chromium-/Axe-Browserprüfungen und CI-Artefakte ergänzt. Alle Haushaltsdaten in Prüfungen synthetisch.
+- Acht Chromium-Browserprüfungen mit 50 Axe-Scans und ausdrücklichem öffentlichen Release-Gate ergänzt. CI-Artefaktupload bleibt bei erschöpfter Quote separat dokumentiert. Alle Haushaltsdaten in Prüfungen synthetisch.
 
 ## 3.2.0
 

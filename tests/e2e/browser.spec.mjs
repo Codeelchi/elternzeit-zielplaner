@@ -170,3 +170,28 @@ test('independent work and benefit axes affect projections while bank receipts r
   await page.locator('#bankClear').click();
   await expect(page.locator('#bankSummary')).toContainText('Keine tatsächlichen Zahlungseingänge');
 });
+
+test('dynamic model timelines remain accessible across all 36 life months',async({page})=>{
+  await standardInputs(page);
+  const findings=[];
+  for(const width of [1440,390]){
+    await page.setViewportSize({width,height:900});
+    for(const model of ['bonus','hybridWork','quickReturn']){
+      await navigate(page,'slide-3');
+      await page.locator(`[data-model="${model}"]`).click();
+      await expect(page.locator(`[data-model="${model}"]`)).toHaveAttribute('aria-pressed','true');
+      await navigate(page,'slide-4');
+      const scroll=page.locator('#timelineWrap');
+      const cells=page.locator('#timeline .status-cell');
+      expect(await cells.count()).toBe(72);
+      for(const position of [0,0.5,1]){
+        await scroll.evaluate((element,position)=>{element.scrollLeft=(element.scrollWidth-element.clientWidth)*position;},position);
+        await page.waitForTimeout(100);
+        const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+        findings.push({width,model,position,violations:result.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))});
+      }
+    }
+  }
+  await writeFile('qa/browser-accessibility-models.json',JSON.stringify(findings,null,2));
+  expect(findings.filter(f=>f.violations.length).map(f=>({width:f.width,model:f.model,position:f.position,violations:f.violations.map(v=>({id:v.id,nodes:v.nodes.length}))}))).toEqual([]);
+});

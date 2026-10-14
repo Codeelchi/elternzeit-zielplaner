@@ -14,7 +14,8 @@
     "modules:sync": "node scripts/embed-modules.mjs",
     "modules:check": "node scripts/embed-modules.mjs --check",
     "test:e2e": "playwright test",
-    "references:report": "node scripts/reference-report.mjs"
+    "references:report": "node scripts/reference-report.mjs",
+    "release:check": "node scripts/release-check.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

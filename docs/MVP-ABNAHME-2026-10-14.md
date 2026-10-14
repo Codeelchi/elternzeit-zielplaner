@@ -22,10 +22,10 @@ GitHub am 14.10.2026 tatsächlich geprüft: `main` b4e6a12; PR #9 (Dokumentation
 ## Technische Prüfung
 
 - **131 Node-/jsdom-/Modultests erfolgreich** nach Integration; ausschließlich synthetische Daten.
-- **7 Chromium-End-to-End-Tests erfolgreich**, darunter tatsächlicher JSON-Download/Import, Speicher-Einwilligung und Wiederherstellung/Löschung, Suche und Übernahme, unabhängige Finanzachsen sowie tatsächliche Bankbuchungen.
+- **8 Chromium-End-to-End-Tests erfolgreich**, darunter tatsächlicher JSON-Download/Import, Speicher-Einwilligung und Wiederherstellung/Löschung, Suche und Übernahme, unabhängige Finanzachsen sowie tatsächliche Bankbuchungen.
 - Desktop 1440×1000 und Smartphone 390×844: jeweils alle 16 Ansichten, keine horizontalen Seitenüberläufe, keine Axe-WCAG2A/AA/2.1-Verstöße. Automatische Prüfung ersetzt keine vollständige Barrierefreiheitsabnahme.
 - Keine Browser-Konsolen- oder Laufzeitfehler. Offline-Interaktion nach Laden ohne Netzwerkverbindung; keine weiteren HTTP-Anfragen.
-- `git diff --check`, alle drei Snapshot-Gates und Datums-/Import-Grenzfälle geprüft. Browserreport und ausgewählte Screenshots unter `qa/`.
+- `git diff --check`, alle drei Snapshot-Gates und Datums-/Import-Grenzfälle geprüft. Browserreport und ausgewählte Screenshots unter `qa/`. Zusätzlich drei dynamische Modelle an drei horizontalen Scrollpositionen je Bildschirmgröße: insgesamt 50 Axe-Prüfungen ohne Verstöße.
 - `file://` ist durch die verwaltete Chromium-Richtlinie blockiert (`ERR_BLOCKED_BY_ADMINISTRATOR`). Richtlinie nicht umgangen. Einzeldatei enthält keine externen Laufzeitressourcen; direkter Dateistart muss vor Distributionsfreigabe zusätzlich in einem normalen Browser geprüft werden.
 
 ## Konkrete fachliche Release-Blocker
@@ -38,3 +38,15 @@ GitHub am 14.10.2026 tatsächlich geprüft: `main` b4e6a12; PR #9 (Dokumentation
 ## Nächste Abnahmeschritte
 
 Amtliche Mutterschutzabweichung klären, zusätzliche vollständige unabhängige Standardfälle dokumentieren und Vergleich mit Bundesrechner durchführen. Anschließend Fachreview, Datenschutz- und Nutzertests abschließen, PR-Abhängigkeiten in der Reihenfolge #10 → #11 → integrierter Prüfstand reviewen. #9 ist inhaltlich übernommen; dessen separate Review bleibt unabhängig. Erst danach einen freigegebenen Release Candidate kennzeichnen und über öffentliche Beta entscheiden.
+
+## Technische Veröffentlichungssperre
+
+`npm run references:report` erstellt den Delta-Bericht erneut. `npm run release:check` gibt derzeit absichtlich Exitcode1 zurück: dokumentierte Freigaben in `data/release-gates.json` stehen aus und der amtliche Mutterschutzvergleich ist nicht bestanden. Grün bestandene Entwickler-CI allein ist keine Veröffentlichungsfreigabe. Diese Datei dokumentiert echte Reviews; sie darf nicht allein zur Erzeugung eines grünen Gates umgestellt werden.
+
+## Zusätzliche unabhängige Quellenbelege
+
+Am14.10.2026 zusätzlich geprüft: [SGBV §24i Absatz3](https://www.gesetze-im-internet.de/sgb_5/__24i.html) nennt Mutterschaftsgeld „für die Zeit der Schutzfrist ... sowie für den Entbindungstag“. Der [Bundesleitfaden zum Mutterschutz, Stand05.11.2025](https://www.bmbfsfj.bund.de/resource/blob/94398/1cf726867f2832166f693166b364ee6e/leitfaden-zum-mutterschutz-informationen-fuer-schwangere-und-stillende-data.pdf) bestätigt diesen zusätzlichen Entbindungstag. Die [BEEG-Richtlinien, Abschnitt4.1, PDF-Seite202](https://www.bmbfsfj.bund.de/resource/blob/243236/8a26d08d56511511e2fb7c9d5236b4de/richtlinien-zum-beeg-data.pdf) bestätigen die Anwendung von §§187–193BGB über §26SGBX und das Ende des Lebensmonats am dem Geburtstag vorangehenden Tag. Bei einem fehlenden entsprechenden Tag gilt §188Absatz3 (letzter Monatstag). Diese Belege stützen die Kalenderkorrektur; sie ersetzen kein unabhängig abgeglichenes Behördenbeispiel für die konkrete Mutterschaftsanrechnung.
+
+## GitHub-CI-Ausführung
+
+Der erste Lauf auf PR#12 bestand Node- und Chromium-Prüfungen. Nur das Hochladen der Nachweise scheiterte, weil das GitHub-Actions-Artefaktkontingent ausgeschöpft ist. Der Upload bleibt optional, das Ergebnis wird ausdrücklich in der Actions-Zusammenfassung protokolliert; Testfehler bleiben harte Gates. Ausgewählte Nachweise sind unabhängig davon im Repository vorhanden. Keine bestehenden accountweiten Artefakte gelöscht.

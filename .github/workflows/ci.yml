@@ -28,6 +28,8 @@ jobs:
       - name: Desktop, mobile, accessibility and local-first browser gates
         run: npm run test:e2e
       - name: Archive browser evidence
+        id: browser-artifacts
+        continue-on-error: true # Evidence upload must not mask successful test gates; quota failures are summarized below.
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -36,3 +38,15 @@ jobs:
             qa/browser-*.json
             qa/browser-artifacts/
           retention-days: 14
+      - name: Summarize browser evidence and upload outcome
+        if: always()
+        env:
+          UPLOAD_OUTCOME: ${{ steps.browser-artifacts.outcome }}
+        run: |
+          node --input-type=module - <<'JS'
+          import {readFileSync,appendFileSync} from 'node:fs';
+          let summary='Browser evidence upload: '+process.env.UPLOAD_OUTCOME+'\n';
+          try {const report=JSON.parse(readFileSync('qa/browser-results.json','utf8'));summary+='Browser results: '+JSON.stringify(report.stats)+'\n';}catch {summary+='Browser report unavailable; inspect test-step logs.\n';}
+          if(process.env.UPLOAD_OUTCOME!=='success')summary+='Artifact upload failed; inspect upload logs (storage quota may be exhausted). Checked-in QA reports and screenshots remain available.\n';
+          appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary);
+          JS

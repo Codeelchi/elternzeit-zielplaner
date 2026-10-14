@@ -36,6 +36,7 @@ test('unsupported manual additional benefit is not added to monthly household in
 });
 test('zero child benefit remains zero and an unverified historical local tariff is excluded',()=>{
  const {dom,ui,app}=setup();ui.changeValue('kind',0);assert.equal(app.monthKind(1),0);
+ ui.changeValue('kind',267);assert.equal(app.monthKind(24),267);
  ui.changeValue('childcareMode','cologne2025');ui.changeValue('childcareMonthly',321);
  assert.equal(app.childcareEstimate(19),321);dom.window.close();
 });

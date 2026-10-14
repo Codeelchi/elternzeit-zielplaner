@@ -86,3 +86,5 @@ Alle Beträge sind **Modellrechnungen**, keine Bewilligung. Das tatsächliche El
 - `npm run rules:sync`, `npm run axes:sync`, `npm run modules:sync` aktualisieren die verteilbare HTML-Datei nach Modul-/Katalogänderungen. `npm test` prüft alle drei Snapshots.
 - Browser-Tests verwenden Chromium aus `CHROMIUM_PATH`, `/usr/bin/chromium` oder der Playwright-Installation. Während des Tests dient ein lokaler Python-HTTP-Server nur der Auslieferung; die Anwendung selbst benötigt keinen Server.
 - Lokale Speicherung ist standardmäßig ausgeschaltet, optional und unverschlüsselt. Exporte enthalten private Finanzdaten. Im Browser bleibt die Berechnung ohne Konto und ohne Netzwerkaufrufe.
+
+`npm run references:report` schreibt den unabhängigen Delta-Bericht. `npm run release:check` ist derzeit bewusst gesperrt; erfolgreiche Entwickler-Tests ersetzen die ausstehenden öffentlichen Release-Freigaben nicht.

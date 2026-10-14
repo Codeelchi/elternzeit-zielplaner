@@ -122,12 +122,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 3436,
+                  "duration": 4146,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T21:53:34.158Z",
+                  "startTime": "2026-10-14T22:01:03.186Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -156,12 +156,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2629,
+                  "duration": 2067,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T21:53:37.838Z",
+                  "startTime": "2026-10-14T22:01:07.540Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -171,7 +171,7 @@
           ],
           "id": "aed1748819d3efb96fac-6728a84c3c17cfc0d28e",
           "file": "browser.spec.mjs",
-          "line": 54,
+          "line": 59,
           "column": 1
         },
         {
@@ -190,12 +190,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2336,
+                  "duration": 2282,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T21:53:40.491Z",
+                  "startTime": "2026-10-14T22:01:09.619Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -205,7 +205,7 @@
           ],
           "id": "aed1748819d3efb96fac-f9a88852650d3cd3ddb6",
           "file": "browser.spec.mjs",
-          "line": 71,
+          "line": 76,
           "column": 1
         },
         {
@@ -224,12 +224,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 21201,
+                  "duration": 20719,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T21:53:42.853Z",
+                  "startTime": "2026-10-14T22:01:11.915Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -239,7 +239,7 @@
           ],
           "id": "aed1748819d3efb96fac-db70822c2e307fc05664",
           "file": "browser.spec.mjs",
-          "line": 101,
+          "line": 106,
           "column": 3
         },
         {
@@ -258,12 +258,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 21508,
+                  "duration": 21019,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T21:54:04.065Z",
+                  "startTime": "2026-10-14T22:01:32.647Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -273,7 +273,7 @@
           ],
           "id": "aed1748819d3efb96fac-47aa1ec6a25660571571",
           "file": "browser.spec.mjs",
-          "line": 101,
+          "line": 106,
           "column": 3
         },
         {
@@ -292,12 +292,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2604,
+                  "duration": 2633,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T21:54:25.583Z",
+                  "startTime": "2026-10-14T22:01:53.683Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -307,7 +307,7 @@
           ],
           "id": "aed1748819d3efb96fac-74673c2a381a366398be",
           "file": "browser.spec.mjs",
-          "line": 122,
+          "line": 127,
           "column": 1
         },
         {
@@ -326,12 +326,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2287,
+                  "duration": 2223,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T21:54:28.198Z",
+                  "startTime": "2026-10-14T22:01:56.333Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -341,7 +341,41 @@
           ],
           "id": "aed1748819d3efb96fac-319ce41e4509179e8cb2",
           "file": "browser.spec.mjs",
-          "line": 143,
+          "line": 148,
+          "column": 1
+        },
+        {
+          "title": "dynamic model timelines remain accessible across all 36 life months",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 28871,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-14T22:01:58.565Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aed1748819d3efb96fac-e0eaf3c5b4517837d07e",
+          "file": "browser.spec.mjs",
+          "line": 174,
           "column": 1
         }
       ]
@@ -349,9 +383,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-14T21:53:33.481Z",
-    "duration": 57129.903999999995,
-    "expected": 7,
+    "startTime": "2026-10-14T22:01:02.634Z",
+    "duration": 84940.806,
+    "expected": 8,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

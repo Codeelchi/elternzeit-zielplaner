@@ -1,0 +1,156 @@
+{
+  "name": "Elternzeit und Elterngeld - Referenz-Rechtsregeln DE/NRW",
+  "version": "DE-NRW-2026.10.14+r3.1.0",
+  "verified_as_of": "2026-10-14",
+  "target_birth_date": "2027-05-28",
+  "applicable_standard_birth_window": {
+    "from": "2025-04-01",
+    "through": "2027-12-31"
+  },
+  "source_policy": "Manuell anhand öffentlich erreichbarer Behörden/Gesetzesquellen überprüft. Kein rechtsverbindlicher Echtzeit-Dienst; vor Antragstellung erneut prüfen.",
+  "warning": "Regelbasis ab ist kein Einzelklausel-Inkrafttretensnachweis; Maßstab ist die jeweils verlinkte geltende bzw. historische amtliche Fassung. Planung in 2027 ist vorläufig.",
+  "rules": [
+    {
+      "id": "BE-4",
+      "t": "Kontingent Basis / ElterngeldPlus",
+      "from": "2021-09-01",
+      "where": "Bund",
+      "source": "§ 4 BEEG",
+      "url": "https://www.gesetze-im-internet.de/beeg/__4.html",
+      "summary": "Regelfall: 12, bei zwei Partnermonaten 14 Basis-Äquivalente gemeinsam; höchstens 12 pro Person. Ein Basismonat entspricht zwei Plus-Monaten."
+    },
+    {
+      "id": "BE-2025",
+      "t": "Einkommensgrenze",
+      "from": "2025-04-01",
+      "where": "Bund",
+      "source": "BMBFSFJ, Rechtsänderungen",
+      "url": "https://familienportal.de/bmbfsfj/themen/familie/familienleistungen/neuregelungen-beim-elterngeld-fuer-geburten-ab-1-april-2024-sowie-ab-1-april-2025-228588",
+      "summary": "Mehr als 175.000 € gemeinsames zvE im Kalenderjahr vor der Geburt schließt Elterngeld aus."
+    },
+    {
+      "id": "BE-PAR",
+      "t": "Gleichzeitiges Basiselterngeld",
+      "from": "2024-04-01",
+      "where": "Bund",
+      "source": "BMBFSFJ, Rechtsänderungen",
+      "url": "https://familienportal.de/bmbfsfj/themen/familie/familienleistungen/neuregelungen-beim-elterngeld-fuer-geburten-ab-1-april-2024-sowie-ab-1-april-2025-228588",
+      "summary": "Bei einer gewöhnlichen Einzelgeburt höchstens ein gemeinsamer Basismonat in den ersten zwölf Lebensmonaten; Sonderfälle existieren."
+    },
+    {
+      "id": "BE-PLUS",
+      "t": "Plus bis zum 32. Lebensmonat",
+      "from": "2021-09-01",
+      "where": "Bund",
+      "source": "§ 4 BEEG",
+      "url": "https://www.gesetze-im-internet.de/beeg/__4.html",
+      "summary": "Plus kann in LM 15 beginnen; ab LM 15 anschließend ohne gemeinsamen Unterbrechungsmonat, längstens bis LM 32."
+    },
+    {
+      "id": "BE-AVG",
+      "t": "Durchschnittliches Teilzeit-Einkommen",
+      "from": "2021-09-01",
+      "where": "Bund",
+      "source": "§ 2 Abs. 3 BEEG / BEEG-Richtlinien",
+      "url": "https://www.gesetze-im-internet.de/beeg/__2.html",
+      "summary": "Monate mit Erwerbseinkommen bei Basis und Plus getrennt mitteln; Monate ohne Erwerbseinkommen getrennt. Bonus mit Plus-Teilzeit mitteln."
+    },
+    {
+      "id": "BE-MUT",
+      "t": "Mutterschaftsleistungen",
+      "from": "2021-09-01",
+      "where": "Bund",
+      "source": "Familienportal – Mutterschaftsleistungen",
+      "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/kann-ich-elterngeld-und-mutterschaftsleistungen-bekommen--124776",
+      "summary": "Taggenaue Anrechnung auf Elterngeld; jeder berührte Lebensmonat der Mutter zählt als Basis. Annahme: reguläre 8 Wochen nach Geburt."
+    },
+    {
+      "id": "BE-BON",
+      "t": "Partnerschaftsbonus",
+      "from": "2021-09-01",
+      "where": "Bund",
+      "source": "§ 4b BEEG",
+      "url": "https://www.gesetze-im-internet.de/beeg/__4b.html",
+      "summary": "2–4 aufeinanderfolgende gemeinsame Bonusmonate, beide im Monatsdurchschnitt 24–32 Wochenstunden."
+    },
+    {
+      "id": "BE-32",
+      "t": "Höchstens 32 Arbeitsstunden",
+      "from": "2021-09-01",
+      "where": "Bund",
+      "source": "Familienportal – Anspruch",
+      "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/kann-ich-elterngeld-bekommen--155116",
+      "summary": "Während Elterngeldbezug grundsätzlich höchstens 32 Wochenstunden im Durchschnitt."
+    },
+    {
+      "id": "NRW-3",
+      "t": "NRW-Mehrlingsgeld (ab Drillingen)",
+      "from": "2019-01-01",
+      "where": "NRW",
+      "source": "Recht.NRW, Ehrenpatenschaft",
+      "url": "https://recht.nrw.de/lrmb/bekanntmachung/01012019-bekanntmachung-der-einfuehrung-einer-ehrenpatenschaft-des/",
+      "summary": "Nach geltendem Erlass einmalig 1.000 € je Kind ab Drillingen bei Wohnsitzvoraussetzungen; wegen abweichender Angaben zum Verfahren nicht automatisch verrechnet."
+    },
+    {
+      "id": "CG-25",
+      "t": "Kölner Kita-Beiträge",
+      "from": "2025-08-01",
+      "where": "Stadt Köln",
+      "source": "Stadt Köln, Elternbeiträge Kita",
+      "url": "https://www.stadt-koeln.de/service/produkte/00405/index.html",
+      "summary": "Beiträge abhängig von Alter, Betreuungsumfang und Jahreseinkommen. Für 2027/28 Satzung vorab erneut prüfen."
+    },
+    {
+      "id": "KI-2026",
+      "t": "Kindergeld derzeit",
+      "from": "2026-01-01",
+      "where": "Bund",
+      "source": "BMBFSFJ, Kindergeld",
+      "url": "https://familienportal.de/bmbfsfj/themen/familie/familienleistungen/kindergeld/",
+      "summary": "259 € je Kind und Monat seit 01.01.2026."
+    },
+    {
+      "id": "KI-ENT",
+      "t": "Kindergeld 2027/28 im Gesetzentwurf",
+      "from": "2027-01-01",
+      "where": "Bund",
+      "planned": true,
+      "source": "Bundestag, Gesetzesentwurf Oktober 2026",
+      "url": "https://www.bundestag.de/dokumente/textarchiv/2026/kw41-de-einkommensteuerreform-1217520",
+      "summary": "Vorgesehen: 267 € ab 2027 und 272 € ab 2028. Zum Prüfdatum noch nicht geltendes Recht."
+    },
+    {
+      "id": "BY-2025",
+      "t": "Bayern: Familiengeld für neue Geburten entfallen",
+      "from": "2025-01-01",
+      "where": "Bayern",
+      "source": "ZBFS, Familiengeld",
+      "url": "https://www.zbfs.bayern.de/familienleistungen/familiengeld/",
+      "summary": "Für ab 01.01.2025 geborene Kinder kein Bayerisches Familiengeld; angekündigtes Kinderstartgeld wurde später gestrichen."
+    },
+    {
+      "id": "SN-LEG",
+      "t": "Sachsen: Landeserziehungsgeld",
+      "from": "2007-01-01",
+      "where": "Sachsen",
+      "source": "REVOSax, Landeserziehungsgeldgesetz",
+      "url": "https://revosax.sachsen.de/vorschrift/5132.11",
+      "summary": "Unter Voraussetzungen einkommensabhängige Leistung; ohne individuelle Anspruchsprüfung kein automatischer Betrag."
+    }
+  ],
+  "regional_tariff": {
+    "city": "Köln",
+    "source": "https://www.stadt-koeln.de/service/produkte/00405/index.html",
+    "effective_since": "2025-08-01",
+    "mode": "optional historical tariff scenario",
+    "future_2027_verified": false,
+    "tariff_model": "Child <24 months vs 24-36 months; 25/35/45h; bands 24542/36813/49084/61355/78000/100000/120000/140000/160000/>160000; meal cost extra"
+  },
+  "market_sources": [
+    "https://familienportal.de/familienportal/meta/egr",
+    "https://digitalservice.bund.de/projekte/elterngeldrechner",
+    "https://www.elterngeldoptimierer.de/",
+    "https://elterngeld-planung.de/",
+    "https://elterngeldpilot.com/"
+  ]
+}

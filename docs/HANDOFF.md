@@ -120,3 +120,7 @@ Danach Netto-Spezifikation/Fachreview, anschließend P1-Pakete. Keine ungeprüft
 ## Abschluss einer nächsten Übergabe
 
 Quellmodule und HTML-Snapshots stimmen überein; relevante Tests grün; aktuelle CI verlinkt. Unterstützte Fälle, geänderte Regeln, verbleibende Risiken und Gates dokumentiert. Softwareversion nicht mit Quellenprüftag verwechseln. Issues erst nach Abnahme schließen. Veröffentlichung benötigt unabhängige Freigaben und ausdrückliche Release-Entscheidung.
+
+## Neue Wettbewerbsbegutachtung, 15.10.2026
+
+Vor weiteren Produktänderungen den [V3.6-Audit](WETTBEWERB-MVP-AUDIT-2026-10-15.md) lesen. Neue lokale Prüfung: 186 Node-Tests; bestehende main-CI belegt 13 Browserfälle. Dies aktualisiert nicht automatisch den eingecheckten V3.4-Dateistartnachweis. Markt-/USP-Aussagen bleiben hypothesespezifisch, keine Exklusivität behaupten. Die im Audit priorisierten Produktlücken ergänzen die Roadmap.

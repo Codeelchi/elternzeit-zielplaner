@@ -138,3 +138,7 @@ Issues #1–#8 bleiben bis zur jeweiligen Abnahme offen. Ursprung: [MVP-Spezifik
 ## Ablauf pro Paket
 
 GitHub-Stand/amtliche Grundlage prüfen → Feature-Branch → implementieren → relevante automatische/visuelle Prüfungen → Delta/Quellen/Dokumentation → PR mit Evidenz und Grenzen → Review/Merge gemäß Auftrag. Bei Fachblockern parallel unabhängige Pakete bearbeiten. Historische Nachweise nicht umdeuten und Dritte nicht ungefragt kontaktieren.
+
+## Produktreview nach erneuter Wettbewerbsrecherche
+
+Der [Audit vom 15.10.2026 gegen V3.6](WETTBEWERB-MVP-AUDIT-2026-10-15.md) bestätigt Marktüberschneidungen bei Optimierung, Budget, lokalem Betrieb und Quellen. Priorität für den Nutzenbeleg: Eingaben entpersonalisieren und Netto-Einstieg führen; Betreuung/Mindestbudget/Rücklage samt vorsichtigem Fall direkt zwischen Plänen vergleichen; Suchvielfalt und Verständlichkeit testen. Die ursprüngliche MVP-Spezifikation erlaubt transparente manuelle EG-Netto-Werte. Eine vollständige Bruttoengine ist eine bewusst zu entscheidende Ausbaustufe, kein durch den Wettbewerbsvergleich nachträglich bewiesenes Muss. Fachfreigaben und Referenzabweichung bleiben unverändert offen. Zusätzlich QA-Metadaten zur tatsächlichen Version konsolidieren: CI V3.6 belegt 186/13, lokaler eingecheckter Browserumgebungsnachweis nennt noch V3.4/11.

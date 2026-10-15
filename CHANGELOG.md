@@ -1,5 +1,11 @@
 # Änderungen
 
+## Erneute Wettbewerbs- und MVP-Begutachtung – 15.10.2026
+
+- Aktuellen V3.6-main-Stand, Anbieter-Primärseiten, ausgewählte Browseroberflächen und öffentliche Rechenmodule erneut verglichen.
+- Formelproben und Abrufmetadaten dokumentiert; Marktüberschneidungen von belegbaren eigenen Funktionen und noch zu testenden Differenzierungshypothesen getrennt.
+- MVP-Kriterien, UX-/Netto-Einstieg, Ergebnisvielfalt, Risikovergleich und QA-Versionsdrift bewertet; Produktprioritäten ergänzt. Keine Berechnungs- oder Rechtsregel geändert.
+
 ## 3.6.0 – gerichtliche Bescheidfälle und 2027er Rechtsereignisse, 15.10.2026
 
 - Vier veröffentlichte anonymisierte Verwaltungs-/Gerichtsverfahren mit ursprünglichen, geänderten und teilweise nur probeweise berechneten Bescheidbeträgen quellengebunden erfasst. Historische Zahlenbeziehungen gesondert getestet; keine vollständigen 2027er Replays behauptet.

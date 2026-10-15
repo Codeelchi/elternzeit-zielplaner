@@ -6,6 +6,8 @@
 
 ## Dokumentation und Übergabe
 
+- [Aktueller Wettbewerbs- und MVP-Audit](docs/WETTBEWERB-MVP-AUDIT-2026-10-15.md): Primärquellen, Formelproben, Marktüberschneidungen, Differenzierung und offene MVP-Lücken (V3.6).
+
 - [Buildlog und Integrationsnachweis](docs/BUILDLOG.md): Entwicklungshistorie, Build-/Testbefehle, Fehlerkorrekturen und Merge-Verfahren.
 - [Entwickler-Handoff](docs/HANDOFF.md): Einstieg, Modulkarte, Dateninvarianten, bekannte Grenzen und nächster Arbeitsauftrag.
 - [Geplante Roadmap](docs/ROADMAP.md): P0/P1/P2-Pakete mit Abhängigkeiten und konkreten Abnahmekriterien.

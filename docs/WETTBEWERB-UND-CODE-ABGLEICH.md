@@ -1,5 +1,7 @@
 # Wettbewerbs-, Produkt- und Code-Abgleich – V3.1
 
+> Historischer Abgleich gegen V3.1 vom 14.10.2026. Für den erneut recherchierten Markt- und Codevergleich gegen V3.6 siehe [Audit vom 15.10.2026](WETTBEWERB-MVP-AUDIT-2026-10-15.md). Die damaligen Codegrenzen und ungeprüften Anbieterangaben sind keine aktuelle Zustandsbeschreibung.
+
 **Erstellt:** 14.10.2026 · **Repository:** `Codeelchi/elternzeit-zielplaner` · **Codebasis:** `main` / V3.1 · **Status:** Evidenzgestütztes internes Audit, keine Zertifizierung
 **Input:** Vom Nutzer bereitgestellte „Wettbewerbs- und Lückenanalyse: Deutscher Elternzeit-/Elterngeldrechner“.
 

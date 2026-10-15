@@ -1,0 +1,317 @@
+{
+  "checkedAt": "2026-10-15",
+  "softwareVersion": "3.6.0",
+  "reviewedCommit": "a26a5e4c158ec30fe1ca2ba7b71f7a67ceffee99",
+  "scope": "Public primary pages, selected isolated JS helpers and selected public browser screens; no full competitor audit.",
+  "sources": [
+    {
+      "id": "bund",
+      "url": "https://familienportal.de/familienportal/meta/egr",
+      "resolved": "https://familienportal.de/familienportal/meta/egr",
+      "status": 200,
+      "bytes": 60227,
+      "sha256": "950c0f5cfc1458c817f51360acf761e08c20d3a1be2a6d1bc7b7f3e7563788a5",
+      "scripts": [
+        "https://egr-assets-production.object.storage.eu01.onstackit.cloud/index.js",
+        "/resource/themes/fpo/js/commons-169780-22.js",
+        "/resource/themes/fpo/js/fpo-169782-83.js"
+      ],
+      "links": [
+        "/familienportal/meta/datenschutz",
+        "/familienportal/rechner-antraege",
+        "/familienportal/rechner-antraege/elterngeldrechner",
+        "/familienportal/rechner-antraege/elterngeld-digital",
+        "/familienportal/rechner-antraege/lohn-o-mat",
+        "/familienportal/rechner-antraege/familienpflegezeit-rechner",
+        "/familienportal/rechner-antraege/kiz",
+        "/familienportal/rechner-antraege/kiz-digital",
+        "/familienportal/rechner-antraege/teilzeit-rechner",
+        "/familienportal/rechner-antraege/arbeitslosengeld-1-rechner",
+        "/familienportal/rechner-antraege/lohn-einkommensteuer-rechner",
+        "/familienportal/rechner-antraege/antragsformulare",
+        "/familienportal/meta/datenschutz",
+        "/familienportal/rechner-antraege",
+        "/familienportal/rechner-antraege/elterngeldrechner"
+      ]
+    },
+    {
+      "id": "einfach",
+      "url": "https://einfach-elterngeld.de/rechner",
+      "resolved": "https://einfach-elterngeld.de/rechner",
+      "status": 200,
+      "bytes": 214598,
+      "sha256": "f10a9a78cf45bdb53af74dd3d10e9eb55db336793a24b5cc5654712f818d4143",
+      "scripts": [
+        "https://einfach-elterngeld.de/cms-theme/vendor/jquery-3.6.0.min.js",
+        "https://einfach-elterngeld.de/cms-theme/vendor/jquery-migrate-3.3.2.min.js",
+        "https://einfach-elterngeld.de/cms-theme/js/app.critical.min.js?ver=1.1.9",
+        "https://einfach-elterngeld.de/js/vendor/bootstrap.min.js?ver=6.0.16",
+        "https://einfach-elterngeld.de/js/v2/formulare.js?ver=2026.10.5.3-ee-stand-2026-10-15-gast-anmeldung",
+        "https://einfach-elterngeld.de/js/v2/seitenleiste.js?ver=2026.10.5.3-ee-stand-2026-10-15-gast-anmeldung",
+        "https://einfach-elterngeld.de/js/v2/bilder.js?ver=2026.10.5.3-ee-stand-2026-10-15-gast-anmeldung",
+        "https://einfach-elterngeld.de/js/v2/kopf.js?ver=2026.10.5.3-ee-stand-2026-10-15-gast-anmeldung",
+        "https://einfach-elterngeld.de/js/antragsfrist.js?v=1792039847",
+        "https://einfach-elterngeld.de/js/v2/fuehrung.js?ver=2026.10.5.3-ee-stand-2026-10-15-gast-anmeldung",
+        "https://einfach-elterngeld.de/cms-theme/js/app.min.js?ver=1.1.9",
+        "https://einfach-elterngeld.de/js/vendor/swiper.min.js?ver=5.4.1",
+        "https://einfach-elterngeld.de/js/vendor/bootstrap-datepicker.min.js?ver=1.6.4",
+        "https://einfach-elterngeld.de/build/assets/app-B2XiPfTK.js",
+        "https://einfach-elterngeld.de/js/de/lang.js?ver=6.0.16",
+        "https://einfach-elterngeld.de/build/assets/rechner-C9fd0VCh.js",
+        "https://einfach-elterngeld.de/cms-theme/consent/consent.js?ver=1.1.9"
+      ],
+      "links": [
+        "https://einfach-elterngeld.de/rechner#rechner-free-calculated",
+        "https://einfach-elterngeld.de/rechner#rechner-free-rechner",
+        "https://einfach-elterngeld.de/rechner",
+        "https://einfach-elterngeld.de/elternzeit/elternzeitrechner",
+        "https://einfach-elterngeld.de/kindergeld/kindergeldrechner",
+        "https://einfach-elterngeld.de/mutterschaftsgeld/mutterschutzrechner",
+        "https://einfach-elterngeld.de/mutterschaftsgeld/mutterschaftsgeldrechner",
+        "#rechner-free-rechner",
+        "#rechner-free-rechner",
+        "https://einfach-elterngeld.de/datenschutz",
+        "https://einfach-elterngeld.de/rechner?step=1#rechner",
+        "#rechner-free-rechner",
+        "https://einfach-elterngeld.de/rechner",
+        "https://einfach-elterngeld.de/datenschutz",
+        "https://einfach-elterngeld.de/rechner"
+      ]
+    },
+    {
+      "id": "planung",
+      "url": "https://elterngeld-planung.de/planner/",
+      "resolved": "https://elterngeld-planung.de/planner/",
+      "status": 200,
+      "bytes": 70153,
+      "sha256": "d2345653ab0743ba833bc229d69896f7896632918adba2ec4aa72adbe3c3823f",
+      "scripts": [
+        "https://cloud.umami.is/script.js",
+        "/assets/index-dBDNnsTk.js",
+        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3599135152748029"
+      ],
+      "links": [
+        "/planner/",
+        "/datenschutz/",
+        "/steuerklassen-rechner/",
+        "/steuerklassen-rechner/",
+        "/planner/",
+        "/elterngeld-rechner/",
+        "/elterngeldplus-rechner/",
+        "/steuerklassen-rechner/",
+        "/mutterschutz-rechner/",
+        "/kind-kosten-rechner/",
+        "/methodik/",
+        "mailto:info@elterngeld-planung.de",
+        "/datenschutz/"
+      ]
+    },
+    {
+      "id": "pilot",
+      "url": "https://elterngeldpilot.com/",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "elternzeit",
+      "url": "https://elternzeit.app/",
+      "resolved": "https://elternzeit.app/",
+      "status": 200,
+      "bytes": 70488,
+      "sha256": "ac9b9566bd9d62f06a3eee38ccd91b192c1a74a511e43b286dfd7e7f04984b18",
+      "scripts": [
+        "/_next/static/chunks/0dgq26a5_oy.a.js",
+        "/_next/static/chunks/0h4bq73pogmtb.js",
+        "/_next/static/chunks/0u2vcentzszml.js",
+        "/_next/static/chunks/turbopack-09msjmj-~0h3e.js",
+        "/_next/static/chunks/01xlw8hd842-c.js",
+        "/_next/static/chunks/0n4z.7yu76je-.js",
+        "/_next/static/chunks/02gx.54dwmwiw.js",
+        "/_next/static/chunks/0pjbj3ovgqmlu.js",
+        "/_next/static/chunks/0fvbb5rur29u8.js",
+        "/_next/static/chunks/04j9__nq3q1lm.js",
+        "/_next/static/chunks/0~fte5lg7cj8v.js",
+        "/_next/static/chunks/0j6yr9w7g_h-8.js",
+        "/_next/static/chunks/03~yq9q893hmn.js",
+        "/_next/static/chunks/16i90eio_ss7o.js"
+      ],
+      "links": [
+        "/datenschutz/"
+      ]
+    },
+    {
+      "id": "fam",
+      "url": "https://fam-calc.net/elterngeldrechner.html",
+      "resolved": "https://fam-calc.net/elterngeldrechner.html",
+      "status": 200,
+      "bytes": 30688,
+      "sha256": "c915ed8fa9cd939be370eac07111d122d78f3bd80945e64e771b0602bff71092",
+      "scripts": [
+        "/_astro/elterngeldrechner.astro_astro_type_script_index_0_lang.BOSIpQD5.js"
+      ],
+      "links": [
+        "/unterhaltsrechner.html",
+        "/elterngeldrechner.html",
+        "/kosten-aufteilen-rechner.html"
+      ]
+    },
+    {
+      "id": "return",
+      "url": "https://returnworth.com/de",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "klar",
+      "url": "https://elterngeldklar.de/app/elterngeldklar/hilfe/",
+      "resolved": "https://elterngeldklar.de/app/elterngeldklar/hilfe/",
+      "status": 200,
+      "bytes": 15552,
+      "sha256": "dd395765353ee67095fcb466d530a9019dd66d0a2e453483fde70655cb1a29df",
+      "scripts": [],
+      "links": [
+        "/app/elterngeldklar/datenschutz/"
+      ]
+    }
+  ],
+  "supplementarySources": [
+    {
+      "url": "https://digitalservice.bund.de/blog/elterngeldrechner-optionen-aufzeigen-und-fehlern-vorbeugen",
+      "evidence": "operator_publication"
+    },
+    {
+      "url": "https://digitalservice.bund.de/projekte/elterngeldrechner",
+      "evidence": "operator_publication"
+    },
+    {
+      "url": "https://app.fam-calc.net/",
+      "evidence": "provider_description_not_native_app_audit"
+    },
+    {
+      "url": "https://www.elternfristen.de/optimierer",
+      "evidence": "provider_public_method_description"
+    },
+    {
+      "url": "https://www.gesetze-im-internet.de/beeg/__2.html",
+      "evidence": "statutory_reference_not_competitor_algorithm"
+    }
+  ],
+  "publicModules": [
+    {
+      "id": "fam-engine",
+      "url": "https://fam-calc.net/_astro/elterngeldrechner.astro_astro_type_script_index_0_lang.BOSIpQD5.js",
+      "sha256": "0df6bce6a58eff89dc2d79cbfdfbc0ba75196ad2d4c3685183200c4a1ae5f718",
+      "bytes": 5362,
+      "method": "public retrieval; original module not copied into repository"
+    },
+    {
+      "id": "planung-engine",
+      "url": "https://elterngeld-planung.de/assets/index-dBDNnsTk.js",
+      "sha256": "c35f518375b9e23231062d57b83aacd6ff6d30b815e8fd91529f240d0159afd9",
+      "bytes": 141108,
+      "method": "public retrieval; original module not copied into repository"
+    },
+    {
+      "id": "planung-scenarios",
+      "url": "https://elterngeld-planung.de/assets/ScenarioGenerator-COJI9UXg.js",
+      "sha256": "cd583c39de2c0f6b740f348f0bbf602a2a7886666452e6bbe5dfbe94eaf137f2",
+      "bytes": 24280,
+      "method": "public retrieval; original module not copied into repository"
+    }
+  ],
+  "formulaSamples": {
+    "checkedAt": "2026-10-15",
+    "version": "3.6.0",
+    "method": "Isolated unchanged public JS helper functions; not end-to-end competitor calculations; no data submitted.",
+    "noIncome": [
+      {
+        "net": 650,
+        "ownBasis": 549.25,
+        "ownPlus": 274.625,
+        "fam": 549.25,
+        "famPlus": 274.63,
+        "planungBasis": 549.25,
+        "planungPlus": 274.625
+      },
+      {
+        "net": 1000,
+        "ownBasis": 670,
+        "ownPlus": 335,
+        "fam": 670,
+        "famPlus": 335,
+        "planungBasis": 670,
+        "planungPlus": 335
+      },
+      {
+        "net": 2000,
+        "ownBasis": 1300,
+        "ownPlus": 650,
+        "fam": 1300,
+        "famPlus": 650,
+        "planungBasis": 1300,
+        "planungPlus": 650
+      }
+    ],
+    "partTime": [
+      {
+        "before": 2000,
+        "after": 500,
+        "ownBasis": 975,
+        "ownPlus": 650,
+        "planungBasis": 975,
+        "planungPlus": 650
+      },
+      {
+        "before": 2000,
+        "after": 1200,
+        "ownBasis": 520,
+        "ownPlus": 520,
+        "planungBasis": 520,
+        "planungPlus": 520
+      }
+    ]
+  },
+  "browserObservations": [
+    {
+      "id": "fam",
+      "url": "https://fam-calc.net/elterngeldrechner.html",
+      "status": 200,
+      "title": "Elterngeldrechner 2026 — Basiselterngeld & ElterngeldPlus | fam-calc.net"
+    },
+    {
+      "id": "planung",
+      "url": "https://elterngeld-planung.de/planner/",
+      "status": 200,
+      "title": "Elterngeld-Planer 2026: Monate, Szenarien & Antrag planen"
+    },
+    {
+      "id": "elternzeit",
+      "url": "https://elternzeit.app/",
+      "status": 200,
+      "title": "Elternzeit Rechner 2026 – Elterngeld berechnen & planen"
+    }
+  ],
+  "liveSyntheticResult": {
+    "provider": "fam-calc web quick calculator",
+    "prebirthNet": 2000,
+    "siblings": false,
+    "children": 1,
+    "basisDisplayed": 1300,
+    "plusDisplayed": 650,
+    "nativeAppTested": false
+  },
+  "ourVerification": {
+    "command": "npm test",
+    "tests": 186,
+    "passed": 186,
+    "ciRun": "https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/38698287170",
+    "ciBrowserCasesPassed": 13,
+    "freshFullLocalBrowserRunPerformedForThisAudit": false
+  },
+  "limits": [
+    "Provider descriptions do not prove correctness, exhaustive optimization or exclusive features.",
+    "The direct HTTP requests for Elterngeldpilot and ReturnWorth returned 403; public search/page views were used.",
+    "No account, purchase, private household data or third-party correspondence.",
+    "No complete competitor end-to-end plan comparison or independent legal/privacy certification.",
+    "Old checked-in browser environment metadata still identifies V3.4; it must not be presented as a new V3.6 local browser run.",
+    "No software rules or public release approvals changed."
+  ]
+}

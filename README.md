@@ -1,6 +1,6 @@
 # Elternzeit-Zielplaner
 
-**Privater Entwicklungsstand V3.1.1 (14. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
+**Privater Entwicklungsstand V3.2.0 (Feature-Branch) (14. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
 
 ## Start
 
@@ -15,7 +15,7 @@ npm test
 
 Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repository-Verzeichnis, dann `http://localhost:8080` öffnen. Die App benötigt zur Laufzeit keinen Build-Schritt und keine Netzwerkverbindung.
 
-## Funktionen (Stand V3.1.1)
+## Funktionen (Stand V3.2.0)
 
 - 36 Lebensmonate, Geburtsdatum und Kindesalter samt konkreten Monatsdaten
 - Elternzeit und Elternteilzeit getrennt für beide Elternteile konfigurieren
@@ -39,6 +39,9 @@ Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repo
 | `data/referenzfaelle-bund-2026-10-14.json` | 8 amtliche Beispielwerte, 4 amtliche Grenzen, 22 gesetzlich hergeleitete Werte |
 | `docs/REFERENZFAELLE-UND-GRENZEN.md` | Herkunft, Grenzen und offene fachliche Prüfungen |
 | `scripts/embed-rules.mjs` | Erzeugt und kontrolliert den Offline-Snapshot der zentralen Rechtsregeln |
+| `src/time-axes.cjs` | Reine Kalender-/Zeitachsenlogik für Lebensmonate, Mutterschutz, Elternzeit, Arbeit und Leistungsart |
+| `docs/ZEITACHSEN-ARCHITEKTUR.md` | Architektur und aktuell unterstützte Zeitachsen sowie explizite Grenzen |
+| `scripts/embed-time-axes.mjs` | Synchronisiert die Offline-App mit dem Zeitachsen-Modul |
 | `.github/workflows/ci.yml` | Pull-Request-Prüfung für Rechtsregeln und Tests |
 | `package.json` / `package-lock.json` | Node-Testumgebung und reproduzierbare Abhängigkeiten |
 
@@ -48,7 +51,7 @@ Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repo
 
 ## Rechtliche Quellen aktualisieren
 
-Alle redaktionellen Rechtsregeländerungen erfolgen ausschließlich in `data/rechtsregeln-de-nrw-2026-10-14.json`. Die HTML-App enthält nur den daraus erzeugten Offline-Snapshot. Nach Änderungen `npm run rules:sync` und `npm test` ausführen. **Ein Prüftag 2026 bestätigt noch keine Ansprüche bei Geburt 2027.** Weitere Einzelheiten: [Referenzfälle und Prüflimits](docs/REFERENZFAELLE-UND-GRENZEN.md).
+Alle redaktionellen Rechtsregeländerungen erfolgen ausschließlich in `data/rechtsregeln-de-nrw-2026-10-14.json`. Die HTML-App enthält nur den daraus erzeugten Offline-Snapshot. Nach Rechtsregeländerungen `npm run rules:sync`, nach Zeitachsenänderungen `npm run axes:sync` und anschließend immer `npm test` ausführen. **Ein Prüftag 2026 bestätigt noch keine Ansprüche bei Geburt 2027.** Weitere Einzelheiten: [Referenzfälle und Prüflimits](docs/REFERENZFAELLE-UND-GRENZEN.md).
 
 ## MVP und Wettbewerbsabgleich
 

@@ -6,7 +6,7 @@
 - Geführter Kurzassistent für Geburtstermin, Netto beider Eltern, Betreuungsziel und optionale Haushaltsausgaben; die vorläufige Gleichsetzung des Elterngeld-Netto ist klar als Schätzung gekennzeichnet.
 - Betreuungslücken werden bei jeder Vorlage sichtbar erklärt; verlängerte Alternativen für 18/24 LM und explizite Warnung für 30/36 LM ohne passende Vorlage.
 - Fehlende Haushaltsausgaben werden strikt von absichtlich eingetragenen 0 Euro unterschieden. Ohne Ausgaben keine Zusage über frei verfügbare Mittel oder sichere Rücklagen.
-- Sechs Kern-Navigationsbereiche, weitere Fachansichten per Opt-in; bisherige erweiterte Funktionen und Offline-Berechnung bleiben erreichbar.
+- Sechs Kern-Navigationsbereiche, weitere Fachansichten per Opt-in; bisherige erweiterte Funktionen und Offline-Berechnung bleiben erreichbar. Im Experten-Modus ist auch die klassische Monatsdetail-Navigation schon vor der ersten Beispielwahl verfügbar.
 - Bereits gespeicherte persönliche Pläne werden bei der Auswahl eines fiktiven Beispiels nicht überschrieben. Änderungen in Fachansichten, andere Modellvorlagen und erfolgreiche JSON-Importe aktualisieren die Bezeichnung in der Schnellstart-Übersicht.
 - Eigenes synchronisiertes HTML/CSS/JS-Snapshot-System mit Browser-/Negativtests und Dokumentation.
 - **Öffentliche Beta bleibt gesperrt**, insbesondere Mutterschutz-Delta, Elterngeld-Netto und unabhängige Nutzer-/Fachreviews sind offen.

@@ -33,6 +33,7 @@ test('offline three-step navigation, keyboard and runtime integrity', async ({ p
   page.on('request', r=>{ if(/^https?:/.test(r.url()))requests.push(r.url()); });
   await page.reload();
   await page.locator('#v38Advanced').click();
+  await expect(page.locator('.live-strip')).toBeVisible(); // Expert navigation works without first choosing an example.
   requests.length=0;
   await page.context().setOffline(true);
   await expect(page.locator('#globalPlanStatus')).toContainText('NICHT_UNTERSTUETZT');

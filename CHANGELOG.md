@@ -1,5 +1,16 @@
 # Änderungen
 
+## 3.8.0 – Schnellstart und vereinfachte Navigation, 15.10.2026
+
+- Fünf Vorlagen aus den bereits bestehenden Monatsplänen auf der Startseite: fiktives Beispiel nach einem Klick, ohne vorher persönliche Werte eingeben zu müssen.
+- Geführter Kurzassistent für Geburtstermin, Netto beider Eltern, Betreuungsziel und optionale Haushaltsausgaben; die vorläufige Gleichsetzung des Elterngeld-Netto ist klar als Schätzung gekennzeichnet.
+- Betreuungslücken werden bei jeder Vorlage sichtbar erklärt; verlängerte Alternativen für 18/24 LM und explizite Warnung für 30/36 LM ohne passende Vorlage.
+- Fehlende Haushaltsausgaben werden strikt von absichtlich eingetragenen 0 Euro unterschieden. Ohne Ausgaben keine Zusage über frei verfügbare Mittel oder sichere Rücklagen.
+- Sechs Kern-Navigationsbereiche, weitere Fachansichten per Opt-in; bisherige erweiterte Funktionen und Offline-Berechnung bleiben erreichbar.
+- Bereits gespeicherte persönliche Pläne werden bei der Auswahl eines fiktiven Beispiels nicht überschrieben.
+- Eigenes synchronisiertes HTML/CSS/JS-Snapshot-System mit Browser-/Negativtests und Dokumentation.
+- **Öffentliche Beta bleibt gesperrt**, insbesondere Mutterschutz-Delta, Elterngeld-Netto und unabhängige Nutzer-/Fachreviews sind offen.
+
 ## 3.7.0 – Zielbudget, verständlicher Einstieg und geprüfte Cent-Rundung, 15.10.2026
 
 - Persönliche Ehe-/Gehaltsannahmen durch neutrale, anpassbare Elternbezeichnungen und echte Eingabezusammenfassungen ersetzt; rechtliche Mutterschutzrolle bleibt unverändert.

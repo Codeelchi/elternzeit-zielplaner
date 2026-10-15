@@ -22,6 +22,8 @@ test.beforeEach(async ({ page }) => {
   page.on('console',message=>{if(message.type()==='error')errors.push(message.text());});
   await page.goto(appUrl);
   await expect(page.locator('#sectionNav button').first()).toBeVisible();
+  // Existing expert-mode E2E cases intentionally keep all 16 specialist slides available.
+  await page.locator('#v38Advanced').click();
 });
 test.afterEach(async ({page})=>{expect(runtimeErrors.get(page),'browser runtime and console errors').toEqual([]);});
 test('offline three-step navigation, keyboard and runtime integrity', async ({ page }) => {
@@ -30,6 +32,7 @@ test('offline three-step navigation, keyboard and runtime integrity', async ({ p
   page.on('console', m=>{ if(m.type()==='error')errors.push(m.text()); });
   page.on('request', r=>{ if(/^https?:/.test(r.url()))requests.push(r.url()); });
   await page.reload();
+  await page.locator('#v38Advanced').click();
   requests.length=0;
   await page.context().setOffline(true);
   await expect(page.locator('#globalPlanStatus')).toContainText('NICHT_UNTERSTUETZT');
@@ -438,4 +441,54 @@ test('async goal search can be cancelled, stopped by changed assumptions and res
   await expect(page.locator('#goalResult')).toContainText('Automatische Suche abgeschlossen');
   expect(await page.locator('#goalResult .plan-option').count()).toBeGreaterThan(0);
   expect(await page.evaluate(()=>window.__elternzeitTest.getState().schedule)).toEqual(original);
+});
+
+test('V3.8: example in one click, care-gap warning and unknown-cost transparency on mobile', async ({page},testInfo)=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.locator('#v38Advanced').click();
+ await expect(page.locator('#sectionNav button:not([hidden])')).toHaveCount(6);
+ await expect(page.locator('#v38Summary')).toContainText('Beispiel auswählen');
+ await page.locator('[data-v38-template="long18"]').click();
+ await expect(page.locator('#v38Summary')).toContainText('Fiktives Beispiel');
+ await expect(page.locator('#v38Summary')).toContainText('Rechnerisch ja');
+ await expect(page.locator('#v38Summary')).toContainText('Geburtsjahr 2027');
+ await expect(page.locator('#v38Summary')).toContainText('Einnahmen, kein frei verfügbares Budget');
+ await expect(page.locator('#v38CostBanner')).toBeVisible();
+ const state=await page.evaluate(()=>({state:window.__elternzeitTest.getState(),quick:window.__elternzeitV38.state()}));
+ expect(state.state.storageConsent).toBe(false);
+ expect(state.state.standardCaseConfirmed).toBe(null);
+ expect(state.quick.mode).toBe('example');
+ await page.locator('[data-v38-template="parttime"]').click();
+ await expect(page.locator('#v38Summary')).toContainText('Betreuungslücke');
+ const dimension=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,width:innerWidth}));
+ expect(dimension.scroll).toBeLessThanOrEqual(dimension.width+1);
+ const axe=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(axe.violations.map(v=>v.id)).toEqual([]);
+ await page.screenshot({path:testInfo.outputPath('v38-mobile-quickstart.png'),fullPage:true});
+});
+
+test('V3.8: personal five-field wizard distinguishes unknown from zero costs and repairs 18-month mismatch',async({page})=>{
+ await page.locator('#v38Advanced').click();
+ await page.locator('[data-v38-template="classic"]').click();
+ await page.locator('#v38EditOwn').click();
+ await page.locator('#v38Birth').fill('2027-05-28');
+ await page.locator('#v38NetF').fill('2350');
+ await page.locator('#v38NetM').fill('2600');
+ await page.locator('#v38Goal').selectOption('18');
+ await page.locator('#v38PersonalForm button[type=submit]').click();
+ await expect(page.locator('#v38Summary')).toContainText('Persönliche Näherung');
+ await expect(page.locator('#v38Summary')).toContainText('Betreuungslücke ab LM 15');
+ await page.locator('[data-v38-match="long18"]').click();
+ await expect(page.locator('#v38Summary')).toContainText('Rechnerisch ja');
+ let state=await page.evaluate(()=>window.__elternzeitTest.getState());
+ expect(state.netFather).toBe(2350);expect(state.netMother).toBe(2600);
+ expect(state.expenses).toBe('');expect(state.zve).toBe('');
+ expect(state.standardCaseConfirmed).toBe(null);
+ expect(state.egNetFather).toBe(2350);
+ await page.locator('#v38Expenses').fill('0');
+ await page.locator('#v38PersonalForm button[type=submit]').click();
+ state=await page.evaluate(()=>window.__elternzeitTest.getState());
+ expect(state.expenses).toBe(0);
+ await expect(page.locator('#v38CostBanner')).toBeHidden();
+ await expect(page.locator('#v38Summary')).toContainText('nach eingegebenen Kosten');
 });

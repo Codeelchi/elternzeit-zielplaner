@@ -1,10 +1,12 @@
 # Elternzeit-Zielplaner
 
-**Privater Entwicklungsstand V3.7.0 (15. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
+**Privater Entwicklungsstand V3.8.0 (15. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
 
 ## Dokumentation und Übergabe
+
+- [Schnellstart V3.8](docs/SCHNELLSTART-V3.8.md): fünf fiktive Beispielvorlagen, persönlicher Kurzassistent, Betreuungslücken, unbekannte Ausgaben, Datenschutz und Nutzertestgrenzen.
 
 - [Umsetzung des Audits V3.7](docs/UMSETZUNG-ZIELBUDGET-V3.7.md): neutraler Netto-Einstieg, direkter Risikovergleich, Suchvielfalt, Abbruch und belegte Cent-Rundung.
 - [Fachliche Nachprüfung](docs/FACHPRUEFUNG-FORTSETZUNG-2026-10-15.md) und [vorbereitetes Nutzertestprotokoll](docs/NUTZERTEST-PROTOKOLL-V3.7.md).
@@ -35,8 +37,10 @@ npm run test:e2e
 
 Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repository-Verzeichnis, dann `http://localhost:8080` öffnen. Die App benötigt zur Laufzeit keinen Build-Schritt und keine Netzwerkverbindung.
 
-## Funktionen (Stand V3.7.0)
+## Funktionen (Stand V3.8.0)
 
+- Fünf fiktive Schnellstart-Vorlagen mit unmittelbarem Ergebnis, Betreuungsabgleich und reduzierbarer Fachnavigation
+- Kurzer persönlicher Eingabeassistent mit getrennter Behandlung unbekannter Ausgaben und 0 Euro
 - 36 Lebensmonate, Geburtsdatum und Kindesalter samt konkreten Monatsdaten
 - Elternzeit und Elternteilzeit getrennt für beide Elternteile konfigurieren
 - Basiselterngeld, ElterngeldPlus, Partnerschaftsbonus und unbezahlte Elternzeit

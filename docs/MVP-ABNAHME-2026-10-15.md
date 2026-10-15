@@ -56,3 +56,15 @@ Die öffentliche Recherche bestätigte neben den 34 ursprünglichen monetären F
 - **Öffentlicher Release weiterhin absichtlich gesperrt:** offene Mutterschutz-Referenzabweichung, Bemessungsnetto-Review, Rechts-/Datenschutzfreigabe und reale Nutzerprüfung.
 
 Die einzelnen historischen Belege, ihre Grenzen und die aktuellen Quellen sind in [Historische Bescheide und Rechtsstand 2027](HISTORISCHE-BESCHEIDE-UND-RECHTSSTAND-2027.md) dokumentiert.
+
+## V3.8.0 – Technischer Schnellstart-Funktionstest, 15.10.2026
+
+- **230 von 230** lokalen automatisierten Node-/DOM-/Integrations-Tests bestanden, einschließlich elf neuer Schnellstart-Tests.
+- Fünf fiktive Vorlagen, nachvollziehbare Betreuungslücken, schnelle Alternativwahl für 18/24 LM, fünf Eingabefelder im Assistenten, Eingabefehler und unterschiedlicher Umgang mit unbekannten bzw. 0 Euro Ausgaben getestet.
+- Freiwillige lokale Speicherung bleibt getrennt: Eine zuvor gespeicherte echte Planung wird durch die Auswahl eines Beispiels nicht stillschweigend überschrieben.
+- V3.8-Snapshot-Metadaten und bestehende 22 Rechtsregeln, fünf Rechtsentwicklungen, Zeitachsen und Logikmodule synchron.
+- **48 von 48** veröffentlichte bzw. abgeleitete monetäre Vergleiche weiterhin PASS; historisch dokumentierte Gerichtsfall-Beziehungen weiterhin PASS.
+- Chromium-Smoke für Desktop 1440×900 und Mobil 390×844: App startet, Schnellstart vorhanden, keine gemeldeten JavaScript-Konsolenfehler. Real-Browser-Interaktions-/Accessibility-Läufe werden zusätzlich in GitHub-CI ausgeführt (Playwright-Binary in der lokalen Workbench nicht installiert).
+- Öffentliches Release bleibt bewusst BLOCKED wegen der unverändert bestehenden Mutterschutz-Abweichung und unabhängiger Berechnungs-, Rechts-, Datenschutz- und Nutzertest-Abnahmen.
+
+**Keine Nutzerstudie:** Eine einfache Bedienung wurde programmatisch überprüft, aber noch nicht durch externe werdende Eltern ohne Vorwissen bestätigt. Detaillierter Ablauf und Grenzen: [Schnellstart V3.8](SCHNELLSTART-V3.8.md).

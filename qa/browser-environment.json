@@ -1,46 +1,48 @@
 {
   "checkedAt": "2026-10-15",
   "browser": "Playwright Chrome Headless Shell 156.0.8078.4",
-  "transport": "Direct file:// HTML; network disabled during offline interaction test",
+  "transport": "Direct local file:// HTML; one dedicated test explicitly disables network",
   "fileProtocol": {
     "status": "PASS",
-    "testedUrl": "file:///workspace/elternzeit-zielplaner/index.html",
-    "browser": "Playwright Chrome Headless Shell 156.0.8078.4",
-    "testsPassed": 16,
-    "accessibilityScans": 52,
+    "testedUrl": "file:///data/workspaces/elternzeit-zielplaner/review-v39/index.html",
+    "testsPassed": 22,
+    "accessibilityScans": 53,
     "accessibilityViolations": 0,
-    "managedChromiumLimitation": "Initial /usr/bin/chromium attempt returned net::ERR_BLOCKED_BY_ADMINISTRATOR; managed policies were not changed. Subsequent full validation used the standard Playwright browser."
+    "offlineQualification": "The offline-navigation scenario disables browser networking and asserts no external HTTP(S) requests. All 22 test cases load the HTML through file:// directly; other scenarios do not independently disable every network capability."
   },
-  "limits": [
-    "Automated axe checks verify basic WCAG rules; they do not replace an assistive-technology or usability review.",
-    "Synthetic household data only.",
-    "Browser screenshots and Playwright traces are stored under qa/browser-artifacts.",
-    "Viewport coverage at 1440 and 390 pixels is not a physical smartphone performance or usability certification."
-  ],
-  "appVersion": "3.7.0",
-  "svgLabelContrast": {
-    "foreground": "#45606b",
-    "background": "#ffffff",
-    "ratio": 6.69,
-    "checkedAt": "2026-10-15",
-    "method": "WCAG relative luminance; current risk chart screenshot visually inspected"
-  },
-  "sourceSha256": "0612dc1d409074c334d1819b9979b3e1cb1e4a87b3c2219a901a53579d2c7afc",
-  "workflows": [
-    "Neutral parent names and manually entered income sources; changing gross reference leaves all calculated rows unchanged.",
-    "Name/source JSON roundtrip including literal <img onerror> input; no HTML execution.",
-    "Every comparison amount and bottleneck agrees with goalComparison(), including required reserves rounded upward.",
-    "Free months agree with candidate ranking; names never shift maternity from role 2.",
-    "Async search cancellation, input-change stop and restart without applying the generated schedule.",
-    "Stale plan acceptance disabled after changed risk or employer-leave assumptions.",
-    "Forecast 2027 remains unsupported; no claim of legally verified benefit entitlement.",
-    "Blank Elterngeld-Netto remains unknown and blocks positive status/search; explicit zero remains a valid entered amount, then known input is restored."
-  ],
+  "appVersion": "3.9.0",
+  "sourceSha256": "45231654b2d30091abcad2fcda4935283ff34aceb3a04ddc61670a70278044b1",
   "run": {
-    "startedAt": "2026-10-15T08:03:29.330Z",
-    "durationMs": 155550.111,
+    "startedAt": "2026-10-15T16:20:41.388Z",
+    "durationMs": 288213.523,
     "unexpected": 0,
-    "expected": 16
+    "expected": 22,
+    "skipped": 0,
+    "flaky": 0
+  },
+  "workflows": [
+    "All 16 slides in both desktop and mobile viewports, basic Axe accessibility checks.",
+    "First mobile template appears on the initial screen; mobile options and local-save privacy menu respond.",
+    "Local export/download, import, optional browser storage and removal, without network fetches in the offline case.",
+    "Separated parental employment/benefit time axes and actual bank entries remain independent.",
+    "Goal-plan search, validation, comparisons and 2027 unverifiable forecast warnings.",
+    "Repeat personal form does not replace manually refined tax/Elterngeld-Netto or custom monthly schedule.",
+    "Unknown expenses do not create misleading 0-euro reserves, and cancelled reset preserves user data.",
+    "Synthetically entered names and income sources remain literal text (no HTML injection)."
+  ],
+  "limits": [
+    "Automated Axe/keyboard checks are not real user testing or a full assistive-technology audit.",
+    "Only synthetic input data are tested.",
+    "No independent legal, financial or privacy audit is implied.",
+    "File-based browser QA and one offline test do not certify every operating system or physical phone.",
+    "A successful internal test does not override the explicitly blocked public-release gate."
+  ],
+  "qaArtifacts": {
+    "results": "qa/browser-results.json",
+    "desktopAxe": "qa/browser-accessibility-desktop.json",
+    "mobileAxe": "qa/browser-accessibility-mobile.json",
+    "comparisonAxe": "qa/browser-accessibility-comparison.json",
+    "timelineAxe": "qa/browser-accessibility-models.json"
   },
   "sourceCatalogueVerifiedAt": "2026-10-15"
 }

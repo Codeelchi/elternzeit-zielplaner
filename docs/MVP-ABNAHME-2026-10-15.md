@@ -68,3 +68,23 @@ Die einzelnen historischen Belege, ihre Grenzen und die aktuellen Quellen sind i
 - Öffentliches Release bleibt bewusst BLOCKED wegen der unverändert bestehenden Mutterschutz-Abweichung und unabhängiger Berechnungs-, Rechts-, Datenschutz- und Nutzertest-Abnahmen.
 
 **Keine Nutzerstudie:** Eine einfache Bedienung wurde programmatisch überprüft, aber noch nicht durch externe werdende Eltern ohne Vorwissen bestätigt. Detaillierter Ablauf und Grenzen: [Schnellstart V3.8](SCHNELLSTART-V3.8.md).
+
+## V3.9 UX- und Datenintegritätsabnahme (interner Kandidat, 15.10.2026)
+
+- **246/246** automatisierte Tests und **22/22** Chromium-Browser-E2E-Tests bestanden (inklusive der neuen V3.9-Interaktionen).
+- **14 neue** UX-/Regressionstests: Wiederholung des Kurzformulars schützt Elterngeld-Netto, Steuerdaten und Monatspläne; Reset abgebrochen/angenommen; Vorlagenziel und Bestätigung vor Überschreibung eigener Monate; klare Herkunft der Beispielannahmen.
+- Unbekannte Haushaltsausgaben führen in der Robustheitsansicht nicht zu künstlich benötigten 0 € Rücklagen. Zielsuche zeigt ohne Ausgaben nur Zeitaufteilung statt eines scheinbar gesicherten Finanzvergleichs.
+- Mobile Chromium-Layoutmessung: erste Vorlage auf 320 × 740 bei ca. **394 px** (zuvor 838 px), auf 390 × 844 bei **320 px** (zuvor 734 px), ohne horizontalen Überlauf. Optionen und Datenschutz sind ausklappbar.
+- Formularfokus und ARIA-Fehlermarkierungen, sichere Kurzformulardrafts und Tastatursteuerung als Regressionstests.
+- **48 monetäre Behörden-/Referenzwerte weiterhin PASS**; Mutterschutz-Differenz und externe Fach-/Nutzer-/Datenschutzabnahmen unverändert offen.
+- **GitHub-`main` und öffentlicher Release bleiben unverändert.** Dies ist eine lokal getestete Kandidatenfassung, keine Veröffentlichung.
+
+Weitere Details: [UX-Nachbesserung V3.9](UX-NACHBESSERUNG-V3.9.md).
+
+## Aktualisierte Direktdatei-Abnahme V3.9 (15.10.2026)
+
+- V3.9.0 wurde sowohl per lokalem Testserver als auch als unveränderte HTML-Einzeldatei unter file:// mit jeweils 22/22 bestandenen Chromium-Playwright-Tests geprüft.
+- Der direkte Dateilauf umfasst 53 Axe-Scans ohne gemeldete Verstöße; geprüft wurden Smartphone/Desktop, 36 Lebensmonate, getrennte Achsen, Zielsuche, Datenschutz-/Download- und Eingabeerhalt.
+- Dateibasierter SHA256-Nachweis: 45231654b2d30091abcad2fcda4935283ff34aceb3a04ddc61670a70278044b1; Lauf und Grenzen: qa/browser-environment.json, vollständiger Testbericht: qa/browser-results.json.
+- Die Offline-Prüfung schaltet in einem gezielten Testfall das Browsernetz ab. Eine vollständige geräteübergreifende Zertifizierung oder vollständige Screenreader-Nutzungsstudie wird hierdurch nicht behauptet.
+- Der öffentliche Release bleibt trotz technischer QA BLOCKED (Rechts-/Finanz-/Datenschutz-/Nutzertest-Freigaben und bekannte Mutterschutz-Abweichung).

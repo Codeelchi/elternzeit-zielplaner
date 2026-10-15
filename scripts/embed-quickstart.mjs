@@ -19,9 +19,9 @@ for(const item of inputs){
 }
 const before=readFileSync(htmlPath,'utf8');
 if(process.argv.includes('--check')){
- if(html!==before){console.error('V3.8 quickstart snapshot differs: run npm run quickstart:sync');process.exitCode=1;}
- else console.log('V3.8 quickstart HTML/CSS/JS embedded snapshot synchronized');
+ if(html!==before){console.error('Quickstart snapshot differs: run npm run quickstart:sync');process.exitCode=1;}
+ else console.log('Quickstart HTML/CSS/JS snapshot synchronized');
 }else{
  if(html!==before)writeFileSync(htmlPath,html);
- console.log('V3.8 quickstart embedded into offline HTML');
+ console.log('Quickstart embedded into offline HTML');
 }

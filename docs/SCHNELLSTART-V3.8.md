@@ -38,7 +38,7 @@ Der Assistent verlangt zunächst nur Geburtstermin, Auszahlungsnetto beider Elte
 
 ### Datenschutz
 
-Aufruf und Auswahl einer Beispielkarte lösen kein Konto und keine externe Datenübertragung aus. Die bislang freiwillige Speicherung bleibt Opt-in. Wird aus einem bereits lokal gespeicherten persönlichen Plan eine fiktive Beispielkarte geladen, bleibt die vorherige gespeicherte Datei unangetastet; das Beispiel ist ausdrücklich nicht zur automatischen Speicherung freigeschaltet. Die Exportfunktion der Fachansichten ist unverändert.
+Aufruf und Auswahl einer Beispielkarte lösen kein Konto und keine externe Datenübertragung aus. Werteänderungen in den bisherigen Fachansichten, Wechsel über die alte Modellauswahl sowie erfolgreiche JSON-Importe synchronisieren außerdem den Schnellstart-Titel. Die bislang freiwillige Speicherung bleibt Opt-in. Wird aus einem bereits lokal gespeicherten persönlichen Plan eine fiktive Beispielkarte geladen, bleibt die vorherige gespeicherte Datei unangetastet; das Beispiel ist ausdrücklich nicht zur automatischen Speicherung freigeschaltet. Die Exportfunktion der Fachansichten ist unverändert.
 
 ### Navigation
 

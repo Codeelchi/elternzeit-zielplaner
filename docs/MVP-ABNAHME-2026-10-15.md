@@ -59,7 +59,7 @@ Die einzelnen historischen Belege, ihre Grenzen und die aktuellen Quellen sind i
 
 ## V3.8.0 – Technischer Schnellstart-Funktionstest, 15.10.2026
 
-- **230 von 230** lokalen automatisierten Node-/DOM-/Integrations-Tests bestanden, einschließlich elf neuer Schnellstart-Tests.
+- **232 von 232** lokalen automatisierten Node-/DOM-/Integrations-Tests bestanden, einschließlich 13 neuer Schnellstart-Tests.
 - Fünf fiktive Vorlagen, nachvollziehbare Betreuungslücken, schnelle Alternativwahl für 18/24 LM, fünf Eingabefelder im Assistenten, Eingabefehler und unterschiedlicher Umgang mit unbekannten bzw. 0 Euro Ausgaben getestet.
 - Freiwillige lokale Speicherung bleibt getrennt: Eine zuvor gespeicherte echte Planung wird durch die Auswahl eines Beispiels nicht stillschweigend überschrieben.
 - V3.8-Snapshot-Metadaten und bestehende 22 Rechtsregeln, fünf Rechtsentwicklungen, Zeitachsen und Logikmodule synchron.

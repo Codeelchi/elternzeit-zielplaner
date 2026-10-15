@@ -1,12 +1,19 @@
 # Elternzeit-Zielplaner
 
-**Privater Entwicklungsstand V3.4.0 (Feature-Branch) (15. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
+**Privater Entwicklungsstand V3.4.0 (15. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung, vollständige amtliche Nettoermittlung und unabhängiges Fach-/Datenschutzreview bleiben Release-Gates. 2027 erhält keine positive Standardbewertung.
 
+## Dokumentation und Übergabe
+
+- [Buildlog und Integrationsnachweis](docs/BUILDLOG.md): Entwicklungshistorie, Build-/Testbefehle, Fehlerkorrekturen und Merge-Verfahren.
+- [Entwickler-Handoff](docs/HANDOFF.md): Einstieg, Modulkarte, Dateninvarianten, bekannte Grenzen und nächster Arbeitsauftrag.
+- [Geplante Roadmap](docs/ROADMAP.md): P0/P1/P2-Pakete mit Abhängigkeiten und konkreten Abnahmekriterien.
+- [Technische Architektur](docs/ARCHITEKTUR.md) und [aktueller Abnahmebericht](docs/MVP-ABNAHME-2026-10-15.md).
+
 ## Start
 
-Das Projekt ist derzeit eine **eigenständige HTML-Datei ohne Backend**. Die Oberfläche kann direkt durch Öffnen von [`index.html`](./index.html) im Browser gestartet werden. Zur Entwicklung:
+Das Projekt ist derzeit eine **eigenständige HTML-Datei ohne Backend**. Die Oberfläche kann direkt durch Öffnen von [`index.html`](./index.html) im Browser gestartet werden. Zur Entwicklung (Node.js 22, npm und Python 3 für die Testinfrastruktur):
 
 ```bash
 git clone https://github.com/Codeelchi/elternzeit-zielplaner.git
@@ -77,7 +84,7 @@ Alle Beträge sind **Modellrechnungen**, keine Bewilligung. Das tatsächliche El
 
 ## Projektstatus
 
-**Importiert und lokal getestet.** Änderungen bitte mit Tests absichern und vorzugsweise per Feature-Branch / Pull Request integrieren. Nicht geprüfte Rechtsänderungen dürfen nicht als geltendes Recht in den Rechner übernommen werden.
+**Interner V3.4-Prüfstand mit erfolgreichen automatisierten Tests und CI.** Änderungen bitte mit Tests absichern und vorzugsweise per Feature-Branch / Pull Request integrieren. Nicht geprüfte Rechtsänderungen dürfen nicht als geltendes Recht in den Rechner übernommen werden.
 
 ## Neuer Stand und Nachweise
 

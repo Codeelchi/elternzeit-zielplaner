@@ -1,43 +1,136 @@
-# Entwicklungs-Roadmap
+# Geplante Roadmap zur öffentlichen Beta
 
-Stand: 2026-10-14 · Ausgangspunkt v3.1
+Stand: **15. Oktober 2026 / V3.4.0**. Reihenfolge nach Abhängigkeit und Priorität; keine zugesagten Termine. Repository-Integration und öffentliche Freigabe sind getrennte Entscheidungen. Implementiert bedeutet noch nicht unabhängig fachlich abgenommen.
 
-**Umsetzungsstand 14.10.2026 / V3.1.1:** Der JSON-Regelkatalog wird als einzige redaktionelle Quelle in die Offline-App eingebettet, der Build prüft Datendrift. 34 reproduzierbare Monatsbetrags-Fälle (8 direkt veröffentlichte Beispiele, 4 amtliche Grenzwerte, 22 abgeleitete Berechnungsfälle) plus ein amtlicher Mutterschutz-Zeitfall sind als Tests erfasst. Das ist keine vollständige amtliche Fachabnahme: unter anderem Elterngeld-Netto-Berechnung, komplexe Zeitachsen und unabhängige Bescheidvergleiche bleiben offen. Siehe [Testnachweis](REFERENZFAELLE-UND-GRENZEN.md).
+## Erreichter Stand
 
-## P0 · Fachliche Absicherung vor produktiver Nutzung
+| Bereich | Implementiert | Noch offen |
+| --- | --- | --- |
+| Regeln / #2 | Versionierter Katalog, Quellen, Prüfdaten, Gültigkeit, Snapshot-CI | Wiederprüfung veränderlicher Regeln und 2027; restliche Legacy-Parameter |
+| Zeitachsen / #3 | Taggenauer Mutterschutz, Lebensmonate, mehrere Elternzeitabschnitte, unabhängiger Erwerb/Bezug und Bankbuchungen | Unabhängige Abnahme der Datumsgrenzen und Mutterschutz-Anrechnung |
+| Validator / #4 | Vier Statuscodes, erklärbare Findings, konservative Eingabe-/Quellenprüfung | Fachreview, vollständige Referenzfamilien |
+| Zielsuche / #5 | Mutter-/Vater-Schwerpunkte, drei Profile, strenge Filter, veraltete Empfehlungen gesperrt | Quantifizierte Abdeckung, Reaktionsfähigkeit, breitere Arbeitsmuster |
+| Budget / #6 | Drei Szenarien, persönliche Erwerbsbänder, Rücklagen und Engpässe | Amtliches Netto, unabhängige Teilzeitfälle, Steuer-/Versicherungseinordnung |
+| Region / #7 | Datierte NRW-/Köln-Antragswege, Checkliste, unbestätigte Zuschläge ausgeschlossen | Aktuelle Tarif-/Anspruchsnachweise mit Wiederprüfverfahren |
+| UX/QA / #8 | Responsiv, Offline, Speicher-Opt-in/Löschung, Import/Export, 154 Tests, elf Browserfälle, 50 Axe-Scans | Datenschutz-/Rechtsreview, Nutzertests, Assistenztechnik, weitere Browser |
+| Referenzen / #1 | Acht veröffentlichte Beträge, vier Grenzen, 22 Formelableitungen, sichtbarer Tagesdelta | Mindestens zehn vollständige unabhängige Standardfamilien; Kerndifferenz klären |
 
-- Fachliche Testfälle gegen den amtlichen Elterngeldrechner und realistische Musterfälle vergleichen; Unterschiede dokumentieren.
-- Berechnung von Elterngeld-Netto statt einfacher Brutto-Netto-Schätzung für abhängige Beschäftigung präzisieren (Sozialversicherung, Pauschalen, Steuerklasse, Bemessungszeitraum).
-- Mutterschaftsgeld, Arbeitgeberzuschuss, tatsächlicher Mutterschutz und taggenaue Anrechnungen absichern.
-- Regeln für schwankende Teilzeiteinkommen, Bemessungszeiträume und Bezugsgruppen sowie Partnerschaftsbonus separat validieren.
-- Sonderfälle (Frühgeburt, Mehrlinge, Geschwisterbonus, Selbständigkeit, Einkommensersatzleistungen, Alleinerziehende, unterschiedliche Erwerbsverläufe) als Eingaben oder explizit nicht unterstützt kennzeichnen.
-- Landesregelungen und kommunale Betreuungskosten mit Gültigkeitsdatum und eindeutiger Quelle nachprüfen, insbesondere bei zukünftigen Geburten.
+Issues #1–#8 bleiben bis zur jeweiligen Abnahme offen. Ursprung: [MVP-Spezifikation](MVP-2026-10-14.md). Historische Fortschritte: [Changelog](../CHANGELOG.md), [Buildlog](BUILDLOG.md), [Abnahmebericht](MVP-ABNAHME-2026-10-15.md).
 
-## P1 · Optimierer und Finanzplanung
+## P0 – Fachliche Voraussetzungen
 
-- Vollständiger, nachvollziehbarer Regelvalidator als reine Funktion mit maschinenlesbaren Fehlercodes.
-- Zielsuche mit Coverage-Nachweis (erzeugte Muster versus gesamter Suchraum) und nachvollziehbarer Priorisierung.
-- Zielgewichtungen: Mindestbetrag pro Lebensmonat, maximale Betreuung durch Eltern, Aufteilung und gleichzeitige Freistellung, Teilzeitgrenzen.
-- Fairness-Berechnung über beide Eltern sowie Liquiditäts- und Rücklagenbedarf (ungedeckte Monate / Mindestbudget).
-- Unsicherheitsmodelle für Teilzeit netto, Bonus, Gebühren, Steuerprogression und unsichere Gesetzeslage.
-- Eigene Betreuungsereignisse (Kita-Eingewöhnung, Starttermin, private Kosten und flexible Stunden).
+### P0-R1: Taggenaue Mutterschutz-Anrechnung klären
 
-## P2 · Technologie und Qualität
+**Bezug:** #1, #3, #4. **Blockiert:** öffentliche Fachfreigabe.
 
-- Monolithen `index.html` in `src/model`, `src/rules`, `src/solver`, `src/ui` refaktorieren und dabei eine offline nutzbare Einzeldatei bauen.
-- Browser-E2E-Tests für mobile/desktop, Import/Export, Accessibility und Visual Regression.
-- Für jede veränderliche Rechtsregel Quelle, geprüftes Datum, Gültigkeitsintervall und Verifikationsstatus bereitstellen.
-- Datensparsame lokale Plan-Versionierung; keinen automatischen Transfer sensibler Familienfinanzdaten.
-- Testfälle/Provenienz für jede Rechtsregel und Datenquelle als nachvollziehbare Fixtures aufnehmen.
+- Geburt 20. Mai mit tatsächlichem/erwartetem Termin, Schutzfrist und betroffenem Lebensmonat vollständig dokumentieren.
+- Kalenderrecht und Anrechnung der Mutterschaftsleistungen getrennt belegen. Bundesrechner-Kalenderfunktion allein beweist keinen Restgeldbetrag.
+- Amtliche Richtlinie oder unabhängigen Behördenfall zum Teilmonat prüfen. Bei Widerspruch Fachentscheidung dokumentieren und Sperre erhalten.
+- Erst nach bestätigter Grundlage Code/Referenz ändern; Originalquelle und frühere Abweichung historisch erhalten.
 
-## Qualitätskriterium
+**Abnahme:** Unabhängiger Reviewer kann Tage und Geldbetrag aus Quellen reproduzieren; begründeter Delta-Bericht. Ungeklärte Abweichung bleibt Release-Blocker.
 
-Ein Suchergebnis darf erst als **rechtlich plausibel** markiert werden, wenn es den Validator durchläuft. Eine Zahl darf erst als **amtlich vergleichbar** markiert werden, wenn der entsprechende Berechnungsfall gegen eine verbindliche Quelle oder einen bewährten Referenzfall geprüft wurde. Ansonsten sichtbar als Näherung kennzeichnen.
+### P0-R2: Vollständige Referenzmatrix erweitern
 
-## Fortschritt 14.10.2026 / V3.3.0
+**Bezug:** #1, #4, #5. **Abhängigkeit:** parallel zu R1 vorbereitbar; Geldabnahme braucht geklärte Formeln.
 
-Issue #4: strukturierte Engine und UI integriert; Review offen. Issue #3: mehrere Kalenderabschnitte, unabhängige Arbeit/Leistung und tatsächliche Buchungen integriert; amtliche Mutterschutzabweichung bleibt Fachblocker. Issue #5: drei erläuterte Suchprofile und strenge Regel-/Budgetfilter integriert. Issues #6/#7/#8: Budgetreserven, NRW/Köln-Checkliste, lokale Einwilligung und Browser-/Axe-Gates vorhanden. Vollständige Abnahme, noch fehlende unabhängige Referenzrechnungen und echte Nutzertests bleiben offen; siehe MVP-Abnahmebericht. Keine Issues allein durch diese Teilimplementierungen schließen.
+- Mindestens zehn vollständige synthetische Standardfamilien mit unabhängig amtlich belegten Eingaben/Ergebnissen dokumentieren.
+- Basis/Plus-Wechsel, beide Eltern, Teilzeit, Bonus, Einkommensgrenzen, minimale/maximale Beträge und Monatsendgeburten abdecken.
+- Je Fall Herkunft, Gültigkeit, Prüftag, Bemessungsannahmen und monatliche Sollbeträge erfassen. Publizierte Einzelwerte nicht als vollständige Familien umetikettieren.
+- Vergleich mit Bundesrechner nur bei gleichartigen Brutto-/Steuer-/Versicherungsdaten; eingegebenes Elterngeld-Netto ist kein identischer Ausgangsfall.
 
-## Fortsetzung 15.10.2026 / V3.4.0
+**Abnahme:** Reproduzierbare Soll-/Ist-Deltas mit begründeter Toleranz; unabhängiger Fachreview der wichtigsten Finanzfälle. Keine Erwartungen an unerklärte Implementierungswerte angleichen.
 
-Vollständiger Achsen-/Bankbuchungsimport, konservative Typ-/Quellenprüfung, personenbezogene Einkommensbänder und mütterliche/väterliche Schwerpunktvarianten integriert. Fachlicher Tagesbruchvergleich bleibt trotz bestätigtem Kalenderdatum offen; siehe [aktueller Bericht](MVP-ABNAHME-2026-10-15.md). Kein öffentlicher Release.
+### P0-R3: Amtliche Nettoermittlung spezifizieren und absichern
+
+**Bezug:** #1, #2, #6. **Abhängigkeit:** Spezifikation vor Umsetzung; R2 begleitet Entwicklung.
+
+- Beschäftigungs-/Bemessungsfall definieren: laufende Bezüge, ausgeschlossene Bestandteile, relevante Monate, Steuerklasse, Pauschalen, Versicherungsmerkmale.
+- Nicht unterstützte Einkommen/Unterbrechungen sperren oder transparent manuelle Elterngeld-Netto-Eingabe anbieten.
+- Erwerbsnetto, Elterngeld-Netto, Mutterschaft und tatsächliche Zahlung getrennt benennen.
+- Reine Berechnungsmodule mit datierten Parametern ergänzen; bestehende manuelle Planung erhalten.
+
+**Abnahme:** Unabhängige vollständige Standardfälle innerhalb begründeter Toleranz. Oberfläche unterscheidet berechnete und manuell geschätzte Werte. Keine Scheingenauigkeit bei Sonderfällen.
+
+### P0-R4: Rechts-/Standardfallreview abschließen
+
+**Bezug:** #2, #3, #4. **Abhängigkeit:** geklärte Grundlagen; Quellenpflege parallel möglich.
+
+- Jede relevante Regel auf amtliche Quelle, tatsächliches Prüfdatum, Gültigkeit und Kohorte kontrollieren.
+- Kontingente, gleichzeitigen Bezug, Bezugsgruppen, Bonusstunden, Mutterschutz und unabhängige Arbeitgeber-Elternzeit systematisch prüfen.
+- Fehlende Daten, Typfehler, Sonderfälle und unbekannte Quellen in UI und Engine prüfen.
+- Geburten 2027 nur nach eigener Rechtsprüfung freigeben; Softwaredatum ist kein Nachweis.
+
+**Abnahme:** Unabhängiger Fach-/Rechtsreview mit Scope, Einschränkungen und Reviewerentscheidung. Nur tatsächlich bestätigte Gates in `data/release-gates.json` ändern.
+
+## P1 – Planung und Bedienung
+
+### P1-R5: Suchraum und Reaktionsfähigkeit
+
+**Bezug:** #5. **Parallel möglich:** ohne Änderung ungeklärter Rechtsformeln.
+
+- Erzeugte/eindeutige/ausgesonderte/geeignete Kandidaten und Ausschlussgründe verständlich ausweisen.
+- Lange Suche unterbrechen/abbrechen können; Worker oder schrittweise Auswertung mit weiter bestehender Einzeldatei-Verteilung prüfen.
+- Weitere Teilzeitstarts/Wiedereinstiegsmodelle ergänzen; Abdeckung an kleinen vollständig enumerierbaren Teilräumen messen.
+- Gleichmäßige Betreuung nachvollziehbar bewerten. Monatscodes nicht als exakte Betreuungsstunden darstellen.
+
+**Abnahme:** Dokumentierter Benchmark, bedienbar auf Smartphone, Abbruch ohne Zustandsverlust. Alle Ergebnisse passieren denselben Validator. Keine unbelegte globale Optimalität.
+
+### P1-R6: Budget und Liquidität vertiefen
+
+**Bezug:** #6. **Abhängigkeit:** genaue Leistungsberechnung braucht P0; Anzeige unabhängig verbesserbar.
+
+- Steuer-/Jahreswirkung und individuelle Versicherungsbeiträge fachlich abgrenzen oder nach geprüfter Grundlage modellieren.
+- Anspruchsszenarien von einer optionalen ausdrücklich angenommenen Zahlungsplanung trennen.
+- Kita-Einstieg, Eingewöhnung, Betreuungskosten und sonstige Ausgaben besser vergleichbar machen.
+- Mindestbudget, Engpassmonate und Rücklagen direkt zwischen Varianten vergleichen.
+
+**Abnahme:** Keine doppelte Mutterschaft, keine erfundenen Bankeingänge; identische Stressannahmen in Karte/Diagramm/Suche; unabhängige Monatsfälle geprüft.
+
+### P1-R7: NRW/Köln-Daten aktualisieren
+
+**Bezug:** #7. **Parallel möglich:** keine pauschalen Zuschläge freischalten.
+
+- Aktuelle amtliche Tarife/Leistungen mit Anspruchsdatum, Gültigkeit, Einkommen und Betreuungskonstellation erfassen.
+- Regeladapter pro Region, Wiederprüfdatum und zuständige Behörde pflegen.
+- Checkliste um geprüfte dokumentabhängige Varianten ergänzen; Fristen mit Datum erklären.
+- Historische Tarife informativ erhalten; nur bestätigte Werte optional ins Budget übernehmen.
+
+**Abnahme:** Quellen-/Datumsbeleg pro Zahl; abgelaufene/unbestätigte Regel addiert null. Offizielle Links/Zuständigkeit geprüft.
+
+### P1-R8: Nutzertests, Datenschutz und Barrierefreiheit
+
+**Bezug:** #8. **Abhängigkeit:** vor öffentlicher Beta zwingend, parallel zum Fachreview organisierbar.
+
+- Mit repräsentativen Testpersonen Einstieg, Begriffe, Suche, Engpassverständnis und Export prüfen; keine privaten Daten im Repository.
+- Datenschutzinformationen und lokale Speicherung unabhängig prüfen, einschließlich geteilter Geräte und Exporte.
+- Tastatur, Fokus, Screenreader, Vergrößerung und Touch manuell prüfen; weitere Browser berücksichtigen.
+- Kritische Befunde beheben und nachtesten; Unsicherheit verständlich darstellen.
+
+**Abnahme:** Protokoll mit Scope/Befunden, keine kritischen offenen Probleme, echte Reviewentscheidung. Axe allein genügt nicht.
+
+## P2 – Wartung und Architektur
+
+- Legacy-Doppeldefinitionen/Events schrittweise in eindeutige UI-/Importmodule überführen; Offline-Single-HTML erhalten.
+- Datenformatschema/Migrationen versionieren; alte/neue Export-Roundtrips und Privatsphäre prüfen.
+- Actions auf unterstützte Laufzeiten migrieren; Artefaktquote verwalten, ohne fremde Nachweise ungefragt zu löschen.
+- Stabile visuelle Regressionen mit synthetischen Fixtures und nachvollziehbarer Freigabe ergänzen.
+- Weitere Regionen/Sonderfälle erst als eigene validierte Pakete nach Standardfallabnahme.
+
+**Abnahme:** Kleine überprüfbare PRs, keine Funktionsverluste, synchroner Offline-Build und relevante Regressionen grün. Architekturwechsel begründen und einfach verteilbare Version erhalten.
+
+## Release-Gates: Definition „Beta bereit“
+
+1. Verbindliche P0-Funktionen implementiert und unabhängig geprüft.
+2. Wichtige Finanz-/Datumsfälle reproduzierbar belegt; keine ungeklärte kritische Kerndifferenz.
+3. Rechtsquellen/Kohorten eindeutig, Sonderfälle und Schätzungen transparent.
+4. CI, Browser, Offline, Import und Datenschutzprüfungen grün; keine kritischen Befunde.
+5. Fach-, Rechts-, Datenschutzreview und Nutzertests dokumentiert und freigegeben.
+6. README, Anleitung, Buildlog, Handoff, Quellen und Einschränkungen aktuell.
+7. Release Candidate mit exaktem Commit; gesonderte Entscheidung zur öffentlichen Veröffentlichung.
+
+`npm run release:check` bleibt derzeit rot. Merge, grüner CI-Lauf und Versionsnummer erfüllen diese Liste nicht automatisch.
+
+## Ablauf pro Paket
+
+GitHub-Stand/amtliche Grundlage prüfen → Feature-Branch → implementieren → relevante automatische/visuelle Prüfungen → Delta/Quellen/Dokumentation → PR mit Evidenz und Grenzen → Review/Merge gemäß Auftrag. Bei Fachblockern parallel unabhängige Pakete bearbeiten. Historische Nachweise nicht umdeuten und Dritte nicht ungefragt kontaktieren.

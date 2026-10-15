@@ -1,5 +1,11 @@
 # Änderungen
 
+## Dokumentation und Integrationsvorbereitung – 15.10.2026
+
+- Ausführliches Buildlog mit Commit-Historie, reproduzierbaren Befehlen, Prüfnachweisen und Merge-Verfahren.
+- Entwickler-Handoff mit Modulkarte, Dateninvarianten, Datenschutz, bekannten Grenzen und nächstem Auftrag.
+- Priorisierte Roadmap mit Abhängigkeiten und Abnahmekriterien; Nutzerauftrag zum Merge dokumentiert, öffentliche Freigaben unverändert offen.
+
 ## 3.4.0 – fortgesetzter interner Prüfstand, 15.10.2026
 
 - Bewiesene Eingabelücken bei Sonderfallflags, Elternschlüsseln und Quellenzeiträumen geschlossen.

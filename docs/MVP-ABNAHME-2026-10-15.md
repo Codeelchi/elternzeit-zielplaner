@@ -1,6 +1,6 @@
 # V3.4.0 – fortgesetzte MVP-Prüfung
 
-Die GitHub-CI des vorherigen integrierten Standes `e457055` ist erfolgreich. Dieser Ausbauschritt schließt zusätzlich gefundene Eingabelücken und erweitert die Familienplanung. Eine öffentliche Freigabe bleibt ausstehend.
+Die GitHub-CI des V3.4-Funktionsstandes `b5c82e3` ist erfolgreich ([Run 38680019062](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/38680019062)). Dieser Ausbauschritt schließt zusätzlich gefundene Eingabelücken und erweitert die Familienplanung. Eine öffentliche Freigabe bleibt ausstehend.
 
 ## Neue Implementierungen
 
@@ -35,3 +35,7 @@ Keine privaten Daten übermittelt. Kein vollständiger identischer Geldbetragsve
 154 automatisierte Node-/Modul-/DOM-Tests bestehen nach der Integration. Elf Browsertests direkt über `file://` und 50 Axe-Prüfungen bestehen ohne Verstöße oder Laufzeitfehler. Browsernachweise und aktueller Dateiprotokollstatus liegen unter `qa/`; der ergänzte Browserumfang prüft insbesondere vollständigen Export/Import, personenbezogene Risikobänder, mütterliche Schwerpunktvarianten und veraltete Empfehlungen. Es werden ausschließlich synthetische Daten verwendet.
 
 `npm run references:report` schreibt einen versionierten Bericht und `qa/reference-deltas-current.json`. `npm run release:check` bleibt gesperrt, solange die konkrete Referenzabweichung sowie unabhängige Fach-/Rechts-/Datenschutzreviews und Nutzertests offen sind. Ein grüner technischer CI-Lauf ersetzt diese Freigaben nicht. Quellenstand und 2027-Sperre wurden durch die Softwareprüfung nicht pauschal aktualisiert.
+
+## Übergabe und Integration
+
+Der Nutzer hat am 15.10.2026 den Merge und eine ausführliche Dokumentation davor beauftragt. [Buildlog](BUILDLOG.md), [Handoff](HANDOFF.md) und [Roadmap](ROADMAP.md) dokumentieren Nachweise, Übergabe und nächste Pakete. Der Merge-Auftrag ist keine öffentliche Beta-Freigabe. Historische Angaben zu zuvor offenen PRs bleiben als damaliger Stand erhalten; aktueller Status steht auf GitHub.

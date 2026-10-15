@@ -1,0 +1,37 @@
+<div id="v38QuickStart" class="v38-shell noprint" aria-label="Schnellstart für Elternzeit und Familienbudget">
+ <div class="v38-intro">
+  <span class="eyebrow">Schnellstart · Version 3.8</span>
+  <h2>Familienzeit verstehen – mit einem Beispiel beginnen.</h2>
+  <p>Wählt eine Vorlage und seht direkt den 36-Monatsplan mit Einnahmen und Betreuung. Die Beispiele sind vollständig fiktiv; eigene Angaben sind erst im zweiten Schritt nötig.</p>
+ </div>
+ <div id="v38Templates" class="v38-templates" role="group" aria-label="Fünf Beispielpläne">
+  <button type="button" class="v38-template" data-v38-template="classic" aria-pressed="false"><strong>Klassisch: 12 + 2 Monate</strong><span>Basiselterngeld und Mutterschutz für die ersten 14 Lebensmonate.</span><small>Beispiel sofort ansehen →</small></button>
+  <button type="button" class="v38-template" data-v38-template="long18" aria-pressed="false"><strong>18 Monate zu Hause</strong><span>Längere Familienzeit, zum Teil ohne laufendes Elterngeld.</span><small>Beispiel sofort ansehen →</small></button>
+  <button type="button" class="v38-template" data-v38-template="parttime" aria-pressed="false"><strong>ElterngeldPlus & Teilzeit</strong><span>Arbeiten mit reduzierten Stunden – Betreuung zusätzlich organisieren.</span><small>Beispiel sofort ansehen →</small></button>
+  <button type="button" class="v38-template" data-v38-template="shared" aria-pressed="false"><strong>Gemeinsam aufteilen</strong><span>Betreuungszeit nacheinander zwischen beiden Elternteilen aufteilen.</span><small>Beispiel sofort ansehen →</small></button>
+  <button type="button" class="v38-template" data-v38-template="return" aria-pressed="false"><strong>Früher zurück in den Beruf</strong><span>Frühere Rückkehr, aber möglicher Betreuungsbedarf.</span><small>Beispiel sofort ansehen →</small></button>
+ </div>
+ <p class="v38-caption">Alle Vorlagen sind unverbindlich. Elterngeld-Netto und genaue Auszahlungstermine werden nicht automatisch aus dem Lohnabrechnungsnetto ermittelt. Für Geburten 2027 bleibt der Rechtsstand ungeprüft.</p>
+ <div class="v38-actions">
+  <button type="button" id="v38EditOwn" class="navbtn">Mit eigenen Zahlen planen</button>
+  <button type="button" id="v38Advanced" class="navbtn alt" aria-pressed="false">Fachansichten einblenden</button>
+ </div>
+ <details id="v38Personal" class="v38-personal">
+  <summary>Eigene Werte eingeben – nur fünf Angaben</summary>
+  <form id="v38PersonalForm" novalidate>
+   <div class="v38-form-grid">
+    <label for="v38Birth">Geburtstermin<input id="v38Birth" type="date" required></label>
+    <label for="v38NetF">Auszahlungsnetto Elternteil 1 (€)<input id="v38NetF" type="number" min="0" max="100000" step="0.01" required></label>
+    <label for="v38NetM">Auszahlungsnetto Elternteil 2 (€)<input id="v38NetM" type="number" min="0" max="100000" step="0.01" required></label>
+    <label for="v38Goal">Betreuung bis Kind ... Monate alt ist<select id="v38Goal"><option value="14">14 Monate</option><option value="18">18 Monate</option><option value="24">24 Monate</option><option value="30">30 Monate</option><option value="36">36 Monate</option></select></label>
+    <label for="v38Expenses">Haushaltsausgaben / Monat (optional)<input id="v38Expenses" type="number" min="0" max="100000" step="0.01" placeholder="Noch unbekannt"></label>
+   </div>
+   <p class="v38-caption">Für den ersten Vergleich wird das Elterngeld-Netto <strong>vereinfacht</strong> mit dem Auszahlungsnetto gleichgesetzt. Das ist keine amtliche Netto-Ermittlung. Weitere Angaben und eine separate Prüfung sind später erforderlich.</p>
+   <button type="submit" class="navbtn">Vorlage mit meinen Angaben berechnen</button>
+   <p id="v38PersonalError" class="v38-error" role="alert" aria-live="polite"></p>
+  </form>
+ </details>
+ <div id="v38Summary" class="v38-summary" aria-live="polite">
+  <h3>Beispiel auswählen</h3><p>Nach einem Klick erscheinen Betreuung, Monatseinnahmen und die Grenzen der Modellrechnung.</p>
+ </div>
+</div>

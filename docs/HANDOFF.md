@@ -1,10 +1,12 @@
-# Entwickler-Handoff – V3.7.0
+# Entwickler-Handoff – V3.8.0
 
 Stand: **15. Oktober 2026**. Einstieg für eine neue Sitzung oder einen übernehmenden Entwickler. Mit [Buildlog](BUILDLOG.md), [Architektur](ARCHITEKTUR.md) und [Roadmap](ROADMAP.md) lesen.
 
 **Ergänzung 15.10.2026 / V3.5.0:** 48 monetäre Vergleichstests (22 direkt veröffentlichte Beispielwerte und Gesamtsummen einschließlich des L-Bank-Familienfalls, 4 amtlich veröffentlichte Grenzen, 22 Formelableitungen) erfolgreich. Der vollständige [Quellenabgleich](AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md) dokumentiert den ungelösten Widerspruch zwischen Familienportal (5/30 Resttage) und KomNet/MuSchG/SGB V (4/30 Resttage). **Release gesperrt.** Für 2027 wurde ausschließlich eine deutlich markierte, nicht rechtsfreigegebene Szenariosuche ergänzt; Status bleibt NICHT_UNTERSTUETZT. CI-Browserprüfung des neuen E2E-Falles nach Branch-Push ausführen.
 
 **V3.6.0:** Die vier dokumentierten echten Bescheidfälle sind nur historisch und unvollständig reproduzierbar. BSG B 10 EG 1/20 R wurde anhand des veröffentlichten BSG-Urteils auf den **24.03.2022** korrigiert. Neue Tests prüfen Beträge/Verfahrensstufen, variable Einkommensarten, Rechtsereignisse 2027 und NRW-KiBiz-Frist. Keine Änderung an den öffentlichen Release-Gates. Siehe [Referenzdokumentation](HISTORISCHE-BESCHEIDE-UND-RECHTSSTAND-2027.md).
+
+**V3.8:** Schnellstart baut ausschließlich auf der bestehenden V3.7-Monatsberechnung auf. Der Anfänger-Modus blendet Fachnavigation bewusst aus; Playwright-Expertentests aktivieren sie vor dem alten Navigationspfad. `npm run quickstart:sync` aktualisiert die Single-HTML-Version, `npm run quickstart:check` prüft Quellcode-Drift. [Bedienung, Datenschutz und Limits](SCHNELLSTART-V3.8.md).
 
 ## Übergabeumfang und Status
 

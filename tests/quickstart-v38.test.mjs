@@ -165,3 +165,26 @@ test('long goals without template remain explicitly uncovered',()=>{
  assert.ok(!doc.querySelector('#v38Summary [data-v38-match]'));
  dom.window.close();
 });
+
+test('expert income edits turn a displayed demo into a clearly labelled personal draft',()=>{
+ const {dom,doc,quick,ui}=setup();
+ click(doc,'long18');
+ assert.equal(quick.state().mode,'example');
+ const input=doc.getElementById('netFather');
+ input.value='2450';input.dispatchEvent(new dom.window.Event('input',{bubbles:true}));
+ assert.equal(ui.getState().netFather,2450);
+ assert.equal(quick.state().mode,'personal');
+ assert.match(quick.summary(),/Persönliche Näherung/);
+ assert.doesNotMatch(quick.summary(),/Fiktives Beispiel/);
+ dom.window.close();
+});
+
+test('choosing an existing model outside quickstart updates the visible template heading',()=>{
+ const {dom,doc,quick,ui}=setup();
+ click(doc,'classic');
+ ui.chooseModel('father18');
+ assert.equal(ui.getState().model,'father18');
+ assert.equal(quick.state().selected,'long18');
+ assert.match(quick.summary(),/18 Monate zu Hause/);
+ dom.window.close();
+});

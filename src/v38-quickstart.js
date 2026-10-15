@@ -144,6 +144,15 @@ const QuickStartV38=(()=>{
    refresh();showSummary();
   }catch(e){if(error)error.textContent=e.message;}
  }
+ function markPersonal(){
+  if(mode!=='personal'){mode='personal';refresh();}
+ }
+ function onModelChanged(id){
+  selected=Object.keys(templates).find(key=>templates[key].model===id)||'';
+  if(mode==='idle')mode='example';
+  refresh();
+ }
+ function onImported(){mode='personal';selected=Object.keys(templates).find(key=>templates[key].model===s.model)||'';refresh();}
  function mount(){
   if(!node('v38QuickStart'))return;
   if(s.storageConsent){mode='restored';selected=Object.keys(templates).find(id=>templates[id].model===s.model)||'';}
@@ -159,6 +168,9 @@ const QuickStartV38=(()=>{
    const index=[...document.querySelectorAll('.slide')].findIndex(sl=>sl.id===goto.dataset.v38Goto);
    if(index>=0)showSlide(index);
   });
+  // Edits in the existing expert UI must not remain labelled as untouched demo data.
+  document.querySelectorAll('[data-field],[data-extra],[data-profile]').forEach(input=>input.addEventListener('input',markPersonal));
+  node('standardCaseConfirmed')?.addEventListener('change',markPersonal);
   node('btnReset')?.addEventListener('click',()=>{mode='idle';selected='';refresh();});
   // Blank on the first visit: the example numbers aren't a person's data.
   node('v38Birth').value=mode==='restored'?s.date:'';
@@ -168,7 +180,7 @@ const QuickStartV38=(()=>{
   node('v38Expenses').value=mode==='restored'&&costsKnown()?String(s.expenses):'';
   refresh();
  }
- return {mount,refresh,loadTemplate,submit:personalSubmit,templates,
+ return {mount,refresh,loadTemplate,submit:personalSubmit,templates,markPersonal,onModelChanged,onImported,
    state:()=>({mode,selected,expert,costsKnown:costsKnown(),careCovered:mode==='idle'?null:firstCoverageGap()===null}),
    summary:()=>node('v38Summary')?.textContent||''};
 })();
@@ -176,4 +188,6 @@ const v38OriginalRenderAll=renderAll;
 renderAll=function(...args){const r=v38OriginalRenderAll(...args);QuickStartV38.refresh();return r;};
 const v38OriginalShowSlide=showSlide;
 showSlide=function(...args){const r=v38OriginalShowSlide(...args);QuickStartV38.refresh();return r;};
+const v38OriginalChooseModel=chooseModel;
+chooseModel=function(...args){const r=v38OriginalChooseModel(...args);QuickStartV38.onModelChanged(args[0]);return r;};
 window.__elternzeitV38=QuickStartV38;

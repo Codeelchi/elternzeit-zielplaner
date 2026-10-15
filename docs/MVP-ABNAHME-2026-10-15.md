@@ -39,3 +39,9 @@ Keine privaten Daten übermittelt. Kein vollständiger identischer Geldbetragsve
 ## Übergabe und Integration
 
 Der Nutzer hat am 15.10.2026 den Merge und eine ausführliche Dokumentation davor beauftragt. [Buildlog](BUILDLOG.md), [Handoff](HANDOFF.md) und [Roadmap](ROADMAP.md) dokumentieren Nachweise, Übergabe und nächste Pakete. Der Merge-Auftrag ist keine öffentliche Beta-Freigabe. Historische Angaben zu zuvor offenen PRs bleiben als damaliger Stand erhalten; aktueller Status steht auf GitHub.
+
+## Nachprüfung und Fortsetzung V3.5.0 – 15.10.2026
+
+Die öffentliche Recherche bestätigte neben den 34 ursprünglichen monetären Fällen zwei weitere einzeln veröffentlichte Euro-Beträge und acht amtlich veröffentlichte Gesamtsummen über 12/24 Monate sowie vier Werte aus dem L-Bank-Familienfall mit variierenden Teilzeitgehältern. Die resultierenden 48 Geldbetragskontrollen stimmen mit der laufenden Modellrechnung überein; es handelt sich **nicht** um real anonymisierte vollständige Elterngeldbescheide. Die amtliche Datumsabweichung bei Mutterschaftsleistungen wurde durch zwei gegensätzliche Behördenauskünfte konkretisiert, nicht durch Veränderung des Referenzwerts beseitigt. Bei Geburten 2027 sind vorläufige Variantenvergleiche in der UI möglich, **ohne** dass der Validator einen Anspruch oder eine Gültigkeit bestätigt.
+
+[Ausführliche Quellen-, Fall- und Risikodokumentation](AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md). Die unabhängige Fach-, Rechts-, Datenschutz- und Anwenderabnahme ist weiter offen; `data/release-gates.json` bleibt gesperrt.

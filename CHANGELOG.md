@@ -1,5 +1,14 @@
 # Änderungen
 
+## 3.5.0 – zusätzliche Behördenwerte und vorsichtige 2027-Prognose, 15.10.2026
+
+- Zwei zusätzliche monatliche, amtlich veröffentlichte Geldbeträge und acht vollständige 12-/24-Monatssummen unabhängig gegen die bestehende 36-LM-Finanzprojektion überprüft (insgesamt 48 Geldbetragskontrollen).
+- Mutterschutzreferenzen des Bundesfamilienportals, des NRW-Arbeitsschutzes, SGB V und MuSchG nebeneinander dokumentiert. Ein-Tages-Widerspruch bleibt ausdrücklich offen und hält die öffentliche Freigabe gesperrt.
+- Geburten 2027 können nach vollständiger Eingabe unverbindlich mit einer begrenzten Modellvorlagensuche durchgerechnet werden. Diese Prognosen **bleiben NICHT_UNTERSTUETZT / valid=false** und sind als solche im Ergebnis gekennzeichnet.
+- Individuelle Erwerbsnettos und Elterngeld-Netto-Werte je Lebensmonat als manuelle Eingaben; getrennte Berechnung, Importvalidierung und L-Bank-Integrationsfall mit sechs wechselnden Teilzeitgehältern.
+- Gesetzesentwurf zur Kindergelderhöhung 2027/28 als geplante, nicht geltende Zukunftsleistung dokumentiert. Ohne externe Prüfungen keine Freigabestatusänderung.
+- Sicherungstests für Prognose-Abgrenzung, Zukunftssonderfälle und offizielle Referenzen; Playwright-Port für isolierte Testumgebungen konfigurierbar.
+
 ## Dokumentation und Integrationsvorbereitung – 15.10.2026
 
 - Ausführliches Buildlog mit Commit-Historie, reproduzierbaren Befehlen, Prüfnachweisen und Merge-Verfahren.

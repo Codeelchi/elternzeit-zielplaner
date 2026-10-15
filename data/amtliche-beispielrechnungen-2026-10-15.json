@@ -1,0 +1,240 @@
+{
+  "schema_version": "1.0.0",
+  "collected_at": "2026-10-15",
+  "method": "Original numerical outputs published by German federal authorities, NOT anonymised real application decisions. Prebirth and postbirth Elterngeld-Netto are assumed already correctly determined; no taxable income, SV/PAP or complete approved notice data available.",
+  "sources": [
+    {
+      "id": "family-faq",
+      "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616",
+      "agency": "Bundesfamilienportal",
+      "checked_at": "2026-10-15",
+      "independent_of_project": true
+    },
+    {
+      "id": "family-income",
+      "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/arbeitssituation",
+      "agency": "Bundesfamilienportal",
+      "checked_at": "2026-10-15",
+      "independent_of_project": true
+    }
+  ],
+  "monthly_cases": [
+    {
+      "id": "ref-pub-650-low-income-basis",
+      "source_url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/arbeitssituation",
+      "source_section": "Beispiel 1: Netto 650 EUR, Ersatzrate 84,5 %",
+      "quality": "published_official_illustration",
+      "prebirth_elterngeld_net_eur": 650,
+      "postbirth_elterngeld_net_eur": 0,
+      "variant": "basis",
+      "monthly_expected_eur": 549.25,
+      "tolerance_eur": 0.01
+    },
+    {
+      "id": "ref-pub-250-minijob-basis",
+      "source_url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/arbeitssituation",
+      "source_section": "Beispiel 2: vorgeburtlicher Minijob 250 EUR, Basis-Mindestbetrag",
+      "quality": "published_official_illustration",
+      "prebirth_elterngeld_net_eur": 250,
+      "postbirth_elterngeld_net_eur": 0,
+      "variant": "basis",
+      "monthly_expected_eur": 300,
+      "tolerance_eur": 0.01
+    }
+  ],
+  "total_cases": [
+    {
+      "id": "ref-pub-base-2000-zero-12",
+      "source_url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616",
+      "source_section": "Basis 12 x 1300 EUR",
+      "quality": "published_official_multi_month_example",
+      "prebirth_elterngeld_net_eur": 2000,
+      "postbirth_elterngeld_net_eur": 0,
+      "variant": "basis",
+      "months": 12,
+      "expected_total_eur": 15600,
+      "tolerance_eur": 0.01
+    },
+    {
+      "id": "ref-pub-plus-2000-zero-24",
+      "source_url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616",
+      "source_section": "Plus 24 x 650 EUR",
+      "quality": "published_official_multi_month_example",
+      "prebirth_elterngeld_net_eur": 2000,
+      "postbirth_elterngeld_net_eur": 0,
+      "variant": "plus",
+      "months": 24,
+      "expected_total_eur": 15600,
+      "tolerance_eur": 0.01
+    },
+    {
+      "id": "ref-pub-base-2000-500-12",
+      "source_url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616",
+      "source_section": "Basis mit 500 EUR Erwerb: 12 x 975 EUR",
+      "quality": "published_official_multi_month_example",
+      "prebirth_elterngeld_net_eur": 2000,
+      "postbirth_elterngeld_net_eur": 500,
+      "variant": "basis",
+      "months": 12,
+      "expected_total_eur": 11700,
+      "tolerance_eur": 0.01
+    },
+    {
+      "id": "ref-pub-plus-2000-500-24",
+      "source_url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616",
+      "source_section": "Plus mit 500 EUR Erwerb: 24 x 650 EUR",
+      "quality": "published_official_multi_month_example",
+      "prebirth_elterngeld_net_eur": 2000,
+      "postbirth_elterngeld_net_eur": 500,
+      "variant": "plus",
+      "months": 24,
+      "expected_total_eur": 15600,
+      "tolerance_eur": 0.01
+    },
+    {
+      "id": "ref-pub-base-2000-1200-12",
+      "source_url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616",
+      "source_section": "Basis mit 1.200 EUR Erwerb: 12 x 520 EUR",
+      "quality": "published_official_multi_month_example",
+      "prebirth_elterngeld_net_eur": 2000,
+      "postbirth_elterngeld_net_eur": 1200,
+      "variant": "basis",
+      "months": 12,
+      "expected_total_eur": 6240,
+      "tolerance_eur": 0.01
+    },
+    {
+      "id": "ref-pub-plus-2000-1200-24",
+      "source_url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616",
+      "source_section": "Plus mit 1.200 EUR Erwerb: 24 x 520 EUR",
+      "quality": "published_official_multi_month_example",
+      "prebirth_elterngeld_net_eur": 2000,
+      "postbirth_elterngeld_net_eur": 1200,
+      "variant": "plus",
+      "months": 24,
+      "expected_total_eur": 12480,
+      "tolerance_eur": 0.01
+    },
+    {
+      "id": "ref-pub-base-3200-1570-12",
+      "source_url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616",
+      "source_section": "Basis mit 2770 EUR Bemessungsdeckel: 12 x 780 EUR",
+      "quality": "published_official_multi_month_example",
+      "prebirth_elterngeld_net_eur": 3200,
+      "postbirth_elterngeld_net_eur": 1570,
+      "variant": "basis",
+      "months": 12,
+      "expected_total_eur": 9360,
+      "tolerance_eur": 0.01
+    },
+    {
+      "id": "ref-pub-plus-3200-1570-24",
+      "source_url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616",
+      "source_section": "Plus mit 2770 EUR Bemessungsdeckel: 24 x 780 EUR",
+      "quality": "published_official_multi_month_example",
+      "prebirth_elterngeld_net_eur": 3200,
+      "postbirth_elterngeld_net_eur": 1570,
+      "variant": "plus",
+      "months": 24,
+      "expected_total_eur": 18720,
+      "tolerance_eur": 0.01
+    }
+  ],
+  "maternity_conflict": {
+    "birth_date": "2026-05-20",
+    "due_date": "2026-05-20",
+    "life_month": 2,
+    "period_start": "2026-06-20",
+    "period_end": "2026-07-19",
+    "life_month_days": 30,
+    "sources": [
+      {
+        "authority": "Bundesfamilienportal",
+        "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/kann-ich-elterngeld-und-mutterschaftsleistungen-bekommen--124776",
+        "last_protected_date": "2026-07-14",
+        "uncovered_days": 5,
+        "model": "published_example"
+      },
+      {
+        "authority": "NRW-KomNet Arbeitsschutz",
+        "url": "https://www.komnet.nrw.de/_sitetools/dialog/4244",
+        "last_protected_date": "2026-07-15",
+        "uncovered_days": 4,
+        "model": "BGB 187,188"
+      },
+      {
+        "authority": "SGB V §24i Abs. 3 und MuSchG §3",
+        "url": "https://www.gesetze-im-internet.de/sgb_5/__24i.html",
+        "last_protected_date": "2026-07-15",
+        "uncovered_days": 4,
+        "model": "interpretation subject to external confirmation"
+      },
+      {
+        "authority": "BMG Erläuterung 2026",
+        "url": "https://www.bundesgesundheitsministerium.de/schwangerschaft-krankenversicherung/seite",
+        "last_protected_date": "2026-07-15",
+        "uncovered_days": 4,
+        "model": "birth day plus eight weeks after birth"
+      }
+    ],
+    "decision": "KEEP_VALIDATION_BLOCKED_PENDING_OFFICIAL_RESOLUTION",
+    "explanation": "Published federal Elterngeld illustration conflicts with dated maternity period described in official NRW labour-protection guidance and SGB V. Do not change law-based date logic merely to make the published example pass."
+  },
+  "lbank_official_multi_income_case": {
+    "id": "lbank-bw-multi-income-parents",
+    "source_url": "https://www.l-bank.de/download/version/bfbe9e62-90cd-446b-b2a0-a8dab7290cb8/elterngeld-hinweisblatt-zum-antrag-fuer-geburten-adoptionen-ab-01.09.2021_25-07-2023.pdf",
+    "source_authority": "L-Bank, Staatsbank fuer Baden-Wuerttemberg (Behoerden-Hinweisblatt Stand 04/2023; gleiche Zahlen in 2025er L-Bank-Version)",
+    "document_page": 3,
+    "sample_scope": "Monthly Elterngeld amounts and means under varying part-time income; mother maternity 3 months in printed example is not reproduced by standard-case calculator.",
+    "mother": {
+      "prebirth_net": 2800,
+      "basis_expected": 1800,
+      "postbirth_plus_nets": [
+        1200,
+        1200,
+        1200,
+        1200,
+        1780,
+        1780,
+        1780,
+        1780
+      ],
+      "postbirth_plus_hours": [
+        16,
+        16,
+        16,
+        16,
+        25,
+        25,
+        25,
+        25
+      ],
+      "postbirth_average": 1490,
+      "plus_expected": 832
+    },
+    "father": {
+      "prebirth_net": 3000,
+      "basis_expected": 1800,
+      "postbirth_plus_nets": [
+        1500,
+        2000,
+        2200,
+        2200,
+        2200,
+        2200
+      ],
+      "postbirth_plus_hours": [
+        20,
+        25,
+        28,
+        28,
+        28,
+        28
+      ],
+      "postbirth_average": 2050,
+      "plus_expected": 468
+    },
+    "evidence_kind": "official_published_family_income_example",
+    "caveat": "Official illustration under historic form, not a fully reconstructed approved 2026 or 2027 family case; individual maternity income and tax info are not verified."
+  }
+}

@@ -111,6 +111,17 @@ function validatePlan(input={},catalogue={}) {
     for(const [key,parent] of [['f','father'],['m','mother']]){
       const code=row[key];out[key]=code;
       if(!CODES.has(code)){missing('SCHEDULE_CODE_INVALID','Unbekannter oder fehlender Monatsstatus.','BE-4',[parent],[lm]);continue;}
+      // Explicit life-month Elterngeld-Netto and take-home wage assumptions
+      // have different meanings and must never be silently accepted or ignored.
+      const wageField='w'+key,egField='e'+key;
+      for(const field of [wageField,egField])if(row[field]!==undefined){
+        if(typeof row[field]!=='number'||!Number.isFinite(row[field])||row[field]<0||row[field]>1e9)
+          missing('MONTHLY_NET_INVALID_'+field,'Das Monatsnetto muss eine endliche nichtnegative Zahl sein.','BE-2',[parent],[lm]);
+        else if(field===wageField&&!['W','R','T','Q','K'].includes(code))
+          missing('MONTHLY_WAGE_WITHOUT_WORK','Arbeitsnetto für einen Monat ohne Erwerbstätigkeit kann nicht berücksichtigt werden.','BE-2',[parent],[lm]);
+        else if(field===egField&&!['R','T','K'].includes(code))
+          missing('MONTHLY_EG_NET_WITHOUT_PARTTIME','Elterngeld-Netto nach Geburt kann hier nur bei Erwerb während Leistungsbezug eingetragen werden.','BE-2',[parent],[lm]);
+      }
       if(code==='MS'&&parent!=='mother')unsupported('MATERNITY_PARENT_UNSUPPORTED','Mutterschaftsleistungen für diesen Elternteil sind im Standardmodell nicht unterstützt.','BE-MUT');
       const hours=row['h'+key]??state['hours'+(key==='f'?'Father':'Mother')];
       out['h'+key]=hours;
@@ -183,7 +194,7 @@ function validatePlan(input={},catalogue={}) {
         }
         else if(['R','T','K'].includes(row[key])){
           if(!numeric(state['net'+ext])||!numeric(state['ptNet'+ext])||!numeric(row['h'+key]))unknown=true;
-          else if(Number(state['ptNet'+ext])*Number(row['h'+key])/28<Number(state['net'+ext]))count++;
+          else if((Number.isFinite(row['w'+key])?row['w'+key]:Number(state['ptNet'+ext])*Number(row['h'+key])/28)<Number(state['net'+ext]))count++;
         }
       }
       if(count>=2)reduced=true;
@@ -209,7 +220,16 @@ function validatePlan(input={},catalogue={}) {
   if(gaps.length)conflict('PLUS_CONTINUITY','BE-PLUS',['father','mother'],gaps.map(r=>r.lm),'Ab LM 15 muss bis zum letzten Plus-/Bonusbezug mindestens ein Elternteil ohne gemeinsamen Unterbrechungsmonat beziehen.',['Ab LM 15 lückenlosen Plus-/Bonusbezug eines Elternteils sicherstellen oder späteren Bezug entfernen.']);
   const precedence=['NICHT_UNTERSTUETZT','DATEN_UNVOLLSTAENDIG','REGELKONFLIKT'];
   const status=precedence.find(s=>findings.some(f=>f.status===s))||'PLAUSIBEL_STANDARD';
-  return {status,valid:status==='PLAUSIBEL_STANDARD',findings,totals,checkedAt:catalogue.verified_as_of||null,catalogueVersion:catalogue.version||null,
-    disclaimer:'Plausibilitätsprüfung des bestätigten Standardfalls, keine Rechtsberatung oder verbindliche Leistungsberechnung.'};
+  const forecastWindow=catalogue.planning_forecast_window;
+  const previewOnlyCodes=new Set(['BIRTH_COHORT_UNSUPPORTED','FUTURE_COHORT_UNVERIFIED']);
+  // A future-year preview is NEVER a positive entitlement verdict. This flag
+  // only permits non-binding pattern comparison after all other checks pass.
+  const provisionalPlanningEligible=Boolean(forecastWindow&&forecastWindow.status==='unverified_forecast_only'&&
+    isoDate(state.date)&&isoDate(forecastWindow.from)&&isoDate(forecastWindow.through)&&
+    state.date>=forecastWindow.from&&state.date<=forecastWindow.through&&
+    findings.length>=2&&findings.every(f=>previewOnlyCodes.has(f.code))&&
+    previewOnlyCodes.size===new Set(findings.map(f=>f.code)).size);
+  return {status,valid:status==='PLAUSIBEL_STANDARD',provisionalPlanningEligible,findings,totals,checkedAt:catalogue.verified_as_of||null,catalogueVersion:catalogue.version||null,
+    disclaimer:'Plausibilitätsprüfung des bestätigten Standardfalls, keine Rechtsberatung oder verbindliche Leistungsberechnung. Eine Zukunftsprognose ist keine Rechtsfreigabe.'};
 }
 module.exports={VALIDATION_STATUS,validatePlan};

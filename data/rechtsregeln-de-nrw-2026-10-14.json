@@ -1,6 +1,6 @@
 {
   "name": "Elternzeit und Elterngeld - Referenz-Rechtsregeln DE/NRW",
-  "version": "DE-NRW-2026.10.14+r3.3.0",
+  "version": "DE-NRW-2026.10.14+r3.5.0",
   "verified_as_of": "2026-10-14",
   "target_birth_date": "2027-05-28",
   "applicable_standard_birth_window": {
@@ -348,5 +348,21 @@
     "bonus_max_hours": 32,
     "max_weekly_work_hours": 32,
     "standard_maternity_days_after_birth": 56
+  },
+  "planning_forecast_window": {
+    "from": "2027-01-01",
+    "through": "2027-12-31",
+    "status": "unverified_forecast_only",
+    "observed_at": "2026-10-15",
+    "description": "Nur eine transparente Szenariorechnung auf Basis der am 15.10.2026 veroeffentlichten Normen; NICHT als rechtlich plausible Anspruchsberechtigung freigegeben.",
+    "sources": [
+      "https://www.gesetze-im-internet.de/beeg/__2.html",
+      "https://www.gesetze-im-internet.de/beeg/__4.html",
+      "https://www.gesetze-im-internet.de/beeg/__4a.html",
+      "https://dip.bundestag.de/vorgang/einkommensteuerreformgesetz-2027/338787"
+    ],
+    "child_benefit_2027_eur": 267,
+    "child_benefit_2027_status": "proposed_not_in_force",
+    "child_benefit_2027_source": "https://www.bundesfinanzministerium.de/Content/DE/Pressemitteilungen/Finanzpolitik/2026/09/2026-09-02-einkommensteuerreform.html"
   }
 }

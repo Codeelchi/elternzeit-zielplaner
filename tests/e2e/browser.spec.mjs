@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
-const appUrl = process.env.BROWSER_APP_URL || 'http://127.0.0.1:8765/index.html';
+const appUrl = process.env.BROWSER_APP_URL || `http://127.0.0.1:${process.env.PLAYWRIGHT_PORT || '8765'}/index.html`;
 async function navigate(page, id) {
   const index = await page.locator('.slide').evaluateAll((slides, id) => slides.findIndex(s => s.id === id), id);
   await page.locator(`#sectionNav button[data-slide="${index}"]`).click();
@@ -275,4 +275,23 @@ test('mother and both-role searches produce valid recommendations and mark chang
   const accepted=await page.evaluate(()=>window.__elternzeitV3.goalResults()[0]);expect(accepted).toBeTruthy();
   await page.locator('#goalResult [data-accept]').first().click();await expect(page.locator('#slide-5')).toBeVisible();
   expect(await page.evaluate(()=>window.__elternzeitTest.getState().schedule)).toEqual(accepted.schedule);
+});
+
+test('2027 forecast search never claims legally verified eligibility', async ({page})=>{
+ await navigate(page,'slide-2');
+ await page.locator('#standardCaseConfirmed').selectOption('yes');
+ await navigate(page,'slide-region');
+ await page.locator('#zve').fill('95000');
+ await navigate(page,'slide-goal');
+ await page.locator('#goalCare').selectOption('12');
+ await page.locator('#goalMinFather').fill('2');
+ await page.locator('#goalPart').selectOption('0');
+ await page.locator('#runGoal').click();
+ await expect(page.locator('#runGoal')).toBeEnabled({timeout:90000});
+ await expect(page.locator('#goalResult')).toContainText('UNVERBINDLICHE PROGNOSE FÜR 2027');
+ const plans=await page.evaluate(()=>window.__elternzeitV3.goalResults());
+ expect(plans.length).toBeGreaterThanOrEqual(1);
+ expect(plans.every(x=>x.forecastPreview===true&&x.valid===false)).toBe(true);
+ await page.locator('#goalResult [data-accept]').first().click();
+ await expect(page.locator('#globalPlanStatus')).toContainText('NICHT_UNTERSTUETZT');
 });

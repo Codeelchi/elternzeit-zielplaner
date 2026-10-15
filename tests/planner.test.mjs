@@ -25,7 +25,7 @@ function page() {
 
 test('application initializes with 36 child life months and tested rule version', () => {
   const p = page();
-  assert.equal(p.app.ruleVersion, '3.1.0');
+  assert.equal(p.app.ruleVersion, '3.1.1');
   assert.equal(p.ui.getState().schedule.length, 36);
   assert.equal(p.ui.dateFor(1).includes('28.05.2027'), true);
   assert.equal(p.ui.ageSpan(25).startsWith('2 Jahre'), true);

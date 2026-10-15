@@ -1,6 +1,6 @@
 # Elternzeit-Zielplaner
 
-**Privater Entwicklungsstand V3.1 (14. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
+**Privater Entwicklungsstand V3.1.1 (14. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
 
 ## Start
 
@@ -15,7 +15,7 @@ npm test
 
 Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repository-Verzeichnis, dann `http://localhost:8080` öffnen. Die App benötigt zur Laufzeit keinen Build-Schritt und keine Netzwerkverbindung.
 
-## Funktionen (Stand V3.1)
+## Funktionen (Stand V3.1.1)
 
 - 36 Lebensmonate, Geburtsdatum und Kindesalter samt konkreten Monatsdaten
 - Elternzeit und Elternteilzeit getrennt für beide Elternteile konfigurieren
@@ -32,15 +32,23 @@ Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repo
 | --- | --- |
 | `index.html` | Vollständige ausführbare Offline-App (HTML + CSS + JavaScript) |
 | `data/rechtsregeln-de-nrw-2026-10-14.json` | Rechtliche Quellen, Prüfdaten und Gültigkeitsfenster |
-| `docs/ANLEITUNG.md` | Bedienungs- und Fachanleitung V3.1 |
+| `docs/ANLEITUNG.md` | Bedienungs- und Fachanleitung der V3.1-Basis |
 | `docs/ROADMAP.md` | Bekannte Grenzen und nächste Entwicklungsschritte |
 | `qa/qa-bericht-v3.1.json` | Historischer QA-Stand aus der Erstellung |
-| `tests/planner.test.mjs` | Im Repository ausführbare Regressionstests via jsdom |
+| `tests/*.test.mjs` | Regression, Integration und 34 Referenz-Betragsfälle via jsdom |
+| `data/referenzfaelle-bund-2026-10-14.json` | 8 amtliche Beispielwerte, 4 amtliche Grenzen, 22 gesetzlich hergeleitete Werte |
+| `docs/REFERENZFAELLE-UND-GRENZEN.md` | Herkunft, Grenzen und offene fachliche Prüfungen |
+| `scripts/embed-rules.mjs` | Erzeugt und kontrolliert den Offline-Snapshot der zentralen Rechtsregeln |
+| `.github/workflows/ci.yml` | Pull-Request-Prüfung für Rechtsregeln und Tests |
 | `package.json` / `package-lock.json` | Node-Testumgebung und reproduzierbare Abhängigkeiten |
 
 ## Qualitätssicherung
 
-`npm test` prüft die reale, aus `index.html` geladene Applikationslogik u. a. auf Elterngeld-Äquivalente, Bonusstunden, Bezugsgrenzen, zeitabhängige Kinderdaten, Rechtsquellen und Ergebnisgültigkeit der automatischen Suche. Die frühere QA-Auswertung bleibt gesondert archiviert. **Die neue Testsuite ersetzt weder Behördenberechnungen noch eine individuelle rechtliche Prüfung.**
+`npm test` prüft zunächst die Übereinstimmung der eingebetteten Rechtsregeln mit dem JSON-Quellkatalog und anschließend die reale, aus `index.html` geladene Applikationslogik u. a. auf Elterngeld-Äquivalente, Bonusstunden, Bezugsgrenzen, zeitabhängige Kinderdaten, Rechtsquellen und Ergebnisgültigkeit der automatischen Suche. Die zusätzliche Referenztestsuite umfasst veröffentlichte Beträge des Familienportals, daraus abgeleitete Grenzwerte und vereinfachte vollständige Monatsmodelle. Die frühere QA-Auswertung bleibt gesondert archiviert. **Die neue Testsuite ersetzt weder Behördenberechnungen noch eine individuelle rechtliche Prüfung.**
+
+## Rechtliche Quellen aktualisieren
+
+Alle redaktionellen Rechtsregeländerungen erfolgen ausschließlich in `data/rechtsregeln-de-nrw-2026-10-14.json`. Die HTML-App enthält nur den daraus erzeugten Offline-Snapshot. Nach Änderungen `npm run rules:sync` und `npm test` ausführen. **Ein Prüftag 2026 bestätigt noch keine Ansprüche bei Geburt 2027.** Weitere Einzelheiten: [Referenzfälle und Prüflimits](docs/REFERENZFAELLE-UND-GRENZEN.md).
 
 ## MVP und Wettbewerbsabgleich
 

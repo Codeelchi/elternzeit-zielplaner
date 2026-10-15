@@ -54,6 +54,8 @@ test('completed search reports all first-rejection filters and freezes consisten
  const headings=[...doc.querySelectorAll('#goalResult .plan-option h3')].map(h=>h.textContent);
  assert.equal(headings.length,results.length);assert.equal(new Set(headings).size,headings.length);
  assert.ok(results.every((p,i)=>headings[i].includes(p.title)));
+ const serialized=app.goalResults();assert.equal(serialized.length,results.length);
+ assert.deepEqual(serialized.map(p=>p.title),results.map(p=>p.title));
  assert.ok(headings.every(text=>/Fokus|Szenario|Stresstest/.test(text)));
  const before=JSON.stringify(comparison);ui.changeValue('riskFatherPercent',35);assert.equal(JSON.stringify(app.goalComparison()),before);assert.match(doc.querySelector('#goalResult').textContent,/veraltet/);assert.ok([...doc.querySelectorAll('[data-accept]')].every(b=>b.disabled));assert.deepEqual(errors,[]);dom.window.close();
 });

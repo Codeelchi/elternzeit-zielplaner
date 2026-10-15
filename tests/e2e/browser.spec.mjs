@@ -138,6 +138,13 @@ test('goal search validates, explains and applies distinct proposals', async ({p
   await expect(page.locator('#goalResult')).toContainText('Automatische Suche abgeschlossen');
   const proposals=await page.evaluate(()=>window.__elternzeitV3.goalResults());
   expect(proposals.length).toBeGreaterThanOrEqual(2);
+  const titles=await page.locator('#goalResult .plan-option h3').allTextContents();
+  expect(titles.length).toBe(proposals.length);
+  expect(new Set(titles).size).toBe(titles.length);
+  for(let i=0;i<titles.length;i++){
+    expect(titles[i]).toContain(proposals[i].title);
+    expect(titles[i]).toMatch(/Fokus|Szenario|Stresstest/);
+  }
   expect(proposals.every(p=>p.valid)).toBe(true);
   expect(proposals.every(p=>typeof p.explanation==='string'&&p.explanation.length>20)).toBe(true);
   await expect(page.locator('#goalResult')).toContainText('Begrenzte Vorlagensuche');

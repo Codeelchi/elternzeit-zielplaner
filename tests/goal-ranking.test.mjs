@@ -168,3 +168,29 @@ test('reserve diversity uses the selected minimum and recognizes timing gaps',()
  assert.equal(selected.length,2);assert.ok(selected[1].diversity.comparedWith[0].differences.some(d=>d.code==='reserve'&&Math.abs(d.delta)===1800));
  assert.throws(()=>rankCandidates([earlyGap],{horizon:4,minimum:NaN}),/Mindestbetrag/);
 });
+
+
+test('financially distinct proposals with identical full-home month counts receive different, traceable headings',()=>{
+ const rich=candidate(201,[2800,2400],1,1,[1300,900]);
+ const middle=candidate(202,[2200,2200],1,1,[1600,1600]);
+ const resilient=candidate(203,[2000,2000],1,1,[1700,1700]);
+ const selected=rankCandidates([resilient,rich,middle],{horizon:2,limit:3});
+ assert.equal(selected.length,3);
+ assert.deepEqual(selected.map(x=>x.profile),['finance','balanced','robust']);
+ assert.ok(selected.every(x=>x.rankingMetrics.father===1&&x.rankingMetrics.mother===1));
+ assert.equal(new Set(selected.map(x=>x.title)).size,3);
+ assert.match(selected[0].title,/Gesamtbudget im Fokus/);
+ assert.match(selected[0].title,/5.200/);
+ assert.match(selected[1].title,/Zeitaufteilung im Fokus/);
+ assert.match(selected[1].title,/1\/1 volle Monate/);
+ assert.match(selected[2].title,/Vorsichtiges Szenario/);
+ assert.match(selected[2].title,/1.700/);
+ assert.ok(selected[1].diversity.comparedWith[0].differences.some(d=>d.code==='total'));
+});
+
+test('robust proposal without adverse measurements does not invent a stress-tested claim',()=>{
+ const selected=rankCandidates([candidate(204,[700,900])],{horizon:2,objective:'robust'});
+ assert.match(selected[0].title,/ohne Stresstest/);
+ assert.doesNotMatch(selected[0].title,/Vorsichtiges Szenario/);
+ assert.equal(selected[0].score,700); // The fallback headline and exported score use the same measured floor.
+});

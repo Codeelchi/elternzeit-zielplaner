@@ -6,6 +6,7 @@
 - Unbekannte Nettoangaben bleiben leer und sperren die Standardbewertung/Suche; explizit null Euro werden davon unterschieden.
 - Geführter Netto-Einstieg mit Beispiel-, Bekannt- und manueller Übernahmeroute, striktem Import und ausbleibender HTML-Ausführung bei Namen.
 - Realistischer/vorsichtiger Planvergleich mit gemeinsamen Annahmen, freien Monaten, Engpässen, Anfangsrücklage und erklärten Deltas.
+- Vorschlagsüberschriften nach dem tatsächlich gewählten Vergleichsschwerpunkt und messbaren Kennzahlen benannt, statt nur identische volle Auszeitmonate zu wiederholen. Regressionstest auch für unterschiedliche Budgets bei gleicher Zeitaufteilung.
 - Weitere Vorschläge benötigen materielle Unterschiede; erste Zielpriorität bleibt lexikografisch erhalten.
 - Suche in unterbrechbaren Schritten, Fortschritt, Ausschlussgründen und Abbruch bei Eingabeänderung; keine Übernahme unvollständiger Ergebnisse.
 - Amtlich belegte Cent-Rundung auch für Zwischen-/Monatsbeträge und Summen ergänzt; ursprüngliche Mutterschutzabweichung bleibt offen und sichtbar.

@@ -85,6 +85,21 @@ function explanation(profile, m, horizon, hasAdverse) {
   if (profile === 'robust') return hasAdverse ? `Stabilität im vorsichtigen Szenario: niedrigster Monatsbetrag ${euro(m.adverseFloor)}, Gesamtbudget ${euro(m.adverseTotal)} über ${horizon} Lebensmonate.` : `Vergleich nach niedrigstem Monatsbetrag ${euro(m.floor)}. Ohne vorsichtiges Szenario ist keine Aussage zur Robustheit möglich.`;
   return `Höchstes geschätztes verfügbares Gesamtbudget unter den verbleibenden Vorlagen: ${euro(m.total)} über ${horizon} Lebensmonate; niedrigster Monat ${euro(m.floor)}.`;
 }
+/** A selected objective is more informative than raw whole-month totals alone.
+ * Profile names describe the focus among the remaining search candidates,
+ * never a globally optimal or legally guaranteed recommendation.
+ */
+function proposalTitle(profile, m, horizon, hasAdverse) {
+  switch (profile) {
+    case 'father': return `Vaterzeit im Fokus · ${m.father} volle Monate`;
+    case 'balanced': return `Zeitaufteilung im Fokus · ${m.father}/${m.mother} volle Monate`;
+    case 'floor': return `Monatliches Budget im Fokus · mindestens ${euro(m.floor)}`;
+    case 'robust': return hasAdverse
+      ? `Vorsichtiges Szenario · mindestens ${euro(m.adverseFloor)} im Monat`
+      : `Monatliches Budget ohne Stresstest · mindestens ${euro(m.floor)}`;
+    default: return `Gesamtbudget im Fokus · ${euro(m.total)} über ${horizon} LM`;
+  }
+}
 /** Returns copies of candidates, selected in objective order then diverse profiles.
  * Input: {schedule, calc:{rows,valid}, adverse?:{rows}}. Search gates belong to caller.
  * Monetary values represent budgets after costs. Ranking is lexicographic, never
@@ -126,7 +141,7 @@ function rankCandidates(items, {horizon = 36, objective = 'finance', limit = 3, 
     const diversity = {kind:chosen.length?'alternative':'primary', comparedWith,
       thresholds:{...DIVERSITY_THRESHOLDS, totalEuro:DIVERSITY_THRESHOLDS.averageMonthlyEuro*horizon}};
     chosen.push(candidate);
-    selected.push({...candidate.item, profile, rankingMetrics:{...candidate.metrics}, diversity, explanation:explanation(profile,candidate.metrics,horizon,candidate.hasAdverse), score:candidate.metrics[profile==='father'?'father':profile==='robust'?'adverseFloor':profile==='floor'?'floor':profile==='balanced'?'balance':'total']});
+    selected.push({...candidate.item, profile, title:proposalTitle(profile,candidate.metrics,horizon,candidate.hasAdverse), rankingMetrics:{...candidate.metrics}, diversity, explanation:explanation(profile,candidate.metrics,horizon,candidate.hasAdverse), score:candidate.metrics[profile==='father'?'father':profile==='robust'?(candidate.hasAdverse?'adverseFloor':'floor'):profile==='floor'?'floor':profile==='balanced'?'balance':'total']});
   }
   return selected;
 }

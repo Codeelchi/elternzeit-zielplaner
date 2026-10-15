@@ -51,6 +51,10 @@ test('completed search reports all first-rejection filters and freezes consisten
  const results=app.runGoalSearch();assert.ok(results.length>0);const stats=app.goalStatistics();assert.equal(Object.values(stats.rejected).reduce((a,n)=>a+n,0)+stats.valid,stats.seen);assert.ok(stats.generated>=stats.seen);
  const comparison=app.goalComparison();assert.equal(comparison.horizon,18);assert.equal(comparison.plans.length,results.length);comparison.plans.forEach((p,i)=>{assert.equal(p.freeMonths.father,results[i].calc.fFree);assert.equal(p.freeMonths.mother,results[i].calc.mFree);});assert.equal(comparison.bankReceiptsPredicted,false);
  assert.match(doc.querySelector('#goalResult').textContent,/Anfangsrücklage/);assert.match(doc.querySelector('#goalResult').textContent,/Engpass-Lebensmonate/);assert.match(doc.querySelector('#goalResult').textContent,/Vorsichtig/);
+ const headings=[...doc.querySelectorAll('#goalResult .plan-option h3')].map(h=>h.textContent);
+ assert.equal(headings.length,results.length);assert.equal(new Set(headings).size,headings.length);
+ assert.ok(results.every((p,i)=>headings[i].includes(p.title)));
+ assert.ok(headings.every(text=>/Fokus|Szenario|Stresstest/.test(text)));
  const before=JSON.stringify(comparison);ui.changeValue('riskFatherPercent',35);assert.equal(JSON.stringify(app.goalComparison()),before);assert.match(doc.querySelector('#goalResult').textContent,/veraltet/);assert.ok([...doc.querySelectorAll('[data-accept]')].every(b=>b.disabled));assert.deepEqual(errors,[]);dom.window.close();
 });
 

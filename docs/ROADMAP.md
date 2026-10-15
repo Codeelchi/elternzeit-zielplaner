@@ -1,12 +1,14 @@
 # Geplante Roadmap zur öffentlichen Beta
 
-Stand: **15. Oktober 2026 / V3.8.0**. Reihenfolge nach Abhängigkeit und Priorität; keine zugesagten Termine. Repository-Integration und öffentliche Freigabe sind getrennte Entscheidungen. Implementiert bedeutet noch nicht unabhängig fachlich abgenommen.
+Stand: **15. Oktober 2026 / V3.9.0**. Reihenfolge nach Abhängigkeit und Priorität; keine zugesagten Termine. Repository-Integration und öffentliche Freigabe sind getrennte Entscheidungen. Implementiert bedeutet noch nicht unabhängig fachlich abgenommen.
 
 **Ergänzung V3.5.0:** Acht zusätzliche publizierte 12-/24-Monats-Summen, zwei Mindest-/Geringverdienstfälle und vier amtliche Familienbeträge mit variierenden Teilzeitgehältern sind gegen die echte Programmprojektion getestet. Das Mutterschutz-Delta ist nun quellenübergreifend als widersprüchliche Behördenaussage belegt, **nicht** behoben. Für 2027 besteht eine mit Warnung und strikter Validierungssperre gekennzeichnete Prognosesuche, nicht eine gesetzliche Freigabe. [Vollständiger Abgleich](AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md).
 
 **Erweiterung V3.6.0:** Vier echte anonymisierte historische Bescheidverfahren als quellengebundene Dokumentreferenz, ohne behauptete vollständige Berechnung. Einkommensarten einschließlich Provisionen/Einmalzahlungen werden in der UI unterschieden und für die Standard-Fachfreigabe konservativ blockiert. Kindergeldentwurf/Antragsautomatisierung und KiBiz NRW 2027 sind getrennt datiert; die Kita-Bedarfsanzeigefrist wird aus Lebensmonat und Geburtsdatum berechnet. [Detaillierte Evidenzgrenzen](HISTORISCHE-BESCHEIDE-UND-RECHTSSTAND-2027.md).
 
 **Ergänzung V3.8:** Fünf direkt auswählbare Beispielvorlagen, kurzer Eingabeassistent und strikte Kennzeichnung unbekannter Haushaltsausgaben. Bereits dokumentierte rechtliche Freigabelücken bleiben offen. [Details und Prüfumfang](SCHNELLSTART-V3.8.md).
+
+**Stand V3.9 (interner Kandidat):** Datenverlust-/Reset-/Vorlagenhorizontfehler behoben, Kostenwarnungen über Schnellstart und Robustheitsansicht vereinheitlicht, mobile Einstiegshürde deutlich verringert, Tastatur- und Fehlerführung verbessert. [Details/Tests](UX-NACHBESSERUNG-V3.9.md). Externe Nutzer- und Fachabnahmen weiterhin offen.
 
 ## Erreichter Stand
 

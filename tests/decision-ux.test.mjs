@@ -47,7 +47,7 @@ test('async search can cancel before publication and preserves the current plan'
  const restarted=app.runGoalSearchAsync();ui.changeValue('goalMinIncome',3000);await restarted;assert.equal(app.goalSearchState().running,false);assert.match(doc.querySelector('#goalResult').textContent,/Eingaben geändert/);assert.deepEqual(errors,[]);dom.window.close();
 });
 test('completed search reports all first-rejection filters and freezes consistent comparison assumptions',()=>{
- const {dom,ui,app,doc,errors}=setup();Object.assign(ui.s,{date:'2026-05-28',standardCaseConfirmed:true,zve:90000,goalCare:12,horizon:18,goalPart:0,goalRoles:'father',goalMinFather:0});
+ const {dom,ui,app,doc,errors}=setup();Object.assign(ui.s,{date:'2026-05-28',standardCaseConfirmed:true,zve:90000,goalCare:12,horizon:18,goalPart:0,goalRoles:'father',goalMinFather:0,expenses:1800});
  const results=app.runGoalSearch();assert.ok(results.length>0);const stats=app.goalStatistics();assert.equal(Object.values(stats.rejected).reduce((a,n)=>a+n,0)+stats.valid,stats.seen);assert.ok(stats.generated>=stats.seen);
  const comparison=app.goalComparison();assert.equal(comparison.horizon,18);assert.equal(comparison.plans.length,results.length);comparison.plans.forEach((p,i)=>{assert.equal(p.freeMonths.father,results[i].calc.fFree);assert.equal(p.freeMonths.mother,results[i].calc.mFree);});assert.equal(comparison.bankReceiptsPredicted,false);
  assert.match(doc.querySelector('#goalResult').textContent,/Anfangsrücklage/);assert.match(doc.querySelector('#goalResult').textContent,/Engpass-Lebensmonate/);assert.match(doc.querySelector('#goalResult').textContent,/Vorsichtig/);

@@ -12,6 +12,7 @@ async function standardInputs(page) {
   await page.locator('#standardCaseConfirmed').selectOption('yes');
   await page.locator('#date').fill('2026-05-28');
   await page.locator('#date').blur();
+  await page.locator('#expenses').fill('1800'); // Real budget comparisons require an explicit expense assumption.
   await navigate(page, 'slide-region');
   await page.locator('#zve').fill('95000');
 }
@@ -492,4 +493,81 @@ test('V3.8: personal five-field wizard distinguishes unknown from zero costs and
  expect(state.expenses).toBe(0);
  await expect(page.locator('#v38CostBanner')).toBeHidden();
  await expect(page.locator('#v38Summary')).toContainText('nach eingegebenen Kosten');
+});
+
+test('V3.9 mobile first template is visible without scrolling and mobile actions are accessible',async({page})=>{
+ await page.setViewportSize({width:320,height:740});
+ await page.reload(); // Reproduce a genuine first mobile visit, without the test setup's scroll/focus state.
+ const rect=await page.locator('[data-v38-template="classic"]').evaluate(el=>el.getBoundingClientRect().toJSON());
+ expect(rect.top).toBeLessThan(740);
+ expect(rect.top).toBeGreaterThanOrEqual(0);
+ await expect(page.locator('#v39MobileMenu')).toBeVisible();
+ await page.locator('#v39MobileMenu').click();
+ await expect(page.locator('#btnJson')).toBeVisible();
+ await page.locator('#v39MobileMenu').click(); // Dismiss the overlay before opening privacy details.
+ await page.locator('#v39PrivacyToggle').click();
+ await expect(page.locator('#localSave')).toBeVisible();
+ await page.locator('[data-v38-template="classic"]').click();
+ await expect(page.locator('#v38Summary')).toContainText('Fiktives Beispiel');
+ const dims=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,width:innerWidth}));
+ expect(dims.scrollWidth).toBeLessThanOrEqual(dims.width+1);
+});
+
+test('V3.9 editing short wizard cannot overwrite manually improved tax and monthly data',async({page})=>{
+ await navigate(page,'slide-1');
+ await page.locator('[data-v38-template="long18"]').click();
+ await page.locator('#v38EditOwn').click();
+ await page.locator('#v38Birth').fill('2027-05-28');
+ await page.locator('#v38NetF').fill('2350');
+ await page.locator('#v38NetM').fill('2600');
+ await page.locator('#v38Goal').selectOption('18');
+ await page.locator('#v38Expenses').fill('1550');
+ await page.locator('#v38PersonalForm button[type="submit"]').click();
+ await navigate(page,'slide-2');
+ await page.locator('#egNetFather').fill('1725');
+ await navigate(page,'slide-region');
+ await page.locator('#zve').fill('91000');
+ await navigate(page,'slide-4'); // Individual month editor contains the status selectors.
+ await page.locator('#fatherStatus').selectOption('U');
+ const before=await page.evaluate(()=>({s:window.__elternzeitTest.getState()}));
+ await navigate(page,'slide-1');
+ await page.locator('#v38EditOwn').click();
+ await page.locator('#v38Expenses').fill('1675');
+ await page.locator('#v38PersonalForm button[type="submit"]').click();
+ const after=await page.evaluate(()=>window.__elternzeitTest.getState());
+ expect(after.egNetFather).toBe(1725);
+ expect(after.zve).toBe(before.s.zve); // Inputs preserve exact state, including string-valued tax entries.
+ expect(Number(after.zve)).toBe(91000);
+ expect(after.model).toBe('custom');
+ expect(after.schedule).toEqual(before.s.schedule);
+ expect(after.expenses).toBe(1675);
+ await expect(page.locator('#v38Summary')).toContainText('Individueller Plan');
+});
+
+test('V3.9 unknown costs never show fictitious zero reserves in robustness',async({page})=>{
+ await navigate(page,'slide-1');
+ await page.locator('[data-v38-template="long18"]').click();
+ await navigate(page,'slide-risk');
+ await expect(page.locator('#reserveReport')).toContainText('nicht berechenbar');
+ await expect(page.locator('#riskCards')).toContainText('Haushaltsausgaben fehlen');
+ await expect(page.locator('#riskBar')).toBeEmpty();
+ await navigate(page,'slide-2');
+ await page.locator('#expenses').fill('1600');
+ await navigate(page,'slide-risk');
+ await expect(page.locator('#reserveReport')).toContainText('Erforderliche Anfangsrücklage');
+});
+
+test('V3.9 cancelled reset leaves wizard data and selected preview unchanged',async({page})=>{
+ await navigate(page,'slide-1');
+ await page.locator('[data-v38-template="long18"]').click();
+ await page.locator('#v38EditOwn').click();
+ await page.locator('#v38Birth').fill('2027-05-28');
+ await page.locator('#v38NetF').fill('2200');
+ await page.locator('#v38NetM').fill('2500');
+ await page.locator('#v38PersonalForm button[type="submit"]').click();
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ page.once('dialog',dialog=>dialog.dismiss());
+ await page.locator('#btnReset').click();
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(before);
+ await expect(page.locator('#v38Summary')).toContainText('Persönliche Näherung');
 });

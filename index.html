@@ -94,6 +94,35 @@ body.v38-lite.v38-pristine .live-strip{display:none}
 @media(max-width:760px){.v38-shell{padding:14px;margin:0 0 14px}.v38-templates{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.v38-template{min-height:180px;padding:12px}.v38-template strong{font-size:13px}.v38-template[aria-pressed="true"]{padding:11px}.v38-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.v38-kpi strong{font-size:18px}}
 @media(max-width:360px){.v38-templates{grid-template-columns:1fr}.v38-template{min-height:130px}}
 @media print{.v38-actions,.v38-personal{display:none!important}.v38-shell{box-shadow:none;break-inside:avoid}body.v38-lite #slide-1>.hero{display:block}}
+
+/* V3.9: mobile entry is the primary action, secondary commands are collapsible. */
+#v39MobileMenu,.v39-privacy-summary{display:none}
+.v39-assumptions{border:1px solid #d6e6e0;border-radius:10px;padding:12px 14px;margin:12px 0;color:#31555e;background:#f9fcfa}
+.v39-assumptions summary{cursor:pointer;font-weight:800;font-size:13px}
+.v39-assumptions p{font-size:12px;line-height:1.55;margin:9px 0 0}
+.v38-form-grid [aria-invalid="true"]{outline:2px solid #b44535;border-color:#b44535;background:#fff8f7}
+@media(max-width:760px){
+ #v39MobileMenu{display:inline-flex;align-items:center;justify-content:center;border:1px solid #b5d9d0;background:#174e4c;color:#fff;border-radius:9px;padding:9px 11px;font-size:12px;min-height:44px;white-space:nowrap}
+ .topbar{position:relative;padding:11px 12px;gap:7px}
+ .brand{font-size:12px;white-space:normal;gap:8px}
+ .brand small{display:none}
+ .brand-symbol{width:20px;height:20px;border-width:5px}
+ .top-actions{display:none;position:absolute;right:9px;left:9px;top:calc(100% - 2px);background:#103c44;border:1px solid #89bcb1;border-radius:10px;padding:12px;z-index:50;box-shadow:0 12px 28px rgba(5,33,35,.25)}
+ .top-actions.v39-open{display:flex;flex-direction:column;align-items:stretch}
+ .top-actions .action{min-height:43px;text-align:center;display:flex;justify-content:center;align-items:center}
+ .privacy-strip{padding:8px 12px}
+ .v39-privacy-summary{display:flex;flex-wrap:wrap;align-items:center;gap:7px;font-size:12px;color:#33545b}
+ .v39-privacy-summary button{background:transparent;border:0;color:#006e64;text-decoration:underline;padding:5px;font-size:12px;min-height:30px}
+ #v39PrivacyDetail{display:none;font-size:12px;line-height:1.5;padding:9px 0 3px}
+ .privacy-strip.v39-open #v39PrivacyDetail{display:block}
+ body.v38-lite.v38-pristine .section-nav,body.v38-lite.v38-pristine #globalPlanStatus{display:none}
+ body.v38-lite .v38-intro h2{font-size:clamp(21px,5.8vw,26px);line-height:1.2;margin:9px 0 7px}
+ body.v38-lite .v38-intro>p{font-size:12px;line-height:1.45}
+ body.v38-lite .v38-templates{margin:12px 0 8px}
+ body.v38-lite .stage .slide{padding:16px 13px 35px}
+ body.v38-lite .v38-shell{padding:12px}
+}
+
 /* V38_STYLES_END */
 </style>
 </head>
@@ -101,15 +130,16 @@ body.v38-lite.v38-pristine .live-strip{display:none}
 <div class="app-shell" id="app">
  <header class="topbar noprint">
   <div class="brand"><span class="brand-symbol"></span> FAMILIENFINANZEN <small>/ lokal & privat</small></div>
-  <div class="top-actions">
+  <button type="button" id="v39MobileMenu" aria-controls="topActions" aria-expanded="false" aria-label="Weitere Optionen öffnen">Weitere Optionen</button>
+ <div class="top-actions" id="topActions">
     <button type="button" class="action" id="btnReset" title="Ausgangswerte wiederherstellen">Zurücksetzen</button>
     <button type="button" class="action" id="btnCsv" title="Monatsdaten als CSV exportieren">CSV</button>
-    <button type="button" class="action" id="btnJson" title="Eingaben und Modell als JSON exportieren">Plan speichern</button>
-    <label for="importJson" class="action" style="cursor:pointer">Plan laden</label><input id="importJson" class="sr-only" type="file" accept="application/json,.json">
+    <button type="button" class="action" id="btnJson" title="Eingaben und Modell als JSON exportieren">Plan herunterladen</button>
+    <label for="importJson" class="action" style="cursor:pointer">Plan importieren</label><input id="importJson" class="sr-only" type="file" accept="application/json,.json">
     <button type="button" class="action" id="btnFullscreen" title="Vollbildansicht">Vollbild</button>
   </div>
  </header>
- <p class="privacy-strip">Ohne Konto, ohne Telemetrie. Berechnung auf diesem Gerät. Lokales Speichern ist optional und im Browser unverschlüsselt; auf gemeinsam genutzten Geräten ausgeschaltet lassen. Exportierte Dateien enthalten eure Finanzdaten. <label><input id="localSave" type="checkbox"> Auf diesem Gerät speichern</label> <button type="button" id="deleteLocal">Lokale Daten löschen</button></p><nav class="section-nav noprint" id="sectionNav" aria-label="Präsentationsnavigation"></nav>
+ <div class="privacy-strip"><div class="v39-privacy-summary">Lokal und privat · kein Konto. <button id="v39PrivacyToggle" type="button" aria-expanded="false" aria-controls="v39PrivacyDetail">Datenschutz & Speichern</button></div><div id="v39PrivacyDetail">Ohne Konto, ohne Telemetrie. Berechnung auf diesem Gerät. Lokales Speichern ist optional und im Browser unverschlüsselt; auf gemeinsam genutzten Geräten ausgeschaltet lassen. Exportierte Dateien enthalten eure Finanzdaten. <label><input id="localSave" type="checkbox"> Automatisch auf diesem Gerät speichern</label> <button type="button" id="deleteLocal">Lokale Daten löschen</button></div></div><nav class="section-nav noprint" id="sectionNav" aria-label="Präsentationsnavigation"></nav>
  <div class="live-strip noprint" aria-live="polite">
    <div class="live-item"><span>Kindesalter im gewählten Monat</span><strong id="liveAge">0–1 Monat</strong></div>
    <div class="live-item"><span>Lebensmonat / Zeitraum</span><strong id="liveMonth">LM 3</strong></div>
@@ -123,7 +153,7 @@ body.v38-lite.v38-pristine .live-strip{display:none}
 <!-- V38_MARKUP_START -->
 <div id="v38QuickStart" class="v38-shell noprint" aria-label="Schnellstart für Elternzeit und Familienbudget">
  <div class="v38-intro">
-  <span class="eyebrow">Schnellstart · Version 3.8</span>
+  <span class="eyebrow">Schnellstart · Version 3.9</span>
   <h2>Familienzeit verstehen – mit einem Beispiel beginnen.</h2>
   <p>Wählt eine Vorlage und seht direkt den 36-Monatsplan mit Einnahmen und Betreuung. Die Beispiele sind vollständig fiktiv; eigene Angaben sind erst im zweiten Schritt nötig.</p>
  </div>
@@ -1829,7 +1859,7 @@ function renderInputs(){document.querySelectorAll('[data-field], [data-build]').
  setTxt('ptEffectiveFather',euro(ptNet('f')));setTxt('ptEffectiveMother',euro(ptNet('m')));
  setTxt('ptHoursFather',s.hoursFather);setTxt('ptHoursMother',s.hoursMother);
 }
-function renderHeader(){const labels={PLAUSIBEL_STANDARD:'Standardregeln plausibel',REGELKONFLIKT:'Regelkonflikt',NICHT_UNTERSTUETZT:'Konstellation nicht validiert',DATEN_UNVOLLSTAENDIG:'Angaben zur Prüfung fehlen'};setTxt('globalPlanStatus','Alle Finanzwerte sind Schätzungen, keine amtlichen Bewilligungsbeträge. '+labels[current.validation.status]+' ('+current.validation.status+'). '+(current.valid?'Unabhängige fachliche Abnahme steht noch aus.':current.validation.findings[0]?.message||'Plan bitte korrigieren.'));setTxt('heroGross',euro(Number(s.netFather)+Number(s.netMother)));setTxt('heroCare',s.goalCare+' Lebensmonate');setTxt('heroMinimum',Number(s.goalMinIncome)>0?euro(s.goalMinIncome):'Noch nicht festgelegt');const r=current.rows[s.month-1];setTxt('liveAge',ageSpan(s.month));setTxt('liveMonth','LM '+s.month+' · '+dateFor(s.month));setTxt('liveBudget',euro(r.income));}
+function renderHeader(){const labels={PLAUSIBEL_STANDARD:'Standardregeln plausibel',REGELKONFLIKT:'Regelkonflikt',NICHT_UNTERSTUETZT:'Konstellation nicht validiert',DATEN_UNVOLLSTAENDIG:'Angaben zur Prüfung fehlen'};setTxt('globalPlanStatus','Alle Finanzwerte sind Schätzungen, keine amtlichen Bewilligungsbeträge. '+labels[current.validation.status]+' ('+current.validation.status+'). '+(current.valid?'Unabhängige fachliche Abnahme steht noch aus.':current.validation.findings[0]?.message||'Plan bitte korrigieren.'));setTxt('heroGross',euro(Number(s.netFather)+Number(s.netMother)));setTxt('heroCare',s.goalCare+' Lebensmonate');setTxt('heroMinimum',Number(s.goalMinIncome)>0?euro(s.goalMinIncome):'Noch nicht festgelegt');const r=current.rows[s.month-1];setTxt('liveAge',ageSpan(s.month));setTxt('liveMonth','LM '+s.month+' · '+dateFor(s.month));setTxt('liveBudget',euro(s.expenses===''?r.income:r.cashAfter));}
 function modelInfo(schedule,limit=s.horizon){const x=evaluate(schedule);return {total:x.sum(limit,'income'),eg:x.sum(N,'totalEg'),free:x.fFree,leave:x.fLeave,low:x.low(limit),valid:x.valid,errors:x.errors}}
 function renderModels(){
  $('modelGrid').innerHTML=SCENARIOS.map(x=>{const q=modelInfo(makeSchedule(x.id));return '<button type="button" class="model-card '+(s.model===x.id?'selected':'')+'" data-model="'+x.id+'" aria-pressed="'+(s.model===x.id)+'"><span class="model-title">'+esc(x.name)+'</span><span class="model-desc">'+esc(x.short)+'</span><span class="model-amount">'+euro(q.total)+'</span><span class="model-sub">Familienbudget / '+s.horizon+' LM (0–'+age(s.horizon)+')</span></button>';}).join('');
@@ -1970,7 +2000,9 @@ function initNav(){
  $('sectionNav').querySelectorAll('[data-slide]').forEach(b=>b.addEventListener('click',()=>showSlide(+b.dataset.slide)));
  document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>showSlide([...document.querySelectorAll('.slide')].findIndex(x=>x.id===b.dataset.goto))));
  $('next').addEventListener('click',()=>showSlide(slideIndex+1));$('previous').addEventListener('click',()=>showSlide(slideIndex-1));
- document.addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)||e.altKey||e.ctrlKey||e.metaKey)return;
+ document.addEventListener('keydown',e=>{if(!document.body.classList.contains('v38-expert')||e.altKey||e.ctrlKey||e.metaKey)return;
+  if(['INPUT','SELECT','TEXTAREA','A','SUMMARY'].includes(document.activeElement.tagName)||document.activeElement.isContentEditable)return;
+  if(document.activeElement.tagName==='BUTTON'&&!['next','previous'].includes(document.activeElement.id))return;
   if(['ArrowRight','PageDown'].includes(e.key)){e.preventDefault();showSlide(slideIndex+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();showSlide(slideIndex-1)}
  });
  $('btnFullscreen').addEventListener('click',()=>{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen?.()});
@@ -1979,7 +2011,7 @@ function initNav(){
  for(const [id,who]of [['fatherStatus','f'],['motherStatus','m']])$(id).addEventListener('change',e=>{if(who==='m'&&s.month<=2)return;s.schedule[s.month-1][who]=e.target.value;s.model='custom';builderActive=false;builderNotices=[];renderAll();persist()});
  $('prevMonth').addEventListener('click',()=>{s.month=Math.max(1,s.month-1);renderAll();persist()});
  $('nextMonth').addEventListener('click',()=>{s.month=Math.min(N,s.month+1);renderAll();persist()});
- $('btnReset').addEventListener('click',()=>{if(!confirm('Alle Eingaben und Änderungen zurücksetzen?'))return;cancelGoalSearch();deleteLocalData();s={...defaults,schedule:makeSchedule('father12')};goalStats=null;builderActive=false;builderNotices=[];renderAll();persist();showToast('Ausgangswerte wiederhergestellt')});
+ $('btnReset').addEventListener('click',()=>{if(!confirm('Alle Eingaben und Änderungen zurücksetzen?'))return;cancelGoalSearch();deleteLocalData();s={...defaults,schedule:makeSchedule('father12')};goalStats=null;builderActive=false;builderNotices=[];renderAll();persist();QuickStartV38.onResetConfirmed();showToast('Ausgangswerte wiederhergestellt')});
  $('btnCsv').addEventListener('click',downloadCsv);$('btnJson').addEventListener('click',downloadJson);$('importJson').addEventListener('change',importJson);
 }
 function download(content,name,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),800)}
@@ -2387,7 +2419,7 @@ const RULE_CATALOG = Object.freeze({
 /* LEGISLATION_EVENTS_START */
 const LEGAL_EVENTS=Object.freeze({"schema_version":"1.0.0","verified_as_of":"2026-10-15","scope":"Federal benefits 2027 and NRW childcare. Distinguish enacted, promulgated future effect, bill in committee, and political discussion. Do not silently book projected payments.","events":[{"id":"kindergeld-tax-2027-bill","scope":"DE","title":"Kindergeldbetrag 2027/2028 im Einkommensteuerreformgesetz","status":"bill_referred_not_in_force","observed_at":"2026-10-15","legislative_milestone":"Bundestag erste Lesung und Ausschussüberweisung 2026-10-08","proposed_effective_from":"2027-01-01","amounts":{"confirmed_2026_eur":259,"proposed_2027_eur":267,"proposed_2028_eur":272},"sources":["https://www.bundestag.de/dokumente/textarchiv/2026/kw41-de-einkommensteuerreform-1217520","https://dip.bundestag.de/vorgang/einkommensteuerreformgesetz-2027/338787"],"calculation_effect":"scenario_only_no_automatic_booking"},{"id":"estg-worker-pausch-2027-bill","scope":"DE","title":"Erhöhter Arbeitnehmer-Pauschbetrag im Steuerreform-Entwurf","status":"bill_referred_not_in_force","observed_at":"2026-10-15","proposed_effective_from":"2027-01-01","amounts":{"confirmed_2026_eur":1230,"proposed_2027_eur":1430},"sources":["https://www.bundestag.de/dokumente/textarchiv/2026/kw41-de-einkommensteuerreform-1217520","https://www.gesetze-im-internet.de/beeg/__2c.html"],"calculation_effect":"BEEG-2c: birth cohort 2027 uses amount in force on 2026-01-01, not future 2027 proposed value"},{"id":"kindergeld-automatic-2027-rollout","scope":"DE","title":"Antragslose Kindergeldzahlung – stufenweise Einführung","status":"parliament_passed_implementation_conditional","observed_at":"2026-10-15","planned_rollout":{"from_spring_2027":"further children with existing family-benefit data","from_late_2027":"first children if tax-ID, identity and bank details known"},"sources":["https://www.bundesregierung.de/breg-de/aktuelles/kindergeld-ohne-antrag-2412916"],"calculation_effect":"application_step_only_do_not_guarantee_automatic_payment"},{"id":"nrw-kibiz-2027","scope":"NRW","title":"KiBiz Fassung ab 01.08.2027","status":"promulgated_future_effective","observed_at":"2026-10-15","effective_from":"2027-08-01","source_version":"GV. NRW. 2026 S. 525","sources":["https://recht.nrw.de/lrgv/gesetz/01082027-gesetz-zur-fruehen-bildung-und-foerderung-von-kindern-kinderbildungsgesetz/"],"rule":"§ 5: Betreuungbedarf grundsätzlich 6 Kalendermonate vor Beginn in Textform anzeigen; örtliche Verfahren und Ausnahmen prüfen.","calculation_effect":"childcare_application_deadline_not_fee_amount"},{"id":"elterngeld-reform-debate-2027","scope":"DE","title":"Politische Diskussion über eine Elterngeldreform","status":"policy_discussion_no_enacted_parameter","observed_at":"2026-10-15","sources":["https://www.bundesregierung.de/breg-de/suche/regierungspressekonferenz-vom-26-juni-2026-2445352"],"calculation_effect":"no automatic model changes; specific 7+7-month rule not established"}]});
 /* LEGISLATION_EVENTS_END */
-const V3_ASOF=RULE_CATALOG.verified_as_of, V3_VERSION='3.8.0';
+const V3_ASOF=RULE_CATALOG.verified_as_of, V3_VERSION='3.9.0';
 const rulesV3=RULE_CATALOG.rules;
 const LEGAL=RULE_CATALOG.standard_parameters;
 Object.assign(defaults,{parentNameFather:'Elternteil 1',parentNameMother:'Elternteil 2',incomeEntryMode:'estimate',standardCaseConfirmed:null,storageConsent:false,grantVerified:false,region:'NRW',city:'Köln',births:1,zve:'',childcareStart:19,childcareMonthly:300,confirmedGrant:0,grantMonth:1,goalCare:18,goalCareMode:'full',goalObjective:'income',goalMinFather:0,goalMinIncome:0,goalOverlap:2,goalPart:1,childcareMode:'manual',childcareHours:35,childcareIncome:95000,childcareMeals:90,riskFatherPercent:'',riskMotherPercent:'',goalRoles:'both',riskPercent:15,riskEgPercent:5,riskCostPercent:20,egPtNetFather:'',egPtNetMother:''});
@@ -2582,6 +2614,13 @@ function riskScenarios(schedule=s.schedule){const calc=evaluate(schedule),budget
 
 function renderRisk(){
  setTxt('riskValue',s.riskPercent+' %');setTxt('riskEgValue',s.riskEgPercent+' %');setTxt('riskCostValue',s.riskCostPercent+' %');
+ if(s.expenses===''){
+  const note='<div class="note warn"><strong>Haushaltsausgaben fehlen.</strong> Eine realistische Budget-Bandbreite, Engpassmonate und notwendige Rücklagen können noch nicht berechnet werden. Bitte unter „Grundlagen“ monatliche Ausgaben angeben (auch 0 € nur, wenn wirklich beabsichtigt).</div>';
+  $('riskCards').innerHTML=note;
+  $('reserveReport').innerHTML='<div class="note warn">Anfangsrücklage: nicht berechenbar, solange die Haushaltsausgaben unbekannt sind.</div>';
+  $('riskBar').innerHTML='';
+  return;
+ }
  let budget;
  try{budget=familyBudget(current,s.horizon);
  $('reserveReport').innerHTML='<div class="grid three" style="margin:16px 0">'+budget.scenarios.map(x=>'<div class="card"><h3>'+esc(x.label)+'</h3><div class="kicker">Erforderliche Anfangsrücklage</div><div class="metric">'+euro(x.requiredReserves)+'</div><p class="detail">Engpassmonate: '+esc(x.bottleneckMonths.join(', ')||'keine')+' · Mindestbetrag nach Kosten '+euro(s.goalMinIncome||0)+'</p></div>').join('')+'</div><p class="footnote">Rücklage aus dem größten kumulierten Fehlbetrag; vorherige Überschüsse sind verfügbar. Eigenständiger Stresstest für alle Erwerbsnettos, Leistungshöhe und Haushalts-/Kita-Kosten. Bandgrafik, Rücklage und Robustheitsziel verwenden dieselben personenbezogenen Szenarioannahmen. '+esc(budget.warnings.join(' '))+'</p>';
@@ -2683,6 +2722,11 @@ function renderGoalResult(){
  const rejected=Object.entries(goalStats.rejected||{}).map(([k,v])=>esc(filters[k])+': '+v.toLocaleString('de-DE')).join(' · ');
  const intro=forecastNotice+'<div class="note '+(stale?'warn':'')+'"><strong>'+(stale?'Ergebnisse sind nach Änderungen veraltet. Bitte neu suchen.':goalStats.provisional?'Unverbindliche 2027-Szenariosuche abgeschlossen.':'Automatische Suche abgeschlossen.')+'</strong> '+goalStats.seen.toLocaleString('de-DE')+' unterschiedliche Muster geprüft, '+goalStats.valid.toLocaleString('de-DE')+' '+(goalStats.provisional?'technisch passende, nicht rechtsgeprüfte':'rechtlich und zur Betreuung plausible')+' Vorlagen. '+goalCandidates.length+' materiell unterschiedliche Vorschläge dargestellt.</div>';
  const scope='<p class="footnote">'+esc(GoalRanking.SEARCH_LIMITATIONS.join(' '))+' Mindestbudget im gesamten Vergleichszeitraum; bei Robustheit im vorsichtigen Szenario.</p>'+(rejected?'<details class="note"><summary>Warum wurden Vorlagen ausgeschlossen?</summary><p>'+rejected+'</p><p>Die Kategorien nennen den ersten nicht bestandenen Filter. Mehrere Konflikte je Plan sind möglich. Rohvarianten: '+goalStats.generated.toLocaleString('de-DE')+'; Dubletten: '+(goalStats.generated-goalStats.seen).toLocaleString('de-DE')+'. Kein Nachweis einer vollständigen Suche.</p></details>':'');
+ if(goalCandidates.length&&s.expenses===''){
+  const proposals=goalCandidates.map((o,i)=>'<article class="plan-option card"><h3>Plan '+(i+1)+' – nur Zeitaufteilung</h3><p>Volle Monate ohne Erwerbsarbeit (einschließlich Mutterschutz): Elternteil 1: '+o.calc.fFree+' · Elternteil 2: '+o.calc.mFree+'.</p><p class="input-caption">Finanzielle Rangfolge und notwendige Rücklagen sind bei unbekannten Haushaltsausgaben nicht zuverlässig.</p><button class="navbtn" data-accept="'+i+'" type="button" '+(stale?'disabled title="Eingaben geändert – bitte neu suchen"':'')+'>Monatsplan übernehmen</button></article>').join('');
+  $('goalResult').innerHTML=intro+scope+'<div class="note warn"><strong>Kein belastbarer Budgetvergleich:</strong> Haushaltsausgaben fehlen. Die angezeigte Reihenfolge beruht nur auf einem unvollständigen Modell und ist keine finanzielle Empfehlung. Erst Ausgaben eingeben und neu suchen, bevor ihr Budget oder Rücklagen bewertet.</div><div class="plan-options">'+proposals+'</div>';
+  return;
+ }
  if(!goalCandidates.length){$('goalResult').innerHTML=intro+scope+'<div class="note warn">Keine passenden Vorschläge. '+esc(goalStats.reason||'Innerhalb der Suchvorlagen erfüllt kein Plan alle Regeln, Betreuungsziele und Budgetgrenzen. Ziele anpassen oder eigenen Plan prüfen.')+'</div>';return;}
  const comparison=goalComparison;const signed=x=>(x>0?'+':'')+euro(x);const reserves=x=>euro(Math.ceil(Math.max(0,x)));
  const cards=goalCandidates.map((o,i)=>{
@@ -2893,6 +2937,7 @@ const QuickStartV38=(()=>{
  const escValue=text=>String(text).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const eur=value=>Number(value||0).toLocaleString('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0});
  let mode='idle',selected='',expert=false;
+ let lastEstimated={father:null,mother:null},wizardCompleted=false,formDirty=false;
  const costsKnown=()=>s.expenses!==''&&s.expenses!==null&&s.expenses!==undefined&&Number.isFinite(Number(s.expenses));
  const typeLabel=()=>mode==='example'?'Fiktives Beispiel':mode==='restored'?'Gespeicherter Entwurf':'Persönliche Näherung';
  function navRefresh(){
@@ -2946,18 +2991,23 @@ const QuickStartV38=(()=>{
   const year=Number(String(s.date).slice(0,4));
   const notices=[];
   if(mode==='example')notices.push('Erfundene Einkommensdaten und unverbindliche Beispielannahmen. Dieser Plan wurde nicht aus euren Angaben erstellt und nicht gespeichert.');
-  if(mode==='personal')notices.push('Elterngeld-Netto vorläufig gleich Auszahlungsnetto angesetzt. Das ist keine behördliche Berechnung; für einen Antrag muss das pauschalierte Netto gesondert ermittelt werden.');
+  if(mode==='personal'&&wizardCompleted)notices.push('Elterngeld-Netto vorläufig gleich Auszahlungsnetto aus der Schnelleingabe geschätzt. Manuell geänderte Fachwerte werden nicht automatisch ersetzt.');
+  if(mode==='personal'&&!wizardCompleted)notices.push('Teilweise angepasstes Beispiel: Nicht selbst eingegebene Werte stammen weiterhin aus einer fiktiven Vorlage. Bitte alle weiteren Annahmen kontrollieren.');
   if(mode==='restored')notices.push('Gespeicherter Entwurf, noch keine bestätigte amtliche Berechnung. Persönliche Zahlen und Leistungen separat prüfen.');
   if(!known)notices.push('Haushaltsausgaben fehlen: Die angezeigten Beträge sind Einnahmen, kein frei verfügbares Budget. Rücklagen und Engpassmonate sind nicht belastbar.');
   if(!covered)notices.push('Betreuungslücke ab LM '+gap+': Die gewählte Vorlage sichert die Betreuung bis LM '+until+' nicht durchgehend. Es ist weitere Betreuung oder ein anderes Modell nötig.');
   if(year>2026)notices.push('Geburtsjahr '+year+': Diese Modellrechnung ist eine unverbindliche Zukunftsprognose. Die Rechtsregeln für diese Geburtskohorte wurden nicht abschließend bestätigt.');
   if(legal!=='PLAUSIBEL_STANDARD')notices.push('Regelprüfung: '+legal+'. Kein Bewilligungsanspruch und kein positiv rechtlich geprüfter Plan.');
+  if(template&&Number(template.goal)!==until)
+   notices.push('Vorlagenzeitraum: '+template.goal+' Lebensmonate. Ihr berechnet derzeit '+until+' Lebensmonate. Die Vorlage wurde nicht automatisch an euer Ziel angepasst.');
   const match=until<=14?'classic':until<=20?'long18':until<=26?'long24':null;
   const alternative=!covered&&match&&templates[match]?.model!==s.model?
     '<button class="navbtn alt" type="button" data-v38-match="'+match+'">Passende längere Vorlage ansehen</button>':'';
+  const align=template&&template.goal!==until?
+    '<button class="navbtn alt" type="button" data-v39-sync-goal="'+escValue(selected)+'">Ziel auf '+template.goal+' Monate setzen</button>':'';
   const missingLong=!covered&&!match?'<p class="v38-caption">Für dieses lange Betreuungsziel gibt es noch keine fertige Schnellstart-Vorlage. Verwendet den Monatskonfigurator oder die Zielsuche; die Betreuung bleibt bis dahin ungeklärt.</p>':'';
   return '<h3>'+escValue(typeLabel()+' · '+(template?.label||'Individueller Plan'))+'</h3>'+
-    '<p class="v38-caption">Die Werte beschreiben '+until+' Kindeslebensmonate, keine feststehenden Geldeingangstermine.</p>'+
+    '<p class="v38-caption">Ausgewertet: '+until+' Kindeslebensmonate'+(template?' · Vorlagenmodell: '+template.goal+' Monate':'')+'. Die Werte sind keine feststehenden Geldeingangstermine.</p>'+
     '<div class="v38-kpis">'+
       '<div class="v38-kpi"><span>Betreuung bis Zielalter</span><strong>'+(covered?'Rechnerisch ja':'Lücke / offen')+'</strong></div>'+
       '<div class="v38-kpi"><span>'+(known?'Niedrigster Monat nach Annahmen':'Niedrigste Monatseinnahmen')+'</span><strong>'+eur(min)+'</strong></div>'+
@@ -2966,7 +3016,11 @@ const QuickStartV38=(()=>{
     '</div>'+
     '<p class="v38-caption">'+(known?'Ergebnis nach eingegebenen Haushalts- und Kita-Annahmen; weitere Kosten/Steuern/Versicherungen möglich.':'Persönliche Haushaltsausgaben sind unbekannt. Deshalb keine Aussage über verfügbares Restbudget oder notwendige Rücklagen.')+'</p>'+
     notices.map(t=>'<div class="v38-notice">'+escValue(t)+'</div>').join('')+
-    '<div class="v38-footer-actions">'+alternative+missingLong+
+    '<details class="v39-assumptions"><summary>Welche Zahlen und Annahmen stecken dahinter?</summary>'+
+      '<p>Geburtstermin: '+escValue(s.date)+' · Auszahlungsnetto Elternteil 1: '+eur(s.netFather)+' · Elternteil 2: '+eur(s.netMother)+'.</p>'+
+      '<p>Verwendetes Elterngeld-Netto (noch nicht automatisch amtlich ermittelt): '+eur(s.egNetFather)+' und '+eur(s.egNetMother)+'. Kindergeldansatz: '+eur(s.kind)+' monatlich.</p>'+
+      '<p>Haushaltsausgaben: '+(known?eur(s.expenses)+' pro Monat':'nicht angegeben')+'. Zusätzliche Kosten und Leistungs-/Steuereffekte können fehlen. Monatlicher Leistungsanspruch ist kein Auszahlungstermin.</p></details>'+
+    '<div class="v38-footer-actions">'+alternative+align+missingLong+
     '<button class="navbtn alt" type="button" data-v38-goto="slide-4">Lebensmonate ansehen</button>'+
     '<button class="navbtn alt" type="button" data-v38-goto="slide-2">Einkommen genauer eingeben</button>'+
     '<button class="navbtn alt" type="button" data-v38-goto="slide-10">Regelprüfung ansehen</button></div>';
@@ -2986,12 +3040,13 @@ const QuickStartV38=(()=>{
   const template=templates[id];
   if(!template)throw new RangeError('Unbekannte Schnellstart-Vorlage');
   const personal=mode==='personal'||mode==='restored';
+  if(personal&&s.model==='custom'&&!confirm('Diese Vorlage ersetzt eure individuelle Monatsaufteilung. Wirklich übernehmen?'))return;
   if(!personal){
    // Explicit demo selection never overwrites a consented personal local copy.
    for(const key of Object.keys(s))delete s[key];
    Object.assign(s,clone(defaults),{storageConsent:false,standardCaseConfirmed:null,zve:'',expenses:'',incomeEntryMode:'estimate'});
    mode='example';node('localSave').checked=false;
-   s.goalCare=template.goal;
+   s.goalCare=template.goal;lastEstimated={father:null,mother:null};wizardCompleted=false;
   }
   selected=id;
   chooseModel(template.model); // Existing financial, timeline and legal engine.
@@ -3005,42 +3060,117 @@ const QuickStartV38=(()=>{
   if(!Number.isFinite(n)||n<0||n>100000)throw new Error('Bitte einen gültigen Eurobetrag von 0 bis 100.000 eingeben.');
   return n;
  }
+ function invalidField(id,message){
+  const input=node(id),error=node('v38PersonalError');
+  if(error)error.textContent=message;
+  if(input){
+   input.setAttribute('aria-invalid','true');
+   input.setAttribute('aria-describedby','v38PersonalError');
+   input.focus();
+  }
+ }
+ function clearFieldErrors(){
+  if(node('v38PersonalError'))node('v38PersonalError').textContent='';
+  for(const id of ['v38Birth','v38NetF','v38NetM','v38Goal','v38Expenses'])
+   {const input=node(id);input?.removeAttribute('aria-invalid');input?.removeAttribute('aria-describedby');}
+ }
  function personalSubmit(evt){
   evt.preventDefault();
-  const error=node('v38PersonalError');if(error)error.textContent='';
-  try{
-   const date=node('v38Birth')?.value;
-   TimeAxes.lifeMonths(date,1);
-   const n1=parseMoney('v38NetF'),n2=parseMoney('v38NetM'),expenses=parseMoney('v38Expenses',true);
-   const goal=Number(node('v38Goal')?.value);
-   if(![14,18,24,30,36].includes(goal))throw new Error('Bitte eine Betreuungsdauer auswählen.');
-   Object.assign(s,{date,netFather:n1,netMother:n2,egNetFather:n1,egNetMother:n2,
-     expenses,goalCare:goal,incomeEntryMode:'estimate',standardCaseConfirmed:null,zve:''});
-   mode='personal';
-   selected=selected|| (goal<=14?'classic':goal<=20?'long18':'long24');
+  clearFieldErrors();
+  let date,n1,n2,expenses,goal;
+  try{date=node('v38Birth')?.value;TimeAxes.lifeMonths(date,1);}
+  catch(e){invalidField('v38Birth','Bitte einen gültigen Geburtstermin eintragen.');return;}
+  for(const [id,field]of [['v38NetF','n1'],['v38NetM','n2'],['v38Expenses','expenses']]){
+   try{
+    const amount=parseMoney(id,id==='v38Expenses');
+    if(field==='n1')n1=amount;else if(field==='n2')n2=amount;else expenses=amount;
+   }catch(e){invalidField(id,e.message);return;}
+  }
+  goal=Number(node('v38Goal')?.value);
+  if(![14,18,24,30,36].includes(goal)){invalidField('v38Goal','Bitte eine Betreuungsdauer auswählen.');return;}
+  const first=mode==='idle',firstOwn=mode==='idle'||mode==='example';
+  // All validation happens before the state is changed; repeated submissions
+  // modify exactly the five short-form fields and preserve month-level edits.
+  if(firstOwn){
+   s.egNetFather=n1;s.egNetMother=n2;
+   s.incomeEntryMode='estimate';s.standardCaseConfirmed=null;s.zve='';
+   lastEstimated={father:n1,mother:n2};
+  }else{
+   // Only values known to originate from this wizard may be auto-refreshed.
+   if(lastEstimated.father!==null&&s.egNetFather===lastEstimated.father){s.egNetFather=n1;lastEstimated.father=n1;}
+   if(lastEstimated.mother!==null&&s.egNetMother===lastEstimated.mother){s.egNetMother=n2;lastEstimated.mother=n2;}
+  }
+  Object.assign(s,{date,netFather:n1,netMother:n2,expenses,goalCare:goal});
+  wizardCompleted=true;formDirty=false;
+  if(first){
+   selected=goal<=14?'classic':goal<=20?'long18':'long24';
+   // Initial creation explicitly chooses a starting template.
    chooseModel(templates[selected].model);
-   refresh();showSummary();
-  }catch(e){if(error)error.textContent=e.message;}
+  }else{
+   // A repeat edit is NOT consent to replace a chosen or custom schedule.
+   renderAll();persist();
+  }
+  mode='personal';refresh();showSummary();
+ }
+ function syncPersonalForm(){
+  if(!['personal','restored'].includes(mode))return;
+  for(const [id,v]of [['v38Birth',s.date],['v38NetF',s.netFather],['v38NetM',s.netMother],['v38Goal',s.goalCare],['v38Expenses',costsKnown()?s.expenses:'']])
+   node(id).value=String(v);
  }
  function markPersonal(){
-  if(mode!=='personal'){mode='personal';refresh();}
+  if(s.model==='custom')selected='';
+  if(mode!=='personal'){mode='personal';wizardCompleted=false;}
+  if(!formDirty&&node('v38Personal')?.open)syncPersonalForm();
+  refresh();
+ }
+ function onResetConfirmed(){
+  mode='idle';selected='';wizardCompleted=false;formDirty=false;lastEstimated={father:null,mother:null};
+  clearFieldErrors();
+  for(const id of ['v38Birth','v38NetF','v38NetM','v38Expenses'])node(id).value='';
+  node('v38Goal').value='18';
+  refresh();
  }
  function onModelChanged(id){
   selected=Object.keys(templates).find(key=>templates[key].model===id)||'';
   if(mode==='idle')mode='example';
   refresh();
  }
- function onImported(){mode='personal';selected=Object.keys(templates).find(key=>templates[key].model===s.model)||'';refresh();}
+ function onImported(){
+  mode='personal';selected=Object.keys(templates).find(key=>templates[key].model===s.model)||'';
+  lastEstimated={father:null,mother:null};wizardCompleted=false;formDirty=false;syncPersonalForm();refresh();
+ }
  function mount(){
   if(!node('v38QuickStart'))return;
   if(s.storageConsent){mode='restored';selected=Object.keys(templates).find(id=>templates[id].model===s.model)||'';}
   node('v38Templates').querySelectorAll('button[data-v38-template]').forEach(b=>b.addEventListener('click',()=>loadTemplate(b.dataset.v38Template)));
-  node('v38EditOwn')?.addEventListener('click',()=>{const panel=node('v38Personal');panel.open=true;node('v38Birth')?.focus();});
+  node('v38PersonalForm')?.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',()=>{formDirty=true;}));
+  node('v38EditOwn')?.addEventListener('click',()=>{
+   const panel=node('v38Personal');if(!formDirty)syncPersonalForm();
+   panel.open=true;node('v38Birth')?.focus();
+  });
+  const mobileMenu=node('v39MobileMenu'),mobileActions=node('topActions');
+  const closeMobile=()=>{mobileActions?.classList.remove('v39-open');mobileMenu?.setAttribute('aria-expanded','false');};
+  mobileMenu?.addEventListener('click',()=>{
+   const open=mobileActions.classList.toggle('v39-open');mobileMenu.setAttribute('aria-expanded',String(open));
+  });
+  document.addEventListener('keydown',evt=>{if(evt.key==='Escape')closeMobile();});
+  document.addEventListener('click',evt=>{if(!evt.target.closest?.('#topActions,#v39MobileMenu'))closeMobile();});
+  const privacy=node('v39PrivacyToggle');
+  privacy?.addEventListener('click',()=>{
+   const el=document.querySelector('.privacy-strip'),open=el.classList.toggle('v39-open');
+   privacy.setAttribute('aria-expanded',String(open));
+  });
   node('v38Advanced')?.addEventListener('click',()=>{expert=!expert;refresh();});
   node('v38PersonalForm')?.addEventListener('submit',personalSubmit);
   node('v38QuickStart').addEventListener('click',evt=>{
    const match=evt.target.closest?.('[data-v38-match]');
    if(match){loadTemplate(match.dataset.v38Match);return;}
+   const sync=evt.target.closest?.('[data-v39-sync-goal]');
+   if(sync&&templates[sync.dataset.v39SyncGoal]){
+    s.goalCare=templates[sync.dataset.v39SyncGoal].goal;
+    node('v38Goal').value=String(s.goalCare);
+    renderAll();persist();showSummary();return;
+   }
    const goto=evt.target.closest?.('[data-v38-goto]');
    if(!goto)return;
    const index=[...document.querySelectorAll('.slide')].findIndex(sl=>sl.id===goto.dataset.v38Goto);
@@ -3049,7 +3179,9 @@ const QuickStartV38=(()=>{
   // Edits in the existing expert UI must not remain labelled as untouched demo data.
   document.querySelectorAll('[data-field],[data-extra],[data-profile]').forEach(input=>input.addEventListener('input',markPersonal));
   node('standardCaseConfirmed')?.addEventListener('change',markPersonal);
-  node('btnReset')?.addEventListener('click',()=>{mode='idle';selected='';refresh();});
+  for(const [id,parent] of [['egNetFather','father'],['egNetMother','mother']])
+   node(id)?.addEventListener('input',()=>{lastEstimated[parent]=null;});
+  // Reset callback runs only after the central confirm() returned true.
   // Blank on the first visit: the example numbers aren't a person's data.
   node('v38Birth').value=mode==='restored'?s.date:'';
   node('v38NetF').value=mode==='restored'?String(s.netFather):'';
@@ -3058,12 +3190,16 @@ const QuickStartV38=(()=>{
   node('v38Expenses').value=mode==='restored'&&costsKnown()?String(s.expenses):'';
   refresh();
  }
- return {mount,refresh,loadTemplate,submit:personalSubmit,templates,markPersonal,onModelChanged,onImported,
+ return {mount,refresh,loadTemplate,submit:personalSubmit,templates,markPersonal,onModelChanged,onImported,onResetConfirmed,
    state:()=>({mode,selected,expert,costsKnown:costsKnown(),careCovered:mode==='idle'?null:firstCoverageGap()===null}),
    summary:()=>node('v38Summary')?.textContent||''};
 })();
 const v38OriginalRenderAll=renderAll;
-renderAll=function(...args){const r=v38OriginalRenderAll(...args);QuickStartV38.refresh();return r;};
+renderAll=function(...args){
+ const r=v38OriginalRenderAll(...args);
+ if(s.model==='custom'&&(QuickStartV38.state().mode==='example'||QuickStartV38.state().selected))QuickStartV38.markPersonal();
+ QuickStartV38.refresh();return r;
+};
 const v38OriginalShowSlide=showSlide;
 showSlide=function(...args){const r=v38OriginalShowSlide(...args);QuickStartV38.refresh();return r;};
 const v38OriginalChooseModel=chooseModel;

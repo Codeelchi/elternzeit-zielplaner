@@ -1,5 +1,17 @@
 # Änderungen
 
+## 3.9.0 – UX-Datenintegrität und Ergebnisverständlichkeit, 15.10.2026
+
+- **Datenintegrität:** Wiederholte Schnellformular-Eingaben überschreiben weder individuelle Monatspläne noch zuvor manuell ermittelte Elterngeld-Netto-Werte, Steuerangaben oder Standardfall-Klärungen. Nur noch nachvollziehbar vom Kurzassistenten stammende Netto-Näherungen werden aktualisiert.
+- **Reset-Schutz:** Der Schnellstart wird ausschließlich nach bestätigtem Zurücksetzen auf Anfang gesetzt. Ein abgebrochener Reset verändert weder Daten noch sichtbaren Modus.
+- **Vorlagenklarheit:** Unterschied zwischen ausgewähltem 18-Monats-Modell und persönlichem 14-Monats-Auswertungshorizont wird erklärt; ausdrückliche Synchronisations-Schaltfläche. Individuelle Monatspläne werden nicht durch Vorlagen ohne Bestätigung ersetzt.
+- **Haushaltsbudget:** Ohne eingegebene Ausgaben werden keine falschen Anfangsrücklagen oder verfügbaren Stress-Budgets dargestellt. Zielplanvergleich ist zunächst auf Zeitaufteilung beschränkt. Die Monatskopfzeile verwendet bei bekannten Kosten den tatsächlich berechneten Wert nach Kosten.
+- **Mobil:** Export- und Fachaktionen über „Weitere Optionen“, Datenschutzhinweise aufklappbar, zentrale Schnellstartvorlage oberhalb der ersten Bildschirmkante selbst bei 320 × 740 px; keine horizontale Überbreite.
+- **Zugänglichkeit:** Kein unbeabsichtigtes Präsentations-Blättern beim PageDown einer Vorlagenkarte; konkrete Formularfehler fokussieren und markieren das betroffene Eingabefeld.
+- **Transparenz:** Berechnungsannahmen (Nettolöhne, pauschalierte Netto-Näherungen, Kindergeldansatz, fehlende Ausgaben) sind im Schnellstart ausklappbar. Teilweise geänderte Beispieldaten werden als solche gekennzeichnet. Planexport eindeutig als Download benannt.
+- **Abnahme:** Neue Unit-/DOM-/Negativtests und Browserprüfungen ergänzt. Keine unabhängige Rechts-/Steuerfreigabe und keine echte Nutzerstudie; öffentlicher Release bleibt bewusst blockiert.
+
+
 ## 3.8.0 – Schnellstart und vereinfachte Navigation, 15.10.2026
 
 - Fünf Vorlagen aus den bereits bestehenden Monatsplänen auf der Startseite: fiktives Beispiel nach einem Klick, ohne vorher persönliche Werte eingeben zu müssen.

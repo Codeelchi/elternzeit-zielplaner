@@ -1,12 +1,13 @@
 {
   "config": {
     "argv": [
-      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
-      "/workspace/elternzeit-zielplaner/node_modules/.bin/playwright",
-      "test"
+      "/usr/bin/node",
+      "/data/workspaces/elternzeit-zielplaner/review-v39/node_modules/.bin/playwright",
+      "test",
+      "--workers=1"
     ],
-    "configFile": "/workspace/elternzeit-zielplaner/playwright.config.mjs",
-    "rootDir": "/workspace/elternzeit-zielplaner/tests/e2e",
+    "configFile": "/data/workspaces/elternzeit-zielplaner/review-v39/playwright.config.mjs",
+    "rootDir": "/data/workspaces/elternzeit-zielplaner/review-v39/tests/e2e",
     "failOnFlakyTests": false,
     "forbidOnly": false,
     "fullyParallel": false,
@@ -22,7 +23,7 @@
     "preserveOutput": "always",
     "projects": [
       {
-        "outputDir": "/workspace/elternzeit-zielplaner/qa/browser-artifacts",
+        "outputDir": "/data/workspaces/elternzeit-zielplaner/review-v39/qa/browser-artifacts",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -30,7 +31,7 @@
         },
         "id": "",
         "name": "",
-        "testDir": "/workspace/elternzeit-zielplaner/tests/e2e",
+        "testDir": "/data/workspaces/elternzeit-zielplaner/review-v39/tests/e2e",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -42,22 +43,21 @@
       {
         "grep": {},
         "grepInvert": null,
-        "outputDir": "/workspace/elternzeit-zielplaner/qa/browser-artifacts",
+        "outputDir": "/data/workspaces/elternzeit-zielplaner/review-v39/qa/browser-artifacts",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "name": "",
-        "testDir": "/workspace/elternzeit-zielplaner/tests/e2e",
-        "snapshotDir": "/workspace/elternzeit-zielplaner/tests/e2e",
+        "testDir": "/data/workspaces/elternzeit-zielplaner/review-v39/tests/e2e",
+        "snapshotDir": "/data/workspaces/elternzeit-zielplaner/review-v39/tests/e2e",
         "testIgnore": [],
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 120000,
         "use": {
           "browserName": "chromium",
           "launchOptions": {
-            "executablePath": "/home/agent/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell",
             "args": [
               "--no-sandbox"
             ]
@@ -94,8 +94,8 @@
     "version": "1.64.1",
     "workers": 1,
     "webServer": {
-      "command": "python3 -m http.server 8765 --bind 127.0.0.1",
-      "url": "http://127.0.0.1:8765/index.html",
+      "command": "python3 -m http.server 8893 --bind 127.0.0.1",
+      "url": "http://127.0.0.1:8893/index.html",
       "reuseExistingServer": true
     }
   },
@@ -122,12 +122,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 4330,
+                  "duration": 6897,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:03:30.053Z",
+                  "startTime": "2026-10-15T14:38:37.548Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -137,7 +137,7 @@
           ],
           "id": "aed1748819d3efb96fac-bacdc3ad7b1aebdc2762",
           "file": "browser.spec.mjs",
-          "line": 27,
+          "line": 30,
           "column": 1
         },
         {
@@ -156,12 +156,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2571,
+                  "duration": 4211,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:03:34.455Z",
+                  "startTime": "2026-10-15T14:38:44.624Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -171,7 +171,7 @@
           ],
           "id": "aed1748819d3efb96fac-6728a84c3c17cfc0d28e",
           "file": "browser.spec.mjs",
-          "line": 62,
+          "line": 67,
           "column": 1
         },
         {
@@ -190,12 +190,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2483,
+                  "duration": 4822,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:03:37.039Z",
+                  "startTime": "2026-10-15T14:38:48.863Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -205,7 +205,7 @@
           ],
           "id": "aed1748819d3efb96fac-f9a88852650d3cd3ddb6",
           "file": "browser.spec.mjs",
-          "line": 79,
+          "line": 84,
           "column": 1
         },
         {
@@ -224,12 +224,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 21630,
+                  "duration": 59002,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:03:39.534Z",
+                  "startTime": "2026-10-15T14:38:53.720Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -239,7 +239,7 @@
           ],
           "id": "aed1748819d3efb96fac-db70822c2e307fc05664",
           "file": "browser.spec.mjs",
-          "line": 109,
+          "line": 114,
           "column": 3
         },
         {
@@ -258,12 +258,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 29883,
+                  "duration": 48780,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:04:01.176Z",
+                  "startTime": "2026-10-15T14:39:52.760Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -273,7 +273,7 @@
           ],
           "id": "aed1748819d3efb96fac-47aa1ec6a25660571571",
           "file": "browser.spec.mjs",
-          "line": 109,
+          "line": 114,
           "column": 3
         },
         {
@@ -292,12 +292,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 11312,
+                  "duration": 17848,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:04:31.067Z",
+                  "startTime": "2026-10-15T14:40:41.573Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -307,7 +307,7 @@
           ],
           "id": "aed1748819d3efb96fac-74673c2a381a366398be",
           "file": "browser.spec.mjs",
-          "line": 130,
+          "line": 135,
           "column": 1
         },
         {
@@ -326,12 +326,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2945,
+                  "duration": 9164,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:04:42.395Z",
+                  "startTime": "2026-10-15T14:40:59.442Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -341,7 +341,7 @@
           ],
           "id": "aed1748819d3efb96fac-319ce41e4509179e8cb2",
           "file": "browser.spec.mjs",
-          "line": 182,
+          "line": 194,
           "column": 1
         },
         {
@@ -360,12 +360,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 25432,
+                  "duration": 63887,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:04:45.356Z",
+                  "startTime": "2026-10-15T14:41:08.637Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -375,7 +375,7 @@
           ],
           "id": "aed1748819d3efb96fac-e0eaf3c5b4517837d07e",
           "file": "browser.spec.mjs",
-          "line": 208,
+          "line": 220,
           "column": 1
         },
         {
@@ -394,12 +394,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2694,
+                  "duration": 4167,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:05:10.798Z",
+                  "startTime": "2026-10-15T14:42:12.568Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -409,7 +409,7 @@
           ],
           "id": "aed1748819d3efb96fac-63b1f5c3806f7964f3c7",
           "file": "browser.spec.mjs",
-          "line": 235,
+          "line": 247,
           "column": 1
         },
         {
@@ -428,12 +428,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2381,
+                  "duration": 3411,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:05:13.511Z",
+                  "startTime": "2026-10-15T14:42:16.756Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -443,7 +443,7 @@
           ],
           "id": "aed1748819d3efb96fac-f5461b1e000a6eba9d62",
           "file": "browser.spec.mjs",
-          "line": 264,
+          "line": 276,
           "column": 1
         },
         {
@@ -462,12 +462,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 25287,
+                  "duration": 35992,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:05:15.902Z",
+                  "startTime": "2026-10-15T14:42:20.196Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -477,7 +477,7 @@
           ],
           "id": "aed1748819d3efb96fac-e0745d7ae7888d8ad03e",
           "file": "browser.spec.mjs",
-          "line": 286,
+          "line": 298,
           "column": 1
         },
         {
@@ -496,12 +496,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 7197,
+                  "duration": 12685,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:05:41.198Z",
+                  "startTime": "2026-10-15T14:42:56.222Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -511,7 +511,7 @@
           ],
           "id": "aed1748819d3efb96fac-d665048465b06fa19f41",
           "file": "browser.spec.mjs",
-          "line": 313,
+          "line": 325,
           "column": 1
         },
         {
@@ -530,12 +530,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1279,
+                  "duration": 3474,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:05:48.407Z",
+                  "startTime": "2026-10-15T14:43:08.930Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -545,7 +545,7 @@
           ],
           "id": "aed1748819d3efb96fac-04c9cf9ffb83c1a88183",
           "file": "browser.spec.mjs",
-          "line": 332,
+          "line": 344,
           "column": 1
         },
         {
@@ -564,12 +564,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 3390,
+                  "duration": 5475,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:05:49.696Z",
+                  "startTime": "2026-10-15T14:43:12.429Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -579,7 +579,7 @@
           ],
           "id": "aed1748819d3efb96fac-ea591bd0ed764989bf01",
           "file": "browser.spec.mjs",
-          "line": 353,
+          "line": 365,
           "column": 1
         },
         {
@@ -598,12 +598,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2323,
+                  "duration": 4894,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:05:53.097Z",
+                  "startTime": "2026-10-15T14:43:17.927Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -613,7 +613,7 @@
           ],
           "id": "aed1748819d3efb96fac-96e82b7f14683e5673f2",
           "file": "browser.spec.mjs",
-          "line": 391,
+          "line": 403,
           "column": 1
         },
         {
@@ -632,12 +632,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 9334,
+                  "duration": 17798,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T08:05:55.431Z",
+                  "startTime": "2026-10-15T14:43:22.843Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -647,7 +647,211 @@
           ],
           "id": "aed1748819d3efb96fac-05f9efe23619c3dad38d",
           "file": "browser.spec.mjs",
-          "line": 413,
+          "line": 425,
+          "column": 1
+        },
+        {
+          "title": "V3.8: example in one click, care-gap warning and unknown-cost transparency on mobile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4290,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-15T14:43:40.668Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aed1748819d3efb96fac-868964d15b11bcaf92cc",
+          "file": "browser.spec.mjs",
+          "line": 448,
+          "column": 1
+        },
+        {
+          "title": "V3.8: personal five-field wizard distinguishes unknown from zero costs and repairs 18-month mismatch",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2806,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-15T14:43:44.985Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aed1748819d3efb96fac-44e97b717a294248df86",
+          "file": "browser.spec.mjs",
+          "line": 472,
+          "column": 1
+        },
+        {
+          "title": "V3.9 mobile first template is visible without scrolling and mobile actions are accessible",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1700,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-15T14:43:47.814Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aed1748819d3efb96fac-5ae9f5f4716a985221f8",
+          "file": "browser.spec.mjs",
+          "line": 498,
+          "column": 1
+        },
+        {
+          "title": "V3.9 editing short wizard cannot overwrite manually improved tax and monthly data",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4840,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-15T14:43:49.544Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aed1748819d3efb96fac-c546975b4e3637db1105",
+          "file": "browser.spec.mjs",
+          "line": 516,
+          "column": 1
+        },
+        {
+          "title": "V3.9 unknown costs never show fictitious zero reserves in robustness",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2801,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-15T14:43:54.404Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aed1748819d3efb96fac-73201ec354f89e4c7b8e",
+          "file": "browser.spec.mjs",
+          "line": 547,
+          "column": 1
+        },
+        {
+          "title": "V3.9 cancelled reset leaves wizard data and selected preview unchanged",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2657,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-15T14:43:57.227Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aed1748819d3efb96fac-819e30162157fc87e1c5",
+          "file": "browser.spec.mjs",
+          "line": 560,
           "column": 1
         }
       ]
@@ -655,9 +859,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-15T08:03:29.330Z",
-    "duration": 155550.111,
-    "expected": 16,
+    "startTime": "2026-10-15T14:38:35.791Z",
+    "duration": 324386.224,
+    "expected": 22,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

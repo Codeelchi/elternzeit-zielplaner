@@ -115,3 +115,9 @@ Diese Datei wird vor dem Merge eingecheckt und behauptet keinen noch nicht erfol
 - [Maschinenlesbare Release-Gates](../data/release-gates.json)
 - [Abnahme 14.10.](MVP-ABNAHME-2026-10-14.md), [Fortsetzung 15.10.](MVP-ABNAHME-2026-10-15.md)
 - [Changelog](../CHANGELOG.md), [Handoff](HANDOFF.md), [Roadmap](ROADMAP.md)
+
+## Fortsetzung V3.7.0 – 15.10.2026
+
+Auf V3.6-main `a26a5e4` und Wettbewerbs-Audit `662ecc3` aufgebaut. Neutrale Rollen-/Nettoeingaben, unabhängiges Vergleichsmodul, sinnvolle Profilunterschiede, abbrechbarer Suchgenerator und normativ belegte Cent-Rundung implementiert. Fachliche Tagesabweichung bleibt erhalten. Neue Regressionen fanden und schlossen Referenzstunden in freien Monaten sowie unsynchronisierte fokussierte Namensfelder nach Import.
+
+216 Node-Tests und 16 Browserfälle direkt über file:// (52 Axe-Prüfungen) bestanden. Aktuelle Offline-Evidenz umfasst den SHA256 der geprüften HTML-Datei, Versionsnummer und Grenzen. Keine reale Nutzertest-/Fachabnahme simuliert; [vollständiger Bericht](UMSETZUNG-ZIELBUDGET-V3.7.md). Der ursprüngliche Buildlog oben bleibt als historische Nachweiskette bestehen.

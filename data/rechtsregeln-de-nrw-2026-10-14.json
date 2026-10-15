@@ -1,6 +1,6 @@
 {
   "name": "Elternzeit und Elterngeld - Referenz-Rechtsregeln DE/NRW",
-  "version": "DE-NRW-2026.10.15+r3.6.0",
+  "version": "DE-NRW-2026.10.15+r3.7.0",
   "verified_as_of": "2026-10-15",
   "target_birth_date": "2027-05-28",
   "applicable_standard_birth_window": {
@@ -19,10 +19,17 @@
       "where": "Bund",
       "source": "§ 2 BEEG / Familienportal: Wie viel Elterngeld kann ich bekommen?",
       "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616",
-      "summary": "Basis 300–1.800 €, Plus 150–900 €; Einkommen vor Geburt höchstens 2.770 € berücksichtigungsfähig, Ersatzrate regelmäßig 65 % mit Staffelung bei geringem Einkommen.",
-      "checked_at": "2026-10-14",
+      "summary": "Basis 300–1.800 €, Plus 150–900 €; Einkommen vor Geburt höchstens 2.770 € berücksichtigungsfähig, Ersatzrate regelmäßig 65 % mit Staffelung bei geringem Einkommen. Eurobeträge einschließlich Zwischenergebnissen werden gemäß BEEG-Richtlinien 2.0.3.3.1 auf volle Cent gerundet; die Teilmonatsanrechnung bleibt gesondert ungeklärt.",
+      "checked_at": "2026-10-15",
       "verification_status": "official_source_checked",
-      "applicability_note": "Vereinfachte Formel für abhängig Beschäftigte; maßgebliches pauschaliertes Elterngeld-Netto muss individuell ermittelt werden."
+      "applicability_note": "Vereinfachte Formel für abhängig Beschäftigte; maßgebliches pauschaliertes Elterngeld-Netto muss individuell ermittelt werden.",
+      "rounding_source": {
+        "title": "BEEG-Richtlinien Stand 07/2026, Abschnitt 2.0.3.3.1, gedruckte Seite 56 / PDF-Seite 90",
+        "url": "https://www.bmbfsfj.bund.de/resource/blob/243236/8a26d08d56511511e2fb7c9d5236b4de/richtlinien-zum-beeg-data.pdf",
+        "checked_at": "2026-10-15",
+        "verification_status": "official_source_checked",
+        "scope": "Ausführungsregel zur Cent-Rundung der Standardbetragsrechnung; kein neuer gesetzlicher Leistungssatz oder bestätigtes Zukunftsrecht"
+      }
     },
     {
       "id": "BE-2C",

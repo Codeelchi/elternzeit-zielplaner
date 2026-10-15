@@ -53,8 +53,11 @@ test('published maternity discrepancy stays explicit: portal five days vs statut
   const lm1=advanced.matDaysAt(1),lm2=advanced.matDaysAt(2);
   assert.equal(lm1.days,31);assert.equal(lm2.len,30);assert.equal(lm2.days,26);
   const actual=p.evaluate().rows[1].mg, published=p.basis(p.getState().egNetMother,0)*5/30;
-  assert.ok(Math.abs(actual-p.basis(p.getState().egNetMother,0)*4/30)<0.001);
-  assert.ok(Math.abs((published-actual)-p.basis(p.getState().egNetMother,0)/30)<0.001);
+  // BEEG-RL 2.0.3.3.1: euro intermediate results round to cents.
+  assert.equal(actual,225.33);
+  assert.ok(Math.abs(actual-p.basis(p.getState().egNetMother,0)*4/30)<=0.005);
+  assert.ok(Math.abs((published-actual)-p.basis(p.getState().egNetMother,0)/30)<=0.005);
+  assert.ok(published>actual, 'original five-day reference remains a nonzero release blocker');
   // Release BLOCKER: portal says 20 May–14 July (5/30); §§187 BGB/3 MuSchG yield 15 July (4/30).
   // Original published reference is preserved; this test proves and does not hide the nonzero delta.
 });

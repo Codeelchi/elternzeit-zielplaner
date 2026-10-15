@@ -9,6 +9,12 @@ const SEARCH_LIMITATIONS = Object.freeze([
 ]);
 const FREE = new Set(['B', 'P', 'U', 'MS']);
 const PROFILES = ['finance', 'balanced', 'robust'];
+// Product comparison thresholds, not legal parameters. Financial differences
+// must reach EUR 100 per month (average across the horizon for total budgets)
+// or EUR 500 in initial reserves. One whole parent/combined-care or part-time
+// month is a visible structural change. Calendar shifts alone do not qualify.
+const DIVERSITY_THRESHOLDS = Object.freeze({monthlyEuro:100, averageMonthlyEuro:100, reserveEuro:500, months:1});
+const PART_TIME = new Set(['R', 'T', 'Q', 'K']);
 const FINGERPRINT_CODES=Object.freeze({W:'W',MS:'M',B:'B',R:'R',P:'P',T:'T',Q:'Q',K:'K',U:'U'});
 function scheduleFingerprint(schedule) {
   // Encode each supported status in one character; retain sparse indexed hours.
@@ -22,14 +28,40 @@ function scheduleFingerprint(schedule) {
   return JSON.stringify([codes.join(''),hours]);
 }
 
-function metrics(calc, horizon) {
+function metrics(calc, horizon, minimum = 0) {
   const rows = calc.rows.slice(0, horizon);
   if (rows.length < horizon || rows.some(row => !Number.isFinite(row.cashAfter))) return null;
   const total = rows.reduce((sum, row) => sum + row.cashAfter, 0);
   const floor = Math.min(...rows.map(row => row.cashAfter));
   const father = rows.filter(row => FREE.has(row.f)).length;
   const mother = rows.filter(row => FREE.has(row.m)).length;
-  return {total, floor, father, mother, balance: -Math.abs(father - mother), home: father + mother};
+  let running = 0, reserve = 0;
+  for (const row of rows) { running += row.cashAfter - minimum; reserve = Math.max(reserve, -running); }
+  return {total, floor, father, mother, balance: -Math.abs(father - mother), home: father + mother,
+    sharedHome:rows.filter(row=>FREE.has(row.f)&&FREE.has(row.m)).length,
+    fatherPartTime:rows.filter(row=>PART_TIME.has(row.f)).length,
+    motherPartTime:rows.filter(row=>PART_TIME.has(row.m)).length, reserve};
+}
+function diversityDifferences(a, b, horizon) {
+  const dimensions = [
+    ['father', 'Volle Monate ohne Erwerbsarbeit beim Vater', 1, 'Monate'],
+    ['mother', 'Volle Monate ohne Erwerbsarbeit bei der Mutter', 1, 'Monate'],
+    ['sharedHome', 'Gemeinsame volle Monate ohne Erwerbsarbeit', 1, 'Monate'],
+    ['fatherPartTime', 'Teilzeitmonate beim Vater', 1, 'Monate'],
+    ['motherPartTime', 'Teilzeitmonate bei der Mutter', 1, 'Monate'],
+    ['floor', 'Niedrigster Monatsbetrag', DIVERSITY_THRESHOLDS.monthlyEuro, 'EUR'],
+    ['total', 'Gesamtbudget', DIVERSITY_THRESHOLDS.averageMonthlyEuro * horizon, 'EUR'],
+    ['reserve', 'Anfangsrücklage gegenüber dem Mindestbetrag', DIVERSITY_THRESHOLDS.reserveEuro, 'EUR']
+  ];
+  // An absent stress scenario must never be presented as measured robustness.
+  if (a.hasAdverse && b.hasAdverse) dimensions.push(
+    ['adverseFloor', 'Niedrigster Monatsbetrag im vorsichtigen Szenario', DIVERSITY_THRESHOLDS.monthlyEuro, 'EUR'],
+    ['adverseTotal', 'Gesamtbudget im vorsichtigen Szenario', DIVERSITY_THRESHOLDS.averageMonthlyEuro * horizon, 'EUR'],
+    ['adverseReserve','Anfangsrücklage im vorsichtigen Szenario',DIVERSITY_THRESHOLDS.reserveEuro,'EUR']);
+  return dimensions.flatMap(([code,label,threshold,unit])=>{
+    const delta = a.metrics[code] - b.metrics[code];
+    return Math.abs(delta) >= threshold ? [{code,label,delta,threshold,unit}] : [];
+  });
 }
 function compare(a, b, profile) {
   const keys = profile === 'father' ? ['father', 'total', 'floor'] :
@@ -57,33 +89,45 @@ function explanation(profile, m, horizon, hasAdverse) {
  * Input: {schedule, calc:{rows,valid}, adverse?:{rows}}. Search gates belong to caller.
  * Monetary values represent budgets after costs. Ranking is lexicographic, never
  * an arbitrary weighted sum that can silently override the selected objective.
+ * The first result always wins the selected objective. Later results must differ
+ * materially from EVERY preceding result using DIVERSITY_THRESHOLDS. Their
+ * diversity.comparedWith entries explain signed differences; fewer results are
+ * intentional when no materially different candidate survives. This is a
+ * transparent heuristic, not a proof of Pareto or globally optimal coverage.
  */
-function rankCandidates(items, {horizon = 36, objective = 'finance', limit = 3, allowProvisional = false} = {}) {
+function rankCandidates(items, {horizon = 36, objective = 'finance', limit = 3, allowProvisional = false, minimum = 0} = {}) {
   if (!Number.isInteger(horizon) || horizon < 1 || horizon > 96) throw new RangeError('Ungültiger Vergleichszeitraum');
   if (!Number.isInteger(limit) || limit < 0 || limit > 20) throw new RangeError('Ungültige Vorschlagsanzahl');
+  if(typeof minimum!=='number'||!Number.isFinite(minimum)||minimum<0)throw new RangeError('Ungültiger Mindestbetrag');
   if (!Array.isArray(items)) throw new TypeError('Vorschläge müssen eine Liste sein');
   const seen = new Set(), pool = [];
   for (const item of items) {
     if (!item || !Array.isArray(item.schedule) || !item.calc || !Array.isArray(item.calc.rows) || (item.calc.valid === false && !(allowProvisional===true && item.calc.forecastPlanningReady===true))) continue;
-    const m = metrics(item.calc, horizon);
+    const m = metrics(item.calc, horizon, minimum);
     if (!m) continue;
     const fingerprint = scheduleFingerprint(item.schedule);
     if (seen.has(fingerprint)) continue;
-    const adverse = item.adverse ? (Array.isArray(item.adverse.rows) && (item.adverse.valid !== false || (allowProvisional===true && item.adverse.forecastPlanningReady===true)) ? metrics(item.adverse, horizon) : null) : m;
+    const adverse = item.adverse ? (Array.isArray(item.adverse.rows) && (item.adverse.valid !== false || (allowProvisional===true && item.adverse.forecastPlanningReady===true)) ? metrics(item.adverse, horizon, minimum) : null) : m;
     if (!adverse) continue;
     seen.add(fingerprint);
-    m.adverseFloor = adverse.floor; m.adverseTotal = adverse.total;
+    m.adverseFloor = adverse.floor; m.adverseTotal = adverse.total;m.adverseReserve=adverse.reserve;
     pool.push({item, metrics:m, fingerprint, hasAdverse:!!item.adverse});
   }
   const preferred = ['father','floor','robust','balanced','finance'].includes(objective) ? objective : 'finance';
   const profiles = [preferred, ...PROFILES.filter(profile => profile !== preferred)];
-  const selected = [];
+  const selected = [], chosen = [];
   for (let i = 0; pool.length && selected.length < limit; i++) {
     const profile = profiles[Math.min(i, profiles.length - 1)];
     pool.sort((a,b) => compare(a,b,profile));
-    const candidate = pool.shift();
-    selected.push({...candidate.item, profile, rankingMetrics:{...candidate.metrics}, explanation:explanation(profile,candidate.metrics,horizon,candidate.hasAdverse), score:candidate.metrics[profile==='father'?'father':profile==='robust'?'adverseFloor':profile==='floor'?'floor':profile==='balanced'?'balance':'total']});
+    const index = pool.findIndex(candidate=>chosen.every(previous=>diversityDifferences(candidate,previous,horizon).length));
+    if (index < 0) break;
+    const [candidate] = pool.splice(index,1);
+    const comparedWith = chosen.map((previous,selectionIndex)=>({selectionIndex,differences:diversityDifferences(candidate,previous,horizon)}));
+    const diversity = {kind:chosen.length?'alternative':'primary', comparedWith,
+      thresholds:{...DIVERSITY_THRESHOLDS, totalEuro:DIVERSITY_THRESHOLDS.averageMonthlyEuro*horizon}};
+    chosen.push(candidate);
+    selected.push({...candidate.item, profile, rankingMetrics:{...candidate.metrics}, diversity, explanation:explanation(profile,candidate.metrics,horizon,candidate.hasAdverse), score:candidate.metrics[profile==='father'?'father':profile==='robust'?'adverseFloor':profile==='floor'?'floor':profile==='balanced'?'balance':'total']});
   }
   return selected;
 }
-module.exports = {rankCandidates, scheduleFingerprint, SEARCH_LIMITATIONS};
+module.exports = {rankCandidates, scheduleFingerprint, SEARCH_LIMITATIONS, DIVERSITY_THRESHOLDS};

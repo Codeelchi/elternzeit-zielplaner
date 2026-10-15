@@ -1,6 +1,6 @@
 # Geplante Roadmap zur öffentlichen Beta
 
-Stand: **15. Oktober 2026 / V3.6.0**. Reihenfolge nach Abhängigkeit und Priorität; keine zugesagten Termine. Repository-Integration und öffentliche Freigabe sind getrennte Entscheidungen. Implementiert bedeutet noch nicht unabhängig fachlich abgenommen.
+Stand: **15. Oktober 2026 / V3.7.0**. Reihenfolge nach Abhängigkeit und Priorität; keine zugesagten Termine. Repository-Integration und öffentliche Freigabe sind getrennte Entscheidungen. Implementiert bedeutet noch nicht unabhängig fachlich abgenommen.
 
 **Ergänzung V3.5.0:** Acht zusätzliche publizierte 12-/24-Monats-Summen, zwei Mindest-/Geringverdienstfälle und vier amtliche Familienbeträge mit variierenden Teilzeitgehältern sind gegen die echte Programmprojektion getestet. Das Mutterschutz-Delta ist nun quellenübergreifend als widersprüchliche Behördenaussage belegt, **nicht** behoben. Für 2027 besteht eine mit Warnung und strikter Validierungssperre gekennzeichnete Prognosesuche, nicht eine gesetzliche Freigabe. [Vollständiger Abgleich](AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md).
 
@@ -142,3 +142,9 @@ GitHub-Stand/amtliche Grundlage prüfen → Feature-Branch → implementieren �
 ## Produktreview nach erneuter Wettbewerbsrecherche
 
 Der [Audit vom 15.10.2026 gegen V3.6](WETTBEWERB-MVP-AUDIT-2026-10-15.md) bestätigt Marktüberschneidungen bei Optimierung, Budget, lokalem Betrieb und Quellen. Priorität für den Nutzenbeleg: Eingaben entpersonalisieren und Netto-Einstieg führen; Betreuung/Mindestbudget/Rücklage samt vorsichtigem Fall direkt zwischen Plänen vergleichen; Suchvielfalt und Verständlichkeit testen. Die ursprüngliche MVP-Spezifikation erlaubt transparente manuelle EG-Netto-Werte. Eine vollständige Bruttoengine ist eine bewusst zu entscheidende Ausbaustufe, kein durch den Wettbewerbsvergleich nachträglich bewiesenes Muss. Fachfreigaben und Referenzabweichung bleiben unverändert offen. Zusätzlich QA-Metadaten zur tatsächlichen Version konsolidieren: CI V3.6 belegt 186/13, lokaler eingecheckter Browserumgebungsnachweis nennt noch V3.4/11.
+
+## Umsetzung der Produktprioritäten V3.7
+
+Neutraler Netto-Einstieg, materielle Ergebnisvielfalt, direkter realistischer/vorsichtiger Budgetvergleich und bedienbar unterbrechbare Suche sind umgesetzt; siehe [Abschlussnachweis](UMSETZUNG-ZIELBUDGET-V3.7.md). Die Cent-Rundung ist amtlich belegt und implementiert. 216 Node-Tests sowie 16 Dateiprotokoll-Browserfälle mit 52 Axe-Scans bestehen.
+
+P0-R1 bleibt hinsichtlich des Mutterschutz-Eurobetrags offen. P0-R3 ist für den ausdrücklich erlaubten manuellen MVP-Eingabeweg technisch umgesetzt; eine vollständige automatische Bruttoengine bleibt gesonderter Ausbau und wird nicht vorgetäuscht. Fachreview der tatsächlichen Monats-/Nettoeingaben bleibt erforderlich. P1-R5/R6 sind hinsichtlich Vielfalt, Abbruch und Direktvergleich verbessert; globale Suchvollständigkeit und Zahlungsliquidität bleiben ausgeschlossen. P1-R8: [Nutzertestprotokoll](NUTZERTEST-PROTOKOLL-V3.7.md) vorbereitet, Durchführung und unabhängige Reviews offen. Keine öffentliche Freigabe.

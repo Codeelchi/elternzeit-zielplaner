@@ -122,12 +122,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 3680,
+                  "duration": 5327,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T04:08:07.004Z",
+                  "startTime": "2026-10-15T07:55:40.089Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -156,12 +156,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1751,
+                  "duration": 4424,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T04:08:10.770Z",
+                  "startTime": "2026-10-15T07:55:45.499Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -190,12 +190,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1924,
+                  "duration": 3769,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T04:08:12.533Z",
+                  "startTime": "2026-10-15T07:55:49.951Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -224,12 +224,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 18641,
+                  "duration": 27640,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T04:08:14.471Z",
+                  "startTime": "2026-10-15T07:55:53.732Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -258,12 +258,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 19521,
+                  "duration": 20699,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T04:08:33.124Z",
+                  "startTime": "2026-10-15T07:56:21.386Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -292,12 +292,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2303,
+                  "duration": 10594,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T04:08:52.655Z",
+                  "startTime": "2026-10-15T07:56:42.101Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -326,12 +326,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1982,
+                  "duration": 2601,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T04:08:54.966Z",
+                  "startTime": "2026-10-15T07:56:52.705Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -341,7 +341,7 @@
           ],
           "id": "aed1748819d3efb96fac-319ce41e4509179e8cb2",
           "file": "browser.spec.mjs",
-          "line": 151,
+          "line": 182,
           "column": 1
         },
         {
@@ -360,12 +360,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 23207,
+                  "duration": 25990,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T04:08:56.963Z",
+                  "startTime": "2026-10-15T07:56:55.317Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -375,7 +375,7 @@
           ],
           "id": "aed1748819d3efb96fac-e0eaf3c5b4517837d07e",
           "file": "browser.spec.mjs",
-          "line": 177,
+          "line": 208,
           "column": 1
         },
         {
@@ -394,12 +394,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2025,
+                  "duration": 2754,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T04:09:20.183Z",
+                  "startTime": "2026-10-15T07:57:21.320Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -409,7 +409,7 @@
           ],
           "id": "aed1748819d3efb96fac-63b1f5c3806f7964f3c7",
           "file": "browser.spec.mjs",
-          "line": 204,
+          "line": 235,
           "column": 1
         },
         {
@@ -428,12 +428,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1770,
+                  "duration": 2478,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T04:09:22.218Z",
+                  "startTime": "2026-10-15T07:57:24.084Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -443,7 +443,7 @@
           ],
           "id": "aed1748819d3efb96fac-f5461b1e000a6eba9d62",
           "file": "browser.spec.mjs",
-          "line": 233,
+          "line": 264,
           "column": 1
         },
         {
@@ -462,12 +462,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 7308,
+                  "duration": 25384,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-15T04:09:23.998Z",
+                  "startTime": "2026-10-15T07:57:26.571Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -477,7 +477,177 @@
           ],
           "id": "aed1748819d3efb96fac-e0745d7ae7888d8ad03e",
           "file": "browser.spec.mjs",
-          "line": 255,
+          "line": 286,
+          "column": 1
+        },
+        {
+          "title": "2027 forecast search never claims legally verified eligibility",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7119,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-15T07:57:51.966Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aed1748819d3efb96fac-d665048465b06fa19f41",
+          "file": "browser.spec.mjs",
+          "line": 313,
+          "column": 1
+        },
+        {
+          "title": "2027 legal event statuses, Kita deadline and commission-income warning in real browser",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1210,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-15T07:57:59.095Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aed1748819d3efb96fac-04c9cf9ffb83c1a88183",
+          "file": "browser.spec.mjs",
+          "line": 332,
+          "column": 1
+        },
+        {
+          "title": "income onboarding identifies manual sources without deriving net pay or changing legal roles",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2385,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-15T07:58:00.315Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aed1748819d3efb96fac-ea591bd0ed764989bf01",
+          "file": "browser.spec.mjs",
+          "line": 353,
+          "column": 1
+        },
+        {
+          "title": "parent names and income source roundtrip as literal text without HTML injection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2315,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-15T07:58:02.709Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aed1748819d3efb96fac-96e82b7f14683e5673f2",
+          "file": "browser.spec.mjs",
+          "line": 375,
+          "column": 1
+        },
+        {
+          "title": "async goal search can be cancelled, stopped by changed assumptions and restarted without applying a plan",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8916,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-15T07:58:05.034Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aed1748819d3efb96fac-05f9efe23619c3dad38d",
+          "file": "browser.spec.mjs",
+          "line": 397,
           "column": 1
         }
       ]
@@ -485,9 +655,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-15T04:08:06.400Z",
-    "duration": 85003.791,
-    "expected": 11,
+    "startTime": "2026-10-15T07:55:39.345Z",
+    "duration": 154719.183,
+    "expected": 16,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

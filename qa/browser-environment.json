@@ -6,22 +6,40 @@
     "status": "PASS",
     "testedUrl": "file:///workspace/elternzeit-zielplaner/index.html",
     "browser": "Playwright Chrome Headless Shell 156.0.8078.4",
-    "testsPassed": 11,
-    "accessibilityScans": 50,
+    "testsPassed": 16,
+    "accessibilityScans": 52,
     "accessibilityViolations": 0,
     "managedChromiumLimitation": "Initial /usr/bin/chromium attempt returned net::ERR_BLOCKED_BY_ADMINISTRATOR; managed policies were not changed. Subsequent full validation used the standard Playwright browser."
   },
   "limits": [
     "Automated axe checks verify basic WCAG rules; they do not replace an assistive-technology or usability review.",
     "Synthetic household data only.",
-    "Browser screenshots and Playwright traces are stored under qa/browser-artifacts."
+    "Browser screenshots and Playwright traces are stored under qa/browser-artifacts.",
+    "Viewport coverage at 1440 and 390 pixels is not a physical smartphone performance or usability certification."
   ],
-  "appVersion": "3.4.0",
+  "appVersion": "3.7.0",
   "svgLabelContrast": {
     "foreground": "#45606b",
     "background": "#ffffff",
     "ratio": 6.69,
     "checkedAt": "2026-10-15",
     "method": "WCAG relative luminance; current risk chart screenshot visually inspected"
-  }
+  },
+  "sourceSha256": "ed1478a3706d2df0398aa5d865524caec8953d82cbfe579832de5c949bf416f7",
+  "workflows": [
+    "Neutral parent names and manually entered income sources; changing gross reference leaves all calculated rows unchanged.",
+    "Name/source JSON roundtrip including literal <img onerror> input; no HTML execution.",
+    "Every comparison amount and bottleneck agrees with goalComparison(), including required reserves rounded upward.",
+    "Free months agree with candidate ranking; names never shift maternity from role 2.",
+    "Async search cancellation, input-change stop and restart without applying the generated schedule.",
+    "Stale plan acceptance disabled after changed risk or employer-leave assumptions.",
+    "Forecast 2027 remains unsupported; no claim of legally verified benefit entitlement."
+  ],
+  "run": {
+    "startedAt": "2026-10-15T07:55:39.345Z",
+    "durationMs": 154719.183,
+    "unexpected": 0,
+    "expected": 16
+  },
+  "sourceCatalogueVerifiedAt": "2026-10-15"
 }

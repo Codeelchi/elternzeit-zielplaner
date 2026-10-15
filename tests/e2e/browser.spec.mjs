@@ -127,7 +127,7 @@ for (const viewport of [{name:'desktop',width:1440,height:1000},{name:'mobile',w
   });
 }
 
-test('goal search validates, explains and applies distinct proposals', async ({page})=>{
+test('goal search validates, explains and applies distinct proposals', async ({page},testInfo)=>{
   await standardInputs(page);
   await navigate(page,'slide-goal');
   await page.locator('#goalCare').selectOption('12');
@@ -140,8 +140,39 @@ test('goal search validates, explains and applies distinct proposals', async ({p
   expect(proposals.length).toBeGreaterThanOrEqual(2);
   expect(proposals.every(p=>p.valid)).toBe(true);
   expect(proposals.every(p=>typeof p.explanation==='string'&&p.explanation.length>20)).toBe(true);
-  await expect(page.locator('#goalResult')).toContainText('strukturierte Kandidatensuche');
+  await expect(page.locator('#goalResult')).toContainText('Begrenzte Vorlagensuche');
   expect(new Set(proposals.map(p=>JSON.stringify(p.schedule))).size).toBe(proposals.length);
+  const comparison=await page.evaluate(()=>window.__elternzeitV3.goalComparison());
+  expect(comparison.plans).toHaveLength(proposals.length);
+  expect(comparison.bankReceiptsPredicted).toBe(false);
+  const money=x=>Math.round(x).toLocaleString('de-DE')+' €';
+  for(let i=0;i<comparison.plans.length;i++){
+    const card=page.locator('#goalResult .plan-option').nth(i),plan=comparison.plans[i];
+    expect(plan.freeMonths.father).toBe(proposals[i].free);expect(plan.freeMonths.mother).toBe(proposals[i].motherFree);
+    await expect(card.locator('thead')).toContainText('Realistisch');
+    await expect(card.locator('thead')).toContainText('Vorsichtig');
+    const rows=card.locator('tbody tr');
+    const fields=['totalAvailable','lowestAvailable','requiredReserves','bottleneckMonths'];
+    for(let n=0;n<fields.length;n++)for(const [column,scenario]of [[0,'realistic'],[1,'conservative']]){
+      const value=plan[scenario][fields[n]];
+      const expected=n===3?(value.join(', ')||'keine'):money(n===2?Math.ceil(Math.max(0,value)):value);
+      await expect(rows.nth(n).locator('td').nth(column)).toHaveText(expected);
+    }
+    await expect(card).toContainText('Anfangsrücklage');
+    await expect(card).toContainText('Engpass-Lebensmonate');
+  }
+  const comparisonScans=[];
+  for(const width of [1440,390]){
+    await page.setViewportSize({width,height:900});
+    const dimensions=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,view:window.innerWidth}));
+    expect(dimensions.scroll,'comparison horizontal overflow').toBeLessThanOrEqual(dimensions.view+1);
+    const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+    comparisonScans.push({width,violations:scan.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))});
+    expect(scan.violations,JSON.stringify(scan.violations)).toEqual([]);
+    await page.screenshot({path:testInfo.outputPath((width===390?'mobile':'desktop')+'-plan-comparison.png'),fullPage:true});
+  }
+  await writeFile('qa/browser-accessibility-comparison.json',JSON.stringify(comparisonScans,null,2));
+
   await page.locator('#goalResult [data-accept]').first().click();
   await expect(page.locator('#slide-5')).toBeVisible();
   const state=await page.evaluate(()=>window.__elternzeitTest.getState());
@@ -238,7 +269,7 @@ test('per-parent stress inputs affect wages independently and preserve maternity
   await expect(page.locator('#riskMotherPercent')).toHaveValue('');
   const before=await page.locator('#riskCards').innerText();
   await page.locator('#riskFatherPercent').fill('0');await page.locator('#riskMotherPercent').fill('30');
-  await expect(page.locator('#riskCards')).toContainText('Vater 0 %, Mutter 30 %');
+  await expect(page.locator('#riskCards')).toContainText('Elternteil 1 0 %, Elternteil 2 30 %');
   expect(await page.locator('#riskCards').innerText()).not.toBe(before);
   const scenarios=await page.evaluate(()=>window.__elternzeitV3.riskScenarios().map(s=>({id:s.id,rows:s.calc.rows})));
   const base=scenarios.find(s=>s.id==='base').rows,down=scenarios.find(s=>s.id==='down').rows;
@@ -249,7 +280,7 @@ test('per-parent stress inputs affect wages independently and preserve maternity
     expect(down[i].mi-(down[i].maternityBenefits||0)).toBeCloseTo((base[i].mi-(base[i].maternityBenefits||0))*.7,6);
   }
   await page.locator('#riskFatherPercent').fill('');
-  await expect(page.locator('#riskCards')).toContainText('Vater 15 %, Mutter 30 %');
+  await expect(page.locator('#riskCards')).toContainText('Elternteil 1 15 %, Elternteil 2 30 %');
 });
 
 test('mother and both-role searches produce valid recommendations and mark changed assumptions stale',async({page})=>{
@@ -267,9 +298,11 @@ test('mother and both-role searches produce valid recommendations and mark chang
   expect(both.length).toBeGreaterThan(0);expect(both.every(p=>p.valid)).toBe(true);
   await navigate(page,'slide-risk');await page.locator('#riskMotherPercent').fill('30');
   await navigate(page,'slide-goal');await expect(page.locator('#goalResult')).toContainText('veraltet');
+  for(const button of await page.locator('#goalResult [data-accept]').all())await expect(button).toBeDisabled();
   await page.locator('#runGoal').click();await expect(page.locator('#runGoal')).toBeEnabled({timeout:90000});
   await navigate(page,'slide-axes');await page.locator('#axesFatherStart').fill('2026-07-28');await page.locator('#axesFatherEnd').fill('2026-08-27');await page.locator('#axesApply').click();
   await navigate(page,'slide-goal');await expect(page.locator('#goalResult')).toContainText('veraltet');
+  for(const button of await page.locator('#goalResult [data-accept]').all())await expect(button).toBeDisabled();
   await navigate(page,'slide-axes');await page.locator('#axesReset').click();await navigate(page,'slide-goal');
   await page.locator('#runGoal').click();await expect(page.locator('#runGoal')).toBeEnabled({timeout:90000});
   const accepted=await page.evaluate(()=>window.__elternzeitV3.goalResults()[0]);expect(accepted).toBeTruthy();
@@ -314,4 +347,72 @@ test('2027 legal event statuses, Kita deadline and commission-income warning in 
   expect(state.incomeProfileFather).toBe('recurring_commissions');
   await navigate(page,'slide-2');
   await expect(page.locator('#incomeProfileFather')).toHaveValue('recurring_commissions');
+});
+
+
+test('income onboarding identifies manual sources without deriving net pay or changing legal roles',async({page})=>{
+  await standardInputs(page);await navigate(page,'slide-2');
+  await expect(page.locator('#incomeGuide')).toContainText('Erkundungsmodus');
+  const before=await page.evaluate(()=>({rows:window.__elternzeitTest.evaluate().rows,axes:window.__elternzeitV3.timeAxes()}));
+  await page.locator('#parentNameFather').fill('Alex');await page.locator('#parentNameMother').fill('Robin');
+  await page.locator('#incomeEntryMode').selectOption('known');
+  await expect(page.locator('#incomeGuide')).toContainText('Auszahlungs-Netto und Elterngeld-Netto getrennt');
+  await expect(page.locator('label[for="netFather"]')).toContainText('Alex');
+  await expect(page.locator('label[for="netMother"]')).toContainText('Robin');
+  await page.locator('#incomeEntryMode').selectOption('official');
+  await expect(page.locator('#incomeGuide')).toContainText('nicht automatisch überprüft');
+  await expect(page.locator('#incomeGuide')).toContainText('gehört nicht in das Feld Elterngeld-Netto');
+  await expect(page.locator('#incomeOnboarding')).toContainText('keine Übertragung');
+  await expect(page.locator('#incomeOnboarding')).toContainText('gebärende Person');
+  const net=await page.locator('#netFather').inputValue(),eg=await page.locator('#egNetFather').inputValue();
+  await page.locator('#grossFather').fill('9999');await page.locator('#grossFather').blur();
+  await expect(page.locator('#netFather')).toHaveValue(net);await expect(page.locator('#egNetFather')).toHaveValue(eg);
+  const after=await page.evaluate(()=>({rows:window.__elternzeitTest.evaluate().rows,axes:window.__elternzeitV3.timeAxes()}));
+  expect(after).toEqual(before);
+  expect(await page.locator('body').textContent()).not.toContain('Steuerklasse IV/IV');
+});
+
+test('parent names and income source roundtrip as literal text without HTML injection',async({page},testInfo)=>{
+  await standardInputs(page);await navigate(page,'slide-2');
+  const name='<img src=x onerror=window.injected=1>';
+  await page.locator('#parentNameFather').fill(name);await page.locator('#parentNameMother').fill('Robin & Kim');
+  await page.locator('#incomeEntryMode').selectOption('official');
+  await expect(page.locator('label[for="netFather"]')).toContainText(name);
+  expect(await page.evaluate(()=>window.injected)).toBeUndefined();
+  expect(await page.locator('img[src="x"]').count()).toBe(0);
+  const original=await page.evaluate(()=>window.__elternzeitTest.getState());
+  const pending=page.waitForEvent('download');await page.locator('#btnJson').click();
+  const file=testInfo.outputPath('synthetic-names-roundtrip.json');await(await pending).saveAs(file);
+  const downloaded=JSON.parse(await readFile(file,'utf8'));
+  expect(downloaded.data.parentNameFather).toBe(name);expect(downloaded.data.parentNameMother).toBe('Robin & Kim');
+  await page.locator('#parentNameFather').fill('Anderer Name');await page.locator('#incomeEntryMode').selectOption('known');
+  await page.locator('#importJson').setInputFiles(file);
+  await expect(page.locator('#parentNameFather')).toHaveValue(name);await expect(page.locator('#incomeEntryMode')).toHaveValue('official');
+  const restored=await page.evaluate(()=>window.__elternzeitTest.getState());
+  for(const key of ['parentNameFather','parentNameMother','incomeEntryMode','schedule'])expect(restored[key]).toEqual(original[key]);
+  expect(restored.schedule[0].m).toBe('MS');expect(restored.schedule[0].f).not.toBe('MS');
+  expect(await page.evaluate(()=>window.injected)).toBeUndefined();expect(await page.locator('img[src="x"]').count()).toBe(0);
+});
+
+test('async goal search can be cancelled, stopped by changed assumptions and restarted without applying a plan',async({page})=>{
+  await standardInputs(page);await navigate(page,'slide-goal');
+  await page.locator('#goalCare').selectOption('12');await page.locator('#goalMinFather').fill('2');await page.locator('#goalPart').selectOption('0');
+  const original=await page.evaluate(()=>window.__elternzeitTest.getState().schedule);
+  await page.locator('#runGoal').click();await expect(page.locator('#cancelGoalSearch')).toBeVisible();
+  expect(await page.evaluate(()=>window.__elternzeitV3.goalSearchState().running)).toBe(true);
+  await expect(page.locator('#goalSearchProgress')).not.toBeEmpty();
+  await page.locator('#cancelGoalSearch').click();await expect(page.locator('#runGoal')).toBeEnabled();
+  await expect(page.locator('#goalResult')).toContainText('abgebrochen');
+  expect(await page.evaluate(()=>window.__elternzeitV3.goalSearchState().running)).toBe(false);
+  expect(await page.evaluate(()=>window.__elternzeitTest.getState().schedule)).toEqual(original);
+  expect(await page.locator('#goalResult [data-accept]').count()).toBe(0);
+  await page.locator('#runGoal').click();await expect(page.locator('#cancelGoalSearch')).toBeVisible();
+  await page.locator('#goalMinIncome').fill('100');await page.locator('#goalMinIncome').blur();
+  await expect(page.locator('#runGoal')).toBeEnabled();await expect(page.locator('#goalResult')).toContainText('Eingaben geändert');
+  expect(await page.evaluate(()=>window.__elternzeitTest.getState().schedule)).toEqual(original);
+  await page.locator('#goalMinIncome').fill('0');await page.locator('#runGoal').click();
+  await expect(page.locator('#runGoal')).toBeEnabled({timeout:90000});
+  await expect(page.locator('#goalResult')).toContainText('Automatische Suche abgeschlossen');
+  expect(await page.locator('#goalResult .plan-option').count()).toBeGreaterThan(0);
+  expect(await page.evaluate(()=>window.__elternzeitTest.getState().schedule)).toEqual(original);
 });

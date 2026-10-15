@@ -1,10 +1,13 @@
 # Elternzeit-Zielplaner
 
-**Privater Entwicklungsstand V3.6.0 (15. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
+**Privater Entwicklungsstand V3.7.0 (15. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
 
-**Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung, vollständige amtliche Nettoermittlung und unabhängiges Fach-/Datenschutzreview bleiben Release-Gates. 2027 erhält keine positive Standardbewertung.
+**Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
 
 ## Dokumentation und Übergabe
+
+- [Umsetzung des Audits V3.7](docs/UMSETZUNG-ZIELBUDGET-V3.7.md): neutraler Netto-Einstieg, direkter Risikovergleich, Suchvielfalt, Abbruch und belegte Cent-Rundung.
+- [Fachliche Nachprüfung](docs/FACHPRUEFUNG-FORTSETZUNG-2026-10-15.md) und [vorbereitetes Nutzertestprotokoll](docs/NUTZERTEST-PROTOKOLL-V3.7.md).
 
 - [Aktueller Wettbewerbs- und MVP-Audit](docs/WETTBEWERB-MVP-AUDIT-2026-10-15.md): Primärquellen, Formelproben, Marktüberschneidungen, Differenzierung und offene MVP-Lücken (V3.6).
 
@@ -15,7 +18,7 @@
 
 **Neue V3.5-Funktionen:** 48 monetäre Vergleiche (darunter 4 L-Bank-Werte bei variierenden Teilzeitmonaten) und amtliche 12-/24-Monats-Gesamtsummen; zusätzliche amtliche Quellen mit nachvollziehbarem Widerspruch zur Mutterschutz-Tagesgrenze; auf **2027 beschränkte, unverbindliche Szenariosuche** unter Weitergeltungsannahmen. **Kein 2027er Szenario gilt als rechtlich validiert** und die öffentliche Beta-Sperre bleibt aktiv. Siehe [amtlicher Referenzabgleich](docs/AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md).
 
-**V3.6.0 ergänzt:** Historische echte Bescheid-/Gerichtsbeträge aus vier anonymisierten Entscheidungen als **quellenbasierte Dokument-Regression**, neue Eingaben für variable Provisionen/Einmalzahlungen mit bewusst konservativem Rechtsvalidator, 2027er Gesetzentwurfs-/Inkrafttretensstatus und eine datierte NRW-Kita-Bedarfsanzeige. **Keine vollständige Nachrechnung der vier realen Bescheide.** Siehe [Bescheidnachweise und 2027-Recht](docs/HISTORISCHE-BESCHEIDE-UND-RECHTSSTAND-2027.md).
+**V3.7.0 ergänzt:** Historische echte Bescheid-/Gerichtsbeträge aus vier anonymisierten Entscheidungen als **quellenbasierte Dokument-Regression**, neue Eingaben für variable Provisionen/Einmalzahlungen mit bewusst konservativem Rechtsvalidator, 2027er Gesetzentwurfs-/Inkrafttretensstatus und eine datierte NRW-Kita-Bedarfsanzeige. **Keine vollständige Nachrechnung der vier realen Bescheide.** Siehe [Bescheidnachweise und 2027-Recht](docs/HISTORISCHE-BESCHEIDE-UND-RECHTSSTAND-2027.md).
 
 ## Start
 
@@ -32,7 +35,7 @@ npm run test:e2e
 
 Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repository-Verzeichnis, dann `http://localhost:8080` öffnen. Die App benötigt zur Laufzeit keinen Build-Schritt und keine Netzwerkverbindung.
 
-## Funktionen (Stand V3.6.0)
+## Funktionen (Stand V3.7.0)
 
 - 36 Lebensmonate, Geburtsdatum und Kindesalter samt konkreten Monatsdaten
 - Elternzeit und Elternteilzeit getrennt für beide Elternteile konfigurieren
@@ -109,3 +112,5 @@ Alle Beträge sind **Modellrechnungen**, keine Bewilligung. Das tatsächliche El
 `npm run references:report` schreibt den unabhängigen Delta-Bericht. `npm run release:check` ist derzeit bewusst gesperrt; erfolgreiche Entwickler-Tests ersetzen die ausstehenden öffentlichen Release-Freigaben nicht.
 
 V3.4 ergänzt getrennte Einkommensrisiken beider Eltern, Schwerpunktvarianten mit längerer mütterlicher oder väterlicher Auszeit und vollständige Wiederherstellung der unabhängigen Achsen samt Bankbuchungen. Die Robustheitsgrafik und Zielsuche verwenden dieselben Stresstests.
+
+V3.7: 216 automatisierte Tests, 16 Offline-file-Browserfälle und 52 Axe-Prüfungen bestanden. Vorschläge zeigen realistische/vorsichtige Budgets, Engpässe und Rücklagen unmittelbar. Die schrittweise Suche ist abbrechbar, unterscheidet Ausschlussgründe und zeigt nur materiell verschiedene Alternativen. Freie Elternbezeichnungen ändern keine rechtlichen Rollen.

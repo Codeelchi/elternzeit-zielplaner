@@ -1,5 +1,16 @@
 # Änderungen
 
+## 3.6.0 – gerichtliche Bescheidfälle und 2027er Rechtsereignisse, 15.10.2026
+
+- Vier veröffentlichte anonymisierte Verwaltungs-/Gerichtsverfahren mit ursprünglichen, geänderten und teilweise nur probeweise berechneten Bescheidbeträgen quellengebunden erfasst. Historische Zahlenbeziehungen gesondert getestet; keine vollständigen 2027er Replays behauptet.
+- Der Berliner Provisionsstreitfall überprüft Basis/Plus-Umrechnung und 1.082,85 € Mehrleistungsdifferenz. BW, BSG und Bayern dokumentieren schwankende Einnahmen, Mutterschaftsleistungen, Bemessungsdaten und unvollständige Nachweislage.
+- Wahl der Lohnzusammensetzung je Elternteil ergänzt: variable Provisionen/Einmalzahlungen/mischende Einkünfte blockieren positive Standardvalidierung und 2027-Prognosepläne.
+- Zentraler datierter Rechtsereignis-Katalog für Steuer-/Kindergeldentwürfe, beschlossene Kindergeld-Verwaltungsvereinfachung, verkündete NRW-KiBiz-Fassung ab August 2027 und unverbindliche Elterngeldreformdiskussion.
+- Neuer NRW-Kita-Bedarfsanzeigetermin sechs Kalendermonate vor Start im Antragsassistenten; Kindergeld-Antragsweg wird nur bedingt als automatisch beschrieben.
+- §2c BEEG: Arbeitnehmer-Pauschbetrag-Datum des Vorjahres explizit im Antragsassistenten. Kein versehentliches Vorziehen geplanter Steuerwerte.
+- Die öffentliche Release-Sperre bleibt unverändert, Mutterschutz-Referenzabweichung weiterhin offen.
+
+
 ## 3.5.0 – zusätzliche Behördenwerte und vorsichtige 2027-Prognose, 15.10.2026
 
 - Zwei zusätzliche monatliche, amtlich veröffentlichte Geldbeträge und acht vollständige 12-/24-Monatssummen unabhängig gegen die bestehende 36-LM-Finanzprojektion überprüft (insgesamt 48 Geldbetragskontrollen).

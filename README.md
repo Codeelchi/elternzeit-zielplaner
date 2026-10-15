@@ -1,6 +1,6 @@
 # Elternzeit-Zielplaner
 
-**Privater Entwicklungsstand V3.5.0 (15. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
+**Privater Entwicklungsstand V3.6.0 (15. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung, vollständige amtliche Nettoermittlung und unabhängiges Fach-/Datenschutzreview bleiben Release-Gates. 2027 erhält keine positive Standardbewertung.
 
@@ -12,6 +12,8 @@
 - [Technische Architektur](docs/ARCHITEKTUR.md) und [aktueller Abnahmebericht](docs/MVP-ABNAHME-2026-10-15.md).
 
 **Neue V3.5-Funktionen:** 48 monetäre Vergleiche (darunter 4 L-Bank-Werte bei variierenden Teilzeitmonaten) und amtliche 12-/24-Monats-Gesamtsummen; zusätzliche amtliche Quellen mit nachvollziehbarem Widerspruch zur Mutterschutz-Tagesgrenze; auf **2027 beschränkte, unverbindliche Szenariosuche** unter Weitergeltungsannahmen. **Kein 2027er Szenario gilt als rechtlich validiert** und die öffentliche Beta-Sperre bleibt aktiv. Siehe [amtlicher Referenzabgleich](docs/AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md).
+
+**V3.6.0 ergänzt:** Historische echte Bescheid-/Gerichtsbeträge aus vier anonymisierten Entscheidungen als **quellenbasierte Dokument-Regression**, neue Eingaben für variable Provisionen/Einmalzahlungen mit bewusst konservativem Rechtsvalidator, 2027er Gesetzentwurfs-/Inkrafttretensstatus und eine datierte NRW-Kita-Bedarfsanzeige. **Keine vollständige Nachrechnung der vier realen Bescheide.** Siehe [Bescheidnachweise und 2027-Recht](docs/HISTORISCHE-BESCHEIDE-UND-RECHTSSTAND-2027.md).
 
 ## Start
 
@@ -28,7 +30,7 @@ npm run test:e2e
 
 Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repository-Verzeichnis, dann `http://localhost:8080` öffnen. Die App benötigt zur Laufzeit keinen Build-Schritt und keine Netzwerkverbindung.
 
-## Funktionen (Stand V3.5.0)
+## Funktionen (Stand V3.6.0)
 
 - 36 Lebensmonate, Geburtsdatum und Kindesalter samt konkreten Monatsdaten
 - Elternzeit und Elternteilzeit getrennt für beide Elternteile konfigurieren
@@ -61,6 +63,12 @@ Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repo
 ## Qualitätssicherung
 
 `npm test` prüft zunächst die Übereinstimmung der eingebetteten Rechtsregeln mit dem JSON-Quellkatalog und anschließend die reale, aus `index.html` geladene Applikationslogik u. a. auf Elterngeld-Äquivalente, Bonusstunden, Bezugsgrenzen, zeitabhängige Kinderdaten, Rechtsquellen und Ergebnisgültigkeit der automatischen Suche. Die zusätzliche Referenztestsuite umfasst veröffentlichte Beträge des Familienportals, daraus abgeleitete Grenzwerte und vereinfachte vollständige Monatsmodelle. Die frühere QA-Auswertung bleibt gesondert archiviert. **Die neue Testsuite ersetzt weder Behördenberechnungen noch eine individuelle rechtliche Prüfung.**
+
+## Rechtsprechung und Änderungen für 2027 prüfen
+
+- `npm run historical:report` kontrolliert die nachprüfbaren Rechenbeziehungen aus vier echten, historisch veröffentlichten Bescheiden. **Keine unabhängige Gesamtnettoermittlung** und kein 2027er Vollreplay.
+- `npm run legislation:sync` bzw. `npm run legislation:check` betten datierte Rechtsereignisse (Gesetzentwurf, beschlossene Verwaltungsumstellung, künftig geltendes NRW-Gesetz, politische Diskussion) in die Offline-App ein.
+- Die 2027er Kindergelderhöhung bleibt eine **Planungsannahme**. Für unbekannte Provisionen oder gemischte Erwerbseinkünfte gibt es bewusst keinen positiven Standardfall-Status.
 
 ## Rechtliche Quellen aktualisieren
 

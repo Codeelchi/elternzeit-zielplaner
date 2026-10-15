@@ -75,6 +75,18 @@ function validatePlan(input={},catalogue={}) {
   // Only explicit false/absent boolean flags can negate a special case.
   // Imported numbers, strings and objects must never erase contradictory data
   // merely because an independent standard-case confirmation is true.
+  // Historical court decisions show that payment labels in payroll records
+  // cannot automatically resolve disputed recurring commission classification.
+  for(const [person,suffix] of [['father','Father'],['mother','Mother']]){
+    const kind=state['incomeProfile'+suffix];
+    if(kind===undefined||kind==='salary_only')continue; // backward-compatible stored plans
+    if(kind==='unknown')missing('PREBIRTH_INCOME_KIND_UNKNOWN','Bitte Lohnbestandteile vor Geburt klären.','BE-2C',[person]);
+    else if(['recurring_commissions','one_off_payments','mixed_or_self_employed'].includes(kind))
+      add('PREBIRTH_INCOME_COMPOSITION_UNSUPPORTED','NICHT_UNTERSTUETZT','BE-2C',[person],[],
+        'Variable Provisionen, Einmalzahlungen oder gemischtes Einkommen werden im aktuellen Standardmodell nicht zuverlässig in das pauschalierte Elterngeld-Netto überführt.',
+        ['Gehaltsabrechnungen und arbeitsvertraglichen Zahlungsturnus prüfen.','Elterngeld-Netto bzw. vollständige Berechnung durch die Elterngeldstelle bestätigen lassen.']);
+    else missing('PREBIRTH_INCOME_KIND_INVALID','Unbekannte Einkommensart vor Geburt.','BE-2C',[person]);
+  }
   const specialFlags=['selfEmployed','singleParent','adoption','disability','siblingBonus','prematureBirth'];
   const specialFlagPresent=specialFlags.some(key=>state[key]!==undefined&&state[key]!==null&&state[key]!==false);
   const specialCasesPresent=state.specialCases!==undefined&&state.specialCases!==null&&state.specialCases!==false&&state.specialCases!==''&&!(Array.isArray(state.specialCases)&&state.specialCases.length===0);

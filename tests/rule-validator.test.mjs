@@ -205,7 +205,7 @@ test('unknown manual-parent keys are not silently discarded',()=>{
  }
 });
 test('unverified or malformed rule validity cannot certify a standard allocation',()=>{
- for(const mutate of [r=>r.effective_to='invalid',r=>delete r.effective_to,r=>r.effective_to='2020-01-01',r=>r.checked_at='2026-10-15']){
+ for(const mutate of [r=>r.effective_to='invalid',r=>delete r.effective_to,r=>r.effective_to='2020-01-01',r=>r.checked_at='2026-10-16']){
   const c=structuredClone(catalogue);mutate(c.rules.find(r=>r.id==='BE-4'));
   assert.ok(has(validate(input(),c),'RULE_SOURCE_UNVERIFIED_BE-4'));assert.equal(validate(input(),c).status,'NICHT_UNTERSTUETZT');
  }

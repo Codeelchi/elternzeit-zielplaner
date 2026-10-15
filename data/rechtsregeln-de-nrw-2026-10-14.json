@@ -1,7 +1,7 @@
 {
   "name": "Elternzeit und Elterngeld - Referenz-Rechtsregeln DE/NRW",
-  "version": "DE-NRW-2026.10.14+r3.5.0",
-  "verified_as_of": "2026-10-14",
+  "version": "DE-NRW-2026.10.15+r3.6.0",
+  "verified_as_of": "2026-10-15",
   "target_birth_date": "2027-05-28",
   "applicable_standard_birth_window": {
     "from": "2025-04-01",
@@ -23,6 +23,20 @@
       "checked_at": "2026-10-14",
       "verification_status": "official_source_checked",
       "applicability_note": "Vereinfachte Formel für abhängig Beschäftigte; maßgebliches pauschaliertes Elterngeld-Netto muss individuell ermittelt werden."
+    },
+    {
+      "id": "BE-2C",
+      "t": "Einkommen vor der Geburt – Arbeitslohn und sonstige Bezüge",
+      "from": "2025-04-01",
+      "effective_from": "2025-04-01",
+      "effective_to": null,
+      "checked_at": "2026-10-15",
+      "verification_status": "official_source_checked",
+      "where": "Bund",
+      "source": "BEEG § 2c – Einkommen aus nichtselbstständiger Erwerbstätigkeit",
+      "url": "https://www.gesetze-im-internet.de/beeg/__2c.html",
+      "summary": "Laufender Arbeitslohn, sonstige Bezüge und jährlicher Arbeitnehmer-Pauschbetrag werden nach gesetzlicher Bemessungslogik behandelt; der Pauschbetrag richtet sich nach dem 1. Januar des Vorjahres der Geburt. Provisionen können Einzelfallprüfung erfordern.",
+      "applicability_note": "Monatliche Provisionen und umstrittene sonstige Bezüge werden nicht aus Bruttolohn automatisch nachvollziehbar eingestuft. Gerichtsentscheidungen verschiedener Geburtskohorten sind historische Evidenz, keine heutige generelle Freigabe."
     },
     {
       "id": "BE-4A",

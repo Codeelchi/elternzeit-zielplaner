@@ -45,3 +45,14 @@ Der Nutzer hat am 15.10.2026 den Merge und eine ausführliche Dokumentation davo
 Die öffentliche Recherche bestätigte neben den 34 ursprünglichen monetären Fällen zwei weitere einzeln veröffentlichte Euro-Beträge und acht amtlich veröffentlichte Gesamtsummen über 12/24 Monate sowie vier Werte aus dem L-Bank-Familienfall mit variierenden Teilzeitgehältern. Die resultierenden 48 Geldbetragskontrollen stimmen mit der laufenden Modellrechnung überein; es handelt sich **nicht** um real anonymisierte vollständige Elterngeldbescheide. Die amtliche Datumsabweichung bei Mutterschaftsleistungen wurde durch zwei gegensätzliche Behördenauskünfte konkretisiert, nicht durch Veränderung des Referenzwerts beseitigt. Bei Geburten 2027 sind vorläufige Variantenvergleiche in der UI möglich, **ohne** dass der Validator einen Anspruch oder eine Gültigkeit bestätigt.
 
 [Ausführliche Quellen-, Fall- und Risikodokumentation](AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md). Die unabhängige Fach-, Rechts-, Datenschutz- und Anwenderabnahme ist weiter offen; `data/release-gates.json` bleibt gesperrt.
+
+## Ergänzung V3.6.0 – dokumentarische Gerichtsreferenzen und NRW-KiBiz
+
+- **Vier** historisch anonymisierte echte Bescheid-/Gerichtsverfahren quellengebunden erfasst; **zehn** intern verifizierbare Zahlenbeziehungen durch `npm run historical:report` bestanden. **Null vollständige aktuelle Bescheid-Nachrechnungen** und daher keine unabhängige Berechnungsabnahme.
+- **22** datierte Rechtsregelobjekte (mit dem §2c-Einkommensbaustein) und **fünf** rechtliche Entwicklungseinträge für 2027 mit den Statusangaben *Entwurf*, *beschlossen mit stufenweiser Umsetzung*, *verkündet/künftig wirksam* oder *bloße Diskussion*.
+- Ungesicherte wiederkehrende Provisionen und Einmalzahlungen werden in der Standardfallprüfung **nicht** positiv bewertet. Bestehende Elternzeit-/Elterngeld-Modelle für reine Angestellten-Standardfälle bleiben unverändert.
+- NRW-KiBiz-Bedarfsanzeige nach §5: sechs Kalendermonate vor dem gewünschten Kita-Beginn. Erste-Kind-Kindergeldautomatik wird nicht als garantierte Auszahlung dargestellt.
+- **186/186** lokale automatisierte Unit-/Integrations-/DOM-Tests grün, separate Browser-Smoketests auf 1440×900 und 390×844 ohne JavaScript-Konsolenfehler. Ein zusätzlicher neuer Playwright-E2E-Fall liegt im Repository, wurde in dieser Arbeitsumgebung mangels lokalem Playwright-Chromium-Binary noch nicht voll ausgeführt.
+- **Öffentlicher Release weiterhin absichtlich gesperrt:** offene Mutterschutz-Referenzabweichung, Bemessungsnetto-Review, Rechts-/Datenschutzfreigabe und reale Nutzerprüfung.
+
+Die einzelnen historischen Belege, ihre Grenzen und die aktuellen Quellen sind in [Historische Bescheide und Rechtsstand 2027](HISTORISCHE-BESCHEIDE-UND-RECHTSSTAND-2027.md) dokumentiert.

@@ -1,0 +1,245 @@
+{
+  "schema_version": "1.0.0",
+  "collected_at": "2026-10-15",
+  "provenance": "Judicial decisions reproduce amounts from actual administrative Elterngeld notices. They are anonymised published decisions, NOT original redacted notice PDFs or verified complete tax/payroll dossiers.",
+  "privacy_policy": "No names, addresses, exact identifying birth dates, employers or personal claims files stored. Facts retained only insofar as necessary to assess Elterngeld logic.",
+  "replay_scope": "historical_documentary_only",
+  "cases": [
+    {
+      "id": "SG-BERLIN-S2EG5-24",
+      "docket": "S 2 EG 5/24",
+      "court": "SG Berlin",
+      "decision_date": "2025-03-05",
+      "historical_birth_year": 2022,
+      "source_url": "https://gesetze.berlin.de/bsbe/document/NJRE001607308",
+      "case_status": "first_instance_appealed",
+      "appeal_docket": "L 4 EG 1/25",
+      "subject": "Recurring contractual commissions entered as sonstige Bezüge, classification disputed",
+      "replay_2027_supported": false,
+      "fully_reconstructable": false,
+      "missing_inputs": [
+        "authoritative prebirth BEEG Elterngeld-Netto underlying both awards",
+        "complete payroll tax and deduction settings",
+        "calculated taxable commission classification",
+        "subsequent appellate judgment"
+      ],
+      "observations": [
+        {
+          "id": "original_basis",
+          "stage": "administrative_original_notice",
+          "notice_date": "2023-10-27",
+          "life_months": [
+            13,
+            14
+          ],
+          "benefit": "basis",
+          "eur_per_month": 1348.92
+        },
+        {
+          "id": "original_plus",
+          "stage": "administrative_original_notice",
+          "notice_date": "2023-10-27",
+          "life_months": [
+            15
+          ],
+          "benefit": "plus",
+          "eur_per_month": 674.46
+        },
+        {
+          "id": "original_parttime_plus",
+          "stage": "administrative_original_notice",
+          "notice_date": "2023-10-27",
+          "life_months": [
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "benefit": "plus",
+          "eur_per_month": 150
+        },
+        {
+          "id": "trial_basis",
+          "stage": "administrative_trial_recalculation_not_final_award",
+          "life_months": [
+            13,
+            14
+          ],
+          "benefit": "basis",
+          "eur_per_month": 1782.06
+        },
+        {
+          "id": "trial_plus",
+          "stage": "administrative_trial_recalculation_not_final_award",
+          "life_months": [
+            15
+          ],
+          "benefit": "plus",
+          "eur_per_month": 891.03
+        },
+        {
+          "id": "trial_parttime_plus",
+          "stage": "administrative_trial_recalculation_not_final_award",
+          "life_months": [
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "benefit": "plus",
+          "eur_per_month": 150
+        }
+      ],
+      "published_additional_benefit_eur": 1082.85,
+      "computed_status_note": "Court ordered recalculation in principle; trial amounts were not a final legally binding individual award and an appeal was filed."
+    },
+    {
+      "id": "LSG-BW-L11EG1334-21",
+      "docket": "L 11 EG 1334/21",
+      "court": "LSG Baden-Württemberg",
+      "decision_date": "2022-10-11",
+      "historical_birth_year": 2018,
+      "source_url": "https://www.landesrecht-bw.de/bsbw/?query=DOKNR%3ANJRE001521064&source=PermaLink",
+      "case_status": "appeal_dismissed_against_reassessment",
+      "subject": "Retroactive reassessment when part-time earnings and taxable benefits were included in averaging",
+      "replay_2027_supported": false,
+      "fully_reconstructable": false,
+      "missing_inputs": [
+        "all monthly payroll Elterngeld-Netto tax and SV assumptions",
+        "full approved benefit period and maternity offset",
+        "actual differences between claim / reversal / final accounting"
+      ],
+      "observations": [
+        {
+          "id": "first_award_early",
+          "stage": "administrative_original_notice",
+          "notice_date": "2019-01-22",
+          "period_label": "first awarded life month in court excerpt",
+          "benefit": "basis",
+          "eur_per_month": 1724.52
+        },
+        {
+          "id": "first_award_later",
+          "stage": "administrative_original_notice",
+          "notice_date": "2019-01-22",
+          "period_label": "subsequent months in court excerpt",
+          "benefit": "basis",
+          "eur_per_month": 1980
+        },
+        {
+          "id": "recalculated_early",
+          "stage": "administrative_final_notice",
+          "notice_date": "2020-06-13",
+          "period_label": "first reviewed month",
+          "benefit": "basis",
+          "eur_per_month": 599.72
+        },
+        {
+          "id": "recalculated_later",
+          "stage": "administrative_final_notice",
+          "notice_date": "2020-06-13",
+          "period_label": "subsequent reviewed months",
+          "benefit": "basis",
+          "eur_per_month": 688.57
+        }
+      ],
+      "recalculation_postbirth_average_eur": 1826.05,
+      "published_disputed_repayment_eur": 1985.28,
+      "published_other_repayment_reference_eur": 8873.38,
+      "inconsistency_note": "One textual passage says 688.72 while operative/final award and most passages say 688.57. Different repayment figures refer to different procedural stages; cannot equate them.",
+      "capability_note": "Originally published 1,980 EUR monthly is above 1,800 EUR basic cap and cannot be treated as an ordinary one-child Basis-only reference; family bonuses or individual factors require reconstruction."
+    },
+    {
+      "id": "BSG-B10EG1-20R",
+      "docket": "B 10 EG 1/20 R",
+      "court": "Bundessozialgericht",
+      "decision_date": "2022-03-24",
+      "historical_birth_year": 2016,
+      "source_url": "https://www.bsg.bund.de/SharedDocs/Downloads/DE/Entscheidungen/2022/2022_03_24_B_10_EG_01_20_R.pdf?__blob=publicationFile&v=4",
+      "case_status": "federal_judgment_appeal_dismissed",
+      "subject": "Development-service earnings and maternity offset, unsupported individual insurance constellation",
+      "replay_2027_supported": false,
+      "fully_reconstructable": false,
+      "missing_inputs": [
+        "applicable 2016 protection period payment records",
+        "complete earnings substitution calculations",
+        "social insurance and individual payout deductions"
+      ],
+      "observations": [
+        {
+          "id": "lm1",
+          "stage": "administrative_amended_notice",
+          "notice_date": "2017-05-05",
+          "life_months": [
+            1
+          ],
+          "benefit": "basis_after_maternity_offset",
+          "eur_per_month": 0
+        },
+        {
+          "id": "lm2",
+          "stage": "administrative_amended_notice",
+          "notice_date": "2017-05-05",
+          "life_months": [
+            2
+          ],
+          "benefit": "basis_after_maternity_offset",
+          "eur_per_month": 74.08
+        },
+        {
+          "id": "lm3_12",
+          "stage": "administrative_amended_notice",
+          "notice_date": "2017-05-05",
+          "life_months": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "benefit": "basis",
+          "eur_per_month": 574.27
+        }
+      ]
+    },
+    {
+      "id": "LSG-BY-L9EG36-18",
+      "docket": "L 9 EG 36/18",
+      "court": "Bayerisches LSG",
+      "decision_date": "2019-02-26",
+      "historical_birth_year": 2016,
+      "source_url": "https://www.sozialgerichtsbarkeit.de/legacy/205659",
+      "case_status": "appeal_allowed_revision_admitted",
+      "subject": "Classification of recurring commissions as wage for calculating Elterngeld-Netto",
+      "replay_2027_supported": false,
+      "fully_reconstructable": false,
+      "missing_inputs": [
+        "full income tax and payroll deduction record",
+        "net income including court-allowed commissions",
+        "approved benefit amount after judicial recalculation"
+      ],
+      "observations": [
+        {
+          "id": "baseline_gross",
+          "stage": "administrative_earnings_calculation",
+          "benefit": "bemessungsbrutto",
+          "eur_per_month": 2576.17
+        },
+        {
+          "id": "baseline_net",
+          "stage": "administrative_earnings_calculation",
+          "benefit": "bemessungsnetto",
+          "eur_per_month": 1858.1
+        }
+      ],
+      "historical_rate": 0.65
+    }
+  ]
+}

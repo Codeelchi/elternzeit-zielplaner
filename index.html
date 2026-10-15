@@ -96,6 +96,8 @@
    <p class="subtitle">Beide verdienen rund 4.000 &euro; brutto bei Steuerklasse IV/IV. Für eine bessere Schätzung sind die echten Nettowerte und das pauschalierte Elterngeld-Netto getrennt einstellbar.</p>
    <div class="note warn" style="margin-top:18px"><label for="standardCaseConfirmed"><strong>Unterstützter Standardfall</strong></label><select id="standardCaseConfirmed" style="display:block;width:100%;margin-top:8px;padding:10px"><option value="">Bitte eure Konstellation bestätigen</option><option value="yes">Zwei abhängig beschäftigte Eltern, reguläre Einzelgeburt, gemeinsamer Haushalt in Deutschland, Betreuung durch uns; keine selbstständigen Einkünfte oder weiteren Sonderfälle</option><option value="no">Unsere Konstellation weicht ab / noch unklar</option></select><p class="input-caption">Mehrlinge, Frühgeburt, Alleinerziehung, Ausland und selbstständige Einkünfte benötigen eine individuelle Prüfung. Geburten nach dem bestätigten Quellenjahr bleiben vorläufig.</p></div>
    <div class="input-grid" style="margin-top:23px">
+    <div class="form-group"><label for="incomeProfileFather">Lohnbestandteile du (vor Geburt)</label><select data-field="incomeProfileFather" id="incomeProfileFather"><option value="salary_only">Regulärer Lohn, keine variablen Sonderbezüge</option><option value="recurring_commissions">Regelmäßige Provisionen/Umsatzbeteiligung</option><option value="one_off_payments">Einmalzahlungen / Sonderboni</option><option value="mixed_or_self_employed">Selbstständiges oder gemischtes Einkommen</option><option value="unknown">Noch nicht geklärt</option></select><div class="input-caption">Provisionen und variable Bezüge können die Bemessung verändern (§ 2c BEEG).</div></div>
+    <div class="form-group"><label for="incomeProfileMother">Lohnbestandteile Frau (vor Geburt)</label><select data-field="incomeProfileMother" id="incomeProfileMother"><option value="salary_only">Regulärer Lohn, keine variablen Sonderbezüge</option><option value="recurring_commissions">Regelmäßige Provisionen/Umsatzbeteiligung</option><option value="one_off_payments">Einmalzahlungen / Sonderboni</option><option value="mixed_or_self_employed">Selbstständiges oder gemischtes Einkommen</option><option value="unknown">Noch nicht geklärt</option></select><div class="input-caption">Solche Konstellationen sind noch nicht als Standardfall validiert.</div></div>
     <div class="form-group"><label for="grossFather">Dein Brutto / Monat</label><input data-field="grossFather" id="grossFather" type="number" min="0" step="50"><div class="input-caption">Nur Referenzwert</div></div>
     <div class="form-group"><label for="grossMother">Brutto deiner Frau</label><input data-field="grossMother" id="grossMother" type="number" min="0" step="50"><div class="input-caption">Nur Referenzwert</div></div>
     <div class="form-group"><label for="netFather">Dein Auszahlungs-Netto</label><input data-field="netFather" id="netFather" type="number" min="0" step="10"><div class="input-caption">Vollzeit nach der Geburt</div></div>
@@ -364,9 +366,10 @@
 </section>
 <section class="slide" data-title="Recht & Marktvergleich" id="slide-law">
  <span class="eyebrow">14 / Nachweis & Vergleich</span><h2>Welche Regeln gelten – und wie sicher ist die Planung?</h2>
- <p class="subtitle">Regelversion <strong>DE-2026.10.14 / NRW-2026.10.14</strong>: Quellenlinks, Anwendungsbeginn und Kontrollzeitpunkt sind je Regel hinterlegt. Eine Prognose für Mai 2027 wird nur als <strong>unter Vorbehalt</strong> gekennzeichnet – nicht als verbindliche Rechtsauskunft.</p>
- <div class="grid three" style="margin-top:16px"><div class="card"><div class="kicker">Geprüfter Quellenstand</div><div class="metric" style="font-size:23px">14.10.2026</div><div class="detail">Letzte manuelle Recherche dieser Datei</div></div><div class="card"><div class="kicker">Voraussichtliche Geburt</div><div class="metric" id="ruleBirth" style="font-size:22px">Mai 2027</div><div class="detail">Zukünftiges Datum, Änderungen möglich</div></div><div class="card"><div class="kicker">Standardfall</div><div class="metric" style="font-size:21px">Angestellt / IV · IV</div><div class="detail">Keine Selbstständigkeit oder Sonderregel angenommen</div></div></div>
+ <p class="subtitle">Regelversion <strong>DE-2026.10.15 / NRW-KiBiz-2027</strong>: Quellenlinks, Anwendungsbeginn und Kontrollzeitpunkt sind je Regel hinterlegt. Eine Prognose für Mai 2027 wird nur als <strong>unter Vorbehalt</strong> gekennzeichnet – nicht als verbindliche Rechtsauskunft.</p>
+ <div class="grid three" style="margin-top:16px"><div class="card"><div class="kicker">Geprüfter Quellenstand</div><div class="metric" style="font-size:23px">15.10.2026</div><div class="detail">Letzte manuelle Recherche dieser Datei</div></div><div class="card"><div class="kicker">Voraussichtliche Geburt</div><div class="metric" id="ruleBirth" style="font-size:22px">Mai 2027</div><div class="detail">Zukünftiges Datum, Änderungen möglich</div></div><div class="card"><div class="kicker">Standardfall</div><div class="metric" style="font-size:21px">Angestellt / IV · IV</div><div class="detail">Keine Selbstständigkeit oder Sonderregel angenommen</div></div></div>
  <div class="card" style="margin-top:16px"><h3>Versionierter Regelkatalog</h3><div id="ruleItems"></div></div>
+ <div class="card" style="margin-top:16px"><h3>Gesetzesänderungen 2027 – Beschlussstatus getrennt</h3><div id="legalEvents"></div><p class="input-caption">Gesetzentwürfe erhöhen keine Leistungen automatisch; amtliche Quellen vor Verwendung erneut kontrollieren.</p></div>
  <div class="card" style="margin-top:15px"><h3>Rechnervergleich – tatsächlich dokumentierte Funktionen</h3><div id="marketMatrix"></div><div class="input-caption" style="margin-top:9px">Bei anderen Angeboten bedeutet „nicht belegt“: Die gesichteten Beschreibungen nennen die Funktion nicht ausdrücklich; das ist kein Nachweis, dass sie technisch fehlt.</div></div>
  <div class="note warn" style="margin-top:12px">Änderungsalarm ist <strong>nicht</strong> eingebaut: Offline-Dateien aktualisieren Gesetzestexte nicht automatisch. Vor dem Antrag erneut amtliche Quellen öffnen. Bei Unstimmigkeiten ist die Elterngeldstelle zuständig.</div>
 </section>
@@ -898,7 +901,17 @@ const SOURCES={
 };
 const REGIONS={NRW:{label:'Nordrhein-Westfalen',applicationUrl:SOURCES.nrw.url,cities:{'köln':{label:'Köln',authority:'Elterngeldstelle der Stadt Köln',authorityUrl:'https://www.stadt-koeln.de/service/adressen/elterngeldstelle',source:SOURCES.cologne}}}};
 function subtractDays(date,n){return new Date(Date.parse(date+'T00:00:00Z')-n*86400000).toISOString().slice(0,10);}
-function buildApplicationGuide({birthDate,expectedBirthDate=birthDate,region='NRW',city='Köln',leavePeriods={},firstBenefitMonth=1}={}){
+function minusCalendarMonths(iso,months){
+  time.lifeMonths(iso,1);
+  if(!Number.isInteger(months)||months<0||months>36)throw new RangeError('Kalendermonate ungültig');
+  const [y,m,day]=iso.split('-').map(Number),target=new Date(Date.UTC(y,m-1-months,1));
+  const max=new Date(Date.UTC(target.getUTCFullYear(),target.getUTCMonth()+1,0)).getUTCDate();
+  target.setUTCDate(Math.min(day,max));return target.toISOString().slice(0,10);
+}
+function allowanceReferenceDay(birthDate){time.lifeMonths(birthDate,1);return String(Number(birthDate.slice(0,4))-1)+'-01-01';}
+function legislationEvent(registry,id){return registry?.events?.find(e=>e.id===id)||null;}
+
+function buildApplicationGuide({birthDate,expectedBirthDate=birthDate,region='NRW',city='Köln',leavePeriods={},firstBenefitMonth=1,childcareStartLm=0,legalEvents=null}={}){
   const months=time.lifeMonths(birthDate,96);time.lifeMonths(expectedBirthDate,1);
   if(!Number.isInteger(firstBenefitMonth)||firstBenefitMonth<1||firstBenefitMonth>32)throw new RangeError('Erster Elterngeld-Lebensmonat ungültig.');
   const regional=REGIONS[region],local=regional?.cities[String(city).toLowerCase()];
@@ -915,8 +928,30 @@ function buildApplicationGuide({birthDate,expectedBirthDate=birthDate,region='NR
   }
   // Filing during LM(first+3) still includes LM(first), per BEEG §7; this is not a general application cutoff.
   tasks.push({id:'elterngeld',dueDate:months[firstBenefitMonth+2].endDate,recommendedDate:months[firstBenefitMonth-1].startDate,title:'Elterngeldantrag bei der zuständigen Elterngeldstelle einreichen',description:`Früh nach der Geburt einreichen. Zur rückwirkenden Sicherung ab LM ${firstBenefitMonth} muss der Antrag spätestens bis Ende LM ${firstBenefitMonth+3} eingehen. Später bleiben jüngere Anspruchsmonate möglich. Zugang und Vollständigkeit bestätigen lassen.`,documents:['Geburtsurkunde – Ausfertigung zur Beantragung von Elterngeld','Gehaltsabrechnungen beider beantragenden Eltern für den maßgeblichen Bemessungszeitraum','Nachweis Krankenkasse über Mutterschaftsgeld und Arbeitgeberzuschuss','Teilzeitvereinbarung und erwartetes Einkommen während des Bezugs','Angaben zum zu versteuernden Einkommen im Kalenderjahr vor der Geburt','Unterschriften beziehungsweise bestätigtes zulässiges digitales Verfahren'],source:SOURCES.application});
+  if(!Number.isInteger(childcareStartLm)||childcareStartLm<0||childcareStartLm>96)throw new RangeError('Kita-Lebensmonat muss zwischen 0 und 96 liegen');
+  const kibiz=legislationEvent(legalEvents,'nrw-kibiz-2027');
+  if(region==='NRW'&&childcareStartLm>0&&kibiz&&kibiz.status==='promulgated_future_effective'){
+    const startDate=months[childcareStartLm-1].startDate;
+    if(startDate>=kibiz.effective_from)tasks.push({
+      id:'nrw-childcare-notice',dueDate:minusCalendarMonths(startDate,6),careStartDate:startDate,
+      title:'NRW-Kita-Betreuungsbedarf beim Jugendamt anzeigen',
+      description:'Nach § 5 KiBiz grundsätzlich spätestens sechs Kalendermonate vor dem geplanten Betreuungsbeginn in Textform den Bedarf, den gewünschten Umfang und die Betreuungsart anzeigen. Bei kurzfristigem Bedarf unverzüglich melden; örtliche Fristen/Verfahren prüfen. Die Bedarfsanzeige garantiert keinen Kita-Platz.',
+      documents:['Gewünschter Betreuungsbeginn und Umfang','Betreuungsart (Kita/Tagespflege)','Eingangsbestätigung des Jugendamts'],
+      source:{label:'KiBiz NRW § 5, Fassung ab 01.08.2027',url:kibiz.sources[0],verifiedAt:kibiz.observed_at},
+      notice_type:'statutory_six_calendar_months',legal_status:kibiz.status
+    });
+  }
+  const autoKind=legislationEvent(legalEvents,'kindergeld-automatic-2027-rollout');
+  if(autoKind&&autoKind.status==='parliament_passed_implementation_conditional'&&birthDate>='2027-01-01')tasks.push({
+    id:'kindergeld-payment-route',dueDate:null,
+    title:'Kindergeld-Auszahlungsweg und Antragspflicht individuell prüfen',
+    description:'2027 wird die antragslose Zahlung schrittweise eingeführt: zuerst weitere Kinder, erst gegen Jahresende voraussichtlich auch erste Kinder. Kein automatischer Anspruch auf antragslose Auszahlung allein wegen des Geburtsdatums. Bei unbekannten Daten/IBAN oder fehlendem Verfahren Familienkasse kontaktieren beziehungsweise Antrag stellen.',
+    documents:['Steuer-ID des Kindes','Bankverbindung für Kindergeld','Nachweis bzw. Familienkassenmitteilung zur Zuständigkeit'],
+    source:{label:'Bundesregierung – Kindergeld ohne Antrag',url:autoKind.sources[0],verifiedAt:autoKind.observed_at},
+    legal_status:autoKind.status
+  });
   if(local)tasks.push({id:'local-documents',dueDate:null,title:'Kölner Unterlagen und aktuellen Übermittlungsweg prüfen',description:'NRW-Onlineantrag und BundID nutzen oder Papierverfahren prüfen. Die Stadt beschreibt eine unterschriebene Unterschriftsseite und spezielle Geburtsurkunde im Original; aktuelle Anforderungen vor Versand bestätigen.',documents:['Aktuelle NRW-Antragsformulare','Unterschriftsseite und örtlich geforderte Nachweise'],source:local.source});
-  return {birthDate,expectedBirthDate,region,city,verifiedAt:CHECKED,legalCoverage:{validFrom:'2025-05-01',verifiedThrough:CHECKED,futureBirthRequiresRecheck:birthDate>CHECKED},authority:local?{name:local.authority,url:local.authorityUrl}:null,applicationUrl:regional?.applicationUrl||null,tasks:tasks.sort((a,b)=>(a.dueDate||'9999').localeCompare(b.dueDate||'9999')),regionalBenefitsIncluded:[],warnings:[
+  return {birthDate,expectedBirthDate,region,city,elterngeldEmployeeAllowanceReferenceDay:allowanceReferenceDay(birthDate),verifiedAt:CHECKED,legalCoverage:{validFrom:'2025-05-01',verifiedThrough:CHECKED,futureBirthRequiresRecheck:birthDate>CHECKED},authority:local?{name:local.authority,url:local.authorityUrl}:null,applicationUrl:regional?.applicationUrl||null,tasks:tasks.sort((a,b)=>(a.dueDate||'9999').localeCompare(b.dueDate||'9999')),regionalBenefitsIncluded:[],warnings:[
     'Checkliste für den Standardfall; keine Rechtsberatung und kein behördlicher Antrag.',
     ...(birthDate>CHECKED?['Geburt nach dem Prüfdatum: Regeln und Formulare vor Anmeldung und Antrag erneut amtlich prüfen.']:[]),
     ...(!local?['Zuständige örtliche Elterngeldstelle eigenständig bestätigen; regionale Vertiefung derzeit nur Köln.']:[]),
@@ -924,7 +959,7 @@ function buildApplicationGuide({birthDate,expectedBirthDate=birthDate,region='NR
     'Keine regionale Zusatzleistung ohne bestätigten individuellen Anspruch in der Haushaltsrechnung.'
   ]};
 }
-module.exports={buildApplicationGuide,REGIONS,SOURCES};
+module.exports={buildApplicationGuide,minusCalendarMonths,allowanceReferenceDay,REGIONS,SOURCES};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* ApplicationGuide_END */
@@ -1082,6 +1117,18 @@ function validatePlan(input={},catalogue={}) {
   // Only explicit false/absent boolean flags can negate a special case.
   // Imported numbers, strings and objects must never erase contradictory data
   // merely because an independent standard-case confirmation is true.
+  // Historical court decisions show that payment labels in payroll records
+  // cannot automatically resolve disputed recurring commission classification.
+  for(const [person,suffix] of [['father','Father'],['mother','Mother']]){
+    const kind=state['incomeProfile'+suffix];
+    if(kind===undefined||kind==='salary_only')continue; // backward-compatible stored plans
+    if(kind==='unknown')missing('PREBIRTH_INCOME_KIND_UNKNOWN','Bitte Lohnbestandteile vor Geburt klären.','BE-2C',[person]);
+    else if(['recurring_commissions','one_off_payments','mixed_or_self_employed'].includes(kind))
+      add('PREBIRTH_INCOME_COMPOSITION_UNSUPPORTED','NICHT_UNTERSTUETZT','BE-2C',[person],[],
+        'Variable Provisionen, Einmalzahlungen oder gemischtes Einkommen werden im aktuellen Standardmodell nicht zuverlässig in das pauschalierte Elterngeld-Netto überführt.',
+        ['Gehaltsabrechnungen und arbeitsvertraglichen Zahlungsturnus prüfen.','Elterngeld-Netto bzw. vollständige Berechnung durch die Elterngeldstelle bestätigen lassen.']);
+    else missing('PREBIRTH_INCOME_KIND_INVALID','Unbekannte Einkommensart vor Geburt.','BE-2C',[person]);
+  }
   const specialFlags=['selfEmployed','singleParent','adoption','disability','siblingBonus','prematureBirth'];
   const specialFlagPresent=specialFlags.some(key=>state[key]!==undefined&&state[key]!==null&&state[key]!==false);
   const specialCasesPresent=state.specialCases!==undefined&&state.specialCases!==null&&state.specialCases!==false&&state.specialCases!==''&&!(Array.isArray(state.specialCases)&&state.specialCases.length===0);
@@ -1267,7 +1314,7 @@ const SCENARIOS=[
 const defaults={
  grossFather:4000,grossMother:4000,netFather:2600,netMother:2600,
  egNetFather:2600,egNetMother:2600,ptNetFather:1900,ptNetMother:1900,
- hoursFather:28,hoursMother:28,kind:259,expenses:'',date:'2027-05-28',
+ hoursFather:28,hoursMother:28,kind:259,expenses:'',date:'2027-05-28',incomeProfileFather:'salary_only',incomeProfileMother:'salary_only',
  model:'father12',month:3,horizon:24,
  leaveStartFather:3,leaveMonthsFather:12,benefitFather:'B',basisFirstFather:8,partAfterFather:999,
  leaveStartMother:3,leaveMonthsMother:0,benefitMother:'B',basisFirstMother:2,partAfterMother:999
@@ -1458,6 +1505,7 @@ function sanitizeImport(d){
  value.schedule=Array.from({length:N},(_,i)=>{const r=i<d.schedule.length?d.schedule[i]:{f:'W',m:'W'};if(!r||typeof r!=='object'||Array.isArray(r)||!STAT[r.f]||!STAT[r.m])throw Error('Unbekannter Monatsstatus LM '+(i+1));const out={f:r.f,m:r.m};for(const k of ['hf','hm'])if(r[k]!==undefined){if(typeof r[k]!=='number'||!Number.isFinite(r[k])||r[k]<0||r[k]>40)throw Error('Ungültige Wochenstunden');out[k]=r[k];}for(const k of ['wf','wm','ef','em'])if(r[k]!==undefined){if(typeof r[k]!=='number'||!Number.isFinite(r[k])||r[k]<0||r[k]>1e9)throw Error('Ungültiges Monatsnetto: '+k);out[k]=r[k];}return out;});
  if(d.leaveOverrides!==undefined&&d.leaveOverrides!==null){TimeAxes.buildTimeAxes({birthDate:value.date,schedule:value.schedule,leaveOverrides:d.leaveOverrides});value.leaveOverrides=clone(d.leaveOverrides);}
  for(const key of ['employmentOverrides','benefitOverrides','bankLedger'])if(d[key]!==undefined)value[key]=clone(d[key]);
+ for(const key of ['incomeProfileFather','incomeProfileMother'])if(!['salary_only','recurring_commissions','one_off_payments','mixed_or_self_employed','unknown'].includes(value[key]))throw Error('Unbekannte Einkommensart: '+key);
  if(value.leaveOverrides!==null&&(typeof value.leaveOverrides!=='object'||Array.isArray(value.leaveOverrides)||Object.keys(value.leaveOverrides).some(key=>!['father','mother'].includes(key))))throw Error('Unbekannter Elternteil in Elternzeitabschnitten.');
  PlanningModel.materializePlan({state:value,schedule:value.schedule});
  return value;
@@ -1594,7 +1642,7 @@ function showSlide(i){slideIndex=Math.max(0,Math.min(document.querySelectorAll('
 function listenInputs(){
  document.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('input',()=>{
   const field=el.dataset.field;
-  s[field]=field==='date'?el.value:field==='expenses'?(el.value.trim()===''?'':toNum(el.value)):toNum(el.value);
+  s[field]=['date','incomeProfileFather','incomeProfileMother'].includes(field)?el.value:field==='expenses'?(el.value.trim()===''?'':toNum(el.value)):toNum(el.value);
   if(['hoursFather','hoursMother'].includes(field)&&builderActive)applyBuilder();else{renderAll();persist()}
  }));
  document.querySelectorAll('[data-build]').forEach(el=>el.addEventListener(el.tagName==='SELECT'?'change':'input',()=>{
@@ -1637,8 +1685,8 @@ function importJson(evt){const file=evt.target.files?.[0];if(!file)return;if(fil
 /* RULE_CATALOG_EMBED_START */
 const RULE_CATALOG = Object.freeze({
  "name": "Elternzeit und Elterngeld - Referenz-Rechtsregeln DE/NRW",
- "version": "DE-NRW-2026.10.14+r3.5.0",
- "verified_as_of": "2026-10-14",
+ "version": "DE-NRW-2026.10.15+r3.6.0",
+ "verified_as_of": "2026-10-15",
  "target_birth_date": "2027-05-28",
  "applicable_standard_birth_window": {
   "from": "2025-04-01",
@@ -1660,6 +1708,20 @@ const RULE_CATALOG = Object.freeze({
    "checked_at": "2026-10-14",
    "verification_status": "official_source_checked",
    "applicability_note": "Vereinfachte Formel für abhängig Beschäftigte; maßgebliches pauschaliertes Elterngeld-Netto muss individuell ermittelt werden."
+  },
+  {
+   "id": "BE-2C",
+   "t": "Einkommen vor der Geburt – Arbeitslohn und sonstige Bezüge",
+   "from": "2025-04-01",
+   "effective_from": "2025-04-01",
+   "effective_to": null,
+   "checked_at": "2026-10-15",
+   "verification_status": "official_source_checked",
+   "where": "Bund",
+   "source": "BEEG § 2c – Einkommen aus nichtselbstständiger Erwerbstätigkeit",
+   "url": "https://www.gesetze-im-internet.de/beeg/__2c.html",
+   "summary": "Laufender Arbeitslohn, sonstige Bezüge und jährlicher Arbeitnehmer-Pauschbetrag werden nach gesetzlicher Bemessungslogik behandelt; der Pauschbetrag richtet sich nach dem 1. Januar des Vorjahres der Geburt. Provisionen können Einzelfallprüfung erfordern.",
+   "applicability_note": "Monatliche Provisionen und umstrittene sonstige Bezüge werden nicht aus Bruttolohn automatisch nachvollziehbar eingestuft. Gerichtsentscheidungen verschiedener Geburtskohorten sind historische Evidenz, keine heutige generelle Freigabe."
   },
   {
    "id": "BE-4A",
@@ -2004,7 +2066,10 @@ const RULE_CATALOG = Object.freeze({
  }
 });
 /* RULE_CATALOG_EMBED_END */
-const V3_ASOF=RULE_CATALOG.verified_as_of, V3_VERSION='3.5.0';
+/* LEGISLATION_EVENTS_START */
+const LEGAL_EVENTS=Object.freeze({"schema_version":"1.0.0","verified_as_of":"2026-10-15","scope":"Federal benefits 2027 and NRW childcare. Distinguish enacted, promulgated future effect, bill in committee, and political discussion. Do not silently book projected payments.","events":[{"id":"kindergeld-tax-2027-bill","scope":"DE","title":"Kindergeldbetrag 2027/2028 im Einkommensteuerreformgesetz","status":"bill_referred_not_in_force","observed_at":"2026-10-15","legislative_milestone":"Bundestag erste Lesung und Ausschussüberweisung 2026-10-08","proposed_effective_from":"2027-01-01","amounts":{"confirmed_2026_eur":259,"proposed_2027_eur":267,"proposed_2028_eur":272},"sources":["https://www.bundestag.de/dokumente/textarchiv/2026/kw41-de-einkommensteuerreform-1217520","https://dip.bundestag.de/vorgang/einkommensteuerreformgesetz-2027/338787"],"calculation_effect":"scenario_only_no_automatic_booking"},{"id":"estg-worker-pausch-2027-bill","scope":"DE","title":"Erhöhter Arbeitnehmer-Pauschbetrag im Steuerreform-Entwurf","status":"bill_referred_not_in_force","observed_at":"2026-10-15","proposed_effective_from":"2027-01-01","amounts":{"confirmed_2026_eur":1230,"proposed_2027_eur":1430},"sources":["https://www.bundestag.de/dokumente/textarchiv/2026/kw41-de-einkommensteuerreform-1217520","https://www.gesetze-im-internet.de/beeg/__2c.html"],"calculation_effect":"BEEG-2c: birth cohort 2027 uses amount in force on 2026-01-01, not future 2027 proposed value"},{"id":"kindergeld-automatic-2027-rollout","scope":"DE","title":"Antragslose Kindergeldzahlung – stufenweise Einführung","status":"parliament_passed_implementation_conditional","observed_at":"2026-10-15","planned_rollout":{"from_spring_2027":"further children with existing family-benefit data","from_late_2027":"first children if tax-ID, identity and bank details known"},"sources":["https://www.bundesregierung.de/breg-de/aktuelles/kindergeld-ohne-antrag-2412916"],"calculation_effect":"application_step_only_do_not_guarantee_automatic_payment"},{"id":"nrw-kibiz-2027","scope":"NRW","title":"KiBiz Fassung ab 01.08.2027","status":"promulgated_future_effective","observed_at":"2026-10-15","effective_from":"2027-08-01","source_version":"GV. NRW. 2026 S. 525","sources":["https://recht.nrw.de/lrgv/gesetz/01082027-gesetz-zur-fruehen-bildung-und-foerderung-von-kindern-kinderbildungsgesetz/"],"rule":"§ 5: Betreuungbedarf grundsätzlich 6 Kalendermonate vor Beginn in Textform anzeigen; örtliche Verfahren und Ausnahmen prüfen.","calculation_effect":"childcare_application_deadline_not_fee_amount"},{"id":"elterngeld-reform-debate-2027","scope":"DE","title":"Politische Diskussion über eine Elterngeldreform","status":"policy_discussion_no_enacted_parameter","observed_at":"2026-10-15","sources":["https://www.bundesregierung.de/breg-de/suche/regierungspressekonferenz-vom-26-juni-2026-2445352"],"calculation_effect":"no automatic model changes; specific 7+7-month rule not established"}]});
+/* LEGISLATION_EVENTS_END */
+const V3_ASOF=RULE_CATALOG.verified_as_of, V3_VERSION='3.6.0';
 const rulesV3=RULE_CATALOG.rules;
 const LEGAL=RULE_CATALOG.standard_parameters;
 Object.assign(defaults,{standardCaseConfirmed:null,storageConsent:false,grantVerified:false,region:'NRW',city:'Köln',births:1,zve:'',childcareStart:19,childcareMonthly:300,confirmedGrant:0,grantMonth:1,goalCare:18,goalCareMode:'full',goalObjective:'income',goalMinFather:8,goalMinIncome:0,goalOverlap:2,goalPart:1,childcareMode:'manual',childcareHours:35,childcareIncome:95000,childcareMeals:90,riskFatherPercent:'',riskMotherPercent:'',goalRoles:'father',riskPercent:15,riskEgPercent:5,riskCostPercent:20,egPtNetFather:'',egPtNetMother:''});
@@ -2170,6 +2235,8 @@ function renderRuleLedger(){
   const checkDate=rule.checked_at||'noch offen';
   return `<div class="law-list"><div class="inline-pair"><strong>${esc(rule.t)}</strong><span class="mini-ok">${esc(tag)}</span></div><div class="law-meta">ID ${esc(rule.id)} · Gebiet: ${esc(rule.where)} · Regelbasis ab: ${esc(rule.effective_from)} · geprüft: ${esc(checkDate)} · Ende: ${esc(rule.effective_to||'nicht hinterlegt')}</div><p>${esc(rule.summary)}</p><p class="input-caption">${esc(rule.applicability_note||'Für die genaue Anspruchslage ist eine Einzelfallprüfung erforderlich.')}</p><a href="${rule.url}" target="_blank" rel="noopener noreferrer">${esc(rule.source)} ↗</a></div>`;
  }).join('');
+ const statusText={bill_referred_not_in_force:'Gesetzentwurf – nicht geltend',parliament_passed_implementation_conditional:'Beschlossen – Einführung stufenweise',promulgated_future_effective:'Verkündet – künftiges Inkrafttreten',policy_discussion_no_enacted_parameter:'Diskussion – keine neue Rechenregel'};
+ $('legalEvents').innerHTML=LEGAL_EVENTS.events.map(e=>'<div class="law-list"><div class="inline-pair"><strong>'+esc(e.title)+'</strong><span class="mini-ok">'+esc(statusText[e.status]||'Ungeprüft')+'</span></div><div class="law-meta">'+esc(e.scope)+' · Nachgelesen: '+esc(e.observed_at)+' · '+esc(e.effective_from?'Gültig ab: '+e.effective_from:e.proposed_effective_from?'Vorgeschlagen ab: '+e.proposed_effective_from:'Kein garantierter Umsetzungstag')+'</div><p>'+esc(e.calculation_effect||e.rule||'Noch kein kalkulierter Geldanspruch')+'</p><a href="'+esc(e.sources[0])+'" target="_blank" rel="noopener noreferrer">Amtliche Quelle ↗</a></div>').join('');
  $('marketMatrix').innerHTML=`<div class="h-scroll" tabindex="0" role="region" aria-label="Horizontal scrollbare Planübersicht"><table class="feature-matrix"><thead><tr><th>Untersuchtes Angebot</th><th>Dokumentiert</th><th>Unser zusätzlicher Fokus</th></tr></thead><tbody>
  <tr><td><a href="https://familienportal.de/familienportal/meta/egr" target="_blank" rel="noopener">Bund: Elterngeldrechner mit Planer</a></td><td>Gültigkeitsprüfung, Elterngeld, Stunden und Familienfinanzen</td><td>Zielbasierte Suche + unsichere Einkünfte + datierte Quellen</td></tr>
  <tr><td><a href="https://www.elterngeldoptimierer.de/" target="_blank" rel="noopener">ElterngeldOptimierer</a></td><td>Automatische Optimierung und finanzielle Empfehlungen laut Anbieter</td><td>Offline prüfbar, Robustheitsband, Landes-Screening, offener Regelkatalog</td></tr>
@@ -2238,8 +2305,8 @@ function renderAll(){
  renderMonthHourEditors();renderRegion();renderRuleLedger();renderRisk();renderGoalResult();renderTimeAxes();renderApplicationGuide();updateNav();
 }
 function renderApplicationGuide(){
- try{const axes=TimeAxes.buildTimeAxes({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,schedule:s.schedule,leaveOverrides:s.leaveOverrides});const guide=ApplicationGuide.buildApplicationGuide({birthDate:s.date,expectedBirthDate:s.expectedDueDate||s.date,region:s.region,city:s.city,leavePeriods:axes.leavePeriods});
- $('applicationChecklist').innerHTML='<div class="note">Quellen geprüft '+esc(guide.verifiedAt)+' · '+esc(guide.authority?.name||'Zuständigkeit vor Ort prüfen')+'</div>'+guide.tasks.map(t=>'<div class="card" style="margin-top:12px"><h3>'+esc(t.title)+'</h3><p>'+esc(t.dueDate?TimeAxes.formatDateDE(t.dueDate):'Nach der Geburt')+'</p><p class="footnote">'+esc(t.description)+'</p><ul>'+t.documents.map(d=>'<li>'+esc(d)+'</li>').join('')+'</ul><a href="'+esc(t.source.url)+'" target="_blank" rel="noopener noreferrer">'+esc(t.source.label)+'</a></div>').join('')+'<p class="footnote">'+esc(guide.warnings.join(' '))+'</p>';
+ try{const axes=TimeAxes.buildTimeAxes({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,schedule:s.schedule,leaveOverrides:s.leaveOverrides});const guide=ApplicationGuide.buildApplicationGuide({birthDate:s.date,expectedBirthDate:s.expectedDueDate||s.date,region:s.region,city:s.city,leavePeriods:axes.leavePeriods,childcareStartLm:Number(s.childcareStart)||0,legalEvents:LEGAL_EVENTS});
+ $('applicationChecklist').innerHTML='<div class="note">Quellen geprüft '+esc(guide.verifiedAt)+' · '+esc(guide.authority?.name||'Zuständigkeit vor Ort prüfen')+'</div>'+guide.tasks.map(t=>'<div class="card" style="margin-top:12px"><h3>'+esc(t.title)+'</h3><p>'+esc(t.dueDate?TimeAxes.formatDateDE(t.dueDate):'Nach der Geburt')+'</p><p class="footnote">'+esc(t.description)+'</p><ul>'+t.documents.map(d=>'<li>'+esc(d)+'</li>').join('')+'</ul><a href="'+esc(t.source.url)+'" target="_blank" rel="noopener noreferrer">'+esc(t.source.label)+'</a></div>').join('')+'<p class="footnote">Elterngeld-Netto: Für § 2c BEEG gilt der Arbeitnehmer-Pauschbetrag vom '+esc(TimeAxes.formatDateDE(guide.elterngeldEmployeeAllowanceReferenceDay))+' (nicht automatisch ein später vorgeschlagener Wert). Brutto-zu-Netto-Rechnung bleibt individuell zu prüfen.</p>'+'<p class="footnote">'+esc(guide.warnings.join(' '))+'</p>';
  }catch(e){$('applicationChecklist').textContent='Checkliste: Geburtsdatum und Abschnitte prüfen.';}
 }
 function renderTimeAxes(){
@@ -2285,7 +2352,7 @@ function listenTimeAxes(){
  });
  $('axesReset').addEventListener('click',()=>{s.leaveOverrides=null;renderAll();persist();showToast('Elternzeit wieder aus Monatsplan abgeleitet')});
 }
-function goalInputsFingerprint(){return JSON.stringify([s.date,s.netFather,s.netMother,s.egNetFather,s.egNetMother,s.egPtNetFather,s.egPtNetMother,s.standardCaseConfirmed,s.postnatalDays,s.expectedDueDate,s.horizon,s.confirmedGrant,s.grantVerified,s.grantMonth,s.ptNetFather,s.ptNetMother,s.hoursFather,s.hoursMother,s.kind,s.expenses,s.zve,s.region,s.city,s.births,s.childcareStart,s.childcareMonthly,s.goalCare,s.goalCareMode,s.goalObjective,s.goalMinFather,s.goalMinIncome,s.goalOverlap,s.goalPart,s.childcareMode,s.childcareHours,s.childcareIncome,s.childcareMeals,s.riskPercent,s.riskFatherPercent,s.riskMotherPercent,s.goalRoles,s.leaveOverrides,s.employmentOverrides,s.benefitOverrides,s.riskEgPercent,s.riskCostPercent]);}
+function goalInputsFingerprint(){return JSON.stringify([s.date,s.netFather,s.netMother,s.egNetFather,s.egNetMother,s.egPtNetFather,s.egPtNetMother,s.incomeProfileFather,s.incomeProfileMother,s.standardCaseConfirmed,s.postnatalDays,s.expectedDueDate,s.horizon,s.confirmedGrant,s.grantVerified,s.grantMonth,s.ptNetFather,s.ptNetMother,s.hoursFather,s.hoursMother,s.kind,s.expenses,s.zve,s.region,s.city,s.births,s.childcareStart,s.childcareMonthly,s.goalCare,s.goalCareMode,s.goalObjective,s.goalMinFather,s.goalMinIncome,s.goalOverlap,s.goalPart,s.childcareMode,s.childcareHours,s.childcareIncome,s.childcareMeals,s.riskPercent,s.riskFatherPercent,s.riskMotherPercent,s.goalRoles,s.leaveOverrides,s.employmentOverrides,s.benefitOverrides,s.riskEgPercent,s.riskCostPercent]);}
 function renderGoalResult(){
  if(!goalStats){$('goalResult').innerHTML='<div class="note">Starte die Suche. Die Standardentgelte und Zielbedingungen aus euren Eingaben werden berücksichtigt.</div>';return;}
  const stale=goalFingerprint!==goalInputsFingerprint();

@@ -295,3 +295,23 @@ test('2027 forecast search never claims legally verified eligibility', async ({p
  await page.locator('#goalResult [data-accept]').first().click();
  await expect(page.locator('#globalPlanStatus')).toContainText('NICHT_UNTERSTUETZT');
 });
+
+test('2027 legal event statuses, Kita deadline and commission-income warning in real browser', async ({page})=>{
+  await navigate(page,'slide-law');
+  await expect(page.locator('#legalEvents')).toContainText('Gesetzentwurf – nicht geltend');
+  await expect(page.locator('#legalEvents')).toContainText('Verkündet – künftiges Inkrafttreten');
+  await navigate(page,'slide-9');
+  await expect(page.locator('#applicationChecklist')).toContainText('NRW-Kita-Betreuungsbedarf');
+  await expect(page.locator('#applicationChecklist')).toContainText('28.05.2028');
+  await expect(page.locator('#applicationChecklist')).toContainText('Kindergeld-Auszahlungsweg');
+  await navigate(page,'slide-2');
+  await page.locator('#standardCaseConfirmed').selectOption('yes');
+  await page.locator('#incomeProfileFather').selectOption('recurring_commissions');
+  await navigate(page,'slide-region');
+  await page.locator('#zve').fill('95000');
+  await expect(page.locator('#globalPlanStatus')).toContainText('NICHT_UNTERSTUETZT');
+  const state=await page.evaluate(()=>window.__elternzeitTest.getState());
+  expect(state.incomeProfileFather).toBe('recurring_commissions');
+  await navigate(page,'slide-2');
+  await expect(page.locator('#incomeProfileFather')).toHaveValue('recurring_commissions');
+});

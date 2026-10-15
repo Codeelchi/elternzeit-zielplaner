@@ -26,7 +26,7 @@ test('maternity and employer leave remain independent from Elterngeld',()=>{
  const schedule=plan();
  const p=t.buildTimeAxes({birthDate:'2027-05-28',schedule,leaveOverrides:{father:[{startDate:'2027-08-15',endDate:'2027-10-14'}],mother:[]}});
  assert.equal(p.timeline[0].maternityDays,31);
- assert.equal(p.timeline[1].maternityDays,25);
+ assert.equal(p.timeline[1].maternityDays,26);
  assert.equal(p.timeline[2].parents.father.legalLeaveDays,13);
  assert.equal(p.timeline[2].parents.father.benefit.type,'basis');
  assert.equal(p.timeline[1].parents.mother.legalLeaveDays,0);
@@ -71,4 +71,51 @@ test('offline module and visual new tab initialize without console errors',()=>{
  assert.ok(dom.window.__elternzeitV3.timeAxes().timeline.length===36);
  assert.deepEqual(errors,[]);
  dom.window.close();
+});
+
+
+test('§187/188 month-end boundaries expire at month end, without gaps',()=>{
+ for(const [birth,start] of [['2027-01-29','2027-03-01'],['2027-01-30','2027-03-01'],['2027-01-31','2027-03-01'],['2028-01-31','2028-03-01'],['2027-03-31','2027-05-01']]){
+  const m=t.lifeMonths(birth);
+  assert.equal(m[1].startDate,start,birth);
+  for(let i=1;i<m.length;i++)assert.equal(t.addDays(m[i-1].endDate,1),m[i].startDate);
+ }
+ assert.equal(t.lifeMonths('2028-01-29')[1].startDate,'2028-02-29');
+ assert.equal(t.lifeMonths('2024-02-29')[11].endDate,'2025-02-28');
+});
+
+test('postnatal eight weeks exclude the event day in the duration, include it in protection',()=>{
+ const m=t.maternityTimeline({birthDate:'2027-05-20'});
+ assert.equal(m.postnatal.endDate,'2027-07-15');
+ assert.equal(m.postnatal.exclusiveEnd,'2027-07-16');
+ assert.equal(m.protectedCalendarDaysIncludingBirth,57);
+ assert.equal(t.dayDiff(m.birthDate,m.postnatal.endDate),56);
+ // Familienportal example says July14 / 5 days; the statutory difference
+ // is recorded in docs, not hidden by rewriting its expected example.
+ const p=t.buildTimeAxes({birthDate:'2027-05-20',schedule:plan()});
+ assert.equal(p.timeline[1].maternityDays,26);
+ assert.equal(p.timeline[1].days-p.timeline[1].maternityDays,4);
+});
+
+test('employment, benefit, employer leave and transfers can be edited independently',()=>{
+ const p=t.buildTimeAxes({birthDate:'2027-05-28',schedule:plan(),leaveOverrides:{father:[],mother:[]},
+  employmentOverrides:{father:[{lm:3,weeklyHours:24}]},benefitOverrides:{father:[{lm:3,type:'plus'}]},
+  financialRows:[{fg:700}],bankLedger:[{id:'payment',paymentDate:'2027-09-01',amount:700,category:'elterngeld',parent:'father'},{id:'cost',paymentDate:'2027-09-12',amount:-300,category:'childcare'}]});
+ assert.equal(p.timeline[2].parents.father.legalLeaveDays,0);
+ assert.equal(p.timeline[2].parents.father.leaveSource,'user');
+ assert.equal(p.timeline[2].parents.father.employment.weeklyHours,24);
+ assert.equal(p.timeline[2].parents.father.benefit.type,'plus');
+ assert.equal(p.timeline[3].parents.father.benefit.type,'basis');
+ assert.equal(p.timeline[0].financial.actualPaymentDate,null);
+ assert.deepEqual(p.calendarCashflow,[{calendarMonth:'2027-09',netRecordedTransfers:400}]);
+ assert.equal(p.recordedTransfers.length,2);
+});
+
+test('malformed independent axes and actual ledger are rejected',()=>{
+ for(const employmentOverrides of [{father:[{lm:1,weeklyHours:-1}]},{father:[{lm:1,weeklyHours:Infinity}]},{father:[{lm:1,weeklyHours:24},{lm:1,weeklyHours:24}]}]){
+  assert.throws(()=>t.buildTimeAxes({birthDate:'2027-05-28',schedule:plan(),employmentOverrides}),RangeError);
+ }
+ assert.throws(()=>t.buildTimeAxes({birthDate:'2027-05-28',schedule:plan(),benefitOverrides:{mother:[{lm:1,type:'fictional'}]}}),RangeError);
+ for(const entry of [{paymentDate:'2027-02-30',amount:700,category:'elterngeld'},{paymentDate:'2027-09-01',amount:NaN,category:'elterngeld'},{paymentDate:'2027-09-01',amount:700,category:'fictional'}])assert.throws(()=>t.validateBankLedger([entry]),RangeError);
+ assert.deepEqual(t.buildTimeAxes({birthDate:'2027-05-28',schedule:plan(),financialRows:[{fg:700}]}).recordedTransfers,[]);
 });

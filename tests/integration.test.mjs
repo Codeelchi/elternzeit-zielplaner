@@ -19,6 +19,9 @@ function setup(){
       window.URL.revokeObjectURL = () => {};
     }
   });
+  dom.window.__elternzeitTest.changeValue('date','2026-05-28');
+  dom.window.__elternzeitTest.changeValue('zve',95000);
+  dom.window.__elternzeitTest.changeValue('standardCaseConfirmed',true);
   return {dom,scriptErrors,ui:dom.window.__elternzeitTest,app:dom.window.__elternzeitV3};
 }
 test('full monthly evaluation matches two independently published benefit amounts',()=>{
@@ -73,6 +76,7 @@ test('the date-bound rule catalog never identifies drafts as currently in force'
 
 test('birth in 2027 is explicitly flagged as later than the legal source-check date',()=>{
   const {dom,ui,app}=setup();
+  ui.changeValue('date','2027-05-28');
   const active=dom.window.document.getElementById('ruleItems').textContent;
   assert.match(active,/Geburtsjahr nach Prüfstand/);
   assert.match(ui.evaluate().notices.join(' '),/Geburtsjahr liegt nach dem Quellenprüfstand/);

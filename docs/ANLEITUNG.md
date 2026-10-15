@@ -53,3 +53,11 @@ Siehe `Elternzeit_Rechtsregeln_2026-10-14_v3_1.json` mit Links je Regel. Einige 
 - Sachsen, Landeserziehungsgeld: https://revosax.sachsen.de/vorschrift/5132.11
 
 Alle Angaben vorbehaltlich des zur tatsächlichen Geburt und Antragstellung gültigen Rechtsstands.
+
+## V3.3-Ergänzung
+
+Beginne mit „Eure Daten“ und bestätige den unterstützten Standardfall ausdrücklich. Trage das gemeinsame zu versteuernde Einkommen des Kalenderjahres vor der Geburt ein. Zukunftskohorten ohne bestätigten Quellenstand bleiben vorläufig. Unter „Zeitachsen“ können mehrere arbeitsrechtliche Abschnitte, Arbeitsstunden und Leistungsarten unabhängig geändert werden. Die separaten Arbeits-/Leistungsmonate verändern die Einkommensprojektion; Kalender-Elternzeit allein tut dies nicht. Tatsächliche Zahlungen werden separat als Bankbuchungen erfasst.
+
+„Ziele & Varianten“ zeigt bis zu drei unterschiedlich begründete Vorschläge aus begrenzten Vorlagen. Eine leere Ergebnismenge ist möglich. Bei Robustheit muss das Mindestbudget im vorsichtigen Fall halten. Der Budgetbereich zeigt notwendige Anfangsrücklagen aus kumulierten Fehlbeträgen; verspätete Bankzahlungen sind damit nicht prognostiziert.
+
+Lokales Speichern muss ausdrücklich aktiviert werden. „Lokale Daten löschen“ entfernt Browserkopien aller bekannten Planversionen. Der geöffnete Plan bleibt bis zum Schließen erhalten. JSON-Export/-Import enthält Finanzdaten und sollte privat aufbewahrt werden. Historische Kölner Tarife und unbestätigte Zusatzleistungen sind Informationen, keine automatisch addierten Ansprüche.

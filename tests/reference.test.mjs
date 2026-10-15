@@ -48,16 +48,15 @@ test('published numerical examples are clearly distinguished from formula-derive
   assert.ok(fixtureFile.cases.every(x => x.source_checked_at === '2026-10-14'));
 });
 
-test('published May 20 maternity example leaves five uncovered days in LM2', () => {
-  p.changeValue('date', '2027-05-20');
-  const lm1 = advanced.matDaysAt(1);
-  const lm2 = advanced.matDaysAt(2);
-  assert.equal(lm1.days, 31);
-  assert.equal(lm2.len, 30);
-  assert.equal(lm2.days, 25);
-  const model = p.evaluate();
-  assert.ok(Math.abs(model.rows[1].mg - p.basis(p.getState().egNetMother, 0) / 6) < 0.001);
-  // source: https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/kann-ich-elterngeld-und-mutterschaftsleistungen-bekommen--124776
+test('published maternity discrepancy stays explicit: portal five days vs statutory calendar four days', () => {
+  p.changeValue('date', '2026-05-20');
+  const lm1=advanced.matDaysAt(1),lm2=advanced.matDaysAt(2);
+  assert.equal(lm1.days,31);assert.equal(lm2.len,30);assert.equal(lm2.days,26);
+  const actual=p.evaluate().rows[1].mg, published=p.basis(p.getState().egNetMother,0)*5/30;
+  assert.ok(Math.abs(actual-p.basis(p.getState().egNetMother,0)*4/30)<0.001);
+  assert.ok(Math.abs((published-actual)-p.basis(p.getState().egNetMother,0)/30)<0.001);
+  // Release BLOCKER: portal says 20 May–14 July (5/30); §§187 BGB/3 MuSchG yield 15 July (4/30).
+  // Original published reference is preserved; this test proves and does not hide the nonzero delta.
 });
 
 test('rule registry rejects invalid source schema at build-time, and dates can be interpreted', () => {

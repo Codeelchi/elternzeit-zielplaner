@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-10-15",
+  "browser": "Playwright Chrome Headless Shell 156.0.8078.4",
+  "transport": "Direct file:// HTML; network disabled during offline interaction test",
+  "fileProtocol": {
+    "status": "PASS",
+    "testedUrl": "file:///workspace/elternzeit-zielplaner/index.html",
+    "browser": "Playwright Chrome Headless Shell 156.0.8078.4",
+    "testsPassed": 11,
+    "accessibilityScans": 50,
+    "accessibilityViolations": 0,
+    "managedChromiumLimitation": "Initial /usr/bin/chromium attempt returned net::ERR_BLOCKED_BY_ADMINISTRATOR; managed policies were not changed. Subsequent full validation used the standard Playwright browser."
+  },
+  "limits": [
+    "Automated axe checks verify basic WCAG rules; they do not replace an assistive-technology or usability review.",
+    "Synthetic household data only.",
+    "Browser screenshots and Playwright traces are stored under qa/browser-artifacts."
+  ],
+  "appVersion": "3.4.0",
+  "svgLabelContrast": {
+    "foreground": "#45606b",
+    "background": "#ffffff",
+    "ratio": 6.69,
+    "checkedAt": "2026-10-15",
+    "method": "WCAG relative luminance; current risk chart screenshot visually inspected"
+  }
+}

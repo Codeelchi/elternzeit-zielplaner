@@ -73,3 +73,17 @@ test('deterministic tie handling and invalid options',()=>{
  assert.throws(()=>rankCandidates([],{limit:21}),RangeError);
  assert.throws(()=>rankCandidates(null),TypeError);
 });
+
+test('compact fingerprints distinguish override positions and retain month sequence',()=>{
+ const schedule=Array.from({length:36},()=>({f:'W',m:'W'}));
+ const baseline=scheduleFingerprint(schedule);
+ const first=schedule.map(row=>({...row}));first[0].hf=0;
+ const last=schedule.map(row=>({...row}));last[35].hf=0;
+ assert.notEqual(scheduleFingerprint(first),scheduleFingerprint(last));
+ assert.notEqual(scheduleFingerprint(first),baseline);
+ const changed=schedule.map(row=>({...row}));changed[0]={f:'B',m:'P'};
+ const reverse=schedule.map(row=>({...row}));reverse[0]={f:'P',m:'B'};
+ assert.notEqual(scheduleFingerprint(changed),scheduleFingerprint(reverse));
+ const legacy=JSON.stringify(schedule.map(row=>[row.f,row.m,null,null]));
+ assert.ok(baseline.length < legacy.length / 4);
+});

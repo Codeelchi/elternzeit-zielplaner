@@ -48,10 +48,14 @@ function validatePlan(input={},catalogue={}) {
   const conflict=(code,ruleId,parents,months,message,alternatives)=>add(code,'REGELKONFLIKT',ruleId,parents,months,message,alternatives);
   const manualLeavePresent=state.leaveOverrides!==undefined&&state.leaveOverrides!==null;
   const requiredRules=['BE-4','BE-2025','BE-PAR','BE-PLUS','BE-MUT','BE-BON','BE-32'];
-  if(manualLeavePresent)requiredRules.push('BEEG-15');
+  const derivedLeaveHoursQuery=!manualLeavePresent&&Array.isArray(schedule)&&schedule.some(row=>[['f','Father'],['m','Mother']].some(([key,ext])=>{
+    const hours=row?.['h'+key]??state['hours'+ext];
+    return row?.[key]==='Q'&&numeric(hours)&&Number(hours)>p.max_weekly_work_hours;
+  }));
+  if(manualLeavePresent||derivedLeaveHoursQuery)requiredRules.push('BEEG-15');
   for(const id of requiredRules){
     const r=rules.find(x=>x&&x.id===id);
-    if(!r||r.verification_status!=='official_source_checked'||!isoDate(r.checked_at)||!isoDate(r.effective_from)||!r.url||!r.source||r.planned)
+    if(!r||r.verification_status!=='official_source_checked'||!isoDate(r.checked_at)||!isoDate(r.effective_from)||(r.effective_to!==null&&!isoDate(r.effective_to))||(isoDate(r.effective_to)&&r.effective_to<r.effective_from)||(isoDate(catalogue.verified_as_of)&&r.checked_at>catalogue.verified_as_of)||!r.url||!r.source||r.planned)
       unsupported('RULE_SOURCE_UNVERIFIED_'+id,'Die benötigte Regel '+id+' besitzt keine vollständig bestätigte amtliche Quelle.',id);
     else if(isoDate(state.date)&&(state.date<r.effective_from||(r.effective_to&&state.date>r.effective_to)))
       unsupported('RULE_OUTSIDE_VALIDITY_'+id,'Geburtsdatum liegt außerhalb der dokumentierten Regelgültigkeit '+id+'.',id);
@@ -61,15 +65,21 @@ function validatePlan(input={},catalogue={}) {
   if(!isoDate(state.date))missing('BIRTH_DATE_INVALID','Ein gültiges Geburtsdatum ist erforderlich.');
   else {
     const w=catalogue.applicable_standard_birth_window;
-    if(!w||state.date<w.from||state.date>w.through)unsupported('BIRTH_COHORT_UNSUPPORTED','Das Geburtsdatum liegt außerhalb der unterstützten Standardkohorte.');
+    if(!w||!isoDate(w.from)||!isoDate(w.through)||w.from>w.through||state.date<w.from||state.date>w.through)unsupported('BIRTH_COHORT_UNSUPPORTED','Das Geburtsdatum liegt außerhalb der unterstützten Standardkohorte.');
     if(!isoDate(catalogue.verified_as_of)||state.date.slice(0,4)>catalogue.verified_as_of.slice(0,4))unsupported('FUTURE_COHORT_UNVERIFIED','Das Geburtsjahr liegt nach dem Quellenprüfjahr; zukünftiges Recht ist nicht bestätigt.');
   }
   if(!numeric(state.births))missing('CHILD_COUNT_MISSING','Die Anzahl der Kinder dieser Geburt fehlt.');
   else if(Number(state.births)!==1)unsupported('MULTIPLE_BIRTH_UNSUPPORTED','Mehrlingsgeburten sind fachlich nicht validiert.');
   if(state.standardCaseConfirmed===false)unsupported('STANDARD_CASE_DECLINED','Der angegebene Haushalt entspricht nicht dem unterstützten Standardfall.');
   else if(state.standardCaseConfirmed!==true)missing('STANDARD_CASE_UNCONFIRMED','Bitte den Standardfall ausdrücklich bestätigen: zwei abhängig beschäftigte Eltern in Deutschland, gemeinsamer Haushalt und eigene Betreuung, reguläre Einzelgeburt ohne Sonderfälle.');
-  if(state.specialCases===true||(Array.isArray(state.specialCases)&&state.specialCases.length)||state.selfEmployed===true||state.singleParent===true||state.adoption===true||state.disability===true||state.siblingBonus===true||state.prematureBirth===true)
-    unsupported('SPECIAL_CASE_UNSUPPORTED','Der angegebene Sonderfall ist im Standardmodell nicht fachlich validiert.');
+  // Only explicit false/absent boolean flags can negate a special case.
+  // Imported numbers, strings and objects must never erase contradictory data
+  // merely because an independent standard-case confirmation is true.
+  const specialFlags=['selfEmployed','singleParent','adoption','disability','siblingBonus','prematureBirth'];
+  const specialFlagPresent=specialFlags.some(key=>state[key]!==undefined&&state[key]!==null&&state[key]!==false);
+  const specialCasesPresent=state.specialCases!==undefined&&state.specialCases!==null&&state.specialCases!==false&&state.specialCases!==''&&!(Array.isArray(state.specialCases)&&state.specialCases.length===0);
+  if(specialFlagPresent||specialCasesPresent)
+    unsupported('SPECIAL_CASE_UNSUPPORTED','Ein Sonderfall oder eine nicht eindeutig verneinte Sonderfallangabe ist im Standardmodell nicht fachlich validiert.');
   if(state.expectedDueDate&&(!isoDate(state.expectedDueDate)||state.expectedDueDate!==state.date))unsupported('MATERNITY_NONSTANDARD','Abweichender errechneter Termin erfordert eine individuelle Prüfung der Mutterschaftsleistungen.','BE-MUT');
   if(state.postnatalDays!==undefined&&Number(state.postnatalDays)!==p.standard_maternity_days_after_birth)unsupported('MATERNITY_DURATION_NONSTANDARD','Die abweichende Mutterschutzfrist ist im Finanzmodell nicht validiert.','BE-MUT');
   if(!numeric(state.zve)||Number(state.zve)<0)missing('INCOME_LIMIT_DATA_MISSING','Das gemeinsame zu versteuernde Vorjahreseinkommen muss als nichtnegative Zahl vorliegen.','BE-2025');
@@ -107,6 +117,7 @@ function validatePlan(input={},catalogue={}) {
       if(['R','T','Q','K'].includes(code)){
         if(!numeric(hours)||Number(hours)<0||Number(hours)>80)missing('WORK_HOURS_INVALID','Gültiger Lebensmonatsdurchschnitt der Wochenstunden fehlt.','BE-32',[parent],[lm]);
         else if(PAID.has(code)&&Number(hours)>p.max_weekly_work_hours)conflict('WORK_HOURS_EXCEEDED','BE-32',[parent],[lm],'Erwerbstätigkeit während Elterngeldbezug überschreitet die Stundenobergrenze.',['Arbeitszeit im Lebensmonatsdurchschnitt auf höchstens '+p.max_weekly_work_hours+' Stunden reduzieren.']);
+        else if(code==='Q'&&!manualLeavePresent&&Number(hours)>p.max_weekly_work_hours)conflict('LEAVE_WORK_HOURS_EXCEEDED','BEEG-15',[parent],[lm],'Die Erwerbsarbeit während der aus dem Monatsstatus abgeleiteten Elternzeit überschreitet die zulässige Wochenstundengrenze.',['Erwerbsarbeitszeit auf höchstens 32 Wochenstunden im Monatsdurchschnitt reduzieren oder Elternzeit unabhängig ausdrücklich ohne diesen Abschnitt eintragen.']);
       }
       const eq=BASIS.has(code)?1:(code==='P'||code==='T')?0.5:0;
       totals[parent]+=eq;
@@ -131,7 +142,7 @@ function validatePlan(input={},catalogue={}) {
   // Employer leave is independent from benefit selection. Re-evaluate manual
   // intervals and employment for every candidate; do not memoize family data.
   if(manualLeavePresent){
-    if(typeof state.leaveOverrides!=='object'||Array.isArray(state.leaveOverrides))
+    if(typeof state.leaveOverrides!=='object'||Array.isArray(state.leaveOverrides)||Object.keys(state.leaveOverrides).some(key=>!['father','mother'].includes(key)))
       unsupported('LEAVE_INTERVALS_INVALID','Manuelle Elternzeitabschnitte müssen getrennte Listen je Elternteil enthalten.','BEEG-15');
     else if(isoDate(state.date)&&Array.isArray(schedule)&&schedule.length>=14&&schedule.length<=96){
       try {
@@ -143,7 +154,7 @@ function validatePlan(input={},catalogue={}) {
           if(manualParents.includes(note.parent)&&['LEAVE_MANY_SEGMENTS','LEAVE_OVERLAP','LEAVE_MATERNITY_OVERLAP'].includes(note.code))
             add(note.code,'NICHT_UNTERSTUETZT','BEEG-15',[note.parent],[],note.message,['Elternzeitabschnitte korrigieren oder erforderliche Arbeitgeberzustimmung und individuelle Prüfung einholen.']);
         }
-        for(const parent of manualParents){
+        for(const parent of ['father','mother']){
           const affected=axes.timeline.filter(month=>month.parents[parent].legalLeaveDays>0&&month.parents[parent].employment.weeklyHours>p.max_weekly_work_hours).map(month=>month.lm);
           if(affected.length)conflict('LEAVE_WORK_HOURS_EXCEEDED','BEEG-15',[parent],affected,'Die Erwerbsarbeit während der eingetragenen Elternzeit überschreitet die zulässige Wochenstundengrenze.',['Erwerbsarbeitsachse auf höchstens 32 Wochenstunden im Monatsdurchschnitt abstimmen oder arbeitsrechtlichen Elternzeitabschnitt ändern.']);
         }

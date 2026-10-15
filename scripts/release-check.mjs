@@ -1,7 +1,7 @@
 import {readFileSync} from 'node:fs';
 const root=new URL('../',import.meta.url);
 const gates=JSON.parse(readFileSync(new URL('data/release-gates.json',root),'utf8'));
-const references=JSON.parse(readFileSync(new URL('qa/reference-deltas-v3.3.json',root),'utf8'));
+const references=JSON.parse(readFileSync(new URL('qa/reference-deltas-current.json',root),'utf8'));
 const failures=[];
 for(const key of ['independentCalculationReview','legalReview','privacyReview','directFileBrowserReview','userTesting'])if(gates[key]!=='approved')failures.push(`${key}: ${gates[key]||'missing'}`);
 if(gates.publicReleaseApproved!==true)failures.push('publicReleaseApproved: false');

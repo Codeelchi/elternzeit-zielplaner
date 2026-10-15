@@ -188,3 +188,50 @@ test('manual leave and explicit budget data are re-evaluated despite calendar me
  x.state.expenses=-1;assert.ok(has(validate(x,c),'BUDGET_INPUT_INVALID_expenses'));
  x.state.expenses=1000;x.state.leaveOverrides.father=[{startDate:'2027-07-28',endDate:'2027-08-27'}];assert.ok(has(validate(x,c),'LEAVE_WORK_HOURS_EXCEEDED'));
 });
+test('malformed special-case indicators cannot override a positive standard confirmation',()=>{
+ for(const field of ['selfEmployed','singleParent','adoption','disability','siblingBonus','prematureBirth']){
+  for(const value of [1,0,'true','false','1',{},[]]){
+   const x=input();x.state[field]=value;assert.ok(has(validate(x),'SPECIAL_CASE_UNSUPPORTED'),field+': '+JSON.stringify(value));assert.equal(validate(x).status,'NICHT_UNTERSTUETZT');
+  }
+  for(const value of [undefined,null,false]){const x=input();x.state[field]=value;assert.equal(validate(x).valid,true);}
+ }
+ for(const value of ['self-employed','true',1,{},['self-employed']]){const x=input();x.state.specialCases=value;assert.ok(has(validate(x),'SPECIAL_CASE_UNSUPPORTED'));}
+ for(const value of [undefined,null,false,'',[]]){const x=input();x.state.specialCases=value;assert.equal(validate(x).valid,true);}
+});
+test('unknown manual-parent keys are not silently discarded',()=>{
+ for(const key of ['fater','f','m','guardian','Father','constructor']){
+  const x=input();x.state.leaveOverrides={[key]:[{startDate:'2026-08-28',endDate:'2026-09-27'}]};
+  assert.ok(has(validate(x,leaveCatalogue()),'LEAVE_INTERVALS_INVALID'),key);assert.equal(validate(x,leaveCatalogue()).valid,false);
+ }
+});
+test('unverified or malformed rule validity cannot certify a standard allocation',()=>{
+ for(const mutate of [r=>r.effective_to='invalid',r=>delete r.effective_to,r=>r.effective_to='2020-01-01',r=>r.checked_at='2026-10-15']){
+  const c=structuredClone(catalogue);mutate(c.rules.find(r=>r.id==='BE-4'));
+  assert.ok(has(validate(input(),c),'RULE_SOURCE_UNVERIFIED_BE-4'));assert.equal(validate(input(),c).status,'NICHT_UNTERSTUETZT');
+ }
+ for(const window of [{},{from:'invalid',through:'2026-12-31'},{from:'2026-12-31',through:'2025-01-01'}]){
+  const c=structuredClone(catalogue);c.applicable_standard_birth_window=window;assert.ok(has(validate(input(),c),'BIRTH_COHORT_UNSUPPORTED'));
+ }
+});
+test('over-budget allocation remains unsupported if its catalogue source has not been verified',()=>{
+ const x=input();x.schedule[2].m='B';const c=structuredClone(catalogue);c.rules.find(r=>r.id==='BE-4').verification_status='source_listed_review_pending';
+ const r=validate(x,c);assert.equal(r.status,'NICHT_UNTERSTUETZT');assert.equal(r.valid,false);assert.ok(has(r,'JOINT_BUDGET_EXCEEDED'));assert.ok(has(r,'RULE_SOURCE_UNVERIFIED_BE-4'));
+});
+test('minimum two benefit months applies to mother independently of father',()=>{
+ const x=input();x.schedule[1].m='W';const r=validate(x);
+ assert.ok(r.findings.some(f=>f.code==='MINIMUM_BENEFIT_MONTHS'&&f.parents.includes('mother')));assert.equal(r.valid,false);
+});
+test('Q above 32 hours conflicts only when parental leave is inferred or actually entered',()=>{
+ const x=input();x.schedule[14].f='Q';x.schedule[14].hf=35;const c=leaveCatalogue();
+ const inferred=validate(x,c);assert.equal(inferred.status,'REGELKONFLIKT');
+ const f=inferred.findings.find(f=>f.code==='LEAVE_WORK_HOURS_EXCEEDED');assert.equal(f.ruleId,'BEEG-15');assert.deepEqual(f.parents,['father']);assert.deepEqual(f.lifeMonths,[15]);
+ x.state.leaveOverrides={mother:[]};assert.ok(has(validate(x,c),'LEAVE_WORK_HOURS_EXCEEDED'));
+ x.state.leaveOverrides={father:[],mother:[]};assert.equal(validate(x,c).valid,true);
+ x.state.leaveOverrides.father=[{startDate:'2027-07-28',endDate:'2027-08-27'}];assert.ok(has(validate(x,c),'LEAVE_WORK_HOURS_EXCEEDED'));
+});
+test('BEEG-15 is required for over-limit derived Q but not unrelated ordinary basis cases',()=>{
+ const c=structuredClone(catalogue);c.rules=c.rules.filter(r=>r.id!=='BEEG-15');const x=input();assert.equal(validate(x,c).valid,true);
+ x.schedule[14].f='Q';x.schedule[14].hf=35;assert.ok(has(validate(x,c),'RULE_SOURCE_UNVERIFIED_BEEG-15'));assert.equal(validate(x,c).status,'NICHT_UNTERSTUETZT');
+ x.schedule[14].hf=32;assert.equal(validate(x,c).valid,true);
+ x.schedule[14].m='Q';x.schedule[14].hm=35;const r=validate(x,leaveCatalogue());assert.ok(r.findings.some(f=>f.code==='LEAVE_WORK_HOURS_EXCEEDED'&&f.parents.includes('mother')));
+});

@@ -2,7 +2,7 @@ import {readFileSync,writeFileSync} from 'node:fs';
 const root=new URL('../',import.meta.url), path=new URL('index.html',root);
 let html=readFileSync(path,'utf8');
 const before=html;
-for(const [file,name] of [['planning-model','PlanningModel'],['rule-validator','RuleValidator'],['family-budget','FamilyBudget'],['application-guide','ApplicationGuide'],['goal-ranking','GoalRanking']]){
+for(const [file,name] of [['candidate-patterns','CandidatePatterns'],['planning-model','PlanningModel'],['rule-validator','RuleValidator'],['family-budget','FamilyBudget'],['application-guide','ApplicationGuide'],['goal-ranking','GoalRanking']]){
  const source=readFileSync(new URL(`src/${file}.cjs`,root),'utf8');
  if(/<\/script/i.test(source))throw Error('Unsafe inline source');
  const start=`/* ${name}_START */`,end=`/* ${name}_END */`;

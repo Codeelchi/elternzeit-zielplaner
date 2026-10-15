@@ -29,6 +29,39 @@ test('import cannot silently enable saving, erase a declared special case or con
  assert.equal(out.storageConsent,false);assert.equal(out.standardCaseConfirmed,false);assert.equal(out.grantVerified,false);
  dom.window.close();
 });
+
+test('import preserves independent employment, benefits and actual bank entries',()=>{
+ const {dom,ui}=setup();const original={...ui.getState(),date:'2026-05-28',zve:95000,standardCaseConfirmed:true,
+ employmentOverrides:{father:[{lm:3,weeklyHours:24}]},benefitOverrides:{father:[{lm:3,type:'plus'}]},
+ bankLedger:[{id:'actual-payment',paymentDate:'2026-09-01',amount:700,category:'elterngeld'}],riskFatherPercent:0,riskMotherPercent:30};
+ const imported=ui.sanitizeImport(original);
+ for(const key of ['employmentOverrides','benefitOverrides','bankLedger'])assert.deepEqual(JSON.parse(JSON.stringify(imported[key])),original[key]);
+ assert.equal(imported.riskFatherPercent,0);assert.equal(imported.riskMotherPercent,30);
+ assert.equal(imported.storageConsent,false);dom.window.close();
+});
+
+test('malformed special-case declarations cannot become a confirmed standard through import',()=>{
+ const {dom,ui}=setup();
+ for(const flag of [1,'true','self-employed',{}])assert.equal(ui.sanitizeImport({...ui.getState(),standardCaseConfirmed:true,specialCases:flag}).standardCaseConfirmed,false);
+ assert.throws(()=>ui.sanitizeImport({...ui.getState(),leaveOverrides:{fater:[]}}));
+ assert.throws(()=>ui.sanitizeImport({...ui.getState(),schedule:ui.getState().schedule.map((r,i)=>i===20?null:r)}));
+ dom.window.close();
+});
+
+test('35-hour ordinary part-time work without benefit or employer leave is allowed',()=>{
+ const {dom,ui}=setup();for(const [key,value]of Object.entries({date:'2026-05-28',zve:95000,standardCaseConfirmed:true,
+ leaveOverrides:{father:[],mother:[]},employmentOverrides:{father:[{lm:3,weeklyHours:35}]},benefitOverrides:{father:[{lm:3,type:'none'}]}}))ui.changeValue(key,value);
+ const calculated=ui.evaluate();assert.equal(calculated.valid,true,calculated.errors.join('; '));assert.equal(calculated.rows[2].f,'Q');assert.equal(calculated.rows[2].hf,35);
+ dom.window.close();
+});
+
+test('personal income risk bands consistently affect stress results without varying maternity benefits',()=>{
+ const {dom,ui,app}=setup();ui.changeValue('riskFatherPercent',0);ui.changeValue('riskMotherPercent',30);
+ const scenarios=app.riskScenarios(),low=scenarios[0].calc.rows,base=scenarios[1].calc.rows;
+ assert.equal(low[0].fi,base[0].fi);assert.equal(low[0].maternityBenefits,base[0].maternityBenefits);
+ assert.ok(Math.abs(low[2].mi-base[2].mi*.7)<.001);
+ dom.window.close();
+});
 test('unsupported manual additional benefit is not added to monthly household income',()=>{
  const {dom,ui}=setup();const baseline=ui.evaluate().rows[0].income;
  ui.changeValue('confirmedGrant',1000);ui.changeValue('grantVerified',true);

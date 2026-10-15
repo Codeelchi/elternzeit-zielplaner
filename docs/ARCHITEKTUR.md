@@ -1,4 +1,4 @@
-# Architektur V3.3.0
+# Architektur V3.4.0
 
 Die verteilbare Anwendung bleibt eine einzelne `index.html`, ohne Backend, Konto, Laufzeitpakete oder Telemetrie. Node-Abhängigkeiten dienen ausschließlich Entwicklung und Tests. Diese Entscheidung erhält die Offline-Verteilung und vermeidet die Übertragung privater Haushaltsdaten.
 
@@ -9,7 +9,7 @@ Die verteilbare Anwendung bleibt eine einzelne `index.html`, ohne Backend, Konto
 3. `src/planning-model.cjs` übersetzt unabhängig erfasste Arbeitsstunden und Leistungsarten in Eingaben der bestehenden Finanzformel. Elternzeitintervalle verändern keine Löhne oder Leistungsarten. Die alten Monatscodes bleiben als kompatible Eingabe erhalten.
 4. `src/rule-validator.cjs` prüft die Planung gegen den Katalog. Nur `PLAUSIBEL_STANDARD` erlaubt ein positives Standardlabel. Quellenlücken, fehlende Angaben und nicht unterstützte Fälle verhindern es.
 5. Die bestehende Finanzformel berechnet geschätzte Ansprüche und Einkommen nach Lebensmonat. `src/family-budget.cjs` erstellt zusätzlich drei Stresstests mit Engpässen und kumulierten Rücklagen. Der Stresstest auf Leistungsbeträge unterscheidet sich ausdrücklich vom bestehenden Sensitivitätstest auf die Einkommensbasis.
-6. Die begrenzte Vorlagensuche filtert Regeln, Betreuung und Mindestbudget. `src/goal-ranking.cjs` wählt unterschiedliche Finanz-, Betreuungs- und Robustheitsprofile. Die Auswahl ist lexikografisch; kein globales Optimum wird behauptet.
+6. Die begrenzte Vorlagensuche filtert Regeln, Betreuung und Mindestbudget. `src/candidate-patterns.cjs` ergänzt unabhängig geprüfte Rollenvarianten. `src/goal-ranking.cjs` wählt unterschiedliche Finanz-, Betreuungs- und Robustheitsprofile. Die Auswahl ist lexikografisch; kein globales Optimum wird behauptet.
 7. `src/application-guide.cjs` erzeugt datierte Aufgaben und NRW-/Köln-Antragswege. Historische Kommunalbeträge und manuelle Zusatzleistungen ohne geprüften Nachweis werden nicht automatisch addiert.
 
 Die Module bleiben mit CommonJS direkt unabhängig testbar. `axes:sync` und `modules:sync` erzeugen die Inline-Bundles. Die Tests kontrollieren die Übereinstimmung mit dem Modulquelltext.
@@ -24,4 +24,6 @@ Bankbuchungen verwenden tatsächliche Kalendertage. Sie werden niemals aus einem
 
 ## Fachliche Grenzen
 
-Schätzcharakter und strukturierter Prüfstatus sind in jeder Ansicht direkt unter der Budgetübersicht sichtbar. Die vollständige amtliche Brutto-Netto-Ermittlung fehlt weiterhin; eingegebenes Elterngeld-Netto und Stunden-Netto sind Schätzwerte. Der Mutterschutzvergleich weist eine konkrete amtliche Referenzabweichung auf, siehe Zeitachsen-Dokumentation und Abnahmebericht. Steuerwirkung, Kranken-/Pflegeversicherung, Rückforderungen und Sonderfälle brauchen unabhängige Prüfung. Daher ist V3.3.0 ein interner Prüfstand, kein fachlich freigegebener öffentlicher Release Candidate.
+Schätzcharakter und strukturierter Prüfstatus sind in jeder Ansicht direkt unter der Budgetübersicht sichtbar. Die vollständige amtliche Brutto-Netto-Ermittlung fehlt weiterhin; eingegebenes Elterngeld-Netto und Stunden-Netto sind Schätzwerte. Der Mutterschutzvergleich weist eine konkrete amtliche Referenzabweichung auf, siehe Zeitachsen-Dokumentation und Abnahmebericht. Steuerwirkung, Kranken-/Pflegeversicherung, Rückforderungen und Sonderfälle brauchen unabhängige Prüfung. Daher ist V3.4.0 ein interner Prüfstand, kein fachlich freigegebener öffentlicher Release Candidate.
+
+Ab V3.4 verwenden Budgetdiagramm, Rücklagen und vorsichtige Zielsuche dieselbe Komponentenprojektion mit getrennten väterlichen/mütterlichen Einkommensbändern. Die historische Sensitivitätsrechnung auf der Elterngeld-Einkommensbasis wird nicht mehr parallel als gleichnamiger Stresstest angezeigt.

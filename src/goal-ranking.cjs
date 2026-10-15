@@ -9,9 +9,19 @@ const SEARCH_LIMITATIONS = Object.freeze([
 ]);
 const FREE = new Set(['B', 'P', 'U', 'MS']);
 const PROFILES = ['finance', 'balanced', 'robust'];
+const FINGERPRINT_CODES=Object.freeze({W:'W',MS:'M',B:'B',R:'R',P:'P',T:'T',Q:'Q',K:'K',U:'U'});
 function scheduleFingerprint(schedule) {
-  return JSON.stringify(schedule.map(row => [row.f, row.m, row.hf ?? null, row.hm ?? null]));
+  // Encode each supported status in one character; retain sparse indexed hours.
+  // Generic unknown codes use the original lossless format instead of colliding.
+  const codes=[],hours=[];
+  for(const [index,row]of schedule.entries()){
+    if(!Object.hasOwn(FINGERPRINT_CODES,row.f)||!Object.hasOwn(FINGERPRINT_CODES,row.m))return JSON.stringify(schedule.map(r=>[r.f,r.m,r.hf??null,r.hm??null]));
+    codes.push(FINGERPRINT_CODES[row.f]+FINGERPRINT_CODES[row.m]);
+    if(row.hf!=null||row.hm!=null)hours.push([index,row.hf??null,row.hm??null]);
+  }
+  return JSON.stringify([codes.join(''),hours]);
 }
+
 function metrics(calc, horizon) {
   const rows = calc.rows.slice(0, horizon);
   if (rows.length < horizon || rows.some(row => !Number.isFinite(row.cashAfter))) return null;

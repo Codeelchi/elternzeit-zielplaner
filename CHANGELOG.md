@@ -1,5 +1,14 @@
 # Änderungen
 
+## 3.4.0 – fortgesetzter interner Prüfstand, 15.10.2026
+
+- Bewiesene Eingabelücken bei Sonderfallflags, Elternschlüsseln und Quellenzeiträumen geschlossen.
+- Importverlust bei Arbeits-/Leistungsmonaten und Bankbuchungen repariert; numerische Eingabegrenzen sowie Speicherentscheidung durchgängig geprüft.
+- Einkommensbänder je Elternteil und einheitliche Szenarien für Diagramm, Rücklagen und robuste Zielsuche.
+- Mütterliche/väterliche Schwerpunktvarianten mit Erhaltung der Mutterschutzmonate, individuellen Regelprüfungen und kompakteren Suchschlüsseln.
+- Gewöhnliche 35-Stunden-Teilzeit ohne Elterngeld und ohne Elternzeit von Teilzeit während Elternzeit getrennt.
+- Neue vollständige Browser-Roundtrips und vertiefte amtliche Quellprüfung dokumentiert; öffentliche Freigabe weiterhin gesperrt.
+
 ## 3.3.0 – interner Prüfstand, 14.10.2026
 
 - Konsolidierte Feature-Basis aus PR #10/#11 und Dokumentation aus PR #9; `main` bleibt unverändert.

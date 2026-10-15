@@ -200,3 +200,79 @@ test('dynamic model timelines remain accessible across all 36 life months',async
   if(failures.length)console.error('DYNAMIC_ACCESSIBILITY_FINDINGS '+JSON.stringify(failures,null,2));
   expect(failures,JSON.stringify(failures,null,2)).toEqual([]);
 });
+
+test('JSON roundtrip restores independent axes, bank ledger and calculated finances without keeping an old local copy',async({page},testInfo)=>{
+  const dialogs=[];page.on('dialog',async dialog=>{dialogs.push(dialog.message());await dialog.dismiss();});
+  await standardInputs(page);
+  await navigate(page,'slide-axes');
+  await page.locator('#axisMonth').fill('3');await page.locator('#axisMonth').blur();
+  await page.locator('#axisHoursFather').fill('24');
+  await page.locator('#axisBenefitFather').selectOption('plus');
+  await page.locator('#axesIndependentApply').click();
+  await page.locator('#bankDate').fill('2026-09-01');
+  await page.locator('#bankAmount').fill('700');
+  await page.locator('#bankCategory').selectOption('elterngeld');
+  await page.locator('#bankAdd').click();
+  const original=await page.evaluate(()=>({state:window.__elternzeitTest.getState(),rows:window.__elternzeitTest.evaluate().rows,axes:window.__elternzeitV3.timeAxes()}));
+  expect(original.state.employmentOverrides.father).not.toHaveLength(0);
+  expect(original.state.benefitOverrides.father).not.toHaveLength(0);
+  const downloadedPromise=page.waitForEvent('download');await page.locator('#btnJson').click();
+  const file=testInfo.outputPath('synthetic-independent-roundtrip.json');await(await downloadedPromise).saveAs(file);
+  await page.locator('#localSave').check();
+  await page.locator('#axesIndependentReset').click();await page.locator('#bankClear').click();
+  expect(await page.evaluate(()=>localStorage.length)).toBeGreaterThan(0);
+  await page.locator('#importJson').setInputFiles(file);
+  await expect(page.locator('#bankSummary')).toContainText('700');
+  const imported=await page.evaluate(()=>({state:window.__elternzeitTest.getState(),rows:window.__elternzeitTest.evaluate().rows,axes:window.__elternzeitV3.timeAxes(),stored:localStorage.length}));
+  for(const key of ['employmentOverrides','benefitOverrides','bankLedger'])expect(imported.state[key]).toEqual(original.state[key]);
+  expect(imported.rows).toEqual(original.rows);expect(imported.axes).toEqual(original.axes);
+  expect(imported.state.storageConsent).toBe(false);expect(imported.stored).toBe(0);
+  await expect(page.locator('#localSave')).not.toBeChecked();expect(dialogs).toEqual([]);
+});
+
+test('per-parent stress inputs affect wages independently and preserve maternity benefits',async({page})=>{
+  await standardInputs(page);
+  await navigate(page,'slide-3');await page.locator('[data-model="quickReturn"]').click();
+  await navigate(page,'slide-risk');
+  await expect(page.locator('#riskFatherPercent')).toHaveValue('');
+  await expect(page.locator('#riskMotherPercent')).toHaveValue('');
+  const before=await page.locator('#riskCards').innerText();
+  await page.locator('#riskFatherPercent').fill('0');await page.locator('#riskMotherPercent').fill('30');
+  await expect(page.locator('#riskCards')).toContainText('Vater 0 %, Mutter 30 %');
+  expect(await page.locator('#riskCards').innerText()).not.toBe(before);
+  const scenarios=await page.evaluate(()=>window.__elternzeitV3.riskScenarios().map(s=>({id:s.id,rows:s.calc.rows})));
+  const base=scenarios.find(s=>s.id==='base').rows,down=scenarios.find(s=>s.id==='down').rows;
+  expect(base.some(r=>r.fi>0)).toBe(true);expect(base.some(r=>r.mi>(r.maternityBenefits||0))).toBe(true);
+  for(let i=0;i<base.length;i++){
+    expect(down[i].fi).toBeCloseTo(base[i].fi,6);
+    expect(down[i].maternityBenefits||0).toBeCloseTo(base[i].maternityBenefits||0,6);
+    expect(down[i].mi-(down[i].maternityBenefits||0)).toBeCloseTo((base[i].mi-(base[i].maternityBenefits||0))*.7,6);
+  }
+  await page.locator('#riskFatherPercent').fill('');
+  await expect(page.locator('#riskCards')).toContainText('Vater 15 %, Mutter 30 %');
+});
+
+test('mother and both-role searches produce valid recommendations and mark changed assumptions stale',async({page})=>{
+  await standardInputs(page);await navigate(page,'slide-goal');
+  await page.locator('#goalCare').selectOption('12');await page.locator('#goalMinFather').fill('2');await page.locator('#goalPart').selectOption('0');
+  await page.locator('#goalRoles').selectOption('mother');await page.locator('#runGoal').click();
+  await expect(page.locator('#runGoal')).toBeEnabled({timeout:90000});
+  await expect(page.locator('#goalResult')).toContainText('Automatische Suche abgeschlossen');
+  const mother=await page.evaluate(()=>window.__elternzeitV3.goalResults());
+  expect(mother.length).toBeGreaterThan(0);
+  expect(mother.every(p=>p.valid&&p.careLead==='mother'&&p.motherFree>=p.free)).toBe(true);
+  await page.locator('#goalRoles').selectOption('both');await page.locator('#runGoal').click();
+  await expect(page.locator('#runGoal')).toBeEnabled({timeout:90000});
+  const both=await page.evaluate(()=>window.__elternzeitV3.goalResults());
+  expect(both.length).toBeGreaterThan(0);expect(both.every(p=>p.valid)).toBe(true);
+  await navigate(page,'slide-risk');await page.locator('#riskMotherPercent').fill('30');
+  await navigate(page,'slide-goal');await expect(page.locator('#goalResult')).toContainText('veraltet');
+  await page.locator('#runGoal').click();await expect(page.locator('#runGoal')).toBeEnabled({timeout:90000});
+  await navigate(page,'slide-axes');await page.locator('#axesFatherStart').fill('2026-07-28');await page.locator('#axesFatherEnd').fill('2026-08-27');await page.locator('#axesApply').click();
+  await navigate(page,'slide-goal');await expect(page.locator('#goalResult')).toContainText('veraltet');
+  await navigate(page,'slide-axes');await page.locator('#axesReset').click();await navigate(page,'slide-goal');
+  await page.locator('#runGoal').click();await expect(page.locator('#runGoal')).toBeEnabled({timeout:90000});
+  const accepted=await page.evaluate(()=>window.__elternzeitV3.goalResults()[0]);expect(accepted).toBeTruthy();
+  await page.locator('#goalResult [data-accept]').first().click();await expect(page.locator('#slide-5')).toBeVisible();
+  expect(await page.evaluate(()=>window.__elternzeitTest.getState().schedule)).toEqual(accepted.schedule);
+});

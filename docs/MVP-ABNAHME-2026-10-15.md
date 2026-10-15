@@ -1,0 +1,37 @@
+# V3.4.0 – fortgesetzte MVP-Prüfung
+
+Die GitHub-CI des vorherigen integrierten Standes `e457055` ist erfolgreich. Dieser Ausbauschritt schließt zusätzlich gefundene Eingabelücken und erweitert die Familienplanung. Eine öffentliche Freigabe bleibt ausstehend.
+
+## Neue Implementierungen
+
+- Sonderfallangaben mit unerwartetem Datentyp, unbekannte Elternschlüssel und fehlerhafte Quellen-Gültigkeitszeiträume verhindern jetzt zuverlässig eine positive Standardbewertung. Die Prüfung unterscheidet 35 Stunden Erwerbsarbeit ohne Elterngeld und ohne Elternzeit von Erwerbsarbeit während tatsächlicher oder abgeleiteter Elternzeit.
+- JSON-Import erhält getrennte Erwerbs-/Leistungsmonate und Bankbuchungen einschließlich der daraus berechneten Finanzwerte. Datei-/Zahl-/Datums-/Stundenprüfung und ausdrückliche Speicherentscheidung gelten auch für die aktive Importfunktion. Ein erfolgreich geladener Plan entfernt die bisher lokal gespeicherte Kopie und aktiviert Speicherung nicht stillschweigend.
+- Getrennte Einkommensbänder für beide Eltern; Null bedeutet keine Schwankung, leere Felder übernehmen das gemeinsame Band. Mutterschaftsleistungen bleiben separat und konstant. Bandgrafik, Engpass-/Rücklagenanalyse und Robustheitsziel verwenden dieselben Szenarien.
+- Die Vorlagensuche kann längere Auszeit beim Vater, bei der Mutter oder beide Aufteilungen vergleichen. Spiegelung verschiebt Mutterschutz niemals zum Vater. Jede Variante wird unabhängig auf Recht, Betreuung und Budget geprüft; unzulässige mütterliche Kontingentüberschreitungen werden nicht übernommen.
+- Kompakte Fingerprints reduzieren die gespeicherten Suchschlüssel. Regelkonflikte werden vor teuren Finanzprojektionen ausgesondert. Änderungen an Elternzeit und persönlichen Risikobändern machen vorherige Empfehlungen ungültig; vor Übernahme erfolgt eine erneute Prüfung.
+
+Die Suchmethode bleibt begrenzt: keine vollständige Erfassung aller Monatsfolgen, nur ausgewählte Teilzeitstarts und Bonusabschnitte, keine Planung tatsächlicher Betreuungsstunden. Ein Suchlauf kann bei restriktiven Anforderungen keine Vorschläge liefern. Das Ziel wird nicht heimlich abgeschwächt.
+
+## Amtlicher Rechner: vertiefte unabhängige Quellprüfung
+
+Am **15.10.2026** wurden der [Bundesrechner](https://familienportal.de/familienportal/meta/egr) und dessen [öffentliches Anwendungsskript](https://egr-assets-production.object.storage.eu01.onstackit.cloud/index.js) abgerufen. Skript-SHA256: `29621047a3485b03526966aacb74594ff6a3777908d506f5b728a1fabfa77b4c`.
+
+Die unveränderte isolierte Original-Kalenderfunktion wurde mit synthetischen Daten ausgeführt:
+
+| Geburt | Errechneter Termin | Amtliche Funktion: Fristende |
+| --- | --- | --- |
+| 20.05.2027 | 20.05.2027 | 15.07.2027 |
+| 28.05.2027 | 28.05.2027 | 23.07.2027 |
+| 20.05.2027 | 28.05.2027 | 23.07.2027 |
+
+Die Aufruferkette bestätigt: Der zweite Parameter der internen Funktion `iz` ist der vorgeburtliche Schutzfristbeginn. Berechnet wird das spätere Datum aus Geburt plus acht Wochen und vorgeburtlichem Beginn plus vierzehn Wochen. Das stützt unsere Kalenderableitung; es bestätigt keine Rechtslage für zukünftige Geburten.
+
+Für die Geldbeträge ist die amtliche SPA **kein taggenauer Referenzvergleich**: `Uz` bestimmt den letzten berührten Lebensmonat, `AB → pB → dB` kennzeichnet Schutzmonate mit leerem Leistungsbetrag, `fB` überspringt deren Betragsaktualisierung. Die Oberfläche zeigt dort „Mutterschutz“. Damit kann diese Darstellung den Unterschied zwischen **4/30 und 5/30** verbleibendem Bezug nicht aufklären.
+
+Keine privaten Daten übermittelt. Kein vollständiger identischer Geldbetragsvergleich behauptet. Die Originalreferenz des Familienportals bleibt erhalten und die Abweichung im Delta-Bericht sichtbar.
+
+## Technische Nachweise und verbleibende Gates
+
+154 automatisierte Node-/Modul-/DOM-Tests bestehen nach der Integration. Elf Browsertests direkt über `file://` und 50 Axe-Prüfungen bestehen ohne Verstöße oder Laufzeitfehler. Browsernachweise und aktueller Dateiprotokollstatus liegen unter `qa/`; der ergänzte Browserumfang prüft insbesondere vollständigen Export/Import, personenbezogene Risikobänder, mütterliche Schwerpunktvarianten und veraltete Empfehlungen. Es werden ausschließlich synthetische Daten verwendet.
+
+`npm run references:report` schreibt einen versionierten Bericht und `qa/reference-deltas-current.json`. `npm run release:check` bleibt gesperrt, solange die konkrete Referenzabweichung sowie unabhängige Fach-/Rechts-/Datenschutzreviews und Nutzertests offen sind. Ein grüner technischer CI-Lauf ersetzt diese Freigaben nicht. Quellenstand und 2027-Sperre wurden durch die Softwareprüfung nicht pauschal aktualisiert.

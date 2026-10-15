@@ -1,6 +1,6 @@
 # Elternzeit-Zielplaner
 
-**Privater Entwicklungsstand V3.3.0 (Feature-Branch) (14. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
+**Privater Entwicklungsstand V3.4.0 (Feature-Branch) (15. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung, vollständige amtliche Nettoermittlung und unabhängiges Fach-/Datenschutzreview bleiben Release-Gates. 2027 erhält keine positive Standardbewertung.
 
@@ -19,14 +19,14 @@ npm run test:e2e
 
 Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repository-Verzeichnis, dann `http://localhost:8080` öffnen. Die App benötigt zur Laufzeit keinen Build-Schritt und keine Netzwerkverbindung.
 
-## Funktionen (Stand V3.3.0)
+## Funktionen (Stand V3.4.0)
 
 - 36 Lebensmonate, Geburtsdatum und Kindesalter samt konkreten Monatsdaten
 - Elternzeit und Elternteilzeit getrennt für beide Elternteile konfigurieren
 - Basiselterngeld, ElterngeldPlus, Partnerschaftsbonus und unbezahlte Elternzeit
 - Unterschiedliche Brutto-, Netto-, Elterngeld-Netto- und Teilzeit-Annahmen
 - Zielbasierte Suche über eine *begrenzte Menge erzeugter zulässiger Monatsmuster*
-- Sensitivitätsanalyse für Teilzeit-Netto, Elterngeld-Netto und Betreuungskosten
+- Drei Stresstests mit getrennten Erwerbsnetto-Bändern beider Eltern, Leistungshöhe und Haushalts-/Betreuungskosten
 - Ortsabhängige Modellkosten am Beispiel Köln/NRW mit datierter Tariftabelle
 - Rechtsregelkatalog, Plausibilitätsmeldungen, JSON/CSV-Export
 
@@ -82,9 +82,11 @@ Alle Beträge sind **Modellrechnungen**, keine Bewilligung. Das tatsächliche El
 ## Neuer Stand und Nachweise
 
 - [Architektur](docs/ARCHITEKTUR.md), [Regelvalidator](docs/REGELVALIDATOR.md), [Budget und Antragswege](docs/BUDGET-APPLICATION-GUIDE.md)
-- [Abnahme und offene Release-Gates](docs/MVP-ABNAHME-2026-10-14.md), [Changelog](CHANGELOG.md)
+- [Abnahme und offene Release-Gates](docs/MVP-ABNAHME-2026-10-15.md), [Changelog](CHANGELOG.md)
 - `npm run rules:sync`, `npm run axes:sync`, `npm run modules:sync` aktualisieren die verteilbare HTML-Datei nach Modul-/Katalogänderungen. `npm test` prüft alle drei Snapshots.
-- Browser-Tests verwenden Chromium aus `CHROMIUM_PATH`, `/usr/bin/chromium` oder der Playwright-Installation. Während des Tests dient ein lokaler Python-HTTP-Server nur der Auslieferung; die Anwendung selbst benötigt keinen Server.
+- Browser-Tests verwenden Chromium aus `CHROMIUM_PATH`, `/usr/bin/chromium` oder der Playwright-Installation. Die aktuelle Browserprüfung öffnet die HTML-Datei direkt über `file://`; die Anwendung benötigt keinen Server.
 - Lokale Speicherung ist standardmäßig ausgeschaltet, optional und unverschlüsselt. Exporte enthalten private Finanzdaten. Im Browser bleibt die Berechnung ohne Konto und ohne Netzwerkaufrufe.
 
 `npm run references:report` schreibt den unabhängigen Delta-Bericht. `npm run release:check` ist derzeit bewusst gesperrt; erfolgreiche Entwickler-Tests ersetzen die ausstehenden öffentlichen Release-Freigaben nicht.
+
+V3.4 ergänzt getrennte Einkommensrisiken beider Eltern, Schwerpunktvarianten mit längerer mütterlicher oder väterlicher Auszeit und vollständige Wiederherstellung der unabhängigen Achsen samt Bankbuchungen. Die Robustheitsgrafik und Zielsuche verwenden dieselben Stresstests.

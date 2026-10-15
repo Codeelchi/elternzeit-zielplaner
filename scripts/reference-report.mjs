@@ -1,6 +1,7 @@
 import {readFileSync,writeFileSync} from 'node:fs';
 import {JSDOM,VirtualConsole} from 'jsdom';
 const root=new URL('../',import.meta.url);
+const {version}=JSON.parse(readFileSync(new URL('package.json',root),'utf8'));
 const fixtures=JSON.parse(readFileSync(new URL('data/referenzfaelle-bund-2026-10-14.json',root),'utf8'));
 const errors=[],console=new VirtualConsole();console.on('jsdomError',e=>errors.push(e.message));
 const dom=new JSDOM(readFileSync(new URL('index.html',root),'utf8'),{url:'https://elternzeit.local',runScripts:'dangerously',pretendToBeVisual:true,virtualConsole:console});
@@ -10,7 +11,7 @@ const cases=fixtures.cases.map(f=>{const actual=ui[f.benefit_type==='basis'?'bas
 ui.changeValue('date','2026-05-20');
 const lm=dom.window.__elternzeitV3.matDaysAt(2);
 const maternity={id:'official-maternity-may20',source_url:'https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/kann-ich-elterngeld-und-mutterschaftsleistungen-bekommen--124776',source_checked_at:'2026-10-14',evidence_kind:'official_published_example',published_uncovered_days:5,actual_uncovered_days:lm.len-lm.days,period_days:30,delta_days:lm.len-lm.days-5,within_tolerance:false,explanation:'Portal nennt Schutzfristende 14. Juli. MuSchG §3 mit BGB §§187/188 ergibt 15. Juli einschließlich; unabhängige Behördenklärung erforderlich. Originalreferenz unverändert.',release_blocker:true};
-const report={version:'3.3.0',checkedAt:'2026-10-14',amountCases:cases,maternity,published_amount_examples:cases.filter(x=>x.evidence_kind==='official_published_example').length,publicReleaseGatePassed:cases.every(x=>x.within_tolerance)&&maternity.within_tolerance};
-writeFileSync(new URL('qa/reference-deltas-v3.3.json',root),JSON.stringify(report,null,2)+'\n');
+const report={version,checkedAt:'2026-10-14',amountCases:cases,maternity,published_amount_examples:cases.filter(x=>x.evidence_kind==='official_published_example').length,publicReleaseGatePassed:cases.every(x=>x.within_tolerance)&&maternity.within_tolerance};
+for(const path of [`qa/reference-deltas-v${version}.json`,'qa/reference-deltas-current.json'])writeFileSync(new URL(path,root),JSON.stringify(report,null,2)+'\n');
 dom.window.close();
 process.stdout.write(`${cases.length} amount comparisons exported; maternity difference ${maternity.delta_days} day. Public release gate: BLOCKED.\n`);

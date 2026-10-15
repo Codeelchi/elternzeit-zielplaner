@@ -19,6 +19,8 @@ function band(value, fallback, label) {
 function projectFamilyBudget({rows,expenses=0,minimum=0,assumptions={},confirmedGrants=[]}={}) {
   if(!Array.isArray(rows)||!rows.length)throw new TypeError('Monatsprojektionen erforderlich.');
   const wageBand=band(assumptions.wagePercent,15,'Einkommensband');
+  const fatherWageBand=band(assumptions.fatherWagePercent,wageBand*100,'Einkommensband Vater');
+  const motherWageBand=band(assumptions.motherWagePercent,wageBand*100,'Einkommensband Mutter');
   const egBand=band(assumptions.elterngeldPercent,5,'Elterngeldband');
   const costBand=band(assumptions.costPercent,20,'Kostenband');
   const expense=amount(expenses,'Haushaltsausgaben'), target=amount(minimum,'Mindestbetrag');
@@ -35,30 +37,34 @@ function projectFamilyBudget({rows,expenses=0,minimum=0,assumptions={},confirmed
   const prepared=rows.map((row,i)=>{
     const lm=row.lm===undefined?i+1:row.lm;
     if(!Number.isInteger(lm)||lm!==i+1)throw new RangeError('Lebensmonate müssen lückenlos ab 1 geordnet sein.');
-    const combined=amount(row.fi,'Einkommen Elternteil 1')+amount(row.mi,'Einkommen Elternteil 2');
-    // Optional explicit decomposition is a subset of fi+mi, never additional income.
+    const fatherWage=amount(row.fi,'Einkommen Elternteil 1');
+    const motherIncome=amount(row.mi,'Einkommen Elternteil 2');
+    // Maternity is already included in mi; only the remaining wage varies.
     const maternity=amount(row.maternityBenefits,'Mutterschaftsleistungen');
-    if(maternity>combined)throw new RangeError('Mutterschaftsleistungen übersteigen die kombinierte Einkommensprojektion.');
-    return {lm,wages:combined-maternity,maternity,elterngeld:amount(row.fg,'Elterngeld 1')+amount(row.mg,'Elterngeld 2'),kindergeld:amount(row.kind,'Kindergeld'),childcare:amount(row.childcare,'Betreuungskosten'),grant:grants.get(lm)||0};
+    if(maternity>motherIncome)throw new RangeError('Mutterschaftsleistungen übersteigen die Einkommensprojektion der Mutter.');
+    const maternityKnown=row.maternityBenefits!==undefined && row.maternityBenefits!==null && row.maternityBenefits!=='';
+    return {lm,fatherWage,motherWage:motherIncome-maternity,maternity,maternityKnown,elterngeld:amount(row.fg,'Elterngeld 1')+amount(row.mg,'Elterngeld 2'),kindergeld:amount(row.kind,'Kindergeld'),childcare:amount(row.childcare,'Betreuungskosten'),grant:grants.get(lm)||0};
   });
   const scenarios=[['conservative','Vorsichtig',-1],['realistic','Realistisch',0],['favourable','Günstig',1]].map(([id,label,direction])=>{
     let cumulative=0,requiredReserves=0,totalIncome=0;
     const months=prepared.map(r=>{
-      const wages=r.wages*(1+direction*wageBand),elterngeld=r.elterngeld*(1+direction*egBand);
+      const fatherWage=r.fatherWage*(1+direction*fatherWageBand);
+      const motherWage=r.motherWage*(1+direction*motherWageBand);
+      const wages=fatherWage+motherWage,elterngeld=r.elterngeld*(1+direction*egBand);
       const childcare=r.childcare*(1-direction*costBand),householdExpenses=expense*(1-direction*costBand);
       const income=wages+r.maternity+elterngeld+r.kindergeld+r.grant;
       const available=income-childcare-householdExpenses,shortfall=Math.max(0,target-available);
       cumulative+=available-target;requiredReserves=Math.max(requiredReserves,-cumulative);totalIncome+=income;
-      return {lm:r.lm,wages,maternityBenefits:r.maternity,elterngeld,kindergeld:r.kindergeld,confirmedAdditionalBenefits:r.grant,childcare,householdExpenses,income,available,shortfall,cumulativeSurplus:cumulative};
+      return {lm:r.lm,fatherWage,motherWage,wages,maternityBenefits:r.maternity,elterngeld,kindergeld:r.kindergeld,confirmedAdditionalBenefits:r.grant,childcare,householdExpenses,income,available,shortfall,cumulativeSurplus:cumulative};
     });
     return {id,label,months,requiredReserves,totalIncome,totalAvailable:months.reduce((n,r)=>n+r.available,0),lowestAvailable:Math.min(...months.map(r=>r.available)),bottleneckMonths:months.filter(r=>r.shortfall>0).map(r=>r.lm)};
   });
-  return {basis:'MODELLIERTER_LEISTUNGSANSPRUCH',bankReceiptsPredicted:false,scenarios,assumptions:{wagePercent:wageBand*100,elterngeldPercent:egBand*100,costPercent:costBand*100,expenses:expense,minimum:target},rejectedGrants,warnings:[
+  return {basis:'MODELLIERTER_LEISTUNGSANSPRUCH',bankReceiptsPredicted:false,scenarios,assumptions:{wagePercent:wageBand*100,fatherWagePercent:fatherWageBand*100,motherWagePercent:motherWageBand*100,elterngeldPercent:egBand*100,costPercent:costBand*100,expenses:expense,minimum:target},rejectedGrants,warnings:[
     'Nettoeinkommen und Elterngeld sind Schätzungen; Szenariobänder sind Annahmen, keine Wahrscheinlichkeiten.',
     'Leistungsanspruch pro Lebensmonat ist kein tatsächlicher Bank-Zahlungseingang. Verzögerte Auszahlungen erfordern zusätzliche Liquidität.',
     'Progressionsvorbehalt kann Steuernachzahlungen auslösen; individuelle Versicherungsbeiträge sind nicht enthalten.',
     ...(ignoredRowGrants?['Manuelle Zusatzleistungen wurden ohne bestätigte, datierte Anspruchsgrundlage nicht übernommen.']:[]),
-    ...(prepared.some(r=>r.maternity===0)?['Ohne explizite Aufteilung können Mutterschaftsleistungen im kombinierten Arbeitseinkommen enthalten sein.']:[])
+    ...(prepared.some(r=>!r.maternityKnown)?['Ohne explizite Aufteilung können Mutterschaftsleistungen im kombinierten Arbeitseinkommen enthalten sein.']:[])
   ]};
 }
 module.exports={projectFamilyBudget};

@@ -42,6 +42,12 @@ Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repo
 
 `npm test` prüft die reale, aus `index.html` geladene Applikationslogik u. a. auf Elterngeld-Äquivalente, Bonusstunden, Bezugsgrenzen, zeitabhängige Kinderdaten, Rechtsquellen und Ergebnisgültigkeit der automatischen Suche. Die frühere QA-Auswertung bleibt gesondert archiviert. **Die neue Testsuite ersetzt weder Behördenberechnungen noch eine individuelle rechtliche Prüfung.**
 
+## MVP und Wettbewerbsabgleich
+
+- [MVP-Spezifikation, Release-Gates und Abnahmekriterien](docs/MVP-2026-10-14.md)
+- [Wettbewerbs- und Code-Abgleich mit Hypothesen und Evidenzgrenzen](docs/WETTBEWERB-UND-CODE-ABGLEICH.md)
+- [Offene Aufgaben in GitHub Issues](https://github.com/Codeelchi/elternzeit-zielplaner/issues)
+
 ## Architektur / Weiterentwicklung
 
 Aktuell ist `index.html` aus Gründen der Offline-Nutzung bewusst selbsttragend. Mittelfristig sollten Modell, Rechtsregel-Engine, Optimierer, Rendering und Datenpersistenz unabhängig voneinander testbar werden. Die im HTML angebotene Suchfunktion prüft nur erzeugte Muster und erhebt keinen Anspruch auf vollständige kombinatorische Optimierung. Weitere Schritte: siehe [Roadmap](docs/ROADMAP.md).

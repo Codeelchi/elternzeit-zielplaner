@@ -145,6 +145,6 @@ Der [Audit vom 15.10.2026 gegen V3.6](WETTBEWERB-MVP-AUDIT-2026-10-15.md) bestä
 
 ## Umsetzung der Produktprioritäten V3.7
 
-Neutraler Netto-Einstieg, materielle Ergebnisvielfalt, direkter realistischer/vorsichtiger Budgetvergleich und bedienbar unterbrechbare Suche sind umgesetzt; siehe [Abschlussnachweis](UMSETZUNG-ZIELBUDGET-V3.7.md). Die Cent-Rundung ist amtlich belegt und implementiert. 216 Node-Tests sowie 16 Dateiprotokoll-Browserfälle mit 52 Axe-Scans bestehen.
+Neutraler Netto-Einstieg, materielle Ergebnisvielfalt, direkter realistischer/vorsichtiger Budgetvergleich und bedienbar unterbrechbare Suche sind umgesetzt; siehe [Abschlussnachweis](UMSETZUNG-ZIELBUDGET-V3.7.md). Die Cent-Rundung ist amtlich belegt und implementiert. 217 Node-Tests sowie 16 Dateiprotokoll-Browserfälle mit 52 Axe-Scans bestehen.
 
 P0-R1 bleibt hinsichtlich des Mutterschutz-Eurobetrags offen. P0-R3 ist für den ausdrücklich erlaubten manuellen MVP-Eingabeweg technisch umgesetzt; eine vollständige automatische Bruttoengine bleibt gesonderter Ausbau und wird nicht vorgetäuscht. Fachreview der tatsächlichen Monats-/Nettoeingaben bleibt erforderlich. P1-R5/R6 sind hinsichtlich Vielfalt, Abbruch und Direktvergleich verbessert; globale Suchvollständigkeit und Zahlungsliquidität bleiben ausgeschlossen. P1-R8: [Nutzertestprotokoll](NUTZERTEST-PROTOKOLL-V3.7.md) vorbereitet, Durchführung und unabhängige Reviews offen. Keine öffentliche Freigabe.

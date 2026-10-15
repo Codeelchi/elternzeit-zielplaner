@@ -58,11 +58,12 @@ Der Regressionstest zur Mutterschaftsdifferenz berücksichtigt die explizite Cen
 
 1. Finanzzeilen enthielten in freien Monaten noch Referenz-Teilzeitstunden. Dadurch meldete der neue Vergleich null freie Monate. Die effektiven Zeilen enthalten jetzt null Erwerbsstunden bei freien Codes, reguläre Vollzeit bei W und die tatsächlichen Modellstunden bei Teilzeit. Vergleich und Ranking werden auf übereinstimmende freie Monate geprüft.
 2. Ein fokussiertes Namensfeld wurde nach Import nicht aktualisiert. Profile werden jetzt bei abweichendem Wert vollständig synchronisiert; identische Eingaben werden zur Erhaltung der Eingabeposition nicht überschrieben.
-3. Namen können Wörter wie „Mutter“ oder HTML-Zeichen enthalten. Die Rollenersetzung erfolgt in einem einzelnen Textschritt, damit bereits eingesetzte Namen nicht erneut als Platzhalter interpretiert werden. Der Browser prüft ausdrücklich ausbleibende HTML-Ausführung.
+3. Leere Nettofelder wurden noch als null gespeichert. Der gezielt reproduzierte Fehler führte trotz fehlender EG-Netto-Angabe zu PLAUSIBEL_STANDARD. Jetzt bleiben unbekannte Werte leer und sperren die positive Bewertung/Suche mit DATEN_UNVOLLSTAENDIG. Ausdrücklich eingegebene null Euro bleiben zulässig.
+4. Namen können Wörter wie „Mutter“ oder HTML-Zeichen enthalten. Die Rollenersetzung erfolgt in einem einzelnen Textschritt, damit bereits eingesetzte Namen nicht erneut als Platzhalter interpretiert werden. Der Browser prüft ausdrücklich ausbleibende HTML-Ausführung.
 
 ## Nachweise und verbleibende Abnahmen
 
-- **216 Node-/Modul-/DOM-Tests bestanden**, einschließlich neuer Vergleichs-, Rundungs-, Diversitäts-, Eingabe- und Abbruchregressionen.
+- **217 Node-/Modul-/DOM-Tests bestanden**, einschließlich neuer Vergleichs-, Rundungs-, Diversitäts-, Eingabe- und Abbruchregressionen.
 - 16/16 Browserfälle direkt über `file://`, 52 Axe-Prüfungen ohne Verstöße, keine erfassten Laufzeitfehler oder Seitenüberläufe. Aktueller Nachweis mit HTML-Hash: `qa/browser-environment.json`, vollständiger Lauf in `qa/browser-results.json`; acht aktuelle Screenshots für Desktop/Mobil.
 - 48 monetäre amtliche Vergleichswerte bleiben erfolgreich; Mutterschutzabweichung weiterhin **−1 Tag**. Vier historische Dokumentkonsistenzen sind weiterhin keine vollständigen Bescheid-Reproduktionen.
 - Quellmodule und eingebettete Offline-Snapshots werden durch `npm test` geprüft. Versionierter Referenzbericht: `qa/reference-deltas-v3.7.0.json`.

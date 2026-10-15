@@ -113,4 +113,4 @@ Alle Beträge sind **Modellrechnungen**, keine Bewilligung. Das tatsächliche El
 
 V3.4 ergänzt getrennte Einkommensrisiken beider Eltern, Schwerpunktvarianten mit längerer mütterlicher oder väterlicher Auszeit und vollständige Wiederherstellung der unabhängigen Achsen samt Bankbuchungen. Die Robustheitsgrafik und Zielsuche verwenden dieselben Stresstests.
 
-V3.7: 216 automatisierte Tests, 16 Offline-file-Browserfälle und 52 Axe-Prüfungen bestanden. Vorschläge zeigen realistische/vorsichtige Budgets, Engpässe und Rücklagen unmittelbar. Die schrittweise Suche ist abbrechbar, unterscheidet Ausschlussgründe und zeigt nur materiell verschiedene Alternativen. Freie Elternbezeichnungen ändern keine rechtlichen Rollen.
+V3.7: 217 automatisierte Tests, 16 Offline-file-Browserfälle und 52 Axe-Prüfungen bestanden. Vorschläge zeigen realistische/vorsichtige Budgets, Engpässe und Rücklagen unmittelbar. Die schrittweise Suche ist abbrechbar, unterscheidet Ausschlussgründe und zeigt nur materiell verschiedene Alternativen. Freie Elternbezeichnungen ändern keine rechtlichen Rollen.

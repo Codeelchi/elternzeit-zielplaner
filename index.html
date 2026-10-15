@@ -1854,7 +1854,7 @@ function showSlide(i){slideIndex=Math.max(0,Math.min(document.querySelectorAll('
 function listenInputs(){
  document.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('input',()=>{
   const field=el.dataset.field;
-  s[field]=['date','incomeProfileFather','incomeProfileMother'].includes(field)?el.value:field==='expenses'?(el.value.trim()===''?'':toNum(el.value)):toNum(el.value);
+  s[field]=['date','incomeProfileFather','incomeProfileMother'].includes(field)?el.value:['expenses','grossFather','grossMother','netFather','netMother','egNetFather','egNetMother','ptNetFather','ptNetMother'].includes(field)?(el.value.trim()===''?'':toNum(el.value)):toNum(el.value);
   if(['hoursFather','hoursMother'].includes(field)&&builderActive)applyBuilder();else{renderAll();persist()}
  }));
  document.querySelectorAll('[data-build]').forEach(el=>el.addEventListener(el.tagName==='SELECT'?'change':'input',()=>{

@@ -25,7 +25,7 @@
     "checkedAt": "2026-10-15",
     "method": "WCAG relative luminance; current risk chart screenshot visually inspected"
   },
-  "sourceSha256": "ed1478a3706d2df0398aa5d865524caec8953d82cbfe579832de5c949bf416f7",
+  "sourceSha256": "0612dc1d409074c334d1819b9979b3e1cb1e4a87b3c2219a901a53579d2c7afc",
   "workflows": [
     "Neutral parent names and manually entered income sources; changing gross reference leaves all calculated rows unchanged.",
     "Name/source JSON roundtrip including literal <img onerror> input; no HTML execution.",
@@ -33,11 +33,12 @@
     "Free months agree with candidate ranking; names never shift maternity from role 2.",
     "Async search cancellation, input-change stop and restart without applying the generated schedule.",
     "Stale plan acceptance disabled after changed risk or employer-leave assumptions.",
-    "Forecast 2027 remains unsupported; no claim of legally verified benefit entitlement."
+    "Forecast 2027 remains unsupported; no claim of legally verified benefit entitlement.",
+    "Blank Elterngeld-Netto remains unknown and blocks positive status/search; explicit zero remains a valid entered amount, then known input is restored."
   ],
   "run": {
-    "startedAt": "2026-10-15T07:55:39.345Z",
-    "durationMs": 154719.183,
+    "startedAt": "2026-10-15T08:03:29.330Z",
+    "durationMs": 155550.111,
     "unexpected": 0,
     "expected": 16
   },

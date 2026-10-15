@@ -53,3 +53,10 @@ test('completed search reports all first-rejection filters and freezes consisten
  assert.match(doc.querySelector('#goalResult').textContent,/Anfangsrücklage/);assert.match(doc.querySelector('#goalResult').textContent,/Engpass-Lebensmonate/);assert.match(doc.querySelector('#goalResult').textContent,/Vorsichtig/);
  const before=JSON.stringify(comparison);ui.changeValue('riskFatherPercent',35);assert.equal(JSON.stringify(app.goalComparison()),before);assert.match(doc.querySelector('#goalResult').textContent,/veraltet/);assert.ok([...doc.querySelectorAll('[data-accept]')].every(b=>b.disabled));assert.deepEqual(errors,[]);dom.window.close();
 });
+
+test('clearing a required net input stays unknown while explicit zero remains deliberate',()=>{
+ const {dom,ui,app,doc,errors}=setup();Object.assign(ui.s,{date:'2026-05-28',standardCaseConfirmed:true,zve:90000});
+ const input=doc.querySelector('#egNetFather');input.value='';input.dispatchEvent(new dom.window.Event('input',{bubbles:true}));
+ assert.equal(ui.getState().egNetFather,'');assert.equal(input.value,'');assert.equal(ui.evaluate().validation.status,'DATEN_UNVOLLSTAENDIG');assert.equal(app.runGoalSearch().length,0);
+ input.value='0';input.dispatchEvent(new dom.window.Event('input',{bubbles:true}));assert.equal(ui.getState().egNetFather,0);assert.notEqual(ui.evaluate().validation.status,'DATEN_UNVOLLSTAENDIG');assert.deepEqual(errors,[]);dom.window.close();
+});

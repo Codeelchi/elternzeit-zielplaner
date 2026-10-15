@@ -370,6 +370,22 @@ test('income onboarding identifies manual sources without deriving net pay or ch
   const after=await page.evaluate(()=>({rows:window.__elternzeitTest.evaluate().rows,axes:window.__elternzeitV3.timeAxes()}));
   expect(after).toEqual(before);
   expect(await page.locator('body').textContent()).not.toContain('Steuerklasse IV/IV');
+  await page.locator('#egNetFather').fill('');await page.locator('#egNetFather').blur();
+  await expect(page.locator('#egNetFather')).toHaveValue('');
+  expect(await page.evaluate(()=>window.__elternzeitTest.getState().egNetFather)).toBe('');
+  await expect(page.locator('#globalPlanStatus')).toContainText('DATEN_UNVOLLSTAENDIG');
+  await navigate(page,'slide-goal');await page.locator('#runGoal').click();
+  await expect(page.locator('#runGoal')).toBeEnabled();
+  expect(await page.evaluate(()=>window.__elternzeitV3.goalResults())).toEqual([]);
+  expect(await page.locator('#goalResult [data-accept]').count()).toBe(0);
+  await expect(page.locator('#globalPlanStatus')).toContainText('DATEN_UNVOLLSTAENDIG');
+  await navigate(page,'slide-2');await page.locator('#egNetFather').fill('0');await page.locator('#egNetFather').blur();
+  await expect(page.locator('#egNetFather')).toHaveValue('0');
+  expect(await page.evaluate(()=>window.__elternzeitTest.getState().egNetFather)).toBe(0);
+  await expect(page.locator('#globalPlanStatus')).toContainText('PLAUSIBEL_STANDARD');
+  await page.locator('#egNetFather').fill(eg);await page.locator('#egNetFather').blur();
+  await expect(page.locator('#egNetFather')).toHaveValue(eg);
+
 });
 
 test('parent names and income source roundtrip as literal text without HTML injection',async({page},testInfo)=>{

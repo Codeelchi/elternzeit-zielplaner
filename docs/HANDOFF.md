@@ -127,6 +127,6 @@ Vor weiteren Produktänderungen den [V3.6-Audit](WETTBEWERB-MVP-AUDIT-2026-10-15
 
 ## Aktuelle Übergabe V3.7
 
-[Umsetzung und Prüfungen](UMSETZUNG-ZIELBUDGET-V3.7.md) lesen. 216 Node-Tests, 16 file://-Browserfälle und 52 Axe-Scans sind aktuell bestanden; `qa/browser-environment.json` enthält jetzt Version und HTML-Hash. Die vorher dokumentierte V3.4-Metadatenlücke ist damit behoben. Neue Module: `money.cjs` und `plan-comparison.cjs`. `runGoalSearch` bleibt synchron testbar, die sichtbare Oberfläche nutzt `runGoalSearchAsync` mit Abbruch.
+[Umsetzung und Prüfungen](UMSETZUNG-ZIELBUDGET-V3.7.md) lesen. 217 Node-Tests, 16 file://-Browserfälle und 52 Axe-Scans sind aktuell bestanden; `qa/browser-environment.json` enthält jetzt Version und HTML-Hash. Die vorher dokumentierte V3.4-Metadatenlücke ist damit behoben. Neue Module: `money.cjs` und `plan-comparison.cjs`. `runGoalSearch` bleibt synchron testbar, die sichtbare Oberfläche nutzt `runGoalSearchAsync` mit Abbruch.
 
 Nächste offene Abnahmeschritte: taggenaue Mutterschutz-Geldanrechnung unabhängig klären; die angebotene manuelle Netto-/Finanzlogik fachlich reviewen; vorbereitete Nutzertests durchführen; Assistenztechnik und Datenschutz unabhängig prüfen. Keine Ergebnissimulation als erledigte Nutzertests ausgeben. Die vollständige Bruttoengine ist nicht Bestandteil des engen manuellen MVP-Pfads.

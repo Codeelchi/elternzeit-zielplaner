@@ -3,12 +3,13 @@
 ## 3.7.0 – Zielbudget, verständlicher Einstieg und geprüfte Cent-Rundung, 15.10.2026
 
 - Persönliche Ehe-/Gehaltsannahmen durch neutrale, anpassbare Elternbezeichnungen und echte Eingabezusammenfassungen ersetzt; rechtliche Mutterschutzrolle bleibt unverändert.
+- Unbekannte Nettoangaben bleiben leer und sperren die Standardbewertung/Suche; explizit null Euro werden davon unterschieden.
 - Geführter Netto-Einstieg mit Beispiel-, Bekannt- und manueller Übernahmeroute, striktem Import und ausbleibender HTML-Ausführung bei Namen.
 - Realistischer/vorsichtiger Planvergleich mit gemeinsamen Annahmen, freien Monaten, Engpässen, Anfangsrücklage und erklärten Deltas.
 - Weitere Vorschläge benötigen materielle Unterschiede; erste Zielpriorität bleibt lexikografisch erhalten.
 - Suche in unterbrechbaren Schritten, Fortschritt, Ausschlussgründen und Abbruch bei Eingabeänderung; keine Übernahme unvollständiger Ergebnisse.
 - Amtlich belegte Cent-Rundung auch für Zwischen-/Monatsbeträge und Summen ergänzt; ursprüngliche Mutterschutzabweichung bleibt offen und sichtbar.
-- 216 Node-Tests, 16 echte Offline-Browserfälle, 52 Axe-Prüfungen und aktuelle QA-/Screenshotnachweise; Nutzertestprotokoll vorbereitet, keine externen Freigaben behauptet.
+- 217 Node-Tests, 16 echte Offline-Browserfälle, 52 Axe-Prüfungen und aktuelle QA-/Screenshotnachweise; Nutzertestprotokoll vorbereitet, keine externen Freigaben behauptet.
 
 ## Erneute Wettbewerbs- und MVP-Begutachtung – 15.10.2026
 

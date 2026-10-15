@@ -1,0 +1,139 @@
+{
+  "as_of": "2026-10-15",
+  "cases": [
+    {
+      "case_id": "SG-BERLIN-S2EG5-24",
+      "source_url": "https://gesetze.berlin.de/bsbe/document/NJRE001607308",
+      "case_status": "first_instance_appealed",
+      "documentary_checks": [
+        {
+          "id": "original_plus_half_of_basis",
+          "actual": 674.46,
+          "expected": 674.46,
+          "matches": true,
+          "note": "hälftiges Plus vor Erwerbsaufnahme"
+        },
+        {
+          "id": "trial_plus_half_of_basis",
+          "actual": 891.03,
+          "expected": 891.03,
+          "matches": true,
+          "note": "Gerichtliche Probeberechnung, keine endgültige Bewilligung"
+        },
+        {
+          "id": "trial_additional_total",
+          "actual": 1082.85,
+          "expected": 1082.85,
+          "matches": true,
+          "note": "bescheidübergreifende Differenz aus publizierten Monaten"
+        }
+      ],
+      "documentary_pass": true,
+      "supported_replay": false,
+      "replay_note": "Keine vollständige Nachrechnung aus BEEG-Netto/Steuer- und Bemessungsmerkmalen; auf historische Rechtskohorte begrenzt",
+      "missing_inputs": [
+        "authoritative prebirth BEEG Elterngeld-Netto underlying both awards",
+        "complete payroll tax and deduction settings",
+        "calculated taxable commission classification",
+        "subsequent appellate judgment"
+      ]
+    },
+    {
+      "case_id": "LSG-BW-L11EG1334-21",
+      "source_url": "https://www.landesrecht-bw.de/bsbw/?query=DOKNR%3ANJRE001521064&source=PermaLink",
+      "case_status": "appeal_dismissed_against_reassessment",
+      "documentary_checks": [
+        {
+          "id": "original_early_above_final",
+          "actual": 1,
+          "expected": 1,
+          "matches": true,
+          "note": "Rückforderung begründet keine neue Elterngeldquote"
+        },
+        {
+          "id": "original_later_above_final",
+          "actual": 1,
+          "expected": 1,
+          "matches": true,
+          "note": "getrennte Bescheidstufen vergleichen"
+        },
+        {
+          "id": "published_income_mean_nonnegative",
+          "actual": 1,
+          "expected": 1,
+          "matches": true,
+          "note": "1.826,05 Euro tatsächlicher Berechnungsmittelwert"
+        }
+      ],
+      "documentary_pass": true,
+      "supported_replay": false,
+      "replay_note": "Keine vollständige Nachrechnung aus BEEG-Netto/Steuer- und Bemessungsmerkmalen; auf historische Rechtskohorte begrenzt",
+      "missing_inputs": [
+        "all monthly payroll Elterngeld-Netto tax and SV assumptions",
+        "full approved benefit period and maternity offset",
+        "actual differences between claim / reversal / final accounting"
+      ]
+    },
+    {
+      "case_id": "BSG-B10EG1-20R",
+      "source_url": "https://www.bsg.bund.de/SharedDocs/Downloads/DE/Entscheidungen/2022/2022_03_24_B_10_EG_01_20_R.pdf?__blob=publicationFile&v=4",
+      "case_status": "federal_judgment_appeal_dismissed",
+      "documentary_checks": [
+        {
+          "id": "lm1_maternity_offset",
+          "actual": 0,
+          "expected": 0,
+          "matches": true,
+          "note": "bezahlter LM1 nach Mutterleistungen"
+        },
+        {
+          "id": "lm2_limited",
+          "actual": 1,
+          "expected": 1,
+          "matches": true,
+          "note": "kein Schluss auf 2027er Mutterschutz-Fristen"
+        }
+      ],
+      "documentary_pass": true,
+      "supported_replay": false,
+      "replay_note": "Keine vollständige Nachrechnung aus BEEG-Netto/Steuer- und Bemessungsmerkmalen; auf historische Rechtskohorte begrenzt",
+      "missing_inputs": [
+        "applicable 2016 protection period payment records",
+        "complete earnings substitution calculations",
+        "social insurance and individual payout deductions"
+      ]
+    },
+    {
+      "case_id": "LSG-BY-L9EG36-18",
+      "source_url": "https://www.sozialgerichtsbarkeit.de/legacy/205659",
+      "case_status": "appeal_allowed_revision_admitted",
+      "documentary_checks": [
+        {
+          "id": "gross_exceeds_net",
+          "actual": 1,
+          "expected": 1,
+          "matches": true,
+          "note": "amtlich berichtete Bemessungsgrößen, noch keine Leistungshöhe"
+        },
+        {
+          "id": "historical_rate",
+          "actual": 0.65,
+          "expected": 0.65,
+          "matches": true,
+          "note": "historischer Faktor ist ohne Netto-Bemessung keine Bewilligungsrechnung"
+        }
+      ],
+      "documentary_pass": true,
+      "supported_replay": false,
+      "replay_note": "Keine vollständige Nachrechnung aus BEEG-Netto/Steuer- und Bemessungsmerkmalen; auf historische Rechtskohorte begrenzt",
+      "missing_inputs": [
+        "full income tax and payroll deduction record",
+        "net income including court-allowed commissions",
+        "approved benefit amount after judicial recalculation"
+      ]
+    }
+  ],
+  "documentary_pass": true,
+  "complete_current_law_replays": 0,
+  "warning": "Bestehende Bescheidbeträge sind historische Dokumentbelege; kein amtlich vollständiger 2027er Leistungstest."
+}

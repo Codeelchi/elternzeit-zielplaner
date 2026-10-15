@@ -28,7 +28,7 @@ function page() {
 
 test('application initializes with 36 child life months and tested rule version', () => {
   const p = page();
-  assert.equal(p.app.ruleVersion, '3.4.0');
+  assert.equal(p.app.ruleVersion, '3.6.0');
   assert.equal(p.ui.getState().schedule.length, 36);
   assert.equal(p.ui.dateFor(1).includes('28.05.2026'), true);
   assert.equal(p.ui.ageSpan(25).startsWith('2 Jahre'), true);
@@ -110,6 +110,6 @@ test('goal search produces admissible schedules', () => {
 
 test('all legal source references remain machine-readable and dated', () => {
   const rules = JSON.parse(readFileSync(new URL('../data/rechtsregeln-de-nrw-2026-10-14.json',import.meta.url),'utf8'));
-  assert.equal(rules.verified_as_of,'2026-10-14');
+  assert.equal(rules.verified_as_of,'2026-10-15');
   assert.ok(Array.isArray(rules.rules) || typeof rules === 'object');
 });

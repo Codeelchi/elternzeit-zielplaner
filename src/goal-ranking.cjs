@@ -58,18 +58,18 @@ function explanation(profile, m, horizon, hasAdverse) {
  * Monetary values represent budgets after costs. Ranking is lexicographic, never
  * an arbitrary weighted sum that can silently override the selected objective.
  */
-function rankCandidates(items, {horizon = 36, objective = 'finance', limit = 3} = {}) {
+function rankCandidates(items, {horizon = 36, objective = 'finance', limit = 3, allowProvisional = false} = {}) {
   if (!Number.isInteger(horizon) || horizon < 1 || horizon > 96) throw new RangeError('Ungültiger Vergleichszeitraum');
   if (!Number.isInteger(limit) || limit < 0 || limit > 20) throw new RangeError('Ungültige Vorschlagsanzahl');
   if (!Array.isArray(items)) throw new TypeError('Vorschläge müssen eine Liste sein');
   const seen = new Set(), pool = [];
   for (const item of items) {
-    if (!item || !Array.isArray(item.schedule) || !item.calc || !Array.isArray(item.calc.rows) || item.calc.valid === false) continue;
+    if (!item || !Array.isArray(item.schedule) || !item.calc || !Array.isArray(item.calc.rows) || (item.calc.valid === false && !(allowProvisional===true && item.calc.forecastPlanningReady===true))) continue;
     const m = metrics(item.calc, horizon);
     if (!m) continue;
     const fingerprint = scheduleFingerprint(item.schedule);
     if (seen.has(fingerprint)) continue;
-    const adverse = item.adverse ? (Array.isArray(item.adverse.rows) && item.adverse.valid !== false ? metrics(item.adverse, horizon) : null) : m;
+    const adverse = item.adverse ? (Array.isArray(item.adverse.rows) && (item.adverse.valid !== false || (allowProvisional===true && item.adverse.forecastPlanningReady===true)) ? metrics(item.adverse, horizon) : null) : m;
     if (!adverse) continue;
     seen.add(fingerprint);
     m.adverseFloor = adverse.floor; m.adverseTotal = adverse.total;

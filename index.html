@@ -96,6 +96,8 @@
    <p class="subtitle">Beide verdienen rund 4.000 &euro; brutto bei Steuerklasse IV/IV. Für eine bessere Schätzung sind die echten Nettowerte und das pauschalierte Elterngeld-Netto getrennt einstellbar.</p>
    <div class="note warn" style="margin-top:18px"><label for="standardCaseConfirmed"><strong>Unterstützter Standardfall</strong></label><select id="standardCaseConfirmed" style="display:block;width:100%;margin-top:8px;padding:10px"><option value="">Bitte eure Konstellation bestätigen</option><option value="yes">Zwei abhängig beschäftigte Eltern, reguläre Einzelgeburt, gemeinsamer Haushalt in Deutschland, Betreuung durch uns; keine selbstständigen Einkünfte oder weiteren Sonderfälle</option><option value="no">Unsere Konstellation weicht ab / noch unklar</option></select><p class="input-caption">Mehrlinge, Frühgeburt, Alleinerziehung, Ausland und selbstständige Einkünfte benötigen eine individuelle Prüfung. Geburten nach dem bestätigten Quellenjahr bleiben vorläufig.</p></div>
    <div class="input-grid" style="margin-top:23px">
+    <div class="form-group"><label for="incomeProfileFather">Lohnbestandteile du (vor Geburt)</label><select data-field="incomeProfileFather" id="incomeProfileFather"><option value="salary_only">Regulärer Lohn, keine variablen Sonderbezüge</option><option value="recurring_commissions">Regelmäßige Provisionen/Umsatzbeteiligung</option><option value="one_off_payments">Einmalzahlungen / Sonderboni</option><option value="mixed_or_self_employed">Selbstständiges oder gemischtes Einkommen</option><option value="unknown">Noch nicht geklärt</option></select><div class="input-caption">Provisionen und variable Bezüge können die Bemessung verändern (§ 2c BEEG).</div></div>
+    <div class="form-group"><label for="incomeProfileMother">Lohnbestandteile Frau (vor Geburt)</label><select data-field="incomeProfileMother" id="incomeProfileMother"><option value="salary_only">Regulärer Lohn, keine variablen Sonderbezüge</option><option value="recurring_commissions">Regelmäßige Provisionen/Umsatzbeteiligung</option><option value="one_off_payments">Einmalzahlungen / Sonderboni</option><option value="mixed_or_self_employed">Selbstständiges oder gemischtes Einkommen</option><option value="unknown">Noch nicht geklärt</option></select><div class="input-caption">Solche Konstellationen sind noch nicht als Standardfall validiert.</div></div>
     <div class="form-group"><label for="grossFather">Dein Brutto / Monat</label><input data-field="grossFather" id="grossFather" type="number" min="0" step="50"><div class="input-caption">Nur Referenzwert</div></div>
     <div class="form-group"><label for="grossMother">Brutto deiner Frau</label><input data-field="grossMother" id="grossMother" type="number" min="0" step="50"><div class="input-caption">Nur Referenzwert</div></div>
     <div class="form-group"><label for="netFather">Dein Auszahlungs-Netto</label><input data-field="netFather" id="netFather" type="number" min="0" step="10"><div class="input-caption">Vollzeit nach der Geburt</div></div>
@@ -189,6 +191,7 @@
       <div class="form-group card" style="padding:13px"><label for="monthHoursFather">Vater: Wochenstunden in ausgewähltem Lebensmonat</label><input id="monthHoursFather" type="number" min="0" max="40" step="1"><div class="input-caption">Übersteuert den globalen Stundenwert nur in diesem LM.</div></div>
       <div class="form-group card" style="padding:13px"><label for="monthHoursMother">Mutter: Wochenstunden in ausgewähltem Lebensmonat</label><input id="monthHoursMother" type="number" min="0" max="40" step="1"><div class="input-caption">Basis-/Plus-Beträge mit Teilzeit werden nach Leistungsart gemittelt.</div></div>
    </div>
+   <div class="card" style="margin-top:10px;padding:13px"><h3>Monatliche Einkommen statt linearer Teilzeit-Schätzung</h3><p class="input-caption">Optional je Lebensmonat: Arbeits-Auszahlungsnetto und das vom Auszahlungsnetto verschiedene pauschalierte Elterngeld-Netto nach Geburt. Leere Felder verwenden die bisherige Stunden-Schätzung. Nur reguläre Erwerbsmonate bearbeiten; Mutterschaftsleistungen werden getrennt geschätzt.</p><div class="input-grid" style="margin-top:12px"><div class="form-group"><label for="monthWageFather">Vater Arbeits-Netto in diesem LM</label><input id="monthWageFather" type="number" min="0" step="0.01" placeholder="Standard-Schätzung"></div><div class="form-group"><label for="monthEgNetFather">Vater EG-Netto nach Geburt in diesem LM</label><input id="monthEgNetFather" type="number" min="0" step="0.01" placeholder="Stunden-Schätzung"></div><div class="form-group"><label for="monthWageMother">Mutter Arbeits-Netto in diesem LM</label><input id="monthWageMother" type="number" min="0" step="0.01" placeholder="Standard-Schätzung"></div><div class="form-group"><label for="monthEgNetMother">Mutter EG-Netto nach Geburt in diesem LM</label><input id="monthEgNetMother" type="number" min="0" step="0.01" placeholder="Stunden-Schätzung"></div></div></div>
    <div class="note" style="margin-top:14px"><strong>Wichtig:</strong> Ein individuell bearbeiteter Lebensmonat ändert nicht automatisch den Rest des Plans. Für die gesamte Aufteilung mit Start und Dauer nutze den <button class="inline-btn" data-goto="slide-builder">Elternzeit-Konfigurator</button>.</div>
   <div id="validityTimeline" style="margin-top:12px"></div>
   </section>
@@ -363,9 +366,10 @@
 </section>
 <section class="slide" data-title="Recht & Marktvergleich" id="slide-law">
  <span class="eyebrow">14 / Nachweis & Vergleich</span><h2>Welche Regeln gelten – und wie sicher ist die Planung?</h2>
- <p class="subtitle">Regelversion <strong>DE-2026.10.14 / NRW-2026.10.14</strong>: Quellenlinks, Anwendungsbeginn und Kontrollzeitpunkt sind je Regel hinterlegt. Eine Prognose für Mai 2027 wird nur als <strong>unter Vorbehalt</strong> gekennzeichnet – nicht als verbindliche Rechtsauskunft.</p>
- <div class="grid three" style="margin-top:16px"><div class="card"><div class="kicker">Geprüfter Quellenstand</div><div class="metric" style="font-size:23px">14.10.2026</div><div class="detail">Letzte manuelle Recherche dieser Datei</div></div><div class="card"><div class="kicker">Voraussichtliche Geburt</div><div class="metric" id="ruleBirth" style="font-size:22px">Mai 2027</div><div class="detail">Zukünftiges Datum, Änderungen möglich</div></div><div class="card"><div class="kicker">Standardfall</div><div class="metric" style="font-size:21px">Angestellt / IV · IV</div><div class="detail">Keine Selbstständigkeit oder Sonderregel angenommen</div></div></div>
+ <p class="subtitle">Regelversion <strong>DE-2026.10.15 / NRW-KiBiz-2027</strong>: Quellenlinks, Anwendungsbeginn und Kontrollzeitpunkt sind je Regel hinterlegt. Eine Prognose für Mai 2027 wird nur als <strong>unter Vorbehalt</strong> gekennzeichnet – nicht als verbindliche Rechtsauskunft.</p>
+ <div class="grid three" style="margin-top:16px"><div class="card"><div class="kicker">Geprüfter Quellenstand</div><div class="metric" style="font-size:23px">15.10.2026</div><div class="detail">Letzte manuelle Recherche dieser Datei</div></div><div class="card"><div class="kicker">Voraussichtliche Geburt</div><div class="metric" id="ruleBirth" style="font-size:22px">Mai 2027</div><div class="detail">Zukünftiges Datum, Änderungen möglich</div></div><div class="card"><div class="kicker">Standardfall</div><div class="metric" style="font-size:21px">Angestellt / IV · IV</div><div class="detail">Keine Selbstständigkeit oder Sonderregel angenommen</div></div></div>
  <div class="card" style="margin-top:16px"><h3>Versionierter Regelkatalog</h3><div id="ruleItems"></div></div>
+ <div class="card" style="margin-top:16px"><h3>Gesetzesänderungen 2027 – Beschlussstatus getrennt</h3><div id="legalEvents"></div><p class="input-caption">Gesetzentwürfe erhöhen keine Leistungen automatisch; amtliche Quellen vor Verwendung erneut kontrollieren.</p></div>
  <div class="card" style="margin-top:15px"><h3>Rechnervergleich – tatsächlich dokumentierte Funktionen</h3><div id="marketMatrix"></div><div class="input-caption" style="margin-top:9px">Bei anderen Angeboten bedeutet „nicht belegt“: Die gesichteten Beschreibungen nennen die Funktion nicht ausdrücklich; das ist kein Nachweis, dass sie technisch fehlt.</div></div>
  <div class="note warn" style="margin-top:12px">Änderungsalarm ist <strong>nicht</strong> eingebaut: Offline-Dateien aktualisieren Gesetzestexte nicht automatisch. Vor dem Antrag erneut amtliche Quellen öffnen. Bei Unstimmigkeiten ist die Elterngeldstelle zuständig.</div>
 </section>
@@ -851,18 +855,18 @@ function explanation(profile, m, horizon, hasAdverse) {
  * Monetary values represent budgets after costs. Ranking is lexicographic, never
  * an arbitrary weighted sum that can silently override the selected objective.
  */
-function rankCandidates(items, {horizon = 36, objective = 'finance', limit = 3} = {}) {
+function rankCandidates(items, {horizon = 36, objective = 'finance', limit = 3, allowProvisional = false} = {}) {
   if (!Number.isInteger(horizon) || horizon < 1 || horizon > 96) throw new RangeError('Ungültiger Vergleichszeitraum');
   if (!Number.isInteger(limit) || limit < 0 || limit > 20) throw new RangeError('Ungültige Vorschlagsanzahl');
   if (!Array.isArray(items)) throw new TypeError('Vorschläge müssen eine Liste sein');
   const seen = new Set(), pool = [];
   for (const item of items) {
-    if (!item || !Array.isArray(item.schedule) || !item.calc || !Array.isArray(item.calc.rows) || item.calc.valid === false) continue;
+    if (!item || !Array.isArray(item.schedule) || !item.calc || !Array.isArray(item.calc.rows) || (item.calc.valid === false && !(allowProvisional===true && item.calc.forecastPlanningReady===true))) continue;
     const m = metrics(item.calc, horizon);
     if (!m) continue;
     const fingerprint = scheduleFingerprint(item.schedule);
     if (seen.has(fingerprint)) continue;
-    const adverse = item.adverse ? (Array.isArray(item.adverse.rows) && item.adverse.valid !== false ? metrics(item.adverse, horizon) : null) : m;
+    const adverse = item.adverse ? (Array.isArray(item.adverse.rows) && (item.adverse.valid !== false || (allowProvisional===true && item.adverse.forecastPlanningReady===true)) ? metrics(item.adverse, horizon) : null) : m;
     if (!adverse) continue;
     seen.add(fingerprint);
     m.adverseFloor = adverse.floor; m.adverseTotal = adverse.total;
@@ -897,7 +901,17 @@ const SOURCES={
 };
 const REGIONS={NRW:{label:'Nordrhein-Westfalen',applicationUrl:SOURCES.nrw.url,cities:{'köln':{label:'Köln',authority:'Elterngeldstelle der Stadt Köln',authorityUrl:'https://www.stadt-koeln.de/service/adressen/elterngeldstelle',source:SOURCES.cologne}}}};
 function subtractDays(date,n){return new Date(Date.parse(date+'T00:00:00Z')-n*86400000).toISOString().slice(0,10);}
-function buildApplicationGuide({birthDate,expectedBirthDate=birthDate,region='NRW',city='Köln',leavePeriods={},firstBenefitMonth=1}={}){
+function minusCalendarMonths(iso,months){
+  time.lifeMonths(iso,1);
+  if(!Number.isInteger(months)||months<0||months>36)throw new RangeError('Kalendermonate ungültig');
+  const [y,m,day]=iso.split('-').map(Number),target=new Date(Date.UTC(y,m-1-months,1));
+  const max=new Date(Date.UTC(target.getUTCFullYear(),target.getUTCMonth()+1,0)).getUTCDate();
+  target.setUTCDate(Math.min(day,max));return target.toISOString().slice(0,10);
+}
+function allowanceReferenceDay(birthDate){time.lifeMonths(birthDate,1);return String(Number(birthDate.slice(0,4))-1)+'-01-01';}
+function legislationEvent(registry,id){return registry?.events?.find(e=>e.id===id)||null;}
+
+function buildApplicationGuide({birthDate,expectedBirthDate=birthDate,region='NRW',city='Köln',leavePeriods={},firstBenefitMonth=1,childcareStartLm=0,legalEvents=null}={}){
   const months=time.lifeMonths(birthDate,96);time.lifeMonths(expectedBirthDate,1);
   if(!Number.isInteger(firstBenefitMonth)||firstBenefitMonth<1||firstBenefitMonth>32)throw new RangeError('Erster Elterngeld-Lebensmonat ungültig.');
   const regional=REGIONS[region],local=regional?.cities[String(city).toLowerCase()];
@@ -914,8 +928,30 @@ function buildApplicationGuide({birthDate,expectedBirthDate=birthDate,region='NR
   }
   // Filing during LM(first+3) still includes LM(first), per BEEG §7; this is not a general application cutoff.
   tasks.push({id:'elterngeld',dueDate:months[firstBenefitMonth+2].endDate,recommendedDate:months[firstBenefitMonth-1].startDate,title:'Elterngeldantrag bei der zuständigen Elterngeldstelle einreichen',description:`Früh nach der Geburt einreichen. Zur rückwirkenden Sicherung ab LM ${firstBenefitMonth} muss der Antrag spätestens bis Ende LM ${firstBenefitMonth+3} eingehen. Später bleiben jüngere Anspruchsmonate möglich. Zugang und Vollständigkeit bestätigen lassen.`,documents:['Geburtsurkunde – Ausfertigung zur Beantragung von Elterngeld','Gehaltsabrechnungen beider beantragenden Eltern für den maßgeblichen Bemessungszeitraum','Nachweis Krankenkasse über Mutterschaftsgeld und Arbeitgeberzuschuss','Teilzeitvereinbarung und erwartetes Einkommen während des Bezugs','Angaben zum zu versteuernden Einkommen im Kalenderjahr vor der Geburt','Unterschriften beziehungsweise bestätigtes zulässiges digitales Verfahren'],source:SOURCES.application});
+  if(!Number.isInteger(childcareStartLm)||childcareStartLm<0||childcareStartLm>96)throw new RangeError('Kita-Lebensmonat muss zwischen 0 und 96 liegen');
+  const kibiz=legislationEvent(legalEvents,'nrw-kibiz-2027');
+  if(region==='NRW'&&childcareStartLm>0&&kibiz&&kibiz.status==='promulgated_future_effective'){
+    const startDate=months[childcareStartLm-1].startDate;
+    if(startDate>=kibiz.effective_from)tasks.push({
+      id:'nrw-childcare-notice',dueDate:minusCalendarMonths(startDate,6),careStartDate:startDate,
+      title:'NRW-Kita-Betreuungsbedarf beim Jugendamt anzeigen',
+      description:'Nach § 5 KiBiz grundsätzlich spätestens sechs Kalendermonate vor dem geplanten Betreuungsbeginn in Textform den Bedarf, den gewünschten Umfang und die Betreuungsart anzeigen. Bei kurzfristigem Bedarf unverzüglich melden; örtliche Fristen/Verfahren prüfen. Die Bedarfsanzeige garantiert keinen Kita-Platz.',
+      documents:['Gewünschter Betreuungsbeginn und Umfang','Betreuungsart (Kita/Tagespflege)','Eingangsbestätigung des Jugendamts'],
+      source:{label:'KiBiz NRW § 5, Fassung ab 01.08.2027',url:kibiz.sources[0],verifiedAt:kibiz.observed_at},
+      notice_type:'statutory_six_calendar_months',legal_status:kibiz.status
+    });
+  }
+  const autoKind=legislationEvent(legalEvents,'kindergeld-automatic-2027-rollout');
+  if(autoKind&&autoKind.status==='parliament_passed_implementation_conditional'&&birthDate>='2027-01-01')tasks.push({
+    id:'kindergeld-payment-route',dueDate:null,
+    title:'Kindergeld-Auszahlungsweg und Antragspflicht individuell prüfen',
+    description:'2027 wird die antragslose Zahlung schrittweise eingeführt: zuerst weitere Kinder, erst gegen Jahresende voraussichtlich auch erste Kinder. Kein automatischer Anspruch auf antragslose Auszahlung allein wegen des Geburtsdatums. Bei unbekannten Daten/IBAN oder fehlendem Verfahren Familienkasse kontaktieren beziehungsweise Antrag stellen.',
+    documents:['Steuer-ID des Kindes','Bankverbindung für Kindergeld','Nachweis bzw. Familienkassenmitteilung zur Zuständigkeit'],
+    source:{label:'Bundesregierung – Kindergeld ohne Antrag',url:autoKind.sources[0],verifiedAt:autoKind.observed_at},
+    legal_status:autoKind.status
+  });
   if(local)tasks.push({id:'local-documents',dueDate:null,title:'Kölner Unterlagen und aktuellen Übermittlungsweg prüfen',description:'NRW-Onlineantrag und BundID nutzen oder Papierverfahren prüfen. Die Stadt beschreibt eine unterschriebene Unterschriftsseite und spezielle Geburtsurkunde im Original; aktuelle Anforderungen vor Versand bestätigen.',documents:['Aktuelle NRW-Antragsformulare','Unterschriftsseite und örtlich geforderte Nachweise'],source:local.source});
-  return {birthDate,expectedBirthDate,region,city,verifiedAt:CHECKED,legalCoverage:{validFrom:'2025-05-01',verifiedThrough:CHECKED,futureBirthRequiresRecheck:birthDate>CHECKED},authority:local?{name:local.authority,url:local.authorityUrl}:null,applicationUrl:regional?.applicationUrl||null,tasks:tasks.sort((a,b)=>(a.dueDate||'9999').localeCompare(b.dueDate||'9999')),regionalBenefitsIncluded:[],warnings:[
+  return {birthDate,expectedBirthDate,region,city,elterngeldEmployeeAllowanceReferenceDay:allowanceReferenceDay(birthDate),verifiedAt:CHECKED,legalCoverage:{validFrom:'2025-05-01',verifiedThrough:CHECKED,futureBirthRequiresRecheck:birthDate>CHECKED},authority:local?{name:local.authority,url:local.authorityUrl}:null,applicationUrl:regional?.applicationUrl||null,tasks:tasks.sort((a,b)=>(a.dueDate||'9999').localeCompare(b.dueDate||'9999')),regionalBenefitsIncluded:[],warnings:[
     'Checkliste für den Standardfall; keine Rechtsberatung und kein behördlicher Antrag.',
     ...(birthDate>CHECKED?['Geburt nach dem Prüfdatum: Regeln und Formulare vor Anmeldung und Antrag erneut amtlich prüfen.']:[]),
     ...(!local?['Zuständige örtliche Elterngeldstelle eigenständig bestätigen; regionale Vertiefung derzeit nur Köln.']:[]),
@@ -923,7 +959,7 @@ function buildApplicationGuide({birthDate,expectedBirthDate=birthDate,region='NR
     'Keine regionale Zusatzleistung ohne bestätigten individuellen Anspruch in der Haushaltsrechnung.'
   ]};
 }
-module.exports={buildApplicationGuide,REGIONS,SOURCES};
+module.exports={buildApplicationGuide,minusCalendarMonths,allowanceReferenceDay,REGIONS,SOURCES};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* ApplicationGuide_END */
@@ -1081,6 +1117,18 @@ function validatePlan(input={},catalogue={}) {
   // Only explicit false/absent boolean flags can negate a special case.
   // Imported numbers, strings and objects must never erase contradictory data
   // merely because an independent standard-case confirmation is true.
+  // Historical court decisions show that payment labels in payroll records
+  // cannot automatically resolve disputed recurring commission classification.
+  for(const [person,suffix] of [['father','Father'],['mother','Mother']]){
+    const kind=state['incomeProfile'+suffix];
+    if(kind===undefined||kind==='salary_only')continue; // backward-compatible stored plans
+    if(kind==='unknown')missing('PREBIRTH_INCOME_KIND_UNKNOWN','Bitte Lohnbestandteile vor Geburt klären.','BE-2C',[person]);
+    else if(['recurring_commissions','one_off_payments','mixed_or_self_employed'].includes(kind))
+      add('PREBIRTH_INCOME_COMPOSITION_UNSUPPORTED','NICHT_UNTERSTUETZT','BE-2C',[person],[],
+        'Variable Provisionen, Einmalzahlungen oder gemischtes Einkommen werden im aktuellen Standardmodell nicht zuverlässig in das pauschalierte Elterngeld-Netto überführt.',
+        ['Gehaltsabrechnungen und arbeitsvertraglichen Zahlungsturnus prüfen.','Elterngeld-Netto bzw. vollständige Berechnung durch die Elterngeldstelle bestätigen lassen.']);
+    else missing('PREBIRTH_INCOME_KIND_INVALID','Unbekannte Einkommensart vor Geburt.','BE-2C',[person]);
+  }
   const specialFlags=['selfEmployed','singleParent','adoption','disability','siblingBonus','prematureBirth'];
   const specialFlagPresent=specialFlags.some(key=>state[key]!==undefined&&state[key]!==null&&state[key]!==false);
   const specialCasesPresent=state.specialCases!==undefined&&state.specialCases!==null&&state.specialCases!==false&&state.specialCases!==''&&!(Array.isArray(state.specialCases)&&state.specialCases.length===0);
@@ -1117,6 +1165,17 @@ function validatePlan(input={},catalogue={}) {
     for(const [key,parent] of [['f','father'],['m','mother']]){
       const code=row[key];out[key]=code;
       if(!CODES.has(code)){missing('SCHEDULE_CODE_INVALID','Unbekannter oder fehlender Monatsstatus.','BE-4',[parent],[lm]);continue;}
+      // Explicit life-month Elterngeld-Netto and take-home wage assumptions
+      // have different meanings and must never be silently accepted or ignored.
+      const wageField='w'+key,egField='e'+key;
+      for(const field of [wageField,egField])if(row[field]!==undefined){
+        if(typeof row[field]!=='number'||!Number.isFinite(row[field])||row[field]<0||row[field]>1e9)
+          missing('MONTHLY_NET_INVALID_'+field,'Das Monatsnetto muss eine endliche nichtnegative Zahl sein.','BE-2',[parent],[lm]);
+        else if(field===wageField&&!['W','R','T','Q','K'].includes(code))
+          missing('MONTHLY_WAGE_WITHOUT_WORK','Arbeitsnetto für einen Monat ohne Erwerbstätigkeit kann nicht berücksichtigt werden.','BE-2',[parent],[lm]);
+        else if(field===egField&&!['R','T','K'].includes(code))
+          missing('MONTHLY_EG_NET_WITHOUT_PARTTIME','Elterngeld-Netto nach Geburt kann hier nur bei Erwerb während Leistungsbezug eingetragen werden.','BE-2',[parent],[lm]);
+      }
       if(code==='MS'&&parent!=='mother')unsupported('MATERNITY_PARENT_UNSUPPORTED','Mutterschaftsleistungen für diesen Elternteil sind im Standardmodell nicht unterstützt.','BE-MUT');
       const hours=row['h'+key]??state['hours'+(key==='f'?'Father':'Mother')];
       out['h'+key]=hours;
@@ -1189,7 +1248,7 @@ function validatePlan(input={},catalogue={}) {
         }
         else if(['R','T','K'].includes(row[key])){
           if(!numeric(state['net'+ext])||!numeric(state['ptNet'+ext])||!numeric(row['h'+key]))unknown=true;
-          else if(Number(state['ptNet'+ext])*Number(row['h'+key])/28<Number(state['net'+ext]))count++;
+          else if((Number.isFinite(row['w'+key])?row['w'+key]:Number(state['ptNet'+ext])*Number(row['h'+key])/28)<Number(state['net'+ext]))count++;
         }
       }
       if(count>=2)reduced=true;
@@ -1215,8 +1274,17 @@ function validatePlan(input={},catalogue={}) {
   if(gaps.length)conflict('PLUS_CONTINUITY','BE-PLUS',['father','mother'],gaps.map(r=>r.lm),'Ab LM 15 muss bis zum letzten Plus-/Bonusbezug mindestens ein Elternteil ohne gemeinsamen Unterbrechungsmonat beziehen.',['Ab LM 15 lückenlosen Plus-/Bonusbezug eines Elternteils sicherstellen oder späteren Bezug entfernen.']);
   const precedence=['NICHT_UNTERSTUETZT','DATEN_UNVOLLSTAENDIG','REGELKONFLIKT'];
   const status=precedence.find(s=>findings.some(f=>f.status===s))||'PLAUSIBEL_STANDARD';
-  return {status,valid:status==='PLAUSIBEL_STANDARD',findings,totals,checkedAt:catalogue.verified_as_of||null,catalogueVersion:catalogue.version||null,
-    disclaimer:'Plausibilitätsprüfung des bestätigten Standardfalls, keine Rechtsberatung oder verbindliche Leistungsberechnung.'};
+  const forecastWindow=catalogue.planning_forecast_window;
+  const previewOnlyCodes=new Set(['BIRTH_COHORT_UNSUPPORTED','FUTURE_COHORT_UNVERIFIED']);
+  // A future-year preview is NEVER a positive entitlement verdict. This flag
+  // only permits non-binding pattern comparison after all other checks pass.
+  const provisionalPlanningEligible=Boolean(forecastWindow&&forecastWindow.status==='unverified_forecast_only'&&
+    isoDate(state.date)&&isoDate(forecastWindow.from)&&isoDate(forecastWindow.through)&&
+    state.date>=forecastWindow.from&&state.date<=forecastWindow.through&&
+    findings.length>=2&&findings.every(f=>previewOnlyCodes.has(f.code))&&
+    previewOnlyCodes.size===new Set(findings.map(f=>f.code)).size);
+  return {status,valid:status==='PLAUSIBEL_STANDARD',provisionalPlanningEligible,findings,totals,checkedAt:catalogue.verified_as_of||null,catalogueVersion:catalogue.version||null,
+    disclaimer:'Plausibilitätsprüfung des bestätigten Standardfalls, keine Rechtsberatung oder verbindliche Leistungsberechnung. Eine Zukunftsprognose ist keine Rechtsfreigabe.'};
 }
 module.exports={VALIDATION_STATUS,validatePlan};
 
@@ -1246,7 +1314,7 @@ const SCENARIOS=[
 const defaults={
  grossFather:4000,grossMother:4000,netFather:2600,netMother:2600,
  egNetFather:2600,egNetMother:2600,ptNetFather:1900,ptNetMother:1900,
- hoursFather:28,hoursMother:28,kind:259,expenses:'',date:'2027-05-28',
+ hoursFather:28,hoursMother:28,kind:259,expenses:'',date:'2027-05-28',incomeProfileFather:'salary_only',incomeProfileMother:'salary_only',
  model:'father12',month:3,horizon:24,
  leaveStartFather:3,leaveMonthsFather:12,benefitFather:'B',basisFirstFather:8,partAfterFather:999,
  leaveStartMother:3,leaveMonthsMother:0,benefitMother:'B',basisFirstMother:2,partAfterMother:999
@@ -1434,9 +1502,10 @@ function sanitizeImport(d){
  if(['selfEmployed','singleParent','adoption','disability','siblingBonus','prematureBirth','specialCases'].some(k=>d[k]!==undefined&&d[k]!==null&&d[k]!==false&&d[k]!==''&&!(Array.isArray(d[k])&&d[k].length===0)))value.standardCaseConfirmed=false;
  value.storageConsent=false;value.grantVerified=false;
  value.month=int(value.month,1,N);value.horizon=[18,24,32,36].includes(Number(value.horizon))?Number(value.horizon):24;
- value.schedule=Array.from({length:N},(_,i)=>{const r=i<d.schedule.length?d.schedule[i]:{f:'W',m:'W'};if(!r||typeof r!=='object'||Array.isArray(r)||!STAT[r.f]||!STAT[r.m])throw Error('Unbekannter Monatsstatus LM '+(i+1));const out={f:r.f,m:r.m};for(const k of ['hf','hm'])if(r[k]!==undefined){if(typeof r[k]!=='number'||!Number.isFinite(r[k])||r[k]<0||r[k]>40)throw Error('Ungültige Wochenstunden');out[k]=r[k];}return out;});
+ value.schedule=Array.from({length:N},(_,i)=>{const r=i<d.schedule.length?d.schedule[i]:{f:'W',m:'W'};if(!r||typeof r!=='object'||Array.isArray(r)||!STAT[r.f]||!STAT[r.m])throw Error('Unbekannter Monatsstatus LM '+(i+1));const out={f:r.f,m:r.m};for(const k of ['hf','hm'])if(r[k]!==undefined){if(typeof r[k]!=='number'||!Number.isFinite(r[k])||r[k]<0||r[k]>40)throw Error('Ungültige Wochenstunden');out[k]=r[k];}for(const k of ['wf','wm','ef','em'])if(r[k]!==undefined){if(typeof r[k]!=='number'||!Number.isFinite(r[k])||r[k]<0||r[k]>1e9)throw Error('Ungültiges Monatsnetto: '+k);out[k]=r[k];}return out;});
  if(d.leaveOverrides!==undefined&&d.leaveOverrides!==null){TimeAxes.buildTimeAxes({birthDate:value.date,schedule:value.schedule,leaveOverrides:d.leaveOverrides});value.leaveOverrides=clone(d.leaveOverrides);}
  for(const key of ['employmentOverrides','benefitOverrides','bankLedger'])if(d[key]!==undefined)value[key]=clone(d[key]);
+ for(const key of ['incomeProfileFather','incomeProfileMother'])if(!['salary_only','recurring_commissions','one_off_payments','mixed_or_self_employed','unknown'].includes(value[key]))throw Error('Unbekannte Einkommensart: '+key);
  if(value.leaveOverrides!==null&&(typeof value.leaveOverrides!=='object'||Array.isArray(value.leaveOverrides)||Object.keys(value.leaveOverrides).some(key=>!['father','mother'].includes(key))))throw Error('Unbekannter Elternteil in Elternzeitabschnitten.');
  PlanningModel.materializePlan({state:value,schedule:value.schedule});
  return value;
@@ -1573,7 +1642,7 @@ function showSlide(i){slideIndex=Math.max(0,Math.min(document.querySelectorAll('
 function listenInputs(){
  document.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('input',()=>{
   const field=el.dataset.field;
-  s[field]=field==='date'?el.value:field==='expenses'?(el.value.trim()===''?'':toNum(el.value)):toNum(el.value);
+  s[field]=['date','incomeProfileFather','incomeProfileMother'].includes(field)?el.value:field==='expenses'?(el.value.trim()===''?'':toNum(el.value)):toNum(el.value);
   if(['hoursFather','hoursMother'].includes(field)&&builderActive)applyBuilder();else{renderAll();persist()}
  }));
  document.querySelectorAll('[data-build]').forEach(el=>el.addEventListener(el.tagName==='SELECT'?'change':'input',()=>{
@@ -1616,8 +1685,8 @@ function importJson(evt){const file=evt.target.files?.[0];if(!file)return;if(fil
 /* RULE_CATALOG_EMBED_START */
 const RULE_CATALOG = Object.freeze({
  "name": "Elternzeit und Elterngeld - Referenz-Rechtsregeln DE/NRW",
- "version": "DE-NRW-2026.10.14+r3.3.0",
- "verified_as_of": "2026-10-14",
+ "version": "DE-NRW-2026.10.15+r3.6.0",
+ "verified_as_of": "2026-10-15",
  "target_birth_date": "2027-05-28",
  "applicable_standard_birth_window": {
   "from": "2025-04-01",
@@ -1639,6 +1708,20 @@ const RULE_CATALOG = Object.freeze({
    "checked_at": "2026-10-14",
    "verification_status": "official_source_checked",
    "applicability_note": "Vereinfachte Formel für abhängig Beschäftigte; maßgebliches pauschaliertes Elterngeld-Netto muss individuell ermittelt werden."
+  },
+  {
+   "id": "BE-2C",
+   "t": "Einkommen vor der Geburt – Arbeitslohn und sonstige Bezüge",
+   "from": "2025-04-01",
+   "effective_from": "2025-04-01",
+   "effective_to": null,
+   "checked_at": "2026-10-15",
+   "verification_status": "official_source_checked",
+   "where": "Bund",
+   "source": "BEEG § 2c – Einkommen aus nichtselbstständiger Erwerbstätigkeit",
+   "url": "https://www.gesetze-im-internet.de/beeg/__2c.html",
+   "summary": "Laufender Arbeitslohn, sonstige Bezüge und jährlicher Arbeitnehmer-Pauschbetrag werden nach gesetzlicher Bemessungslogik behandelt; der Pauschbetrag richtet sich nach dem 1. Januar des Vorjahres der Geburt. Provisionen können Einzelfallprüfung erfordern.",
+   "applicability_note": "Monatliche Provisionen und umstrittene sonstige Bezüge werden nicht aus Bruttolohn automatisch nachvollziehbar eingestuft. Gerichtsentscheidungen verschiedener Geburtskohorten sind historische Evidenz, keine heutige generelle Freigabe."
   },
   {
    "id": "BE-4A",
@@ -1964,10 +2047,29 @@ const RULE_CATALOG = Object.freeze({
   "bonus_max_hours": 32,
   "max_weekly_work_hours": 32,
   "standard_maternity_days_after_birth": 56
+ },
+ "planning_forecast_window": {
+  "from": "2027-01-01",
+  "through": "2027-12-31",
+  "status": "unverified_forecast_only",
+  "observed_at": "2026-10-15",
+  "description": "Nur eine transparente Szenariorechnung auf Basis der am 15.10.2026 veroeffentlichten Normen; NICHT als rechtlich plausible Anspruchsberechtigung freigegeben.",
+  "sources": [
+   "https://www.gesetze-im-internet.de/beeg/__2.html",
+   "https://www.gesetze-im-internet.de/beeg/__4.html",
+   "https://www.gesetze-im-internet.de/beeg/__4a.html",
+   "https://dip.bundestag.de/vorgang/einkommensteuerreformgesetz-2027/338787"
+  ],
+  "child_benefit_2027_eur": 267,
+  "child_benefit_2027_status": "proposed_not_in_force",
+  "child_benefit_2027_source": "https://www.bundesfinanzministerium.de/Content/DE/Pressemitteilungen/Finanzpolitik/2026/09/2026-09-02-einkommensteuerreform.html"
  }
 });
 /* RULE_CATALOG_EMBED_END */
-const V3_ASOF=RULE_CATALOG.verified_as_of, V3_VERSION='3.4.0';
+/* LEGISLATION_EVENTS_START */
+const LEGAL_EVENTS=Object.freeze({"schema_version":"1.0.0","verified_as_of":"2026-10-15","scope":"Federal benefits 2027 and NRW childcare. Distinguish enacted, promulgated future effect, bill in committee, and political discussion. Do not silently book projected payments.","events":[{"id":"kindergeld-tax-2027-bill","scope":"DE","title":"Kindergeldbetrag 2027/2028 im Einkommensteuerreformgesetz","status":"bill_referred_not_in_force","observed_at":"2026-10-15","legislative_milestone":"Bundestag erste Lesung und Ausschussüberweisung 2026-10-08","proposed_effective_from":"2027-01-01","amounts":{"confirmed_2026_eur":259,"proposed_2027_eur":267,"proposed_2028_eur":272},"sources":["https://www.bundestag.de/dokumente/textarchiv/2026/kw41-de-einkommensteuerreform-1217520","https://dip.bundestag.de/vorgang/einkommensteuerreformgesetz-2027/338787"],"calculation_effect":"scenario_only_no_automatic_booking"},{"id":"estg-worker-pausch-2027-bill","scope":"DE","title":"Erhöhter Arbeitnehmer-Pauschbetrag im Steuerreform-Entwurf","status":"bill_referred_not_in_force","observed_at":"2026-10-15","proposed_effective_from":"2027-01-01","amounts":{"confirmed_2026_eur":1230,"proposed_2027_eur":1430},"sources":["https://www.bundestag.de/dokumente/textarchiv/2026/kw41-de-einkommensteuerreform-1217520","https://www.gesetze-im-internet.de/beeg/__2c.html"],"calculation_effect":"BEEG-2c: birth cohort 2027 uses amount in force on 2026-01-01, not future 2027 proposed value"},{"id":"kindergeld-automatic-2027-rollout","scope":"DE","title":"Antragslose Kindergeldzahlung – stufenweise Einführung","status":"parliament_passed_implementation_conditional","observed_at":"2026-10-15","planned_rollout":{"from_spring_2027":"further children with existing family-benefit data","from_late_2027":"first children if tax-ID, identity and bank details known"},"sources":["https://www.bundesregierung.de/breg-de/aktuelles/kindergeld-ohne-antrag-2412916"],"calculation_effect":"application_step_only_do_not_guarantee_automatic_payment"},{"id":"nrw-kibiz-2027","scope":"NRW","title":"KiBiz Fassung ab 01.08.2027","status":"promulgated_future_effective","observed_at":"2026-10-15","effective_from":"2027-08-01","source_version":"GV. NRW. 2026 S. 525","sources":["https://recht.nrw.de/lrgv/gesetz/01082027-gesetz-zur-fruehen-bildung-und-foerderung-von-kindern-kinderbildungsgesetz/"],"rule":"§ 5: Betreuungbedarf grundsätzlich 6 Kalendermonate vor Beginn in Textform anzeigen; örtliche Verfahren und Ausnahmen prüfen.","calculation_effect":"childcare_application_deadline_not_fee_amount"},{"id":"elterngeld-reform-debate-2027","scope":"DE","title":"Politische Diskussion über eine Elterngeldreform","status":"policy_discussion_no_enacted_parameter","observed_at":"2026-10-15","sources":["https://www.bundesregierung.de/breg-de/suche/regierungspressekonferenz-vom-26-juni-2026-2445352"],"calculation_effect":"no automatic model changes; specific 7+7-month rule not established"}]});
+/* LEGISLATION_EVENTS_END */
+const V3_ASOF=RULE_CATALOG.verified_as_of, V3_VERSION='3.6.0';
 const rulesV3=RULE_CATALOG.rules;
 const LEGAL=RULE_CATALOG.standard_parameters;
 Object.assign(defaults,{standardCaseConfirmed:null,storageConsent:false,grantVerified:false,region:'NRW',city:'Köln',births:1,zve:'',childcareStart:19,childcareMonthly:300,confirmedGrant:0,grantMonth:1,goalCare:18,goalCareMode:'full',goalObjective:'income',goalMinFather:8,goalMinIncome:0,goalOverlap:2,goalPart:1,childcareMode:'manual',childcareHours:35,childcareIncome:95000,childcareMeals:90,riskFatherPercent:'',riskMotherPercent:'',goalRoles:'father',riskPercent:15,riskEgPercent:5,riskCostPercent:20,egPtNetFather:'',egPtNetMother:''});
@@ -2014,10 +2116,10 @@ function evaluate(schedule,mod={}){
   const entry=schedule[i]||{},f=STAT[entry.f]?entry.f:'W',m=matDaysAt(i+1).days>0?'MS':STAT[entry.m]?entry.m:'W';
   const hf=hoursFor(entry,'f'),hm=hoursFor(entry,'m');
   const fPost=['R','T','Q','K'].includes(f),mPost=['R','T','Q','K'].includes(m);
-  const fi=f==='W'?clampNum(s.netFather):fPost?ptNet('f',hf,ptFactor):0;
+  const fi=f==='W'?(entry.wf===undefined?clampNum(s.netFather):entry.wf*ptFactor):fPost?(entry.wf===undefined?ptNet('f',hf,ptFactor):entry.wf*ptFactor):0;
   const mat=matDaysAt(i+1),matPart=m==='MS'?mat.days/mat.len:0;
-  const mi=m==='W'?clampNum(s.netMother):m==='MS'?clampNum(s.netMother)*matPart:mPost?ptNet('m',hm,ptFactor):0;
-  const eF=fPost?egPtNet('f',hf,ptFactor,egFactor):0,eM=mPost?egPtNet('m',hm,ptFactor,egFactor):0;
+  const mi=m==='W'?(entry.wm===undefined?clampNum(s.netMother):entry.wm*ptFactor):m==='MS'?clampNum(s.netMother)*matPart:mPost?(entry.wm===undefined?ptNet('m',hm,ptFactor):entry.wm*ptFactor):0;
+  const eF=fPost?(entry.ef===undefined?egPtNet('f',hf,ptFactor,egFactor):entry.ef*ptFactor):0,eM=mPost?(entry.em===undefined?egPtNet('m',hm,ptFactor,egFactor):entry.em*ptFactor):0;
   const fc=equivalent(f),mc=equivalent(m);
   consumed+=fc+mc;conF+=fc;conM+=mc;
   return {lm:i+1,f,m,hf,hm,fi,mi,maternityBenefits:m==='MS'?mi:0,eF,eM,matPart,fc,mc,fg:0,mg:0,kind:monthKind(i+1),grant:0,childcare:0,cashAfter:0,totalWage:0,totalEg:0,income:0,deficit:null};
@@ -2076,7 +2178,9 @@ function evaluate(schedule,mod={}){
  const validationState=originalSchedule===s.schedule?s:{...s,employmentOverrides:null,benefitOverrides:null};
  const validation=RuleValidator.validatePlan({state:validationState,schedule},RULE_CATALOG);
  errors.push(...validation.findings.filter(f=>f.status!=='PLAUSIBEL_STANDARD').map(f=>f.message));
- const x={rows,validation,errors:[...new Set(errors)],notices,consumed,conF,conM,valid:validation.valid&&errors.length===0};
+ const forecastWarnings=new Set(validation.findings.filter(f=>['BIRTH_COHORT_UNSUPPORTED','FUTURE_COHORT_UNVERIFIED'].includes(f.code)).map(f=>f.message));
+ const forecastPlanningReady=validation.provisionalPlanningEligible&&errors.every(msg=>msg.startsWith('Geburtsdatum außerhalb des unterstützten Standard-Regelzeitraums')||forecastWarnings.has(msg));
+ const x={rows,validation,errors:[...new Set(errors)],notices,consumed,conF,conM,valid:validation.valid&&errors.length===0,forecastPlanningReady};
  x.sum=(n,key)=>rows.slice(0,n).reduce((a,r)=>a+(Number(r[key])||0),0);
  x.low=n=>Math.min(...rows.slice(0,n).map(r=>r.income));
  x.netLow=n=>Math.min(...rows.slice(0,n).map(r=>r.cashAfter));
@@ -2131,6 +2235,8 @@ function renderRuleLedger(){
   const checkDate=rule.checked_at||'noch offen';
   return `<div class="law-list"><div class="inline-pair"><strong>${esc(rule.t)}</strong><span class="mini-ok">${esc(tag)}</span></div><div class="law-meta">ID ${esc(rule.id)} · Gebiet: ${esc(rule.where)} · Regelbasis ab: ${esc(rule.effective_from)} · geprüft: ${esc(checkDate)} · Ende: ${esc(rule.effective_to||'nicht hinterlegt')}</div><p>${esc(rule.summary)}</p><p class="input-caption">${esc(rule.applicability_note||'Für die genaue Anspruchslage ist eine Einzelfallprüfung erforderlich.')}</p><a href="${rule.url}" target="_blank" rel="noopener noreferrer">${esc(rule.source)} ↗</a></div>`;
  }).join('');
+ const statusText={bill_referred_not_in_force:'Gesetzentwurf – nicht geltend',parliament_passed_implementation_conditional:'Beschlossen – Einführung stufenweise',promulgated_future_effective:'Verkündet – künftiges Inkrafttreten',policy_discussion_no_enacted_parameter:'Diskussion – keine neue Rechenregel'};
+ $('legalEvents').innerHTML=LEGAL_EVENTS.events.map(e=>'<div class="law-list"><div class="inline-pair"><strong>'+esc(e.title)+'</strong><span class="mini-ok">'+esc(statusText[e.status]||'Ungeprüft')+'</span></div><div class="law-meta">'+esc(e.scope)+' · Nachgelesen: '+esc(e.observed_at)+' · '+esc(e.effective_from?'Gültig ab: '+e.effective_from:e.proposed_effective_from?'Vorgeschlagen ab: '+e.proposed_effective_from:'Kein garantierter Umsetzungstag')+'</div><p>'+esc(e.calculation_effect||e.rule||'Noch kein kalkulierter Geldanspruch')+'</p><a href="'+esc(e.sources[0])+'" target="_blank" rel="noopener noreferrer">Amtliche Quelle ↗</a></div>').join('');
  $('marketMatrix').innerHTML=`<div class="h-scroll" tabindex="0" role="region" aria-label="Horizontal scrollbare Planübersicht"><table class="feature-matrix"><thead><tr><th>Untersuchtes Angebot</th><th>Dokumentiert</th><th>Unser zusätzlicher Fokus</th></tr></thead><tbody>
  <tr><td><a href="https://familienportal.de/familienportal/meta/egr" target="_blank" rel="noopener">Bund: Elterngeldrechner mit Planer</a></td><td>Gültigkeitsprüfung, Elterngeld, Stunden und Familienfinanzen</td><td>Zielbasierte Suche + unsichere Einkünfte + datierte Quellen</td></tr>
  <tr><td><a href="https://www.elterngeldoptimierer.de/" target="_blank" rel="noopener">ElterngeldOptimierer</a></td><td>Automatische Optimierung und finanzielle Empfehlungen laut Anbieter</td><td>Offline prüfbar, Robustheitsband, Landes-Screening, offener Regelkatalog</td></tr>
@@ -2183,6 +2289,11 @@ function renderMonthHourEditors(){
   const r=s.schedule[s.month-1],el=$(key);if(!el)continue;
   el.value=String(hoursFor(r,who));el.disabled=!['R','T','Q','K'].includes(r[who]);
  }
+ for(const [id,prop,who] of [['monthWageFather','wf','f'],['monthEgNetFather','ef','f'],['monthWageMother','wm','m'],['monthEgNetMother','em','m']]){
+   const row=s.schedule[s.month-1],el=$(id),status=row[who];if(!el)continue;
+   el.value=row[prop]===undefined?'':String(row[prop]);
+   el.disabled=prop[0]==='e'?!['R','T','K'].includes(status):!['W','R','T','Q','K'].includes(status);
+ }
  const detail=current.rows[s.month-1];const addons=[];
  if(detail.childcare>0)addons.push('Kita '+euro(detail.childcare));
  if(detail.grant>0)addons.push('Sonderzahlung '+euro(detail.grant));
@@ -2194,8 +2305,8 @@ function renderAll(){
  renderMonthHourEditors();renderRegion();renderRuleLedger();renderRisk();renderGoalResult();renderTimeAxes();renderApplicationGuide();updateNav();
 }
 function renderApplicationGuide(){
- try{const axes=TimeAxes.buildTimeAxes({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,schedule:s.schedule,leaveOverrides:s.leaveOverrides});const guide=ApplicationGuide.buildApplicationGuide({birthDate:s.date,expectedBirthDate:s.expectedDueDate||s.date,region:s.region,city:s.city,leavePeriods:axes.leavePeriods});
- $('applicationChecklist').innerHTML='<div class="note">Quellen geprüft '+esc(guide.verifiedAt)+' · '+esc(guide.authority?.name||'Zuständigkeit vor Ort prüfen')+'</div>'+guide.tasks.map(t=>'<div class="card" style="margin-top:12px"><h3>'+esc(t.title)+'</h3><p>'+esc(t.dueDate?TimeAxes.formatDateDE(t.dueDate):'Nach der Geburt')+'</p><p class="footnote">'+esc(t.description)+'</p><ul>'+t.documents.map(d=>'<li>'+esc(d)+'</li>').join('')+'</ul><a href="'+esc(t.source.url)+'" target="_blank" rel="noopener noreferrer">'+esc(t.source.label)+'</a></div>').join('')+'<p class="footnote">'+esc(guide.warnings.join(' '))+'</p>';
+ try{const axes=TimeAxes.buildTimeAxes({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,schedule:s.schedule,leaveOverrides:s.leaveOverrides});const guide=ApplicationGuide.buildApplicationGuide({birthDate:s.date,expectedBirthDate:s.expectedDueDate||s.date,region:s.region,city:s.city,leavePeriods:axes.leavePeriods,childcareStartLm:Number(s.childcareStart)||0,legalEvents:LEGAL_EVENTS});
+ $('applicationChecklist').innerHTML='<div class="note">Quellen geprüft '+esc(guide.verifiedAt)+' · '+esc(guide.authority?.name||'Zuständigkeit vor Ort prüfen')+'</div>'+guide.tasks.map(t=>'<div class="card" style="margin-top:12px"><h3>'+esc(t.title)+'</h3><p>'+esc(t.dueDate?TimeAxes.formatDateDE(t.dueDate):'Nach der Geburt')+'</p><p class="footnote">'+esc(t.description)+'</p><ul>'+t.documents.map(d=>'<li>'+esc(d)+'</li>').join('')+'</ul><a href="'+esc(t.source.url)+'" target="_blank" rel="noopener noreferrer">'+esc(t.source.label)+'</a></div>').join('')+'<p class="footnote">Elterngeld-Netto: Für § 2c BEEG gilt der Arbeitnehmer-Pauschbetrag vom '+esc(TimeAxes.formatDateDE(guide.elterngeldEmployeeAllowanceReferenceDay))+' (nicht automatisch ein später vorgeschlagener Wert). Brutto-zu-Netto-Rechnung bleibt individuell zu prüfen.</p>'+'<p class="footnote">'+esc(guide.warnings.join(' '))+'</p>';
  }catch(e){$('applicationChecklist').textContent='Checkliste: Geburtsdatum und Abschnitte prüfen.';}
 }
 function renderTimeAxes(){
@@ -2241,11 +2352,12 @@ function listenTimeAxes(){
  });
  $('axesReset').addEventListener('click',()=>{s.leaveOverrides=null;renderAll();persist();showToast('Elternzeit wieder aus Monatsplan abgeleitet')});
 }
-function goalInputsFingerprint(){return JSON.stringify([s.date,s.netFather,s.netMother,s.egNetFather,s.egNetMother,s.egPtNetFather,s.egPtNetMother,s.standardCaseConfirmed,s.postnatalDays,s.expectedDueDate,s.horizon,s.confirmedGrant,s.grantVerified,s.grantMonth,s.ptNetFather,s.ptNetMother,s.hoursFather,s.hoursMother,s.kind,s.expenses,s.zve,s.region,s.city,s.births,s.childcareStart,s.childcareMonthly,s.goalCare,s.goalCareMode,s.goalObjective,s.goalMinFather,s.goalMinIncome,s.goalOverlap,s.goalPart,s.childcareMode,s.childcareHours,s.childcareIncome,s.childcareMeals,s.riskPercent,s.riskFatherPercent,s.riskMotherPercent,s.goalRoles,s.leaveOverrides,s.employmentOverrides,s.benefitOverrides,s.riskEgPercent,s.riskCostPercent]);}
+function goalInputsFingerprint(){return JSON.stringify([s.date,s.netFather,s.netMother,s.egNetFather,s.egNetMother,s.egPtNetFather,s.egPtNetMother,s.incomeProfileFather,s.incomeProfileMother,s.standardCaseConfirmed,s.postnatalDays,s.expectedDueDate,s.horizon,s.confirmedGrant,s.grantVerified,s.grantMonth,s.ptNetFather,s.ptNetMother,s.hoursFather,s.hoursMother,s.kind,s.expenses,s.zve,s.region,s.city,s.births,s.childcareStart,s.childcareMonthly,s.goalCare,s.goalCareMode,s.goalObjective,s.goalMinFather,s.goalMinIncome,s.goalOverlap,s.goalPart,s.childcareMode,s.childcareHours,s.childcareIncome,s.childcareMeals,s.riskPercent,s.riskFatherPercent,s.riskMotherPercent,s.goalRoles,s.leaveOverrides,s.employmentOverrides,s.benefitOverrides,s.riskEgPercent,s.riskCostPercent]);}
 function renderGoalResult(){
  if(!goalStats){$('goalResult').innerHTML='<div class="note">Starte die Suche. Die Standardentgelte und Zielbedingungen aus euren Eingaben werden berücksichtigt.</div>';return;}
  const stale=goalFingerprint!==goalInputsFingerprint();
- $('goalResult').innerHTML=`<div class="note ${stale?'warn':''}"><strong>${stale?'Ergebnisse sind nach Änderungen veraltet. Bitte neu suchen.':'Automatische Suche abgeschlossen.'}</strong> ${goalStats.seen.toLocaleString('de-DE')} Muster geprüft, ${goalStats.valid.toLocaleString('de-DE')} rechtlich und zur Betreuung plausibel, ${goalCandidates.length} unterschiedliche Vorschläge dargestellt. Das ist eine strukturierte Kandidatensuche, keine vollständige Erfassung aller denkbaren Zeitpläne.</div>`+
+ const forecastNotice=goalStats.provisional?'<div class="note warn"><strong>UNVERBINDLICHE PROGNOSE FÜR 2027 – KEINE RECHTLICHE GÜLTIGKEITSPRÜFUNG.</strong> Nur Vorlagenvergleich mit den amtlich beschriebenen Regeln des Jahres 2026; spätere Gesetzesänderungen, Elterngeld-Netto und Kindergeldansprüche sind nicht bestätigt. Kein Vorschlag ist als bewilligungsfähig freigegeben.</div>':'';
+ $('goalResult').innerHTML=forecastNotice+`<div class="note ${stale?'warn':''}"><strong>${stale?'Ergebnisse sind nach Änderungen veraltet. Bitte neu suchen.':goalStats.provisional?'Unverbindliche 2027-Szenariosuche abgeschlossen.':'Automatische Suche abgeschlossen.'}</strong> ${goalStats.seen.toLocaleString('de-DE')} Muster geprüft, ${goalStats.valid.toLocaleString('de-DE')} ${goalStats.provisional?'nach 2026-Mustern und Betreuung technisch passende, aber nicht rechtsgeprüfte':'rechtlich und zur Betreuung plausible'} Vorlagen, ${goalCandidates.length} unterschiedliche Vorschläge dargestellt. Das ist eine strukturierte Kandidatensuche, keine vollständige Erfassung aller denkbaren Zeitpläne.</div>`+
  (!goalCandidates.length?'<div class="note warn">Keine passenden Vorschläge. '+esc(goalStats.reason||'Innerhalb der Suchvorlagen erfüllt kein Plan alle Regeln, Betreuungsziele und Budgetgrenzen. Ziele anpassen oder einen eigenen Plan prüfen.')+'</div>':'')+
  '<p class="footnote">'+esc(GoalRanking.SEARCH_LIMITATIONS.join(' '))+' Mindestbudget im gesamten Vergleichszeitraum; bei Robustheit im vorsichtigen Szenario.</p>'+
  goalCandidates.map((o,i)=>{
@@ -2254,8 +2366,10 @@ function renderGoalResult(){
  }).join('');
  $('goalResult').querySelectorAll('[data-accept]').forEach(b=>b.addEventListener('click',()=>{
   if(goalFingerprint!==goalInputsFingerprint()){showToast('Einstellungen geändert. Bitte neu suchen.');return;}
-  const o=goalCandidates[Number(b.dataset.accept)];if(!o)return;if(!evaluate(o.schedule).valid){goalStats=null;renderGoalResult();showToast('Plan nach Änderungen nicht mehr plausibel. Bitte neu suchen.');return;}
-  s.schedule=clone(o.schedule);s.employmentOverrides=null;s.benefitOverrides=null;s.model='custom';builderActive=false;s.month=3;renderAll();persist();showToast('Vorschlag '+(Number(b.dataset.accept)+1)+' übernommen');showSlide([...document.querySelectorAll('.slide')].findIndex(x=>x.id==='slide-5'));
+  const o=goalCandidates[Number(b.dataset.accept)];if(!o)return;
+  const review=evaluate(o.schedule);
+  if(!review.valid&&!(goalStats.provisional&&review.forecastPlanningReady)){goalStats=null;renderGoalResult();showToast('Plan nach Änderungen nicht mehr prüfbar. Bitte neu suchen.');return;}
+  s.schedule=clone(o.schedule);s.employmentOverrides=null;s.benefitOverrides=null;s.model='custom';builderActive=false;s.month=3;renderAll();persist();showToast(goalStats.provisional?'2027-Prognoseplan übernommen – keine Rechtsfreigabe':'Vorschlag '+(Number(b.dataset.accept)+1)+' übernommen');showSlide([...document.querySelectorAll('.slide')].findIndex(x=>x.id==='slide-5'));
  }));
 }
 function scheduleFingerprint(a){return GoalRanking.scheduleFingerprint(a)}
@@ -2291,7 +2405,9 @@ function runGoalSearch(){
  const goal=Number(s.goalCare),seen=new Set(),items=[];let evaluated=0,eligible=0;
  const candidateState={...s,employmentOverrides:null,benefitOverrides:null};
  const gate=RuleValidator.validatePlan({state:candidateState,schedule:makeSchedule('father12')},RULE_CATALOG);
- if(gate.findings.some(f=>f.status!=='REGELKONFLIKT')){goalStats={seen:0,valid:0,reason:gate.findings.map(f=>f.message).join(' · ')};goalCandidates=[];goalFingerprint=goalInputsFingerprint();renderGoalResult();return []}
+ const forecastMode=gate.provisionalPlanningEligible===true;
+ const forecastCodes=new Set(['BIRTH_COHORT_UNSUPPORTED','FUTURE_COHORT_UNVERIFIED']);
+ if(gate.findings.some(f=>f.status!=='REGELKONFLIKT'&&!(forecastMode&&forecastCodes.has(f.code)))){goalStats={seen:0,valid:0,provisional:false,reason:gate.findings.map(f=>f.message).join(' · ')};goalCandidates=[];goalFingerprint=goalInputsFingerprint();renderGoalResult();return []}
  if(Number(s.births)!==1||(s.zve!==''&&Number(s.zve)>175000)){goalStats={seen:0,valid:0};goalCandidates=[];goalFingerprint=goalInputsFingerprint();renderGoalResult();showToast('Sonderfall/Einkommensgrenze: keine automatische Optimierung');return []}
  const mMax=Math.min(10,Math.max(0,goal-2));
  for(let motherExtra=0;motherExtra<=mMax;motherExtra++){
@@ -2311,8 +2427,10 @@ function runGoalSearch(){
           if(!isCaredFor(a))continue;
           const overlapping=a.filter(r=>offCode(r.f)&&('MS'===r.m||offCode(r.m))).length;
           if(overlapping>Number(s.goalOverlap))continue;
-          if(!RuleValidator.validatePlan({state:candidateState,schedule:a},RULE_CATALOG).valid)continue;
-          const c=evaluate(a);if(!c.valid||c.fFree<Number(s.goalMinFather))continue;
+          const ruleCheck=RuleValidator.validatePlan({state:candidateState,schedule:a},RULE_CATALOG);
+          if(!ruleCheck.valid&&!(forecastMode&&ruleCheck.provisionalPlanningEligible))continue;
+          const c=evaluate(a);
+          if(!(c.valid||(forecastMode&&c.forecastPlanningReady))||c.fFree<Number(s.goalMinFather))continue;
           if(careLead==='mother'?c.mFree<c.fFree:c.fFree<c.mFree)continue;
           const adverse=stressCalculation(c,familyBudget(c).scenarios[0]);
           const budgetCalc=s.goalObjective==='robust'?adverse:c;
@@ -2336,8 +2454,8 @@ function runGoalSearch(){
   const benefitTypes=new Set(item.schedule.map(x=>x[item.careLead==='mother'?'m':'f']).filter(x=>['B','R','P','T','K','U','Q'].includes(x)));
   item.summary=`${item.careLead==='mother'?'Mutter':'Vater'} LM ${item.fStart}–${goal} · ${[...benefitTypes].map(x=>STAT[x].code).join(' / ')}${item.bonusMonths?' · Bonus '+item.bonusMonths+' M.':''}`;
  }
- const chosen=GoalRanking.rankCandidates(items,{horizon:n,objective:s.goalObjective==='income'?'finance':s.goalObjective,limit:3});
- goalCandidates=chosen;goalStats={seen:evaluated,valid:eligible};goalFingerprint=goalInputsFingerprint();renderGoalResult();showToast(eligible?eligible+' passende Varianten geprüft':'Kein Plan innerhalb der Zielgrenzen gefunden');return chosen;
+ const chosen=GoalRanking.rankCandidates(items,{horizon:n,objective:s.goalObjective==='income'?'finance':s.goalObjective,limit:3,allowProvisional:forecastMode});
+ goalCandidates=chosen;goalStats={seen:evaluated,valid:eligible,provisional:forecastMode};goalFingerprint=goalInputsFingerprint();renderGoalResult();showToast(eligible?(forecastMode?'Unverbindliche 2027-Prognosen erstellt':'Passende Varianten geprüft'):'Kein Plan innerhalb der Zielgrenzen gefunden');return chosen;
 }
 function persist(){if(!s.storageConsent)return;try{localStorage.setItem('elternzeit-familienplan-v3',JSON.stringify(s))}catch(e){showToast('Lokales Speichern ist nicht verfügbar')}}
 function restore(){
@@ -2364,6 +2482,12 @@ function listenAdvanced(){
  for(const [who,id]of [['f','monthHoursFather'],['m','monthHoursMother']])$(id).addEventListener('input',e=>{
   const row=s.schedule[s.month-1];row[who==='f'?'hf':'hm']=clampNum(e.target.value,0,40);s.model='custom';renderAll();persist();
  });
+ for(const [id,prop] of [['monthWageFather','wf'],['monthWageMother','wm'],['monthEgNetFather','ef'],['monthEgNetMother','em']])$(id).addEventListener('change',e=>{
+   const row=s.schedule[s.month-1],raw=e.target.value.trim();
+   if(raw==='')delete row[prop];
+   else {const n=Number(raw);if(!Number.isFinite(n)||n<0||n>1e9){showToast('Monatsnetto muss eine nichtnegative Zahl sein');renderMonthHourEditors();return;}row[prop]=n;}
+   s.model='custom';renderAll();persist();
+ });
  $('runGoal').addEventListener('click',()=>{
   const button=$('runGoal');if(button.disabled)return;button.disabled=true;button.textContent='Suche läuft · zulässige Monatsmuster werden geprüft …';
   $('goalResult').innerHTML='<div class="note">Strukturierte Varianten werden berechnet. Das kann auf langsameren Geräten einige Sekunden dauern.</div>';
@@ -2371,7 +2495,7 @@ function listenAdvanced(){
  });
 }
 
-window.__elternzeitV3={evaluate,runGoalSearch,goalResults:()=>goalCandidates.map(c=>({summary:c.summary,explanation:c.explanation,profile:c.profile,careLead:c.careLead,motherFree:c.calc.mFree,valid:c.calc.valid,score:c.score,free:c.calc.fFree,errors:c.calc.errors,total:c.calc.sum(Math.max(s.horizon,Number(s.goalCare)),'cashAfter'),schedule:clone(c.schedule)})),riskScenarios,budgetScenarios:()=>familyBudget(current),isCaredFor,matDaysAt,monthKind,ruleVersion:V3_VERSION,ruleCatalog:RULE_CATALOG,cologneFee2025,childcareEstimate,timeAxes:()=>TimeAxes.buildTimeAxes({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,postnatalDays:Number(s.postnatalDays)||56,schedule:s.schedule,financialRows:current.rows,leaveOverrides:s.leaveOverrides,employmentOverrides:s.employmentOverrides,benefitOverrides:s.benefitOverrides,bankLedger:s.bankLedger,weeklyHours:{father:s.hoursFather,mother:s.hoursMother}})};
+window.__elternzeitV3={evaluate,runGoalSearch,goalResults:()=>goalCandidates.map(c=>({summary:c.summary,explanation:c.explanation,profile:c.profile,careLead:c.careLead,motherFree:c.calc.mFree,valid:c.calc.valid,score:c.score,free:c.calc.fFree,forecastPreview:c.calc.forecastPlanningReady===true,errors:c.calc.errors,total:c.calc.sum(Math.max(s.horizon,Number(s.goalCare)),'cashAfter'),schedule:clone(c.schedule)})),riskScenarios,budgetScenarios:()=>familyBudget(current),isCaredFor,matDaysAt,monthKind,ruleVersion:V3_VERSION,ruleCatalog:RULE_CATALOG,cologneFee2025,childcareEstimate,timeAxes:()=>TimeAxes.buildTimeAxes({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,postnatalDays:Number(s.postnatalDays)||56,schedule:s.schedule,financialRows:current.rows,leaveOverrides:s.leaveOverrides,employmentOverrides:s.employmentOverrides,benefitOverrides:s.benefitOverrides,bankLedger:s.bankLedger,weeklyHours:{father:s.hoursFather,mother:s.hoursMother}})};
 
 function renderInputs(){
  if($('standardCaseConfirmed'))$('standardCaseConfirmed').value=s.standardCaseConfirmed===true?'yes':s.standardCaseConfirmed===false?'no':'';if($('localSave'))$('localSave').checked=s.storageConsent===true;

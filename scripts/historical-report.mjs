@@ -1,0 +1,10 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createRequire} from 'node:module';
+const require=createRequire(import.meta.url);
+const inspector=require('../src/historical-evidence.cjs');
+const records=JSON.parse(readFileSync(new URL('../data/historische-gerichtsbescheide-2026-10-15.json',import.meta.url),'utf8'));
+const report=inspector.inspectCatalogue(records,{targetBirthYear:2027});
+const path=new URL('../qa/historische-gerichtsbescheide-2026-10-15-report.json',import.meta.url);
+writeFileSync(path,JSON.stringify(report,null,2)+'\n');
+process.stdout.write(report.cases.length+' historisch authentische Verfahren: '+(report.documentary_pass?'alle internen Bescheid-Rechenkonsistenzen PASS':'DOKUMENT-DELTA FAIL')+'; vollständig mit 2027er Modell durchgerechnet: '+report.complete_current_law_replays+' (nicht vorgegeben).\n');
+if(!report.documentary_pass)process.exitCode=1;

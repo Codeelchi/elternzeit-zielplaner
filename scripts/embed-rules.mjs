@@ -27,6 +27,17 @@ requireDay(catalog.verified_as_of, 'verified_as_of');
 requireDay(catalog.applicable_standard_birth_window?.from, 'birth_window.from');
 requireDay(catalog.applicable_standard_birth_window?.through, 'birth_window.through');
 if (catalog.applicable_standard_birth_window.from > catalog.applicable_standard_birth_window.through) throw new Error('Ungültiges Kohortenfenster');
+const forecast = catalog.planning_forecast_window;
+if (forecast != null) {
+  requireDay(forecast.from, 'planning_forecast_window.from');
+  requireDay(forecast.through, 'planning_forecast_window.through');
+  requireDay(forecast.observed_at, 'planning_forecast_window.observed_at');
+  if (forecast.from > forecast.through || forecast.from <= catalog.applicable_standard_birth_window.through || forecast.status !== 'unverified_forecast_only' ||
+      forecast.child_benefit_2027_status !== 'proposed_not_in_force' ||
+      !Array.isArray(forecast.sources) || !forecast.sources.length || !forecast.sources.every(x => typeof x === 'string' && x.startsWith('https://'))) {
+    throw Error('Prognosefenster muss von rechtlich bestätigten Geburtskohorten getrennt und als ungeprüft markiert sein');
+  }
+}
 const statuses = new Set(['official_source_checked', 'source_listed_review_pending', 'draft_not_in_force']);
 if (!Array.isArray(catalog.rules) || catalog.rules.length < 10) throw new Error('Regelregister unvollständig');
 const ids = new Set();

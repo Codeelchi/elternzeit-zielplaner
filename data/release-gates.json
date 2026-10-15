@@ -1,11 +1,11 @@
 {
-  "version": "3.4.0",
+  "version": "3.6.0",
   "publicReleaseApproved": false,
   "independentCalculationReview": "pending",
   "legalReview": "pending",
   "privacyReview": "pending",
   "directFileBrowserReview": "approved",
   "userTesting": "pending",
-  "reason": "Mutterschutzreferenz weicht einen Tag ab; weitere Behördenreferenzen, unabhängige Fachprüfung und öffentliche Freigaben fehlen.",
+  "reason": "Amtliche Mutterschutz-Referenzen widersprechen sich (4 statt 5 Resttage); Brutto-zu-Elterngeld-Netto, unabhängiger Fach-/Rechts-/Datenschutzreview, Nutzertests und öffentliche Freigabe fehlen. 2027 ist nur als unverbindliche Prognose verfügbar.",
   "directFileEvidence": "qa/browser-environment.json and qa/browser-results.json: V3.4.0, 11 direct-file tests, 50 axe scans, 2026-10-15"
 }

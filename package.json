@@ -1,11 +1,11 @@
 {
   "name": "elternzeit-zielplaner",
-  "version": "3.4.0",
+  "version": "3.6.0",
   "private": true,
   "type": "module",
   "description": "Offline-Elternzeit- und Elterngeld-Zielplaner mit datierten Rechtsregeln und Szenariensuche",
   "scripts": {
-    "test": "npm run rules:check && npm run axes:check && npm run modules:check && node --test tests/*.test.mjs",
+    "test": "npm run rules:check && npm run legislation:check && npm run axes:check && npm run modules:check && node --test tests/*.test.mjs",
     "check": "npm test",
     "rules:sync": "node scripts/embed-rules.mjs",
     "rules:check": "node scripts/embed-rules.mjs --check",
@@ -15,7 +15,10 @@
     "modules:check": "node scripts/embed-modules.mjs --check",
     "test:e2e": "playwright test",
     "references:report": "node scripts/reference-report.mjs",
-    "release:check": "node scripts/release-check.mjs"
+    "release:check": "node scripts/release-check.mjs",
+    "legislation:sync": "node scripts/embed-legislation.mjs",
+    "legislation:check": "node scripts/embed-legislation.mjs --check",
+    "historical:report": "node scripts/historical-report.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

@@ -87,3 +87,110 @@ test('compact fingerprints distinguish override positions and retain month seque
  const legacy=JSON.stringify(schedule.map(row=>[row.f,row.m,null,null]));
  assert.ok(baseline.length < legacy.length / 4);
 });
+
+test('calendar shifts with identical care and budget effects do not manufacture alternatives',()=>{
+ const first=candidate(1,[1000,1000,1000],1,0);
+ const shifted=candidate(2,[1000,1000,1000],1,0);
+ shifted.schedule=[{f:'W',m:'W'},{f:'U',m:'W'},{f:'W',m:'W'}];
+ shifted.calc.rows=shifted.schedule.map(row=>({...row,cashAfter:1000}));
+ const selected=rankCandidates([shifted,first],{horizon:3});
+ assert.equal(selected.length,1);
+ assert.equal(selected[0].diversity.kind,'primary');
+ assert.deepEqual(selected[0].diversity.comparedWith,[]);
+});
+
+test('minor monetary variations and hours-only fingerprints do not fill three cards',()=>{
+ const high=candidate(1,[1050,1050]);
+ const low=candidate(2,[1000,1000]);
+ const middle=candidate(3,[1020,1020]);
+ const selected=rankCandidates([low,middle,high],{horizon:2});
+ assert.deepEqual(selected.map(x=>x.id),[1]);
+ assert.equal(selected[0].diversity.thresholds.totalEuro,200);
+});
+
+test('financial threshold boundary is inclusive and exposes signed differences',()=>{
+ const high=candidate(1,[1100,1100]);
+ const near=candidate(2,[1000.01,1000.01]);
+ const boundary=candidate(3,[1000,1000]);
+ const selected=rankCandidates([near,boundary,high],{horizon:2});
+ assert.deepEqual(selected.map(x=>x.id),[1,3]);
+ assert.equal(selected[1].diversity.kind,'alternative');
+ const differences=selected[1].diversity.comparedWith[0].differences;
+ assert.equal(differences.find(x=>x.code==='floor').delta,-100);
+ assert.equal(differences.find(x=>x.code==='total').threshold,200);
+});
+
+test('alternative must differ materially from every previous card, not just the winner',()=>{
+ const winner=candidate(1,[2000,2000]);
+ const alternate=candidate(2,[1500,1500],1,1);
+ const almostSame=candidate(3,[1510,1510],1,1);
+ const distinct=candidate(4,[1200,1200],2,0);
+ const selected=rankCandidates([winner,alternate,almostSame,distinct],{horizon:2});
+ assert.equal(selected.length,3);
+ assert.equal(selected[0].id,1);
+ assert.ok(!(selected.some(x=>x.id===2)&&selected.some(x=>x.id===3)));
+ assert.equal(selected[2].diversity.comparedWith.length,2);
+ assert.ok(selected[2].diversity.comparedWith.every(x=>x.differences.length>0));
+});
+
+test('different simultaneous care and part-time patterns are structural alternatives',()=>{
+ const together=candidate(1,[1000,1000],1,1);
+ const apart=candidate(2,[1000,1000],1,1);
+ apart.calc.rows[1].m='U';apart.calc.rows[0].m='W';
+ apart.schedule=apart.calc.rows.map(({cashAfter,...row})=>row);
+ const selected=rankCandidates([together,apart],{horizon:2});
+ assert.equal(selected.length,2);
+ assert.ok(selected[1].diversity.comparedWith[0].differences.some(x=>x.code==='sharedHome'));
+ const partTime=candidate(3,[1000,1000]);
+ partTime.calc.rows[0].f='Q';partTime.schedule[0].f='Q';
+ assert.equal(rankCandidates([candidate(4,[1000,1000]),partTime],{horizon:2}).length,2);
+});
+
+test('shifted cashflow qualifies only when initial reserve or another threshold changes',()=>{
+ const earlyLoss=candidate(1,[-600,600]);
+ const lateLoss=candidate(2,[600,-600]);
+ const selected=rankCandidates([earlyLoss,lateLoss],{horizon:2});
+ assert.equal(selected.length,2);
+ assert.equal(selected[0].rankingMetrics.total,selected[1].rankingMetrics.total);
+ assert.equal(selected[0].rankingMetrics.floor,selected[1].rankingMetrics.floor);
+ assert.ok(selected[1].diversity.comparedWith[0].differences.some(x=>x.code==='reserve'&&Math.abs(x.delta)===600));
+});
+
+test('missing stress estimates cannot create an alleged robustness difference',()=>{
+ const a=candidate(1,[1000,1000],0,0,[800,800]);
+ const b=candidate(2,[1000,1000]);
+ assert.equal(rankCandidates([a,b],{horizon:2}).length,1);
+});
+
+test('reserve diversity uses the selected minimum and recognizes timing gaps',()=>{
+ const earlyGap=candidate(1,[100,100,1900,1900]),lateGap=candidate(2,[1900,1900,100,100]);
+ const selected=rankCandidates([earlyGap,lateGap],{horizon:4,minimum:1000});
+ assert.equal(selected.length,2);assert.ok(selected[1].diversity.comparedWith[0].differences.some(d=>d.code==='reserve'&&Math.abs(d.delta)===1800));
+ assert.throws(()=>rankCandidates([earlyGap],{horizon:4,minimum:NaN}),/Mindestbetrag/);
+});
+
+
+test('financially distinct proposals with identical full-home month counts receive different, traceable headings',()=>{
+ const rich=candidate(201,[2800,2400],1,1,[1300,900]);
+ const middle=candidate(202,[2200,2200],1,1,[1600,1600]);
+ const resilient=candidate(203,[2000,2000],1,1,[1700,1700]);
+ const selected=rankCandidates([resilient,rich,middle],{horizon:2,limit:3});
+ assert.equal(selected.length,3);
+ assert.deepEqual(selected.map(x=>x.profile),['finance','balanced','robust']);
+ assert.ok(selected.every(x=>x.rankingMetrics.father===1&&x.rankingMetrics.mother===1));
+ assert.equal(new Set(selected.map(x=>x.title)).size,3);
+ assert.match(selected[0].title,/Gesamtbudget im Fokus/);
+ assert.match(selected[0].title,/5.200/);
+ assert.match(selected[1].title,/Zeitaufteilung im Fokus/);
+ assert.match(selected[1].title,/1\/1 volle Monate/);
+ assert.match(selected[2].title,/Vorsichtiges Szenario/);
+ assert.match(selected[2].title,/1.700/);
+ assert.ok(selected[1].diversity.comparedWith[0].differences.some(d=>d.code==='total'));
+});
+
+test('robust proposal without adverse measurements does not invent a stress-tested claim',()=>{
+ const selected=rankCandidates([candidate(204,[700,900])],{horizon:2,objective:'robust'});
+ assert.match(selected[0].title,/ohne Stresstest/);
+ assert.doesNotMatch(selected[0].title,/Vorsichtiges Szenario/);
+ assert.equal(selected[0].score,700); // The fallback headline and exported score use the same measured floor.
+});

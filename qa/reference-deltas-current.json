@@ -1,5 +1,5 @@
 {
-  "version": "3.6.0",
+  "version": "3.7.0",
   "checkedAt": "2026-10-15",
   "referenceCollection": "1.0.0",
   "provenanceWarning": "Amtlich veröffentlichte Beispielrechnungen sind keine echten anonymisierten Bewilligungsbescheide; Brutto/Steuer/SV wurden nicht amtlich als Gesamtfall verglichen.",
@@ -323,8 +323,8 @@
       "source_section": "Mehr Elterngeld für Geringverdienende",
       "source_checked_at": "2026-10-14",
       "caveat": "Beträge vergleichen allein den vereinfachten BEEG-Ersatzbetrag bei bereits korrekt ermitteltem pauschaliertem Elterngeld-Netto, nicht das Lohnabrechnungsnetto.",
-      "actual_monthly_eur": 805.938,
-      "delta_eur": 0,
+      "actual_monthly_eur": 805.94,
+      "delta_eur": 0.002000000000066393,
       "within_tolerance": true
     },
     {
@@ -340,8 +340,8 @@
       "source_section": "Mehr Elterngeld für Geringverdienende",
       "source_checked_at": "2026-10-14",
       "caveat": "Beträge vergleichen allein den vereinfachten BEEG-Ersatzbetrag bei bereits korrekt ermitteltem pauschaliertem Elterngeld-Netto, nicht das Lohnabrechnungsnetto.",
-      "actual_monthly_eur": 402.969,
-      "delta_eur": 0,
+      "actual_monthly_eur": 402.97,
+      "delta_eur": 0.0010000000000331966,
       "within_tolerance": true
     },
     {
@@ -357,8 +357,8 @@
       "source_section": "Mehr Elterngeld für Geringverdienende",
       "source_checked_at": "2026-10-14",
       "caveat": "Beträge vergleichen allein den vereinfachten BEEG-Ersatzbetrag bei bereits korrekt ermitteltem pauschaliertem Elterngeld-Netto, nicht das Lohnabrechnungsnetto.",
-      "actual_monthly_eur": 669.658,
-      "delta_eur": 0,
+      "actual_monthly_eur": 669.66,
+      "delta_eur": 0.0019999999999527063,
       "within_tolerance": true
     },
     {
@@ -374,8 +374,8 @@
       "source_section": "Mehr Elterngeld für Geringverdienende",
       "source_checked_at": "2026-10-14",
       "caveat": "Beträge vergleichen allein den vereinfachten BEEG-Ersatzbetrag bei bereits korrekt ermitteltem pauschaliertem Elterngeld-Netto, nicht das Lohnabrechnungsnetto.",
-      "actual_monthly_eur": 334.829,
-      "delta_eur": 0,
+      "actual_monthly_eur": 334.83,
+      "delta_eur": 0.0009999999999763531,
       "within_tolerance": true
     },
     {

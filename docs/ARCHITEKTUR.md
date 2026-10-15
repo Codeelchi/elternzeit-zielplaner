@@ -1,4 +1,4 @@
-# Architektur V3.4.0
+# Architektur V3.7.0
 
 Die verteilbare Anwendung bleibt eine einzelne `index.html`, ohne Backend, Konto, Laufzeitpakete oder Telemetrie. Node-Abhängigkeiten dienen ausschließlich Entwicklung und Tests. Diese Entscheidung erhält die Offline-Verteilung und vermeidet die Übertragung privater Haushaltsdaten.
 
@@ -24,6 +24,14 @@ Bankbuchungen verwenden tatsächliche Kalendertage. Sie werden niemals aus einem
 
 ## Fachliche Grenzen
 
-Schätzcharakter und strukturierter Prüfstatus sind in jeder Ansicht direkt unter der Budgetübersicht sichtbar. Die vollständige amtliche Brutto-Netto-Ermittlung fehlt weiterhin; eingegebenes Elterngeld-Netto und Stunden-Netto sind Schätzwerte. Der Mutterschutzvergleich weist eine konkrete amtliche Referenzabweichung auf, siehe Zeitachsen-Dokumentation und Abnahmebericht. Steuerwirkung, Kranken-/Pflegeversicherung, Rückforderungen und Sonderfälle brauchen unabhängige Prüfung. Daher ist V3.4.0 ein interner Prüfstand, kein fachlich freigegebener öffentlicher Release Candidate.
+Schätzcharakter und strukturierter Prüfstatus sind in jeder Ansicht direkt unter der Budgetübersicht sichtbar. Die vollständige amtliche Brutto-Netto-Ermittlung fehlt weiterhin; eingegebenes Elterngeld-Netto und Stunden-Netto sind Schätzwerte. Der Mutterschutzvergleich weist eine konkrete amtliche Referenzabweichung auf, siehe Zeitachsen-Dokumentation und Abnahmebericht. Steuerwirkung, Kranken-/Pflegeversicherung, Rückforderungen und Sonderfälle brauchen unabhängige Prüfung. Daher ist V3.7.0 ein interner Prüfstand, kein fachlich freigegebener öffentlicher Release Candidate.
 
 Ab V3.4 verwenden Budgetdiagramm, Rücklagen und vorsichtige Zielsuche dieselbe Komponentenprojektion mit getrennten väterlichen/mütterlichen Einkommensbändern. Die historische Sensitivitätsrechnung auf der Elterngeld-Einkommensbasis wird nicht mehr parallel als gleichnamiger Stresstest angezeigt.
+
+## V3.7: Entscheidungsoberfläche und Suche
+
+`src/money.cjs` rundet Geldbeträge auf Cent nach amtlich dokumentierter Zwischenschrittregel. `src/plan-comparison.cjs` verwendet für alle Vorschläge ausschließlich die gemeinsame FamilyBudget-Projektion. Der Offline-Embed platziert abhängige Module nach ihren Abhängigkeiten.
+
+Eine Generatorfunktion ist die gemeinsame Kandidatenquelle für synchrone Regressionstests und schrittweise Browserauswertung. Alle 64 Rohvarianten wird die Browserbedienung freigegeben; Abbruch und suchrelevante Eingabeänderung veröffentlichen keinen Teilplan. Fortschritt und erste Filtergründe werden getrennt erfasst. Die Rankingauswahl bewahrt die erste Zielpriorität und fordert materielle Unterschiede gegenüber allen vorigen Vorschlägen.
+
+Bezeichnungen und Einkommenseinstieg sind streng validierte Zusatzfelder des JSON-Plans. Textknoten und Beschriftungen zeigen Namen ohne HTML-Interpretation; interne Elternschlüssel bleiben stabil. Die Einkommensherkunft ist nur eine Benutzerangabe. Der manuelle MVP-Pfad berechnet kein amtliches Netto aus Bruttoreferenzen. Details: [Umsetzungsbericht](UMSETZUNG-ZIELBUDGET-V3.7.md).

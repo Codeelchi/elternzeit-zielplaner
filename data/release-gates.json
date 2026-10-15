@@ -1,11 +1,11 @@
 {
-  "version": "3.6.0",
+  "version": "3.7.0",
   "publicReleaseApproved": false,
   "independentCalculationReview": "pending",
   "legalReview": "pending",
   "privacyReview": "pending",
   "directFileBrowserReview": "approved",
   "userTesting": "pending",
-  "reason": "Amtliche Mutterschutz-Referenzen widersprechen sich (4 statt 5 Resttage); Brutto-zu-Elterngeld-Netto, unabhängiger Fach-/Rechts-/Datenschutzreview, Nutzertests und öffentliche Freigabe fehlen. 2027 ist nur als unverbindliche Prognose verfügbar.",
-  "directFileEvidence": "qa/browser-environment.json and qa/browser-results.json: V3.4.0, 11 direct-file tests, 50 axe scans, 2026-10-15"
+  "reason": "Amtliche Mutterschutz-Referenzen widersprechen sich (4 statt 5 Resttage); unabhängiger Fach-/Rechts-/Datenschutzreview, Nutzertests und öffentliche Freigabe fehlen. Der MVP nutzt ausdrücklich manuell eingegebenes Elterngeld-Netto; automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 bleibt unverbindliche Prognose.",
+  "directFileEvidence": "qa/browser-environment.json and qa/browser-results.json: V3.7.0, 16 direct-file tests, 52 axe scans, source SHA256 0612dc1d409074c334d1819b9979b3e1cb1e4a87b3c2219a901a53579d2c7afc, 2026-10-15"
 }

@@ -1,5 +1,23 @@
 # Änderungen
 
+## 3.7.0 – Zielbudget, verständlicher Einstieg und geprüfte Cent-Rundung, 15.10.2026
+
+- Persönliche Ehe-/Gehaltsannahmen durch neutrale, anpassbare Elternbezeichnungen und echte Eingabezusammenfassungen ersetzt; rechtliche Mutterschutzrolle bleibt unverändert.
+- Unbekannte Nettoangaben bleiben leer und sperren die Standardbewertung/Suche; explizit null Euro werden davon unterschieden.
+- Geführter Netto-Einstieg mit Beispiel-, Bekannt- und manueller Übernahmeroute, striktem Import und ausbleibender HTML-Ausführung bei Namen.
+- Realistischer/vorsichtiger Planvergleich mit gemeinsamen Annahmen, freien Monaten, Engpässen, Anfangsrücklage und erklärten Deltas.
+- Vorschlagsüberschriften nach dem tatsächlich gewählten Vergleichsschwerpunkt und messbaren Kennzahlen benannt, statt nur identische volle Auszeitmonate zu wiederholen. Regressionstest auch für unterschiedliche Budgets bei gleicher Zeitaufteilung. Die Ergebnis-Schnittstelle liefert die Überschrift konsistent für Browser- und API-Vergleiche mit.
+- Weitere Vorschläge benötigen materielle Unterschiede; erste Zielpriorität bleibt lexikografisch erhalten.
+- Suche in unterbrechbaren Schritten, Fortschritt, Ausschlussgründen und Abbruch bei Eingabeänderung; keine Übernahme unvollständiger Ergebnisse.
+- Amtlich belegte Cent-Rundung auch für Zwischen-/Monatsbeträge und Summen ergänzt; ursprüngliche Mutterschutzabweichung bleibt offen und sichtbar.
+- 217 Node-Tests, 16 echte Offline-Browserfälle, 52 Axe-Prüfungen und aktuelle QA-/Screenshotnachweise; Nutzertestprotokoll vorbereitet, keine externen Freigaben behauptet.
+
+## Erneute Wettbewerbs- und MVP-Begutachtung – 15.10.2026
+
+- Aktuellen V3.6-main-Stand, Anbieter-Primärseiten, ausgewählte Browseroberflächen und öffentliche Rechenmodule erneut verglichen.
+- Formelproben und Abrufmetadaten dokumentiert; Marktüberschneidungen von belegbaren eigenen Funktionen und noch zu testenden Differenzierungshypothesen getrennt.
+- MVP-Kriterien, UX-/Netto-Einstieg, Ergebnisvielfalt, Risikovergleich und QA-Versionsdrift bewertet; Produktprioritäten ergänzt. Keine Berechnungs- oder Rechtsregel geändert.
+
 ## 3.6.0 – gerichtliche Bescheidfälle und 2027er Rechtsereignisse, 15.10.2026
 
 - Vier veröffentlichte anonymisierte Verwaltungs-/Gerichtsverfahren mit ursprünglichen, geänderten und teilweise nur probeweise berechneten Bescheidbeträgen quellengebunden erfasst. Historische Zahlenbeziehungen gesondert getestet; keine vollständigen 2027er Replays behauptet.

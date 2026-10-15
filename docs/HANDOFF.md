@@ -1,4 +1,4 @@
-# Entwickler-Handoff – V3.6.0
+# Entwickler-Handoff – V3.7.0
 
 Stand: **15. Oktober 2026**. Einstieg für eine neue Sitzung oder einen übernehmenden Entwickler. Mit [Buildlog](BUILDLOG.md), [Architektur](ARCHITEKTUR.md) und [Roadmap](ROADMAP.md) lesen.
 
@@ -120,3 +120,13 @@ Danach Netto-Spezifikation/Fachreview, anschließend P1-Pakete. Keine ungeprüft
 ## Abschluss einer nächsten Übergabe
 
 Quellmodule und HTML-Snapshots stimmen überein; relevante Tests grün; aktuelle CI verlinkt. Unterstützte Fälle, geänderte Regeln, verbleibende Risiken und Gates dokumentiert. Softwareversion nicht mit Quellenprüftag verwechseln. Issues erst nach Abnahme schließen. Veröffentlichung benötigt unabhängige Freigaben und ausdrückliche Release-Entscheidung.
+
+## Neue Wettbewerbsbegutachtung, 15.10.2026
+
+Vor weiteren Produktänderungen den [V3.6-Audit](WETTBEWERB-MVP-AUDIT-2026-10-15.md) lesen. Neue lokale Prüfung: 186 Node-Tests; bestehende main-CI belegt 13 Browserfälle. Dies aktualisiert nicht automatisch den eingecheckten V3.4-Dateistartnachweis. Markt-/USP-Aussagen bleiben hypothesespezifisch, keine Exklusivität behaupten. Die im Audit priorisierten Produktlücken ergänzen die Roadmap.
+
+## Aktuelle Übergabe V3.7
+
+[Umsetzung und Prüfungen](UMSETZUNG-ZIELBUDGET-V3.7.md) lesen. 217 Node-Tests, 16 file://-Browserfälle und 52 Axe-Scans sind aktuell bestanden; `qa/browser-environment.json` enthält jetzt Version und HTML-Hash. Die vorher dokumentierte V3.4-Metadatenlücke ist damit behoben. Neue Module: `money.cjs` und `plan-comparison.cjs`. `runGoalSearch` bleibt synchron testbar, die sichtbare Oberfläche nutzt `runGoalSearchAsync` mit Abbruch.
+
+Nächste offene Abnahmeschritte: taggenaue Mutterschutz-Geldanrechnung unabhängig klären; die angebotene manuelle Netto-/Finanzlogik fachlich reviewen; vorbereitete Nutzertests durchführen; Assistenztechnik und Datenschutz unabhängig prüfen. Keine Ergebnissimulation als erledigte Nutzertests ausgeben. Die vollständige Bruttoengine ist nicht Bestandteil des engen manuellen MVP-Pfads.

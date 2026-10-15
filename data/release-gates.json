@@ -7,5 +7,5 @@
   "directFileBrowserReview": "approved",
   "userTesting": "pending",
   "reason": "Amtliche Mutterschutz-Referenzen widersprechen sich (4 statt 5 Resttage); unabhängiger Fach-/Rechts-/Datenschutzreview, Nutzertests und öffentliche Freigabe fehlen. Der MVP nutzt ausdrücklich manuell eingegebenes Elterngeld-Netto; automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 bleibt unverbindliche Prognose.",
-  "directFileEvidence": "qa/browser-environment.json and qa/browser-results.json: V3.7.0, 16 direct-file tests, 52 axe scans, source SHA256 0612dc1d409074c334d1819b9979b3e1cb1e4a87b3c2219a901a53579d2c7afc, 2026-10-15"
+  "directFileEvidence": "qa/browser-environment.json and qa/browser-results.json: V3.9.0, 22 direct-file tests, 53 Axe scans with zero violations, source SHA256 45231654b2d30091abcad2fcda4935283ff34aceb3a04ddc61670a70278044b1, 2026-10-15"
 }

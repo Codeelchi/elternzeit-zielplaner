@@ -497,7 +497,8 @@ test('V3.8: personal five-field wizard distinguishes unknown from zero costs and
 
 test('V3.9 mobile first template is visible without scrolling and mobile actions are accessible',async({page})=>{
  await page.setViewportSize({width:320,height:740});
- await page.reload(); // Reproduce a genuine first mobile visit, without the test setup's scroll/focus state.
+ await page.goto('about:blank');
+ await page.goto(appUrl); // Fresh navigation instead of reload, which can restore the previous scroll position under file://.
  const rect=await page.locator('[data-v38-template="classic"]').evaluate(el=>el.getBoundingClientRect().toJSON());
  expect(rect.top).toBeLessThan(740);
  expect(rect.top).toBeGreaterThanOrEqual(0);

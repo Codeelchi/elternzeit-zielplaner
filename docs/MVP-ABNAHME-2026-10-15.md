@@ -80,3 +80,11 @@ Die einzelnen historischen Belege, ihre Grenzen und die aktuellen Quellen sind i
 - **GitHub-`main` und öffentlicher Release bleiben unverändert.** Dies ist eine lokal getestete Kandidatenfassung, keine Veröffentlichung.
 
 Weitere Details: [UX-Nachbesserung V3.9](UX-NACHBESSERUNG-V3.9.md).
+
+## Aktualisierte Direktdatei-Abnahme V3.9 (15.10.2026)
+
+- V3.9.0 wurde sowohl per lokalem Testserver als auch als unveränderte HTML-Einzeldatei unter file:// mit jeweils 22/22 bestandenen Chromium-Playwright-Tests geprüft.
+- Der direkte Dateilauf umfasst 53 Axe-Scans ohne gemeldete Verstöße; geprüft wurden Smartphone/Desktop, 36 Lebensmonate, getrennte Achsen, Zielsuche, Datenschutz-/Download- und Eingabeerhalt.
+- Dateibasierter SHA256-Nachweis: 45231654b2d30091abcad2fcda4935283ff34aceb3a04ddc61670a70278044b1; Lauf und Grenzen: qa/browser-environment.json, vollständiger Testbericht: qa/browser-results.json.
+- Die Offline-Prüfung schaltet in einem gezielten Testfall das Browsernetz ab. Eine vollständige geräteübergreifende Zertifizierung oder vollständige Screenreader-Nutzungsstudie wird hierdurch nicht behauptet.
+- Der öffentliche Release bleibt trotz technischer QA BLOCKED (Rechts-/Finanz-/Datenschutz-/Nutzertest-Freigaben und bekannte Mutterschutz-Abweichung).

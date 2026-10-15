@@ -8,6 +8,8 @@ Stand: **15. Oktober 2026**. Einstieg für eine neue Sitzung oder einen überneh
 
 **V3.8:** Schnellstart baut ausschließlich auf der bestehenden V3.7-Monatsberechnung auf. Der Anfänger-Modus blendet Fachnavigation bewusst aus; Playwright-Expertentests aktivieren sie vor dem alten Navigationspfad. `npm run quickstart:sync` aktualisiert die Single-HTML-Version, `npm run quickstart:check` prüft Quellcode-Drift. [Bedienung, Datenschutz und Limits](SCHNELLSTART-V3.8.md).
 
+**Aktuelle Offline-QA V3.9:** 22/22 Playwright-Fälle direkt über file://, 53 Axe-Scans ohne gemeldete Verstöße; versionsgebundener HTML-SHA256 und reale Laufdaten in qa/browser-environment.json sowie qa/browser-results.json. Ältere V3.7-Nachweise in diesem Handoff bleiben ausschließlich historisch.
+
 **V3.9 – interner UX-Branch:** Neue Schutzlogik liegt im weiterhin offline-fähigen HTML-Schnellstart und der bestehenden Renderlogik; nicht in einer zweiten Leistungs-Engine. Akzeptanztests unter `tests/usability-v39.test.mjs` und zusätzlichen Playwright-Szenarien. Es darf keine automatische öffentliche Freigabe entstehen. [UX-Details](UX-NACHBESSERUNG-V3.9.md).
 
 ## Übergabeumfang und Status

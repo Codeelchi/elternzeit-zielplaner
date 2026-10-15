@@ -9,7 +9,7 @@
 - **Mobil:** Export- und Fachaktionen über „Weitere Optionen“, Datenschutzhinweise aufklappbar, zentrale Schnellstartvorlage oberhalb der ersten Bildschirmkante selbst bei 320 × 740 px; keine horizontale Überbreite.
 - **Zugänglichkeit:** Kein unbeabsichtigtes Präsentations-Blättern beim PageDown einer Vorlagenkarte; konkrete Formularfehler fokussieren und markieren das betroffene Eingabefeld.
 - **Transparenz:** Berechnungsannahmen (Nettolöhne, pauschalierte Netto-Näherungen, Kindergeldansatz, fehlende Ausgaben) sind im Schnellstart ausklappbar. Teilweise geänderte Beispieldaten werden als solche gekennzeichnet. Planexport eindeutig als Download benannt.
-- **Abnahme:** Neue Unit-/DOM-/Negativtests und Browserprüfungen ergänzt. Keine unabhängige Rechts-/Steuerfreigabe und keine echte Nutzerstudie; öffentlicher Release bleibt bewusst blockiert.
+- **Abnahme:** 246/246 Unit-/DOM-Tests, 22/22 HTTP- und 22/22 direkte file://-Browserfälle, 53 Axe-Prüfungen ohne gemeldete Verstöße; exakte V3.9-Datei durch SHA256 nachgewiesen. Keine unabhängige Rechts-/Steuerfreigabe und keine echte Nutzerstudie; öffentlicher Release bleibt bewusst blockiert.
 
 
 ## 3.8.0 – Schnellstart und vereinfachte Navigation, 15.10.2026

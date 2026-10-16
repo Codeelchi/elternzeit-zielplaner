@@ -1,11 +1,11 @@
 {
-  "version": "3.9.0",
+  "version": "3.10.0",
   "publicReleaseApproved": false,
   "independentCalculationReview": "pending",
   "legalReview": "pending",
   "privacyReview": "pending",
   "directFileBrowserReview": "approved",
   "userTesting": "pending",
-  "reason": "Amtliche Mutterschutz-Referenzen widersprechen sich (4 statt 5 Resttage); unabhängiger Fach-/Rechts-/Datenschutzreview, Nutzertests und öffentliche Freigabe fehlen. Der MVP nutzt ausdrücklich manuell eingegebenes Elterngeld-Netto; automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 bleibt unverbindliche Prognose.",
-  "directFileEvidence": "qa/browser-environment.json and qa/browser-results.json: V3.9.0, 22 direct-file tests, 53 Axe scans with zero violations, source SHA256 45231654b2d30091abcad2fcda4935283ff34aceb3a04ddc61670a70278044b1, 2026-10-15"
+  "reason": "Amtliche Mutterschutz-Referenzen widersprechen sich (4 statt 5 Resttage); unabhängiger Fach-/Rechts-/Datenschutzreview, Nutzertests und öffentliche Freigabe fehlen. Der MVP nutzt ausdrücklich manuell eingegebenes Elterngeld-Netto; automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 bleibt unverbindliche Prognose. Für die neue Infowebseite sind vor einem öffentlichen Start außerdem verantwortliche Betreiber-/Impressumsangaben und redaktionelle Freigabe erforderlich.",
+  "directFileEvidence": "qa/browser-environment.json and qa/browser-results.json: V3.10.0, 27 direct-file tests, 58 Axe scans with zero violations; index SHA256 72b87039d14494ffee88622ecf5729944d2513fe7be88083b5f2d08ba4663e60; start SHA256 ad5fed5837cab165ca1b2f6d1c992a02ccd52f23a42667178894bd768d8f6a2d; 2026-10-16"
 }

@@ -51,4 +51,13 @@ function meanEuro(values) {
   const sum = parts.reduce((total, part)=>total + part.numerator * 10n ** BigInt(scale - part.scale), 0n);
   return roundedRatio(sum, 10n ** BigInt(scale) * BigInt(parts.length));
 }
-module.exports = {roundEuro, meanEuro, MAX_EURO};
+/** Apply a scenario percentage without losing decimal precision in a prior
+ * binary multiplication. Percentages are assumptions, not entitlement rates.
+ * deltaPercent=-15 means 85% of value. */
+function roundEuroByPercent(value,deltaPercent) {
+  const amount=decimal(value),percent=decimal(deltaPercent);
+  if(deltaPercent < -100 || deltaPercent > 100)throw new RangeError('Szenarioänderung muss zwischen -100 und 100 Prozent liegen');
+  const percentScale=10n ** BigInt(percent.scale);
+  return roundedRatio(amount.numerator*(100n*percentScale+percent.numerator),100n*10n ** BigInt(amount.scale+percent.scale));
+}
+module.exports = {roundEuro, roundEuroByPercent, meanEuro, MAX_EURO};

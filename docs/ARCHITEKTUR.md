@@ -35,3 +35,12 @@ Ab V3.4 verwenden Budgetdiagramm, Rücklagen und vorsichtige Zielsuche dieselbe 
 Eine Generatorfunktion ist die gemeinsame Kandidatenquelle für synchrone Regressionstests und schrittweise Browserauswertung. Alle 64 Rohvarianten wird die Browserbedienung freigegeben; Abbruch und suchrelevante Eingabeänderung veröffentlichen keinen Teilplan. Fortschritt und erste Filtergründe werden getrennt erfasst. Die Rankingauswahl bewahrt die erste Zielpriorität und fordert materielle Unterschiede gegenüber allen vorigen Vorschlägen.
 
 Bezeichnungen und Einkommenseinstieg sind streng validierte Zusatzfelder des JSON-Plans. Textknoten und Beschriftungen zeigen Namen ohne HTML-Interpretation; interne Elternschlüssel bleiben stabil. Die Einkommensherkunft ist nur eine Benutzerangabe. Der manuelle MVP-Pfad berechnet kein amtliches Netto aus Bruttoreferenzen. Details: [Umsetzungsbericht](UMSETZUNG-ZIELBUDGET-V3.7.md).
+
+
+## Erweiterung V3.10: Infowebseite und Kontextwissen
+
+`start.html` ist ein buildloser redaktioneller Einstieg und verweist auf den bestehenden Einzeldatei-Rechner `index.html`. Alle Laufzeitassets sind inline/lokal; Beratungsangebote werden als externe Links geöffnet. Kein neues Backend, Konto, Tracking oder medizinischer Datenspeicher. Beide Dateien zusammen verteilen; `index.html` bleibt eigenständig benutzbar.
+
+`planning-knowledge.cjs` enthält kuratierte, datierte amtliche Hinweise und eine reine kontextbezogene Auswahlfunktion. Die HTML-Integration rendert escaped Texte, sichere externe Quellenlinks und native aufklappbare Elemente. Konkrete Lebensmonatsbeispiele delegieren an `time-axes.cjs`. Die Auswahl besitzt ausdrücklich keine Budgeteffekte und trifft keine Anspruchsentscheidung.
+
+Budgetprojektionen runden einzelne Szenariokomponenten mit `money.cjs` und rechnen Summen/Präfixsalden als Integer-Cent. Das ist eine technische Buchungskonvention für Schätzbudgets, keine Behauptung einer amtlichen Lohn- oder Kontorechnung. Schnellstartaufgaben werden aus bestehenden Validatorbefunden/Planungsannahmen abgeleitet und führen nur zur passenden Eingabe.

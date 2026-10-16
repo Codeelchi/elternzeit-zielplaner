@@ -1,6 +1,6 @@
 # Geplante Roadmap zur öffentlichen Beta
 
-Stand: **15. Oktober 2026 / V3.9.0**. Reihenfolge nach Abhängigkeit und Priorität; keine zugesagten Termine. Repository-Integration und öffentliche Freigabe sind getrennte Entscheidungen. Implementiert bedeutet noch nicht unabhängig fachlich abgenommen.
+Stand: **16. Oktober 2026 / V3.10.0**. Reihenfolge nach Abhängigkeit und Priorität; keine zugesagten Termine. Repository-Integration und öffentliche Freigabe sind getrennte Entscheidungen. Implementiert bedeutet noch nicht unabhängig fachlich abgenommen.
 
 **Ergänzung V3.5.0:** Acht zusätzliche publizierte 12-/24-Monats-Summen, zwei Mindest-/Geringverdienstfälle und vier amtliche Familienbeträge mit variierenden Teilzeitgehältern sind gegen die echte Programmprojektion getestet. Das Mutterschutz-Delta ist nun quellenübergreifend als widersprüchliche Behördenaussage belegt, **nicht** behoben. Für 2027 besteht eine mit Warnung und strikter Validierungssperre gekennzeichnete Prognosesuche, nicht eine gesetzliche Freigabe. [Vollständiger Abgleich](AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md).
 
@@ -20,7 +20,7 @@ Stand: **15. Oktober 2026 / V3.9.0**. Reihenfolge nach Abhängigkeit und Priorit
 | Zielsuche / #5 | Mutter-/Vater-Schwerpunkte, drei Profile, strenge Filter, veraltete Empfehlungen gesperrt | Quantifizierte Abdeckung, Reaktionsfähigkeit, breitere Arbeitsmuster |
 | Budget / #6 | Drei Szenarien, persönliche Erwerbsbänder, Rücklagen und Engpässe | Amtliches Netto, unabhängige Teilzeitfälle, Steuer-/Versicherungseinordnung |
 | Region / #7 | Datierte NRW-/Köln-Antragswege, Checkliste, unbestätigte Zuschläge ausgeschlossen | Aktuelle Tarif-/Anspruchsnachweise mit Wiederprüfverfahren |
-| UX/QA / #8 | Responsiv, Offline, Speicher-Opt-in/Löschung, Import/Export, 154 Tests, elf Browserfälle, 50 Axe-Scans | Datenschutz-/Rechtsreview, Nutzertests, Assistenztechnik, weitere Browser |
+| UX/QA / #8 | Responsiv, Offline, Speicher-Opt-in/Löschung, Import/Export, aktuelle Tests und Browsernachweise im [QA-Bericht V3.10](QA-V3.10.md) | Datenschutz-/Rechtsreview, Nutzertests, Assistenztechnik, weitere Browser |
 | Referenzen / #1 | Acht veröffentlichte Beträge, vier Grenzen, 22 Formelableitungen, sichtbarer Tagesdelta | Mindestens zehn vollständige unabhängige Standardfamilien; Kerndifferenz klären |
 
 Issues #1–#8 bleiben bis zur jeweiligen Abnahme offen. Ursprung: [MVP-Spezifikation](MVP-2026-10-14.md). Historische Fortschritte: [Changelog](../CHANGELOG.md), [Buildlog](BUILDLOG.md), [Abnahmebericht](MVP-ABNAHME-2026-10-15.md).
@@ -152,3 +152,16 @@ Der [Audit vom 15.10.2026 gegen V3.6](WETTBEWERB-MVP-AUDIT-2026-10-15.md) bestä
 Neutraler Netto-Einstieg, materielle Ergebnisvielfalt, direkter realistischer/vorsichtiger Budgetvergleich und bedienbar unterbrechbare Suche sind umgesetzt; siehe [Abschlussnachweis](UMSETZUNG-ZIELBUDGET-V3.7.md). Die Cent-Rundung ist amtlich belegt und implementiert. 217 Node-Tests sowie 16 Dateiprotokoll-Browserfälle mit 52 Axe-Scans bestehen.
 
 P0-R1 bleibt hinsichtlich des Mutterschutz-Eurobetrags offen. P0-R3 ist für den ausdrücklich erlaubten manuellen MVP-Eingabeweg technisch umgesetzt; eine vollständige automatische Bruttoengine bleibt gesonderter Ausbau und wird nicht vorgetäuscht. Fachreview der tatsächlichen Monats-/Nettoeingaben bleibt erforderlich. P1-R5/R6 sind hinsichtlich Vielfalt, Abbruch und Direktvergleich verbessert; globale Suchvollständigkeit und Zahlungsliquidität bleiben ausgeschlossen. P1-R8: [Nutzertestprotokoll](NUTZERTEST-PROTOKOLL-V3.7.md) vorbereitet, Durchführung und unabhängige Reviews offen. Keine öffentliche Freigabe.
+
+
+## Fortsetzung V3.10: kleine Infowebseite und nächste Abnahme
+
+`start.html` bündelt Schwangerschafts-/Familienstarttipps, amtliche Beratung und Rechnerzugang. Kontextwissen und direkte Korrekturschritte verbessern die Entscheidungsführung; centgenaue Budgetbuchungen beseitigen Phantomdefizite. Diese Produktarbeit ersetzt keine der offenen P0-Fachabnahmen.
+
+Nächste priorisierte Pakete:
+
+1. P0-R1 und P0-R2: Mutterschutz-Eurobetrag unabhängig klären und vollständige Referenzfamilien verbreitern.
+2. Öffentliche Anbieter-/Impressumsangaben sowie Rechts-/Datenschutz-/Redaktionsreview für beide Seiten klären; Freigaben dokumentieren.
+3. Echte formative Tests auf Smartphone: Informationsbedarf finden, eigene Werte verstehen, Betreuungslücke erkennen und passende Beratung erreichen.
+4. Quellenwartung für Schwangerschafts-/Beratungslinks und Geburtskohorten; regionale Vertiefung Köln/NRW belegen. Neue medizinische Inhalte nur mit belastbarer redaktioneller Grundlage.
+5. Assistenztechnik und weitere Browser prüfen. Keine behauptete globale Suchoptimalität, medizinische Empfehlung oder 2027-Freigabe.

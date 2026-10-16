@@ -121,3 +121,17 @@ Diese Datei wird vor dem Merge eingecheckt und behauptet keinen noch nicht erfol
 Auf V3.6-main `a26a5e4` und Wettbewerbs-Audit `662ecc3` aufgebaut. Neutrale Rollen-/Nettoeingaben, unabhängiges Vergleichsmodul, sinnvolle Profilunterschiede, abbrechbarer Suchgenerator und normativ belegte Cent-Rundung implementiert. Fachliche Tagesabweichung bleibt erhalten. Neue Regressionen fanden und schlossen Referenzstunden in freien Monaten sowie unsynchronisierte fokussierte Namensfelder nach Import.
 
 217 Node-Tests und 16 Browserfälle direkt über file:// (52 Axe-Prüfungen) bestanden. Aktuelle Offline-Evidenz umfasst den SHA256 der geprüften HTML-Datei, Versionsnummer und Grenzen. Keine reale Nutzertest-/Fachabnahme simuliert; [vollständiger Bericht](UMSETZUNG-ZIELBUDGET-V3.7.md). Der ursprüngliche Buildlog oben bleibt als historische Nachweiskette bestehen.
+
+
+## Fortsetzung V3.10 – 16.10.2026
+
+Tatsächlichen GitHub-Stand abgefragt: PRs #14–#16 gemergt, main `e8bb586`, letzte Main-CI 38773827065 erfolgreich. Auf Feature-Branch `feat/v3-10-evidence-guidance` fortgesetzt. V3.9-Baseline isoliert auf dem unveränderten Commit ausgeführt: 246/246 Node-Tests bestanden. Ein erster Lauf im Arbeitsbranch bemerkte während paralleler Moduländerungen einen erwartbar veralteten Snapshot; kein Baselinefehler.
+
+Auf ausdrücklichen Nutzerauftrag Subagents für fachliche Recherche/Budget, Schnellstart, Wissensinhalte, Infowebseite und Browser-QA eingesetzt. Keine externen Personen kontaktiert. Erst bestehende Rechnung und Nutzerführung verbessert, dann Ziel zur kleinen Infowebseite erweitert. Einzeldatei-Rechner erhalten, `start.html` als redaktioneller Einstieg ergänzt. Details/Quellen: [Umsetzung V3.10](UMSETZUNG-V3.10.md), [Fachrecherche](FACHRECHERCHE-V3.10.md), [UX-Recherche](UX-RECHERCHE-V3.10.md), [Zusatzinformationen](ZUSATZINFORMATIONEN-V3.10.md), [Familienstart](FAMILIENSTART-V3.10.md), [QA](QA-V3.10.md).
+
+Kein Merge und keine öffentliche Veröffentlichung in dieser Fortsetzung. Unabhängige Freigaben bleiben ausstehend.
+
+
+Das CI-Jobbudget wurde für die erweiterte Node-/Browsermatrix von zehn auf 15 Minuten erhöht. Die einzelnen Browser-Testlimits bleiben unverändert bei 120 Sekunden; Assertions und Accessibility-Gates wurden nicht gelockert. Unterbrochene/parallele Vorläufe werden nicht als erfolgreiche Nachweise gezählt.
+
+Finale lokale Nachweise: 279/279 Node-Tests (167,4 s), ergänzte Link-Regression 2/2, 27/27 direkte file://-Browserfälle (7,5 min). Gesamtergebnis und Grenzen in [QA V3.10](QA-V3.10.md). Die ersten unterbrochenen Browser-/Node-Vorläufe wurden durch vollständige beziehungsweise gezielt zur Linkänderung passende Läufe ersetzt.

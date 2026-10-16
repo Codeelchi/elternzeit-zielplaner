@@ -56,6 +56,31 @@ const QuickStartV38=(()=>{
  function effectiveTemplate(){
   return templates[selected]||Object.values(templates).find(x=>x.model===s.model)||null;
  }
+ // Checklist reflects the central validator, never a second legal decision.
+ function nextSteps(){
+  const findings=Array.isArray(current?.validation?.findings)?current.validation.findings:[];
+  const steps=[];
+  const add=(key,label,slide,focus)=>steps.push({key,label,slide,focus});
+  if(findings.some(x=>x.code==='STANDARD_CASE_UNCONFIRMED'||x.code==='STANDARD_CASE_DECLINED'))
+   add('standard','Passt eure Familie zum unterstützten Standardfall?','slide-2','standardCaseConfirmed');
+  if(findings.some(x=>x.code==='INCOME_LIMIT_DATA_MISSING'||x.code==='INCOME_LIMIT_EXCEEDED'))
+   add('income-limit','Zu versteuerndes Vorjahreseinkommen klären (nicht Auszahlungsnetto).','slide-region','zve');
+  if(findings.some(x=>x.code.startsWith('FINANCIAL_INPUT_INVALID_'))||s.incomeEntryMode==='estimate')
+   add('netto','Elterngeld-Netto und Teilzeitannahmen prüfen – Auszahlungsnetto ist nur eine Näherung.','slide-2','egNetFather');
+  if(!costsKnown())add('budget','Haushaltsausgaben ergänzen, bevor ihr Rücklagen und Engpässe vergleicht.','slide-2','expenses');
+  const gap=firstCoverageGap();
+  if(gap!==null)add('care','Betreuung ab Lebensmonat '+gap+' organisieren oder Monatsplan ändern.','slide-4','');
+  // Other findings remain available, including unsupported birth cohorts.
+  if(findings.some(x=>!['STANDARD_CASE_UNCONFIRMED','STANDARD_CASE_DECLINED','INCOME_LIMIT_DATA_MISSING','INCOME_LIMIT_EXCEEDED'].includes(x.code)&&!x.code.startsWith('FINANCIAL_INPUT_INVALID_')))
+   add('rules','Weitere Regelhinweise und betroffene Lebensmonate ansehen.','slide-10','');
+  return steps;
+ }
+ function nextStepsMarkup(){
+  const steps=nextSteps();
+  return '<section class="v310-next" aria-label="Nächste Schritte für euren Entwurf"><h4>Nächste Schritte</h4>'+
+   '<p class="v38-caption">'+(steps.length?steps.length+' offene Prüfpunkte. Ihr könnt sie in beliebiger Reihenfolge bearbeiten.':'Keine offenen Punkte in dieser Kurzprüfung. Schätzungen, Quellenstand und vollständige Regelprüfung trotzdem beachten.')+' Dies ist keine Freigabe oder Antragsprüfung.</p>'+
+   (steps.length?'<ul>'+steps.map(x=>'<li><button type="button" data-v38-goto="'+x.slide+'"'+(x.focus?' data-v310-focus="'+x.focus+'"':'')+'><span>'+escValue(x.label)+'</span><span aria-hidden="true"> →</span></button></li>').join('')+'</ul>':'')+'</section>';
+ }
  function summary(){
   if(mode==='idle')return '<h3>Beispiel auswählen</h3><p>Startet ohne Eingaben. Danach könnt ihr Einkommen und Betreuungsdauer persönlich anpassen.</p>';
   if(!Array.isArray(current?.rows)||current.rows.length===0)return '<div class="v38-notice">Der Monatsplan konnte nicht berechnet werden.</div>';
@@ -94,6 +119,7 @@ const QuickStartV38=(()=>{
     '</div>'+
     '<p class="v38-caption">'+(known?'Ergebnis nach eingegebenen Haushalts- und Kita-Annahmen; weitere Kosten/Steuern/Versicherungen möglich.':'Persönliche Haushaltsausgaben sind unbekannt. Deshalb keine Aussage über verfügbares Restbudget oder notwendige Rücklagen.')+'</p>'+
     notices.map(t=>'<div class="v38-notice">'+escValue(t)+'</div>').join('')+
+    nextStepsMarkup()+
     '<details class="v39-assumptions"><summary>Welche Zahlen und Annahmen stecken dahinter?</summary>'+
       '<p>Geburtstermin: '+escValue(s.date)+' · Auszahlungsnetto Elternteil 1: '+eur(s.netFather)+' · Elternteil 2: '+eur(s.netMother)+'.</p>'+
       '<p>Verwendetes Elterngeld-Netto (noch nicht automatisch amtlich ermittelt): '+eur(s.egNetFather)+' und '+eur(s.egNetMother)+'. Kindergeldansatz: '+eur(s.kind)+' monatlich.</p>'+
@@ -252,7 +278,11 @@ const QuickStartV38=(()=>{
    const goto=evt.target.closest?.('[data-v38-goto]');
    if(!goto)return;
    const index=[...document.querySelectorAll('.slide')].findIndex(sl=>sl.id===goto.dataset.v38Goto);
-   if(index>=0)showSlide(index);
+   if(index>=0){
+    showSlide(index);
+    const target=node(goto.dataset.v310Focus);
+    if(target){target.focus();target.scrollIntoView?.({behavior:'smooth',block:'center'});}
+   }
   });
   // Edits in the existing expert UI must not remain labelled as untouched demo data.
   document.querySelectorAll('[data-field],[data-extra],[data-profile]').forEach(input=>input.addEventListener('input',markPersonal));
@@ -269,6 +299,7 @@ const QuickStartV38=(()=>{
   refresh();
  }
  return {mount,refresh,loadTemplate,submit:personalSubmit,templates,markPersonal,onModelChanged,onImported,onResetConfirmed,
+   nextSteps:()=>nextSteps(),
    state:()=>({mode,selected,expert,costsKnown:costsKnown(),careCovered:mode==='idle'?null:firstCoverageGap()===null}),
    summary:()=>node('v38Summary')?.textContent||''};
 })();

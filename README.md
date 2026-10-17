@@ -2,6 +2,10 @@
 
 **Auf main integrierter Funktionsstand V3.16 (PR #20, Commit 19f047d, 17. Oktober 2026)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner. Die technischen Paket- und Export-Versionsangaben bleiben vorerst bei **3.10.0**, weil die bisherigen internen Ausbaustufen **kein öffentlicher Produkt-Release** sind.
 
+**V3.17-B/C Software-QA:** 481/481 Node-/DOM-, 60/60 vollständige Chromium-Browserfälle und 4/4 direkte Offline-`file://`-Browsertests bestanden. Unabhängige Elterngeld-/Rechts-, Datenschutz- und Nutzerabnahme **nicht** erfolgt; öffentliche Beta gesperrt.
+
+**Neu im internen Ausbau V3.17-B/C:** [JSON-/CSV-Transparenz und unabhängiges Referenzevidenz-Schema](docs/AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md). JSON ergänzt nicht vertrauenswürdige (beim Import verworfene) Erklärungshinweise; CSV behält seine bisherigen 17 Spalten und erhält sieben neue Hinweisfelder. Bei unbekannten Haushaltskosten bleibt der Restwert leer. Die zehn synthetischen externen Referenzfälle sind weiterhin **nicht fachlich bestätigt**.
+
 **V3.17-A technischer Teststand:** 468/468 Node-/DOM-, 56/56 vollständige Chromium-Tests und zusätzlich 3/3 V3.17-Browserfälle direkt über `file://` erfolgreich. Nur Softwaretests; die öffentliche Freigabe bleibt gesperrt.
 
 **Neu in der internen V3.17-A-Entwicklung:** [Erkennbarkeit des Modellumfangs](docs/AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md): Schon im Überblick wird eingeordnet, ob euer Fall unvollständig, außerhalb der geprüften Kohorte, nur für 2027 prognostiziert oder im Standardmodell technisch plausibel ist. Keine Bewilligung und weiterhin gesperrte öffentliche Beta.

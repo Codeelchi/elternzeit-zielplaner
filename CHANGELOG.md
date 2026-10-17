@@ -1,5 +1,14 @@
 # Änderungen
 
+## V3.17-B/C – Exporttransparenz und Referenzevidenz (intern, keine Fachfreigabe)
+
+- JSON-Schema 1 / Exportversion 3.10.0 behalten; erläuternde, **nicht signierte** Top-Level-`planningDisclosure`-Metadaten, die beim Import bewusst ignoriert werden. Echte/alte JSON-Dateien weiterhin kompatibel.
+- CSV um sieben maschinenlesbare Scope-/Schätz-/Quellenfelder rechts erweitert, alte 17 Spalten behalten; bei unbekannten Ausgaben kein fiktiver `Frei_nach_Kosten`-Betrag.
+- Neuer aufklappbarer UI-Bereich erklärt Export-Grenzen; reine Modulvalidierung stoppt Exporte bei fehlendem Status statt falsche Freigabe vorzutäuschen.
+- Zehn externe Prüffälle in SHA256-gebundenem Manifest angelegt; `npm run independent-evidence:check` prüft Struktur, behauptete Freigaben und fehlende Quellen. **0/10 extern bestätigt, Release-Gates unverändert.**
+- Vollständige Softwaretests: 481/481 Node-/DOM-, 60/60 Chromium-Regressionen, 4/4 neue echte `file://`-V3.17-B-Fälle grün. Rechts- und Datenschutzreview sowie unabhängige Referenzfälle nicht erledigt.
+- [Umsetzung und Grenzen](docs/AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md).
+
 ## V3.17 – Produktreife-/Scope-Orientierung (interner Entwicklungszweig; noch kein öffentlicher Release)
 
 - Dokumentation neu geordnet: [aktuelle operative Roadmap](docs/ROADMAP.md), [archivierte Vorgängerroadmap](docs/ROADMAP-HISTORIE-BIS-V316-2026-10-17.md), [Audit-Abgleich](docs/PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) und modernisierte [Nutzeranleitung](docs/ANLEITUNG.md).

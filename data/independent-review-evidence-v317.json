@@ -1,0 +1,231 @@
+{
+  "format": "external-family-review-v317",
+  "schemaVersion": 1,
+  "asOf": "2026-10-17",
+  "sourceRequestsSha256": "dba587fc0ab4863f9102701bf64857e1669a0332b3482d6eff951b1a069c764f",
+  "publicReleaseApproved": false,
+  "independentReviewApproved": false,
+  "evidenceTrust": "unverified_pending_professional_review",
+  "cases": [
+    {
+      "id": "basis12",
+      "scope": "standard",
+      "receiptStatus": "not_received",
+      "independentReference": {
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "sourceUrl": null,
+        "legalEdition": null,
+        "independentDerivation": null,
+        "inputContract": null,
+        "expectedLifeMonths": null
+      },
+      "comparison": {
+        "status": "not_run",
+        "programCommit": null,
+        "programResults": null
+      },
+      "reviewDecision": "pending",
+      "approved": false,
+      "releaseReady": false
+    },
+    {
+      "id": "plus24",
+      "scope": "standard",
+      "receiptStatus": "not_received",
+      "independentReference": {
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "sourceUrl": null,
+        "legalEdition": null,
+        "independentDerivation": null,
+        "inputContract": null,
+        "expectedLifeMonths": null
+      },
+      "comparison": {
+        "status": "not_run",
+        "programCommit": null,
+        "programResults": null
+      },
+      "reviewDecision": "pending",
+      "approved": false,
+      "releaseReady": false
+    },
+    {
+      "id": "parttime500",
+      "scope": "standard",
+      "receiptStatus": "not_received",
+      "independentReference": {
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "sourceUrl": null,
+        "legalEdition": null,
+        "independentDerivation": null,
+        "inputContract": null,
+        "expectedLifeMonths": null
+      },
+      "comparison": {
+        "status": "not_run",
+        "programCommit": null,
+        "programResults": null
+      },
+      "reviewDecision": "pending",
+      "approved": false,
+      "releaseReady": false
+    },
+    {
+      "id": "parttime1200",
+      "scope": "standard",
+      "receiptStatus": "not_received",
+      "independentReference": {
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "sourceUrl": null,
+        "legalEdition": null,
+        "independentDerivation": null,
+        "inputContract": null,
+        "expectedLifeMonths": null
+      },
+      "comparison": {
+        "status": "not_run",
+        "programCommit": null,
+        "programResults": null
+      },
+      "reviewDecision": "pending",
+      "approved": false,
+      "releaseReady": false
+    },
+    {
+      "id": "low-income",
+      "scope": "standard",
+      "receiptStatus": "not_received",
+      "independentReference": {
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "sourceUrl": null,
+        "legalEdition": null,
+        "independentDerivation": null,
+        "inputContract": null,
+        "expectedLifeMonths": null
+      },
+      "comparison": {
+        "status": "not_run",
+        "programCommit": null,
+        "programResults": null
+      },
+      "reviewDecision": "pending",
+      "approved": false,
+      "releaseReady": false
+    },
+    {
+      "id": "maximum",
+      "scope": "standard",
+      "receiptStatus": "not_received",
+      "independentReference": {
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "sourceUrl": null,
+        "legalEdition": null,
+        "independentDerivation": null,
+        "inputContract": null,
+        "expectedLifeMonths": null
+      },
+      "comparison": {
+        "status": "not_run",
+        "programCommit": null,
+        "programResults": null
+      },
+      "reviewDecision": "pending",
+      "approved": false,
+      "releaseReady": false
+    },
+    {
+      "id": "bonus",
+      "scope": "standard",
+      "receiptStatus": "not_received",
+      "independentReference": {
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "sourceUrl": null,
+        "legalEdition": null,
+        "independentDerivation": null,
+        "inputContract": null,
+        "expectedLifeMonths": null
+      },
+      "comparison": {
+        "status": "not_run",
+        "programCommit": null,
+        "programResults": null
+      },
+      "reviewDecision": "pending",
+      "approved": false,
+      "releaseReady": false
+    },
+    {
+      "id": "month-end",
+      "scope": "standard",
+      "receiptStatus": "not_received",
+      "independentReference": {
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "sourceUrl": null,
+        "legalEdition": null,
+        "independentDerivation": null,
+        "inputContract": null,
+        "expectedLifeMonths": null
+      },
+      "comparison": {
+        "status": "not_run",
+        "programCommit": null,
+        "programResults": null
+      },
+      "reviewDecision": "pending",
+      "approved": false,
+      "releaseReady": false
+    },
+    {
+      "id": "siblings",
+      "scope": "special_review",
+      "receiptStatus": "not_received",
+      "independentReference": {
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "sourceUrl": null,
+        "legalEdition": null,
+        "independentDerivation": null,
+        "inputContract": null,
+        "expectedLifeMonths": null
+      },
+      "comparison": {
+        "status": "not_run",
+        "programCommit": null,
+        "programResults": null
+      },
+      "reviewDecision": "pending",
+      "approved": false,
+      "releaseReady": false
+    },
+    {
+      "id": "maternity-conflict",
+      "scope": "unresolved_conflict",
+      "receiptStatus": "not_received",
+      "independentReference": {
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "sourceUrl": null,
+        "legalEdition": null,
+        "independentDerivation": null,
+        "inputContract": null,
+        "expectedLifeMonths": null
+      },
+      "comparison": {
+        "status": "not_run",
+        "programCommit": null,
+        "programResults": null
+      },
+      "reviewDecision": "pending",
+      "approved": false,
+      "releaseReady": false
+    }
+  ]
+}

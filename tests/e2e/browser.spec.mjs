@@ -1270,3 +1270,115 @@ test('V3.17 status stays explanatory only through local save and JSON import',as
  expect(after.date).toBe(JSON.parse(before).date);
  expect(after.storageConsent).toBe(false);
 });
+
+test('V3.17-B JSON export includes unsigned non-binding disclosure and import ignores forged approval',async({page},testInfo)=>{
+ await standardInputs(page);
+ await navigate(page,'slide-2');
+ await page.locator('#incomeEntryMode').selectOption('official');
+ await navigate(page,'slide-10');
+ const note=page.locator('#v317ExportNotice');
+ await note.locator('summary').click();
+ await expect(note).toContainText('Regelquellen');
+ await expect(note).toContainText('Mutterschutz');
+ const a11y=await new AxeBuilder({page}).include('#v317ExportNotice')
+  .withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(a11y.violations.map(x=>x.id)).toEqual([]);
+ const pending=page.waitForEvent('download');
+ await page.locator('#btnJson').click();
+ const download=await pending;
+ const pathname=testInfo.outputPath('v317b-plan.json');await download.saveAs(pathname);
+ const original=JSON.parse(await readFile(pathname,'utf8'));
+ expect(original.schemaVersion).toBe(1);
+ expect(original.version).toBe('3.10.0');
+ expect(original.planningDisclosure.modelClassification).toBe('PLAUSIBLE_MODEL');
+ expect(original.planningDisclosure.sourceCheckedAt).toBe(original.legalReviewedAt);
+ expect(original.planningDisclosure.inputProvenance).toBe('extern_eingetragen_herkunft_nicht_geprueft');
+ expect(original.planningDisclosure.legallyVerified).toBe(false);
+ expect(original.planningDisclosure.independentlyReviewed).toBe(false);
+ expect(original.planningDisclosure.publicReleaseApproved).toBe(false);
+ expect(original.planningDisclosure.warnings.join(' ')).toContain('Mutterschutz');
+ expect(Object.keys(original.data)).not.toContain('planningDisclosure');
+ const forged={...original,planningDisclosure:{...original.planningDisclosure,
+  modelClassification:'APPROVED',publicReleaseApproved:true,legallyVerified:true,independentlyReviewed:true}};
+ await page.locator('#importJson').setInputFiles({
+  name:'forged-advisory.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(forged))
+ });
+ await expect(page.locator('#v317Scope')).toHaveAttribute('data-scope-code','PLAUSIBLE_MODEL');
+ await expect(page.locator('#v317ExportStatus')).toContainText('Keine amtlich bestätigten');
+ await expect(page.locator('#v317ScopeReview')).toContainText('Öffentliche Freigabe ausstehend');
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ // Old schema-1 exports with no advice remain supported.
+ const legacy={...original};delete legacy.planningDisclosure;
+ await page.locator('#importJson').setInputFiles({
+  name:'legacy-v310.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(legacy))
+ });
+ await expect(page.locator('#v317Scope')).toHaveAttribute('data-scope-code','PLAUSIBLE_MODEL');
+});
+
+test('V3.17-B CSV retains original columns and appends provenance/status to each of 36 life months',async({page},testInfo)=>{
+ await standardInputs(page);
+ const expectedLegacy=['Lebensmonat','Alter_Beginn','Alter_Ende','Zeitraum','Vater','Mutter',
+  'Stunden_Vater','Stunden_Mutter','Netto_Vater','Netto_Mutter_Mutterschutz','Elterngeld_Vater',
+  'Elterngeld_Mutter','Kindergeld','Bestätigte_Sonderzahlung','Kita_Kosten',
+  'Familieneinkommen','Frei_nach_Kosten'];
+ const pending=page.waitForEvent('download');
+ await page.locator('#btnCsv').click();
+ const download=await pending;const pathname=testInfo.outputPath('v317b-plan.csv');
+ await download.saveAs(pathname);const contents=await readFile(pathname,'utf8');
+ expect(contents.charCodeAt(0)).toBe(0xfeff);
+ const records=contents.slice(1).trim().split('\r\n').map(row=>row.split(';'));
+ expect(records.length).toBe(37);
+ expect(records[0].slice(0,17)).toEqual(expectedLegacy);
+ const extra=records[0].slice(17);
+ expect(extra).toEqual(['Modell_Einordnung','Quellen_geprueft_am','Einkommen_Herkunft',
+  'Haushaltsausgaben_vorhanden','Amtliche_Freigabe','Mutterschutz_Referenz','Monatswerte']);
+ expect(records.slice(1).every(row=>row.length===records[0].length)).toBe(true);
+ expect(records.slice(1).map(row=>row[0])).toEqual(Array.from({length:36},(_,i)=>String(i+1)));
+ for(const row of records.slice(1)){
+  expect(row[17]).toBe('PLAUSIBLE_MODEL');
+  expect(row[18]).toBe('2026-10-15');
+  expect(row[20]).toBe('ja_ungeprueft');
+  expect(row[21]).toBe('NEIN');
+  expect(row[22]).toContain('offen');
+  expect(row[23]).toContain('SCHAETZUNG');
+ }
+});
+
+test('V3.17-B a future cohort CSV and JSON never claim that 2027 is legally verified',async({page},testInfo)=>{
+ await standardInputs(page);
+ await navigate(page,'slide-2');
+ await page.locator('#date').fill('2027-05-28');
+ await page.locator('#date').blur();
+ await navigate(page,'slide-1');
+ await expect(page.locator('#v317Scope')).toHaveAttribute('data-scope-code','FORECAST_ONLY');
+ const awaitingCsv=page.waitForEvent('download');await page.locator('#btnCsv').click();
+ const csv=await awaitingCsv;
+ const csvPath=testInfo.outputPath('v317b-2027.csv');await csv.saveAs(csvPath);
+ const csvText=await readFile(csvPath,'utf8');
+ expect(csvText).toContain('FORECAST_ONLY');
+ expect(csvText).toContain('SCHAETZUNG_KEINE_AUSZAHLUNGSZUSAGE');
+ const awaitingJson=page.waitForEvent('download');await page.locator('#btnJson').click();
+ const json=await awaitingJson;
+ const jsonPath=testInfo.outputPath('v317b-2027.json');await json.saveAs(jsonPath);
+ const parsed=JSON.parse(await readFile(jsonPath,'utf8'));
+ expect(parsed.planningDisclosure.modelClassification).toBe('FORECAST_ONLY');
+ expect(parsed.planningDisclosure.applicableFutureLawVerified).toBe(false);
+ expect(parsed.planningDisclosure.publicReleaseApproved).toBe(false);
+});
+
+test('V3.17-B CSV never invents free money after expenses when household costs are unknown',async({page},testInfo)=>{
+ await expect(page.locator('#expenses')).toHaveValue('');
+ const pending=page.waitForEvent('download');
+ await page.locator('#btnCsv').click();
+ const download=await pending;
+ const pathname=testInfo.outputPath('v317b-expenses-unknown.csv');
+ await download.saveAs(pathname);
+ const csv=(await readFile(pathname,'utf8')).slice(1).trim().split('\r\n').map(s=>s.split(';'));
+ expect(csv.length).toBe(37);
+ expect(csv[0][16]).toBe('Frei_nach_Kosten');
+ for(const row of csv.slice(1)){
+  expect(row[16]).toBe('');
+  expect(row[20]).toBe('nein_unbekannt');
+  expect(row[21]).toBe('NEIN');
+ }
+});

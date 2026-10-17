@@ -2,6 +2,12 @@
 
 Historischer Entwicklungsverlauf seit V3.4, ergänzter **Stand vom 17. Oktober 2026: auf main integrierter V3.16-Funktionsstand** (Paket-/Exportversionsnummer 3.10.0 bis separater Release-Entscheidung). Technische Nachweise, fachliche Evidenz und öffentliche Freigaben sind getrennt. Ein Merge nach `main` ist keine Veröffentlichung und keine unabhängige Fachabnahme.
 
+## V3.17-B/C – Exporthinweise und prüfbare externe Referenzevidenz, 17.10.2026
+
+**Vollständiger Testabschluss:** 481/481 Node-/DOM-Tests, 60/60 Chromium-Browser-E2E und 4/4 neue V3.17-B-`file://`-Fälle bestanden. Externe Fachreferenzen weiterhin 0/10. Vor dem Commit: generiertes `qa/browser-results.json` auf unveränderten Repo-Stand zurücksetzen; keine Testartefakte, Secrets oder Freigabeflags einchecken.
+
+Die reinen Module `src/export-disclosure.cjs` (im Offline-Browser eingebettet) und `src/independent-review-evidence.cjs` (nur Build/CLI) ergänzen die technische Produkthärtung. JSON-Schema 1 bleibt stabil; Top-Level-`planningDisclosure` wird beim Import ignoriert, CSV erhält sieben neue Metadaten-Spalten und bei unbekannten Kosten einen leeren statt fiktiven Restbetrag. Die externen Prüfanfragen sind über SHA256 an zehn Fall-IDs gebunden; keine unabhängige Abnahme wird behauptet. [Ausführlicher Bericht](AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md).
+
 ## V3.17-A – erste Umsetzung und Gesamtabnahme, 17.10.2026
 
 Neue reine Einordnung `src/model-scope.cjs` mit HTML-Status vor dem Schnellstart sowie in „Plan prüfen“. Modellplausibilität, 2027-Vorschau, unbestätigte Fälle, Datenlücken und Einkommen-/Ausgaben-Herkunft werden **ohne** neue Gesetzesberechnung erläutert. Mobile Eingangsansicht nach eigener visueller Prüfung von 875 auf ca. 90 px verkürzt (klappbare Details). Gesamtlauf: 468/468 Node-/DOM, 56/56 Chromium-E2E und 3/3 zusätzliche V3.17-filenative Tests. [Ausbau/Abnahme](AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md). Neutrale [Referenzfall-Vorlage](FACHABNAHME-V317-REFERENZFALL-VORLAGE.md) vorbereitet, weiterhin 0/10 externe Vollabnahmen. Freigaben bleiben gesperrt.

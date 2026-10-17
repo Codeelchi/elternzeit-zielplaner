@@ -4,6 +4,10 @@ Stand: **17. Oktober 2026**. Paket-/Export-Metadaten bleiben bis zu einer separa
 
 **Externes Fachreview vorbereiten:** [Neutrale V3.17-Fallvorlage](FACHABNAHME-V317-REFERENZFALL-VORLAGE.md) mit zehn noch nicht bestätigten synthetischen Fällen, expliziter Trennung von unabhängigen Sollwerten und internem Ist. Dies ist kein beauftragter/eingegangener externer Review.
 
+**V3.17-B/C QA:** 481/481 Node-/DOM-, 60/60 vollständige Chromium-E2E und 4/4 zusätzliche echte `file://`-V3.17-B-Browserfälle bestanden. Manipulierte JSON-Freigabeinformationen werden ignoriert; unbekannte Haushaltskosten bleiben im CSV-Rest leer. Der unabhängige Evidenzcheck meldet 10 vorbereitete, 0 extern bestätigte Fälle. Rechts-/Datenschutz-/Nutzer- und echte Referenzfreigaben weiterhin offen.
+
+**V3.17-B/C neuer interner Stand:** [Exportvertrags- und Referenzevidenz-Härtung](AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md). `src/export-disclosure.cjs` für begrenzte JSON-/CSV-Hinweise; `src/independent-review-evidence.cjs` und `scripts/independent-evidence-check.mjs` für getrennte strukturelle Prüfung der noch fehlenden externen Familienreferenzen. Exporte folgen weiterhin Schema 1 (CSV hat sieben neue Zusatzspalten); importierte Freigabe-Claims werden ignoriert; Kosten unbekannt heißt CSV-Rest leer. Fachreviewstatus: 0/10.
+
 **V3.17-A komplette technische QA:** 468/468 Node-/DOM-, 56/56 vollständige Chromium-Browserfälle und 3/3 direkte `file://`-V3.17-Tests; Browserstatus, 2027-Flag, Export-Kompatibilität und 320-px-Schnellstart geprüft. Paketversion 3.10.0 und öffentliche Review-Gates unverändert.
 
 **Implementierter V3.17-A-Arbeitsstand:** [Statusanzeige und Testgrenzen](AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md) nutzt nur den bestehenden RuleValidator, ohne Quellen- oder Berechnungsregeländerung. Die zentrale pure Funktion liegt in src/model-scope.cjs, über scripts/embed-modules.mjs in der Offline-Datei gebündelt. Technische Tests und Freigabe weiterhin unabhängig behandeln.

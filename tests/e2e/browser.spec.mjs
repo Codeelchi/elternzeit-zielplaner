@@ -1188,3 +1188,85 @@ test('V3.16 joint-parent assumptions remain session-only even with explicit save
  expect(JSON.parse(before).date).toEqual(final.date);
  expect(await page.evaluate(()=>localStorage.length)).toBe(0);
 });
+
+test('V3.17 scope warns before amounts and distinguishes incomplete, plausible, and unsupported cases on mobile',async({page})=>{
+ await page.setViewportSize({width:320,height:820});
+ const card=page.locator('#v317Scope');
+ await expect(card).toBeVisible();
+ await expect(card).toHaveAttribute('data-scope-code','OUTSIDE_SCOPE');
+ await expect(card).toContainText('Öffentliche Freigabe ausstehend');
+ await expect(card).not.toHaveAttribute('open','');
+ const introPositions=await page.evaluate(()=>({
+  quickstartTop:document.getElementById('v38QuickStart').getBoundingClientRect().top,
+  viewportHeight:innerHeight
+ }));
+ expect(introPositions.quickstartTop).toBeLessThan(introPositions.viewportHeight);
+ await navigate(page,'slide-2');
+ await page.locator('#date').fill('2026-05-28');
+ await page.locator('#date').blur();
+ await navigate(page,'slide-1');
+ await expect(card).toHaveAttribute('data-scope-code','INPUTS_INCOMPLETE');
+ await standardInputs(page);
+ await navigate(page,'slide-1');
+ await expect(card).toHaveAttribute('data-scope-code','PLAUSIBLE_MODEL');
+ await expect(card).toContainText('Standardmodell technisch plausibel – keine Freigabe');
+ await expect(card).toContainText('2026-12-31');
+ await expect(card).toContainText('Haushaltsausgaben sind eingegeben');
+ const a11y=await new AxeBuilder({page}).include('#v317Scope')
+  .withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(a11y.violations.map(x=>x.id)).toEqual([]);
+ const bounds=await page.evaluate(()=>({width:document.documentElement.scrollWidth,viewport:window.innerWidth}));
+ expect(bounds.width).toBeLessThanOrEqual(bounds.viewport+1);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+
+test('V3.17 future birth is forecast only while mixed income remains out of scope, with safe official mode wording',async({page})=>{
+ await standardInputs(page);
+ await navigate(page,'slide-2');
+ await page.locator('#incomeEntryMode').selectOption('official');
+ await page.locator('#date').fill('2027-05-28');
+ await page.locator('#date').blur();
+ await navigate(page,'slide-1');
+ const card=page.locator('#v317Scope');
+ await expect(card).toHaveAttribute('data-scope-code','FORECAST_ONLY');
+ await expect(card).toContainText('Nur unverbindliche Zukunftsprognose');
+ await expect(card).toContainText('Herkunft, Bescheid und Zeiträume nicht überprüft');
+ await navigate(page,'slide-2');
+ await page.locator('#date').fill('2026-05-28');
+ await page.locator('#date').blur();
+ await page.locator('#incomeProfileFather').selectOption('mixed_or_self_employed');
+ await navigate(page,'slide-1');
+ await expect(card).toHaveAttribute('data-scope-code','OUTSIDE_SCOPE');
+ await card.locator('summary').click();
+ await expect(card).toHaveAttribute('open','');
+ await card.getByRole('button',{name:'Regelhinweise ansehen'}).click();
+ await expect(page.locator('#slide-10')).toBeVisible();
+ await expect(page.locator('#v317ScopeResultStatus')).toContainText('Fall außerhalb');
+ await expect(page.locator('#v317ScopeResultDetail')).toContainText('Öffentliche Freigabe');
+});
+
+test('V3.17 status stays explanatory only through local save and JSON import',async({page},testInfo)=>{
+ await standardInputs(page);
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('#localSave').check();
+ await navigate(page,'slide-2');
+ await page.locator('#incomeEntryMode').selectOption('known');
+ const wait=page.waitForEvent('download');
+ await page.locator('#btnJson').click();
+ const download=await wait;
+ const exportPath=testInfo.outputPath('v317-unchanged-schema.json');
+ await download.saveAs(exportPath);
+ const exported=JSON.parse(await readFile(exportPath,'utf8'));
+ expect(exported.schemaVersion).toBe(1);
+ expect(exported.version).toBe('3.10.0');
+ expect(Object.keys(exported)).not.toContain('scopeCertified');
+ expect(exported.data.standardCaseConfirmed).toBe(true);
+ await page.locator('#importJson').setInputFiles(exportPath);
+ await navigate(page,'slide-1');
+ await expect(page.locator('#v317Scope')).toHaveAttribute('data-scope-code','PLAUSIBLE_MODEL');
+ await expect(page.locator('#v317Scope')).toContainText('keine Freigabe');
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ const after=await page.evaluate(()=>window.__elternzeitTest.getState());
+ expect(after.date).toBe(JSON.parse(before).date);
+ expect(after.storageConsent).toBe(false);
+});

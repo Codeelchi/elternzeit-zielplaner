@@ -1,63 +1,61 @@
-# Elternzeit-Zielplaner 2027 – Version 3.1.0
+# Anleitung – Familien-Szenario- und Budgetplaner
 
-**Stand der Quellen:** 14. Oktober 2026 · **Offline im Browser** · **Rechtsraum:** Bundesrecht + exemplarisch NRW/Köln, Bayern, Sachsen.
+**Interner technischer Stand: V3.16, auf `main` seit PR #20 (`19f047d`), 17.10.2026.** Paket-/JSON-Exportversion **3.10.0**, kompatibles Importschema **1**. Neue V3.17-Prüfhilfen befinden sich auf einem getrennten Arbeitszweig, nicht auf `main`. **Öffentliche Freigabe gesperrt.** Keine Rechtsberatung, keine amtliche Leistungsberechnung und keine zugesagte Zahlung.
 
-## Start
+## Starten und Beispiel verstehen
 
-Die Datei `Elternzeit_Zielplaner_2027_v3_1.html` in einem aktuellen Webbrowser öffnen (Doppelklick). Es wird kein Server benötigt und keine Daten an einen Dienst übertragen. Die Planwerte liegen im lokalen Browser und können mit **Plan speichern** als JSON exportiert und mit **Plan laden** wiederhergestellt werden. **CSV** gibt Einkommen, Kindalter, Bezugsart, Stunden und Kosten pro Lebensmonat aus.
+`index.html` direkt aus dem Projektordner in einem modernen Browser öffnen (`file://`); ein Webserver, Konto oder Online-Verbindung ist dafür nicht nötig. `start.html` bietet zusätzlich allgemeine Familienstart- und Beratungsinformationen. Der Schnellstart bietet fünf **vollständig fiktive** Beispielpläne. Die fiktiven Einkommensbeträge sind weder individuelle Lohnwerte noch nachgewiesene Elterngeld-Netto-Werte.
 
-## Eure Ausgangswerte
+Wichtig: Für einen persönlichen Entwurf müsst ihr eure Konstellation und die verwendeten Zahlen unabhängig bestätigen. Eine visuelle Berechnung auf dem Bildschirm ist noch **keine** bestätigte Anspruchsprüfung.
 
-- Voraussichtliche Geburt am 28.05.2027, Wohnort Köln (NRW)
-- Beide Eltern etwa 4.000 € brutto pro Monat, Steuerklasse IV/IV
-- Auszahlungsnetto jeweils beispielhaft 2.600 €; Elterngeld-Netto ebenfalls nur ein vorläufiger Näherungswert
-- Der Vater soll möglichst viel Betreuung übernehmen; Beispielkontingent: Mutter zwei Monate Mutterschutz, Vater zwölf Monate Basiselterngeld
-- Kindergeld wird mit **259 € geltendem Wert 2026** gerechnet; 267 € für 2027 sowie 272 € für 2028 können im Rechner als **Gesetzentwurf-Szenario**, nicht als geltendes Recht, ausprobiert werden.
+**Hinweis für den getrennten V3.17-Arbeitszweig:** Eine neue Karte „Passt euer Fall zu den technisch geprüften Annahmen?“ im Überblick und unter „Plan prüfen“ erklärt Standardfall, Quellenstand, Schätzwerte und die noch offene Freigabe. Auf einem unveränderten V3.16-`main` ist diese zusätzliche Karte noch nicht vorhanden. Sie ersetzt den bestehenden Validator nicht.
 
-## Bedienung
+## 1. Unterstützten Fall und Einkommenswerte prüfen
 
-1. **01 Eingaben**: Tatsächliches Netto und insbesondere elterngeldrechtliches Netto getrennt pflegen; Teilzeit-Netto bei 28 Stunden eintragen.
-2. **12 Zielsuche**: Betreuung bis zum gewünschten Kindesalter, Mindestmonate Vater, maximales gemeinsames Freihaben und optional ein Mindestbudget wählen. Zwischen höchstem Gesamteinkommen, maximaler Vaterzeit, stabilstem Monat und ungünstigem Szenario wählen. Mit **Plan übernehmen** wird ein Ergebnis in den editierbaren Monatsplan kopiert.
-3. **04 Konfigurator / 05 Zeitplan**: Dauer beider Eltern getrennt setzen und bei Bedarf einzelne Lebensmonate auf Basis (B), Basis + Teilzeit (BT), Plus (P), Plus + Teilzeit (PT), Bonus (PB), nur Teilzeit (TZ), unbezahlte Elternzeit (EZ) oder Vollzeit (V) setzen. Individuelle Wochenstunden pro Lebensmonat sind möglich.
-4. **13 Robustheit**: Pessimistische, zentrale und optimistische Bandbreite verändern. Die Szenarien rechnen Teilzeitlöhne, die Elterngeld-Nettobasis und Kita-Kosten gleichzeitig neu.
-5. **14 Wohnort**: Einzelgeburt/Mehrlinge, NRW/BY/SN/andere, Beginn Betreuung und tatsächliche Kita-Kosten prüfen. **Kölner 2025-Gebühren** sind nur optionales historisches Vergleichsszenario, abhängig vom Kindesalter, der gewählten Betreuungsdauer (25/35/45 h) und dem kommunal maßgeblichen Jahreseinkommen. Essen kommt gesondert hinzu. Es handelt sich **nicht** um eine garantierte 2027er Gebühr. Andere Länder erfordern eine manuelle Anspruchsprüfung.
-6. **15 Recht & Marktvergleich**: Gesetzliche Quellen, versionsgebundene Gültigkeitsmarker, Wettbewerbsbeschreibungen und offene Grenzen überprüfen.
+Im Abschnitt **Grundlagen** steht die ausdrücklich zu bestätigende Standardfallannahme: zwei abhängig beschäftigte Eltern in Deutschland, gemeinsamer Haushalt, eigene Betreuung und reguläre Einzelgeburt **ohne** Sonderkonstellation. Beispiele für nicht geprüfte Sonderfälle sind Frühgeburt, Mehrlinge, Alleinerziehende, Adoption, Selbstständigkeit, variable Provisionen und gemischte Einkünfte. Liegt eine Abweichung vor, keine grüne Standardbeurteilung erwarten.
 
-## Was der Algorithmus leistet – und was nicht
+Geburtsdaten im Zeitraum **01.04.2025–31.12.2026** sind vom aktuellen Katalog für die technische Standardmodellierung vorgesehen; darüber hinausgehende Geburtstermine, besonders 2027, dürfen allenfalls als **unverbindliche Vorschau** interpretiert werden. Aktuelle Rechtsfassung vor einer Entscheidung erneut amtlich prüfen.
 
-Die Zielsuche erzeugt **strukturierte Kandidaten** (inzwischen auch ungerade Basis- und Plus-Monatszahlen, 2–4 Bonusmonate), bewertet sie an den eingegebenen Kriterien und filtert nach modellierten Standardregeln. Das ist **keine vollständige mathematische Suche** über sämtliche denkbaren Monatskombinationen und keine Bewilligungsentscheidung. Eine als plausibel markierte Variante kann von einer Elterngeldstelle wegen weiterer individueller Tatbestände anders beurteilt werden.
+Gebt **Auszahlungsnetto** (gewöhnlicher Gehaltszufluss) und **Elterngeld-Netto** (elterngeldrechtlicher Bemessungswert) ausdrücklich getrennt ein. Der Planer berechnet diesen Bemessungswert **nicht** zuverlässig automatisch aus einem Bruttolohn. Wenn ihr „aus amtlicher Berechnung oder Bescheid“ wählt, prüft das Programm den externen Beleg **nicht**. Tragt nicht einen ausgezahlten monatlichen Elterngeldbetrag als „Elterngeld-Netto“ ein.
 
-Die Finanzrechnung ist eine **Planungsschätzung**, keine Amtssimulation: Mutterschaftsleistungen werden für den regulären 56-Tage-Fall taggenau innerhalb der Lebensmonate angenähert; Teilzeit-Einkommen wird pro Leistungsart für die Elterngeldberechnung separat gemittelt. Netto-Umrechnungen zwischen 28 Stunden und anderen Stunden sind linear angenähert und sollten durch Arbeitgeber-/Elterngeld-Netto-Werte ersetzt werden. Kindergeld wird trotz kalendermonatlicher Auszahlung vereinfachend Lebensmonaten zugeordnet.
+Haushaltskosten und tatsächliche Einnahmen möglichst konkret erfassen. **Unbekannte Kosten sind kein Nullbetrag**; ohne Ausgaben ist ein seriöser verbleibender Monatsrest nicht bestimmbar.
 
-**Nicht automatisch berechnet** werden u.a. Steuerprogressionsvorbehalt und mögliche Nachzahlungen, Kirchensteuer-Sonderfälle, KV-Beiträge während Elternzeit, Sonderzahlungen und Bemessungsperiodenverschiebungen, Geschwister-/Mehrlings-/Frühgeburten- oder Behinderungszuschläge, Mischeinkünfte/Selbstständigkeit, Früh-/Mehrlings-Mutterschutz, Sozialleistungen wie Kinderzuschlag und Wohngeld, zukünftige Rechtsänderungen und verbindliche Kita-Tarife 2027/28. Bei Mehrlingen und beim Überschreiten der zvE-Grenze sperrt der Zielalgorithmus bewusst das Standardmodell.
+## 2. Familienzeit und Ziele gestalten
 
-Für **Köln/NRW mit Einzelgeburt** ist auf Basis der recherchierten amtlichen Quellen keine allgemeine zusätzliche laufende NRW-Geldleistung hinterlegt. Der NRW-Drillingsbonus beträgt nach dem veröffentlichten Erlass 1.000 € je Kind einmalig, sofern die spezifischen Voraussetzungen vorliegen; ohne bestätigten Anspruch wird nichts automatisch hinzugerechnet. Bayerisches Familiengeld fällt für Kinder mit Geburtsdatum ab 01.01.2025 weg; sächsisches Landeserziehungsgeld ist individuell einkommens- und betreuungsabhängig.
+- **Modelle / Dauer & Aufteilung / Zeitplan:** Vorlagen wählen, Basiselterngeld, ElterngeldPlus, Teilzeit, unbezahlte Auszeit oder weitere modellierte Status je Elternteil und Kindes-Lebensmonat vergleichen.
+- **Zeitachsen:** arbeitsrechtliche Elternzeit, tatsächliche Erwerbsarbeit und Leistungsbezug sind **verschiedene** Angaben. Das reine Verschieben einer Elternzeitmarkierung ist keine automatische Lohn- oder Elterngeldanpassung.
+- **Zielsuche:** begrenzte Vorlagen nach gewünschter Betreuung, niedrigstem Monatsbudget, Rücklagen und Zeitaufteilung bewerten. Es wird **nicht** jeder gesetzlich zulässige Plan durchsucht und kein globales Optimum versprochen. Vorgeschlagene Varianten werden nicht automatisch übernommen.
+- **Plan prüfen / Nächste Schritte:** offene Eingaben, Regelkonflikte, Quellenstatus und praktische Schritte ansehen. „Plausibel“ heißt **nicht** „bewilligt“.
 
-## Verglichene Rechner
+## 3. Budget, Zeit und reale Zahlung trennen
 
-Der **amtliche Elterngeldrechner mit Planer** bietet bereits Monatsaufteilung, Zulässigkeitsprüfungen, Teilzeiteingaben und einen Familienfinanzüberblick – diese Merkmale sind keine einzigartigen Lücken. Auch private Anbieter wie ElterngeldOptimierer und Elterngeldpilot werben mit automatischer Optimierung. Unser ergänzender Fokus ist die **zielbasierte Betreuungsvorgabe mit Mindestmonatsbudget, Robustheitsrechnung, integrierter Alters-/Kita-Kostenplanung und datiertem Quellenregister** in einer lokal nutzbaren Datei. Die Gegenüberstellung beruht auf veröffentlichten Funktionsbeschreibungen, nicht auf einem vollständigen technischen Audit der Konkurrenzprodukte.
+- **Monatsbudget und Robustheit:** Schätzwerte für Einkommen, Elterngeldannahmen, Kindergeld und selbst eingegebene Haushalts-/Betreuungskosten im **Lebensmonat** des Kindes vergleichen. Risiko-Bandbreiten sind manuelle Annahmen, **keine Wahrscheinlichkeiten**.
+- **Cashflow:** Eigene **erwartete** Zahlungen nach konkretem Kalendertag eintragen, Verzögerung und angenommene Anfangsrücklage durchspielen. Das ist keine Prognose tatsächlicher Behördenauszahlungen.
+- **Erfasste Bankbuchungen:** Tatsächlich manuell dokumentierte Buchungen sind ein weiterer, vom erwarteten Cashflow getrennter Bereich. Fehlende Monate sind **nicht** bestätigte Monate ohne Zahlung.
+- **Steuer/Versicherung:** Progressionsvorbehalt und mögliche Sozialversicherungskosten werden nicht automatisch individuell korrekt berechnet. Verwendete Zusatzrücklagen sind **eigene Szenarioannahmen**.
 
-## Rechtsquellen, Quellenstand und QA
+Der bekannte **Mutterschutz-Beispielfall (20. Mai)** ist fachlich ungeklärt: Das amtliche Beispiel nennt fünf Resttage, die verwendete Frist-Herleitung vier. Vor allem Ergebnisse zu Mutterschaftsleistung und Teilbeträgen **nicht ungeprüft** für eine Finanz- oder Antragsentscheidung verwenden.
 
-Siehe `Elternzeit_Rechtsregeln_2026-10-14_v3_1.json` mit Links je Regel. Einige Einträge nennen das Datum der **zugrunde gelegten Regelfassung**; dies ist ausdrücklich keine vollständige rechtswissenschaftliche Norm-Historisierung jeder Einzelklausel. Aktuelles Landesrecht für eine tatsächliche Geburt 2027 ist **vor Antragstellung erneut zu bestätigen**. Testergebnisse stehen in `Elternzeit_QA_Bericht_v3_1.json` (Browser- und Rechentests); positive Tests ersetzen nicht die sachliche Bearbeitung durch die Elterngeldstelle.
+## 4. Kita und Wiedereinstieg (V3.15–V3.16)
 
-**Relevante amtliche Links:**
+Im Abschnitt **Leistungen vor Ort** befinden sich getrennte Hilfen:
 
-- Bundes-Familienportal, amtlicher Planer: https://familienportal.de/familienportal/meta/egr
-- BEEG § 4: https://www.gesetze-im-internet.de/beeg/__4.html
-- BEEG § 4b: https://www.gesetze-im-internet.de/beeg/__4b.html
-- BEEG § 2: https://www.gesetze-im-internet.de/beeg/__2.html
-- Stadt Köln, Kita-Gebühren: https://www.stadt-koeln.de/service/produkte/00405/index.html
-- NRW, Mehrlingsgeld: https://recht.nrw.de/lrmb/bekanntmachung/01012019-bekanntmachung-der-einfuehrung-einer-ehrenpatenschaft-des/
-- Bayern, Familiengeld: https://www.zbfs.bayern.de/familienleistungen/familiengeld/
-- Sachsen, Landeserziehungsgeld: https://revosax.sachsen.de/vorschrift/5132.11
+- Historische **Kölner Kita-Gebühren** mit Alters- und Stundenklassen; keine verbindlichen Preise für künftige Jahre. Je nach Betreuungsdatum unterschiedliche NRW-KiBiz-Rechtsfassungen; lokale Verfahren und Fristen selbst prüfen.
+- Wochenweise **Eingewöhnung und möglicher Kita-Verzug**, selbst angenommene Ersatzbetreuung, Arbeitsrückkehr und hypothetische Kosten. Zusätzliche Wartewochen separat vergleichen; nicht mit echten Bankbuchungen oder Ansprüchen gleichsetzen.
+- **Gemeinsamer Eltern-Wochenplan** (zunächst geschlossene Detailansicht): Beispielhafte Mo–Fr-Arbeit in Viertelstunden, Betreuungsüberschneidungen, begleitende Person A/B/wechselnd und angenommene Freistellung. Keine echten Schichten, Pendelzeiten, Feiertage, Arbeitgeberfreigaben oder geprüfte Partnerschaftsbonus-Berechtigung.
+- Die gemeinsame Wochenplanung ist eine **Alternative** zum Ein-Eltern-Eingewöhnungskostenmodell; ihre Eurobeträge **nicht addieren**.
+- Offizielle Orientierung zu Kinderzuschlag/Wohngeld und unverbindliche Antrags-/Terminhilfen, keine automatische amtliche Anspruchsbestätigung.
 
-Alle Angaben vorbehaltlich des zur tatsächlichen Geburt und Antragstellung gültigen Rechtsstands.
+**Wichtig zu flüchtigen Eingaben:** Die Wochen- und Begleitungsannahmen der neueren Kita-Planer werden **auch bei eingeschaltetem lokalem Speichern nicht exportiert oder wiederhergestellt**. Ein Neustart oder Import setzt sie zurück. Längerfristige Entscheidungen deshalb unabhängig dokumentieren, bis ein gesondert geprüftes Exportkonzept bereitsteht.
 
-## V3.3-Ergänzung
+## 5. Daten auf diesem Gerät
 
-Beginne mit „Eure Daten“ und bestätige den unterstützten Standardfall ausdrücklich. Trage das gemeinsame zu versteuernde Einkommen des Kalenderjahres vor der Geburt ein. Zukunftskohorten ohne bestätigten Quellenstand bleiben vorläufig. Unter „Zeitachsen“ können mehrere arbeitsrechtliche Abschnitte, Arbeitsstunden und Leistungsarten unabhängig geändert werden. Die separaten Arbeits-/Leistungsmonate verändern die Einkommensprojektion; Kalender-Elternzeit allein tut dies nicht. Tatsächliche Zahlungen werden separat als Bankbuchungen erfasst.
+Ohne ausdrückliche Zustimmung wird kein Familienplan persistent im Browser gespeichert. Nach Aktivierung von **„Automatisch auf diesem Gerät speichern“** liegt der Hauptplan lokal, aber **nicht verschlüsselt**, im Browser. Auf gemeinsam verwendeten Geräten nicht aktivieren.
 
-„Ziele & Varianten“ zeigt bis zu drei unterschiedlich begründete Vorschläge aus begrenzten Vorlagen. Eine leere Ergebnismenge ist möglich. Bei Robustheit muss das Mindestbudget im vorsichtigen Fall halten. Der Budgetbereich zeigt notwendige Anfangsrücklagen aus kumulierten Fehlbeträgen; verspätete Bankzahlungen sind damit nicht prognostiziert.
+Mit **„Plan herunterladen“** wird der Hauptplan als JSON exportiert; mit **„Plan importieren“** wird er wieder eingelesen. CSV enthält Monatsdaten. **Achtung:** Exporte können sensible Einkommens-/Familienangaben enthalten; sie bleiben außerhalb der Kontrolle der Anwendung. Die lokalen Daten lassen sich über **„Lokale Daten löschen“** entfernen; heruntergeladene Dateien werden dadurch **nicht** automatisch gelöscht. Lokale Testprüfungen ersetzen keinen unabhängigen Datenschutzreview.
 
-Lokales Speichern muss ausdrücklich aktiviert werden. „Lokale Daten löschen“ entfernt Browserkopien aller bekannten Planversionen. Der geöffnete Plan bleibt bis zum Schließen erhalten. JSON-Export/-Import enthält Finanzdaten und sollte privat aufbewahrt werden. Historische Kölner Tarife und unbestätigte Zusatzleistungen sind Informationen, keine automatisch addierten Ansprüche.
+## 6. Wo externe Unterstützung nötig ist
+
+Offizielle Übersicht: [Familienportal](https://familienportal.de/familienportal/), [Bundes-Elterngeldrechner](https://familienportal.de/familienportal/meta/egr). Für konkrete Ansprüche zuständige Elterngeldstelle und bei Erwerbs-/Elternzeitfragen Arbeitgeber bzw. fachkundige Beratung hinzuziehen. Die [aktuelle Roadmap](ROADMAP.md) listet die vor öffentlicher Freigabe **noch offenen** Nachweise.
+
+**Stand und Versionshinweis:** V3.16 bezeichnet hier den **intern implementierten Funktionsumfang**, nicht die Paketversion oder eine Freigabe für eine Geburtskohorte. Für Rechtslage und Berechnungsannahmen ist die jeweilige datierte Quelle ausschlaggebend; eine neue Nummer allein belegt nichts.

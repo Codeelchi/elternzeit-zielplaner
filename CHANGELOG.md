@@ -1,5 +1,12 @@
 # Änderungen
 
+## V3.17 – Produktreife-/Scope-Orientierung (interner Entwicklungszweig; noch kein öffentlicher Release)
+
+- Dokumentation neu geordnet: [aktuelle operative Roadmap](docs/ROADMAP.md), [archivierte Vorgängerroadmap](docs/ROADMAP-HISTORIE-BIS-V316-2026-10-17.md), [Audit-Abgleich](docs/PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) und modernisierte [Nutzeranleitung](docs/ANLEITUNG.md).
+- V3.15–V3.16 liegen nach erfolgreicher GitHub-CI und PR #20 unter Merge 19f047d auf main (alte Branch-Hinweise nur noch historisch).
+- V3.17-A technisch implementiert: unverbindlicher Status vor der Planung und im Regelcheck; kompakte aufklappbare Mobilansicht, Validator-Wiederverwendung ohne neue Rechtsregel, Schätz-/Kohorten-/Freigabehinweise. 468/468 Node-/DOM-, 56/56 Chromium- und 3/3 direkte V3.17-file://-Tests bestanden. [QA](docs/AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md).
+- Mutterschutz 4/5, null unabhängig abgenommene vollständige Familienreferenzen, Rechts-/Datenschutz-/Nutzerreview und öffentlicher Release bleiben **offen/gesperrt**.
+
 ## V3.16 – Gemeinsamer Betreuungs- und Wiedereinstiegsplan (interner Entwicklungsstand)
 
 - Parallele Eltern-Arbeitszeiten nicht mehr als einfache Stundenaddition: 15-Minuten-Überlappungsprüfung für fünf beispielhafte Wochentage, individuelle Arbeitsstarts/-Rückkehrtermine, gemeinsame Kita-Stunden.

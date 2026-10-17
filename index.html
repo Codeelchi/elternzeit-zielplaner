@@ -165,6 +165,22 @@ body.v38-lite.v38-pristine .live-strip{display:none}
 
 /* V38_STYLES_END */
 
+/* V3.17: descriptive scope gate, deliberately never a positive release badge. */
+.v317-scope{border:1px solid #b8cec9;background:#f6f9f7;border-radius:12px;padding:14px 17px;margin:12px 0 18px;overflow-wrap:anywhere}
+.v317-scope h3{font-size:15px;line-height:1.4;margin:0 0 6px;color:#183f43}
+.v317-scope p{font-size:13px;line-height:1.55;margin:5px 0;color:#285055}
+.v317-scope .v317-status{font-weight:750;font-size:14px;color:#173e40}
+.v317-scope .v317-details{font-size:12px;color:#355c5b}
+.v317-scope .v317-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+ .v317-scope>summary{cursor:pointer;font-weight:650;line-height:1.55;font-size:13px;color:#183f43}
+.v317-scope>summary strong{font-size:14px;font-weight:750;display:block}
+.v317-scope>summary:focus-visible{outline:3px solid #00776b;outline-offset:3px}
+.v317-scope>.v317-teaser{font-size:12px;margin-top:3px}
+.v317-scope:not([open]) .v317-expanded{display:none}
+.v317-scope button{min-height:42px}
+.v317-scope button:focus-visible{outline:3px solid #00776b;outline-offset:3px}
+@media(max-width:420px){.v317-scope{padding:12px}.v317-scope .v317-actions button{width:100%}}
+
 /* V3.10 contextual information: native disclosures work with keyboard and offline. */
 .planning-knowledge{margin:20px 0;padding:18px 20px;border:1px solid #bfd8d1;border-radius:14px;background:#fff}
 .planning-knowledge>summary{cursor:pointer;font-size:16px;font-weight:750;line-height:1.6;min-height:32px}
@@ -203,6 +219,20 @@ body.v38-lite.v38-pristine .live-strip{display:none}
  <div id="v38CostBanner" role="status" class="noprint" hidden></div>
  <main class="stage" id="stage">
   <section class="slide active" data-title="Überblick" id="slide-1">
+   <details class="v317-scope" id="v317Scope">
+    <summary><span id="v317ScopeHeading">Passt euer Fall zum Modell?</span> <strong id="v317ScopeStatus" role="status">Modellstatus wird geprüft.</strong></summary>
+    <p class="v317-teaser">Nur Planung, keine amtliche Bewilligung. Hinweise und nächste Schritte aufklappen.</p>
+    <div class="v317-expanded">
+     <p id="v317ScopeBirth"></p>
+     <p id="v317ScopeMoney"></p>
+     <p class="v317-details" id="v317ScopeReasons"></p>
+     <p class="v317-details" id="v317ScopeReview"></p>
+     <div class="v317-actions noprint">
+      <button type="button" class="navbtn alt" data-goto="slide-2">Standardfall und Netto prüfen</button>
+      <button type="button" class="navbtn alt" data-goto="slide-10">Regelhinweise ansehen</button>
+     </div>
+    </div>
+   </details>
 <!-- V38_MARKUP_START -->
 <div id="v38QuickStart" class="v38-shell noprint" aria-label="Schnellstart für Elternzeit und Familienbudget">
  <div class="v38-intro">
@@ -548,6 +578,11 @@ body.v38-lite.v38-pristine .live-strip{display:none}
   <section class="slide" data-title="Plan prüfen" id="slide-10">
    <span class="eyebrow">10 / Planungs-Check</span><h2>Ist eure Aufteilung plausibel?</h2>
    <p class="subtitle">Der Rechner erkennt typische Regelkonflikte direkt und unterscheidet unbezahlte Elternzeit von finanziertem Elterngeld. Rechtliche Sonderfaelle, abweichende Mutterschutzfristen, individuelle Versicherungsbeitraege und die amtliche Elterngeld-Netto-Berechnung können abweichen.</p>
+   <div class="v317-scope" aria-label="Einordnung der aktuellen Modellprüfung">
+    <p class="v317-status" id="v317ScopeResultStatus">Status wird geprüft.</p>
+    <p id="v317ScopeResultDetail"></p>
+    <p class="v317-details">Auch ein plausibles Modell ist kein unabhängiger Bescheid oder amtlich geprüfter Auszahlungsbetrag.</p>
+   </div>
    <div class="grid two" style="margin-top:20px">
     <div class="card"><div class="kicker">Verbrauchte Basismonats-Äquivalente</div><div class="metric" id="checkShare">0 / 14</div><div class="detail">Lebensmonate mit Mutterschaftsleistungen verbrauchen Basis-Kontingent bei der gebärenden Person. Betroffene Tage werden gesondert modelliert; die konkrete Teilmonatsanrechnung ist noch fachlich ungeklärt. Ein Plus-Monat entspricht 0,5 Basis-Monaten.</div></div>
     <div class="card"><div class="kicker">Prüfstatus</div><div class="metric" id="checkValid">Prüfe</div><div class="detail" id="checkValidDesc"></div></div>
@@ -3072,6 +3107,95 @@ module.exports={VALIDATION_STATUS,validatePlan};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* RuleValidator_END */
+/* ModelScope_START */
+const ModelScope=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+// Read-only interpretation of the EXISTING RuleValidator result. This module
+// does not compute benefits, rewrite legal dates or decide any release gate.
+const STATES=Object.freeze({
+ PLAUSIBEL_STANDARD:'PLAUSIBLE_MODEL',
+ NICHT_UNTERSTUETZT:'OUTSIDE_SCOPE',
+ DATEN_UNVOLLSTAENDIG:'INPUTS_INCOMPLETE',
+ REGELKONFLIKT:'RULE_CONFLICT'
+});
+const TITLES=Object.freeze({
+ PLAUSIBLE_MODEL:'Standardmodell technisch plausibel – keine Freigabe',
+ OUTSIDE_SCOPE:'Fall außerhalb des bestätigten Standardmodells',
+ INPUTS_INCOMPLETE:'Bitte zuerst die grundlegenden Angaben prüfen',
+ RULE_CONFLICT:'Die gewählte Monatsfolge enthält Regelkonflikte',
+ FORECAST_ONLY:'Nur unverbindliche Zukunftsprognose'
+});
+const NEXT_STEPS=Object.freeze({
+ PLAUSIBLE_MODEL:'Nettoangaben, Mutterschutz und individuelle Besonderheiten unabhängig prüfen. Keine amtliche Berechnungszusage.',
+ OUTSIDE_SCOPE:'Abweichende Familien- oder Einkommenskonstellation beziehungsweise Regelgültigkeit in den Grundlagen prüfen; für Ansprüche zuständige Stelle kontaktieren.',
+ INPUTS_INCOMPLETE:'Den unterstützten Standardfall, Einkommen, Geburtstag und gegebenenfalls fehlende Eingaben in den Grundlagen bestätigen.',
+ RULE_CONFLICT:'Im Abschnitt „Plan prüfen“ betroffene Lebensmonate, mögliche Korrekturen und Quellen einsehen.',
+ FORECAST_ONLY:'2027er-Rechtslage vor der Verwendung amtlich prüfen. Die vorläufige Suche ist keine positive Anspruchsentscheidung.'
+});
+const MODE_EXPLANATIONS=Object.freeze({
+ estimate:'Beispiel-/Schätzwerte: keine persönlichen oder amtlich geprüften Einkommensangaben.',
+ known:'Eigene bekannte Nettoangaben: Gehalts-Auszahlungsnetto und Elterngeld-Netto bleiben verschiedene Werte; keine automatische amtliche Prüfung.',
+ official:'Werte als extern ermittelt gekennzeichnet: Die App hat Herkunft, Bescheid und Zeiträume nicht überprüft. Nicht den Elterngeld-Monatsbetrag als Elterngeld-Netto eingeben.'
+});
+const ISO=/^\d{4}-\d{2}-\d{2}$/;
+function describeModelScope({validation,state,catalogue,publicReleaseApproved=false}={}){
+ if(!validation||typeof validation!=='object'||!Object.hasOwn(STATES,validation.status)||
+    !Array.isArray(validation.findings)||typeof validation.provisionalPlanningEligible!=='boolean')
+  throw new TypeError('Strukturierter Validatorstatus erforderlich; ohne diesen keine Standardfall-Einstufung.');
+ if(!state||typeof state!=='object'||Array.isArray(state))
+  throw new TypeError('Planungsannahmen erforderlich.');
+ const window=catalogue?.applicable_standard_birth_window;
+ if(!window||!ISO.test(window.from)||!ISO.test(window.through)||window.from>window.through||
+    !ISO.test(catalogue.verified_as_of))
+  throw new TypeError('Datierter Rechtskatalog mit gültiger Standardkohorte erforderlich.');
+ // Intentionally fail shut if a future release decision is set elsewhere.
+ // Public launch has a separate, independent evidence-and-approval workflow.
+ if(publicReleaseApproved!==false)throw new RangeError('Öffentliche Freigabe darf nicht aus einer Modell-Einstufung abgeleitet werden.');
+ const codes=validation.findings.map(f=>String(f?.code??''));
+ const missingBirth=codes.includes('BIRTH_DATE_INVALID');
+ const forecast=validation.provisionalPlanningEligible===true &&
+    validation.status==='NICHT_UNTERSTUETZT';
+ const kind=missingBirth?'INPUTS_INCOMPLETE':forecast?'FORECAST_ONLY':STATES[validation.status];
+ const date=typeof state.date==='string'?state.date:'';
+ const withinWindow=ISO.test(date)&&date>=window.from&&date<=window.through;
+ const mode=Object.hasOwn(MODE_EXPLANATIONS,state.incomeEntryMode)?
+  state.incomeEntryMode:'estimate';
+ const expensesKnown=state.expenses!==''&&state.expenses!==null&&state.expenses!==undefined;
+ const sample=state.standardCaseConfirmed===true?'Bestätigung des Standardfalls gesetzt':
+  state.standardCaseConfirmed===false?'Standardfall verneint – individuelle Prüfung erforderlich':
+  'Standardfall noch nicht bestätigt';
+ const reasons=validation.findings.slice(0,3).map(f=>({
+   code:String(f.code??''),
+   status:String(f.status??''),
+   message:String(f.message??'')
+ }));
+ const birthText=withinWindow?
+  'Geburtsdatum innerhalb der technisch berücksichtigten Standardkohorte.':
+  forecast?'Geburtsdatum außerhalb der bestätigten Standardkohorte – Prognose ausdrücklich ohne Regelzusage.':
+  'Geburtsdatum liegt nicht in der bestätigten Standardkohorte oder ist ungültig.';
+ const moneyText=MODE_EXPLANATIONS[mode]+
+   (expensesKnown?' Haushaltsausgaben sind eingegeben, aber nicht extern überprüft.':
+   ' Haushaltsausgaben unbekannt: Der verbleibende Monatsbetrag ist nicht belastbar.');
+ return {
+  code:kind,title:TITLES[kind],nextStep:NEXT_STEPS[kind],
+  modelPlausible:kind==='PLAUSIBLE_MODEL',
+  forecastOnly:kind==='FORECAST_ONLY',
+  publicUseApproved:false,officialEntitlementConfirmed:false,
+  inputMode:mode,expensesKnown,withinStandardBirthWindow:withinWindow,
+  birthWindow:{from:window.from,through:window.through},
+  sourceCheckedAt:catalogue.verified_as_of,
+  sourceVersion:catalogue.version??null,
+  birthText,standardText:sample,moneyText,
+  reasons,remainingFindings:Math.max(0,validation.findings.length-reasons.length),
+  releaseText:'Öffentliche Freigabe ausstehend: unabhängige Berechnungs-, Rechts-, Datenschutz- und Nutzertests fehlen. Der Mutterschutz-Referenzkonflikt (4/5 Resttage) ist ungeklärt.',
+  disclaimer:'Dies ist eine Statusinterpretation der vorhandenen Modellprüfung, keine neue Rechtsregel, keine Bewilligung und kein Ersatz für persönliche Beratung.'
+ };
+}
+module.exports={describeModelScope,STATES,MODE_EXPLANATIONS};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* ModelScope_END */
 'use strict';
 (function(){
 const N=36;
@@ -3207,6 +3331,39 @@ function sanitizeImport(d){
 }
 
 function renderHeader(){const labels={PLAUSIBEL_STANDARD:'Standardregeln plausibel',REGELKONFLIKT:'Regelkonflikt',NICHT_UNTERSTUETZT:'Konstellation nicht validiert',DATEN_UNVOLLSTAENDIG:'Angaben zur Prüfung fehlen'};setTxt('globalPlanStatus','Alle Finanzwerte sind Schätzungen, keine amtlichen Bewilligungsbeträge. '+labels[current.validation.status]+' ('+current.validation.status+'). '+(current.valid?'Unabhängige fachliche Abnahme steht noch aus.':current.validation.findings[0]?.message||'Plan bitte korrigieren.'));setTxt('heroGross',euro(Number(s.netFather)+Number(s.netMother)));setTxt('heroCare',s.goalCare+' Lebensmonate');setTxt('heroMinimum',Number(s.goalMinIncome)>0?euro(s.goalMinIncome):'Noch nicht festgelegt');const r=current.rows[s.month-1];setTxt('liveAge',ageSpan(s.month));setTxt('liveMonth','LM '+s.month+' · '+dateFor(s.month));setTxt('liveBudget',euro(s.expenses===''?r.income:r.cashAfter));}
+function renderV317Scope(){
+ // All labels derive from the EXISTING validator, never duplicate BEEG checks.
+ const card=$('v317Scope');
+ try{
+  const report=ModelScope.describeModelScope({
+   validation:current.validation,state:s,catalogue:RULE_CATALOG,
+   publicReleaseApproved:false
+  });
+  if(card)card.dataset.scopeCode=report.code;
+  setTxt('v317ScopeStatus',report.title);
+  setTxt('v317ScopeBirth',report.standardText+'. '+report.birthText+
+   ' Technisches Geburtsfenster: '+report.birthWindow.from+' bis '+report.birthWindow.through+
+   '; Quellenstand: '+report.sourceCheckedAt+'.');
+  setTxt('v317ScopeMoney',report.moneyText);
+  const examples=report.reasons.map(reason=>reason.message).filter(Boolean);
+  setTxt('v317ScopeReasons',(examples.length?'Offene Punkte: '+examples.join(' · ')+'. ':'')+
+   (report.remainingFindings?'Weitere '+report.remainingFindings+' Hinweise unter „Plan prüfen“. ':'')+
+   'Nächster Schritt: '+report.nextStep);
+  setTxt('v317ScopeReview',report.releaseText);
+  setTxt('v317ScopeResultStatus',report.title);
+  setTxt('v317ScopeResultDetail',report.birthText+' '+report.moneyText+' '+report.releaseText);
+ }catch(error){
+  // Fail closed: a malformed catalogue/validator must never yield a green verdict.
+  if(card)card.dataset.scopeCode='UNAVAILABLE';
+  setTxt('v317ScopeStatus','Modellumfang nicht überprüfbar');
+  setTxt('v317ScopeBirth','Bitte den aktuellen Regel-/Datenstatus prüfen.');
+  setTxt('v317ScopeMoney','Keine amtlich bestätigte Berechnung oder Auszahlung.');
+  setTxt('v317ScopeReasons','Es konnte kein belastbarer Scope-Status ermittelt werden.');
+  setTxt('v317ScopeReview','Öffentliche Freigabe bleibt gesperrt.');
+  setTxt('v317ScopeResultStatus','Modellumfang nicht überprüfbar');
+  setTxt('v317ScopeResultDetail','Keine Freigabe. Bitte Eingaben und Quellen prüfen.');
+ }
+}
 function modelInfo(schedule,limit=s.horizon){const x=evaluate(schedule);return {total:x.sum(limit,'income'),eg:x.sum(N,'totalEg'),free:x.fFree,leave:x.fLeave,low:x.low(limit),valid:x.valid,errors:x.errors}}
 function renderModels(){
  $('modelGrid').innerHTML=SCENARIOS.map(x=>{const q=modelInfo(makeSchedule(x.id));return '<button type="button" class="model-card '+(s.model===x.id?'selected':'')+'" data-model="'+x.id+'" aria-pressed="'+(s.model===x.id)+'"><span class="model-title">'+esc(x.name)+'</span><span class="model-desc">'+esc(x.short)+'</span><span class="model-amount">'+euro(q.total)+'</span><span class="model-sub">Familienbudget / '+s.horizon+' LM (0–'+age(s.horizon)+')</span></button>';}).join('');
@@ -4370,7 +4527,7 @@ function renderMonthHourEditors(){
 }
 function renderAll(){
  if(goalSearchJob&&goalSearchJob.fingerprint!==goalInputsFingerprint())cancelGoalSearch('Eingaben geändert – Suche beendet. Bitte neu starten.');
- current=evaluate(s.schedule);renderInputs();renderHeader();renderModels();renderBuilder();renderTimeline();renderChart();renderDetail();renderCompare();renderPlus();renderChecks();
+ current=evaluate(s.schedule);renderInputs();renderHeader();renderV317Scope();renderModels();renderBuilder();renderTimeline();renderChart();renderDetail();renderCompare();renderPlus();renderChecks();
  renderIncomeGuide();
  renderMonthHourEditors();renderRegion();renderV315Kibiz();renderV315Care();renderV316Joint();renderV315Benefits();renderRuleLedger();renderRisk();renderFinanceGuidance();renderManualCostImpact();renderGoalResult();renderTimeAxes();renderApplicationGuide();renderPlanningKnowledge();renderParentLabels();updateNav();
 }

@@ -50,7 +50,9 @@ Die Ansicht für Köln zeigt bei Auswahl der historischen Gebührentabelle eine 
 | P2 Offline-Module | technisch umgesetzt | Regression pro künftigem Build wiederholen |
 | P2 Versionierte Importe | technisch umgesetzt | Migrationsprüfung beim nächsten Formatwechsel |
 | P2 Quellen-Statusprüfung | technisch umgesetzt | Regelmäßige inhaltliche erneute Quellenlektüre, keine automatische Genehmigung |
-| P2 alte Doppeldefinitionen | teilweise | Risikoarmer Refactor des alten HTML-Controllers mit vollständigen E2E-Prüfungen |
+| P2 alte Doppeldefinitionen | technisch umgesetzt | Eindeutige Controller-Funktionen mit automatischem Legacy-Check; vollständige Offline- und Browserregression bei künftigen Änderungen |
+
+**V3.14 Nachtrag:** Controller-Doppeldefinitionen bereinigt, eigenständige manuelle Steuer-/Versicherungskosten-Sensitivität, aktualisiertes vollständiges Kölner 2025-Gebührenmodul mit drei Altersgruppen, kleine vollständig enumerierte Suchraumprobe und schnelleres asynchrones Suchverfahren. Fünf unabhängige Freigabe-Blocker bleiben offen, drei Arbeitspakete teilweise, vier technische Pakete abgeschlossen. [Nachweispaket](ROADMAP-FACHABNAHME-V314-2026-10-17.md).
 
 Maschinenlesbarer Stand: data/roadmap-status-2026-10-17.json. Konsistenzcheck: npm run roadmap:check. Für künftige Änderungen sind Quell-, Rechts- und Freigabevalidierung unabhängig von einer erfolgreichen CI notwendig.
 

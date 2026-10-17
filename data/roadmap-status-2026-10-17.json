@@ -30,19 +30,19 @@
       "id": "P1-R5",
       "title": "Suchraum und Reaktionsfähigkeit",
       "status": "teilweise",
-      "nextEvidence": "Vollständig enumerierbare Teilräume und mobile Benchmarks"
+      "nextEvidence": "Breitere vollständig enumerierbare Teilräume, echte Smartphone-Laufzeiten und unabhängiger UX-Nachweis trotz verbessertem Browserlauf"
     },
     {
       "id": "P1-R6",
       "title": "Budget und Liquidität",
       "status": "teilweise",
-      "nextEvidence": "Versicherungs- und Steuerfallprüfung"
+      "nextEvidence": "Unabhängige Nachweise der tatsächlich zutreffenden Steuer- und Versicherungsbelastungen; die Zusatzkosten werden derzeit ausschließlich manuell angenommen"
     },
     {
       "id": "P1-R7",
       "title": "NRW und Köln",
       "status": "teilweise",
-      "nextEvidence": "Gebührensatzung 2027 unabhängig prüfen"
+      "nextEvidence": "Für künftige Betreuungsjahre gültige kommunale Beitragsregelung und individuelle Ausnahmen gegenprüfen; veröffentlichte Tabelle seit August 2025 liegt datiert vor"
     },
     {
       "id": "P1-R8",
@@ -71,8 +71,8 @@
     {
       "id": "P2-legacy",
       "title": "Alte UI-Doppeldefinitionen",
-      "status": "teilweise",
-      "nextEvidence": "Separater risikoarmer Refactor"
+      "status": "technisch umgesetzt",
+      "nextEvidence": "Automatischer legacy:check auf eindeutige Controller-Funktionen und vollständige UI-Regression bei jeder Änderung"
     }
   ]
 }

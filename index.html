@@ -609,6 +609,15 @@ body.v38-lite.v38-pristine .live-strip{display:none}
     <option value="unknown">Unbekannt</option><option value="yes">Ja, soweit relevant</option><option value="no">Nein</option></select></div>
   </div>
   <div id="v313FinanceResults" aria-live="polite"></div>
+  <details class="v314-cost-buffer" style="margin-top:14px">
+   <summary>Eigene Versicherungskosten und Steuer-Rücklage gegenrechnen</summary>
+   <p class="input-caption">Zusätzliche monatliche Beiträge und freiwillige Steuer-Rückstellung ausschließlich selbst angeben. Diese unverbindlichen Angaben ändern den gespeicherten Plan nicht und werden bei Import/Reset verworfen. Steuerabzüge und Beiträge werden <strong>nicht</strong> automatisch berechnet.</p>
+   <div class="input-grid">
+    <div class="form-group"><label for="v314InsuranceExtra">Zusätzliche Versicherungskosten pro Monat (€)</label><input id="v314InsuranceExtra" type="number" min="0" max="50000" step="0.01" inputmode="decimal" placeholder="Noch nicht eingegeben"></div>
+    <div class="form-group"><label for="v314TaxExtra">Frei gewählte Steuer-Rückstellung pro Monat (€)</label><input id="v314TaxExtra" type="number" min="0" max="50000" step="0.01" inputmode="decimal" placeholder="Noch nicht eingegeben"></div>
+   </div>
+   <div id="v314CostResult" aria-live="polite"></div>
+  </details>
   <p class="footnote">Diese unverbindliche Einordnung wird nur während der laufenden Sitzung angezeigt und verändert keine Beträge oder gespeicherte Plandaten.</p>
  </section>
 </section>
@@ -1757,6 +1766,7 @@ module.exports={calendarTaskExport,icalEscape,fold};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* CalendarExport_END */
+
 /* ApplicationGuide_START */
 const ApplicationGuide=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
@@ -1953,6 +1963,102 @@ module.exports={projectFamilyBudget};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* FamilyBudget_END */
+/* ManualCostImpact_START */
+const ManualCostImpact=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+const {projectFamilyBudget}=require('./family-budget.cjs');
+function cents(value,label){
+ if(typeof value!=='number'||!Number.isFinite(value)||value<0||value>50000||Math.abs(value*100-Math.round(value*100))>1e-7)
+  throw new RangeError(label+': 0 bis 50.000 Euro und maximal zwei Nachkommastellen.');
+ return Math.round(value*100);
+}
+/**
+ * Scenario only: explicit extra insurance expenses and voluntarily allocated tax
+ * reserve, neither a tax calculation nor a legal insurance premium.
+ * Re-evaluates exactly the same family-budget stress model with identical assumptions.
+ */
+function compareManualCostBuffer({rows,expenses,minimum=0,assumptions={},insurancePerMonth=0,taxReservePerMonth=0,insuranceAlreadyIncluded=false}={}){
+ if(!Array.isArray(rows)||!rows.length)throw new TypeError('Lebensmonatsdaten fehlen.');
+ if(expenses===''||expenses===null||expenses===undefined)
+  return {knownExpenses:false,results:[],disclaimer:'Haushaltsausgaben unbekannt – kein Finanzüberschuss oder Rücklagenbedarf berechenbar.'};
+ const expenseCents=cents(expenses,'Haushaltsausgaben');
+ const insuranceCents=cents(insurancePerMonth,'Zusätzlicher Versicherungsbeitrag');
+ const taxCents=cents(taxReservePerMonth,'Frei gewählter Steuerpuffer');
+ if(typeof insuranceAlreadyIncluded!=='boolean')throw new TypeError('Angabe zu bereits enthaltenen Versicherungsbeiträgen muss eindeutig sein.');
+ if(insuranceAlreadyIncluded&&insuranceCents>0)throw new RangeError('Versicherungsbeitrag ist bereits in den Haushaltskosten enthalten: nicht doppelt ansetzen.');
+ const extraCents=insuranceCents+taxCents;
+ if(expenseCents+extraCents>1e9)throw new RangeError('Zusammengefasste Monatskosten zu hoch.');
+ const basis=projectFamilyBudget({rows,expenses:expenseCents/100,minimum,assumptions});
+ const adjusted=projectFamilyBudget({rows,expenses:(expenseCents+extraCents)/100,minimum,assumptions});
+ const results=basis.scenarios.map((scenario,i)=>({
+  id:scenario.id,label:scenario.label,
+  normalReserve:scenario.requiredReserves,
+  bufferReserve:adjusted.scenarios[i].requiredReserves,
+  additionalReserve:Math.round((adjusted.scenarios[i].requiredReserves-scenario.requiredReserves)*100)/100,
+  normalLowest:scenario.lowestAvailable,
+  adjustedLowest:adjusted.scenarios[i].lowestAvailable,
+  originalTotal:scenario.totalAvailable,
+  adjustedTotal:adjusted.scenarios[i].totalAvailable
+ }));
+ return {knownExpenses:true,months:rows.length,insurancePerMonth:insuranceCents/100,taxReservePerMonth:taxCents/100,
+  additionalAllocatedPerMonth:extraCents/100,results,
+  legalTaxCalculated:false,insurancePremiumInferred:false,entitlementChanged:false,
+  disclaimer:'Reiner Vergleich ausdrücklich angenommener zusätzlicher Beiträge und freiwilliger Steuerrückstellung. Keine amtliche Steuer-/Versicherungsberechnung. Beide Modellrechnungen verwenden identische Stressannahmen; keine Konto-Zahlungsprognose.'};
+}
+module.exports={compareManualCostBuffer};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* ManualCostImpact_END */
+/* CologneFees_START */
+const CologneFees=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+// This is a DATED 2025 tariff snapshot, NOT a live bill and never a benefit.
+// Source: Stadt Koeln, contribution rates effective 2025-08-01, checked 2026-10-17.
+const SOURCE='https://www.stadt-koeln.de/service/produkte/00405/index.html';
+const CHECKED='2026-10-17',EFFECTIVE_FROM='2025-08-01';
+const LIMITS=Object.freeze([24542,36813,49084,61355,78000,100000,120000,140000,160000,Infinity]);
+const TABLE=Object.freeze({
+ under2:{
+  25:[0,120.02,190.73,268.64,331.51,430.96,517.15,594.72,620.58,672.30],
+  35:[0,133.36,211.92,298.49,368.35,478.86,574.63,660.82,689.56,747.02],
+  45:[0,148.18,235.47,331.65,409.29,532.06,638.48,734.25,766.18,830.02]},
+ age2:{
+  25:[0,120.02,181.65,244.22,276.26,331.51,397.81,457.48,477.37,517.15],
+  35:[0,133.36,201.83,271.35,306.96,368.35,442.02,508.32,530.42,574.63],
+  45:[0,148.18,224.26,301.50,341.07,409.28,491.14,564.81,589.37,638.48]},
+ age3:{
+  25:[0,31.52,70.73,112.85,148.46,178.15,213.78,245.85,256.54,277.91],
+  35:[0,35.03,78.59,125.39,164.96,197.95,237.54,273.17,285.05,308.80],
+  45:[0,42.00,123.67,193.94,256.36,307.63,369.16,424.53,442.99,479.91]}
+});
+function checkedNumber(v,label,max=1e8){
+ if(typeof v!=='number'||!Number.isFinite(v)||v<0||v>max)throw new RangeError(label+' ist ungültig.');
+ return v;
+}
+function estimateCologneFee({lifeMonth,annualIncome,hours,meals=0,careDate}={}){
+ if(!Number.isInteger(lifeMonth)||lifeMonth<1||lifeMonth>96)throw new RangeError('Lebensmonat 1 bis 96 erforderlich.');
+ checkedNumber(annualIncome,'Kommunales Jahreseinkommen');
+ checkedNumber(meals,'Essensgeld',10000);
+ if(![25,35,45].includes(hours))throw new RangeError('Betreuungsstunden: nur 25, 35 oder 45 möglich.');
+ if(typeof careDate!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(careDate)||
+  Number.isNaN(Date.parse(careDate))||new Date(careDate+'T00:00:00Z').toISOString().slice(0,10)!==careDate)
+  throw new RangeError('Gültiges Betreuungsdatum erforderlich.');
+ const group=lifeMonth<=24?'under2':lifeMonth<=36?'age2':'age3';
+ const idx=LIMITS.findIndex(limit=>annualIncome<=limit);
+ const monthly=TABLE[group][hours][idx];
+ const cents=value=>Math.round(value*100);
+ const amount=(cents(monthly)+cents(meals))/100;
+ return {ratePerMonth:monthly,mealsPerMonth:meals,illustrativeTotal:amount,
+  group,incomeBand:idx,hours,source:SOURCE,checkedAt:CHECKED,effectiveFrom:EFFECTIVE_FROM,
+  snapshotStatus:careDate>CHECKED?'FUTURE_NOT_VERIFIED':careDate<EFFECTIVE_FROM?'BEFORE_REFERENCE_EFFECTIVE':'DATED_PUBLISHED_REFERENCE',
+  includesSiblingDiscount:false,includesContributionWaiver:false,usedInFamilyBudget:false};
+}
+module.exports={estimateCologneFee,TABLE,LIMITS,SOURCE,CHECKED,EFFECTIVE_FROM};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* CologneFees_END */
 /* PlanComparison_START */
 const PlanComparison=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
@@ -2346,11 +2452,6 @@ let cachedCalendarKey='',cachedCalendar=[];
 function calendarMonths(){if(cachedCalendarKey!==s.date){cachedCalendar=TimeAxes.lifeMonths(s.date,N);cachedCalendarKey=s.date;}return cachedCalendar;}
 function dateFor(lm){try{const m=calendarMonths()[lm-1];return TimeAxes.formatDateDE(m.startDate)+' bis '+TimeAxes.formatDateDE(m.endDate)}catch(e){return 'Datum prüfen'}}
 
-function ptNet(who){
- const hours=toNum(s[who==='f'?'hoursFather':'hoursMother']);
- const ref=toNum(s[who==='f'?'ptNetFather':'ptNetMother']);
- return hours<=0?0:ref*hours/28;
-}
 function rate(pre){if(pre>=LEGAL.replacement_full_high_eur)return LEGAL.replacement_high;if(pre>LEGAL.replacement_high_threshold_eur)return LEGAL.replacement_low-(pre-LEGAL.replacement_high_threshold_eur)*LEGAL.replacement_rate_step_per_eur;if(pre>=LEGAL.replacement_low_threshold_eur)return LEGAL.replacement_low;return Math.min(LEGAL.replacement_rate_max,LEGAL.replacement_low+(LEGAL.replacement_low_threshold_eur-pre)*LEGAL.replacement_rate_step_per_eur)}
 const benefitAmountCache=new Map();
 function benefitAmount(type,pre,after){
@@ -2369,105 +2470,13 @@ function equivalent(code){return code==='MS'||code==='B'||code==='R'?1:['P','T']
 function benefitCode(code){return ['B','R','P','T','K'].includes(code)}
 function leaveCode(code){return ['MS','B','R','P','T','Q','K','U'].includes(code)}
 function offCode(code){return ['B','P','U'].includes(code)}
-function evaluate(schedule){
- let consumed=0,conF=0,conM=0;
- const pF=ptNet('f'),pM=ptNet('m');
- const months=schedule.map((row,i)=>{
-  const f=STAT[row.f]?row.f:'W',m=i<2?'MS':STAT[row.m]?row.m:'W';
-  const fi=getWage(f,s.netFather,pF),mi=getWage(m,s.netMother,pM);
-  const fg=getBenefit(f,s.egNetFather,pF),mg=getBenefit(m,s.egNetMother,pM);
-  const fc=equivalent(f),mc=equivalent(m),income=fi+mi+fg+mg+s.kind;
-  consumed+=fc+mc;conF+=fc;conM+=mc;
-  return {lm:i+1,f,m,fi,mi,fg,mg,fc,mc,income,totalWage:fi+mi,totalEg:fg+mg,kind:s.kind,deficit:s.expenses!==''?income-s.expenses:null};
- });
- const errors=[],notices=[];
- if(consumed>14+.001)errors.push('Über 14 gemeinsame Basis-Monatsäquivalente ('+fmt1(consumed)+').');
- if(conF>12+.001)errors.push('Mehr als 12 Basis-Monatsäquivalente beim Vater.');
- if(conM>12+.001)errors.push('Mehr als 12 Basis-Monatsäquivalente bei der Mutter.');
- let parallel=0;const bonusMonths=[];
- for(let i=0;i<N;i++){
-  const r=months[i],lm=i+1;
-  const bothBase=['MS','B','R'].includes(r.m)&&['B','R'].includes(r.f);
-  if(bothBase){parallel++;if(lm>12)errors.push('Gleichzeitiges Basiselterngeld nach LM 12 (LM '+lm+').');}
-  if(lm>14&&['B','R'].includes(r.f)||lm>14&&['B','R'].includes(r.m))errors.push('Basiselterngeld nach LM 14 (LM '+lm+').');
-  if(lm>32&&['P','T','K'].some(x=>r.f===x||r.m===x))errors.push('ElterngeldPlus oder Bonus nach LM 32 (LM '+lm+').');
-  const fk=r.f==='K',mk=r.m==='K';if(fk!==mk)errors.push('Partnerschaftsbonus in LM '+lm+' nicht für beide gleichzeitig.');
-  if(fk||mk)bonusMonths.push(lm);
- }
- if(parallel>1)errors.push('Mehr als ein paralleler Basiselterngeldmonat.');
- if(bonusMonths.length){
-  if(bonusMonths.length<2||bonusMonths.length>4||!bonusMonths.every((x,i)=>i===0||x===bonusMonths[i-1]+1))errors.push('Partnerschaftsbonus muss 2–4 direkt aufeinanderfolgende Monate dauern.');
-  if(s.hoursFather<24||s.hoursFather>32||s.hoursMother<24||s.hoursMother>32)errors.push('Partnerschaftsbonus verlangt bei beiden 24–32 Stunden pro Woche.');
- }
- for(const [who,hours,label] of [['f',s.hoursFather,'Vater'],['m',s.hoursMother,'Mutter']]){
-  if(months.some(r=>['R','T','Q','K'].includes(r[who]))&&hours>32)errors.push('Teilzeit in Elternzeit bei '+label+' liegt über 32 Stunden pro Woche.');
- }
- const lastPlus=months.reduce((last,r,i)=>['P','T','K'].some(x=>r.f===x||r.m===x)?i+1:last,0);
- if(lastPlus>14){for(let lm=15;lm<=lastPlus;lm++){const r=months[lm-1];if(!['P','T','K'].some(x=>r.f===x||r.m===x)){errors.push('Bezugslücke ab LM 15: LM '+lm+' ohne ElterngeldPlus/Bonus.');break}}}
- if(s.egNetFather!==s.netFather||s.egNetMother!==s.netMother)notices.push('Das getrennt eingegebene pauschalierte Elterngeld-Netto weicht vom Auszahlungsnetto ab.');
- if(s.hoursFather!==28||s.hoursMother!==28)notices.push('Teilzeit-Netto ist aus dem Netto-Referenzwert bei 28 Stunden umgerechnet, nicht amtlich ermittelt.');
- if(s.expenses!==''){const short=months.slice(0,s.horizon).filter(r=>r.deficit<0).length;if(short)notices.push(short+' Lebensmonate unterschreiten das eingestellte Ausgabenbudget.');}
- const x={rows:months,errors,notices,consumed,conF,conM,valid:errors.length===0};
- x.sum=(n,key)=>months.slice(0,n).reduce((a,r)=>a+r[key],0);
- x.low=n=>Math.min(...months.slice(0,n).map(r=>r.income));
- x.fFree=months.filter(r=>offCode(r.f)).length;x.mFree=months.filter(r=>offCode(r.m)||r.m==='MS').length;
- x.fLeave=months.filter(r=>leaveCode(r.f)).length;x.mLeave=months.filter(r=>leaveCode(r.m)).length;
- x.bonusCount=bonusMonths.length;
- return x;
-}
 function getBuilderConfig(who){const ext=who==='f'?'Father':'Mother';const minStart=who==='f'?1:3;
  const start=int(s['leaveStart'+ext],minStart,N),count=int(s['leaveMonths'+ext],0,N-start+1);
  const mode=['B','P','M','N'].includes(s['benefit'+ext])?s['benefit'+ext]:'B';
  const basisFirst=int(s['basisFirst'+ext],0,12),partAfter=int(s['partAfter'+ext],0,999);
  return {who,start,count,mode,basisFirst,partAfter};
 }
-function builderSchedule(){
- const a=Array.from({length:N},()=>({f:'W',m:'W'}));a[0].m='MS';a[1].m='MS';
- const wanted=Array.from({length:N},()=>({f:'',m:''}));
- builderNotices=[];lastBuilderTruncated=0;
- for(const who of ['m','f']){
-  const q=getBuilderConfig(who),ext=who==='f'?'Father':'Mother';
-  const declaredCount=toNum(s['leaveMonths'+ext]);if(declaredCount>q.count){builderNotices.push((who==='f'?'Deine':'Die')+' Elternzeit passt nicht vollständig in die ersten 36 Lebensmonate; auf '+q.count+' Monate gekürzt.');lastBuilderTruncated++}
-  for(let j=0;j<q.count;j++){
-   const lm=q.start+j;if(lm>36)break;
-   const pt=j>=q.partAfter&&toNum(s[who==='f'?'hoursFather':'hoursMother'])>0;
-   const unpaid=pt?'Q':'U';a[lm-1][who]=unpaid;
-   const request=q.mode==='N'?'':q.mode==='M'?(j<q.basisFirst?'B':'P'):q.mode;
-   wanted[lm-1][who]=request;
-  }
- }
- let fSpent=0,mSpent=2,allSpent=2,parallel=0,unpaid=0;
- for(let i=0;i<N;i++){
-  for(const who of ['m','f']){
-   if(i<2&&who==='m')continue;
-   const request=wanted[i][who];if(!request)continue;
-   const lm=i+1,base=request==='B',weight=base?1:.5;
-   const part=a[i][who]==='Q';
-   const forbidden=base?lm>14:lm>32;
-   const concurrent=base&&['B','R','MS'].includes(a[i][who==='f'?'m':'f']);
-   const parallelForbidden=concurrent&&(lm>12||parallel>=1);
-   const own=who==='f'?fSpent:mSpent;
-   if(forbidden||parallelForbidden||allSpent+weight>14+.00001||own+weight>12+.00001){unpaid++;continue;}
-   if(concurrent)parallel++;
-   a[i][who]=base?(part?'R':'B'):(part?'T':'P');
-   allSpent+=weight;if(who==='f')fSpent+=weight;else mSpent+=weight;
-  }
- }
- // After LM 14, payments must be uninterrupted until the last Plus month.
- let hasGap=false,dropped=0;
- for(let i=14;i<N;i++){
-  const r=a[i],plusHere=['P','T','K'].some(code=>r.f===code||r.m===code);
-  const prevPlus=['P','T','K'].some(code=>a[i-1].f===code||a[i-1].m===code);
-  if(!prevPlus&&!plusHere)hasGap=true;
-  if(hasGap&&plusHere){for(const who of ['f','m'])if(['P','T'].includes(a[i][who])){a[i][who]=a[i][who]==='T'?'Q':'U';dropped++;}}
-  // If LM14 had no Plus, even LM15 cannot begin a new Plus series.
-  if(i===14&&!prevPlus&&plusHere){for(const who of ['f','m'])if(['P','T'].includes(a[i][who])){a[i][who]=a[i][who]==='T'?'Q':'U';dropped++;}hasGap=true;}
- }
- if(unpaid)builderNotices.push(unpaid+' gewünschte Elterngeldmonate werden wegen der üblichen Zeit-/Kontingentgrenzen als Elternzeit ohne Elterngeld geplant.');
- if(dropped)builderNotices.push(dropped+' Plus-Monate nach einer Bezugslücke ab LM 15 können nicht ausgezahlt werden und wurden in unbezahlte Elternzeit umgewandelt.');
- return a;
-}
-function clone(x){return JSON.parse(JSON.stringify(x))}
+function clone(x){return JSON.parse(JSON.stringify(x));}
 function applyBuilder(){s.employmentOverrides=null;s.benefitOverrides=null;s.schedule=builderSchedule();s.model='custom';builderActive=true;s.month=Math.min(Math.max(1,s.leaveStartFather),N);renderAll();persist();}
 function applyExample(name){
  const q=name==='extended'?{leaveStartFather:3,leaveMonthsFather:18,benefitFather:'B',basisFirstFather:8,partAfterFather:999}:{leaveStartFather:3,leaveMonthsFather:24,benefitFather:'P',basisFirstFather:8,partAfterFather:999};
@@ -2488,7 +2497,6 @@ function presetBuilderSync(id){
 function chooseModel(id){if(!SCENARIOS.some(c=>c.id===id))return;s.schedule=makeSchedule(id);s.employmentOverrides=null;s.benefitOverrides=null;s.model=id;builderActive=false;presetBuilderSync(id);s.month=id==='father13'?1:3;builderNotices=[];renderAll();persist();showToast('Modell geladen: '+SCENARIOS.find(c=>c.id===id).name);}
 function setTxt(id,value){const el=$(id);if(el)el.textContent=String(value)}
 function showToast(value){const el=$('toast');el.textContent=value;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2400)}
-function persist(){try{localStorage.setItem('elternzeit-familienplan-v2',JSON.stringify(s))}catch(e){}}
 function sanitizeImport(d){
  if(!d||typeof d!=='object'||Array.isArray(d)||!Array.isArray(d.schedule)||![32,N].includes(d.schedule.length))throw Error('Datei benötigt 32 oder 36 Lebensmonate.');
  const value=clone(defaults);
@@ -2521,13 +2529,6 @@ function sanitizeImport(d){
  return value;
 }
 
-function restore(){try{const raw=localStorage.getItem('elternzeit-familienplan-v2')||localStorage.getItem('elternzeit-familienplan-v1');if(raw){const d=JSON.parse(raw);if(Array.isArray(d.schedule)&&[32,N].includes(d.schedule.length))s=sanitizeImport(d)}}catch(e){}}
-function renderInputs(){document.querySelectorAll('[data-field], [data-build]').forEach(el=>{
- const field=el.dataset.field||el.dataset.build;const v=s[field];if(el.value!==String(v))el.value=String(v);
- });
- setTxt('ptEffectiveFather',euro(ptNet('f')));setTxt('ptEffectiveMother',euro(ptNet('m')));
- setTxt('ptHoursFather',s.hoursFather);setTxt('ptHoursMother',s.hoursMother);
-}
 function renderHeader(){const labels={PLAUSIBEL_STANDARD:'Standardregeln plausibel',REGELKONFLIKT:'Regelkonflikt',NICHT_UNTERSTUETZT:'Konstellation nicht validiert',DATEN_UNVOLLSTAENDIG:'Angaben zur Prüfung fehlen'};setTxt('globalPlanStatus','Alle Finanzwerte sind Schätzungen, keine amtlichen Bewilligungsbeträge. '+labels[current.validation.status]+' ('+current.validation.status+'). '+(current.valid?'Unabhängige fachliche Abnahme steht noch aus.':current.validation.findings[0]?.message||'Plan bitte korrigieren.'));setTxt('heroGross',euro(Number(s.netFather)+Number(s.netMother)));setTxt('heroCare',s.goalCare+' Lebensmonate');setTxt('heroMinimum',Number(s.goalMinIncome)>0?euro(s.goalMinIncome):'Noch nicht festgelegt');const r=current.rows[s.month-1];setTxt('liveAge',ageSpan(s.month));setTxt('liveMonth','LM '+s.month+' · '+dateFor(s.month));setTxt('liveBudget',euro(s.expenses===''?r.income:r.cashAfter));}
 function modelInfo(schedule,limit=s.horizon){const x=evaluate(schedule);return {total:x.sum(limit,'income'),eg:x.sum(N,'totalEg'),free:x.fFree,leave:x.fLeave,low:x.low(limit),valid:x.valid,errors:x.errors}}
 function renderModels(){
@@ -2632,11 +2633,6 @@ function renderCompare(){
  tbody.innerHTML=items.join('');setTxt('compareHorizon',s.horizon);
  tbody.querySelectorAll('tr[data-compare]').forEach(tr=>{const fn=()=>{if(tr.dataset.compare!=='custom'){chooseModel(tr.dataset.compare);showSlide(5)}};tr.addEventListener('click',fn);tr.addEventListener('keydown',e=>{if(e.key==='Enter')fn()})});
 }
-function renderPlus(){
- const b=basis(s.egNetFather,0),p=plus(s.egNetFather,0),part=ptNet('f'),pt=plus(s.egNetFather,part);
- setTxt('plusBase',euro(b));setTxt('plusHalf',euro(p));setTxt('plusPart',euro(pt));setTxt('plusWork',euro(part));setTxt('plusHours',s.hoursFather);
- setTxt('houseBase',euro(s.netMother+b+s.kind));setTxt('housePlus',euro(s.netMother+p+s.kind));setTxt('housePart',euro(s.netMother+part+pt+s.kind));
-}
 function renderChecks(){
  const v=current.validation;
  const labels={PLAUSIBEL_STANDARD:'Standardfall plausibel',REGELKONFLIKT:'Regelkonflikt',NICHT_UNTERSTUETZT:'Nicht unterstützt',DATEN_UNVOLLSTAENDIG:'Daten fehlen'};
@@ -2646,7 +2642,6 @@ function renderChecks(){
  $('checkItems').innerHTML=v.findings.map(f=>'<div class="note '+(f.status==='REGELKONFLIKT'?'danger':'warn')+'" style="margin-top:10px"><strong>'+esc(f.ruleId)+' · '+esc(f.message)+'</strong><p>'+esc((f.parents||[]).map(p=>p==='father'?parentName('father'):p==='mother'?parentName('mother'):p).join(', '))+' '+(f.lifeMonths?.length?' · LM '+esc(f.lifeMonths.join(', ')):'')+'</p><p>'+esc((f.alternatives||[]).join(' · '))+'</p><a href="'+esc(f.source?.url||'https://www.gesetze-im-internet.de/beeg/')+'" target="_blank" rel="noopener noreferrer">'+esc(f.source?.title||'Amtliche Quelle')+'</a><p class="input-caption">Prüfdatum: '+esc(f.source?.checkedAt||'offen')+'</p></div>').join('')+current.notices.map(e=>'<div class="note warn" style="margin-top:8px">'+esc(e)+'</div>').join('');
 }
 
-function renderAll(){current=evaluate(s.schedule);renderInputs();renderHeader();renderModels();renderBuilder();renderTimeline();renderChart();renderDetail();renderCompare();renderPlus();renderChecks();updateNav()}
 function updateNav(){const slides=[...document.querySelectorAll('.slide')];slides.forEach((sl,i)=>sl.classList.toggle('active',i===slideIndex));[...$('sectionNav').children].forEach((b,i)=>b.classList.toggle('active',i===slideIndex));setTxt('counter',(slideIndex+1)+' / '+slides.length);$('progress').style.width=100*(slideIndex+1)/slides.length+'%';$('previous').disabled=slideIndex===0;$('next').disabled=slideIndex===slides.length-1}
 function showSlide(i){slideIndex=Math.max(0,Math.min(document.querySelectorAll('.slide').length-1,i));updateNav();window.scrollTo?.({top:0,behavior:'smooth'})}
 function listenInputs(){
@@ -2684,13 +2679,6 @@ function initNav(){
  $('btnCsv').addEventListener('click',downloadCsv);$('btnJson').addEventListener('click',downloadJson);$('importJson').addEventListener('change',importJson);
 }
 function download(content,name,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),800)}
-function downloadCsv(){
- const header=['Lebensmonat','Kindesalter_Beginn','Kindesalter_Ende','Datumszeitraum','Vater_Status','Mutter_Status','Vater_Gehalt','Mutter_Gehalt_oder_Mutterschutz','Elterngeld_Vater','Elterngeld_Mutter','Kindergeld','Familieneinkommen','Differenz_ggue_Vollzeit'];
- const records=current.rows.map(r=>[r.lm,age(r.lm-1),age(r.lm),dateFor(r.lm),r.f,r.m,Math.round(r.fi),Math.round(r.mi),Math.round(r.fg),Math.round(r.mg),r.kind,Math.round(r.income),Math.round(r.income-(s.netFather+s.netMother+s.kind))].join(';'));
- download('\ufeff'+[header.join(';'),...records].join('\r\n'),'Elternzeit_Monatsplan_mit_Kindesalter_2027.csv','text/csv;charset=utf-8');showToast('CSV mit Kindesalter gespeichert');
-}
-function downloadJson(){download(JSON.stringify({fileType:'elternzeit-interaktiv-v2',exportedAt:new Date().toISOString(),data:s},null,2),'Elternzeit_Individueller_Plan_2027.json','application/json;charset=utf-8');showToast('Plan als JSON gespeichert')}
-function importJson(evt){const file=evt.target.files?.[0];if(!file)return;if(file.size>1000000){alert('Importdatei ist größer als 1 MB. Bitte eine gültige Plan-Datei auswählen.');evt.target.value='';return;}const reader=new FileReader();reader.onload=()=>{try{const j=JSON.parse(reader.result),v=j.data||j;if(!Array.isArray(v.schedule)||![32,N].includes(v.schedule.length))throw Error('Ungültige Datei: 32 oder 36 Lebensmonate erwartet.');const imported=sanitizeImport(v);cancelGoalSearch();deleteLocalData();s=imported;builderActive=false;builderNotices=[];renderAll();persist();showToast('Plan erfolgreich geladen')}catch(e){alert('Import fehlgeschlagen: '+e.message)}evt.target.value=''};reader.readAsText(file)}
 // V3 Erweiterung: Standardfall DE/NRW; offline-Quellenstand 14.10.2026.
 // Source of truth: data/rechtsregeln-de-nrw-2026-10-14.json.
 // The next block is auto-generated for an OFFLINE-capable single HTML file.
@@ -3104,17 +3092,14 @@ function egPtNet(who,hours,ptFactor=1,preFactor=1){
 let maternityCacheKey='',maternityCache=[];
 function matDaysAt(lm){try{const key=[s.date,s.expectedDueDate,s.postnatalDays].join('|');if(key!==maternityCacheKey){const mat=TimeAxes.maternityTimeline({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,postnatalDays:Number(s.postnatalDays)||56});maternityCache=calendarMonths().map(m=>({days:TimeAxes.daysOverlapInclusive(m.startDate,m.endDate,mat.postnatal.startDate,mat.postnatal.endDate),len:m.days}));maternityCacheKey=key;}return maternityCache[lm-1]||{days:0,len:30}}catch(e){return {days:0,len:30}}}
 
-// Official Cologne contribution table valid since 2025-08-01 (future 2027 NOT verified).
-const COLOGNE_FEES_2025={
- upper:[24542,36813,49084,61355,78000,100000,120000,140000,160000,Infinity],
- under2:{25:[0,120.02,190.73,268.64,331.51,430.96,517.15,594.72,620.58,672.30],35:[0,133.36,211.92,298.49,368.35,478.86,574.63,660.82,689.56,747.02],45:[0,148.18,235.47,331.65,409.29,532.06,638.48,734.25,766.18,830.02]},
- age2:{25:[0,120.02,181.65,244.22,276.26,331.51,397.81,457.48,477.37,517.15],35:[0,133.36,201.83,271.35,306.96,368.35,442.02,508.32,530.42,574.63],45:[0,148.18,224.26,301.50,341.07,409.28,491.14,564.81,589.37,638.48]}
-};
+// The city publishes a 2025 tariff snapshot. It never replaces manually entered Kita costs.
 function cologneFee2025(lm){
- const annual=clampNum(s.childcareIncome),wk=[25,35,45].includes(Number(s.childcareHours))?Number(s.childcareHours):35;
- const idx=COLOGNE_FEES_2025.upper.findIndex(v=>annual<=v);
- const table=(lm<=24?COLOGNE_FEES_2025.under2:COLOGNE_FEES_2025.age2)[wk];
- return (table[idx<0?table.length-1:idx]||0)+clampNum(s.childcareMeals);
+ const period=calendarMonths()[lm-1];
+ const result=CologneFees.estimateCologneFee({
+  lifeMonth:lm,annualIncome:clampNum(s.childcareIncome),
+  hours:Number(s.childcareHours),meals:clampNum(s.childcareMeals),careDate:period.startDate
+ });
+ return result.illustrativeTotal;
 }
 function childcareEstimate(lm){
  if(!(Number(s.childcareStart)>0&&lm>=Number(s.childcareStart)))return 0;
@@ -3302,6 +3287,7 @@ function stressCalculation(calc,scenario){const rows=scenario.months.map((m,i)=>
 function riskScenarios(schedule=s.schedule){const calc=evaluate(schedule),budget=familyBudget(calc);return budget.scenarios.map((q,i)=>({id:['down','base','up'][i],name:q.label,desc:i===1?'Eure eingegebenen Einkommen und Kosten unverändert':`Einkommensband Vater ${budget.assumptions.fatherWagePercent} %, Mutter ${budget.assumptions.motherWagePercent} %; Leistungsbetrag ${budget.assumptions.elterngeldPercent} %, Kosten ${budget.assumptions.costPercent} %. Reiner Stresstest.`,calc:stressCalculation(calc,q)}));}
 
 let v313InsuranceMode='unknown',v313InsuranceIncluded='unknown';
+let v314InsuranceExtra='',v314TaxExtra='';
 function renderFinanceGuidance(){
  const box=$('v313FinanceResults');if(!box)return;
  try{
@@ -3317,14 +3303,50 @@ function renderFinanceGuidance(){
    '. Kein automatischer Beitrags- oder Steuerbetrag.</p></div></div>').join('');
  }catch(error){box.innerHTML='<div class="note danger">'+esc(error.message)+'</div>';}
 }
+function renderManualCostImpact(){
+ const box=$('v314CostResult');if(!box)return;
+ if(v314InsuranceExtra===''&&v314TaxExtra===''){
+  box.innerHTML='<p class="input-caption">Noch keine zusätzlichen Beiträge oder Rückstellungen angenommen. Keine zusätzlichen Kosten gebucht.</p>';
+  return;
+ }
+ if(s.expenses===''){
+  box.innerHTML='<div class="note warn">Haushaltsausgaben sind unbekannt. Bitte zuerst eure Monatskosten eingeben, bevor ein zusätzlicher Rücklagenbedarf bewertet wird.</div>';
+  return;
+ }
+ try{
+  const raw=id=>id===''?0:Number(id);
+  const r=ManualCostImpact.compareManualCostBuffer({
+   rows:current.rows.slice(0,s.horizon),expenses:s.expenses,minimum:s.goalMinIncome,
+   assumptions:{wagePercent:s.riskPercent,fatherWagePercent:s.riskFatherPercent,motherWagePercent:s.riskMotherPercent,
+    elterngeldPercent:s.riskEgPercent,costPercent:s.riskCostPercent},
+   insurancePerMonth:raw(v314InsuranceExtra),taxReservePerMonth:raw(v314TaxExtra),
+   insuranceAlreadyIncluded:v313InsuranceIncluded==='yes'
+  });
+  const possibleDouble=v313InsuranceIncluded==='unknown'&&r.insurancePerMonth>0?
+   '<div class="note warn">Unbekannt, ob Versicherungsbeiträge schon in den Haushaltskosten stecken. Bitte Dopplung ausschließen.</div>':'';
+  box.innerHTML=possibleDouble+'<p class="detail">Zusätzlich selbst angesetzt: Versicherung '+euro(r.insurancePerMonth)+
+   ' und Steuer-Rückstellung '+euro(r.taxReservePerMonth)+' monatlich. Keine Steuer- oder Beitragsberechnung.</p>'+
+   '<div class="h-scroll" tabindex="0" role="region" aria-label="Rücklagenvergleich unter eigenen Kostenannahmen"><table class="plan-budget-table" style="width:100%"><thead><tr><th scope="col">Szenario</th><th scope="col">Bisherige Rücklage</th><th scope="col">Mit Annahme</th><th scope="col">Unterschied</th></tr></thead><tbody>'+
+   r.results.map(x=>'<tr><th scope="row">'+esc(x.label)+'</th><td>'+euro(x.normalReserve)+'</td><td>'+euro(x.bufferReserve)+'</td><td>'+euro(x.additionalReserve)+'</td></tr>').join('')+
+   '</tbody></table></div><p class="input-caption">'+esc(r.disclaimer)+'</p>';
+ }catch(error){box.innerHTML='<div class="note danger" role="alert">'+esc(error.message)+'</div>';}
+}
 function resetFinanceGuidance(){
  v313InsuranceMode='unknown';v313InsuranceIncluded='unknown';
+ v314InsuranceExtra='';v314TaxExtra='';
+ if($('v314InsuranceExtra'))$('v314InsuranceExtra').value='';
+ if($('v314TaxExtra'))$('v314TaxExtra').value='';
  if($('v313InsuranceType'))$('v313InsuranceType').value='unknown';
  if($('v313InsuranceIncluded'))$('v313InsuranceIncluded').value='unknown';
 }
 function listenFinanceGuidance(){
  $('v313InsuranceType').addEventListener('change',e=>{v313InsuranceMode=e.target.value;renderFinanceGuidance();});
- $('v313InsuranceIncluded').addEventListener('change',e=>{v313InsuranceIncluded=e.target.value;renderFinanceGuidance();});
+ $('v313InsuranceIncluded').addEventListener('change',e=>{v313InsuranceIncluded=e.target.value;renderFinanceGuidance();renderManualCostImpact();});
+ for(const [id,key]of [['v314InsuranceExtra','insurance'],['v314TaxExtra','tax']])$(id).addEventListener('input',e=>{
+  if(key==='insurance')v314InsuranceExtra=e.target.value;
+  else v314TaxExtra=e.target.value;
+  renderManualCostImpact();
+ });
 }
 function renderRisk(){
  setTxt('riskValue',s.riskPercent+' %');setTxt('riskEgValue',s.riskEgPercent+' %');setTxt('riskCostValue',s.riskCostPercent+' %');
@@ -3375,7 +3397,7 @@ function renderAll(){
  if(goalSearchJob&&goalSearchJob.fingerprint!==goalInputsFingerprint())cancelGoalSearch('Eingaben geändert – Suche beendet. Bitte neu starten.');
  current=evaluate(s.schedule);renderInputs();renderHeader();renderModels();renderBuilder();renderTimeline();renderChart();renderDetail();renderCompare();renderPlus();renderChecks();
  renderIncomeGuide();
- renderMonthHourEditors();renderRegion();renderRuleLedger();renderRisk();renderFinanceGuidance();renderGoalResult();renderTimeAxes();renderApplicationGuide();renderPlanningKnowledge();renderParentLabels();updateNav();
+ renderMonthHourEditors();renderRegion();renderRuleLedger();renderRisk();renderFinanceGuidance();renderManualCostImpact();renderGoalResult();renderTimeAxes();renderApplicationGuide();renderPlanningKnowledge();renderParentLabels();updateNav();
 }
 function planningKnowledgeForState(){
  const partTime=s.schedule.some(row=>['R','T','Q','K'].includes(row.f)||['R','T','Q','K'].includes(row.m));
@@ -3667,7 +3689,7 @@ function* goalSearchIterator(){
          const original=generatorPlan(motherExtra,fStart,ptAt,fMode,bCount,pCount,mMode,bonusMonths);
          const variants=s.goalRoles==='mother'?[['mother',CandidatePatterns.mirrorCarePlan(original)]]:s.goalRoles==='both'?[['father',original],['mother',CandidatePatterns.mirrorCarePlan(original)]]:[['father',original]];
          for(const [careLead,a]of variants){
-          generated++;if(generated%64===0)yield {generated,seen:evaluated,valid:eligible,rejected:{...rejected}};
+          generated++;if(generated%512===0)yield {generated,seen:evaluated,valid:eligible,rejected:{...rejected}};
           const key=scheduleFingerprint(a);if(seen.has(key))continue;seen.add(key);evaluated++;
           if(!isCaredFor(a)){rejected.coverage++;continue;}
           const overlapping=a.filter(r=>offCode(r.f)&&('MS'===r.m||offCode(r.m))).length;

@@ -1,0 +1,24 @@
+{
+  "checkedAt":"2026-10-17",
+  "birthDate":"2026-05-20",
+  "expectedBirthDate":"2026-05-20",
+  "daysAfterBirth":56,
+  "lifeMonth":2,
+  "lifeMonthStart":"2026-06-20",
+  "lifeMonthEnd":"2026-07-19",
+  "officialFederalExample":{
+    "lastMaternityBenefitDate":"2026-07-14",
+    "uncoveredDays":5,
+    "source":"https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/kann-ich-elterngeld-und-mutterschaftsleistungen-bekommen--124776"
+  },
+  "independentAdministrativeCalendarExplanation":{
+    "lastProtectionDate":"2026-07-15",
+    "uncoveredDays":4,
+    "source":"https://www.komnet.nrw.de/_sitetools/dialog/4244"
+  },
+  "lawSource":"https://www.gesetze-im-internet.de/muschg_2018/__3.html",
+  "reviewState":"UNRESOLVED_OFFICIAL_DISCREPANCY",
+  "reviewerRequired":true,
+  "externalAuthorityReply":null,
+  "entitlementDecisionAllowed":false
+}

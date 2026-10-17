@@ -864,3 +864,49 @@ test('V3.13 Cologne snapshot preview is dated and does not alter manually entere
  await page.locator('#region').selectOption('BY');
  await expect(page.locator('#v313ColognePreview')).toBeHidden();
 });
+
+for(const width of [320,390])test(`V3.14 manual premium and tax allocation stays local at ${width}px`,async({page},testInfo)=>{
+ await page.setViewportSize({width,height:820});
+ await navigate(page,'slide-1');
+ await page.locator('[data-v38-template="classic"]').click();
+ await navigate(page,'slide-2');
+ await page.locator('#expenses').fill('1200');
+ await page.locator('#expenses').blur();
+ await navigate(page,'slide-risk');
+ const original=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('.v314-cost-buffer summary').click();
+ await page.locator('#v313InsuranceIncluded').selectOption('no');
+ await page.locator('#v314InsuranceExtra').fill('175.25');
+ await page.locator('#v314TaxExtra').fill('90.50');
+ await expect(page.locator('#v314CostResult')).toContainText('Zusätzlich selbst angesetzt');
+ await expect(page.locator('#v314CostResult')).toContainText('Keine Steuer- oder Beitragsberechnung');
+ const a=await new AxeBuilder({page}).include('.v314-cost-buffer').withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(a.violations.map(x=>x.id)).toEqual([]);
+ await page.locator('#v313InsuranceIncluded').selectOption('yes');
+ await expect(page.locator('#v314CostResult')).toContainText('nicht doppelt ansetzen');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(original);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ const dimensions=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,innerWidth}));
+ expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.innerWidth+1);
+ await page.screenshot({path:testInfo.outputPath(`v314-manual-cost-${width}.png`),fullPage:true});
+});
+
+test('V3.14 goal search reports bounded counts and never global completeness',async({page})=>{
+ test.setTimeout(90000);
+ await standardInputs(page);
+ await navigate(page,'slide-region');
+ await page.locator('#childcareStart').selectOption('15');
+ await navigate(page,'slide-goal');
+ await page.locator('#goalCare').selectOption('18');
+ await page.locator('#runGoal').click();
+ await expect(page.locator('#runGoal')).toBeEnabled({timeout:75000});
+ const stats=await page.evaluate(()=>window.__elternzeitV3.goalStatistics());
+ expect(stats.generated).toBeGreaterThan(0);
+ expect(stats.seen).toBeGreaterThan(0);
+ expect(stats.generated).toBeGreaterThanOrEqual(stats.seen);
+ expect(stats.valid).toBeLessThanOrEqual(stats.seen);
+ expect(stats.valid+Object.values(stats.rejected).reduce((a,b)=>a+b,0)).toBe(stats.seen);
+ await expect(page.locator('#goalResult')).toContainText('Suchfenster:');
+ await expect(page.locator('#goalResult')).toContainText('welcher Anteil aller denkbaren');
+ expect(await page.evaluate(()=>window.__elternzeitV3.goalResults().every(x=>x.valid))).toBe(true);
+});

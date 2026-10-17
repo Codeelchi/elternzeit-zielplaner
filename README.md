@@ -4,6 +4,8 @@
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
 
+**Entwicklungsstand V3.11 (separater Feature-Zweig):** Der Schnellstart bekommt einen geführten Rückwärts-Zielplaner und einen variablen Kita-Verzögerungsvergleich. Es wird nur die vorhandene Regel- und Suchengine verwendet; keine neue Fachfreigabe. [Umsetzung, Tests und Grenzen](docs/AUSBAU-V3-11-FAMILIENUEBERGANG.md).
+
 **V3.9 (auf main integriert):** Schutz individueller Monatspläne und genauer Elterngeld-Eingaben vor ungewolltem Überschreiben im Schnellassistenten; keine falschen Rücklagen bei fehlenden Kosten; mobile Karten früher sichtbar und bessere Tastatur-/Formularbedienung. [UX-Abnahme V3.9](docs/UX-NACHBESSERUNG-V3.9.md). Öffentliche Freigabe bleibt gesperrt.
 
 **Neu in V3.10:** [Familienstart](start.html) bündelt Orientierung, offizielle Beratung und den [Rechner](index.html). Der Rechner ergänzt kontextbezogene Wissenskarten, konkrete nächste Eingabeschritte und centgenaue Budgetbuchungen. [Umsetzung und Grenzen](docs/UMSETZUNG-V3.10.md).

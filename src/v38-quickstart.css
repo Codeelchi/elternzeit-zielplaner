@@ -70,14 +70,29 @@ body.v38-lite.v38-pristine .live-strip{display:none}
 }
 
 /* V3.10: actionable guidance without suggesting legal completion. */
-.v310-next{border:1px solid #b9d9cd;border-radius:11px;padding:14px;margin:14px 0;background:#f6fbf8}
-.v310-next h4{font-size:16px;margin:0 0 6px}
+.v310-next,.v311-bridge{border:1px solid #b9d9cd;border-radius:11px;padding:14px;margin:14px 0;background:#f6fbf8}
+.v310-next h4,.v311-bridge h4{font-size:16px;margin:0 0 6px}
 .v310-next ul{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:7px}
 .v310-next li{margin:0;min-width:0}
-.v310-next button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:44px;border:1px solid #bdd9d0;border-radius:8px;background:#fff;color:#17594f;font-size:13px;line-height:1.5;text-align:left;padding:10px 12px;overflow-wrap:anywhere}
-.v310-next button:focus-visible,.v310-netto-help summary:focus-visible{outline:3px solid #008b7c;outline-offset:3px}
+.v310-next button,.v311-bridge button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:44px;border:1px solid #bdd9d0;border-radius:8px;background:#fff;color:#17594f;font-size:13px;line-height:1.5;text-align:left;padding:10px 12px;overflow-wrap:anywhere}
+.v310-next button:focus-visible,.v311-bridge button:focus-visible,.v310-netto-help summary:focus-visible{outline:3px solid #008b7c;outline-offset:3px}
 .v310-netto-help{padding:12px 0;color:#31555e;font-size:12px;line-height:1.6}
 .v310-netto-help summary{cursor:pointer;font-size:13px;font-weight:750;min-height:32px}
 .v310-netto-help dt{font-weight:800;margin-top:9px}
 .v310-netto-help dd{margin:3px 0 9px}
 .v310-netto-help a{color:#00685e;text-decoration:underline}
+
+/* V3.11: scenario controls stay accessible even on narrow screens. */
+.v311-delay{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;font-weight:750;color:#264954;margin:12px 0}
+.v311-delay select{min-height:44px;min-width:160px;max-width:100%;padding:8px 12px;border-radius:8px;border:1px solid #9bc6b5;background:#fff;color:var(--ink)}
+.v311-delay select:focus-visible{outline:3px solid #008b7c;outline-offset:2px}
+
+
+/* V3.11: guided reverse-goal search, reusing the legal/planning engine. */
+.v311-goals{background:#fff;border:1px solid #a9d2c1;border-radius:13px;padding:clamp(14px,2vw,21px);margin:16px 0;box-shadow:0 4px 16px rgba(13,63,54,.03)}
+.v311-goals-header h3{font-size:20px;line-height:1.28;margin:8px 0}
+.v311-goals-header p{font-size:13px;line-height:1.55;color:#345b60;margin:4px 0}
+.v311-goals .v38-form-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.v311-goals button[type="submit"]{min-height:44px}
+.v311-goals button:focus-visible{outline:3px solid #008b7c;outline-offset:3px}
+.v311-goals button[disabled]{opacity:.6;cursor:progress}

@@ -13,9 +13,10 @@ const QuickStartV38=(()=>{
  const navCore=new Set(['slide-1','slide-2','slide-3','slide-5','slide-10','slide-goal']);
  const node=id=>document.getElementById(id);
  const escValue=text=>String(text).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- const eur=value=>Number(value||0).toLocaleString('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0});
+ const eur=value=>Number(value||0).toLocaleString('de-DE',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
  let mode='idle',selected='',expert=false;
  let lastEstimated={father:null,mother:null},wizardCompleted=false,formDirty=false;
+ let scenarioDelay=2,goalFormDirty=false,goalWizardUsed=false;
  const costsKnown=()=>s.expenses!==''&&s.expenses!==null&&s.expenses!==undefined&&Number.isFinite(Number(s.expenses));
  const typeLabel=()=>mode==='example'?'Fiktives Beispiel':mode==='restored'?'Gespeicherter Entwurf':'Persönliche Näherung';
  function navRefresh(){
@@ -52,6 +53,138 @@ const QuickStartV38=(()=>{
    return lm;
   }
   return null;
+ }
+ // V3.11: deterministic continuity check of existing monthly output, not a new legal calculation.
+ function bridgeAnalysis(delay=0){
+  const until=Math.min(36,Math.max(1,Number(s.goalCare)||18));
+  const start=Number(s.childcareStart)||0;
+  const simulatedStart=start>0?start+delay:0;
+  const fullFree=r=>!!r&&(offCode(r.f)||offCode(r.m)||r.m==='MS');
+  const partAvailable=r=>!!r&&(['R','T','Q','K'].includes(r.f)&&hoursFor(r,'f')<=32||
+                                         ['R','T','Q','K'].includes(r.m)&&hoursFor(r,'m')<=32);
+  const gaps=[],cashDeficits=[];
+  const known=costsKnown();
+  for(let lm=1;lm<=until;lm++){
+   const r=s.schedule?.[lm-1],row=current?.rows?.[lm-1];
+   const covered=fullFree(r)||(s.goalCareMode==='partial'&&simulatedStart>0&&lm>=simulatedStart&&partAvailable(r));
+   if(!covered)gaps.push(lm);
+   if(known&&row&&Number.isFinite(Number(row.cashAfter))&&Number(row.cashAfter)<0)
+    cashDeficits.push({lm,amount:Number(row.cashAfter)});
+  }
+  const ranges=months=>{
+   const result=[];for(const lm of months){const last=result[result.length-1];if(last&&lm===last[1]+1)last[1]=lm;else result.push([lm,lm]);}
+   return result;
+  };
+  return {until,start,simulatedStart,gaps,gapRanges:ranges(gaps),cashDeficits,deficitRanges:ranges(cashDeficits.map(x=>x.lm)),costsKnown:known};
+ }
+ function bridgeResultMarkup(){
+  const baseline=bridgeAnalysis(),delayed=bridgeAnalysis(scenarioDelay);
+  const formatRanges=rs=>rs.map(([a,b])=>a===b?'LM '+a:'LM '+a+'–'+b).join(', ');
+  const newlyOpen=delayed.gaps.filter(lm=>!baseline.gaps.includes(lm));
+  const newlyRanges=bridgeAnalysisRanges(newlyOpen);
+  const cash=baseline.costsKnown?(baseline.cashDeficits.length?
+     'Negatives Modellbudget in '+formatRanges(baseline.deficitRanges)+'. Dies ist kein Beleg für einen tatsächlichen Zahlungsengpass.':
+     'In den ausgewerteten Lebensmonaten kein negatives Modellbudget nach eingegebenen Kosten.') :
+     'Ausgaben fehlen: keine belastbare Aussage zu negativen Monatsbudgets.';
+  const delayText=scenarioDelay===0?'wie geplant':scenarioDelay===1?'einen Lebensmonat':
+    scenarioDelay===2?'zwei Lebensmonate':scenarioDelay===3?'drei Lebensmonate':scenarioDelay+' Lebensmonate';
+  const summary=delayed.gaps.length?
+    'Insgesamt ungeklärt: '+escValue(formatRanges(delayed.gapRanges))+'. ':
+    'Gemäß der vereinfachten Monatsbetrachtung keine offenen Betreuungsmonate. ';
+  const additional=scenarioDelay===0?'Keine zeitliche Verschiebung gegenüber der ursprünglichen Planung.':
+     newlyOpen.length?'Zusätzlich gegenüber dem ursprünglichen Plan: '+escValue(formatRanges(newlyRanges))+'.':
+     'Keine zusätzlichen Betreuungslücken gegenüber dem ursprünglichen Plan.';
+  const delay=baseline.start>0&&baseline.start<=baseline.until?
+    '<p><strong>Wenn die Kita '+delayText+(scenarioDelay===0?' startet':' später beginnt')+
+    ' (LM '+delayed.simulatedStart+'):</strong> '+summary+additional+'</p>'+
+    '<p>Kita-Beiträge, Arbeitszeiten und Leistungen werden in diesem Vergleich <strong>nicht</strong> neu berechnet.</p>':
+    '<p>Für den Vergleich mit einem verspäteten Kita-Start zunächst einen Kita-Lebensmonat und ggf. die Teilzeitbetreuung in den Fachansichten erfassen.</p>';
+  return '<p>Bis LM '+baseline.until+': '+(baseline.gaps.length?
+      'Rechnerisch nicht abgedeckt: '+escValue(formatRanges(baseline.gapRanges))+'.':
+      'Keine ungedeckten Lebensmonate gemäß den vereinfachten Planannahmen.')+'</p>'+
+    '<p>'+escValue(cash)+'</p>'+delay+
+    '<p class="v38-caption">Eine Kita-Vormerkung ist keine Platzzusage. Die Übersicht prüft vereinfachte Monatsbetreuung, keine tatsächlichen Wochenstunden, Eingewöhnung, Zahlungstermine oder verbindlichen Ansprüche.</p>';
+ }
+ function bridgeAnalysisRanges(months){
+  const result=[];
+  for(const lm of months){const last=result[result.length-1];if(last&&lm===last[1]+1)last[1]=lm;else result.push([lm,lm]);}
+  return result;
+ }
+ function bridgeMarkup(){
+  const start=Number(s.childcareStart)||0,until=Math.min(36,Math.max(1,Number(s.goalCare)||18));
+  const choices=Array.from({length:7},(_,n)=>'<option value="'+n+'"'+(scenarioDelay===n?' selected':'')+'>'+n+(n===1?' Lebensmonat':' Lebensmonate')+'</option>').join('');
+  const control=start>0&&start<=until?
+    '<label class="v311-delay" for="v311KitaDelay">Wenn die Kita später startet …'+
+    '<select id="v311KitaDelay" aria-controls="v311BridgeResult">'+choices+'</select></label>':'';
+  return '<section class="v311-bridge" aria-label="Übergang von Elterngeld zu Betreuung und Beruf"><h4>Betreuung und finanzieller Übergang</h4>'+
+    control+'<div id="v311BridgeResult" aria-live="polite">'+bridgeResultMarkup()+'</div>'+
+    '<button class="navbtn alt" type="button" data-v38-goto="slide-region">Kita-Annahmen bearbeiten</button></section>';
+ }
+ function syncGoalForm(){
+  const values=[
+   ['v311Priority',!goalWizardUsed&&!costsKnown()&&['idle','example'].includes(mode)?'balanced':s.goalObjective||'income'],
+   ['v311Care',Number(s.goalCare)||18],
+   ['v311Minimum',Number(s.goalMinIncome)>0?s.goalMinIncome:''],
+   ['v311CareMode',s.goalCareMode||'full'],
+   ['v311Part',Number(s.goalPart)===0?'0':'1']
+  ];
+  for(const [id,value] of values){const field=node(id);if(field)field.value=String(value);}
+ }
+ function goalInputError(id,message){
+  const error=node('v311GoalError');
+  if(error)error.textContent=message;
+  const input=node(id);
+  if(input){input.setAttribute('aria-invalid','true');input.setAttribute('aria-describedby','v311GoalError');input.focus();}
+ }
+ function clearGoalInputError(){
+  const error=node('v311GoalError');if(error)error.textContent='';
+  for(const id of ['v311Priority','v311Care','v311Minimum','v311CareMode','v311Part','v311GoalsSubmit']){
+   node(id)?.removeAttribute('aria-invalid');node(id)?.removeAttribute('aria-describedby');
+  }
+ }
+ function submitGoalSearch(evt){
+  evt.preventDefault();
+  clearGoalInputError();
+  if(mode==='idle'){goalInputError('v311GoalsSubmit','Bitte zuerst ein Beispiel auswählen oder eure eigenen Angaben eingeben.');return;}
+  if(formDirty){goalInputError('v311GoalsSubmit','Im Formular für eigene Werte sind noch Änderungen offen. Bitte diese zuerst berechnen.');return;}
+  const priority=node('v311Priority')?.value,care=Number(node('v311Care')?.value);
+  const raw=node('v311Minimum')?.value.trim()||'';
+  const minimum=raw===''?0:Number(raw);
+  const careMode=node('v311CareMode')?.value,part=node('v311Part')?.value;
+  if(!['income','floor','robust','balanced','father'].includes(priority)){goalInputError('v311Priority','Bitte ein gültiges Planungsziel auswählen.');return;}
+  if(![12,14,18,24,30,36].includes(care)){goalInputError('v311Care','Bitte eine gültige Betreuungsdauer wählen.');return;}
+  if(raw!==''&&(!Number.isFinite(minimum)||minimum<0||minimum>100000||Math.abs(minimum*100-Math.round(minimum*100))>1e-6)){
+   goalInputError('v311Minimum','Bitte einen Mindestbetrag zwischen 0 und 100.000 Euro mit höchstens zwei Nachkommastellen eingeben.');return;
+  }
+  if(!['full','partial'].includes(careMode)||!['0','1'].includes(part)){goalInputError('v311CareMode','Bitte eine gültige Betreuungsannahme wählen.');return;}
+  if(!costsKnown()&&(minimum>0||['income','floor','robust'].includes(priority))){
+   goalInputError('v311Minimum','Für Finanzziele müssen zuerst die monatlichen Haushaltsausgaben angegeben sein. Ohne Kosten sind nur zeitbezogene Vergleiche möglich.');return;
+  }
+  // Map intentions to the existing search. No plan is applied unless the user
+  // explicitly accepts one of the proposals in the existing result view.
+  Object.assign(s,{goalObjective:priority,goalCare:care,goalMinIncome:minimum,goalCareMode:careMode,goalPart:Number(part)});
+  goalFormDirty=false;goalWizardUsed=true;
+  if(!formDirty&&node('v38Goal'))node('v38Goal').value=String(care);
+  renderAll();persist();
+  const index=[...document.querySelectorAll('.slide')].findIndex(sl=>sl.id==='slide-goal');
+  if(index>=0){
+   showSlide(index);
+   const heading=document.querySelector('#slide-goal h2');
+   if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}
+  }
+  const button=node('v311GoalsSubmit'),status=node('v311GoalStatus');
+  if(button)button.disabled=true;
+  if(status)status.textContent='Die vorhandene Vorlagensuche prüft die gewählten Bedingungen. Ergebnisse erscheinen in der Zielsuche.';
+  runGoalSearchAsync().then(()=>{
+   if(button)button.disabled=false;
+   if(status)status.textContent=goalStats?.cancelled?
+    'Suche beendet, ohne einen Plan zu übernehmen.':goalStats?.seen===0?
+    'Noch keine Varianten prüfbar: erst die Pflichtangaben und Regelhinweise vervollständigen.':
+    'Suche abgeschlossen. Bitte die Vorschläge und Warnungen im Abschnitt Zielsuche prüfen; kein Vorschlag wird automatisch übernommen.';
+  },error=>{
+   if(button)button.disabled=false;
+   if(status)status.textContent='Die Suche konnte nicht abgeschlossen werden: '+String(error?.message||'Unbekannter Fehler');
+  });
  }
  function effectiveTemplate(){
   return templates[selected]||Object.values(templates).find(x=>x.model===s.model)||null;
@@ -119,7 +252,7 @@ const QuickStartV38=(()=>{
     '</div>'+
     '<p class="v38-caption">'+(known?'Ergebnis nach eingegebenen Haushalts- und Kita-Annahmen; weitere Kosten/Steuern/Versicherungen möglich.':'Persönliche Haushaltsausgaben sind unbekannt. Deshalb keine Aussage über verfügbares Restbudget oder notwendige Rücklagen.')+'</p>'+
     notices.map(t=>'<div class="v38-notice">'+escValue(t)+'</div>').join('')+
-    nextStepsMarkup()+
+    nextStepsMarkup()+bridgeMarkup()+
     '<details class="v39-assumptions"><summary>Welche Zahlen und Annahmen stecken dahinter?</summary>'+
       '<p>Geburtstermin: '+escValue(s.date)+' · Auszahlungsnetto Elternteil 1: '+eur(s.netFather)+' · Elternteil 2: '+eur(s.netMother)+'.</p>'+
       '<p>Verwendetes Elterngeld-Netto (noch nicht automatisch amtlich ermittelt): '+eur(s.egNetFather)+' und '+eur(s.egNetMother)+'. Kindergeldansatz: '+eur(s.kind)+' monatlich.</p>'+
@@ -132,6 +265,7 @@ const QuickStartV38=(()=>{
  function refresh(){
   if(!node('v38QuickStart'))return;
   navRefresh();costRefresh();
+  if(!goalFormDirty)syncGoalForm();
   const output=node('v38Summary');if(output)output.innerHTML=summary();
   for(const b of node('v38Templates')?.querySelectorAll('[data-v38-template]')||[]){
    b.setAttribute('aria-pressed',String(b.dataset.v38Template===selected));
@@ -152,8 +286,8 @@ const QuickStartV38=(()=>{
    mode='example';node('localSave').checked=false;
    s.goalCare=template.goal;lastEstimated={father:null,mother:null};wizardCompleted=false;
   }
-  selected=id;
-  chooseModel(template.model); // Existing financial, timeline and legal engine.
+  selected=id;goalFormDirty=false;if(!personal)goalWizardUsed=false;
+  clearGoalInputError();chooseModel(template.model); // Existing financial, timeline and legal engine.
   refresh();showSummary();
  }
  function parseMoney(id,optional=false){
@@ -228,7 +362,7 @@ const QuickStartV38=(()=>{
   refresh();
  }
  function onResetConfirmed(){
-  mode='idle';selected='';wizardCompleted=false;formDirty=false;lastEstimated={father:null,mother:null};
+  mode='idle';selected='';wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=false;scenarioDelay=2;lastEstimated={father:null,mother:null};
   clearFieldErrors();
   for(const id of ['v38Birth','v38NetF','v38NetM','v38Expenses'])node(id).value='';
   node('v38Goal').value='18';
@@ -241,13 +375,16 @@ const QuickStartV38=(()=>{
  }
  function onImported(){
   mode='personal';selected=Object.keys(templates).find(key=>templates[key].model===s.model)||'';
-  lastEstimated={father:null,mother:null};wizardCompleted=false;formDirty=false;syncPersonalForm();refresh();
+  lastEstimated={father:null,mother:null};wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=true;syncPersonalForm();refresh();
  }
  function mount(){
   if(!node('v38QuickStart'))return;
   if(s.storageConsent){mode='restored';selected=Object.keys(templates).find(id=>templates[id].model===s.model)||'';}
   node('v38Templates').querySelectorAll('button[data-v38-template]').forEach(b=>b.addEventListener('click',()=>loadTemplate(b.dataset.v38Template)));
   node('v38PersonalForm')?.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',()=>{formDirty=true;}));
+  node('v311GoalJump')?.addEventListener('click',()=>{
+   node('v311Goals')?.scrollIntoView?.({behavior:'smooth',block:'start'});node('v311Priority')?.focus();
+  });
   node('v38EditOwn')?.addEventListener('click',()=>{
    const panel=node('v38Personal');if(!formDirty)syncPersonalForm();
    panel.open=true;node('v38Birth')?.focus();
@@ -266,6 +403,18 @@ const QuickStartV38=(()=>{
   });
   node('v38Advanced')?.addEventListener('click',()=>{expert=!expert;refresh();});
   node('v38PersonalForm')?.addEventListener('submit',personalSubmit);
+  node('v311GoalsForm')?.querySelectorAll('input,select').forEach(input=>
+   input.addEventListener('input',()=>{goalFormDirty=true;clearGoalInputError();}));
+  node('v311GoalsForm')?.addEventListener('submit',submitGoalSearch);
+  node('v38QuickStart').addEventListener('change',evt=>{
+   if(evt.target.id==='v311KitaDelay'){
+    const parsed=Number(evt.target.value);
+    if(!Number.isInteger(parsed)||parsed<0||parsed>6)return;
+    scenarioDelay=parsed;
+    const result=node('v311BridgeResult');
+    if(result)result.innerHTML=bridgeResultMarkup();
+   }
+  });
   node('v38QuickStart').addEventListener('click',evt=>{
    const match=evt.target.closest?.('[data-v38-match]');
    if(match){loadTemplate(match.dataset.v38Match);return;}

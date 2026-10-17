@@ -698,3 +698,39 @@ for(const width of [1440,390])test(`V3.10 family information portal: ${width}px 
  expect(new URL(page.url()).pathname).toBe(new URL(appUrl).pathname);
  expect(externalRequests).toEqual([]);
 });
+
+for(const width of [320,390])test(`V3.11 guided objective and Kita delay at ${width}px remain accessible and do not overwrite schedules`,async({page},testInfo)=>{
+ await page.setViewportSize({width,height:820});
+ const external=[];page.on('request',request=>{
+  if(/^https?:/.test(request.url())&&new URL(request.url()).hostname!=='127.0.0.1')external.push(request.url());
+ });
+ await navigate(page,'slide-1');
+ await page.locator('[data-v38-template="classic"]').click();
+ await expect(page.locator('#v311GoalsTitle')).toHaveText('Was soll euer Familienplan erreichen?');
+ const schedule=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState().schedule));
+ await page.locator('#v311Priority').selectOption('balanced');
+ await page.locator('#v311Care').selectOption('24');
+ await page.locator('#v311CareMode').selectOption('partial');
+ await page.locator('#v311GoalsSubmit').click();
+ await expect(page.locator('#slide-goal')).toBeVisible();
+ await expect(page.locator('#goalResult')).toContainText('Planvarianten konnten noch nicht geprüft werden');
+ await expect(page.locator('#goalResult')).toContainText('Das Geburtsdatum liegt außerhalb');
+ await expect(page.locator('#goalResult')).not.toContainText('Automatische Suche abgeschlossen');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState().schedule))).toBe(schedule);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ if(await page.locator('#cancelGoalSearch').isVisible())await page.locator('#cancelGoalSearch').click();
+ await navigate(page,'slide-1');
+ const delay=page.locator('#v311KitaDelay');
+ await expect(delay).toBeVisible();
+ const baseline=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await delay.selectOption('6');
+ await expect(page.locator('#v311BridgeResult')).toContainText('LM 25');
+ await expect(page.locator('#v311BridgeResult')).toContainText('nicht neu berechnet');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(baseline);
+ const dimensions=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,width:innerWidth}));
+ expect(dimensions.scroll).toBeLessThanOrEqual(dimensions.width+1);
+ const axe=await new AxeBuilder({page}).include('#v311Goals').withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(axe.violations.map(v=>v.id)).toEqual([]);
+ await page.screenshot({path:testInfo.outputPath(`v311-goals-${width}.png`),fullPage:true});
+ expect(external).toEqual([]);
+});

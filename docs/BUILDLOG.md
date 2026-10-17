@@ -1,6 +1,15 @@
 # Buildlog und Integrationsnachweis
 
-Stand: **15. Oktober 2026**, Software **V3.4.0**. Technische Nachweise, fachliche Evidenz und öffentliche Freigaben sind getrennt. Ein Merge nach `main` ist keine Veröffentlichung und keine unabhängige Fachabnahme.
+Historischer Entwicklungsverlauf seit V3.4, ergänzter **Stand vom 17. Oktober 2026: interner V3.14-Code** (Paket-/Exportversionsnummer 3.10.0 bis separater Release-Entscheidung). Technische Nachweise, fachliche Evidenz und öffentliche Freigaben sind getrennt. Ein Merge nach `main` ist keine Veröffentlichung und keine unabhängige Fachabnahme.
+
+## Stand der aktuellen Zusammenführung
+
+Aufbauend auf dem in main integrierten V3.11-Stand aa8286d liegen der V3.12-Commit 8c257ea (Kita-Finanzdeltas, Pareto, tagdatierte Ist-Buchungen), V3.13-Commit 7b49b38 (Zahlungsannahmen, Risiko-/Quellen-/ICS-Funktionen) und V3.14-Commit 09764a6 (Kostenpuffer, Kölner Gebührengruppen, synthetische Mikrosuche, Legacy-/Privacy-Härtung) vor. Diese SHA-Angaben sind der geprüfte Entwicklungszweig **vor** der Integrations-Dokumentationsaktualisierung.
+
+- Technisch geprüft im Workbench: 375/375 Node-/DOM-, 39/39 Browser- und 3/3 direkte file://-V3.14-Fälle; erzeugte Browser-Testartefakte werden nicht versehentlich eingecheckt.
+- npm run release:check bleibt ausdrücklich negativ wegen fehlender Fach-, Rechts-, Datenschutz- und Nutzerprüfungen sowie ungeklärter amtlicher Mutterschutz-Referenzabweichung.
+- Technische Integration in main und öffentlicher Produktausrollung dürfen nicht gleichgesetzt werden. Der Live-Branch- und CI-Status ist nach dem PR-Merge separat neu zu prüfen.
+- Verbindlicher Fachreview-Übergabesatz: [V3.14 Nachweise](ROADMAP-FACHABNAHME-V314-2026-10-17.md).
 
 ## Entwicklungshistorie
 

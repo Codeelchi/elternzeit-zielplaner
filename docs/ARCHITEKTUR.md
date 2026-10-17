@@ -1,6 +1,6 @@
-# Architektur V3.7.0
+# Architektur – interner Code-Stand V3.14, historisch aus V3.7 erweitert
 
-Die verteilbare Anwendung bleibt eine einzelne `index.html`, ohne Backend, Konto, Laufzeitpakete oder Telemetrie. Node-Abhängigkeiten dienen ausschließlich Entwicklung und Tests. Diese Entscheidung erhält die Offline-Verteilung und vermeidet die Übertragung privater Haushaltsdaten.
+Der verteilbare Rechner bleibt eine einzelne lokale index.html; die optionale Familienstartseite start.html wird daneben verteilt. Es gibt kein Backend, Konto, Laufzeitpakete oder Telemetrie. Node-Abhängigkeiten dienen ausschließlich Entwicklung und Tests. Diese Entscheidung erhält die Offline-Verteilung und vermeidet die Übertragung privater Haushaltsdaten.
 
 ## Fachlicher Datenfluss
 
@@ -24,7 +24,7 @@ Bankbuchungen verwenden tatsächliche Kalendertage. Sie werden niemals aus einem
 
 ## Fachliche Grenzen
 
-Schätzcharakter und strukturierter Prüfstatus sind in jeder Ansicht direkt unter der Budgetübersicht sichtbar. Die vollständige amtliche Brutto-Netto-Ermittlung fehlt weiterhin; eingegebenes Elterngeld-Netto und Stunden-Netto sind Schätzwerte. Der Mutterschutzvergleich weist eine konkrete amtliche Referenzabweichung auf, siehe Zeitachsen-Dokumentation und Abnahmebericht. Steuerwirkung, Kranken-/Pflegeversicherung, Rückforderungen und Sonderfälle brauchen unabhängige Prüfung. Daher ist V3.7.0 ein interner Prüfstand, kein fachlich freigegebener öffentlicher Release Candidate.
+Schätzcharakter und strukturierter Prüfstatus sind in jeder Ansicht direkt unter der Budgetübersicht sichtbar. Die vollständige amtliche Brutto-Netto-Ermittlung fehlt weiterhin; eingegebenes Elterngeld-Netto und Stunden-Netto sind Schätzwerte. Der Mutterschutzvergleich weist eine konkrete amtliche Referenzabweichung auf, siehe Zeitachsen-Dokumentation und Abnahmebericht. Steuerwirkung, Kranken-/Pflegeversicherung, Rückforderungen und Sonderfälle brauchen unabhängige Prüfung. Daher bleiben auch die bis V3.14 entwickelten Erweiterungen ein interner Prüfstand und kein fachlich freigegebener öffentlicher Release Candidate.
 
 Ab V3.4 verwenden Budgetdiagramm, Rücklagen und vorsichtige Zielsuche dieselbe Komponentenprojektion mit getrennten väterlichen/mütterlichen Einkommensbändern. Die historische Sensitivitätsrechnung auf der Elterngeld-Einkommensbasis wird nicht mehr parallel als gleichnamiger Stresstest angezeigt.
 
@@ -32,7 +32,7 @@ Ab V3.4 verwenden Budgetdiagramm, Rücklagen und vorsichtige Zielsuche dieselbe 
 
 `src/money.cjs` rundet Geldbeträge auf Cent nach amtlich dokumentierter Zwischenschrittregel. `src/plan-comparison.cjs` verwendet für alle Vorschläge ausschließlich die gemeinsame FamilyBudget-Projektion. Der Offline-Embed platziert abhängige Module nach ihren Abhängigkeiten.
 
-Eine Generatorfunktion ist die gemeinsame Kandidatenquelle für synchrone Regressionstests und schrittweise Browserauswertung. Alle 64 Rohvarianten wird die Browserbedienung freigegeben; Abbruch und suchrelevante Eingabeänderung veröffentlichen keinen Teilplan. Fortschritt und erste Filtergründe werden getrennt erfasst. Die Rankingauswahl bewahrt die erste Zielpriorität und fordert materielle Unterschiede gegenüber allen vorigen Vorschlägen.
+Eine Generatorfunktion ist die gemeinsame Kandidatenquelle für synchrone Regressionstests und schrittweise Browserauswertung. Im aktuellen V3.14-Controller werden nach je **512 erzeugten Rohvarianten** Zwischenstände an den Event-Loop zurückgegeben; Abbruch und suchrelevante Eingabeänderung veröffentlichen keinen Teilplan. Fortschritt und erste Filtergründe werden getrennt erfasst. Die Rankingauswahl bewahrt die erste Zielpriorität und fordert materielle Unterschiede gegenüber allen vorigen Vorschlägen.
 
 Bezeichnungen und Einkommenseinstieg sind streng validierte Zusatzfelder des JSON-Plans. Textknoten und Beschriftungen zeigen Namen ohne HTML-Interpretation; interne Elternschlüssel bleiben stabil. Die Einkommensherkunft ist nur eine Benutzerangabe. Der manuelle MVP-Pfad berechnet kein amtliches Netto aus Bruttoreferenzen. Details: [Umsetzungsbericht](UMSETZUNG-ZIELBUDGET-V3.7.md).
 
@@ -44,3 +44,14 @@ Bezeichnungen und Einkommenseinstieg sind streng validierte Zusatzfelder des JSO
 `planning-knowledge.cjs` enthält kuratierte, datierte amtliche Hinweise und eine reine kontextbezogene Auswahlfunktion. Die HTML-Integration rendert escaped Texte, sichere externe Quellenlinks und native aufklappbare Elemente. Konkrete Lebensmonatsbeispiele delegieren an `time-axes.cjs`. Die Auswahl besitzt ausdrücklich keine Budgeteffekte und trifft keine Anspruchsentscheidung.
 
 Budgetprojektionen runden einzelne Szenariokomponenten mit `money.cjs` und rechnen Summen/Präfixsalden als Integer-Cent. Das ist eine technische Buchungskonvention für Schätzbudgets, keine Behauptung einer amtlichen Lohn- oder Kontorechnung. Schnellstartaufgaben werden aus bestehenden Validatorbefunden/Planungsannahmen abgeleitet und führen nur zur passenden Eingabe.
+
+## V3.12 bis V3.14: Finanztransparenz, Metadaten und Prüforakel
+
+- Die Quellen für Zahlungen aus angenommener Zukunft, tatsächliche Bank-Buchungen und in Lebensmonaten modellierte Ansprüche sind strikt getrennt. Das Modul src/expected-payments.cjs darf keine Bankeingänge aus dem Leistungsplan ableiten. src/calendar-export.cjs produziert nur ausdrücklich vorläufige Fristaufgaben.
+- src/manual-cost-impact.cjs vergleicht von Nutzern ausdrücklich eingegebene zusätzliche Beiträge und freiwillige Steuerreserve in denselben FamilyBudget-Stresstests, ohne Beiträge oder Steuern automatisch zu berechnen. Versicherungsbeiträge, die schon in den Haushaltseingaben stecken, dürfen nicht doppelt berücksichtigt werden.
+- src/cologne-fees.cjs liefert eine **historische** Gemeinde-Gebührenreferenz mit drei Altersgruppen. Das Modul verändert das manuelle Kostenbudget nicht und enthält keinen automatischen Rechtsnachweis für künftige Beitragsjahre.
+- src/search-coverage.cjs zählt erzeugte, eindeutige und ausgeschlossene Suchvorlagen. src/microspace-proof.cjs enumeriert einen synthetischen 256er-Prüfraum vollständig und überprüft die technische Rangfolge. Weder der kleine Prüfraum noch die 512er-Schritte machen die gesamte 36-Monats-Suche vollständig.
+- Der Controller hat keine sich überschattenden doppelten Top-Level-Funktionen mehr. Ein statischer Guard überwacht diesen Zustand. Die Offline-HTML-Snapshots müssen nach jeder Moduländerung über npm run modules:sync und npm run quickstart:sync aktualisiert werden.
+- Daten bleiben standardmäßig im Arbeitsspeicher; lokale Speicherung verlangt explizite Zustimmung. Die session-only-Varianten für Zahlungs- und Kostenpuffer werden nicht exportiert. Quellenstatus- und Privacy-Metadatenchecks ersetzen ausdrücklich keinen unabhängigen Fach-, Rechts-, Datenschutz- oder Nutzertestbericht.
+
+**QA-Stand am 17.10.2026:** 375/375 Node-/DOM-Tests; 39/39 Browser-E2E und drei zusätzliche direkte file://-V3.14-Browserfälle. Für die offene Fachabnahme den Bericht ROADMAP-FACHABNAHME-V314-2026-10-17.md und data/roadmap-status-2026-10-17.json heranziehen. Das öffentliche Freigabe-Gate bleibt BLOCKED.

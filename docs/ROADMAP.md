@@ -1,6 +1,6 @@
 # Geplante Roadmap zur öffentlichen Beta
 
-Stand: **16. Oktober 2026 / V3.10.0**. Reihenfolge nach Abhängigkeit und Priorität; keine zugesagten Termine. Repository-Integration und öffentliche Freigabe sind getrennte Entscheidungen. Implementiert bedeutet noch nicht unabhängig fachlich abgenommen.
+Stand der aktiven Arbeitspakete: **17. Oktober 2026 / interner V3.14-Code** (technische Paket-/Exportversion noch 3.10.0, keine öffentliche Beta). Die aktuelle [Review- und Evidenzmatrix](../data/roadmap-status-2026-10-17.json) zählt **vier technisch umgesetzte, drei teilweise umgesetzte und fünf extern offene Prüfpakete**. Reihenfolge nach Abhängigkeit und Priorität; keine zugesagten Termine. Repository-Integration und öffentliche Freigabe sind getrennte Entscheidungen. Implementiert bedeutet noch nicht unabhängig fachlich abgenommen.
 
 **Ergänzung V3.5.0:** Acht zusätzliche publizierte 12-/24-Monats-Summen, zwei Mindest-/Geringverdienstfälle und vier amtliche Familienbeträge mit variierenden Teilzeitgehältern sind gegen die echte Programmprojektion getestet. Das Mutterschutz-Delta ist nun quellenübergreifend als widersprüchliche Behördenaussage belegt, **nicht** behoben. Für 2027 besteht eine mit Warnung und strikter Validierungssperre gekennzeichnete Prognosesuche, nicht eine gesetzliche Freigabe. [Vollständiger Abgleich](AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md).
 

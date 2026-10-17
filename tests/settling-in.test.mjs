@@ -63,3 +63,139 @@ test('weekly money summations stay exact to cents and can show no backup when no
  assert.equal(r.weekly[0].hypotheticalBackupCost,0);
  assert.ok(Math.abs(r.totalHypotheticalIncomeLoss*100-Math.round(r.totalHypotheticalIncomeLoss*100))<1e-6);
 });
+
+test('zero transition weeks never charge the regular week, even if regular childcare is too short',()=>{
+ const r=p({...input,delayWeeks:0,settlingWeeks:0,targetCareHours:25,
+  firstWeekCareHours:0,backupHours:0});
+ assert.equal(r.transitionWeeks,0);
+ assert.equal(r.combinedMoneyImpact,0);
+ assert.equal(r.uncoveredHours,0);
+ assert.equal(r.totalHypotheticalIncomeLoss,0);
+ assert.equal(r.regularWeeklyUncoveredHours,3);
+ assert.equal(r.weekly.length,1);
+ assert.equal(r.weekly[0].previewOnly,true);
+ assert.equal(r.weekly[0].uncoveredWorkHours,3);
+ assert.match(r.warnings.join(' '),/wiederkehrende Lücke/);
+});
+
+test('work return after settling period has no artificial earnings loss before actual work starts',()=>{
+ const r=p({...input,delayWeeks:2,settlingWeeks:4,workReturnWeeks:7,backupHours:0});
+ assert.equal(r.transitionWeeks,6);
+ assert.equal(r.uncoveredHours,0);
+ assert.equal(r.combinedMoneyImpact,0);
+ assert.equal(r.weekly.length,7);
+ assert.deepEqual(r.weekly.map(w=>w.weeklyPlannedWorkHours),[0,0,0,0,0,0,28]);
+ assert.equal(r.weekly.at(-1).week,8);
+ assert.ok(r.weekly.slice(6).every(w=>w.previewOnly));
+});
+
+test('invalid return offset is refused as nonlegal assumption input',()=>{
+ for(const workReturnWeeks of [-1,25,2.5,Infinity,'3'])
+  assert.throws(()=>p({...input,workReturnWeeks}),RangeError);
+});
+
+const {transitionLifeMonthBridge:bridge}=createRequire(import.meta.url)('../src/settling-in.cjs');
+const rows=Array.from({length:36},(_,i)=>({lm:i+1,cashAfter:100}));
+
+test('week crossing life month distributes CENTS exactly, without altering the baseline',()=>{
+ const r=p({...input,delayWeeks:5,settlingWeeks:0,backupHours:0,
+  plannedWorkHours:28,weeklyNetAtRisk:0.07,targetCareHours:35});
+ const baseline=structuredClone(rows);
+ const report=bridge({birthDate:input.birthDate,scenario:r,rows,expensesKnown:true});
+ assert.deepEqual(rows,baseline);
+ assert.equal(r.totalHypotheticalIncomeLoss,0.35);
+ assert.deepEqual(report.months.map(m=>m.lm),[19,20]);
+ assert.deepEqual(report.months.map(m=>m.hypotheticalNetLoss),[0.30,0.05]);
+ assert.deepEqual(report.months.map(m=>m.alternativeAfterCosts),[99.70,99.95]);
+ assert.equal(report.knownImpactInHorizon,-0.35);
+ assert.equal(report.outsideHorizonDays,0);
+ assert.equal(report.changedPlan,false);
+ assert.equal(report.bankReceiptsPredicted,false);
+});
+
+test('unknown income yields unknown month impact, not a fictional zero balance',()=>{
+ const r=p({...input,delayWeeks:1,settlingWeeks:0,backupHours:0,weeklyNetAtRisk:null});
+ const report=bridge({birthDate:input.birthDate,scenario:r,rows,expensesKnown:false});
+ assert.equal(report.knownImpactInHorizon,null);
+ assert.equal(report.months[0].hypotheticalNetLoss,null);
+ assert.equal(report.months[0].totalHypotheticalExtra,null);
+ assert.equal(report.months[0].baselineAfterCosts,null);
+ assert.equal(report.months[0].alternativeAfterCosts,null);
+});
+
+test('an out-of-horizon transition never silently drops outside-month cost',()=>{
+ const r=p({...input,careStartLm:36,delayWeeks:6,settlingWeeks:0,backupHours:0,
+  plannedWorkHours:28,weeklyNetAtRisk:70});
+ const report=bridge({birthDate:input.birthDate,scenario:r,rows,expensesKnown:true});
+ assert.ok(report.outsideHorizonDays>0);
+ assert.ok(report.outsideHorizonMoney>0);
+ assert.equal(
+  Math.round((report.outsideHorizonMoney-report.knownImpactInHorizon)*100),
+  Math.round(-r.combinedMoneyImpact*100)
+ );
+ assert.match(report.warnings.join(' '),/jenseits LM 36/);
+});
+
+test('no transition has no life-month overlay and no invented financial shortage',()=>{
+ const r=p({...input,delayWeeks:0,settlingWeeks:0,targetCareHours:25,firstWeekCareHours:0,backupHours:0});
+ const report=bridge({birthDate:input.birthDate,scenario:r,rows,expensesKnown:true});
+ assert.deepEqual(report.months,[]);
+ assert.equal(report.knownImpactInHorizon,0);
+ assert.equal(report.outsideHorizonMoney,0);
+ assert.equal(r.regularWeeklyUncoveredHours,3);
+});
+
+test('life-month overlay refuses mismatched parents, invalid rows, malformed assumed weeks',()=>{
+ const scenario=p(input);
+ assert.throws(()=>bridge({birthDate:'2026-05-29',scenario,rows}),TypeError);
+ assert.throws(()=>bridge({birthDate:input.birthDate,scenario,rows:[{lm:2,cashAfter:100}]}),RangeError);
+ assert.throws(()=>bridge({birthDate:input.birthDate,scenario,rows,expensesKnown:'yes'}),TypeError);
+ const injected=structuredClone(scenario);injected.weekly[0].weekEnd='2027-11-27';
+ assert.throws(()=>bridge({birthDate:input.birthDate,scenario:injected,rows}),RangeError);
+});
+
+test('every legally accepted hourly price remains representable in month bridge',()=>{
+ const scenario=p({...input,delayWeeks:1,settlingWeeks:0,backupHours:40,
+  plannedWorkHours:40,targetCareHours:35,hourlyBackupCost:100000,weeklyNetAtRisk:0});
+ assert.equal(scenario.totalExtraCost,4000000);
+ const out=bridge({birthDate:input.birthDate,scenario,rows,expensesKnown:true});
+ assert.equal(out.months[0].totalHypotheticalExtra,4000000);
+ assert.equal(out.knownImpactInHorizon,-4000000);
+});
+test('a work restart outside modeled months is explicitly flagged without extrapolating income',()=>{
+ const r=p({...input,careStartLm:36,delayWeeks:0,settlingWeeks:0,workReturnWeeks:24});
+ assert.equal(r.returnBeyondModel,true);
+ assert.match(r.warnings.join(' '),/Arbeitsbeginn liegt außerhalb/);
+ assert.equal(r.combinedMoneyImpact,0);
+});
+
+test('long gap between childcare and work return stays a concise weekly preview',()=>{
+ const r=p({...input,delayWeeks:0,settlingWeeks:0,workReturnWeeks:24});
+ assert.equal(r.weekly.length,1);
+ assert.equal(r.weekly[0].week,25);
+ assert.equal(r.weekly[0].weekStart,r.workReturnDate);
+ assert.ok(r.weekly[0].previewOnly);
+ assert.equal(r.combinedMoneyImpact,0);
+ assert.match(r.warnings.join(' '),/Vorschau springt/);
+});
+
+test('daily allocation conserves cents and days across sampled birth cohorts, including Feb 29',()=>{
+ const births=['2026-01-31','2026-02-28','2028-02-29','2026-05-28','2026-09-30'];
+ const cases=[{delayWeeks:0,settlingWeeks:0},{delayWeeks:1,settlingWeeks:0},
+  {delayWeeks:2,settlingWeeks:4},{delayWeeks:12,settlingWeeks:12}];
+ for(const birthDate of births)for(const careStartLm of [1,18,35,36])for(const scenario of cases){
+  const result=p({birthDate,careStartLm,...scenario,plannedWorkHours:28,
+   targetCareHours:35,firstWeekCareHours:5,backupHours:6.25,
+   hourlyBackupCost:15.25,weeklyNetAtRisk:600.17});
+  const report=bridge({birthDate,scenario:result,rows,expensesKnown:true});
+  const insideDays=report.months.reduce((sum,m)=>sum+m.transitionDays,0);
+  assert.equal(insideDays+report.outsideHorizonDays,result.transitionWeeks*7,
+   birthDate+' LM '+careStartLm);
+  const insideCents=report.months.reduce((sum,m)=>
+   sum+Math.round(m.totalHypotheticalExtra*100),0);
+  const outsideCents=Math.round(report.outsideHorizonMoney*100);
+  const expected=Math.max(0,Math.round(-result.combinedMoneyImpact*100));
+  assert.equal(insideCents+outsideCents,expected,
+   birthDate+' LM '+careStartLm+' '+scenario.delayWeeks+' + '+scenario.settlingWeeks);
+ }
+});

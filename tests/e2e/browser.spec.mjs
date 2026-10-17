@@ -926,7 +926,7 @@ for(const width of [320,390])test(`V3.15 Kita transition, NRW source cohorts and
  await page.locator('#v315BackupHours').fill('8');
  await page.locator('#v315BackupCost').fill('12');
  await page.locator('#v315NetRisk').fill('560');
- await expect(page.locator('#v315CareResult')).toContainText('zusätzliche Finanzbelastung');
+ await expect(page.locator('#v315CareResult')).toContainText('Mehrbelastung während der');
  expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(original);
  expect(await page.evaluate(()=>localStorage.length)).toBe(0);
  const violations=await new AxeBuilder({page}).include('.v315-care').withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
@@ -1001,4 +1001,35 @@ test('V3.15 beginner can open settling-in planner without enabling all expert vi
  await page.locator('#v315CareBack').click();
  await expect(page.locator('#slide-1')).toBeVisible();
  await expect(page.locator('#v38Advanced')).toHaveAttribute('aria-pressed','false');
+});
+
+test('V3.15.1 planned work return avoids false earnings loss and leaves original family budget untouched',async({page})=>{
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('18');
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('#v315CarePreset').selectOption('late');
+ await page.locator('#v315TargetHours').fill('25');
+ await page.locator('#v315WorkReturnWeeks').fill('6');
+ await page.locator('#v315NetRisk').fill('560');
+ await page.locator('#v315BackupHours').fill('0');
+ await page.locator('#v315BackupCost').fill('0');
+ await expect(page.locator('#v315CareResult')).toContainText('Während der 6 Übergangswochen bleiben 0 Arbeitsstunden');
+ await expect(page.locator('#v315CareResult')).toContainText('Dauerhafte Betreuungslücke');
+ await expect(page.locator('#v315CareResult')).toContainText('Mehrbelastung während der 6 Übergangswochen: 0');
+ await expect(page.locator('#v315CareResult')).toContainText('Übergangskosten nach Lebensmonaten');
+ await expect(page.locator('#v315CareResult')).not.toContainText('Nicht bekannt');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(before);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+test('V3.15.1 zero-week settling-in costs exclude recurring childcare shortfall',async({page})=>{
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('18');
+ await page.locator('#v315CarePreset').selectOption('immediate');
+ await page.locator('#v315TargetHours').fill('25');
+ await page.locator('#v315NetRisk').fill('560');
+ await page.locator('#v315BackupCost').fill('0');
+ await expect(page.locator('#v315CareResult')).toContainText('Dauerhafte Betreuungslücke');
+ await expect(page.locator('#v315CareResult')).toContainText('Keine Übergangswoche');
+ await expect(page.locator('#v315CareResult')).toContainText('0 Übergangswochen');
+ await expect(page.locator('#v315CareResult')).toContainText('Regelwoche – nur Vorschau');
 });

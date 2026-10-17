@@ -2,6 +2,10 @@
 
 Historischer Entwicklungsverlauf seit V3.4, ergänzter **Stand vom 17. Oktober 2026: interner V3.14-Code** (Paket-/Exportversionsnummer 3.10.0 bis separater Release-Entscheidung). Technische Nachweise, fachliche Evidenz und öffentliche Freigaben sind getrennt. Ein Merge nach `main` ist keine Veröffentlichung und keine unabhängige Fachabnahme.
 
+## V3.15.1 Korrektur und technischer QA-Abschluss, 17.10.2026
+
+Kita-Eingewöhnung: fälschlich mitgezählte reguläre Woche entfernt; Arbeitsrückkehr 0–24 Wochen getrennt, dauerhaft ungedeckte Wochenstunden als eigenes Problem benannt. Rein hypothetische Cent-Zuordnung zu Lebensmonaten mit vollständiger Offenlegung unberücksichtigter Zeiträume, ohne gespeicherte Planänderung. Vollständige Tests: 418/418 Node-/DOM, 47/47 Chromium, 8/8 direkte file:// V3.15.x-Browserfälle. Release-Gates unabhängig weiterhin BLOCKED. [Detailnachweis](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
 ## V3.15 Folgeentwicklung, 17.10.2026 (noch nicht nach main integriert)
 
 Arbeitszweig feat/v3-15-eingewoehnung-kibiz-20271017 baut auf main fa1fda2 auf. Neue reine Module: KiBiz-Rechtsfassung nach Betreuungsdatum, Wochen-Eingewöhnung/Ersatzbetreuung und Bundesleistungen-Dokumentennavigator. Vorhandene Antrags-Aufgaben erhalten fristgebundene lokale Statusmarkierungen und den unverbindlichen Fristenkalender. Transparente Vergleichskarten nutzen ausschließlich die vorhandene begrenzte Kandidatenliste. Alle neuen Eingaben sind nur temporär, keine Datenschema-Migration. Zu erwartender Testnachweis und fachliche Grenzen: [V3.15 Ausbau](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).

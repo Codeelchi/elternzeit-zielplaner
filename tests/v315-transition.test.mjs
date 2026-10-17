@@ -43,7 +43,7 @@ test('presets and personal weekly risk show usable dates without editing the sav
  change('v315NetRisk','560');
  change('v315BackupHours','8');
  change('v315BackupCost','12');
- assert.match(d.getElementById('v315CareResult').textContent,/zusätzliche Finanzbelastung/);
+ assert.match(d.getElementById('v315CareResult').textContent,/Mehrbelastung während der 6 Übergangswochen/);
  assert.equal(api.getState().bankLedger.length,0);
  assert.equal(JSON.stringify(api.getState()),before);
  assert.equal(dom.window.localStorage.length,0);
@@ -112,4 +112,53 @@ test('standalone application guide includes 2026 and 2027 NRW tasks without fabr
  assert.equal(notice26.legal_status,'effective');
  assert.equal(notice27.legal_status,'promulgated_future_effective');
  assert.ok(v27.tasks.some(t=>t.id==='nrw-childcare-fee-check'&&t.dueDate===null));
+});
+
+test('work return and Kita hours are independent from Cologne tariff without mutating model',()=>{
+ const {dom,d,api,change,errors}=setup();
+ api.changeValue('date','2026-05-28');api.changeValue('childcareStart',19);
+ const before=JSON.stringify(api.getState());
+ change('v315CarePreset','late','change');
+ change('v315TargetHours','25');
+ change('v315WorkReturnWeeks','6');
+ change('v315NetRisk','560');
+ change('v315BackupHours','0');
+ change('v315BackupCost','0');
+ const report=d.getElementById('v315CareResult');
+ assert.match(report.textContent,/geplanter Arbeitsbeginn: 09\.01\.2028/);
+ assert.match(report.textContent,/Während der 6 Übergangswochen bleiben 0 Arbeitsstunden/);
+ assert.match(report.textContent,/Mehrbelastung während der 6 Übergangswochen: 0/);
+ assert.match(report.textContent,/Dauerhafte Betreuungslücke/);
+ assert.match(report.textContent,/3 Arbeitsstunden/);
+ assert.equal(api.getState().childcareHours,35,'tariff hours not changed');
+ assert.equal(JSON.stringify(api.getState()),before);
+ assert.deepEqual(errors,[]);
+ dom.window.close();
+});
+test('zero transition does not present regular childcare gap as one-off cost',()=>{
+ const {dom,d,change}=setup();
+ change('v315CarePreset','immediate','change');
+ change('v315TargetHours','25');
+ change('v315NetRisk','560');
+ change('v315BackupCost','0');
+ const text=d.getElementById('v315CareResult').textContent;
+ assert.match(text,/0 Übergangswochen/);
+ assert.match(text,/Regelwoche – nur Vorschau/);
+ assert.match(text,/Dauerhafte Betreuungslücke/);
+ assert.match(text,/Keine Übergangswoche/);
+ assert.match(text,/0 €/);
+ dom.window.close();
+});
+test('legacy imported plan resets nonexported weekly return assumptions',()=>{
+ const {dom,d,api,change,errors}=setup();
+ const before=JSON.stringify(api.getState());
+ change('v315WorkReturnWeeks','10');
+ change('v315TargetHours','45');
+ assert.equal(api.getState().childcareHours,35);
+ assert.equal(JSON.stringify(api.getState()),before);
+ d.getElementById('btnReset').click();
+ assert.equal(d.getElementById('v315WorkReturnWeeks').value,'0');
+ assert.equal(d.getElementById('v315TargetHours').value,'35');
+ assert.deepEqual(errors,[]);
+ dom.window.close();
 });

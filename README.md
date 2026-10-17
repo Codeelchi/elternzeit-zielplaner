@@ -6,6 +6,10 @@
 
 **Technische V3.15-Abnahme (17.10.2026):** 403/403 Node-/DOM-Tests, 45/45 gesamter Chromium-Browserlauf und nach abschließender Navigationskorrektur jeweils 6/6 V3.15-Browserfälle über HTTP und direkte Offline-Datei. Diese technischen Ergebnisse sind keine unabhängige Fach-/Rechtsfreigabe. [Nachweise](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
 
+**V3.15.1 technische QA:** 418/418 Node-/DOM-Tests; vollständiger Chromium-Lauf 47/47; direkte file://-Prüfung aller 8 V3.15-/V3.15.1-Browserfälle bestanden. Keine unabhängige Rechts-/Fachabnahme. [Abnahme und Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**Nachbesserung V3.15.1:** Der Kita-Vergleich unterscheidet jetzt ausdrücklich einmalige Eingewöhnungsbelastungen von dauerhaft offenen Betreuungsstunden. Arbeit kann erst Wochen nach Kita-Start beginnen; hypothetische Zusatzkosten werden separat und centgenau auf Lebensmonate verteilt. Es werden weder Leistungsansprüche noch gespeicherte Pläne still geändert. [Fachliche Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
 **Neu in V3.15 (separater Entwicklungszweig):** Wochenweiser Kita-Eingewöhnungs- und Wiedereinstiegsplan mit manueller Verzögerung und Ersatzbetreuung; getrennte NRW-KiBiz-Fassungen für 2026 und ab 01.08.2027; nach Geburtsdatum bestimmte Anzeige- und mögliche Beitragsfreiheits-Hinweise; Aufgabenfortschritt, vorläufiger Kalenderexport, KiZ-Unterlagenfenster und verständlichere Suchperspektiven. **Kein festgestellter Rechtsanspruch, keine automatische Änderung von Plan/Bank und keine neue öffentliche Freigabe.** [V3.15 Umsetzung und Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
 
 **V3.14 (interner Entwicklungsstand):** Eigene Versicherungs-/Steuerpuffer im Finanzvergleich, Kölner historische Gebührentabelle in drei Altersgruppen, technisch vollständiger kleiner Suchraum, schnellere abbrechbare Vorlagensuche, eindeutige UI-Handler und maschinenlesbarer Fachreview-Übergabesatz. Keine unabhängige Rechts-/Datenschutz-/Nutzerfreigabe. [Details und Übergabe](docs/ROADMAP-FACHABNAHME-V314-2026-10-17.md).

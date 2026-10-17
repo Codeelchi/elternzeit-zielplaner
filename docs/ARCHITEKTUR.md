@@ -65,3 +65,10 @@ Budgetprojektionen runden einzelne Szenariokomponenten mit `money.cjs` und rechn
 - SchemaVersion des JSON-Plans bleibt 1. Die V3.15-Parameter sind nicht im Planmodell enthalten und werden bei Import/Reset neu initialisiert. Damit bleibt ein alter Elternzeitplan unabhängig von optionalen Szenarioanzeigen.
 
 Details und offene unabhängige Prüfung: [V3.15 Ausbau](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md). Insbesondere keine öffentliche Freigabe ohne die bisherigen Fach-, Rechts-, Datenschutz- und Nutzertests.
+
+
+### V3.15.1 – Kein Durchmischen von Regellücke und Eingewöhnungsaufwand
+
+Die Core-Funktion compareSettlingIn verarbeitet geplanten Kita-Start und tatsächlich geplanten Arbeitsbeginn getrennt. Die Wochen des tatsächlichen Übergangs tragen countsTowardTransition=true; die anschließende Regelwoche trägt previewOnly=true und wird weder summiert noch als Dauerleistung fortgeschrieben. Eine möglicherweise dauerhaft unzureichende Betreuung wird ausschließlich als Wochenstunden-Differenz angezeigt.
+
+Die ebenfalls reine Funktion transitionLifeMonthBridge übernimmt ausschließlich die expliziten Übergangswochen und weist deren Kosten proportional zu den betroffenen *Kalendertagen* den Lebensmonaten des Kindes zu. Ganze Eurocent bleiben erhalten (größter Rest), auch an Monats-/Jahresgrenzen und bei außerhalb des 36-Monatsmodells liegenden Wochen. Ohne bekannte Haushaltsausgaben wird kein verfügbares Restbudget behauptet. Keine Modell-, Export-, Behörden- oder Kontomutation.

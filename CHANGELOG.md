@@ -1,5 +1,13 @@
 # Änderungen
 
+## V3.15.1 – Wiedereinstiegs- und Liquiditätsdarstellung korrigiert (interner Branch)
+
+- Die reguläre Kita-Woche ist keine zusätzliche Übergangswoche mehr: null Eingewöhnungs-/Wartewochen ergeben null einmalige Übergangsmehrkosten.
+- Dauerhafte fehlende Betreuungsstunden nach Arbeitsrückkehr werden getrennt angezeigt, statt als einmaliger Einkommensverlust zu verschwinden.
+- Arbeitsrückkehr um 0–24 Wochen verschiebbar, unabhängig von Kita-Start und NRW-Tarifstunden; kein fiktiver Lohnausfall vor Arbeitsbeginn.
+- Rein hypothetische Übergangskosten werden centgenau auf Kinder-Lebensmonate verteilt. Unbekannte Werte und Teile außerhalb der 36-Monatsansicht bleiben sichtbar.
+- Alle Ergänzungen temporär und ohne Import-/Export-Schemaänderung, Bankbuchungs- oder Elterngeldmodell-Änderung. Siehe [Nachbesserung V3.15.1](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
 ## V3.15 – Eingewöhnung und geprüfte Kita-Zukunftsfassungen (interner Branch, 17.10.2026)
 
 - NRW-KiBiz-Fassung 01.08.2026–31.07.2027 vs. verkündete künftige Fassung ab 01.08.2027 werden nach gewähltem Betreuungstag unterschieden; inklusive sechsmonatiger Anzeige, optionaler örtlicher früher Vormerkung und nur vorläufigem Beitragsfreiheits-Hinweis.

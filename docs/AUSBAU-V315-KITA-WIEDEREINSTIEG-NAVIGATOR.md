@@ -70,3 +70,31 @@ Auf Basis der bereits angezeigten, geprüften Suchvorlagen werden drei leicht ve
 - Der öffentliche Release-Gate-Check muss weiterhin die fehlenden unabhängigen Freigaben und den ungelösten amtlichen Mutterschutzdelta-Fall melden; ein Merge, CI-Grün oder Git-Commit hebt die Sperre nicht auf.
 
 **Nicht in V3.15 umgesetzt:** Verschlüsselter privater Mehrgeräte-Austausch ohne unabhängig geprüftes Schlüssel-/Recovery-/Bedrohungsmodell; keine automatische Behördenanmeldung oder neue amtlich validierte Elterngeld-Netto-Engine.
+
+
+## Nachbesserung V3.15.1 – getrennte Übergangs- und Regelbetreuungswochen
+
+Beim fortgesetzten Test wurde ein echter V3.15-Rechenfehler reproduziert: Im Fall **null Wochen Verzögerung und null Wochen Eingewöhnung** wurde die anschließend nur als Vorschau gedachte reguläre Kita-Woche irrtümlich mit dem Lohnausfall der Übergangsphase zusammengezählt. Beispiel: 25 Kita-Stunden, 28 Arbeitsstunden, 560 Euro angenommenes Wochen-Netto ergaben fälschlich einen Übergangsverlust von 60 Euro. **Korrigiert:** 0 Euro einmaliger Übergangskosten; 3 Stunden laufende Betreuungslücke pro regulärer Arbeitswoche getrennt ausgewiesen, ohne daraus einen unbestätigten Monatsbetrag zu errechnen.
+
+Neu in der rein hypothetischen und weiterhin **nicht gespeicherten** Wochenplanung:
+
+- Kita-Wochenstunden sind eine unabhängige Eingabe und nicht mehr irrtümlich an den Kölner 2025er Gebührentarif gekoppelt.
+- Geplanter **Arbeitsbeginn 0 bis 24 Wochen nach dem vorgesehenen Kita-Start**; davor werden ausdrücklich keine vermeintlichen Lohnausfälle wegen fehlender Betreuung angesetzt.
+- Ausschließlich die Wochen innerhalb Verzögerung und Eingewöhnung fließen in den **einmaligen Übergangsaufwand** ein. Eine weitere reguläre Arbeitswoche wird nur zur Orientierung gezeigt; bleibt sie nicht voll betreut, erscheint ein separater Hinweis auf eine **dauerhaft offene Wochenstundenlücke**.
+- Der bereits vorhandene Lebensmonatsplan erhält eine **separate, nach Kalendertagen aufgeteilte hypothetische Übersicht** der zusätzlichen Übergangskosten. Kosten und angenommenes Wochen-Netto werden centgenau nach größtem Restausgleich verteilt; bei fehlenden Einnahme-/Kostenannahmen kein vorgetäuschter Endsaldo.
+- Reicht die Eingewöhnung über die vorhandenen 36 Lebensmonate hinaus, werden **nicht berücksichtigte Tage und mögliche zusätzliche Beträge gesondert ausgewiesen**. Die Regelwochen nach der Eingewöhnung werden nicht bis zu einem unbestimmten Ende hochgerechnet.
+- Eine später geplante Rückkehr erzeugt keine bis zu 24 Zeilen langer irrelevanter Wochenliste: Der Bericht springt zur ersten regulären Arbeitswoche.
+- Diese Vorschau ist **kein Kindergeld-, Elterngeld-, Gehalts-, Versicherungs- oder Bankauszahlungsreforecast**. Alle Werte sind manuelle Annahmen; ein unbekanntes Netto bleibt unbekannt. Eine mögliche Doppelzählung bereits eingeplanter Kita-/Betreuungskosten muss individuell geprüft werden.
+
+Zusätzliche Negativ- und Konsistenztests decken Null-Wochen, spätere Rückkehr, fehlende Werte, Monatswechsel, Schaltjahre, exakte Cent-Erhaltung, Zeiträume jenseits des Monatsmodells und extreme explizite Eingaben ab. Ein deterministischer Querschnitt prüft 80 Kombinationen von Geburtsdatum, Kita-Start, Verzögerung und Eingewöhnung auf lückenlose Tage- und Cent-Summen.
+
+
+### V3.15.1 – technischer Abnahmeabschluss
+
+- **418/418** Node-/DOM-Tests inklusive unverändertem bisherigen Kern (V3.15: 403/403).
+- **47/47** vollständige Chromium-Browserregression (V3.15: 45/45); einschließlich aller Ansichten mit Desktop-/Mobilprüfung und automatisierten Accessibility-Kontrollen.
+- **8/8** V3.15-/V3.15.1-Browserfälle zusätzlich über **file:// ohne Anwendungs-Webserver** bestanden.
+- Szenarioregister unabhängig vom Kölner Beitragsstand; Weiterarbeiten mit exportierten JSON-Plänen ohne Speicherung der neuen hypothetischen Daten; Kein Missbrauch einer erledigten Checklisten-Frist nach Datumsänderungen.
+- Die öffentliche Releaseprüfung bleibt absichtlich **BLOCKED**, bis unabhängige Berechnungsprüfung, Recht, Datenschutz, Nutzertests und öffentliche Freigabe nachweisbar abgeschlossen sind. Die amtliche Mutterschutz-Referenzabweichung ist weiterhin ungelöst.
+
+Die Nachbesserung ist ein **technisch geprüfter interner Arbeitsstand**, keine behördliche Berechnung oder freigeschaltete öffentliche Beta.

@@ -3158,6 +3158,47 @@ const QuickStartV38=(()=>{
   }
   return null;
  }
+ // V3.11: deterministic continuity check of existing monthly output, not a new legal calculation.
+ function bridgeAnalysis(delay=0){
+  const until=Math.min(36,Math.max(1,Number(s.goalCare)||18));
+  const start=Number(s.childcareStart)||0;
+  const simulatedStart=start>0?Math.min(36,start+delay):0;
+  const fullFree=r=>!!r&&(offCode(r.f)||offCode(r.m)||r.m==='MS');
+  const partAvailable=r=>!!r&&(['R','T','Q','K'].includes(r.f)&&hoursFor(r,'f')<=32||
+                                         ['R','T','Q','K'].includes(r.m)&&hoursFor(r,'m')<=32);
+  const gaps=[],cashDeficits=[];
+  const known=costsKnown();
+  for(let lm=1;lm<=until;lm++){
+   const r=s.schedule?.[lm-1],row=current?.rows?.[lm-1];
+   const covered=fullFree(r)||(s.goalCareMode==='partial'&&simulatedStart>0&&lm>=simulatedStart&&partAvailable(r));
+   if(!covered)gaps.push(lm);
+   if(known&&row&&Number.isFinite(Number(row.cashAfter))&&Number(row.cashAfter)<0)
+    cashDeficits.push({lm,amount:Number(row.cashAfter)});
+  }
+  const ranges=months=>{
+   const result=[];for(const lm of months){const last=result[result.length-1];if(last&&lm===last[1]+1)last[1]=lm;else result.push([lm,lm]);}
+   return result;
+  };
+  return {until,start,simulatedStart,gaps,gapRanges:ranges(gaps),cashDeficits,deficitRanges:ranges(cashDeficits.map(x=>x.lm)),costsKnown:known};
+ }
+ function bridgeMarkup(){
+  const baseline=bridgeAnalysis(),delayed=bridgeAnalysis(2);
+  const formatRanges=rs=>rs.map(([a,b])=>a===b?'LM '+a:'LM '+a+'–'+b).join(', ');
+  const cash=baseline.costsKnown?(baseline.cashDeficits.length?
+     'Negatives Modellbudget in '+formatRanges(baseline.deficitRanges)+'. Dies ist kein Beleg für einen tatsächlichen Zahlungsengpass.':
+     'In den ausgewerteten Lebensmonaten kein negatives Modellbudget nach eingegebenen Kosten.') :
+     'Ausgaben fehlen: keine belastbare Aussage zu negativen Monatsbudgets.';
+  const delay=baseline.start>0&&baseline.start<=baseline.until?
+    '<p><strong>Wenn die Kita zwei Lebensmonate später beginnt (LM '+delayed.simulatedStart+'):</strong> '+
+    (delayed.gaps.length?escValue(formatRanges(delayed.gapRanges))+' mit rechnerisch ungeklärter Betreuung.':'Nach dieser vereinfachten Stundenannahme keine weitere Betreuungslücke.')+
+    ' Kita-Beiträge, Arbeitszeiten und Leistungen werden in diesem Vergleich <strong>nicht</strong> neu berechnet.</p>':
+    '<p>Für den Vergleich mit einem verspäteten Kita-Start zunächst einen Kita-Lebensmonat und ggf. die Teilzeitbetreuung in den Fachansichten erfassen.</p>';
+  return '<section class="v310-next" aria-label="Übergang von Elterngeld zu Betreuung und Beruf"><h4>Betreuung und finanzieller Übergang</h4>'+
+    '<p>Bis LM '+baseline.until+': '+(baseline.gaps.length?'Rechnerisch nicht abgedeckt: '+escValue(formatRanges(baseline.gapRanges))+'.':'Keine ungedeckten Lebensmonate gemäß den vereinfachten Planannahmen.')+'</p>'+
+    '<p>'+escValue(cash)+'</p>'+delay+
+    '<p class="v38-caption">Eine Kita-Vormerkung ist keine Platzzusage. Die Übersicht prüft vereinfachte Monatsbetreuung, keine tatsächlichen Wochenstunden, Eingewöhnung, Zahlungstermine oder verbindlichen Ansprüche.</p>'+
+    '<button class="navbtn alt" type="button" data-v38-goto="slide-region">Kita-Annahmen bearbeiten</button></section>';
+ }
  function effectiveTemplate(){
   return templates[selected]||Object.values(templates).find(x=>x.model===s.model)||null;
  }
@@ -3224,7 +3265,7 @@ const QuickStartV38=(()=>{
     '</div>'+
     '<p class="v38-caption">'+(known?'Ergebnis nach eingegebenen Haushalts- und Kita-Annahmen; weitere Kosten/Steuern/Versicherungen möglich.':'Persönliche Haushaltsausgaben sind unbekannt. Deshalb keine Aussage über verfügbares Restbudget oder notwendige Rücklagen.')+'</p>'+
     notices.map(t=>'<div class="v38-notice">'+escValue(t)+'</div>').join('')+
-    nextStepsMarkup()+
+    nextStepsMarkup()+bridgeMarkup()+
     '<details class="v39-assumptions"><summary>Welche Zahlen und Annahmen stecken dahinter?</summary>'+
       '<p>Geburtstermin: '+escValue(s.date)+' · Auszahlungsnetto Elternteil 1: '+eur(s.netFather)+' · Elternteil 2: '+eur(s.netMother)+'.</p>'+
       '<p>Verwendetes Elterngeld-Netto (noch nicht automatisch amtlich ermittelt): '+eur(s.egNetFather)+' und '+eur(s.egNetMother)+'. Kindergeldansatz: '+eur(s.kind)+' monatlich.</p>'+

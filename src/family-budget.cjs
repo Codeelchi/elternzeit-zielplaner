@@ -63,6 +63,10 @@ function projectFamilyBudget({rows,expenses=0,minimum=0,assumptions={},confirmed
       rejectedGrants.push({id:grant?.id||null,reason:'Anspruch und datierte Quelle nicht vollständig bestätigt.'}); continue;
     }
     if(!Number.isInteger(grant.lm)||grant.lm<1)throw new RangeError('Leistungsmonat ungültig.');
+    if(grant.lm>rows.length){
+      rejectedGrants.push({id:grant.id||null,reason:'Bestätigte Zusatzleistung liegt außerhalb des berechneten Lebensmonats-Horizonts.'});
+      continue;
+    }
     grants.set(grant.lm,(grants.get(grant.lm)||0)+cents(amount(grant.amount,'Zusatzleistung')));
   }
   const ignoredRowGrants=rows.some(r=>Number(r.grant)>0);
@@ -75,7 +79,7 @@ function projectFamilyBudget({rows,expenses=0,minimum=0,assumptions={},confirmed
     const maternity=amount(row.maternityBenefits,'Mutterschaftsleistungen');
     if(maternity>motherIncome)throw new RangeError('Mutterschaftsleistungen übersteigen die Einkommensprojektion der Mutter.');
     const maternityKnown=row.maternityBenefits!==undefined && row.maternityBenefits!==null && row.maternityBenefits!=='';
-    return {lm,fatherWage,motherWage:motherIncome-maternity,maternity,maternityKnown,elterngeld:(cents(amount(row.fg,'Elterngeld 1'))+cents(amount(row.mg,'Elterngeld 2')))/100,kindergeld:amount(row.kind,'Kindergeld'),childcare:amount(row.childcare,'Betreuungskosten'),grant:(grants.get(lm)||0)/100};
+    return {lm,fatherWage,motherWage:motherIncome-maternity,maternity,maternityKnown,elterngeldFather:amount(row.fg,'Elterngeld 1'),elterngeldMother:amount(row.mg,'Elterngeld 2'),kindergeld:amount(row.kind,'Kindergeld'),childcare:amount(row.childcare,'Betreuungskosten'),grant:(grants.get(lm)||0)/100};
   });
   const scenarios=[['conservative','Vorsichtig',-1],['realistic','Realistisch',0],['favourable','Günstig',1]].map(([id,label,direction])=>{
     // Scenario components are booked in cents before aggregation. Integer
@@ -85,7 +89,11 @@ function projectFamilyBudget({rows,expenses=0,minimum=0,assumptions={},confirmed
     const months=prepared.map(r=>{
       const fatherWage=scaledCents(r.fatherWage,direction*fatherWageBand);
       const motherWage=scaledCents(r.motherWage,direction*motherWageBand);
-      const wages=fatherWage+motherWage,elterngeld=scaledCents(r.elterngeld,direction*egBand);
+      const wages=fatherWage+motherWage;
+      // Each parent's rounded entitlement is a distinct cash component. Scaling
+      // the combined total would silently gain/lose a cent at half-cent boundaries.
+      const elterngeld=scaledCents(r.elterngeldFather,direction*egBand)+
+        scaledCents(r.elterngeldMother,direction*egBand);
       const childcare=scaledCents(r.childcare,-direction*costBand),householdExpenses=scaledCents(expense,-direction*costBand);
       const maternity=cents(r.maternity),kindergeld=cents(r.kindergeld),grant=Math.round(r.grant*100);
       const income=wages+maternity+elterngeld+kindergeld+grant;
@@ -100,6 +108,7 @@ function projectFamilyBudget({rows,expenses=0,minimum=0,assumptions={},confirmed
     'Leistungsanspruch pro Lebensmonat ist kein tatsächlicher Bank-Zahlungseingang. Verzögerte Auszahlungen erfordern zusätzliche Liquidität.',
     'Progressionsvorbehalt kann Steuernachzahlungen auslösen; individuelle Versicherungsbeiträge sind nicht enthalten.',
     ...(ignoredRowGrants?['Manuelle Zusatzleistungen wurden ohne bestätigte, datierte Anspruchsgrundlage nicht übernommen.']:[]),
+    ...(rejectedGrants.some(r=>r.reason.includes('außerhalb'))?['Bestätigte Zusatzleistungen außerhalb des Planungshorizonts wurden nicht stillschweigend berücksichtigt.']:[]),
     ...(prepared.some(r=>!r.maternityKnown)?['Ohne explizite Aufteilung können Mutterschaftsleistungen im kombinierten Arbeitseinkommen enthalten sein.']:[])
   ]};
 }

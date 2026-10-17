@@ -4,6 +4,8 @@
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
 
+**V3.13 Roadmap-Fortschritt (lokaler Entwicklungszweig):** Manuell angenommene Tageszahlungsplanung, Versicherung-/Steuerhinweise, offizielle KiZ-/Wohngeld-/DRV-Verweise, explizit nur historischer Kölner Kita-Tarifvergleich, Quellen- und Roadmapchecks, Fristen-Kalenderexport, versionierter JSON-Import und zusätzliche Suche-/Cent-Sicherungen. **Keine amtlich geprüfte Brutto-Netto-Engine; keine unabhängigen Freigaben.** [V3.13 Status und verbliebene Aufgaben](docs/ROADMAP-ABSCHLUSSSTAND-2026-10-17.md).
+
 **Entwicklungsstand V3.12 (neuer Feature-Zweig):** Manuell nachvollziehbares Kita-Finanzdeltaszenario, Geld-/Auszeit-Zielkonfliktvergleich im tatsächlich geprüften Suchraum und illustratives Kassenbuch auf Basis ausschließlich eingegebener Bankbuchungen. Keine Änderung amtlicher Ansprüche, keine öffentliche Rechtsfreigabe. [Details und Grenzen](docs/AUSBAU-V3-12-KITA-LIQUIDITAET-ZIELKONFLIKTE.md).
 
 **Entwicklungsstand V3.11 (separater Feature-Zweig):** Der Schnellstart bekommt einen geführten Rückwärts-Zielplaner und einen variablen Kita-Verzögerungsvergleich. Es wird nur die vorhandene Regel- und Suchengine verwendet; keine neue Fachfreigabe. [Umsetzung, Tests und Grenzen](docs/AUSBAU-V3-11-FAMILIENUEBERGANG.md).

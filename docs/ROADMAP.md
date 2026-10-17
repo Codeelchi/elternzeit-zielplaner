@@ -14,6 +14,8 @@ Stand: **16. Oktober 2026 / V3.10.0**. Reihenfolge nach Abhängigkeit und Priori
 
 **V3.12 (lokaler Entwicklungszweig):** Kita-Verzögerung mit ausdrücklich gesetzten Kosten-/Einkommensannahmen und nur manuell bestätigtem Wegfall bereits eingeplanter Kita-Gebühren; 2D-Pareto-Erklärung unter den validierten Suchmustern; kalenderbasierte Darstellung nur erfasster Bankbuchungen und eine nicht gespeicherte, optionale Anfangsrücklage. Kein automatisches Elterngeld- oder Zahlungsreforecast, keine Rechtsfreigabe. [Technische Grenzen und offene Schritte](AUSBAU-V3-12-KITA-LIQUIDITAET-ZIELKONFLIKTE.md).
 
+**Statusreview V3.13 vom 17.10.2026:** Technische Zusatzpakete für manuell erwartete Kalendertagszahlungen und Verzögerungen, Versicherungs-/Steuerhinweise, amtliche Leistungslotsen, historische Kita-Gebührenorientierung, Nachweise der eingeschränkten Suche, Quellenstatusprüfung, Fristen-ICS und versionierte JSON-Exporte sind implementiert. Die unabhängigen P0- und P1-R8-Abnahmen bleiben offen. Die aktualisierte überprüfbare Matrix trennt technische Fertigstellung von externer Freigabe: [Roadmap-Abschlussstand](ROADMAP-ABSCHLUSSSTAND-2026-10-17.md).
+
 ## Erreichter Stand
 
 | Bereich | Implementiert | Noch offen |

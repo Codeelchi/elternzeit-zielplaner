@@ -1,0 +1,78 @@
+{
+  "asOf": "2026-10-17",
+  "publicReleaseApproved": false,
+  "items": [
+    {
+      "id": "P0-R1",
+      "title": "Mutterschutz 4 oder 5 Resttage",
+      "status": "extern offen",
+      "nextEvidence": "Amtliche schriftliche Klarstellung des synthetischen Teilmonats"
+    },
+    {
+      "id": "P0-R2",
+      "title": "Vollständige unabhängige Familienreferenzen",
+      "status": "extern offen",
+      "nextEvidence": "Mindestens zehn vollständige Behörden- oder unabhängige Prüffälle"
+    },
+    {
+      "id": "P0-R3",
+      "title": "Elterngeld-Netto aus Brutto",
+      "status": "extern offen",
+      "nextEvidence": "Geprüfter BEEG-Bemessungsweg und Fallmatrix"
+    },
+    {
+      "id": "P0-R4",
+      "title": "Unabhängiger Rechts- und Kohortenreview",
+      "status": "extern offen",
+      "nextEvidence": "Abnahme für relevante Rechtsfassung und Geburtskohorten"
+    },
+    {
+      "id": "P1-R5",
+      "title": "Suchraum und Reaktionsfähigkeit",
+      "status": "teilweise",
+      "nextEvidence": "Vollständig enumerierbare Teilräume und mobile Benchmarks"
+    },
+    {
+      "id": "P1-R6",
+      "title": "Budget und Liquidität",
+      "status": "teilweise",
+      "nextEvidence": "Versicherungs- und Steuerfallprüfung"
+    },
+    {
+      "id": "P1-R7",
+      "title": "NRW und Köln",
+      "status": "teilweise",
+      "nextEvidence": "Gebührensatzung 2027 unabhängig prüfen"
+    },
+    {
+      "id": "P1-R8",
+      "title": "Nutzertests, Datenschutz, manuelle Barrierefreiheit",
+      "status": "extern offen",
+      "nextEvidence": "Externe Studien und schriftliche Abnahmen"
+    },
+    {
+      "id": "P2-offline",
+      "title": "Offline-Module",
+      "status": "technisch umgesetzt",
+      "nextEvidence": "Wiederholung bei Änderungen"
+    },
+    {
+      "id": "P2-json",
+      "title": "Schema-Version und Kompatibilität",
+      "status": "technisch umgesetzt",
+      "nextEvidence": "Roundtrip bei Schemawechsel"
+    },
+    {
+      "id": "P2-sources",
+      "title": "Quellenprüfung",
+      "status": "technisch umgesetzt",
+      "nextEvidence": "Quellen am nächsten Stichtag überprüfen"
+    },
+    {
+      "id": "P2-legacy",
+      "title": "Alte UI-Doppeldefinitionen",
+      "status": "teilweise",
+      "nextEvidence": "Separater risikoarmer Refactor"
+    }
+  ]
+}

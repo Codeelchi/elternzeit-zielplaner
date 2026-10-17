@@ -79,3 +79,18 @@ test('parent bands validate both boundaries and optional empty fallback',()=>{
   for(const value of [null,undefined,''])assert.equal(projectFamilyBudget({rows:[row(1)],assumptions:{wagePercent:25,[key]:value}}).assumptions[key],25);
  }
 });
+
+
+test('verified grants beyond selected horizon are visibly rejected rather than silently dropped',()=>{
+ const grant={id:'future',confirmed:true,amount:55,lm:5,sourceUrl:'https://example.invalid',verifiedAt:'2026-10-17',validFrom:'2026-01-01',validUntil:'2026-12-31',entitlementDate:'2026-05-01'};
+ const b=projectFamilyBudget({rows:[{fi:300}],confirmedGrants:[grant]});
+ assert.equal(b.scenarios[1].totalIncome,300);
+ assert.equal(b.rejectedGrants.length,1);
+ assert.equal(b.rejectedGrants[0].id,'future');
+ assert.match(b.warnings.join(' '),/außerhalb des Planungshorizonts/);
+});
+
+test('parent Elterngeld scenario roundings are separated before aggregation',()=>{
+ const b=projectFamilyBudget({rows:[{fi:0,fg:0.05,mg:0.05}],assumptions:{wagePercent:0,elterngeldPercent:10,costPercent:0}});
+ assert.deepEqual(b.scenarios.map(x=>x.totalIncome),[0.10,0.10,0.12]);
+});

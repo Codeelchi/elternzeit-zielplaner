@@ -789,3 +789,78 @@ test('V3.12 recorded calendar bookings stay separate from modeled entitlements a
  expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(state);
  expect(await page.evaluate(()=>localStorage.length)).toBe(0);
 });
+
+for(const width of [320,390])test(`V3.13 manual payment timing and risk guidance remain offline and mobile at ${width}px`,async({page},testInfo)=>{
+ await page.setViewportSize({width,height:820});
+ await navigate(page,'slide-axes');
+ const state=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('#v313PaymentDate').fill('2026-06-05');
+ await page.locator('#v313PaymentAmount').fill('1000');
+ await page.locator('#v313PaymentDirection').selectOption('incoming');
+ await page.locator('#v313PaymentAdd').click();
+ await page.locator('#v313PaymentDate').fill('2026-06-06');
+ await page.locator('#v313PaymentAmount').fill('800');
+ await page.locator('#v313PaymentDirection').selectOption('outgoing');
+ await page.locator('#v313PaymentCategory').selectOption('household');
+ await page.locator('#v313PaymentAdd').click();
+ await page.locator('#v313Delay').selectOption('7');
+ await expect(page.locator('#v313PaymentResults')).toContainText('800,00');
+ await expect(page.locator('#v313PaymentResults')).toContainText('2026-06-12');
+ await page.locator('#v313Opening').fill('100');
+ await expect(page.locator('#v313PaymentResults')).toContainText('niedrigste rechnerische Zwischensaldo');
+ await expect(page.locator('#bankSummary')).toContainText('Keine tatsächlichen Zahlungseingänge');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(state);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ const axe1=await new AxeBuilder({page}).include('.v313-payment').withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(axe1.violations.map(v=>v.id)).toEqual([]);
+ await page.screenshot({path:testInfo.outputPath(`v313-payment-${width}.png`),fullPage:true});
+ await navigate(page,'slide-risk');
+ await page.locator('#v313InsuranceType').selectOption('private');
+ await expect(page.locator('#v313FinanceResults')).toContainText('Arbeitgeberzuschuss');
+ await expect(page.locator('#v313FinanceResults')).toContainText('Progressionsvorbehalt');
+ const axe2=await new AxeBuilder({page}).include('.v313-finance').withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(axe2.violations.map(v=>v.id)).toEqual([]);
+ const dims=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,window:innerWidth}));
+ expect(dims.scroll).toBeLessThanOrEqual(dims.window+1);
+});
+
+test('V3.13 export calendar contains only tentative checklists; unsupported import schema cannot change plan',async({page},testInfo)=>{
+ await standardInputs(page);
+ await navigate(page,'slide-9');
+ const download=page.waitForEvent('download');
+ await page.locator('#v313DownloadIcs').click();
+ const artifact=await download;
+ const f=testInfo.outputPath('unverbindliche-fristen.ics');
+ await artifact.saveAs(f);
+ const ics=await readFile(f,'utf8');
+ expect(ics).toContain('BEGIN:VCALENDAR');
+ expect(ics).toContain('STATUS:TENTATIVE');
+ expect(ics).toContain('DTSTART;VALUE=DATE:');
+ expect(ics).toContain('END:VCALENDAR');
+ const baseline=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ const alerts=[];page.on('dialog',async dialog=>{alerts.push(dialog.message());await dialog.accept();});
+ const raw=await page.evaluate(()=>({fileType:'elternzeit-offline-v3',schemaVersion:2,data:window.__elternzeitTest.getState()}));
+ await page.locator('#importJson').setInputFiles({name:'future.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(raw))});
+ await expect.poll(()=>alerts.length).toBe(1);
+ expect(alerts[0]).toContain('Unbekannte JSON-Schemaversion');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(baseline);
+});
+
+test('V3.13 Cologne snapshot preview is dated and does not alter manually entered Kita fees',async({page})=>{
+ await navigate(page,'slide-2');
+ await page.locator('#date').fill('2026-05-28');
+ await page.locator('#date').blur();
+ await navigate(page,'slide-region');
+ await page.locator('#childcareStart').selectOption('19');
+ await page.locator('#childcareMonthly').fill('313');
+ await page.locator('#childcareMonthly').blur();
+ const before=await page.evaluate(()=>window.__elternzeitTest.evaluate().rows[18].childcare);
+ await page.locator('#childcareMode').selectOption('cologne2025');
+ await expect(page.locator('#v313ColognePreview')).toBeVisible();
+ await expect(page.locator('#v313ColognePreview')).toContainText('Historische Tarif-Orientierung');
+ await expect(page.locator('#v313ColognePreview')).toContainText('2027/2028');
+ const after=await page.evaluate(()=>window.__elternzeitTest.evaluate().rows[18].childcare);
+ expect(after).toBe(before);
+ await page.locator('#region').selectOption('BY');
+ await expect(page.locator('#v313ColognePreview')).toBeHidden();
+});

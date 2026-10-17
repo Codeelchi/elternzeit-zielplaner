@@ -61,3 +61,8 @@ Erst nach den Korrekturen und Abschluss der parallelen Node-Prüfungen startete 
 Automatisierte Axe-Scans und synthetische Tastaturfälle ersetzen weder echte Nutzertests noch einen vollständigen Screenreader- oder Assistenztechnologie-Test. Die Bildschirmgrößen sind Browseransichten, keine Zertifizierung physischer Smartphones. Es wurden ausschließlich synthetische Haushaltsangaben verwendet. Externe Beratungsangebote wurden nicht automatisiert mit persönlichen Angaben aufgerufen.
 
 Dieser Bericht ist eine interne technische QA. Er behauptet keine unabhängige finanzielle, rechtliche oder datenschutzrechtliche Abnahme. Die bekannte Mutterschutz-Referenzabweichung und die öffentlichen Release-Gates werden dadurch nicht aufgehoben. Inhaltliche Quellenprüfung und ihre Grenzen stehen in [FACHRECHERCHE-V3.10.md](FACHRECHERCHE-V3.10.md), [ZUSATZINFORMATIONEN-V3.10.md](ZUSATZINFORMATIONEN-V3.10.md) und der Portal-Dokumentation.
+
+
+## Design-Nachbesserung 17.10.2026
+
+Die aktuelle Portalgestaltung und ihre gezielten Nachweise stehen in [DESIGN-2026-10-17.md](DESIGN-2026-10-17.md). Der Rechner bleibt unverändert. Frühere vollständige Browserberichte und deren Portalhash beziehen sich auf den 16.10.; die neue Portaldatei hat einen eigenen Hash und einen getrennten Bericht. PR #17 wird damit aktualisiert.

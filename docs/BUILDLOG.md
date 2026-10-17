@@ -135,3 +135,8 @@ Kein Merge und keine öffentliche Veröffentlichung in dieser Fortsetzung. Unabh
 Das CI-Jobbudget wurde für die erweiterte Node-/Browsermatrix von zehn auf 15 Minuten erhöht. Die einzelnen Browser-Testlimits bleiben unverändert bei 120 Sekunden; Assertions und Accessibility-Gates wurden nicht gelockert. Unterbrochene/parallele Vorläufe werden nicht als erfolgreiche Nachweise gezählt.
 
 Finale lokale Nachweise: 279/279 Node-Tests (167,4 s), ergänzte Link-Regression 2/2, 27/27 direkte file://-Browserfälle (7,5 min). Gesamtergebnis und Grenzen in [QA V3.10](QA-V3.10.md). Die ersten unterbrochenen Browser-/Node-Vorläufe wurden durch vollständige beziehungsweise gezielt zur Linkänderung passende Läufe ersetzt.
+
+
+## Design-Nachbesserung 17.10.2026
+
+Die aktuelle Portalgestaltung und ihre gezielten Nachweise stehen in [DESIGN-2026-10-17.md](DESIGN-2026-10-17.md). Der Rechner bleibt unverändert. Frühere vollständige Browserberichte und deren Portalhash beziehen sich auf den 16.10.; die neue Portaldatei hat einen eigenen Hash und einen getrennten Bericht. PR #17 wird damit aktualisiert.

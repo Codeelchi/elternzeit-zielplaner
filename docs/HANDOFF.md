@@ -147,3 +147,8 @@ Mit [Umsetzung V3.10](UMSETZUNG-V3.10.md) und [QA V3.10](QA-V3.10.md) beginnen. 
 Neues reines Modul `src/planning-knowledge.cjs` ist in `scripts/embed-modules.mjs` aufgenommen. Wissenskarten nutzen dieselbe Zeitachsenengine und ändern weder Finanzen noch Rechtsstatus. `family-budget.cjs` benötigt nun `money.cjs`; nach Quelländerungen `npm run modules:sync`. Schnellstartquellen nach Änderungen mit `npm run quickstart:sync` einbetten. Beide Snapshotchecks sind Teil von `npm test`.
 
 Nächste Abnahmearbeit bleibt P0-R1 (Mutterschutz-Geldanrechnung) und P0-R2 (vollständige unabhängige Referenzfamilien). Für das Infoportal außerdem verantwortlichen Anbieter/Impressum, öffentliche Datenschutzhinweise und redaktionelle Linkpflege vor einem öffentlichen Start verbindlich festlegen; keine erfundenen Betreiberangaben ergänzen. Echte Nutzertests für den gesamten Weg Infoseite → Rechner → Beratung durchführen. Veröffentlichung bleibt gesperrt.
+
+
+## Design-Nachbesserung 17.10.2026
+
+Die aktuelle Portalgestaltung und ihre gezielten Nachweise stehen in [DESIGN-2026-10-17.md](DESIGN-2026-10-17.md). Der Rechner bleibt unverändert. Frühere vollständige Browserberichte und deren Portalhash beziehen sich auf den 16.10.; die neue Portaldatei hat einen eigenen Hash und einen getrennten Bericht. PR #17 wird damit aktualisiert.

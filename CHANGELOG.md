@@ -2,6 +2,8 @@
 
 ## 3.10.0 – Familienstart, Wissenskarten und centgenaues Budget, 16.10.2026
 
+- **Design-Nachbesserung 17.10.2026:** redaktionelle Typografie, warmer Farbklang, differenzierte Themenkarten, zwölf lokale SVG-Symbole, klarere Rechner-/Beratungsbereiche und mobile Filter. Fünf Portaltests und acht zusätzliche Axe-Scans bei vier Breiten erfolgreich; [Nachweis](docs/DESIGN-2026-10-17.md).
+
 - Neue kleine Infowebseite `start.html`: Schwangerschaft, Vorbereitung und erste Familienzeit, kuratierte offizielle Beratungswege sowie direkter Zugang zum bestehenden Rechner. Gegenseitige Verlinkung, lokal ohne Account, Tracker oder externe Laufzeitassets.
 - Acht datierte Wissenskarten ergänzen Lebensmonate, Einkommensarten, Teilzeit, Steuer, Krankenversicherung, Antragsrückwirkung, Arbeitgeber-Elternzeit und Kita-Eingewöhnung. Auswahl nach Planungskontext, konkrete Lebensmonatsdaten und amtliche Quellen; keine zusätzlichen Geldbuchungen.
 - Schnellstart mit konkreten nächsten Schritten aus zentralen Validatorbefunden, Haushaltsausgaben und Betreuung. Direkter Sprung samt Eingabefokus, ohne Werte oder Monatspläne umzuschreiben. Nettohilfe erklärt manuelle Schätzungen und den externen amtlichen Rechner.

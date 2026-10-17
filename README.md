@@ -1,6 +1,6 @@
 # Elternzeit-Zielplaner
 
-**Privater Entwicklungsstand V3.10.0 (16. Oktober 2026)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner.
+**Privater Entwicklungsstand V3.10.0 (17. Oktober 2026)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner.
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
 
@@ -9,6 +9,8 @@
 **Neu in V3.10:** [Familienstart](start.html) bündelt Orientierung, offizielle Beratung und den [Rechner](index.html). Der Rechner ergänzt kontextbezogene Wissenskarten, konkrete nächste Eingabeschritte und centgenaue Budgetbuchungen. [Umsetzung und Grenzen](docs/UMSETZUNG-V3.10.md).
 
 **Prüfstand V3.10:** 279 Node-Tests und 27 direkte file://-Browserfälle bestanden; vollständige Nachweise und Grenzen im [QA-Bericht](docs/QA-V3.10.md).
+
+**Design-Nachbesserung 17.10.:** wärmere Farben, klarere Typografie, thematische Symbole und bessere mobile Karten/Filter. [Gestaltung und gezielte QA](docs/DESIGN-2026-10-17.md). Der vollständige Prüfstand oben stammt vom 16.10.; die neue Portalgestaltung ist zusätzlich bei vier Bildschirmbreiten geprüft.
 
 ## Dokumentation und Übergabe
 

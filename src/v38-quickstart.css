@@ -68,3 +68,16 @@ body.v38-lite.v38-pristine .live-strip{display:none}
  body.v38-lite .stage .slide{padding:16px 13px 35px}
  body.v38-lite .v38-shell{padding:12px}
 }
+
+/* V3.10: actionable guidance without suggesting legal completion. */
+.v310-next{border:1px solid #b9d9cd;border-radius:11px;padding:14px;margin:14px 0;background:#f6fbf8}
+.v310-next h4{font-size:16px;margin:0 0 6px}
+.v310-next ul{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:7px}
+.v310-next li{margin:0;min-width:0}
+.v310-next button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:44px;border:1px solid #bdd9d0;border-radius:8px;background:#fff;color:#17594f;font-size:13px;line-height:1.5;text-align:left;padding:10px 12px;overflow-wrap:anywhere}
+.v310-next button:focus-visible,.v310-netto-help summary:focus-visible{outline:3px solid #008b7c;outline-offset:3px}
+.v310-netto-help{padding:12px 0;color:#31555e;font-size:12px;line-height:1.6}
+.v310-netto-help summary{cursor:pointer;font-size:13px;font-weight:750;min-height:32px}
+.v310-netto-help dt{font-weight:800;margin-top:9px}
+.v310-netto-help dd{margin:3px 0 9px}
+.v310-netto-help a{color:#00685e;text-decoration:underline}

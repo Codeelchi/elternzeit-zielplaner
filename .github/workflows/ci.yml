@@ -11,7 +11,7 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15 # Expanded Node + 58 accessibility scans + portal workflows; per-test limits stay unchanged.
     steps:
       - uses: actions/checkout@v4
       - name: Use Node 22

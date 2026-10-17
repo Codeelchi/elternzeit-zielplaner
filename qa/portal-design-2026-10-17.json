@@ -1,0 +1,226 @@
+{
+  "checkedAt": "2026-10-17T05:19:39.724Z",
+  "portalUrl": "file:///workspace/elternzeit-zielplaner/start.html",
+  "sourceSha256": "27256783f1bd6d763ced91470a2fc00dad5b995435b7b0a7477ce9631330dbe1",
+  "calculatorSha256": "72b87039d14494ffee88622ecf5729944d2513fe7be88083b5f2d08ba4663e60",
+  "browser": "156.0.8078.4",
+  "viewports": [
+    {
+      "width": 320,
+      "initial": {
+        "scrollWidth": 320,
+        "width": 320
+      },
+      "scans": [
+        {
+          "name": "initial",
+          "violations": []
+        },
+        {
+          "name": "FAQ expanded",
+          "violations": []
+        }
+      ],
+      "filters": [
+        {
+          "phase": "pregnancy",
+          "visible": 2
+        },
+        {
+          "phase": "planning",
+          "visible": 2
+        },
+        {
+          "phase": "newborn",
+          "visible": 2
+        },
+        {
+          "phase": "all",
+          "visible": 6
+        }
+      ],
+      "navigation": true
+    },
+    {
+      "width": 390,
+      "initial": {
+        "scrollWidth": 390,
+        "width": 390
+      },
+      "scans": [
+        {
+          "name": "initial",
+          "violations": []
+        },
+        {
+          "name": "FAQ expanded",
+          "violations": []
+        }
+      ],
+      "filters": [
+        {
+          "phase": "pregnancy",
+          "visible": 2
+        },
+        {
+          "phase": "planning",
+          "visible": 2
+        },
+        {
+          "phase": "newborn",
+          "visible": 2
+        },
+        {
+          "phase": "all",
+          "visible": 6
+        }
+      ],
+      "navigation": true
+    },
+    {
+      "width": 768,
+      "initial": {
+        "scrollWidth": 768,
+        "width": 768
+      },
+      "scans": [
+        {
+          "name": "initial",
+          "violations": []
+        },
+        {
+          "name": "FAQ expanded",
+          "violations": []
+        }
+      ],
+      "filters": [
+        {
+          "phase": "pregnancy",
+          "visible": 2
+        },
+        {
+          "phase": "planning",
+          "visible": 2
+        },
+        {
+          "phase": "newborn",
+          "visible": 2
+        },
+        {
+          "phase": "all",
+          "visible": 6
+        }
+      ],
+      "navigation": true
+    },
+    {
+      "width": 1440,
+      "initial": {
+        "scrollWidth": 1440,
+        "width": 1440
+      },
+      "scans": [
+        {
+          "name": "initial",
+          "violations": []
+        },
+        {
+          "name": "FAQ expanded",
+          "violations": []
+        }
+      ],
+      "filters": [
+        {
+          "phase": "pregnancy",
+          "visible": 2
+        },
+        {
+          "phase": "planning",
+          "visible": 2
+        },
+        {
+          "phase": "newborn",
+          "visible": 2
+        },
+        {
+          "phase": "all",
+          "visible": 6
+        }
+      ],
+      "navigation": true
+    }
+  ],
+  "noJavaScript": [
+    {
+      "width": 320,
+      "allTopicsVisible": true,
+      "nonFunctionalFilterHidden": true,
+      "nativeFaqWorks": true,
+      "dimensions": {
+        "scrollWidth": 320,
+        "width": 320
+      }
+    },
+    {
+      "width": 1440,
+      "allTopicsVisible": true,
+      "nonFunctionalFilterHidden": true,
+      "nativeFaqWorks": true,
+      "dimensions": {
+        "scrollWidth": 1440,
+        "width": 1440
+      }
+    }
+  ],
+  "reducedMotion": [
+    {
+      "width": 390,
+      "reduced": true,
+      "scroll": "auto",
+      "animated": 0
+    },
+    {
+      "width": 1440,
+      "reduced": true,
+      "scroll": "auto",
+      "animated": 0
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": [],
+  "status": "PASS",
+  "limits": [
+    "Synthetic browser QA; no independent accessibility certification or user testing.",
+    "No external source or advice service is opened with household data.",
+    "Targeted portal design QA does not replace the complete V3.10 calculator test matrix."
+  ],
+  "axeScans": 8,
+  "completedAt": "2026-10-17T05:19:59.393Z",
+  "screenshots": [
+    "qa/screenshots/portal-design-1440-expanded.png",
+    "qa/screenshots/portal-design-1440-initial.png",
+    "qa/screenshots/portal-design-1440-viewport.png",
+    "qa/screenshots/portal-design-320-expanded.png",
+    "qa/screenshots/portal-design-320-initial.png",
+    "qa/screenshots/portal-design-320-viewport.png",
+    "qa/screenshots/portal-design-390-cards.png",
+    "qa/screenshots/portal-design-390-expanded.png",
+    "qa/screenshots/portal-design-390-initial.png",
+    "qa/screenshots/portal-design-390-viewport.png",
+    "qa/screenshots/portal-design-768-expanded.png",
+    "qa/screenshots/portal-design-768-initial.png"
+  ],
+  "historicalReportsUnchanged": {
+    "qa/browser-results.json": "4773ba2a22ff3c7ecd5f10a7090e4e0f19131f1d1422c3529e250bf619c95128",
+    "qa/browser-environment.json": "56a2f93023a6e7ef352af737ba1cfb05add8a7b9945f30eca9e22597b27006e8"
+  },
+  "visualInspection": {
+    "viewports": [
+      320,
+      390,
+      1440
+    ],
+    "findings": "No overlapping or clipped navigation; narrow layout wraps the calculator link into its own row. Hero headings, calls to action and illustration remain readable. Automated containment checks pass for all four widths. The 390-pixel card detail screenshot shows readable text, source links and decorative icons without overlap.",
+    "qualification": "Screenshot review by development agent; no real participant usability study."
+  }
+}

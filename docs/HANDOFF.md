@@ -1,6 +1,6 @@
-# Entwickler-Handoff – V3.9.0
+# Entwickler-Handoff – V3.10.0
 
-Stand: **15. Oktober 2026**. Einstieg für eine neue Sitzung oder einen übernehmenden Entwickler. Mit [Buildlog](BUILDLOG.md), [Architektur](ARCHITEKTUR.md) und [Roadmap](ROADMAP.md) lesen.
+Stand: **16. Oktober 2026**. Einstieg für eine neue Sitzung oder einen übernehmenden Entwickler. Mit [Buildlog](BUILDLOG.md), [Architektur](ARCHITEKTUR.md) und [Roadmap](ROADMAP.md) lesen.
 
 **Ergänzung 15.10.2026 / V3.5.0:** 48 monetäre Vergleichstests (22 direkt veröffentlichte Beispielwerte und Gesamtsummen einschließlich des L-Bank-Familienfalls, 4 amtlich veröffentlichte Grenzen, 22 Formelableitungen) erfolgreich. Der vollständige [Quellenabgleich](AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md) dokumentiert den ungelösten Widerspruch zwischen Familienportal (5/30 Resttage) und KomNet/MuSchG/SGB V (4/30 Resttage). **Release gesperrt.** Für 2027 wurde ausschließlich eine deutlich markierte, nicht rechtsfreigegebene Szenariosuche ergänzt; Status bleibt NICHT_UNTERSTUETZT. CI-Browserprüfung des neuen E2E-Falles nach Branch-Push ausführen.
 
@@ -8,13 +8,15 @@ Stand: **15. Oktober 2026**. Einstieg für eine neue Sitzung oder einen überneh
 
 **V3.8:** Schnellstart baut ausschließlich auf der bestehenden V3.7-Monatsberechnung auf. Der Anfänger-Modus blendet Fachnavigation bewusst aus; Playwright-Expertentests aktivieren sie vor dem alten Navigationspfad. `npm run quickstart:sync` aktualisiert die Single-HTML-Version, `npm run quickstart:check` prüft Quellcode-Drift. [Bedienung, Datenschutz und Limits](SCHNELLSTART-V3.8.md).
 
-**Aktuelle Offline-QA V3.9:** 22/22 Playwright-Fälle direkt über file://, 53 Axe-Scans ohne gemeldete Verstöße; versionsgebundener HTML-SHA256 und reale Laufdaten in qa/browser-environment.json sowie qa/browser-results.json. Ältere V3.7-Nachweise in diesem Handoff bleiben ausschließlich historisch.
+**Historische Offline-QA V3.9:** 22/22 Playwright-Fälle direkt über file://, 53 Axe-Scans ohne gemeldete Verstöße; versionsgebundener HTML-SHA256 und reale Laufdaten in qa/browser-environment.json sowie qa/browser-results.json. Ältere V3.7-Nachweise in diesem Handoff bleiben ausschließlich historisch.
 
-**V3.9 – interner UX-Branch:** Neue Schutzlogik liegt im weiterhin offline-fähigen HTML-Schnellstart und der bestehenden Renderlogik; nicht in einer zweiten Leistungs-Engine. Akzeptanztests unter `tests/usability-v39.test.mjs` und zusätzlichen Playwright-Szenarien. Es darf keine automatische öffentliche Freigabe entstehen. [UX-Details](UX-NACHBESSERUNG-V3.9.md).
+**V3.9 – auf main integriert:** Neue Schutzlogik liegt im weiterhin offline-fähigen HTML-Schnellstart und der bestehenden Renderlogik; nicht in einer zweiten Leistungs-Engine. Akzeptanztests unter `tests/usability-v39.test.mjs` und zusätzlichen Playwright-Szenarien. Es darf keine automatische öffentliche Freigabe entstehen. [UX-Details](UX-NACHBESSERUNG-V3.9.md).
+
+**Aktueller Stand V3.10:** [Umsetzung](UMSETZUNG-V3.10.md) und [QA-Bericht](QA-V3.10.md) zuerst lesen; die folgenden älteren Versionsabschnitte bilden die Entwicklungshistorie ab.
 
 ## Übergabeumfang und Status
 
-Ein offlinefähiger deutscher Elternzeit-/Elterngeld-Planer als eigenständige HTML-Datei. Technisch weit fortgeschritten, **kein fachlich abgenommener öffentlicher Beta-Release**. `data/release-gates.json` bleibt gesperrt. Ein Merge ändert daran nichts.
+Eine kleine Familienstart-Infowebseite (`start.html`) und ein offlinefähiger deutscher Elternzeit-/Elterngeld-Planer als eigenständige HTML-Datei (`index.html`). Technisch weit fortgeschritten, **kein fachlich abgenommener öffentlicher Beta-Release**. `data/release-gates.json` bleibt gesperrt. Ein Merge ändert daran nichts.
 
 Verbindliches Repository: `Codeelchi/elternzeit-zielplaner`. Kein zweites Repository und keine parallele Neuentwicklung. PR #9: Dokumentation; #10: Rechtskatalog; #11: Zeitachsen; #12: integrierte V3.4. Der Nutzer hat die Integration beauftragt. Tatsächlichen Merge-/CI-Status bei Übernahme neu abrufen.
 
@@ -90,7 +92,7 @@ Unmögliche Ziele liefern keine Vorschläge; Mindestbudget nicht heimlich absenk
 
 ## Tests und Nachweise
 
-Letzter Funktionscommit: `b5c82e3`, [CI erfolgreich](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/38680019062). **154 Node-/Modul-/jsdom-Tests, elf Chromium-Browserfälle, 50 Axe-Prüfungen**. Dokumentations-/Merge-Commits separat prüfen.
+Historischer V3.4-Funktionsnachweis: `b5c82e3`, [CI erfolgreich](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/38680019062). **154 Node-/Modul-/jsdom-Tests, elf Chromium-Browserfälle, 50 Axe-Prüfungen**. Dokumentations-/Merge-Commits separat prüfen.
 
 - `tests/*.test.mjs`: Module, reale HTML-Integration, Importgrenzen, Quellen, amtliche Einzelwerte, Regressionen.
 - `tests/e2e/browser.spec.mjs`: echte Benutzer-/Dateiabläufe, Opt-in/Löschung, Achsen, Suche, Risiko, Mobil/Desktop, dynamische Modelle und Laufzeit.
@@ -136,3 +138,17 @@ Vor weiteren Produktänderungen den [V3.6-Audit](WETTBEWERB-MVP-AUDIT-2026-10-15
 [Umsetzung und Prüfungen](UMSETZUNG-ZIELBUDGET-V3.7.md) lesen. 217 Node-Tests, 16 file://-Browserfälle und 52 Axe-Scans sind aktuell bestanden; `qa/browser-environment.json` enthält jetzt Version und HTML-Hash. Die vorher dokumentierte V3.4-Metadatenlücke ist damit behoben. Neue Module: `money.cjs` und `plan-comparison.cjs`. `runGoalSearch` bleibt synchron testbar, die sichtbare Oberfläche nutzt `runGoalSearchAsync` mit Abbruch.
 
 Nächste offene Abnahmeschritte: taggenaue Mutterschutz-Geldanrechnung unabhängig klären; die angebotene manuelle Netto-/Finanzlogik fachlich reviewen; vorbereitete Nutzertests durchführen; Assistenztechnik und Datenschutz unabhängig prüfen. Keine Ergebnissimulation als erledigte Nutzertests ausgeben. Die vollständige Bruttoengine ist nicht Bestandteil des engen manuellen MVP-Pfads.
+
+
+## Aktuelle Übergabe V3.10 – 16.10.2026
+
+Mit [Umsetzung V3.10](UMSETZUNG-V3.10.md) und [QA V3.10](QA-V3.10.md) beginnen. Einstieg für werdende Eltern ist `start.html`; `index.html` bleibt der unverändert verteilbare Rechner mit erweitertem Schnellstart. Die Startseite speichert keine Gesundheits-/Nutzerdaten. Amtliche Links sind externe Angebote, keine eingebundenen Tracker.
+
+Neues reines Modul `src/planning-knowledge.cjs` ist in `scripts/embed-modules.mjs` aufgenommen. Wissenskarten nutzen dieselbe Zeitachsenengine und ändern weder Finanzen noch Rechtsstatus. `family-budget.cjs` benötigt nun `money.cjs`; nach Quelländerungen `npm run modules:sync`. Schnellstartquellen nach Änderungen mit `npm run quickstart:sync` einbetten. Beide Snapshotchecks sind Teil von `npm test`.
+
+Nächste Abnahmearbeit bleibt P0-R1 (Mutterschutz-Geldanrechnung) und P0-R2 (vollständige unabhängige Referenzfamilien). Für das Infoportal außerdem verantwortlichen Anbieter/Impressum, öffentliche Datenschutzhinweise und redaktionelle Linkpflege vor einem öffentlichen Start verbindlich festlegen; keine erfundenen Betreiberangaben ergänzen. Echte Nutzertests für den gesamten Weg Infoseite → Rechner → Beratung durchführen. Veröffentlichung bleibt gesperrt.
+
+
+## Design-Nachbesserung 17.10.2026
+
+Die aktuelle Portalgestaltung und ihre gezielten Nachweise stehen in [DESIGN-2026-10-17.md](DESIGN-2026-10-17.md). Der Rechner bleibt unverändert. Frühere vollständige Browserberichte und deren Portalhash beziehen sich auf den 16.10.; die neue Portaldatei hat einen eigenen Hash und einen getrennten Bericht. PR #17 wird damit aktualisiert.

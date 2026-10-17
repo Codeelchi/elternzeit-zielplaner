@@ -1,10 +1,16 @@
 # Elternzeit-Zielplaner
 
-**Privater Entwicklungsstand V3.9.0 (15. Oktober 2026)** – offlinefähiger interaktiver Familienbudget- und Elterngeld-Planer für Deutschland.
+**Privater Entwicklungsstand V3.10.0 (17. Oktober 2026)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner.
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
 
-**V3.9 (interner Entwicklungsbranch):** Schutz individueller Monatspläne und genauer Elterngeld-Eingaben vor ungewolltem Überschreiben im Schnellassistenten; keine falschen Rücklagen bei fehlenden Kosten; mobile Karten früher sichtbar und bessere Tastatur-/Formularbedienung. [UX-Abnahme V3.9](docs/UX-NACHBESSERUNG-V3.9.md). Öffentliche Freigabe bleibt gesperrt.
+**V3.9 (auf main integriert):** Schutz individueller Monatspläne und genauer Elterngeld-Eingaben vor ungewolltem Überschreiben im Schnellassistenten; keine falschen Rücklagen bei fehlenden Kosten; mobile Karten früher sichtbar und bessere Tastatur-/Formularbedienung. [UX-Abnahme V3.9](docs/UX-NACHBESSERUNG-V3.9.md). Öffentliche Freigabe bleibt gesperrt.
+
+**Neu in V3.10:** [Familienstart](start.html) bündelt Orientierung, offizielle Beratung und den [Rechner](index.html). Der Rechner ergänzt kontextbezogene Wissenskarten, konkrete nächste Eingabeschritte und centgenaue Budgetbuchungen. [Umsetzung und Grenzen](docs/UMSETZUNG-V3.10.md).
+
+**Prüfstand V3.10:** 279 Node-Tests und 27 direkte file://-Browserfälle bestanden; vollständige Nachweise und Grenzen im [QA-Bericht](docs/QA-V3.10.md).
+
+**Design-Nachbesserung 17.10.:** wärmere Farben, klarere Typografie, thematische Symbole und bessere mobile Karten/Filter. [Gestaltung und gezielte QA](docs/DESIGN-2026-10-17.md). Der vollständige Prüfstand oben stammt vom 16.10.; die neue Portalgestaltung ist zusätzlich bei vier Bildschirmbreiten geprüft.
 
 ## Dokumentation und Übergabe
 
@@ -22,11 +28,11 @@
 
 **Neue V3.5-Funktionen:** 48 monetäre Vergleiche (darunter 4 L-Bank-Werte bei variierenden Teilzeitmonaten) und amtliche 12-/24-Monats-Gesamtsummen; zusätzliche amtliche Quellen mit nachvollziehbarem Widerspruch zur Mutterschutz-Tagesgrenze; auf **2027 beschränkte, unverbindliche Szenariosuche** unter Weitergeltungsannahmen. **Kein 2027er Szenario gilt als rechtlich validiert** und die öffentliche Beta-Sperre bleibt aktiv. Siehe [amtlicher Referenzabgleich](docs/AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md).
 
-**V3.7.0 ergänzt:** Historische echte Bescheid-/Gerichtsbeträge aus vier anonymisierten Entscheidungen als **quellenbasierte Dokument-Regression**, neue Eingaben für variable Provisionen/Einmalzahlungen mit bewusst konservativem Rechtsvalidator, 2027er Gesetzentwurfs-/Inkrafttretensstatus und eine datierte NRW-Kita-Bedarfsanzeige. **Keine vollständige Nachrechnung der vier realen Bescheide.** Siehe [Bescheidnachweise und 2027-Recht](docs/HISTORISCHE-BESCHEIDE-UND-RECHTSSTAND-2027.md).
+**V3.6.0 ergänzt:** Historische echte Bescheid-/Gerichtsbeträge aus vier anonymisierten Entscheidungen als **quellenbasierte Dokument-Regression**, neue Eingaben für variable Provisionen/Einmalzahlungen mit bewusst konservativem Rechtsvalidator, 2027er Gesetzentwurfs-/Inkrafttretensstatus und eine datierte NRW-Kita-Bedarfsanzeige. **Keine vollständige Nachrechnung der vier realen Bescheide.** Siehe [Bescheidnachweise und 2027-Recht](docs/HISTORISCHE-BESCHEIDE-UND-RECHTSSTAND-2027.md).
 
 ## Start
 
-Das Projekt ist derzeit eine **eigenständige HTML-Datei ohne Backend**. Die Oberfläche kann direkt durch Öffnen von [`index.html`](./index.html) im Browser gestartet werden. Zur Entwicklung (Node.js 22, npm und Python 3 für die Testinfrastruktur):
+Das Projekt besteht aus zwei **lokal nutzbaren HTML-Dateien ohne Backend**. Öffnet [`start.html`](./start.html) für die Infowebseite oder [`index.html`](./index.html) direkt für den Rechner. Beide benötigen keine externen Schriftarten oder Laufzeitskripte. Für die gegenseitigen Links beide Dateien im selben Ordner behalten; der Rechner funktioniert weiterhin einzeln. Offizielle externe Beratungsangebote brauchen beim Aufruf Internet. Zur Entwicklung (Node.js 22, npm und Python 3 für die Testinfrastruktur):
 
 ```bash
 git clone https://github.com/Codeelchi/elternzeit-zielplaner.git
@@ -37,9 +43,9 @@ npx playwright install --with-deps chromium
 npm run test:e2e
 ```
 
-Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repository-Verzeichnis, dann `http://localhost:8080` öffnen. Die App benötigt zur Laufzeit keinen Build-Schritt und keine Netzwerkverbindung.
+Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repository-Verzeichnis, dann `http://localhost:8080/start.html` öffnen. Die App benötigt zur Laufzeit keinen Build-Schritt und keine Netzwerkverbindung.
 
-## Funktionen (Stand V3.9.0
+## Funktionen (Stand V3.10.0)
 
 - Fünf fiktive Schnellstart-Vorlagen mit unmittelbarem Ergebnis, Betreuungsabgleich und reduzierbarer Fachnavigation
 - Kurzer persönlicher Eingabeassistent mit getrennter Behandlung unbekannter Ausgaben und 0 Euro
@@ -101,17 +107,17 @@ Es gibt kein Backend und keine nutzerseitige Anmeldung. Berechnete Familienplän
 
 ## Rechtlicher Hinweis
 
-Alle Beträge sind **Modellrechnungen**, keine Bewilligung. Das tatsächliche Elterngeld-Netto kann vom Auszahlungsnetto abweichen; Mutterschutz-Zeiträume, Steuerprogression, Elternzeitrecht, Sonderfälle und zukünftige Gesetzesänderungen erfordern Einzelfallprüfung. Quellen- und Prüfdaten stammen vom **14. Oktober 2026** und müssen vor der Verwendung für eine Geburt 2027 neu verifiziert werden. Keine Zusage über landesrechtliche Leistungen oder kommunale Gebühren.
+Alle Beträge sind **Modellrechnungen**, keine Bewilligung. Das tatsächliche Elterngeld-Netto kann vom Auszahlungsnetto abweichen; Mutterschutz-Zeiträume, Steuerprogression, Elternzeitrecht, Sonderfälle und zukünftige Gesetzesänderungen erfordern Einzelfallprüfung. Der Rechtskatalog hat Quellenstand **15. Oktober 2026**; die neuen Fach- und redaktionellen Recherchen sind auf **16. Oktober 2026** datiert. Die jeweiligen Regeln und Quellen müssen vor der Verwendung für eine Geburt 2027 neu verifiziert werden. Keine Zusage über landesrechtliche Leistungen oder kommunale Gebühren.
 
 ## Projektstatus
 
-**Interner V3.4-Prüfstand mit erfolgreichen automatisierten Tests und CI.** Änderungen bitte mit Tests absichern und vorzugsweise per Feature-Branch / Pull Request integrieren. Nicht geprüfte Rechtsänderungen dürfen nicht als geltendes Recht in den Rechner übernommen werden.
+**Interner V3.10-Entwicklungsstand.** Aktuelle Ergebnisse und Nachweisgrenzen stehen im [QA-Bericht](docs/QA-V3.10.md). Änderungen bitte mit Tests absichern und vorzugsweise per Feature-Branch / Pull Request integrieren. Nicht geprüfte Rechtsänderungen dürfen nicht als geltendes Recht in den Rechner übernommen werden.
 
 ## Neuer Stand und Nachweise
 
 - [Architektur](docs/ARCHITEKTUR.md), [Regelvalidator](docs/REGELVALIDATOR.md), [Budget und Antragswege](docs/BUDGET-APPLICATION-GUIDE.md)
 - [Abnahme und offene Release-Gates](docs/MVP-ABNAHME-2026-10-15.md), [Changelog](CHANGELOG.md)
-- `npm run rules:sync`, `npm run axes:sync`, `npm run modules:sync` aktualisieren die verteilbare HTML-Datei nach Modul-/Katalogänderungen. `npm test` prüft alle drei Snapshots.
+- `npm run rules:sync`, `npm run axes:sync`, `npm run modules:sync` aktualisieren die verteilbare HTML-Datei nach Modul-/Katalogänderungen. `npm test` prüft Regel-, Rechtsereignis-, Zeitachsen-, Modul- und Schnellstart-Snapshots.
 - Browser-Tests verwenden Chromium aus `CHROMIUM_PATH`, `/usr/bin/chromium` oder der Playwright-Installation. Die aktuelle Browserprüfung öffnet die HTML-Datei direkt über `file://`; die Anwendung benötigt keinen Server.
 - Lokale Speicherung ist standardmäßig ausgeschaltet, optional und unverschlüsselt. Exporte enthalten private Finanzdaten. Im Browser bleibt die Berechnung ohne Konto und ohne Netzwerkaufrufe.
 

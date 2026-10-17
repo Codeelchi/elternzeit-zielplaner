@@ -1,22 +1,23 @@
 {
-  "checkedAt": "2026-10-15",
+  "checkedAt": "2026-10-16",
   "browser": "Playwright Chrome Headless Shell 156.0.8078.4",
   "transport": "Direct local file:// HTML; one dedicated test explicitly disables network",
   "fileProtocol": {
     "status": "PASS",
-    "testedUrl": "file:///data/workspaces/elternzeit-zielplaner/review-v39/index.html",
-    "testsPassed": 22,
-    "accessibilityScans": 53,
+    "testedUrl": "file:///workspace/elternzeit-zielplaner/index.html",
+    "testsPassed": 27,
+    "accessibilityScans": 58,
     "accessibilityViolations": 0,
-    "offlineQualification": "The offline-navigation scenario disables browser networking and asserts no external HTTP(S) requests. All 22 test cases load the HTML through file:// directly; other scenarios do not independently disable every network capability."
+    "offlineQualification": "All 27 cases load the calculator directly through file://. The dedicated calculator offline case and both portal viewport cases additionally disable networking and check for unwanted requests. The other cases do not independently disable every network capability.",
+    "portalTestedUrl": "file:///workspace/elternzeit-zielplaner/start.html"
   },
-  "appVersion": "3.9.0",
-  "sourceSha256": "45231654b2d30091abcad2fcda4935283ff34aceb3a04ddc61670a70278044b1",
+  "appVersion": "3.10.0",
+  "sourceSha256": "72b87039d14494ffee88622ecf5729944d2513fe7be88083b5f2d08ba4663e60",
   "run": {
-    "startedAt": "2026-10-15T16:20:41.388Z",
-    "durationMs": 288213.523,
+    "startedAt": "2026-10-16T21:09:57.888Z",
+    "durationMs": 451903.471,
     "unexpected": 0,
-    "expected": 22,
+    "expected": 27,
     "skipped": 0,
     "flaky": 0
   },
@@ -28,7 +29,10 @@
     "Goal-plan search, validation, comparisons and 2027 unverifiable forecast warnings.",
     "Repeat personal form does not replace manually refined tax/Elterngeld-Netto or custom monthly schedule.",
     "Unknown expenses do not create misleading 0-euro reserves, and cancelled reset preserves user data.",
-    "Synthetically entered names and income sources remain literal text (no HTML injection)."
+    "Synthetically entered names and income sources remain literal text (no HTML injection).",
+    "V3.10: missing-evidence next steps navigate to focused standard-case, income-limit, net-income and expense controls without replacing the monthly plan.",
+    "V3.10: contextual official-source knowledge cards, persistent expanded state, future-birth warning and portal popup preserve calculator state.",
+    "V3.10: separate local family information portal, native FAQ, pregnancy/planning/newborn filters, 1440/390 viewports, source links, no storage and actual offline calculator navigation."
   ],
   "limits": [
     "Automated Axe/keyboard checks are not real user testing or a full assistive-technology audit.",
@@ -42,7 +46,39 @@
     "desktopAxe": "qa/browser-accessibility-desktop.json",
     "mobileAxe": "qa/browser-accessibility-mobile.json",
     "comparisonAxe": "qa/browser-accessibility-comparison.json",
-    "timelineAxe": "qa/browser-accessibility-models.json"
+    "timelineAxe": "qa/browser-accessibility-models.json",
+    "guidanceAxe": "qa/browser-accessibility-guidance.json",
+    "knowledgeAxe": "qa/browser-accessibility-knowledge.json",
+    "portalDesktopAxe": "qa/browser-accessibility-portal-1440.json",
+    "portalMobileAxe": "qa/browser-accessibility-portal-390.json",
+    "screenshots": [
+      "qa/screenshots/desktop-slide-1.png",
+      "qa/screenshots/mobile-slide-1.png",
+      "qa/screenshots/desktop-slide-2.png",
+      "qa/screenshots/mobile-slide-2.png",
+      "qa/screenshots/desktop-slide-axes.png",
+      "qa/screenshots/mobile-slide-axes.png",
+      "qa/screenshots/desktop-plan-comparison.png",
+      "qa/screenshots/mobile-plan-comparison.png",
+      "qa/screenshots/desktop-planning-knowledge.png",
+      "qa/screenshots/mobile-planning-knowledge.png",
+      "qa/screenshots/desktop-start-portal.png",
+      "qa/screenshots/mobile-start-portal.png"
+    ]
   },
-  "sourceCatalogueVerifiedAt": "2026-10-15"
+  "sourceCatalogueVerifiedAt": "2026-10-15",
+  "portalSourceSha256": "ad5fed5837cab165ca1b2f6d1c992a02ccd52f23a42667178894bd768d8f6a2d",
+  "guidanceSourcesVerifiedAt": "2026-10-16",
+  "preliminaryRuns": [
+    {
+      "status": "NOT_FINAL_INTERRUPTED",
+      "sourceSha256": "4bc6ed1396ad4c93d2a7ccecad673965456b7aaaa4da671b6af0c3950c84c440",
+      "observation": "A desktop scan exceeded the unchanged 120-second case limit while a separate full Node run was also active; run stopped by SIGINT. No causal performance conclusion or passing release evidence is inferred."
+    },
+    {
+      "status": "NOT_FINAL_INTERRUPTED",
+      "sourceSha256": "00bd4a43ff9998eb5973c066e95c667a516a683476a3ff666b83c6110a94c772",
+      "observation": "Interrupted by SIGINT for the calculator-to-portal new-tab fix. Superseded by the complete final run."
+    }
+  ]
 }

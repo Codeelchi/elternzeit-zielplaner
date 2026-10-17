@@ -572,3 +572,129 @@ test('V3.9 cancelled reset leaves wizard data and selected preview unchanged',as
  expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(before);
  await expect(page.locator('#v38Summary')).toContainText('Persönliche Näherung');
 });
+
+test('V3.10 next steps guide missing evidence to the exact focused input without replacing the plan',async({page})=>{
+ await navigate(page,'slide-1');
+ await page.locator('[data-v38-template="long18"]').click();
+ await expect(page.locator('.v310-next')).toContainText('keine Freigabe oder Antragsprüfung');
+ const initial=await page.evaluate(()=>window.__elternzeitTest.getState().schedule);
+ await page.locator('.v310-next [data-v310-focus="standardCaseConfirmed"]').click();
+ await expect(page.locator('#slide-2')).toBeVisible();
+ await expect(page.locator('#standardCaseConfirmed')).toBeFocused();
+ await page.locator('#standardCaseConfirmed').selectOption('yes');
+ await navigate(page,'slide-1');
+ expect(await page.locator('.v310-next [data-v310-focus="standardCaseConfirmed"]').count()).toBe(0);
+ await page.locator('.v310-next [data-v310-focus="zve"]').click();
+ await expect(page.locator('#slide-region')).toBeVisible();
+ await expect(page.locator('#zve')).toBeFocused();
+ await page.locator('#zve').fill('95000');
+ await navigate(page,'slide-1');
+ expect(await page.locator('.v310-next [data-v310-focus="zve"]').count()).toBe(0);
+ await page.locator('.v310-next [data-v310-focus="expenses"]').click();
+ await expect(page.locator('#expenses')).toBeFocused();
+ await page.locator('#expenses').fill('0');
+ await navigate(page,'slide-1');
+ expect(await page.locator('.v310-next [data-v310-focus="expenses"]').count()).toBe(0);
+ await page.locator('.v310-next [data-v310-focus="egNetFather"]').click();
+ await expect(page.locator('#egNetFather')).toBeFocused();
+ expect(await page.evaluate(()=>window.__elternzeitTest.getState().schedule)).toEqual(initial);
+});
+
+test('V3.10 introductory net-pay help distinguishes estimates and opens official sources without transferring data',async({page})=>{
+ await navigate(page,'slide-1');
+ await page.locator('#v38EditOwn').click();
+ await page.locator('.v310-netto-help summary').click();
+ await expect(page.locator('.v310-netto-help')).toContainText('Elterngeld-Netto');
+ await expect(page.locator('.v310-netto-help')).toContainText('vom Auszahlungsnetto abweichen');
+ await expect(page.locator('.v310-netto-help')).toContainText('keine Eingaben aus diesem Plan übertragen');
+ const link=page.locator('.v310-netto-help a');
+ const url=new URL(await link.getAttribute('href'));
+ expect(url.hostname).toBe('familienportal.de');expect(url.search).toBe('');
+ await expect(link).toHaveAttribute('rel','noopener noreferrer');
+ await expect(link).toHaveAttribute('target','_blank');
+ const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(scan.violations).toEqual([]);
+ await writeFile('qa/browser-accessibility-guidance.json',JSON.stringify([{view:'introductory-net-pay-help',violations:scan.violations}],null,2));
+});
+
+test('V3.10 contextual planning knowledge preserves open cards and remains accessible on desktop and mobile',async({page},testInfo)=>{
+ await standardInputs(page);await navigate(page,'slide-1');
+ await page.locator('#planningKnowledge > summary').click();
+ const cards=page.locator('#planningKnowledgeCards > details');
+ const reference=await page.evaluate(()=>window.__elternzeitV3.planningKnowledge());
+ await expect(cards).toHaveCount(reference.cards.length);
+ expect(reference.omittedCount).toBe(0);
+ expect(reference.verifiedAt).toBe('2026-10-16');
+ const selected=reference.cards[0];
+ const first=page.locator(`[data-knowledge-id="${selected.id}"]`);
+ await first.locator('summary').click();
+ await expect(first).toContainText(selected.action);
+ await expect(first).toContainText('Quellen geprüft: 2026-10-16');
+ for(const link of await first.locator('a').all()){
+  const url=new URL(await link.getAttribute('href'));
+  expect(url.protocol).toBe('https:');expect(url.search).toBe('');
+  await expect(link).toHaveAttribute('rel','noopener noreferrer');
+ }
+ await navigate(page,'slide-2');await page.locator('#expenses').fill('1900');await navigate(page,'slide-1');
+ await expect(page.locator(`[data-knowledge-id="${selected.id}"]`)).toHaveAttribute('open','');
+ const findings=[];
+ for(const width of [1440,390]){
+  await page.setViewportSize({width,height:900});
+  for(const detail of await cards.all())if(await detail.getAttribute('open')===null)await detail.locator('summary').click();
+  const dimensions=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,view:innerWidth}));
+  expect(dimensions.scroll).toBeLessThanOrEqual(dimensions.view+1);
+  const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+  findings.push({width,violations:scan.violations});expect(scan.violations).toEqual([]);
+  await page.screenshot({path:testInfo.outputPath((width===390?'mobile':'desktop')+'-planning-knowledge.png'),fullPage:true});
+ }
+ await writeFile('qa/browser-accessibility-knowledge.json',JSON.stringify(findings,null,2));
+ await navigate(page,'slide-2');await page.locator('#date').fill('2027-05-28');await page.locator('#date').blur();
+ await navigate(page,'slide-1');
+ await expect(page.locator('#planningKnowledgeCoverage')).toContainText('2027');
+ await expect(page.locator('#globalPlanStatus')).toContainText('NICHT_UNTERSTUETZT');
+ const preserved=await page.evaluate(()=>window.__elternzeitTest.getState());
+ const portalPopup=page.waitForEvent('popup');
+ await page.locator('#planningKnowledge > a[href="start.html#beratung"]').click();
+ const popup=await portalPopup;await popup.waitForLoadState('domcontentloaded');
+ await expect(popup.locator('#beratung')).toBeVisible();
+ expect(await page.evaluate(()=>window.__elternzeitTest.getState())).toEqual(preserved);
+ expect(new URL(page.url()).pathname).toBe(new URL(appUrl).pathname);
+ await popup.close();
+});
+
+for(const width of [1440,390])test(`V3.10 family information portal: ${width}px offline filters, FAQ, accessibility and calculator navigation`,async({page},testInfo)=>{
+ const externalRequests=[];page.on('request',request=>{if(/^https?:/.test(request.url())&&new URL(request.url()).hostname!=='127.0.0.1')externalRequests.push(request.url());});
+ if(appUrl.startsWith('file:'))await page.context().setOffline(true);
+ await page.setViewportSize({width,height:900});
+ await page.goto(new URL('start.html',appUrl).href);
+ await expect(page.locator('h1')).toBeVisible();
+ await expect(page.locator('#tips article:visible')).toHaveCount(6);
+ await page.locator('#phase-filter button[data-phase="pregnancy"]').click();
+ await expect(page.locator('#tips article:visible')).toHaveCount(2);
+ await expect(page.locator('#phase-filter button[data-phase="pregnancy"]')).toHaveAttribute('aria-pressed','true');
+ await expect(page.locator('#filter-result')).toContainText('2');
+ await page.locator('#phase-filter button[data-phase="planning"]').focus();await page.keyboard.press('Enter');
+ await expect(page.locator('#tips article:visible')).toHaveCount(2);
+ await expect(page.locator('#tips article:visible').first()).toContainText('Zeit und Geld');
+ await page.locator('#phase-filter button[data-phase="all"]').click();
+ await expect(page.locator('#tips article:visible')).toHaveCount(6);
+ const faqs=page.locator('#fragen details');await expect(faqs).toHaveCount(5);
+ for(const detail of await faqs.all())await detail.locator('summary').click();
+ await expect(page.locator('#fragen')).toContainText('keine Analyse- oder Werbedienste');
+ for(const link of await page.locator('a[target="_blank"]').all()){
+  const url=new URL(await link.getAttribute('href'));expect(url.protocol).toBe('https:');expect(url.search).toBe('');
+  await expect(link).toHaveAttribute('rel','noopener noreferrer');
+ }
+ const dimensions=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,view:innerWidth}));
+ expect(dimensions.scroll).toBeLessThanOrEqual(dimensions.view+1);
+ const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(scan.violations).toEqual([]);
+ await writeFile(`qa/browser-accessibility-portal-${width}.json`,JSON.stringify([{width,violations:scan.violations}],null,2));
+ await page.screenshot({path:testInfo.outputPath((width===390?'mobile':'desktop')+'-start-portal.png'),fullPage:true});
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ expect(externalRequests).toEqual([]);
+ await page.locator('.hero a.button[href="index.html"]').click();
+ await expect(page.locator('#v38QuickStart')).toBeVisible();
+ expect(new URL(page.url()).pathname).toBe(new URL(appUrl).pathname);
+ expect(externalRequests).toEqual([]);
+});

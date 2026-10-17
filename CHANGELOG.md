@@ -1,5 +1,18 @@
 # Änderungen
 
+## 3.10.0 – Familienstart, Wissenskarten und centgenaues Budget, 16.10.2026
+
+- **Design-Nachbesserung 17.10.2026:** redaktionelle Typografie, warmer Farbklang, differenzierte Themenkarten, zwölf lokale SVG-Symbole, klarere Rechner-/Beratungsbereiche und mobile Filter. Fünf Portaltests und acht zusätzliche Axe-Scans bei vier Breiten erfolgreich; [Nachweis](docs/DESIGN-2026-10-17.md).
+
+- Neue kleine Infowebseite `start.html`: Schwangerschaft, Vorbereitung und erste Familienzeit, kuratierte offizielle Beratungswege sowie direkter Zugang zum bestehenden Rechner. Gegenseitige Verlinkung, lokal ohne Account, Tracker oder externe Laufzeitassets.
+- Acht datierte Wissenskarten ergänzen Lebensmonate, Einkommensarten, Teilzeit, Steuer, Krankenversicherung, Antragsrückwirkung, Arbeitgeber-Elternzeit und Kita-Eingewöhnung. Auswahl nach Planungskontext, konkrete Lebensmonatsdaten und amtliche Quellen; keine zusätzlichen Geldbuchungen.
+- Schnellstart mit konkreten nächsten Schritten aus zentralen Validatorbefunden, Haushaltsausgaben und Betreuung. Direkter Sprung samt Eingabefokus, ohne Werte oder Monatspläne umzuschreiben. Nettohilfe erklärt manuelle Schätzungen und den externen amtlichen Rechner.
+- Familienbudget bucht Komponenten und kumulierte Rücklagen centgenau. Ausgeglichene Monate erzeugen keine Fließkomma-Phantomengpässe. Exakte Dezimal-Prozentrechnung erhält Halb-Cent-Grenzen; begrenzte numerische Caches halten die Suche schnell. Ungültige Betragstypen und Container werden explizit abgewiesen.
+- Basis: tatsächliches main V3.9 (`e8bb586`), PRs #14–#16 bereits gemergt; 246 bestehende Node-Tests grün. Neue Regressionen und Browsernachweise siehe QA-Bericht.
+- **QA:** 279 Node-/Modul-/DOM-Tests und 27 echte file://-Browserfälle bestanden; finale Desktop-/Mobil- und Quellenberichte versioniert.
+- Ungeklärte Mutterschutzanrechnung und unabhängige Fach-/Rechts-/Datenschutz-/Nutzerabnahmen bleiben offen. Keine Veröffentlichung und keine pauschale 2027-Freigabe.
+
+
 ## 3.9.0 – UX-Datenintegrität und Ergebnisverständlichkeit, 15.10.2026
 
 - **Datenintegrität:** Wiederholte Schnellformular-Eingaben überschreiben weder individuelle Monatspläne noch zuvor manuell ermittelte Elterngeld-Netto-Werte, Steuerangaben oder Standardfall-Klärungen. Nur noch nachvollziehbar vom Kurzassistenten stammende Netto-Näherungen werden aktualisiert.

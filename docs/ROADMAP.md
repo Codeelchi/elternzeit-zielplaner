@@ -10,6 +10,8 @@ Stand: **16. Oktober 2026 / V3.10.0**. Reihenfolge nach Abhängigkeit und Priori
 
 **Stand V3.9 (interner Kandidat):** Datenverlust-/Reset-/Vorlagenhorizontfehler behoben, Kostenwarnungen über Schnellstart und Robustheitsansicht vereinheitlicht, mobile Einstiegshürde deutlich verringert, Tastatur- und Fehlerführung verbessert. [Details/Tests](UX-NACHBESSERUNG-V3.9.md). Externe Nutzer- und Fachabnahmen weiterhin offen.
 
+**V3.11 (separater Entwicklungszweig, ohne Release-Anspruch):** Geführter Einstieg in die vorhandene Zielsuche sowie 0–6-Monate-Kita-Verzögerungsanzeige und bessere Monatslückenhinweise implementiert. Finanzielle Kita-Folgeberechnung, unabhängige Fachfreigaben und vollständiger Pareto-Suchraum folgen getrennt. [Arbeitsstand](AUSBAU-V3-11-FAMILIENUEBERGANG.md).
+
 ## Erreichter Stand
 
 | Bereich | Implementiert | Noch offen |

@@ -14,6 +14,7 @@
  <p class="v38-caption">Alle Vorlagen sind unverbindlich. Elterngeld-Netto und genaue Auszahlungstermine werden nicht automatisch aus dem Lohnabrechnungsnetto ermittelt. Für Geburten 2027 bleibt der Rechtsstand ungeprüft.</p>
  <div class="v38-actions">
   <button type="button" id="v38EditOwn" class="navbtn">Mit eigenen Zahlen planen</button>
+  <button type="button" id="v311GoalJump" class="navbtn alt">Ziele statt Vorlage festlegen</button>
   <button type="button" id="v38Advanced" class="navbtn alt" aria-pressed="false">Fachansichten einblenden</button>
  </div>
  <details id="v38Personal" class="v38-personal">
@@ -38,5 +39,54 @@
  </details>
  <div id="v38Summary" class="v38-summary" aria-live="polite">
   <h3>Beispiel auswählen</h3><p>Nach einem Klick erscheinen Betreuung, Monatseinnahmen und die Grenzen der Modellrechnung.</p>
- </div>
+ </div> <section id="v311Goals" class="v311-goals" aria-labelledby="v311GoalsTitle">
+  <div class="v311-goals-header">
+   <span class="eyebrow">Neu · Zielplanung</span>
+   <h3 id="v311GoalsTitle">Was soll euer Familienplan erreichen?</h3>
+   <p>Wählt zuerst ein Beispiel oder gebt eigene Zahlen ein. Danach legt ihr fest, welche Betreuungs- und Budgetziele euer Plan erfüllen soll. Die bestehende Suche prüft passende Monatsmuster – ohne euren Plan ungefragt zu ersetzen.</p>
+  </div>
+  <form id="v311GoalsForm" novalidate>
+   <div class="v38-form-grid">
+    <label for="v311Priority">Was ist euch besonders wichtig?
+     <select id="v311Priority">
+      <option value="balanced">Elternzeit möglichst ausgewogen aufteilen</option>
+      <option value="floor">Monatliche Einnahmen stabil halten</option>
+      <option value="income">Gesamtbudget möglichst hoch halten</option>
+      <option value="robust">Auch bei schlechteren Annahmen planen</option>
+      <option value="father">Mehr volle Monate für Elternteil 1</option>
+     </select>
+    </label>
+    <label for="v311Care">Wie lange soll Betreuung gesichert sein?
+     <select id="v311Care">
+      <option value="12">Bis LM 12</option>
+      <option value="14">Bis LM 14</option>
+      <option value="18">Bis LM 18</option>
+      <option value="24">Bis LM 24</option>
+      <option value="30">Bis LM 30</option>
+      <option value="36">Bis LM 36</option>
+     </select>
+    </label>
+    <label for="v311Minimum">Mindestbudget nach Kosten pro Lebensmonat (€)
+     <input id="v311Minimum" type="number" min="0" max="100000" step="0.01" inputmode="decimal" placeholder="Optional, keine Untergrenze">
+    </label>
+    <label for="v311CareMode">Was heißt Betreuung in eurem Modell?
+     <select id="v311CareMode">
+      <option value="full">Bis zum Zielalter mindestens eine Person ganz frei</option>
+      <option value="partial">Teilzeitbetreuung ab Kita-Start mitdenken</option>
+     </select>
+    </label>
+    <label for="v311Part">Teilzeitmodelle nach Kita-Start erlauben?
+     <select id="v311Part">
+      <option value="1">Ja, als mögliche Variante</option>
+      <option value="0">Nein, nur volle Auszeit</option>
+     </select>
+    </label>
+   </div>
+   <p class="v38-caption">Kein automatischer Anspruch und keine vollständige Optimierung. Die Suche nutzt vorhandene Modellregeln und prüft bisher nur ausgewählte Monatsmuster. Finanzielle Vergleiche benötigen echte Ausgaben; Vorlagenzahlen sind fiktiv.</p>
+   <button id="v311GoalsSubmit" type="submit" class="navbtn">Passende Varianten suchen →</button>
+   <p id="v311GoalError" class="v38-error" role="alert" aria-live="polite"></p>
+   <p id="v311GoalStatus" class="v38-caption" role="status" aria-live="polite"></p>
+  </form>
+ </section>
+
 </div>

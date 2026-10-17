@@ -14,6 +14,20 @@ Stand: **17. Oktober 2026**. Paket-/Export-Metadaten bleiben bis zu einer separa
 
 **Aktueller technischer Stand V3.14:** [Aktueller Review-/QA-Bericht](ROADMAP-FACHABNAHME-V314-2026-10-17.md), [Roadmap-Matrix](../data/roadmap-status-2026-10-17.json) und [Changelog](../CHANGELOG.md) zuerst lesen. V3.10-Nachweise bleiben historische Snapshots. Im Workbench: 375/375 Node-/DOM-Tests, 39/39 Browserfälle und 3/3 direkte V3.14-file://-Browserfälle bestanden. Die unabhängige öffentliche Freigabe bleibt gesperrt.
 
+**V3.16 QA:** 452/452 Node-/DOM-, 53/53 Chromium-Regressionen und 4/4 direkte V3.16-file://-Tests erfolgreich. Alle bestehenden öffentlichen Release-Gates bleiben unverändert.
+
+**V3.16 (interner Code):** [Gemeinsamer Eltern-Arbeitswochenplan](AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md), src/parent-coordination.cjs (rein) und eigener aufklappbarer Abschnitt in der Kita-Ansicht. Arbeitszeiten/Nettoannahmen beider Eltern und Tagesbegleitung bleiben session-only, werden weder importiert noch exportiert. Keine automatisch bestätigte Bonusberechtigung; Release-Gates unverändert blockiert.
+
+**V3.15.2 geprüfter Stand:** 430/430 Node-/DOM-Tests, 49/49 Browser-E2E und 10/10 direkte file://-V3.15.x-Browserfälle. Hinweise auf unbekannte Beträge, ungedeckte Stunden und 12-Wochen-Modellgrenze bleiben sichtbare Pflichtkennzeichnungen.
+
+**V3.15.2 Ausbau:** [Kita-Verzögerung im Robustheitsvergleich](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md). Neues reines src/care-resilience.cjs: eigener Kita-Plan und zusätzliche 2/4 Wochen unter identischen Arbeits- und Kostenannahmen. Kein Datenbankschreiben, kein Import-/Export-Schemawechsel und kein offizieller Anspruch.
+
+**V3.15.1 QA:** 418/418 Node-/DOM-Tests, 47/47 volle Chromium-Regression und 8/8 V3.15.x-Browserfälle direkt über file:// bestanden. Die öffentliche Abnahme ist unabhängig davon weiterhin blockiert.
+
+**V3.15.1 Nachbesserung:** [Übergang versus Regelbetreuung](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md) korrigiert falsche Zusatzausgaben der ersten regulären Woche. Arbeit später starten, Kita-Stunden unabhängig eingeben, wiederkehrende Lücken kennzeichnen und Übergangskosten nur illustrativ je Lebensmonat zuordnen. Das unveränderte Schema v1 und die gesperrte öffentliche Freigabe gelten weiter.
+
+**V3.15-Folgestand:** [Wochenweise Eingewöhnung und KiBiz-Kohorten](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md), Module kibiz-cohorts.cjs, settling-in.cjs und benefits-navigator.cjs. Die neuen UI-Szenarien, KiZ-Datumsauswahl und Aufgabenmarker bleiben nur im Arbeitsspeicher; Plan und Export-Schema v1 bleiben unverändert. Negative Unit- und Browserfälle sichern die Trennung. QA: 403/403 Node-/DOM-Tests; voller Chromium-Lauf 45/45, abschließend V3.15-Härtung separat 6/6 HTTP und 6/6 file://. Das bleibt ein technischer Arbeitsstand ohne öffentliche Freigabe.
+
 ## Übergabeumfang und Status
 
 Eine kleine Familienstart-Infowebseite (`start.html`) und ein offlinefähiger deutscher Elternzeit-/Elterngeld-Planer als eigenständige HTML-Datei (`index.html`). Technisch weit fortgeschritten, **kein fachlich abgenommener öffentlicher Beta-Release**. `data/release-gates.json` bleibt gesperrt. Ein Merge ändert daran nichts.

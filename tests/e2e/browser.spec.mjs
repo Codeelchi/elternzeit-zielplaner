@@ -907,6 +907,284 @@ test('V3.14 goal search reports bounded counts and never global completeness',as
  expect(stats.valid).toBeLessThanOrEqual(stats.seen);
  expect(stats.valid+Object.values(stats.rejected).reduce((a,b)=>a+b,0)).toBe(stats.seen);
  await expect(page.locator('#goalResult')).toContainText('Suchfenster:');
+ await expect(page.locator('#goalResult')).toContainText('Drei Perspektiven');
+ await expect(page.locator('#goalResult')).toContainText('Weniger Rücklagenrisiko');
  await expect(page.locator('#goalResult')).toContainText('welcher Anteil aller denkbaren');
  expect(await page.evaluate(()=>window.__elternzeitV3.goalResults().every(x=>x.valid))).toBe(true);
+});
+
+for(const width of [320,390])test(`V3.15 Kita transition, NRW source cohorts and local-only assumptions at ${width}px`,async({page},testInfo)=>{
+ await page.setViewportSize({width,height:844});
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('18');
+ await expect(page.locator('#v315KibizResult')).toContainText('Verkündet, ab 01.08.2027 künftig wirksam');
+ await expect(page.locator('#v315KibizResult')).toContainText('Keine individuelle Beitragsfreigabe');
+ const original=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('#v315CarePreset').selectOption('late');
+ await expect(page.locator('#v315CareResult')).toContainText('angenommene volle Wochenbetreuung');
+ await page.locator('#v315WorkHours').fill('28');
+ await page.locator('#v315BackupHours').fill('8');
+ await page.locator('#v315BackupCost').fill('12');
+ await page.locator('#v315NetRisk').fill('560');
+ await expect(page.locator('#v315CareResult')).toContainText('Mehrbelastung während der');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(original);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ const violations=await new AxeBuilder({page}).include('.v315-care').withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(violations.violations.map(v=>v.id)).toEqual([]);
+ const dims=await page.evaluate(()=>({page:document.documentElement.scrollWidth,view:window.innerWidth}));
+ expect(dims.page).toBeLessThanOrEqual(dims.view+1);
+ await page.screenshot({path:testInfo.outputPath(`v315-transition-${width}.png`),fullPage:true});
+});
+
+test('V3.15 NRW 2026 versus promulgated 2027 stays dated and historic Cologne fees never enter budget',async({page})=>{
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('12');
+ await expect(page.locator('#v315KibizResult')).toContainText('Fassung zum geplanten Kita-Beginn bereits in Kraft');
+ await expect(page.locator('#v315KibizResult')).toContainText('28.10.2026');
+ const original=await page.evaluate(()=>window.__elternzeitTest.evaluate().rows[11].childcare);
+ await page.locator('#childcareMode').selectOption('cologne2025');
+ expect(await page.evaluate(()=>window.__elternzeitTest.evaluate().rows[11].childcare)).toBe(original);
+ await page.locator('#childcareStart').selectOption('18');
+ await expect(page.locator('#v315KibizResult')).toContainText('Verkündet, ab 01.08.2027 künftig wirksam');
+ await expect(page.locator('#v313ColognePreview')).toContainText('NICHT ins Budget übernommen');
+});
+
+test('V3.15 local checklist status excludes own completed tasks from tentative ICS without official submission',async({page},testInfo)=>{
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('12');
+ await navigate(page,'slide-9');
+ const task=page.locator('#applicationChecklist [data-v315-task="nrw-childcare-notice"]');
+ await expect(task).toBeVisible();
+ await task.focus();
+ await task.selectOption('done');
+ await expect(page.locator('#applicationChecklist [data-v315-task="nrw-childcare-notice"]')).toBeFocused();
+ await expect(page.locator('#applicationChecklist')).toContainText('selbst als erledigt markiert');
+ const download=page.waitForEvent('download');
+ await page.locator('#v313DownloadIcs').click();
+ const item=await download,file=testInfo.outputPath('offene-fristen.ics');
+ await item.saveAs(file);
+ const ics=await readFile(file,'utf8');
+ expect(ics).toContain('BEGIN:VCALENDAR');
+ expect(ics).toContain('STATUS:TENTATIVE');
+ expect(ics).not.toContain('NRW-Kita-Betreuungsbedarf beim Jugendamt anzeigen');
+ expect(ics).toContain('Elterngeldantrag');
+ await navigate(page,'slide-region');
+ await page.locator('#childcareStart').selectOption('18');
+ await navigate(page,'slide-9');
+ await expect(page.locator('#applicationChecklist [data-v315-task="nrw-childcare-notice"]')).toHaveValue('open');
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+
+test('V3.15 KiZ document navigator uses the six prior calendar months without assigning fictitious grants',async({page})=>{
+ await standardInputs(page);
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('.v315-benefits summary').click();
+ await page.locator('#v315BenefitDate').fill('2027-02-28');
+ await expect(page.locator('#v315BenefitsResult')).toContainText('2026-08, 2026-09, 2026-10, 2026-11, 2026-12, 2027-01');
+ await page.locator('#v315KiZAlready').selectOption('yes');
+ await expect(page.locator('#v315BenefitsResult')).toContainText('Folgeanträgen');
+ await expect(page.locator('#v315BenefitsResult')).not.toContainText('2026-08, 2026-09');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(before);
+ const scan=await new AxeBuilder({page}).include('.v315-benefits').withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(scan.violations.map(v=>v.id)).toEqual([]);
+});
+
+test('V3.15 beginner can open settling-in planner without enabling all expert views',async({page})=>{
+ // The global beforeEach activates expert mode; deliberately return to lite.
+ await page.locator('#v38Advanced').click();
+ await expect(page.locator('#v38Advanced')).toHaveAttribute('aria-pressed','false');
+ await page.locator('#v315CareJump').click();
+ await expect(page.locator('#slide-region')).toBeVisible();
+ await expect(page.locator('#slide-region h2')).toBeFocused();
+ await expect(page.locator('#v315CarePreset')).toBeVisible();
+ await expect(page.locator('#v38Advanced')).toHaveAttribute('aria-pressed','false');
+ await page.locator('#v315CareBack').click();
+ await expect(page.locator('#slide-1')).toBeVisible();
+ await expect(page.locator('#v38Advanced')).toHaveAttribute('aria-pressed','false');
+});
+
+test('V3.15.1 planned work return avoids false earnings loss and leaves original family budget untouched',async({page})=>{
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('18');
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('#v315CarePreset').selectOption('late');
+ await page.locator('#v315TargetHours').fill('25');
+ await page.locator('#v315WorkReturnWeeks').fill('6');
+ await page.locator('#v315NetRisk').fill('560');
+ await page.locator('#v315BackupHours').fill('0');
+ await page.locator('#v315BackupCost').fill('0');
+ await expect(page.locator('#v315CareResult')).toContainText('Während der 6 Übergangswochen bleiben 0 Arbeitsstunden');
+ await expect(page.locator('#v315CareResult')).toContainText('Dauerhafte Betreuungslücke');
+ await expect(page.locator('#v315CareResult')).toContainText('Mehrbelastung während der 6 Übergangswochen: 0');
+ await expect(page.locator('#v315CareResult')).toContainText('Übergangskosten nach Lebensmonaten');
+ await expect(page.locator('#v315CareResult')).not.toContainText('Nicht bekannt');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(before);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+test('V3.15.1 zero-week settling-in costs exclude recurring childcare shortfall',async({page})=>{
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('18');
+ await page.locator('#v315CarePreset').selectOption('immediate');
+ await page.locator('#v315TargetHours').fill('25');
+ await page.locator('#v315NetRisk').fill('560');
+ await page.locator('#v315BackupCost').fill('0');
+ await expect(page.locator('#v315CareResult')).toContainText('Dauerhafte Betreuungslücke');
+ await expect(page.locator('#v315CareResult')).toContainText('Keine Übergangswoche');
+ await expect(page.locator('#v315CareResult')).toContainText('0 Übergangswochen');
+ await expect(page.locator('#v315CareResult')).toContainText('Regelwoche – nur Vorschau');
+});
+
+test('V3.15.2 mobile delayed-Kita sensitivity compares same work return and retains active plan',async({page})=>{
+ await page.setViewportSize({width:320,height:850});
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('19');
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('#v315CarePreset').selectOption('late');
+ await page.locator('#v315BackupHours').fill('8');
+ await page.locator('#v315BackupCost').fill('12');
+ await page.locator('#v315NetRisk').fill('560');
+ const details=page.locator('.v315-resilience');
+ await details.locator('summary').click();
+ await expect(details).toHaveAttribute('open','');
+ await expect(details).toContainText('Kita 2 Wochen später');
+ await expect(details).toContainText('Kita 4 Wochen später');
+ await expect(details).toContainText('992 €');
+ await expect(details).toContainText('1.984 €');
+ await expect(details).toContainText('Niedrigster Monatsrest im betroffenen Zeitraum');
+ await expect(details).not.toContainText('Nicht berechenbar');
+ // The new comparison remains open when normal scenario fields change.
+ await page.locator('#v315WorkReturnWeeks').fill('4');
+ await expect(page.locator('.v315-resilience')).toHaveAttribute('open','');
+ await expect(page.locator('.v315-resilience')).toContainText('Kita 2 Wochen später');
+ const dimensions=await page.evaluate(()=>({w:document.documentElement.scrollWidth,viewport:window.innerWidth}));
+ expect(dimensions.w).toBeLessThanOrEqual(dimensions.viewport+1);
+ const accessibility=await new AxeBuilder({page}).include('.v315-care')
+  .withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(accessibility.violations.map(x=>x.id)).toEqual([]);
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(before);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+test('V3.15.2 unknown extra costs and limit of 12-week delay have no false forecast',async({page})=>{
+ await standardInputs(page);
+ await page.locator('#v315DelayWeeks').fill('11');
+ const details=page.locator('.v315-resilience');
+ await details.locator('summary').click();
+ await expect(details).toContainText('zusätzliche Varianten ausgelassen');
+ await expect(details).toContainText('Nicht berechenbar');
+ await expect(details).toContainText('Unbekannt');
+ await expect(details).not.toContainText('Kita 4 Wochen später');
+});
+
+test('V3.16 two-parent overlapping versus staggered work reveals true childcare conflict on mobile',async({page},testInfo)=>{
+ await page.setViewportSize({width:320,height:840});
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('19');
+ const original=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('.v316-joint summary').first().click();
+ await page.locator('#v315DelayWeeks').fill('1');
+ await page.locator('#v315SettlingWeeks').fill('0');
+ await page.locator('#v315FirstHours').fill('0');
+ await page.locator('#v315TargetHours').fill('0');
+ await page.locator('#v316AWork').fill('20');
+ await page.locator('#v316BWork').fill('20');
+ await page.locator('#v316AStart').fill('08:00');
+ await page.locator('#v316BStart').fill('12:00');
+ await page.locator('#v316GapParent').selectOption('A');
+ await page.locator('#v316ANet').fill('400');
+ await page.locator('#v316BNet').fill('600');
+ const summary=page.locator('#v316JointResult');
+ await expect(summary).toContainText('A 0 h und B 0 h Arbeitszeit');
+ await expect(summary).toContainText('0 €');
+ await page.locator('#v316BStart').fill('08:00');
+ await expect(summary).toContainText('A 20 h und B 0 h Arbeitszeit');
+ await expect(summary).toContainText('400 €');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(original);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ const accessibility=await new AxeBuilder({page}).include('.v316-joint')
+  .withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(accessibility.violations.map(x=>x.id)).toEqual([]);
+ const dimensions=await page.evaluate(()=>({w:document.documentElement.scrollWidth,viewport:window.innerWidth}));
+ expect(dimensions.w).toBeLessThanOrEqual(dimensions.viewport+1);
+ await page.screenshot({path:testInfo.outputPath('v316-zwei-eltern-320.png'),fullPage:true});
+});
+
+test('V3.16 an escort parent can switch while other parent return is delayed; day breakdown stays keyboard usable',async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await standardInputs(page);
+ const original=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('.v316-joint summary').first().click();
+ await page.locator('#v315DelayWeeks').fill('0');
+ await page.locator('#v315SettlingWeeks').fill('1');
+ await page.locator('#v315FirstHours').fill('5');
+ await page.locator('#v315TargetHours').fill('20');
+ await page.locator('#v316AWork').fill('20');
+ await page.locator('#v316BWork').fill('20');
+ await page.locator('#v316ANet').fill('400');
+ await page.locator('#v316BNet').fill('600');
+ await page.locator('#v316BReturn').fill('4');
+ const result=page.locator('#v316JointResult');
+ await page.locator('#v316Escort').selectOption('A');
+ await expect(result).toContainText('A 5 h und B 0 h Arbeitszeit');
+ await expect(result).toContainText('100 €');
+ await page.locator('#v316Escort').selectOption('B');
+ await expect(result).toContainText('A 0 h und B 0 h Arbeitszeit');
+ await page.locator('.v316-escort-choices summary').click();
+ await expect(result.locator('.v316-escort-choices tbody tr')).toHaveCount(3);
+ const selector=page.locator('#v316WeekDetail');
+ await selector.focus();
+ await selector.selectOption('1');
+ await expect(page.locator('#v316WeekDetail')).toBeFocused();
+ await expect(result).toContainText('Regelvorschau');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(original);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+
+test('V3.16 unknown parental earnings and invalid work hours never claim legal entitlement or grant',async({page})=>{
+ await standardInputs(page);
+ await page.locator('.v316-joint summary').first().click();
+ await page.locator('#v316GapParent').selectOption('A');
+ await page.locator('#v316AWork').fill('40');
+ await expect(page.locator('#v316JointResult')).toContainText('maximal 32 Wochenstunden');
+ await expect(page.locator('#v316JointResult')).toContainText('Geldbelastung nicht vollständig berechenbar');
+ await expect(page.locator('#v316JointResult')).toContainText('kein Anspruch bestätigt');
+ await expect(page.locator('#v316JointResult a[href*="familienportal.de"]')).toHaveCount(2);
+ await page.locator('#v316AWork').fill('20.1');
+ await expect(page.locator('#v316JointResult [role="alert"]')).toContainText('Viertelstunden');
+ await page.locator('#v316JointReset').click();
+ await expect(page.locator('#v316AWork')).toHaveValue('28');
+ await expect(page.locator('#v316ANet')).toHaveValue('');
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+
+test('V3.16 joint-parent assumptions remain session-only even with explicit save consent and JSON export',async({page},testInfo)=>{
+ await standardInputs(page);
+ await page.locator('.v316-joint summary').first().click();
+ await page.locator('#v316AWork').fill('16');
+ await page.locator('#v316ANet').fill('987.65');
+ await page.locator('#v316BReturn').fill('11');
+ await page.locator('#v316Escort').selectOption('B');
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ // Expert mode shows the opt-in storage controls directly; the compact toggle is hidden.
+ await page.locator('#localSave').check();
+ const persisted=await page.evaluate(()=>localStorage.getItem('elternzeit-familienplan-v3'));
+ expect(persisted).not.toContain('987.65');
+ expect(persisted).not.toContain('v316');
+ const waiting=page.waitForEvent('download');
+ await page.locator('#btnJson').click();
+ const download=await waiting;
+ const exportPath=testInfo.outputPath('family-plan-v316.json');
+ await download.saveAs(exportPath);
+ const exported=await readFile(exportPath,'utf8');
+ expect(exported).not.toContain('987.65');
+ expect(exported).not.toContain('v316');
+ expect(JSON.parse(exported).data.storageConsent).toBe(true);
+ await page.locator('#importJson').setInputFiles(exportPath);
+ await expect(page.locator('#v316ANet')).toHaveValue('');
+ await expect(page.locator('#v316AWork')).toHaveValue('28');
+ await expect(page.locator('#v316BReturn')).toHaveValue('0');
+ await expect(page.locator('#v316Escort')).toHaveValue('A');
+ const final=await page.evaluate(()=>window.__elternzeitTest.getState());
+ expect(final.storageConsent).toBe(false);
+ expect(JSON.parse(before).date).toEqual(final.date);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
 });

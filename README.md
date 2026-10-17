@@ -1,8 +1,24 @@
 # Elternzeit-Zielplaner
 
-**Interner Funktionsstand V3.14 (17. Oktober 2026)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner. Die technischen Paket- und Export-Versionsangaben bleiben vorerst bei **3.10.0**, weil die V3.12–V3.14-Ausbaustufen noch **kein öffentlicher Produkt-Release** sind.
+**Interner Funktionsstand V3.16 (17. Oktober 2026)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner. Die technischen Paket- und Export-Versionsangaben bleiben vorerst bei **3.10.0**, weil die V3.12–V3.14-Ausbaustufen noch **kein öffentlicher Produkt-Release** sind.
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
+
+**Technische V3.15-Abnahme (17.10.2026):** 403/403 Node-/DOM-Tests, 45/45 gesamter Chromium-Browserlauf und nach abschließender Navigationskorrektur jeweils 6/6 V3.15-Browserfälle über HTTP und direkte Offline-Datei. Diese technischen Ergebnisse sind keine unabhängige Fach-/Rechtsfreigabe. [Nachweise](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**Technische V3.16-Abnahme (17.10.2026):** 452/452 Node-/DOM-, 53/53 Chromium-Regressionen und 4/4 zusätzliche direkte file://-V3.16-Browserfälle bestanden. Keine unabhängige rechtliche, steuerliche, Datenschutz- oder Nutzertestfreigabe. [Nachweise](docs/AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md).
+
+**Neu in V3.16 (interner Ausbau):** Elternteil A und B können ihre Arbeitszeiten, Wiedereinstiege und Eingewöhnungsbegleitung in einem gemeinsamen Wochenplan abstimmen. Viertelstundenbasierte Betreuungskonflikte, alternative Begleitungsaufteilungen und nur manuell angenommene finanzielle Folgen bleiben strikt vom Elterngeld-/Bankmodell getrennt. [Umsetzung und klare Grenzen](docs/AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md).
+
+**V3.15.2 technische QA (17.10.2026):** 430/430 Node-/DOM-, 49/49 gesamter Chromium-Browserlauf und 10/10 direkte file://-V3.15.x-Browserfälle bestanden. Die öffentliche fachliche Freigabe bleibt gesperrt. [Details](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**Weiterentwicklung V3.15.2:** Die Eingewöhnungsplanung enthält jetzt einen optionalen Robustheitsvergleich für zwei beziehungsweise vier zusätzliche Wochen ohne Kitaplatz. Er zeigt verfügbare Betreuung, hypothetische Mehrkosten und – nur bei bekannten Haushaltskosten – den niedrigsten Monatsrest unter den betroffenen Lebensmonaten. Es werden keine Familienplanwerte oder Bankbuchungen verändert. [Technische und fachliche Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**V3.15.1 technische QA:** 418/418 Node-/DOM-Tests; vollständiger Chromium-Lauf 47/47; direkte file://-Prüfung aller 8 V3.15-/V3.15.1-Browserfälle bestanden. Keine unabhängige Rechts-/Fachabnahme. [Abnahme und Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**Nachbesserung V3.15.1:** Der Kita-Vergleich unterscheidet jetzt ausdrücklich einmalige Eingewöhnungsbelastungen von dauerhaft offenen Betreuungsstunden. Arbeit kann erst Wochen nach Kita-Start beginnen; hypothetische Zusatzkosten werden separat und centgenau auf Lebensmonate verteilt. Es werden weder Leistungsansprüche noch gespeicherte Pläne still geändert. [Fachliche Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**Neu in V3.15 (separater Entwicklungszweig):** Wochenweiser Kita-Eingewöhnungs- und Wiedereinstiegsplan mit manueller Verzögerung und Ersatzbetreuung; getrennte NRW-KiBiz-Fassungen für 2026 und ab 01.08.2027; nach Geburtsdatum bestimmte Anzeige- und mögliche Beitragsfreiheits-Hinweise; Aufgabenfortschritt, vorläufiger Kalenderexport, KiZ-Unterlagenfenster und verständlichere Suchperspektiven. **Kein festgestellter Rechtsanspruch, keine automatische Änderung von Plan/Bank und keine neue öffentliche Freigabe.** [V3.15 Umsetzung und Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
 
 **V3.14 (interner Entwicklungsstand):** Eigene Versicherungs-/Steuerpuffer im Finanzvergleich, Kölner historische Gebührentabelle in drei Altersgruppen, technisch vollständiger kleiner Suchraum, schnellere abbrechbare Vorlagensuche, eindeutige UI-Handler und maschinenlesbarer Fachreview-Übergabesatz. Keine unabhängige Rechts-/Datenschutz-/Nutzerfreigabe. [Details und Übergabe](docs/ROADMAP-FACHABNAHME-V314-2026-10-17.md).
 
@@ -57,7 +73,7 @@ npm run test:e2e
 
 Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repository-Verzeichnis, dann `http://localhost:8080/start.html` öffnen. Die App benötigt zur Laufzeit keinen Build-Schritt und keine Netzwerkverbindung.
 
-## Funktionen (interner Stand V3.14)
+## Funktionen (interner Stand V3.16)
 
 - Fünf fiktive Schnellstart-Vorlagen mit unmittelbarem Ergebnis, Betreuungsabgleich und reduzierbarer Fachnavigation
 - Kurzer persönlicher Eingabeassistent mit getrennter Behandlung unbekannter Ausgaben und 0 Euro

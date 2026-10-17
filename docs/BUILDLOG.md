@@ -2,6 +2,22 @@
 
 Historischer Entwicklungsverlauf seit V3.4, ergänzter **Stand vom 17. Oktober 2026: interner V3.14-Code** (Paket-/Exportversionsnummer 3.10.0 bis separater Release-Entscheidung). Technische Nachweise, fachliche Evidenz und öffentliche Freigaben sind getrennt. Ein Merge nach `main` ist keine Veröffentlichung und keine unabhängige Fachabnahme.
 
+## V3.16 Zwei-Eltern-Wochenkoordination, 17.10.2026
+
+Neuer 15-Minuten-Familienwochenplan mit getrennten Arbeitszeiten/Wiedereinstiegen, begleitender Person während der Kita-Eingewöhnung und realen zeitlichen Überschneidungskonflikten. Vollständige technische Tests: 452/452 Node-/DOM, 53/53 Chromium und 4/4 direkte file://-V3.16-Fälle. Beträge nur ausdrückliche Benutzerannahmen; keine Plan-/Speichermutation. Ausführliche Grenzen und Tests: [V3.16](AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md). Fachliche Freigaben bleiben blockiert.
+
+## V3.15.2 begrenzter Kita-Verschiebungs-Stresstest, 17.10.2026
+
+Neue pure Sensitivitätsfunktion src/care-resilience.cjs sowie mobile, aufklappbare UI-Tabelle. Gesamtabnahme: 430/430 Node-/DOM-Tests, 49/49 Chromium-E2E und 10/10 direkte file://-V3.15.x-Browserfälle bestanden. Varianten: eigen, zwei und vier Wochen zusätzliche Verzögerung, aber maximal zwölf Wochen Gesamtverschiebung. Differenzen nur auf gleiche manuelle Wochen-/Geld-/Rückkehr-Annahmen bezogen; unbekannte Kosten bleiben unbekannt und der Plan wird nicht mutiert. [Detailbericht](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+## V3.15.1 Korrektur und technischer QA-Abschluss, 17.10.2026
+
+Kita-Eingewöhnung: fälschlich mitgezählte reguläre Woche entfernt; Arbeitsrückkehr 0–24 Wochen getrennt, dauerhaft ungedeckte Wochenstunden als eigenes Problem benannt. Rein hypothetische Cent-Zuordnung zu Lebensmonaten mit vollständiger Offenlegung unberücksichtigter Zeiträume, ohne gespeicherte Planänderung. Vollständige Tests: 418/418 Node-/DOM, 47/47 Chromium, 8/8 direkte file:// V3.15.x-Browserfälle. Release-Gates unabhängig weiterhin BLOCKED. [Detailnachweis](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+## V3.15 Folgeentwicklung, 17.10.2026 (noch nicht nach main integriert)
+
+Arbeitszweig feat/v3-15-eingewoehnung-kibiz-20271017 baut auf main fa1fda2 auf. Neue reine Module: KiBiz-Rechtsfassung nach Betreuungsdatum, Wochen-Eingewöhnung/Ersatzbetreuung und Bundesleistungen-Dokumentennavigator. Vorhandene Antrags-Aufgaben erhalten fristgebundene lokale Statusmarkierungen und den unverbindlichen Fristenkalender. Transparente Vergleichskarten nutzen ausschließlich die vorhandene begrenzte Kandidatenliste. Alle neuen Eingaben sind nur temporär, keine Datenschema-Migration. Zu erwartender Testnachweis und fachliche Grenzen: [V3.15 Ausbau](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
 ## Stand der aktuellen Zusammenführung
 
 Aufbauend auf dem in main integrierten V3.11-Stand aa8286d liegen der V3.12-Commit 8c257ea (Kita-Finanzdeltas, Pareto, tagdatierte Ist-Buchungen), V3.13-Commit 7b49b38 (Zahlungsannahmen, Risiko-/Quellen-/ICS-Funktionen) und V3.14-Commit 09764a6 (Kostenpuffer, Kölner Gebührengruppen, synthetische Mikrosuche, Legacy-/Privacy-Härtung) vor. Diese SHA-Angaben sind der geprüfte Entwicklungszweig **vor** der Integrations-Dokumentationsaktualisierung.

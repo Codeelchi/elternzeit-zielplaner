@@ -1,5 +1,6 @@
 'use strict';
 const time=require('./time-axes.cjs');
+const kibiz=require('./kibiz-cohorts.cjs');
 const CHECKED='2026-10-14';
 const SOURCES={
   application:{url:'https://www.gesetze-im-internet.de/beeg/__7.html',verifiedAt:CHECKED,label:'BEEG § 7 – Antragstellung'},
@@ -38,17 +39,28 @@ function buildApplicationGuide({birthDate,expectedBirthDate=birthDate,region='NR
   // Filing during LM(first+3) still includes LM(first), per BEEG §7; this is not a general application cutoff.
   tasks.push({id:'elterngeld',dueDate:months[firstBenefitMonth+2].endDate,recommendedDate:months[firstBenefitMonth-1].startDate,title:'Elterngeldantrag bei der zuständigen Elterngeldstelle einreichen',description:`Früh nach der Geburt einreichen. Zur rückwirkenden Sicherung ab LM ${firstBenefitMonth} muss der Antrag spätestens bis Ende LM ${firstBenefitMonth+3} eingehen. Später bleiben jüngere Anspruchsmonate möglich. Zugang und Vollständigkeit bestätigen lassen.`,documents:['Geburtsurkunde – Ausfertigung zur Beantragung von Elterngeld','Gehaltsabrechnungen beider beantragenden Eltern für den maßgeblichen Bemessungszeitraum','Nachweis Krankenkasse über Mutterschaftsgeld und Arbeitgeberzuschuss','Teilzeitvereinbarung und erwartetes Einkommen während des Bezugs','Angaben zum zu versteuernden Einkommen im Kalenderjahr vor der Geburt','Unterschriften beziehungsweise bestätigtes zulässiges digitales Verfahren'],source:SOURCES.application});
   if(!Number.isInteger(childcareStartLm)||childcareStartLm<0||childcareStartLm>96)throw new RangeError('Kita-Lebensmonat muss zwischen 0 und 96 liegen');
-  const kibiz=legislationEvent(legalEvents,'nrw-kibiz-2027');
-  if(region==='NRW'&&childcareStartLm>0&&kibiz&&kibiz.status==='promulgated_future_effective'){
-    const startDate=months[childcareStartLm-1].startDate;
-    if(startDate>=kibiz.effective_from)tasks.push({
-      id:'nrw-childcare-notice',dueDate:minusCalendarMonths(startDate,6),careStartDate:startDate,
-      title:'NRW-Kita-Betreuungsbedarf beim Jugendamt anzeigen',
-      description:'Nach § 5 KiBiz grundsätzlich spätestens sechs Kalendermonate vor dem geplanten Betreuungsbeginn in Textform den Bedarf, den gewünschten Umfang und die Betreuungsart anzeigen. Bei kurzfristigem Bedarf unverzüglich melden; örtliche Fristen/Verfahren prüfen. Die Bedarfsanzeige garantiert keinen Kita-Platz.',
-      documents:['Gewünschter Betreuungsbeginn und Umfang','Betreuungsart (Kita/Tagespflege)','Eingangsbestätigung des Jugendamts'],
-      source:{label:'KiBiz NRW § 5, Fassung ab 01.08.2027',url:kibiz.sources[0],verifiedAt:kibiz.observed_at},
-      notice_type:'statutory_six_calendar_months',legal_status:kibiz.status
-    });
+  if(region==='NRW'&&childcareStartLm>0){
+    const careStartDate=months[childcareStartLm-1].startDate;
+    const legal=kibiz.childcareLawWindow({birthDate,careStartDate,region,city});
+    if(legal.lawVersion){
+      tasks.push({
+        id:'nrw-childcare-notice',dueDate:legal.noticeDate,careStartDate,
+        title:'NRW-Kita-Betreuungsbedarf beim Jugendamt anzeigen',
+        description:'Nach § 5 KiBiz in der für den Betreuungsstart maßgeblichen Rechtsfassung grundsätzlich spätestens sechs Kalendermonate vor Beginn den gewünschten Bedarf, Umfang und die Betreuungsart anmelden. Vor 01.08.2027 schriftlich oder elektronisch, ab 01.08.2027 in Textform. Örtliche Verfahren (bei Bedarf auch frühere Vormerkung) und kurzfristige Sonderfälle gesondert prüfen. Keine Platzzusage.',
+        documents:['Gewünschter Betreuungsbeginn und Betreuungsstunden','Betreuungsart (Kita oder Tagespflege)','Eingangsbestätigung der Bedarfsanzeige'],
+        source:{label:'KiBiz NRW § 5 – Fassung ab '+legal.lawVersion,url:legal.lawSource,verifiedAt:legal.reviewedAt},
+        notice_type:'statutory_six_calendar_months',legal_status:legal.lawStatus==='PROMULGATED_FUTURE_EFFECTIVE'?'promulgated_future_effective':'effective',
+        local_early_notice_date:legal.localEarlyNoticeDate
+      });
+      tasks.push({
+        id:'nrw-childcare-fee-check',dueDate:null,
+        title:'Kommunale Kita-Beiträge, mögliche Beitragsfreiheit und Essen prüfen',
+        description:'§ 50 KiBiz: Die Beitragsfreiheit hängt vom Kindergartenjahr, Stichtag, Alter und der tatsächlichen Einschulung ab. Kommunale Satzung, Geschwisterregelung und Essensgeld getrennt prüfen; der voraussichtliche landesrechtliche Stichtag ist '+legal.indicativeFeeWaiverFrom+'. Kein pauschales automatisches Nullsetzen der Gebühren.',
+        documents:['Aktuelle Beitragsentscheidung/kommunale Satzung','Geburtsdatum und geplante Einschulung','Kita-Vertrag, Betreuungsumfang und Essensgeld'],
+        source:{label:'KiBiz NRW §§ 50–51 – Fassung ab '+legal.lawVersion,url:legal.lawSource,verifiedAt:legal.reviewedAt},
+        legal_status:'INFORMATION_NOT_AUTOMATIC_ENTITLEMENT'
+      });
+    }
   }
   const autoKind=legislationEvent(legalEvents,'kindergeld-automatic-2027-rollout');
   if(autoKind&&autoKind.status==='parliament_passed_implementation_conditional'&&birthDate>='2027-01-01')tasks.push({

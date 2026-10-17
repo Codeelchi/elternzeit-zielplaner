@@ -1,5 +1,40 @@
 # Änderungen
 
+## V3.16 – Gemeinsamer Betreuungs- und Wiedereinstiegsplan (interner Entwicklungsstand)
+
+- Parallele Eltern-Arbeitszeiten nicht mehr als einfache Stundenaddition: 15-Minuten-Überlappungsprüfung für fünf beispielhafte Wochentage, individuelle Arbeitsstarts/-Rückkehrtermine, gemeinsame Kita-Stunden.
+- Eingewöhnungsbegleitung durch A/B oder tageweise abwechselnd, Elternfreistellungs-Konflikte und freie Ersatzbetreuung transparent getrennt. Drei Begleitungsvarianten als rein hypothetischer Vergleich.
+- Euroangaben pro Elternteil nur explizit und ohne gesetzliche Finanzzusage; Wochen außerhalb der Eingewöhnung werden nie zu einmaligen Übergangskosten addiert.
+- Alles nur Sitzungsszenario: auch bei opt-in-Speicherung werden Arbeitszeit-/Eingewöhnungs-Eingaben nicht in Plan-JSON oder Bankdaten übernommen.
+- Amtliche Hinweise auf höchstens 32 Wochenstunden während der Elternzeit und auf zusätzliche Voraussetzungen beim Partnerschaftsbonus, ohne vermeintliche Anspruchsprüfung.
+- [Technik, fachliche Grenzen und Tests](docs/AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md). Öffentliche Freigabe weiterhin gesperrt.
+
+## V3.15.2 – Unverbindlicher Robustheitsvergleich beim Kita-Start (interner Entwicklungszweig)
+
+- Drei klar begrenzte Verzögerungsvarianten direkt in der bestehenden Eingewöhnungsansicht: eigene Annahme, +2 und +4 Wochen (maximal zwölf Wochen insgesamt).
+- Gleiche Wochenstunden, Arbeitsrückkehr und Geldannahmen in allen Varianten; ausgegeben werden zusätzlich ungedeckte Übergangsstunden, vorläufige Euro-Unterschiede und bei vollständigen Haushaltsannahmen der schwächste betroffene Lebensmonat.
+- Kein automatisches Ranking als beste Familienstrategie, keine Prognose der Platzvergabe, keine verdeckte Planübernahme und keine Berechnung veränderter Löhne/Elterngeldansprüche.
+- Bei fehlendem Netto, fehlenden Haushaltskosten oder Überschreitung der Modellgrenze werden die Lücken explizit gezeigt.
+- Neue reine Unit-Tests und DOM-/Chromium-Mobile-Regressionen. [Dokumentierte Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+## V3.15.1 – Wiedereinstiegs- und Liquiditätsdarstellung korrigiert (interner Branch)
+
+- Die reguläre Kita-Woche ist keine zusätzliche Übergangswoche mehr: null Eingewöhnungs-/Wartewochen ergeben null einmalige Übergangsmehrkosten.
+- Dauerhafte fehlende Betreuungsstunden nach Arbeitsrückkehr werden getrennt angezeigt, statt als einmaliger Einkommensverlust zu verschwinden.
+- Arbeitsrückkehr um 0–24 Wochen verschiebbar, unabhängig von Kita-Start und NRW-Tarifstunden; kein fiktiver Lohnausfall vor Arbeitsbeginn.
+- Rein hypothetische Übergangskosten werden centgenau auf Kinder-Lebensmonate verteilt. Unbekannte Werte und Teile außerhalb der 36-Monatsansicht bleiben sichtbar.
+- Alle Ergänzungen temporär und ohne Import-/Export-Schemaänderung, Bankbuchungs- oder Elterngeldmodell-Änderung. Siehe [Nachbesserung V3.15.1](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+## V3.15 – Eingewöhnung und geprüfte Kita-Zukunftsfassungen (interner Branch, 17.10.2026)
+
+- NRW-KiBiz-Fassung 01.08.2026–31.07.2027 vs. verkündete künftige Fassung ab 01.08.2027 werden nach gewähltem Betreuungstag unterschieden; inklusive sechsmonatiger Anzeige, optionaler örtlicher früher Vormerkung und nur vorläufigem Beitragsfreiheits-Hinweis.
+- Neuer wochenweiser, rein hypothetischer Kita-Eingewöhnungs-/Wiedereinstiegsplan: Verzögerung, Stundenrampe, zusätzliche Betreuung und optionaler expliziter Nettoausfall, ohne Elternzeit-, Leistungs- oder Bankbuchungsänderung.
+- Lokale Antragsstatusmarkierungen samt Ausschluss selbst als erledigt markierter Aufgaben aus dem vorläufigen ICS; KiZ-Unterlagenfenster für sechs Kalendermonate, amtliche Wohngeld-/BuT-Wege ohne automatische Zusatzleistungen.
+- Einfachere Übersicht der Zielsuche nach freier Zeit, modelliertem Budget und vorsichtiger Rücklage, ausschließlich unter den bereits dargestellten Varianten.
+- Neue versionierte Quellenmetadaten und Unit-/DOM-/Browser-Negativtests; neue Eingaben standardmäßig nur Sitzungsszenarien, JSON-Schema v1 bleibt erhalten. Keine automatische Brutto-Elterngeld-Netto-Engine.
+- **Fach- und öffentliche Release-Gates bleiben gesperrt.** Verschlüsselte private Mehrgeräte-Übergabe ist mangels unabhängig geprüftem Sicherheitskonzept bewusst nicht enthalten.
+- Dokumentation und Tests: [V3.15 Ausbau/Abnahme](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
 ## V3.14 – interner Ausbau und Review-Vorbereitung, 17.10.2026 (kein Release-Tag)
 
 Enthält die aufeinander aufbauenden V3.12-, V3.13- und V3.14-Arbeitspakete aus den Feature-Branches. Das technische Paket sowie der aktuelle Export behalten Version 3.10.0 bis zu einer separaten Freigabe-/Versionsentscheidung. **Eine Zusammenführung nach main bedeutet keine öffentliche Freigabe.**

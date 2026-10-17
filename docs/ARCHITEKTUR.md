@@ -55,3 +55,36 @@ Budgetprojektionen runden einzelne Szenariokomponenten mit `money.cjs` und rechn
 - Daten bleiben standardmäßig im Arbeitsspeicher; lokale Speicherung verlangt explizite Zustimmung. Die session-only-Varianten für Zahlungs- und Kostenpuffer werden nicht exportiert. Quellenstatus- und Privacy-Metadatenchecks ersetzen ausdrücklich keinen unabhängigen Fach-, Rechts-, Datenschutz- oder Nutzertestbericht.
 
 **QA-Stand am 17.10.2026:** 375/375 Node-/DOM-Tests; 39/39 Browser-E2E und drei zusätzliche direkte file://-V3.14-Browserfälle. Für die offene Fachabnahme den Bericht ROADMAP-FACHABNAHME-V314-2026-10-17.md und data/roadmap-status-2026-10-17.json heranziehen. Das öffentliche Freigabe-Gate bleibt BLOCKED.
+
+## V3.15: versionierte KiBiz-Fristen, Wochen-Eingewöhnung, local-only Status
+
+- src/kibiz-cohorts.cjs ordnet das Betreuungsdatum der geltenden 2026er oder der ab 01.08.2027 verkündeten KiBiz-Fassung zu. Der Status PROMULGATED_FUTURE_EFFECTIVE wird nicht als geltende Elterngeld-Regel oder bestätigte kommunale Kita-Gebühr behandelt. Rechtliche Sechsmonats-Anzeige, mögliche örtliche frühe Vormerkung und vorläufige §50-Beitragsfreiheitsindikation werden getrennt ausgegeben.
+- src/settling-in.cjs modelliert mit Siebentageintervallen rein hypothetische Kita-Verzögerung, Eingewöhnungs-Stundenrampe, fehlende Betreuungszeit, selbst angenommene Ersatzbetreuung und möglichen Arbeitsnettoausfall. Das Modul verändert weder s.schedule, Elterngeld-Netto, s.bankLedger noch gespeicherte s-Felder.
+- src/benefits-navigator.cjs bildet nur offizielle Prüf- und Unterlagenwege ab. Der sechsmonatige Vorantragszeitraum für einen KiZ-Erstantrag wird kalender-, nicht lebensmonatsbezogen ermittelt. Folgeanträge erhalten ausdrücklich keine pauschale Vormonatsreihe.
+- Antragsstatus offen / Unterlagen vorhanden / selbst erledigt ist ein ausschließlich temporärer Map-Wert im UI, dessen Identität vom Geburtsdatum, der Region, dem Wohnort, der konkreten Frist, dem Kitastart und dem Aufgabenstatus der Rechtskohorte abhängt. Eine geänderte Frist darf die erledigte Markierung einer alten Aufgabe nicht übernehmen. Die ICS-Datei exportiert nur noch nicht selbst erledigte Aufgaben und deklariert sie weiterhin als TENTATIVE.
+- SchemaVersion des JSON-Plans bleibt 1. Die V3.15-Parameter sind nicht im Planmodell enthalten und werden bei Import/Reset neu initialisiert. Damit bleibt ein alter Elternzeitplan unabhängig von optionalen Szenarioanzeigen.
+
+Details und offene unabhängige Prüfung: [V3.15 Ausbau](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md). Insbesondere keine öffentliche Freigabe ohne die bisherigen Fach-, Rechts-, Datenschutz- und Nutzertests.
+
+
+### V3.15.1 – Kein Durchmischen von Regellücke und Eingewöhnungsaufwand
+
+Die Core-Funktion compareSettlingIn verarbeitet geplanten Kita-Start und tatsächlich geplanten Arbeitsbeginn getrennt. Die Wochen des tatsächlichen Übergangs tragen countsTowardTransition=true; die anschließende Regelwoche trägt previewOnly=true und wird weder summiert noch als Dauerleistung fortgeschrieben. Eine möglicherweise dauerhaft unzureichende Betreuung wird ausschließlich als Wochenstunden-Differenz angezeigt.
+
+Die ebenfalls reine Funktion transitionLifeMonthBridge übernimmt ausschließlich die expliziten Übergangswochen und weist deren Kosten proportional zu den betroffenen *Kalendertagen* den Lebensmonaten des Kindes zu. Ganze Eurocent bleiben erhalten (größter Rest), auch an Monats-/Jahresgrenzen und bei außerhalb des 36-Monatsmodells liegenden Wochen. Ohne bekannte Haushaltsausgaben wird kein verfügbares Restbudget behauptet. Keine Modell-, Export-, Behörden- oder Kontomutation.
+
+
+### V3.15.2 – reine begrenzte Sensitivität statt Optimierungsversprechen
+
+src/care-resilience.cjs kombiniert drei gültige Varianten derselben deterministischen Basis über compareSettlingIn und transitionLifeMonthBridge. Die Vergleichsannahmen sind fix: gleiches Geburtsdatum, gleicher Elternzeit-/Leistungsplan, derselbe gedachte Arbeitsbeginn, dieselben Betreuungskosten, Wochen- und Ersatzstunden. **Nur** die zusätzlichen zwei bzw. vier Wochen Kita-Verzögerung ändern sich; Varianten oberhalb zwölf Wochen werden transparent ausgelassen.
+
+Zusätzlich zu den angenommenen Zeit- und Kostenunterschieden wird nur bei **bekannten Haushaltsausgaben und vollständigen Zusatzkosten** ein niedrigster Monatsrest für die vom Übergang betroffenen Lebensmonate ausgegeben. Der Vergleich wird nicht zur Bankbilanz oder zu einem gesetzlichen Netto-/Bescheidergebnis hochgerechnet. Die Reactivity des HTML ist schreibgeschützt bezüglich `s`, schemaversioniertem JSON-Export und lokaler Speicherung: Die optionale Tabelle ist nur ein temporärer UI-Snapshot. Kein Ranking als global optimaler Familienplan.
+
+
+### V3.16 – gemeinsame Elternkoordination in Viertelstunden
+
+src/parent-coordination.cjs verwendet die bestehende Kita-Kohorte aus SettlingIn, aber **zwei unabhängige** elterliche Arbeits-/Wiedereinstiegs-Szenarien. Die idealisierte, identische Montag–Freitag-Woche verteilt jeden explizit angegebenen Wochenarbeitsumfang und die Kita-Stunden gleichmäßig in 15-Minuten-Slots. Elternzeit oder Arbeitgeberfreigabe werden nicht aus einer Arbeitswoche abgeleitet.
+
+Nur wenn beide Eltern zeitgleich arbeiten und für denselben Slot **kein Kita-Slot** vorhanden ist, gilt Ersatzbetreuung oder hypothetisch freizumachende Arbeitszeit als nötig. Eingewöhnungsbegleitung durch A/B oder tageweise abwechselnd wird dagegen selbst **innerhalb** bereits vorhandener Kita-Slots als Arbeitskonflikt des begleitenden Elternteils gezählt. Eine Freistellung ist ein ausdrücklich hypothetischer Bedarf.
+
+Fünf Wochentage, keine Fahrtwege/Feiertage/Schichten/Arbeitgeberkontingente. Mehrere reguläre, später zurückliegende Wochen sind als reine Vorschau vom einmaligen Übergang getrennt. Der Geldvergleich bleibt unverbindlich und **alternativ** zum Ein-Eltern-Szenario: nicht addieren. Alle Eingaben ausschließlich in flüchtigem UI-Zustand, separater Renderer, Snapshot-Generator-Bundling; JSON-Schema 1 und s unverändert. Offizielle Links erklären lediglich Teilzeit/Partnerschaftsbonus, die Wochenansicht prüft keine Lebensmonatsdurchschnitte oder Elterngeldberechtigung.

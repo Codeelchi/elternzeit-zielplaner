@@ -1,6 +1,6 @@
 'use strict';
-const HOSTS=new Set(['www.gesetze-im-internet.de','www.stadt-koeln.de','familienportal.de','www.komnet.nrw.de','www.arbeitsagentur.de','www.bmwsb.bund.de','www.deutsche-rentenversicherung.de','www.bundesfinanzministerium.de']);
-const STATUSES=new Set(['effective','proposed_not_in_force','unresolved_conflict','unverified']);
+const HOSTS=new Set(['recht.nrw.de','www.gesetze-im-internet.de','www.stadt-koeln.de','familienportal.de','www.komnet.nrw.de','www.arbeitsagentur.de','www.bmwsb.bund.de','www.deutsche-rentenversicherung.de','www.bundesfinanzministerium.de']);
+const STATUSES=new Set(['effective','promulgated_future_effective','proposed_not_in_force','unresolved_conflict','unverified']);
 const SCOPES=new Set(['informational','historical_reference_only','independent_case_required']);
 function dateOK(s){return typeof s==='string'&&/^\d{4}-\d\d-\d\d$/.test(s)&&!Number.isNaN(Date.parse(s))&&new Date(s+'T00:00:00Z').toISOString().slice(0,10)===s;}
 function officialURL(u){
@@ -20,12 +20,15 @@ function auditOfficialSources(catalog,{asOf=catalog?.asOf}={}) {
     (src.alternativeSource&&!officialURL(src.alternativeSource)))
    throw new TypeError('Quellenstatus, Datum oder URL ist ungültig: '+src.id);
   if(src.independentApproval!==false)throw new TypeError('Externe Genehmigung darf ohne Reviewer-/Abnahmevorgang nicht aus diesem Datensatz stammen: '+src.id);
+  if(src.status==='promulgated_future_effective'&&(!src.effectiveFrom||src.effectiveFrom<=asOf))throw new TypeError('Künftig verkündete Rechtsfassung ist im Prüfkatalog schon in Kraft: '+src.id);
+  if(src.status==='effective'&&src.effectiveFrom&&src.effectiveFrom>asOf)throw new TypeError('Noch nicht wirksame Rechtsfassung darf nicht als geltend geführt werden: '+src.id);
   const due=src.nextReview<=asOf;
   const effective=src.status==='effective'&&(!src.effectiveFrom||src.effectiveFrom<=asOf);
   const calculationApproved=false; // independent reviews are tracked by separate release gates
   if(due)findings.push({id:src.id,type:'REVIEW_DUE',message:'Nachprüfung erforderlich.'});
   if(src.status==='unresolved_conflict')findings.push({id:src.id,type:'CONFLICT',message:'Ungeklärter Widerspruch: keine Fachfreigabe.'});
   if(src.status==='proposed_not_in_force')findings.push({id:src.id,type:'PROPOSAL',message:'Gesetzentwurf ist kein geltender Berechnungsparameter.'});
+  if(src.status==='promulgated_future_effective')findings.push({id:src.id,type:'PROMULGATED_FUTURE',message:'Verkündete Rechtsfassung mit künftigem Inkrafttreten, noch keine geltende Anwendung.'});
   items.push({id:src.id,status:src.status,scope:src.scope,effectiveOnReview:effective,dueForReview:due,calculationApproved,checkedAt:src.checkedAt,source:src.source});
  }
  return {asOf,count:items.length,items,findings,independentlyApprovedForCalculation:0,publicLegalReleaseAllowed:false};

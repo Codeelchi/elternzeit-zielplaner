@@ -1,6 +1,6 @@
-# Entwickler-Handoff – V3.10.0
+# Entwickler-Handoff – interner Code-Stand V3.14
 
-Stand: **16. Oktober 2026**. Einstieg für eine neue Sitzung oder einen übernehmenden Entwickler. Mit [Buildlog](BUILDLOG.md), [Architektur](ARCHITEKTUR.md) und [Roadmap](ROADMAP.md) lesen.
+Stand: **17. Oktober 2026**. Paket-/Export-Metadaten bleiben bis zu einer separaten Release-Entscheidung bei 3.10.0; die zusammengeführten internen Feature-Stände reichen bis V3.14. Einstieg für eine neue Sitzung oder einen übernehmenden Entwickler. Mit [Buildlog](BUILDLOG.md), [Architektur](ARCHITEKTUR.md) und [Roadmap](ROADMAP.md) lesen.
 
 **Ergänzung 15.10.2026 / V3.5.0:** 48 monetäre Vergleichstests (22 direkt veröffentlichte Beispielwerte und Gesamtsummen einschließlich des L-Bank-Familienfalls, 4 amtlich veröffentlichte Grenzen, 22 Formelableitungen) erfolgreich. Der vollständige [Quellenabgleich](AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md) dokumentiert den ungelösten Widerspruch zwischen Familienportal (5/30 Resttage) und KomNet/MuSchG/SGB V (4/30 Resttage). **Release gesperrt.** Für 2027 wurde ausschließlich eine deutlich markierte, nicht rechtsfreigegebene Szenariosuche ergänzt; Status bleibt NICHT_UNTERSTUETZT. CI-Browserprüfung des neuen E2E-Falles nach Branch-Push ausführen.
 
@@ -12,7 +12,7 @@ Stand: **16. Oktober 2026**. Einstieg für eine neue Sitzung oder einen überneh
 
 **V3.9 – auf main integriert:** Neue Schutzlogik liegt im weiterhin offline-fähigen HTML-Schnellstart und der bestehenden Renderlogik; nicht in einer zweiten Leistungs-Engine. Akzeptanztests unter `tests/usability-v39.test.mjs` und zusätzlichen Playwright-Szenarien. Es darf keine automatische öffentliche Freigabe entstehen. [UX-Details](UX-NACHBESSERUNG-V3.9.md).
 
-**Aktueller Stand V3.10:** [Umsetzung](UMSETZUNG-V3.10.md) und [QA-Bericht](QA-V3.10.md) zuerst lesen; die folgenden älteren Versionsabschnitte bilden die Entwicklungshistorie ab.
+**Aktueller technischer Stand V3.14:** [Aktueller Review-/QA-Bericht](ROADMAP-FACHABNAHME-V314-2026-10-17.md), [Roadmap-Matrix](../data/roadmap-status-2026-10-17.json) und [Changelog](../CHANGELOG.md) zuerst lesen. V3.10-Nachweise bleiben historische Snapshots. Im Workbench: 375/375 Node-/DOM-Tests, 39/39 Browserfälle und 3/3 direkte V3.14-file://-Browserfälle bestanden. Die unabhängige öffentliche Freigabe bleibt gesperrt.
 
 ## Übergabeumfang und Status
 
@@ -51,12 +51,17 @@ Lokale Änderungen vor Branchwechsel prüfen und erhalten. Nach Integration auf 
 | `src/candidate-patterns.cjs` | Rollen-Spiegelvarianten; Mutterschutz bleibt bei Mutter; keine eigene Gültigkeitsgarantie |
 | `src/goal-ranking.cjs` | Fingerprints, Kennzahlen und unterschiedliche Ergebnisprofile |
 | `src/application-guide.cjs` | Datierte Aufgaben, Unterlagen und NRW-/Köln-Behördenwege |
+| src/expected-payments.cjs / src/calendar-export.cjs | Angenommene Zahlungstage und rein vorläufige Checklistenfristen als ICS, keine Bank- oder Bewilligungserfindung |
+| src/manual-cost-impact.cjs / src/finance-guidance.cjs | Manuell angenommene Krankenversicherungs-/Steuerreserven und fachliche Warnungen |
+| src/cologne-fees.cjs | Historische kommunale Tarife seit August 2025 für drei Altersgruppen, ohne Budgetübernahme |
+| src/microspace-proof.cjs / src/search-coverage.cjs | Kleine vollständige technische Orakelsuche und ausdrücklich begrenzte Kandidatenabdeckung |
+| scripts/legacy-function-check.mjs / scripts/privacy-technical-check.mjs | Kontrollen für eindeutige Controller und statische lokale Datenschutz-Schutzgeländer |
 | `index.html` | UI, Bestandsfinanzformeln, Sucherzeugung, Import/Persistenz und generierte Module |
 | `scripts/embed-*.mjs` | Erzeugen/kontrollieren Offline-Snapshots; andere Module über `modules:sync` |
 | `scripts/reference-report.mjs` | Aktueller und versionierter Delta-Bericht; Originalreferenzen erhalten |
 | `scripts/release-check.mjs` | Öffentliche Freigaben und Referenzstatus; derzeit erwartet Exitcode 1 |
 
-CommonJS dient unabhängiger Testbarkeit, nicht einem Node-Backend. Eingebettete Modulblöcke nicht von Hand ändern. Nach Quelländerungen synchronisieren, generierten Diff prüfen und Tests ausführen. In Legacy-HTML existieren teilweise mehrere Funktionsdefinitionen; den tatsächlich zuletzt gebundenen Eventpfad prüfen.
+CommonJS dient unabhängiger Testbarkeit, nicht einem Node-Backend. Eingebettete Modulblöcke nicht von Hand ändern. Nach Quelländerungen synchronisieren, generierten Diff prüfen und Tests ausführen. Die alten sich überschattenden Controllerfunktionen wurden in V3.14 bereinigt. Der Check npm run legacy:check schützt gegen neue Doppeldefinitionen und alte aktive Speicherlesepfade.
 
 ## Kritische Invarianten
 
@@ -114,14 +119,14 @@ Keine echten Gehalts-/Steuerdaten oder Familienexporte in Fixtures, Screenshots,
 1. **Mutterschutz 4/30 vs. 5/30:** Originalreferenz erhalten, Fach-/Releaseblocker. Bestätigtes Kalenderdatum löst Geldbetragsvergleich nicht auf.
 2. **Nettoermittlung:** Elterngeld-Netto ist Schätz-/Benutzereingabe; keine vollständige amtliche Brutto-/Steuer-/Versicherungsberechnung.
 3. **Referenzbreite:** Acht publizierte Einzelbeträge plus Grenzen/Formelableitungen sind keine zehn vollständigen Behördenfamilien.
-4. **Suchraum:** Begrenzte Vorlagen/Teilzeitstarts; keine exakten Betreuungsstunden, keine globale Optimalität. Lange synchrone Suche kann UI blockieren.
+4. **Suchraum:** Begrenzte Vorlagen/Teilzeitstarts; keine exakten Betreuungsstunden und keine globale Optimalität. Die sichtbare Suche bleibt asynchron/abbrechbar (512er-Schritte), kann auf langsamen Geräten jedoch merklich Zeit benötigen. Der vollständige 256er-Mikro-Suchraum beweist nur den synthetischen Teilfall.
 5. **Region/Jahre:** Historische Kölner Tarife nicht als aktuelle bestätigte Ansprüche verwenden. Andere Regionen/2027 brauchen eigene Prüfung.
 6. **Abnahme:** Unabhängige Fach-/Rechts-/Datenschutzreviews, Nutzertests, Assistenztechnik und weitere Browser fehlen.
-7. **Wartung:** HTML-Doppeldefinitionen können Änderungen unwirksam machen; Import/UI schrittweise in eindeutige Module auslagern.
+7. **Wartung:** Doppelte alte Top-Level-Funktionen sind technisch bereinigt; neue Änderungen mit npm run legacy:check, Snapshot-Checks und Browser-Roundtrip sichern. Weitere UI-Modularisierung ist optional, keine Freigabevoraussetzung.
 
 ## Nächster konkreter Auftrag
 
-Auf aktuellem `main` beginnen und **P0-R1 der Roadmap** bearbeiten: einen vollständigen Evidenzfall zur taggenauen Mutterschaftsanrechnung mit Daten, Formel, amtlichem Beleg, Prüftag und Delta erstellen. Bleibt die Rechtsfrage offen, Sperre erhalten und parallel P0-R2 (vollständige Referenzfamilien) vorbereiten.
+Am integrierten main beginnen und die bereits angelegten Prüfunterlagen aus [V3.14](ROADMAP-FACHABNAHME-V314-2026-10-17.md) verwenden. **P0-R1** (Mutterschutzkonflikt) ist als maschinenprüfbarer Delta-Fall vorbereitet, aber weiter ungeklärt. **P0-R2**: zehn synthetische Prüfaufträge liegen vor, jedoch weiterhin **null vollständig unabhängig überprüfte Familienverläufe**. Keine künstliche Bestätigung aus eigenen Tests ableiten. Danach P0-R3 (pauschaliertes Elterngeld-Netto) und P0-R4 (Juristen-/Kohortenreview) durch tatsächlich unabhängige Fachpersonen beauftragen.
 
 Danach Netto-Spezifikation/Fachreview, anschließend P1-Pakete. Keine ungeprüften Sonderfälle freischalten. Behörden/Dritte nur nach ausdrücklichem Auftrag kontaktieren; zuerst veröffentlichte amtliche Quellen nutzen.
 
@@ -133,14 +138,14 @@ Quellmodule und HTML-Snapshots stimmen überein; relevante Tests grün; aktuelle
 
 Vor weiteren Produktänderungen den [V3.6-Audit](WETTBEWERB-MVP-AUDIT-2026-10-15.md) lesen. Neue lokale Prüfung: 186 Node-Tests; bestehende main-CI belegt 13 Browserfälle. Dies aktualisiert nicht automatisch den eingecheckten V3.4-Dateistartnachweis. Markt-/USP-Aussagen bleiben hypothesespezifisch, keine Exklusivität behaupten. Die im Audit priorisierten Produktlücken ergänzen die Roadmap.
 
-## Aktuelle Übergabe V3.7
+## Historische Übergabe V3.7
 
 [Umsetzung und Prüfungen](UMSETZUNG-ZIELBUDGET-V3.7.md) lesen. 217 Node-Tests, 16 file://-Browserfälle und 52 Axe-Scans sind aktuell bestanden; `qa/browser-environment.json` enthält jetzt Version und HTML-Hash. Die vorher dokumentierte V3.4-Metadatenlücke ist damit behoben. Neue Module: `money.cjs` und `plan-comparison.cjs`. `runGoalSearch` bleibt synchron testbar, die sichtbare Oberfläche nutzt `runGoalSearchAsync` mit Abbruch.
 
 Nächste offene Abnahmeschritte: taggenaue Mutterschutz-Geldanrechnung unabhängig klären; die angebotene manuelle Netto-/Finanzlogik fachlich reviewen; vorbereitete Nutzertests durchführen; Assistenztechnik und Datenschutz unabhängig prüfen. Keine Ergebnissimulation als erledigte Nutzertests ausgeben. Die vollständige Bruttoengine ist nicht Bestandteil des engen manuellen MVP-Pfads.
 
 
-## Aktuelle Übergabe V3.10 – 16.10.2026
+## Historische Übergabe V3.10 – 16.10.2026
 
 Mit [Umsetzung V3.10](UMSETZUNG-V3.10.md) und [QA V3.10](QA-V3.10.md) beginnen. Einstieg für werdende Eltern ist `start.html`; `index.html` bleibt der unverändert verteilbare Rechner mit erweitertem Schnellstart. Die Startseite speichert keine Gesundheits-/Nutzerdaten. Amtliche Links sind externe Angebote, keine eingebundenen Tracker.
 

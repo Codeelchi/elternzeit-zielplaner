@@ -1,0 +1,206 @@
+{
+  "asOf": "2026-10-17",
+  "sourceClaim": "Synthetic reviewer specifications; NOT independently verified full families.",
+  "cases": [
+    {
+      "id": "basis12",
+      "title": "Basisbezug 12 LM, zweiter Elternteil Mutterschutz, Gehaltsfall",
+      "scope": "standard",
+      "variant": "basis",
+      "birthDate": "2026-05-28",
+      "parents": {
+        "father": {
+          "preEgNetEuro": 2000
+        },
+        "mother": {
+          "preEgNetEuro": 2500
+        }
+      },
+      "expectedFamilyMonthlyBenefits": null,
+      "expectedSourceUrl": null,
+      "independentReviewer": null,
+      "independentlyVerified": false,
+      "status": "awaiting_full_external_case"
+    },
+    {
+      "id": "plus24",
+      "title": "ElterngeldPlus 24 LM, kein Teilzeitnetto",
+      "scope": "standard",
+      "variant": "plus",
+      "birthDate": "2026-05-28",
+      "parents": {
+        "father": {
+          "preEgNetEuro": 2700
+        },
+        "mother": {
+          "preEgNetEuro": 2500
+        }
+      },
+      "expectedFamilyMonthlyBenefits": null,
+      "expectedSourceUrl": null,
+      "independentReviewer": null,
+      "independentlyVerified": false,
+      "status": "awaiting_full_external_case"
+    },
+    {
+      "id": "parttime500",
+      "title": "Elterngeldbezug mit 500 EUR EG-Netto nach Geburt",
+      "scope": "standard",
+      "variant": "parttime",
+      "birthDate": "2026-05-28",
+      "parents": {
+        "father": {
+          "preEgNetEuro": 2000
+        },
+        "mother": {
+          "preEgNetEuro": 2500
+        }
+      },
+      "expectedFamilyMonthlyBenefits": null,
+      "expectedSourceUrl": null,
+      "independentReviewer": null,
+      "independentlyVerified": false,
+      "status": "awaiting_full_external_case"
+    },
+    {
+      "id": "parttime1200",
+      "title": "Elterngeldbezug mit 1200 EUR EG-Netto nach Geburt",
+      "scope": "standard",
+      "variant": "parttime",
+      "birthDate": "2026-05-28",
+      "parents": {
+        "father": {
+          "preEgNetEuro": 2000
+        },
+        "mother": {
+          "preEgNetEuro": 2500
+        }
+      },
+      "expectedFamilyMonthlyBenefits": null,
+      "expectedSourceUrl": null,
+      "independentReviewer": null,
+      "independentlyVerified": false,
+      "status": "awaiting_full_external_case"
+    },
+    {
+      "id": "low-income",
+      "title": "Ersatzrate bei geringem Einkommen",
+      "scope": "standard",
+      "variant": "low_income",
+      "birthDate": "2026-05-28",
+      "parents": {
+        "father": {
+          "preEgNetEuro": 650
+        },
+        "mother": {
+          "preEgNetEuro": 2200
+        }
+      },
+      "expectedFamilyMonthlyBenefits": null,
+      "expectedSourceUrl": null,
+      "independentReviewer": null,
+      "independentlyVerified": false,
+      "status": "awaiting_full_external_case"
+    },
+    {
+      "id": "maximum",
+      "title": "Höchstbetrag bei gedeckeltem Elterngeld-Netto",
+      "scope": "standard",
+      "variant": "maximum",
+      "birthDate": "2026-05-28",
+      "parents": {
+        "father": {
+          "preEgNetEuro": 3200
+        },
+        "mother": {
+          "preEgNetEuro": 2500
+        }
+      },
+      "expectedFamilyMonthlyBenefits": null,
+      "expectedSourceUrl": null,
+      "independentReviewer": null,
+      "independentlyVerified": false,
+      "status": "awaiting_full_external_case"
+    },
+    {
+      "id": "bonus",
+      "title": "Partnerschaftsbonus beide 24-32 Wochenstunden",
+      "scope": "standard",
+      "variant": "bonus",
+      "birthDate": "2026-05-28",
+      "parents": {
+        "father": {
+          "preEgNetEuro": 3000
+        },
+        "mother": {
+          "preEgNetEuro": 2800
+        }
+      },
+      "expectedFamilyMonthlyBenefits": null,
+      "expectedSourceUrl": null,
+      "independentReviewer": null,
+      "independentlyVerified": false,
+      "status": "awaiting_full_external_case"
+    },
+    {
+      "id": "month-end",
+      "title": "Geburt am Monatsende, datierter LM-Wechsel",
+      "scope": "standard",
+      "variant": "calendar_boundary",
+      "birthDate": "2026-05-28",
+      "parents": {
+        "father": {
+          "preEgNetEuro": 2500
+        },
+        "mother": {
+          "preEgNetEuro": 2300
+        }
+      },
+      "expectedFamilyMonthlyBenefits": null,
+      "expectedSourceUrl": null,
+      "independentReviewer": null,
+      "independentlyVerified": false,
+      "status": "awaiting_full_external_case"
+    },
+    {
+      "id": "siblings",
+      "title": "Geschwisterbonus mit Anspruchskohorte",
+      "scope": "special_review",
+      "variant": "sibling_bonus",
+      "birthDate": "2026-05-28",
+      "parents": {
+        "father": {
+          "preEgNetEuro": 2400
+        },
+        "mother": {
+          "preEgNetEuro": 2300
+        }
+      },
+      "expectedFamilyMonthlyBenefits": null,
+      "expectedSourceUrl": null,
+      "independentReviewer": null,
+      "independentlyVerified": false,
+      "status": "awaiting_full_external_case"
+    },
+    {
+      "id": "maternity-conflict",
+      "title": "20. Mai, acht Wochen Mutterschutz und taggenaues Restelterngeld",
+      "scope": "unresolved_conflict",
+      "variant": "maternity",
+      "birthDate": "2026-05-20",
+      "parents": {
+        "father": {
+          "preEgNetEuro": 2500
+        },
+        "mother": {
+          "preEgNetEuro": 2400
+        }
+      },
+      "expectedFamilyMonthlyBenefits": null,
+      "expectedSourceUrl": null,
+      "independentReviewer": null,
+      "independentlyVerified": false,
+      "status": "awaiting_full_external_case"
+    }
+  ]
+}

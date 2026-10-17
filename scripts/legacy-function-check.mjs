@@ -1,0 +1,14 @@
+import {readFileSync} from 'node:fs';
+const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const anchor=html.indexOf('(function(){',html.indexOf('/* RuleValidator_END */'));
+if(anchor<0)throw Error('Anwendungs-Controller nicht gefunden.');
+const source=html.slice(anchor);
+const occurrences=[...source.matchAll(/^function ([A-Za-z_$][\w$]*)\s*\(/gm)];
+const counts=new Map();
+for(const m of occurrences)counts.set(m[1],(counts.get(m[1])||0)+1);
+const duplicate=[...counts].filter(([name,count])=>count>1);
+if(duplicate.length)throw Error('Überschriebene Top-Level-Funktionen im Controller: '+duplicate.map(x=>x.join(':')).join(', '));
+if(occurrences.length<35)throw Error('Controller-Funktionen nicht vollständig erkannt.');
+const legacyLocalStorage=source.match(/localStorage\.(?:setItem|getItem)\(['"]elternzeit-familienplan-v[12]['"]/g)||[];
+if(legacyLocalStorage.length)throw Error('Alte lokale Speicherpfade dürfen nicht neu schreiben/lesen; nur explizite Löschung bleibt zulässig.');
+console.log('Controller-Funktionen eindeutig: '+occurrences.length+' ohne überschriebene alte Handler oder Legacy-Storage-Zugriff.');

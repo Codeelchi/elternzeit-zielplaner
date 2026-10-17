@@ -1,0 +1,78 @@
+{
+  "asOf": "2026-10-17",
+  "publicReleaseApproved": false,
+  "items": [
+    {
+      "id": "P0-R1",
+      "title": "Mutterschutz 4 oder 5 Resttage",
+      "status": "extern offen",
+      "nextEvidence": "Amtliche schriftliche Klarstellung des synthetischen Teilmonats"
+    },
+    {
+      "id": "P0-R2",
+      "title": "Vollständige unabhängige Familienreferenzen",
+      "status": "extern offen",
+      "nextEvidence": "Mindestens zehn vollständige Behörden- oder unabhängige Prüffälle"
+    },
+    {
+      "id": "P0-R3",
+      "title": "Elterngeld-Netto aus Brutto",
+      "status": "extern offen",
+      "nextEvidence": "Geprüfter BEEG-Bemessungsweg und Fallmatrix"
+    },
+    {
+      "id": "P0-R4",
+      "title": "Unabhängiger Rechts- und Kohortenreview",
+      "status": "extern offen",
+      "nextEvidence": "Abnahme für relevante Rechtsfassung und Geburtskohorten"
+    },
+    {
+      "id": "P1-R5",
+      "title": "Suchraum und Reaktionsfähigkeit",
+      "status": "teilweise",
+      "nextEvidence": "Breitere vollständig enumerierbare Teilräume, echte Smartphone-Laufzeiten und unabhängiger UX-Nachweis trotz verbessertem Browserlauf"
+    },
+    {
+      "id": "P1-R6",
+      "title": "Budget und Liquidität",
+      "status": "teilweise",
+      "nextEvidence": "Unabhängige Nachweise der tatsächlich zutreffenden Steuer- und Versicherungsbelastungen; die Zusatzkosten werden derzeit ausschließlich manuell angenommen"
+    },
+    {
+      "id": "P1-R7",
+      "title": "NRW und Köln",
+      "status": "teilweise",
+      "nextEvidence": "Für künftige Betreuungsjahre gültige kommunale Beitragsregelung und individuelle Ausnahmen gegenprüfen; veröffentlichte Tabelle seit August 2025 liegt datiert vor"
+    },
+    {
+      "id": "P1-R8",
+      "title": "Nutzertests, Datenschutz, manuelle Barrierefreiheit",
+      "status": "extern offen",
+      "nextEvidence": "Externe Studien und schriftliche Abnahmen"
+    },
+    {
+      "id": "P2-offline",
+      "title": "Offline-Module",
+      "status": "technisch umgesetzt",
+      "nextEvidence": "Wiederholung bei Änderungen"
+    },
+    {
+      "id": "P2-json",
+      "title": "Schema-Version und Kompatibilität",
+      "status": "technisch umgesetzt",
+      "nextEvidence": "Roundtrip bei Schemawechsel"
+    },
+    {
+      "id": "P2-sources",
+      "title": "Quellenprüfung",
+      "status": "technisch umgesetzt",
+      "nextEvidence": "Quellen am nächsten Stichtag überprüfen"
+    },
+    {
+      "id": "P2-legacy",
+      "title": "Alte UI-Doppeldefinitionen",
+      "status": "technisch umgesetzt",
+      "nextEvidence": "Automatischer legacy:check auf eindeutige Controller-Funktionen und vollständige UI-Regression bei jeder Änderung"
+    }
+  ]
+}

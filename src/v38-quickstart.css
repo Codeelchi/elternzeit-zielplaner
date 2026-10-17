@@ -96,3 +96,15 @@ body.v38-lite.v38-pristine .live-strip{display:none}
 .v311-goals button[type="submit"]{min-height:44px}
 .v311-goals button:focus-visible{outline:3px solid #008b7c;outline-offset:3px}
 .v311-goals button[disabled]{opacity:.6;cursor:progress}
+
+
+/* V3.12: hypothetical impact only; never silently replaces the family budget. */
+.v312-finance{border:1px solid #bedbcf;border-radius:10px;background:#fff;padding:12px 14px;margin:14px 0}
+.v312-finance summary{cursor:pointer;font-size:14px;font-weight:750;min-height:28px}
+.v312-finance summary:focus-visible,.v312-finance input:focus-visible{outline:3px solid #008b7c;outline-offset:2px}
+.v312-finance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin:12px 0}
+.v312-finance-grid label{font-size:12px;font-weight:700;color:#264954;display:block}
+.v312-finance-grid input{display:block;width:100%;min-width:0;min-height:44px;border:1px solid #afccc0;border-radius:8px;margin-top:6px;padding:7px 10px;background:#fff;color:var(--ink);font-size:14px}
+.v312-fee-waiver{display:flex;align-items:flex-start;gap:10px;font-size:12px;line-height:1.6;font-weight:650;color:#264954;margin:12px 0}
+.v312-fee-waiver input{width:18px;height:18px;flex:none;margin:2px 0 0}
+.v312-finance .v38-error{font-size:12px;padding:10px;background:#fff3f1}

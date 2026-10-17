@@ -1,6 +1,6 @@
 # Geplante Roadmap zur öffentlichen Beta
 
-Stand: **16. Oktober 2026 / V3.10.0**. Reihenfolge nach Abhängigkeit und Priorität; keine zugesagten Termine. Repository-Integration und öffentliche Freigabe sind getrennte Entscheidungen. Implementiert bedeutet noch nicht unabhängig fachlich abgenommen.
+Stand der aktiven Arbeitspakete: **17. Oktober 2026 / interner V3.14-Code** (technische Paket-/Exportversion noch 3.10.0, keine öffentliche Beta). Die aktuelle [Review- und Evidenzmatrix](../data/roadmap-status-2026-10-17.json) zählt **vier technisch umgesetzte, drei teilweise umgesetzte und fünf extern offene Prüfpakete**. Reihenfolge nach Abhängigkeit und Priorität; keine zugesagten Termine. Repository-Integration und öffentliche Freigabe sind getrennte Entscheidungen. Implementiert bedeutet noch nicht unabhängig fachlich abgenommen.
 
 **Ergänzung V3.5.0:** Acht zusätzliche publizierte 12-/24-Monats-Summen, zwei Mindest-/Geringverdienstfälle und vier amtliche Familienbeträge mit variierenden Teilzeitgehältern sind gegen die echte Programmprojektion getestet. Das Mutterschutz-Delta ist nun quellenübergreifend als widersprüchliche Behördenaussage belegt, **nicht** behoben. Für 2027 besteht eine mit Warnung und strikter Validierungssperre gekennzeichnete Prognosesuche, nicht eine gesetzliche Freigabe. [Vollständiger Abgleich](AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md).
 
@@ -11,6 +11,12 @@ Stand: **16. Oktober 2026 / V3.10.0**. Reihenfolge nach Abhängigkeit und Priori
 **Stand V3.9 (interner Kandidat):** Datenverlust-/Reset-/Vorlagenhorizontfehler behoben, Kostenwarnungen über Schnellstart und Robustheitsansicht vereinheitlicht, mobile Einstiegshürde deutlich verringert, Tastatur- und Fehlerführung verbessert. [Details/Tests](UX-NACHBESSERUNG-V3.9.md). Externe Nutzer- und Fachabnahmen weiterhin offen.
 
 **V3.11 (separater Entwicklungszweig, ohne Release-Anspruch):** Geführter Einstieg in die vorhandene Zielsuche sowie 0–6-Monate-Kita-Verzögerungsanzeige und bessere Monatslückenhinweise implementiert. Finanzielle Kita-Folgeberechnung, unabhängige Fachfreigaben und vollständiger Pareto-Suchraum folgen getrennt. [Arbeitsstand](AUSBAU-V3-11-FAMILIENUEBERGANG.md).
+
+**V3.12 (lokaler Entwicklungszweig):** Kita-Verzögerung mit ausdrücklich gesetzten Kosten-/Einkommensannahmen und nur manuell bestätigtem Wegfall bereits eingeplanter Kita-Gebühren; 2D-Pareto-Erklärung unter den validierten Suchmustern; kalenderbasierte Darstellung nur erfasster Bankbuchungen und eine nicht gespeicherte, optionale Anfangsrücklage. Kein automatisches Elterngeld- oder Zahlungsreforecast, keine Rechtsfreigabe. [Technische Grenzen und offene Schritte](AUSBAU-V3-12-KITA-LIQUIDITAET-ZIELKONFLIKTE.md).
+
+**Statusreview V3.13 vom 17.10.2026:** Technische Zusatzpakete für manuell erwartete Kalendertagszahlungen und Verzögerungen, Versicherungs-/Steuerhinweise, amtliche Leistungslotsen, historische Kita-Gebührenorientierung, Nachweise der eingeschränkten Suche, Quellenstatusprüfung, Fristen-ICS und versionierte JSON-Exporte sind implementiert. Die unabhängigen P0- und P1-R8-Abnahmen bleiben offen. Die aktualisierte überprüfbare Matrix trennt technische Fertigstellung von externer Freigabe: [Roadmap-Abschlussstand](ROADMAP-ABSCHLUSSSTAND-2026-10-17.md).
+
+**Nacharbeit V3.14 vom 17.10.2026:** Manuelle Versicherungskosten-/Steuerrücklagen-Szenarien, alle drei Kölner Gebühren-Altersgruppen als datiertes Referenzmodul, technischer 256er-Mikro-Suchraum, optimierte schrittweise Suche, Bereinigung überschriebener Controller-Funktionen und ausführbare Prüfnachweise für Privatsphäre, Mutterschutzdelta und zehn vorbereitete externe Fachfälle. Die Rechts- und Nutzerabnahmen bleiben ausdrücklich offen. [V3.14 Fachreview-Paket](ROADMAP-FACHABNAHME-V314-2026-10-17.md).
 
 ## Erreichter Stand
 

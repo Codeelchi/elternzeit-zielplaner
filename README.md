@@ -1,18 +1,26 @@
 # Elternzeit-Zielplaner
 
-**Privater Entwicklungsstand V3.10.0 (17. Oktober 2026)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner.
+**Interner Funktionsstand V3.14 (17. Oktober 2026)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner. Die technischen Paket- und Export-Versionsangaben bleiben vorerst bei **3.10.0**, weil die V3.12–V3.14-Ausbaustufen noch **kein öffentlicher Produkt-Release** sind.
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
 
-**Entwicklungsstand V3.11 (separater Feature-Zweig):** Der Schnellstart bekommt einen geführten Rückwärts-Zielplaner und einen variablen Kita-Verzögerungsvergleich. Es wird nur die vorhandene Regel- und Suchengine verwendet; keine neue Fachfreigabe. [Umsetzung, Tests und Grenzen](docs/AUSBAU-V3-11-FAMILIENUEBERGANG.md).
+**V3.14 (interner Entwicklungsstand):** Eigene Versicherungs-/Steuerpuffer im Finanzvergleich, Kölner historische Gebührentabelle in drei Altersgruppen, technisch vollständiger kleiner Suchraum, schnellere abbrechbare Vorlagensuche, eindeutige UI-Handler und maschinenlesbarer Fachreview-Übergabesatz. Keine unabhängige Rechts-/Datenschutz-/Nutzerfreigabe. [Details und Übergabe](docs/ROADMAP-FACHABNAHME-V314-2026-10-17.md).
+
+**Historie V3.13:** Manuell angenommene Tageszahlungsplanung, Versicherung-/Steuerhinweise, offizielle KiZ-/Wohngeld-/DRV-Verweise, explizit nur historischer Kölner Kita-Tarifvergleich, Quellen- und Roadmapchecks, Fristen-Kalenderexport, versionierter JSON-Import und zusätzliche Suche-/Cent-Sicherungen. **Keine amtlich geprüfte Brutto-Netto-Engine; keine unabhängigen Freigaben.** [V3.13 Status und verbliebene Aufgaben](docs/ROADMAP-ABSCHLUSSSTAND-2026-10-17.md).
+
+**Historie V3.12:** Manuell nachvollziehbares Kita-Finanzdeltaszenario, Geld-/Auszeit-Zielkonfliktvergleich im tatsächlich geprüften Suchraum und illustratives Kassenbuch auf Basis ausschließlich eingegebener Bankbuchungen. Keine Änderung amtlicher Ansprüche, keine öffentliche Rechtsfreigabe. [Details und Grenzen](docs/AUSBAU-V3-12-KITA-LIQUIDITAET-ZIELKONFLIKTE.md).
+
+**Historie V3.11:** Der Schnellstart bekommt einen geführten Rückwärts-Zielplaner und einen variablen Kita-Verzögerungsvergleich. Es wird nur die vorhandene Regel- und Suchengine verwendet; keine neue Fachfreigabe. [Umsetzung, Tests und Grenzen](docs/AUSBAU-V3-11-FAMILIENUEBERGANG.md).
 
 **V3.9 (auf main integriert):** Schutz individueller Monatspläne und genauer Elterngeld-Eingaben vor ungewolltem Überschreiben im Schnellassistenten; keine falschen Rücklagen bei fehlenden Kosten; mobile Karten früher sichtbar und bessere Tastatur-/Formularbedienung. [UX-Abnahme V3.9](docs/UX-NACHBESSERUNG-V3.9.md). Öffentliche Freigabe bleibt gesperrt.
 
 **Neu in V3.10:** [Familienstart](start.html) bündelt Orientierung, offizielle Beratung und den [Rechner](index.html). Der Rechner ergänzt kontextbezogene Wissenskarten, konkrete nächste Eingabeschritte und centgenaue Budgetbuchungen. [Umsetzung und Grenzen](docs/UMSETZUNG-V3.10.md).
 
-**Prüfstand V3.10:** 279 Node-Tests und 27 direkte file://-Browserfälle bestanden; vollständige Nachweise und Grenzen im [QA-Bericht](docs/QA-V3.10.md).
+**Historischer Prüfstand V3.10:** 279 Node-Tests und 27 direkte file://-Browserfälle bestanden; Nachweise und Grenzen im [QA-Bericht](docs/QA-V3.10.md).
 
-**Design-Nachbesserung 17.10.:** wärmere Farben, klarere Typografie, thematische Symbole und bessere mobile Karten/Filter. [Gestaltung und gezielte QA](docs/DESIGN-2026-10-17.md). Der vollständige Prüfstand oben stammt vom 16.10.; die neue Portalgestaltung ist zusätzlich bei vier Bildschirmbreiten geprüft.
+**Aktueller technischer Prüfstand V3.14:** 375/375 Node-/DOM-Tests, 39/39 Chromium-E2E-Browserfälle und 3/3 zusätzliche V3.14-Datei-Tests direkt per file:// bestanden (Workbench, 17.10.2026). Die Suche ist auf Vorlagen begrenzt, die 256er-Vollständigkeit betrifft ausschließlich einen synthetischen Zweimonats-Prüfraum. Es gab keine unabhängige juristische, behördliche, steuerliche oder personenbezogene Usability-Abnahme. [V3.14-Abnahme und externe Übergabe](docs/ROADMAP-FACHABNAHME-V314-2026-10-17.md).
+
+**Design-Nachbesserung 17.10.:** wärmere Farben, klarere Typografie, thematische Symbole und bessere mobile Karten/Filter. [Gestaltung und gezielte QA](docs/DESIGN-2026-10-17.md). Der historische V3.10-Gesamtlauf stammt vom 16.10.; die Portalanpassung erhielt zusätzlich eine eigene Prüfung bei vier Bildschirmbreiten. Die oben angegebene V3.14-Regression stammt vom 17.10.
 
 ## Dokumentation und Übergabe
 
@@ -26,7 +34,9 @@
 - [Buildlog und Integrationsnachweis](docs/BUILDLOG.md): Entwicklungshistorie, Build-/Testbefehle, Fehlerkorrekturen und Merge-Verfahren.
 - [Entwickler-Handoff](docs/HANDOFF.md): Einstieg, Modulkarte, Dateninvarianten, bekannte Grenzen und nächster Arbeitsauftrag.
 - [Geplante Roadmap](docs/ROADMAP.md): P0/P1/P2-Pakete mit Abhängigkeiten und konkreten Abnahmekriterien.
-- [Technische Architektur](docs/ARCHITEKTUR.md) und [aktueller Abnahmebericht](docs/MVP-ABNAHME-2026-10-15.md).
+- [Fachprüfung und technische V3.14-Abnahme](docs/ROADMAP-FACHABNAHME-V314-2026-10-17.md): laufende Quellkonflikte, Abnahmeunterlagen, negative Gates, tatsächliche Testumgebung.
+- [Maschinenlesbare Roadmap-Matrix](data/roadmap-status-2026-10-17.json): vier technische Arbeitspakete fertig, drei teilweise umgesetzt, fünf externe Prüfungen ausstehend; keine öffentliche Freigabe.
+- [Technische Architektur](docs/ARCHITEKTUR.md), [aktueller V3.14-Abnahmebericht](docs/ROADMAP-FACHABNAHME-V314-2026-10-17.md) und [historische MVP-Abnahme](docs/MVP-ABNAHME-2026-10-15.md).
 
 **Neue V3.5-Funktionen:** 48 monetäre Vergleiche (darunter 4 L-Bank-Werte bei variierenden Teilzeitmonaten) und amtliche 12-/24-Monats-Gesamtsummen; zusätzliche amtliche Quellen mit nachvollziehbarem Widerspruch zur Mutterschutz-Tagesgrenze; auf **2027 beschränkte, unverbindliche Szenariosuche** unter Weitergeltungsannahmen. **Kein 2027er Szenario gilt als rechtlich validiert** und die öffentliche Beta-Sperre bleibt aktiv. Siehe [amtlicher Referenzabgleich](docs/AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md).
 
@@ -47,7 +57,7 @@ npm run test:e2e
 
 Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repository-Verzeichnis, dann `http://localhost:8080/start.html` öffnen. Die App benötigt zur Laufzeit keinen Build-Schritt und keine Netzwerkverbindung.
 
-## Funktionen (Stand V3.10.0)
+## Funktionen (interner Stand V3.14)
 
 - Fünf fiktive Schnellstart-Vorlagen mit unmittelbarem Ergebnis, Betreuungsabgleich und reduzierbarer Fachnavigation
 - Kurzer persönlicher Eingabeassistent mit getrennter Behandlung unbekannter Ausgaben und 0 Euro
@@ -59,6 +69,11 @@ Zum lokalen HTTP-Test genügt zum Beispiel `python3 -m http.server 8080` im Repo
 - Drei Stresstests mit getrennten Erwerbsnetto-Bändern beider Eltern, Leistungshöhe und Haushalts-/Betreuungskosten
 - Ortsabhängige Modellkosten am Beispiel Köln/NRW mit datierter Tariftabelle
 - Rechtsregelkatalog, Plausibilitätsmeldungen, JSON/CSV-Export
+- Getrennte Zahlungsannahmen pro Kalendertag, mögliche Einzahlungsverzögerungen und tatsächliche Buchungen ohne erfundene Bankeingänge
+- Manuelle Versicherungs-/Steuerrücklagen und Abgleich des zusätzlichen Rücklagenbedarfs ohne doppelt berechnete Kosten
+- Kölner Kita-Gebühren als ausdrücklich historischer Vergleich seit August 2025 für unter 2, 2 bis unter 3 und ab 3 Jahre; manuell gesetzte Kita-Ausgaben bleiben maßgeblich
+- Vorläufige Checklistenfristen per ICS exportieren; JSON-Formatversion kontrollieren und unbekannte Versionen ablehnen
+- Quantifizierte Abdeckung der Vorlagensuche, technische 256er-Mikrosuchraumprüfung und asynchrone, abbrechbare Variantenprüfung
 
 ## Struktur
 

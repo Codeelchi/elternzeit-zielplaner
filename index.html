@@ -151,6 +151,18 @@ body.v38-lite.v38-pristine .live-strip{display:none}
 .v311-goals button:focus-visible{outline:3px solid #008b7c;outline-offset:3px}
 .v311-goals button[disabled]{opacity:.6;cursor:progress}
 
+
+/* V3.12: hypothetical impact only; never silently replaces the family budget. */
+.v312-finance{border:1px solid #bedbcf;border-radius:10px;background:#fff;padding:12px 14px;margin:14px 0}
+.v312-finance summary{cursor:pointer;font-size:14px;font-weight:750;min-height:28px}
+.v312-finance summary:focus-visible,.v312-finance input:focus-visible{outline:3px solid #008b7c;outline-offset:2px}
+.v312-finance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin:12px 0}
+.v312-finance-grid label{font-size:12px;font-weight:700;color:#264954;display:block}
+.v312-finance-grid input{display:block;width:100%;min-width:0;min-height:44px;border:1px solid #afccc0;border-radius:8px;margin-top:6px;padding:7px 10px;background:#fff;color:var(--ink);font-size:14px}
+.v312-fee-waiver{display:flex;align-items:flex-start;gap:10px;font-size:12px;line-height:1.6;font-weight:650;color:#264954;margin:12px 0}
+.v312-fee-waiver input{width:18px;height:18px;flex:none;margin:2px 0 0}
+.v312-finance .v38-error{font-size:12px;padding:10px;background:#fff3f1}
+
 /* V38_STYLES_END */
 
 /* V3.10 contextual information: native disclosures work with keyboard and offline. */
@@ -433,7 +445,24 @@ body.v38-lite.v38-pristine .live-strip{display:none}
     <div class="card"><h3>Arbeitsrechtliche Elternzeit</h3><p class="input-caption">Optionale Kalendertage überschreiben nur die Elternzeit-Achse – nicht Elterngeld oder Lohn. Leere Einträge beim Übernehmen = keine arbeitsrechtliche Elternzeit. „Automatisch ableiten“ stellt die Ableitung wieder her.</p><div class="grid two"><div class="form-group"><label for="axesFatherStart">Vater Beginn</label><input id="axesFatherStart" type="date"></div><div class="form-group"><label for="axesFatherEnd">Vater Ende</label><input id="axesFatherEnd" type="date"></div><div class="form-group"><label for="axesMotherStart">Mutter Beginn</label><input id="axesMotherStart" type="date"></div><div class="form-group"><label for="axesMotherEnd">Mutter Ende</label><input id="axesMotherEnd" type="date"></div></div><div id="extraLeavePeriods"></div><button type="button" class="navbtn alt" id="addFatherPeriod">Vater: Abschnitt hinzufügen</button> <button type="button" class="navbtn alt" id="addMotherPeriod">Mutter: Abschnitt hinzufügen</button><div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="navbtn" id="axesApply">Abschnitte übernehmen</button><button type="button" class="navbtn alt" id="axesReset">Wieder automatisch ableiten</button></div></div>
    </div>
    <div class="card" style="margin-top:16px"><h3>Arbeit und Elterngeld getrennt einstellen</h3><p class="footnote">Elternzeitabschnitte bleiben unverändert. Die Einkommensprojektion nutzt die hier gesetzten Stunden und die Leistungsart; Teilzeit-Netto bleibt eine Schätzung anhand eures Referenzwerts bei 28 Stunden.</p><div class="input-grid"><div class="form-group"><label for="axisMonth">Lebensmonat</label><input id="axisMonth" type="number" min="1" max="36"></div><div class="form-group"><label for="axisHoursFather">Vater Wochenstunden</label><input id="axisHoursFather" type="number" min="0" max="40"></div><div class="form-group"><label for="axisBenefitFather">Vater Leistungsart</label><select id="axisBenefitFather"><option value="none">Kein Elterngeld</option><option value="basis">Basis</option><option value="plus">Plus</option><option value="partnership_bonus">Partnerschaftsbonus</option></select></div><div class="form-group"><label for="axisHoursMother">Mutter Wochenstunden</label><input id="axisHoursMother" type="number" min="0" max="40"></div><div class="form-group"><label for="axisBenefitMother">Mutter Leistungsart</label><select id="axisBenefitMother"><option value="none">Kein Elterngeld</option><option value="basis">Basis</option><option value="plus">Plus</option><option value="partnership_bonus">Partnerschaftsbonus</option><option value="maternity_offset_basis">Mutterschaftsanrechnung</option></select></div></div><button type="button" class="navbtn" id="axesIndependentApply" style="margin-top:12px">Arbeits- und Leistungsmonat übernehmen</button> <button type="button" class="navbtn alt" id="axesIndependentReset">Wieder Monatsstatus verwenden</button></div>
-   <div class="card" style="margin-top:16px"><h3>Tatsächliche Zahlungseingänge</h3><p class="footnote">Optional selbst erfasste Bankbuchungen. Sie ändern weder den berechneten Anspruch noch die vorgeschlagenen Pläne. Monatliche Schätzungen und echte Eingänge bleiben getrennt.</p><div class="input-grid"><div class="form-group"><label for="bankDate">Buchungsdatum</label><input id="bankDate" type="date"></div><div class="form-group"><label for="bankAmount">Betrag (€; Ausgaben negativ)</label><input id="bankAmount" type="number" step="0.01"></div><div class="form-group"><label for="bankCategory">Buchungsart</label><select id="bankCategory"><option value="elterngeld">Elterngeld</option><option value="wage">Arbeitseinkommen</option><option value="maternity">Mutterschaftsleistung</option><option value="kindergeld">Kindergeld</option><option value="childcare">Betreuungskosten</option><option value="household">Haushaltsausgabe</option><option value="other">Sonstige Buchung</option></select></div></div><button type="button" class="navbtn" id="bankAdd" style="margin-top:12px">Buchung erfassen</button> <button type="button" class="navbtn alt" id="bankClear">Buchungen entfernen</button><div id="bankSummary" aria-live="polite"></div></div>
+   <div class="card" style="margin-top:16px"><h3>Tatsächliche Zahlungseingänge</h3><p class="footnote">Optional selbst erfasste Bankbuchungen. Sie ändern weder den berechneten Anspruch noch die vorgeschlagenen Pläne. Monatliche Schätzungen und echte Eingänge bleiben getrennt.</p><div class="input-grid"><div class="form-group"><label for="bankDate">Buchungsdatum</label><input id="bankDate" type="date"></div><div class="form-group"><label for="bankAmount">Betrag (€; Ausgaben negativ)</label><input id="bankAmount" type="number" step="0.01"></div><div class="form-group"><label for="bankCategory">Buchungsart</label><select id="bankCategory"><option value="elterngeld">Elterngeld</option><option value="wage">Arbeitseinkommen</option><option value="maternity">Mutterschaftsleistung</option><option value="kindergeld">Kindergeld</option><option value="childcare">Betreuungskosten</option><option value="household">Haushaltsausgabe</option><option value="other">Sonstige Buchung</option></select></div></div><button type="button" class="navbtn" id="bankAdd" style="margin-top:12px">Buchung erfassen</button> <button type="button" class="navbtn alt" id="bankClear">Buchungen entfernen</button><div class="form-group" style="max-width:340px;margin-top:14px"><label for="recordedOpeningReserve">Angenommene Anfangsrücklage für die Buchungsübersicht (€; optional, nur in dieser Sitzung)</label><input id="recordedOpeningReserve" type="number" min="0" max="100000" step="0.01" inputmode="decimal" placeholder="Nicht angegeben" style="width:100%;min-height:44px;padding:8px;border:1px solid #afccc0;border-radius:8px"></div><div id="bankSummary" aria-live="polite"></div></div>
+   <section class="card v313-payment" aria-label="Manuell erwartete Zahlungstermine" style="margin-top:16px">
+    <h3>Erwartete Zahlungen – Liquidität nach Kalendertag</h3>
+    <p class="footnote">Optionales, <strong>nicht gespeichertes</strong> Szenario: Tragt selbst erwartete Geldeingänge und Rechnungen mit Datum ein. Der Rechner übernimmt weder Elterngeldansprüche noch eure tatsächlichen Bankbuchungen automatisch. Eure Eingaben in diesem Bereich werden beim Schließen der Seite, beim Import und Zurücksetzen verworfen.</p>
+    <div class="input-grid">
+     <div class="form-group"><label for="v313PaymentDate">Angenommener Zahlungstag</label><input id="v313PaymentDate" type="date"></div>
+     <div class="form-group"><label for="v313PaymentAmount">Betrag (€)</label><input id="v313PaymentAmount" type="number" inputmode="decimal" min="0" max="100000" step="0.01"></div>
+     <div class="form-group"><label for="v313PaymentDirection">Geldbewegung</label><select id="v313PaymentDirection"><option value="incoming">Erwartete Einnahme</option><option value="outgoing">Erwartete Ausgabe</option></select></div>
+     <div class="form-group"><label for="v313PaymentCategory">Art</label><select id="v313PaymentCategory"><option value="elterngeld">Elterngeld (nur selbst angenommen)</option><option value="wage">Arbeitsnetto</option><option value="maternity">Mutterschaftsleistungen</option><option value="kindergeld">Kindergeld</option><option value="childcare">Kita / Tagespflege</option><option value="household">Haushaltskosten</option><option value="other">Sonstige Zahlung</option></select></div>
+    </div>
+    <div class="v313-payment-actions"><button type="button" class="navbtn" id="v313PaymentAdd">Annahme ergänzen</button><button type="button" class="navbtn alt" id="v313PaymentClear">Annahmen leeren</button></div>
+    <div class="input-grid" style="margin-top:14px">
+     <div class="form-group"><label for="v313Delay">Verspätung der angenommenen Einnahmen</label><select id="v313Delay"><option value="0">Pünktlich (0 Tage)</option><option value="7">7 Tage später</option><option value="14">14 Tage später</option><option value="30">30 Tage später</option><option value="60">60 Tage später</option><option value="90">90 Tage später</option></select></div>
+     <div class="form-group"><label for="v313Opening">Eigene angenommene Rücklage (€; optional)</label><input id="v313Opening" type="number" min="0" max="100000" step="0.01" inputmode="decimal" placeholder="Nicht angegeben"></div>
+    </div>
+    <div id="v313PaymentError" class="v38-error" role="alert" aria-live="polite"></div>
+    <div id="v313PaymentResults" aria-live="polite"></div>
+   </section>
    <div id="axesWarnings" aria-live="polite"></div><div id="axesDeadlines" style="margin-top:14px"></div>
    <h3 style="margin-top:20px">Gemeinsame Lebensmonate, getrennte Bedeutungen</h3><div class="h-scroll" tabindex="0" role="region" aria-label="Horizontal scrollbare Planübersicht"><table class="compare-table" id="axesTable"><thead><tr><th>LM / Alter</th><th>Kalendertage</th><th>Mutterschutz</th><th>Elternzeit V / M</th><th>Arbeitszeit V / M</th><th>Elterngeld V / M</th><th>Modellbudget</th></tr></thead><tbody></tbody></table></div>
    <div class="note warn" style="margin-top:16px">Dies ist eine Standardfall-Projektion. Individuelle Schutzfristen, mehrere Elternzeitabschnitte, Fristenberechnung und tatsächlich bewilligte Zahlungen sind vor dem Antrag gesondert zu prüfen.</div>
@@ -500,7 +529,7 @@ body.v38-lite.v38-pristine .live-strip{display:none}
   <section class="slide" data-title="Naechste Schritte" id="slide-9">
    <span class="eyebrow">09 / Umsetzung</span><h2>Von der Idee zum Antrag.</h2>
    <p class="subtitle">Eure datierte Checkliste richtet sich nach dem Geburtstag, dem errechneten Termin und euren Elternzeitabschnitten. Die Angaben unterstützen die Vorbereitung; Anträge stellt ihr bei den zuständigen Stellen.</p>
-   <div id="applicationChecklist" aria-live="polite"></div><div class="steps">
+   <div id="applicationChecklist" aria-live="polite"></div><div class="card" style="margin:12px 0"><button type="button" id="v313DownloadIcs" class="navbtn">Vorläufige Fristen als Kalenderdatei (.ics) herunterladen</button><p class="input-caption">Die Kalendereinträge sind nur Prüfaufgaben, keine verbindliche behördliche Fristbestätigung. Prüft vor einer Benachrichtigung die zutreffende Regel, Rechtskohorte und Zuständigkeit. Es findet kein automatischer Kalenderzugriff statt.</p></div><div class="steps">
     <div class="step"><strong>Vor der Geburt</strong><p>Gehaltsabrechnungen, voraussichtliches Elterngeld-Netto, passende Steuer- und Versicherungsangaben, Teilzeitmöglichkeiten und Familienbudget prüfen.</p></div>
     <div class="step"><strong>Mindestens 7 Wochen vorher</strong><p>Elternzeit beim Arbeitgeber in Textform anmelden. Bei Start ab Geburt zählt der errechnete Entbindungstermin.</p></div>
     <div class="step"><strong>Nach der Geburt</strong><p>Geburtsdaten und Lebensmonate festhalten; Elterngeldantrag samt Einkommens- und Mutterschutznachweisen einreichen.</p></div>
@@ -568,6 +597,29 @@ body.v38-lite.v38-pristine .live-strip{display:none}
  <div id="reserveReport" aria-live="polite"></div><div class="grid three" style="margin-top:15px" id="riskCards"></div>
  <div class="card" style="margin-top:15px"><h3>Monatliche Bandbreite</h3><div id="riskBar" class="h-scroll" tabindex="0" role="region" aria-label="Horizontal scrollbare Planübersicht"></div><p class="input-caption">Darstellung: verfügbares Budget nach euren eingegebenen Ausgaben und Kita-Kosten; negative Werte sind möglich. Neue Teilzeitstunden werden bei der Berechnung mit berücksichtigt.</p></div>
  <div class="note warn" style="margin-top:12px">Nicht enthalten: Progressionsvorbehalt / spätere Steuererklärung, GKV-/PKV-Sonderfälle, Inflationsentwicklung, Sonderzahlungen und unvorhersehbare Einkommensausfälle. Für die Reserveplanung lieber einen eigenen Puffer vorsehen.</div>
+ <section class="card v313-finance" aria-label="Versicherungs- und Steuerhinweise" style="margin-top:16px">
+  <h3>Versicherung und Steuerfolgen vor dem Vergleich prüfen</h3>
+  <p class="footnote">Der Rechner kann persönliche Krankenversicherungsprämien und spätere Einkommensteuer nicht aus eurem Elterngeld-Netto ableiten. Diese Fragen beeinflussen die tatsächliche Rücklage.</p>
+  <div class="input-grid">
+   <div class="form-group"><label for="v313InsuranceType">Versicherungsart – nur zur Einordnung</label><select id="v313InsuranceType">
+    <option value="unknown">Noch nicht angegeben</option><option value="mandatory">Gesetzlich pflichtversichert</option>
+    <option value="voluntary">Freiwillig gesetzlich versichert</option><option value="private">Privat versichert</option>
+    <option value="family">Familienversichert</option></select></div>
+   <div class="form-group"><label for="v313InsuranceIncluded">Sind Versicherungsbeiträge bereits in euren Ausgaben?</label><select id="v313InsuranceIncluded">
+    <option value="unknown">Unbekannt</option><option value="yes">Ja, soweit relevant</option><option value="no">Nein</option></select></div>
+  </div>
+  <div id="v313FinanceResults" aria-live="polite"></div>
+  <details class="v314-cost-buffer" style="margin-top:14px">
+   <summary>Eigene Versicherungskosten und Steuer-Rücklage gegenrechnen</summary>
+   <p class="input-caption">Zusätzliche monatliche Beiträge und freiwillige Steuer-Rückstellung ausschließlich selbst angeben. Diese unverbindlichen Angaben ändern den gespeicherten Plan nicht und werden bei Import/Reset verworfen. Steuerabzüge und Beiträge werden <strong>nicht</strong> automatisch berechnet.</p>
+   <div class="input-grid">
+    <div class="form-group"><label for="v314InsuranceExtra">Zusätzliche Versicherungskosten pro Monat (€)</label><input id="v314InsuranceExtra" type="number" min="0" max="50000" step="0.01" inputmode="decimal" placeholder="Noch nicht eingegeben"></div>
+    <div class="form-group"><label for="v314TaxExtra">Frei gewählte Steuer-Rückstellung pro Monat (€)</label><input id="v314TaxExtra" type="number" min="0" max="50000" step="0.01" inputmode="decimal" placeholder="Noch nicht eingegeben"></div>
+   </div>
+   <div id="v314CostResult" aria-live="polite"></div>
+  </details>
+  <p class="footnote">Diese unverbindliche Einordnung wird nur während der laufenden Sitzung angezeigt und verändert keine Beträge oder gespeicherte Plandaten.</p>
+ </section>
 </section>
 <section class="slide" data-title="Leistungen vor Ort" id="slide-region">
  <span class="eyebrow">13 / Wohnort & Geburt</span><h2>Welche zusätzlichen Leistungen könnten greifen?</h2>
@@ -591,7 +643,7 @@ body.v38-lite.v38-pristine .live-strip{display:none}
    <div class="note" style="margin-top:13px"><strong>Köln-Szenario:</strong> Die Gebührentabelle ab 01.08.2025 ist eine überprüfbare historische Grundlage, keine Garantie für 2027. Nach dem zweiten Geburtstag wechselt die Altersgruppe. „Jahreseinkommen“ meint die kommunale Bemessungsgrundlage, nicht das zvE des Elterngeldes. Andere Kommunen: nur manuelle Eingabe verwenden.</div>
    <div class="note" style="margin-top:13px">„Bestätigte Sonderzahlung“ ist ausschließlich für eine von euch nachgeprüfte, tatsächlich erwartete Leistung gedacht. Sie wird einmalig im eingetragenen Lebensmonat erfasst und als manuelle Eingabe ausgewiesen.</div>
   </div>
-  <div class="card"><h3>Regionale Anspruchsprüfung</h3><div id="regionResults"></div></div>
+  <div class="card"><h3>Regionale Anspruchsprüfung</h3><div id="regionResults"></div><div id="v313ColognePreview" class="note" style="margin-top:12px" hidden></div></div>
  </div>
  <div class="note warn" style="margin-top:12px">Kindergeld wird in diesem Lebensmonatsbudget vereinfacht einem Lebensmonat zugeordnet, obwohl die amtliche Auszahlung kalendermonatlich erfolgt. Kommunale Beiträge hängen u. a. von Jahreseinkommen, Betreuungsstunden und Satzungen ab. Für Köln die aktuelle Beitragstabelle prüfen; die Beträge für 2027/28 sind nicht als unverändert gesichert.</div>
 </section>
@@ -1282,6 +1334,44 @@ function proposalTitle(profile, m, horizon, hasAdverse) {
     default: return `Gesamtbudget im Fokus · ${euro(m.total)} über ${horizon} LM`;
   }
 }
+/**
+ * Pareto comparison of the ALREADY validated/eligible candidate pool.
+ * Two visible, competing dimensions only: total household budget (max) and
+ * sum of full parent months (max). Double-counted overlap is disclosed by UI.
+ * Efficient O(pool size + distinct home values log distinct home values).
+ * This intentionally does not claim an exhaustive or legal optimum.
+ */
+function tradeoffFrontier(pool) {
+  if(!Array.isArray(pool))throw new TypeError('Geprüfte Muster als Liste erforderlich.');
+  const comparedCandidates=pool.length;
+  const bestByHome=new Map();
+  for(const item of pool){
+    const home=item?.metrics?.home,total=item?.metrics?.total;
+    if(!Number.isInteger(home)||home<0||!Number.isFinite(total))throw new TypeError('Vergleichsmetriken fehlen.');
+    const totalCents=Math.round(total*100);
+    if(!Number.isSafeInteger(totalCents))throw new RangeError('Gesamtbudget außerhalb des sicheren Vergleichs.');
+    const old=bestByHome.get(home);
+    if(old===undefined||totalCents>old)bestByHome.set(home,totalCents);
+  }
+  const homes=[...bestByHome.keys()].sort((a,b)=>b-a);
+  const bestHigher=new Map();
+  let maxFromHigher=-Infinity,frontierCombinations=0;
+  for(const home of homes){
+    bestHigher.set(home,maxFromHigher);
+    const best=bestByHome.get(home);
+    if(best>maxFromHigher)frontierCombinations++;
+    maxFromHigher=Math.max(maxFromHigher,best);
+  }
+  const annotate=metrics=>{
+    const own=Math.round(metrics.total*100);
+    const maxSameHome=bestByHome.get(metrics.home);
+    const maxHigherHome=bestHigher.get(metrics.home);
+    return {scope:'VALIDATED_CANDIDATE_POOL',axes:['totalAvailable','fullParentMonths'],
+      isNondominated:own===maxSameHome&&maxHigherHome<own,
+      comparedCandidates,frontierCombinations};
+  };
+  return {annotate,frontierCombinations,comparedCandidates};
+}
 /** Returns copies of candidates, selected in objective order then diverse profiles.
  * Input: {schedule, calc:{rows,valid}, adverse?:{rows}}. Search gates belong to caller.
  * Monetary values represent budgets after costs. Ranking is lexicographic, never
@@ -1310,6 +1400,7 @@ function rankCandidates(items, {horizon = 36, objective = 'finance', limit = 3, 
     m.adverseFloor = adverse.floor; m.adverseTotal = adverse.total;m.adverseReserve=adverse.reserve;
     pool.push({item, metrics:m, fingerprint, hasAdverse:!!item.adverse});
   }
+  const frontier=tradeoffFrontier(pool);
   const preferred = ['father','floor','robust','balanced','finance'].includes(objective) ? objective : 'finance';
   const profiles = [preferred, ...PROFILES.filter(profile => profile !== preferred)];
   const selected = [], chosen = [];
@@ -1323,14 +1414,359 @@ function rankCandidates(items, {horizon = 36, objective = 'finance', limit = 3, 
     const diversity = {kind:chosen.length?'alternative':'primary', comparedWith,
       thresholds:{...DIVERSITY_THRESHOLDS, totalEuro:DIVERSITY_THRESHOLDS.averageMonthlyEuro*horizon}};
     chosen.push(candidate);
-    selected.push({...candidate.item, profile, title:proposalTitle(profile,candidate.metrics,horizon,candidate.hasAdverse), rankingMetrics:{...candidate.metrics}, diversity, explanation:explanation(profile,candidate.metrics,horizon,candidate.hasAdverse), score:candidate.metrics[profile==='father'?'father':profile==='robust'?(candidate.hasAdverse?'adverseFloor':'floor'):profile==='floor'?'floor':profile==='balanced'?'balance':'total']});
+    selected.push({...candidate.item, profile, title:proposalTitle(profile,candidate.metrics,horizon,candidate.hasAdverse), rankingMetrics:{...candidate.metrics}, tradeoff:frontier.annotate(candidate.metrics), diversity, explanation:explanation(profile,candidate.metrics,horizon,candidate.hasAdverse), score:candidate.metrics[profile==='father'?'father':profile==='robust'?(candidate.hasAdverse?'adverseFloor':'floor'):profile==='floor'?'floor':profile==='balanced'?'balance':'total']});
   }
   return selected;
 }
-module.exports = {rankCandidates, scheduleFingerprint, SEARCH_LIMITATIONS, DIVERSITY_THRESHOLDS};
+module.exports = {rankCandidates, scheduleFingerprint, tradeoffFrontier, SEARCH_LIMITATIONS, DIVERSITY_THRESHOLDS};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* GoalRanking_END */
+/* CareImpact_START */
+const CareImpact=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+const {roundEuro,MAX_EURO}=require('./money.cjs');
+
+/**
+ * A counterfactual for explicitly supplied changes during a delayed Kita start.
+ * Does NOT adjust employment/Elterngeld entitlements, actual transfers, or the
+ * base plan. The counterfactual changes only cash-after-assumed-costs per LM.
+ */
+function cents(value,label) {
+  if(typeof value!=='number'||!Number.isFinite(value)||value<0||value>Math.min(MAX_EURO,100000)||
+     Math.abs(value*100-Math.round(value*100))>1e-6) {
+    throw new RangeError(label+': Betrag zwischen 0 und 100.000 Euro mit maximal zwei Nachkommastellen erforderlich.');
+  }
+  return Math.round(value*100);
+}
+function month(value,label,min,max) {
+  if(!Number.isInteger(value)||value<min||value>max)throw new RangeError(label+': ungültiger Lebensmonat.');
+  return value;
+}
+function recordCents(value,label) {
+  if(typeof value!=='number'||!Number.isFinite(value)||value<0||value>MAX_EURO)
+    throw new RangeError(label+': ungültiger Monatswert.');
+  return Math.round(roundEuro(value)*100);
+}
+function projectDelayedCareScenario({
+  rows,startLm,delayMonths=0,monthlyIncomeReduction=0,monthlyExtraCare=0,
+  waiveOriginalFees=false,expensesKnown=false
+}={}) {
+  if(!Array.isArray(rows)||!rows.length||rows.length>96)throw new TypeError('Lebensmonate der Basisprojektion fehlen oder sind zu lang.');
+  const start=month(startLm,'Kita-Start',1,96),delay=month(delayMonths,'Verschiebung',0,6);
+  if(typeof waiveOriginalFees!=='boolean'||typeof expensesKnown!=='boolean')throw new TypeError('Szenario-Schalter müssen eindeutig sein.');
+  const lost=cents(monthlyIncomeReduction,'Entfallendes Erwerbsnetto');
+  const extra=cents(monthlyExtraCare,'Zusätzliche Überbrückungsbetreuung');
+  const end=start+delay-1,affected=[];
+  let totalDelta=0,totalBase=0,totalChanged=0,totalFeesWaived=0;
+  for(let i=0;i<rows.length;i++) {
+    const r=rows[i];
+    if(!r||r.lm!==i+1)throw new RangeError('Lebensmonate der Modellrechnung müssen lückenlos ab 1 geordnet sein.');
+    if(r.lm<start||r.lm>end)continue;
+    const fees=waiveOriginalFees?recordCents(r.childcare,'Bisherige Kita-Gebühren'):0;
+    const base=expensesKnown?Math.round(roundEuro(r.cashAfter)*100):null;
+    if(expensesKnown&&(!Number.isFinite(r.cashAfter)))throw new RangeError('Ungültiges Modellbudget.');
+    const delta=-lost-extra+fees;
+    totalDelta+=delta;totalFeesWaived+=fees;
+    if(base!==null){totalBase+=base;totalChanged+=base+delta;}
+    affected.push({lm:r.lm,incomeReduced:lost/100,extraCare:extra/100,feesWaived:fees/100,
+      deltaAvailable:delta/100,baselineAvailable:base===null?null:base/100,
+      alternativeAvailable:base===null?null:(base+delta)/100});
+  }
+  return {model:'EXPLICIT_HYPOTHETICAL_CHANGE',bankReceiptsPredicted:false,
+    startLm:start,delayedStartLm:start+delay,delayMonths:delay,months:affected,
+    affectedMonths:affected.map(x=>x.lm),
+    outsideHorizonMonths:Math.max(0,delay-affected.length),
+    baselineBudgetKnown:expensesKnown,
+    totalChange:totalDelta/100,totalWaivedFees:totalFeesWaived/100,
+    comparedBaselineTotal:expensesKnown?totalBase/100:null,
+    comparedAlternativeTotal:expensesKnown?totalChanged/100:null,
+    warnings:[
+      'Das Szenario verrechnet ausschließlich manuell angenommene Änderungen und verändert keine Elternzeit-/Elterngeld-Regelrechnung.',
+      'Ausgefallene Kita-Beiträge werden nur bei ausdrücklicher Auswahl verrechnet. Gebühren trotz verschobenem Start können weiterhin anfallen.',
+      'Anpassungen der Arbeitszeiten können Elterngeld-Ansprüche verändern; solche Folgewirkungen sind nicht berechnet.',
+      'Ein Lebensmonatsbudget ist keine Bankbuchung oder sichere Zahlungszusage.',
+      ...(expensesKnown?[]:['Haushaltsausgaben fehlen: nur Kostendifferenz, kein belastbares verbleibendes Familienbudget.']),
+      ...(Math.max(0,delay-affected.length)?['Ein Teil der Verzögerung liegt außerhalb der vorhandenen Modellmonate.']:[])
+    ]
+  };
+}
+
+module.exports={projectDelayedCareScenario};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* CareImpact_END */
+/* RecordedLiquidity_START */
+const RecordedLiquidity=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+const {roundEuro,MAX_EURO}=require('./money.cjs');
+const CALENDAR_MONTH=/^(\d{4})-(0[1-9]|1[0-2])$/;
+function centMoney(value,label,{signed=false,max=MAX_EURO}={}) {
+  if(typeof value!=='number'||!Number.isFinite(value)||Math.abs(value)>max||(!signed&&value<0))
+    throw new RangeError(label+': ungültiger Betrag.');
+  return Math.round(roundEuro(value)*100);
+}
+/**
+ * Totals ONLY individually recorded transfers, grouped by calendar month.
+ * An optional starting reserve is an explicit assumption, never an inferred
+ * bank balance. Missing months are "not recorded", not observed zero transfers.
+ */
+function summarizeRecordedLiquidity({calendarCashflow=[],openingReserve=null}={}) {
+  if(!Array.isArray(calendarCashflow)||calendarCashflow.length>96)throw new TypeError('Gebuchte Kalendermonate fehlen oder überschreiten den Planungshorizont.');
+  const hasOpening=openingReserve!==null&&openingReserve!==undefined&&openingReserve!=='';
+  if(hasOpening&&(typeof openingReserve!=='number'||!Number.isFinite(openingReserve)||
+       Math.abs(openingReserve*100-Math.round(openingReserve*100))>1e-6))
+    throw new RangeError('Anfangsrücklage: maximal zwei Nachkommastellen zulässig.');
+  let balance=hasOpening?centMoney(openingReserve,'Manuell angenommene Anfangsrücklage',{max:100000}):null;
+  const grouped=new Map();
+  for(const item of calendarCashflow){
+    if(!item||typeof item!=='object'||!CALENDAR_MONTH.test(item.calendarMonth))
+      throw new RangeError('Ungültiger Kalendermonat in gebuchten Beträgen.');
+    if(grouped.has(item.calendarMonth))throw new RangeError('Doppelte Kalendermonate sind nicht erlaubt.');
+    grouped.set(item.calendarMonth,centMoney(item.netRecordedTransfers,'Gebuchter Netto-Eingang',{signed:true}));
+  }
+  const keys=[...grouped.keys()].sort();
+  if(!keys.length)return {basis:'NUR_ERFASSTE_BANKBUCHUNGEN',openingReserveKnown:hasOpening,
+    months:[],totalRecorded:0,endIllustrativeReserve:hasOpening?balance/100:null,
+    firstNegativeIllustrativeMonth:null,completeLedger:false};
+  const from=keys[0],to=keys[keys.length-1];
+  const date=new Date(from+'-01T00:00:00Z'),end=new Date(to+'-01T00:00:00Z');
+  const months=[];
+  let sum=0,firstNegative=null;
+  while(date.getTime()<=end.getTime()){
+    if(months.length>=96)throw new RangeError('Mehr als 96 Kalendermonate nicht unterstützt.');
+    const calendarMonth=date.toISOString().slice(0,7),hasRecords=grouped.has(calendarMonth);
+    const net=grouped.get(calendarMonth)||0;
+    sum+=net;
+    if(balance!==null){balance+=net;if(balance<0&&firstNegative===null)firstNegative=calendarMonth;}
+    months.push({calendarMonth,hasRecords,netRecordedTransfers:net/100,
+      illustrativeBalance:balance===null?null:balance/100});
+    date.setUTCMonth(date.getUTCMonth()+1);
+  }
+  return {basis:'NUR_ERFASSTE_BANKBUCHUNGEN',openingReserveKnown:hasOpening,
+    months,totalRecorded:sum/100,endIllustrativeReserve:balance===null?null:balance/100,
+    firstNegativeIllustrativeMonth:firstNegative,completeLedger:false};
+}
+module.exports={summarizeRecordedLiquidity};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* RecordedLiquidity_END */
+/* ExpectedPayments_START */
+const ExpectedPayments=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+const MAX_ROWS=36, MAX_EURO=100000;
+const DAY=86400000;
+const DIRECTIONS=new Set(['incoming','outgoing']);
+const CATEGORIES=new Set(['elterngeld','wage','maternity','kindergeld','childcare','household','other']);
+function exactDate(value) {
+  if(typeof value!=='string'||!/^20\d{2}-\d{2}-\d{2}$/.test(value))return null;
+  const dt=new Date(value+'T00:00:00.000Z');
+  return Number.isFinite(dt.valueOf())&&dt.toISOString().slice(0,10)===value?dt:null;
+}
+function preciseMoney(value,{nullable=false}={}) {
+  if(nullable&&(value===null||value===undefined||value===''))return null;
+  if(typeof value!=='number'||!Number.isFinite(value)||value<0||value>MAX_EURO||
+     Math.abs(value*100-Math.round(value*100))>1e-7)
+    throw new RangeError('Betrag muss eine nichtnegative Zahl bis 100.000 € mit höchstens zwei Nachkommastellen sein.');
+  return Math.round(value*100);
+}
+function validatePayments(payments) {
+  if(!Array.isArray(payments)||payments.length>MAX_ROWS)throw new RangeError('Höchstens 36 explizite Planungsposten unterstützt.');
+  const ids=new Set();
+  return payments.map((p,index)=>{
+    if(!p||typeof p!=='object'||Array.isArray(p))throw new TypeError('Planposten müssen Objekte sein.');
+    const date=exactDate(p.date);
+    if(!date)throw new RangeError('Ungültiges Datum im geplanten Zahlungsposten.');
+    if(typeof p.id!=='string'||!p.id||p.id.length>80||ids.has(p.id))
+      throw new RangeError('Planposten-ID fehlt oder ist doppelt.');
+    ids.add(p.id);
+    if(!DIRECTIONS.has(p.direction)||!CATEGORIES.has(p.category))
+      throw new RangeError('Unbekannte Zahlungsrichtung oder -art.');
+    return {id:p.id,date:p.date,direction:p.direction,category:p.category,
+      cents:preciseMoney(p.amount),index};
+  });
+}
+function dailyProjection(entries,delayDays,initialCents) {
+  const shifted=entries.map(p=>{
+    const date=new Date(p.date+'T00:00:00.000Z');
+    if(p.direction==='incoming')date.setUTCDate(date.getUTCDate()+delayDays);
+    const shiftedDate=date.toISOString().slice(0,10);
+    return {id:p.id,originalDate:p.date,date:shiftedDate,direction:p.direction,category:p.category,
+      signedCents:p.direction==='incoming'?p.cents:-p.cents,index:p.index};
+  }).sort((a,b)=>a.date.localeCompare(b.date)||a.signedCents-b.signedCents||a.index-b.index);
+  let running=0,worst=0,deficitDate=null;
+  const months=new Map();
+  for(const item of shifted) {
+    running+=item.signedCents;
+    if(running<worst){worst=running;deficitDate=item.date;}
+    const key=item.date.slice(0,7);
+    months.set(key,(months.get(key)||0)+item.signedCents);
+  }
+  const first=shifted[0]?.date.slice(0,7),last=shifted.at(-1)?.date.slice(0,7);
+  const timeline=[];
+  if(first) {
+    const dt=new Date(first+'-01T00:00:00.000Z'),end=new Date(last+'-01T00:00:00.000Z');
+    for(;dt<=end;dt.setUTCMonth(dt.getUTCMonth()+1)){
+      if(timeline.length>=96)throw new RangeError('Planung über mehr als 96 Kalendermonate wird nicht unterstützt.');
+      const key=dt.toISOString().slice(0,7);
+      timeline.push({calendarMonth:key,plannedNet:(months.get(key)||0)/100,hasEntries:months.has(key)});
+    }
+  }
+  const requiredBuffer=Math.max(0,-worst);
+  const worstWithOpening=initialCents===null?null:(initialCents+worst)/100;
+  return {events:shifted.map(e=>({id:e.id,originalDate:e.originalDate,plannedDate:e.date,direction:e.direction,category:e.category,amount:Math.abs(e.signedCents)/100})),
+    months:timeline,requiredBuffer:requiredBuffer/100,firstPeakShortfallDate:deficitDate,
+    assumedOpeningReserve:initialCents===null?null:initialCents/100,
+    minimumIllustrativeBalance:worstWithOpening,netScheduled:running/100};
+}
+/** Daily, not monthly, ordering of manually proposed receipts/expenses. Never mixes actual bank ledger or legal benefits. */
+function compareExpectedPayments({payments=[],delayDays=0,openingReserve=null}={}) {
+  if(!Number.isInteger(delayDays)||delayDays<0||delayDays>90)throw new RangeError('Verschiebung nur zwischen 0 und 90 Tagen möglich.');
+  const entries=validatePayments(payments);
+  const initialCents=preciseMoney(openingReserve,{nullable:true});
+  const regular=dailyProjection(entries,0,initialCents);
+  const delayed=dailyProjection(entries,delayDays,initialCents);
+  return {basis:'NUR_MANUELLE_ZAHLUNGSANNAHMEN',actualBankLedgerIncluded:false,legalEntitlementInferred:false,
+    delayDays,paymentCount:entries.length,regular,delayed,
+    additionalBuffer:Math.round((delayed.requiredBuffer-regular.requiredBuffer)*100)/100,
+    warnings:[
+      'Alle Termine und Beträge sind manuell eingegebene Annahmen, keine zugesagten oder prognostizierten Bankeingänge.',
+      'Ausgaben oder Gehälter, die nicht als eigener Posten eingetragen wurden, fehlen vollständig.',
+      'Die rechnerische Anfangsrücklage ist kein abgelesener Kontostand. In der Tagesberechnung werden Ausgaben bei gleichem Datum vorsichtshalber vor Eingängen gebucht.',
+      'Mit der Verschiebung ändern sich ausschließlich angenommene Geldeingangstage – nicht der Elterngeldanspruch oder bereits gebuchte Umsätze.'
+    ]};
+}
+module.exports={compareExpectedPayments,validatePayments};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* ExpectedPayments_END */
+/* FinanceGuidance_START */
+const FinanceGuidance=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+const VERIFIED_AT='2026-10-17';
+const SOURCES=Object.freeze({
+ insurance:{label:'Bundesfamilienportal: Krankenversicherung während Elterngeldbezug',url:'https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-bin-ich-krankenversichert-waehrend-ich-elterngeld-bekomme--124738',verifiedAt:VERIFIED_AT},
+ leaveInsurance:{label:'Bundesfamilienportal: Versicherung in Elternzeit',url:'https://familienportal.de/familienportal/familienleistungen/elternzeit/arbeit-versicherung/wie-bin-ich-waehrend-der-elternzeit-versichert--124862',verifiedAt:VERIFIED_AT},
+ tax:{label:'Bundesfamilienportal: Elterngeld und Progressionsvorbehalt',url:'https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616',verifiedAt:VERIFIED_AT}
+});
+const INSURANCE=Object.freeze({
+ unknown:{title:'Versicherungsstatus noch nicht angegeben',message:'Bitte Krankenversicherung der Eltern während Mutterschutz, Elternzeit und etwaiger Teilzeit direkt mit der Krankenkasse bzw. privaten Versicherung prüfen. Ohne Beitragsschätzung ist das Familienbudget möglicherweise unvollständig.'},
+ mandatory:{title:'Pflichtversichert in der gesetzlichen Krankenkasse',message:'Bei fortbestehender Pflichtmitgliedschaft sind während Elternzeit/Elterngeld häufig keine Krankenversicherungsbeiträge fällig, wenn keine weiteren beitragspflichtigen Einkünfte vorliegen. Teilzeit und Sonderkonstellationen können Beiträge auslösen; Krankenkasse bestätigen lassen.'},
+ voluntary:{title:'Freiwillig gesetzlich versichert',message:'Während Elternzeit/Elterngeld sind häufig Beiträge, mindestens jedoch ein Mindestbeitrag fällig. Mögliche Familienversicherung/Befreiungen müssen mit der Krankenkasse geprüft werden. Keine automatische Beitragsfreiheit unterstellen.'},
+ private:{title:'Privat krankenversichert',message:'Die private Versicherungsprämie läuft regelmäßig weiter. Ohne Arbeitgeberzuschuss kann der bisher vom Arbeitgeber gezahlte Anteil zusätzlich anfallen. Vertrag und Zusatzbeitrag individuell prüfen.'},
+ family:{title:'Beitragsfrei familienversichert',message:'Eine bestehende Familienversicherung kann beitragsfrei fortbestehen, wenn ihre Voraussetzungen weiterhin erfüllt sind. Teilzeiteinkommen und andere Einkünfte können die Voraussetzungen ändern; Krankenkasse prüfen.'}
+});
+function buildFinanceGuidance({insuranceMode='unknown',hasHouseholdExpenses=false,insuranceIncluded='unknown'}={}) {
+ if(!Object.hasOwn(INSURANCE,insuranceMode))throw new RangeError('Unbekannter Versicherungsstatus.');
+ if(typeof hasHouseholdExpenses!=='boolean')throw new TypeError('Ausgabenstatus muss eindeutig sein.');
+ if(!['yes','no','unknown'].includes(insuranceIncluded))throw new RangeError('Kosten-Abdeckung ungültig.');
+ const insurance={id:'insurance',...INSURANCE[insuranceMode],source:SOURCES.insurance,amountMode:'NOT_ESTIMATED'};
+ const tax={id:'tax',title:'Progressionsvorbehalt und Steuererklärung',message:'Elterngeld ist steuerfrei, beeinflusst aber den Steuersatz für anderes Einkommen (Progressionsvorbehalt). Der Elterngeldbezug kann eine Steuererklärungspflicht auslösen. Der Rechner schätzt keine persönliche Nachzahlung und berücksichtigt keine steuerlichen Jahresfolgen.',source:SOURCES.tax,amountMode:'NOT_ESTIMATED'};
+ const warnings=[];
+ if(!hasHouseholdExpenses)warnings.push('Haushaltsausgaben fehlen: weder Versicherungsbeiträge noch Steuerpuffer sind als verfügbare Rücklage überprüfbar.');
+ else if(insuranceIncluded==='no')warnings.push('Versicherungsbeiträge sind laut Angabe NICHT in euren Haushaltskosten: Das verfügbare Familienbudget kann zu hoch dargestellt sein.');
+ else if(insuranceIncluded==='unknown')warnings.push('Unbekannt, ob Versicherungsbeiträge in den Haushaltsausgaben enthalten sind: Budget und Rücklagen nicht als vollständig bewerten.');
+ if(insuranceMode==='unknown')warnings.push('Versicherungsart fehlt: Keine automatische Betragsannahme möglich.');
+ return {verifiedAt:VERIFIED_AT,cards:[insurance,tax],warnings,regionalBenefitsIncluded:[],noAutomaticCostAdjustment:true};
+}
+module.exports={buildFinanceGuidance,SOURCES,VERIFIED_AT};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* FinanceGuidance_END */
+/* SearchCoverage_START */
+const SearchCoverage=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+const FILTERS=['coverage','overlap','rules','distribution','budget'];
+function integer(v,label) {
+ if(!Number.isSafeInteger(v)||v<0)throw new RangeError(label+': nur nichtnegative ganze Werte.');
+ return v;
+}
+/**
+ * Audit of what the enumerator ACTUALLY checked, not a claim of complete legal
+ * or combinatorial space coverage. The filters are first-rejection categories.
+ */
+function summarizeSearchCoverage({generated,seen,valid,rejected={}}={}) {
+ integer(generated,'Erzeugte Varianten');integer(seen,'Eindeutige Varianten');integer(valid,'Passende Varianten');
+ if(!rejected||typeof rejected!=='object'||Array.isArray(rejected)||
+  Object.keys(rejected).some(k=>!FILTERS.includes(k)))
+  throw new TypeError('Unerwartete Filterzählung.');
+ const rejectionCounts=Object.fromEntries(FILTERS.map(k=>[k,integer(rejected[k]??0,k)]));
+ const excluded=Object.values(rejectionCounts).reduce((a,b)=>a+b,0);
+ if(generated<seen||excluded+valid!==seen)throw new RangeError('Suchzähler sind nicht konsistent.');
+ const duplicates=generated-seen;
+ const percentage=(a,b)=>b===0?0:Math.round(a/b*10000)/100;
+ return {model:'NUR_BESCHRÄNKTE_VORLAGENSUCHE',generated,seen,valid,excluded,duplicates,
+   uniquePercent:percentage(seen,generated),eligiblePercent:percentage(valid,seen),
+   rejected:rejectionCounts,
+   completenessKnown:false,globalOptimumClaimAllowed:false,
+   caution:'Gezählt werden ausschließlich erzeugte und geprüfte Vorlagen. Keine Aussage darüber, welcher Anteil aller denkbaren gesetzlich zulässigen Pläne abgedeckt ist.'};
+}
+module.exports={summarizeSearchCoverage,FILTERS};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* SearchCoverage_END */
+/* CalendarExport_START */
+const CalendarExport=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+const DAY=86400000;
+function isoDay(date){
+ if(typeof date!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(date))return false;
+ const t=new Date(date+'T00:00:00.000Z');
+ return Number.isFinite(t.valueOf())&&t.toISOString().slice(0,10)===date;
+}
+function icalEscape(value){
+ return String(value??'').replace(/\\/g,'\\\\').replace(/\r\n?|\n/g,'\\n').replace(/;/g,'\\;').replace(/,/g,'\\,');
+}
+function fold(text){
+ const encoder=new TextEncoder(),lines=[];
+ let part='';
+ for(const char of text){
+  if(encoder.encode(part+char).length>75){
+   if(!part)throw new RangeError('Ungültiges Kalenderfeld.');
+   lines.push(part);
+   part=' '+char;
+  }else part+=char;
+ }
+ if(part)lines.push(part);
+ return lines.join('\r\n');
+}
+function calendarTaskExport(tasks,{generatedAt='2026-10-17T00:00:00.000Z'}={}){
+ if(!Array.isArray(tasks)||tasks.length>80)throw new RangeError('Zu viele Fristen oder keine Aufgabenliste.');
+ const stamp=new Date(generatedAt);
+ if(!Number.isFinite(stamp.valueOf()))throw new RangeError('Ungültiges Erstellungsdatum.');
+ const time=stamp.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}Z$/,'Z');
+ const seen=new Set(),lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Elternzeit-Zielplaner//V3 Kalender Export//DE',
+  'CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:Elternzeit-Fristen prüfen'];
+ let included=0;
+ for(const task of tasks){
+  if(!task||typeof task!=='object'||!task.id||typeof task.id!=='string'||!task.title)throw new TypeError('Ungültige Checklistenaufgabe.');
+  if(!task.dueDate)continue;
+  if(!isoDay(task.dueDate))throw new RangeError('Ungültiger Fristtag.');
+  if(seen.has(task.id))throw new RangeError('Doppelte Aufgabenkennung.');
+  seen.add(task.id);
+  const start=task.dueDate.replace(/-/g,'');
+  const end=new Date(Date.parse(task.dueDate+'T00:00:00.000Z')+DAY).toISOString().slice(0,10).replace(/-/g,'');
+  const uid=task.id.replace(/[^A-Za-z0-9_-]/g,'-').slice(0,65)+'-'+start+'@elternzeitplaner.invalid';
+  const desc='Nur vorläufige Checklistenorientierung. Frist, Rechtslage und Antragsweg selbst bei der zuständigen Stelle bestätigen. '+
+   (task.description||'')+' Quelle: '+(task.source?.url||'');
+  const records=['BEGIN:VEVENT','UID:'+uid,'DTSTAMP:'+time,'DTSTART;VALUE=DATE:'+start,
+   'DTEND;VALUE=DATE:'+end,'SUMMARY:'+icalEscape('Frist prüfen: '+task.title),
+   'DESCRIPTION:'+icalEscape(desc),'STATUS:TENTATIVE','TRANSP:TRANSPARENT','END:VEVENT'];
+  for(const r of records)lines.push(fold(r));
+  included++;
+ }
+ lines.push('END:VCALENDAR');
+ return {mime:'text/calendar;charset=utf-8',name:'Elternzeit_Fristen_unverbindlich.ics',content:lines.join('\r\n')+'\r\n',included,hasLegalApproval:false};
+}
+module.exports={calendarTaskExport,icalEscape,fold};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* CalendarExport_END */
+
 /* ApplicationGuide_START */
 const ApplicationGuide=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
@@ -1474,6 +1910,10 @@ function projectFamilyBudget({rows,expenses=0,minimum=0,assumptions={},confirmed
       rejectedGrants.push({id:grant?.id||null,reason:'Anspruch und datierte Quelle nicht vollständig bestätigt.'}); continue;
     }
     if(!Number.isInteger(grant.lm)||grant.lm<1)throw new RangeError('Leistungsmonat ungültig.');
+    if(grant.lm>rows.length){
+      rejectedGrants.push({id:grant.id||null,reason:'Bestätigte Zusatzleistung liegt außerhalb des berechneten Lebensmonats-Horizonts.'});
+      continue;
+    }
     grants.set(grant.lm,(grants.get(grant.lm)||0)+cents(amount(grant.amount,'Zusatzleistung')));
   }
   const ignoredRowGrants=rows.some(r=>Number(r.grant)>0);
@@ -1486,7 +1926,7 @@ function projectFamilyBudget({rows,expenses=0,minimum=0,assumptions={},confirmed
     const maternity=amount(row.maternityBenefits,'Mutterschaftsleistungen');
     if(maternity>motherIncome)throw new RangeError('Mutterschaftsleistungen übersteigen die Einkommensprojektion der Mutter.');
     const maternityKnown=row.maternityBenefits!==undefined && row.maternityBenefits!==null && row.maternityBenefits!=='';
-    return {lm,fatherWage,motherWage:motherIncome-maternity,maternity,maternityKnown,elterngeld:(cents(amount(row.fg,'Elterngeld 1'))+cents(amount(row.mg,'Elterngeld 2')))/100,kindergeld:amount(row.kind,'Kindergeld'),childcare:amount(row.childcare,'Betreuungskosten'),grant:(grants.get(lm)||0)/100};
+    return {lm,fatherWage,motherWage:motherIncome-maternity,maternity,maternityKnown,elterngeldFather:amount(row.fg,'Elterngeld 1'),elterngeldMother:amount(row.mg,'Elterngeld 2'),kindergeld:amount(row.kind,'Kindergeld'),childcare:amount(row.childcare,'Betreuungskosten'),grant:(grants.get(lm)||0)/100};
   });
   const scenarios=[['conservative','Vorsichtig',-1],['realistic','Realistisch',0],['favourable','Günstig',1]].map(([id,label,direction])=>{
     // Scenario components are booked in cents before aggregation. Integer
@@ -1496,7 +1936,11 @@ function projectFamilyBudget({rows,expenses=0,minimum=0,assumptions={},confirmed
     const months=prepared.map(r=>{
       const fatherWage=scaledCents(r.fatherWage,direction*fatherWageBand);
       const motherWage=scaledCents(r.motherWage,direction*motherWageBand);
-      const wages=fatherWage+motherWage,elterngeld=scaledCents(r.elterngeld,direction*egBand);
+      const wages=fatherWage+motherWage;
+      // Each parent's rounded entitlement is a distinct cash component. Scaling
+      // the combined total would silently gain/lose a cent at half-cent boundaries.
+      const elterngeld=scaledCents(r.elterngeldFather,direction*egBand)+
+        scaledCents(r.elterngeldMother,direction*egBand);
       const childcare=scaledCents(r.childcare,-direction*costBand),householdExpenses=scaledCents(expense,-direction*costBand);
       const maternity=cents(r.maternity),kindergeld=cents(r.kindergeld),grant=Math.round(r.grant*100);
       const income=wages+maternity+elterngeld+kindergeld+grant;
@@ -1511,6 +1955,7 @@ function projectFamilyBudget({rows,expenses=0,minimum=0,assumptions={},confirmed
     'Leistungsanspruch pro Lebensmonat ist kein tatsächlicher Bank-Zahlungseingang. Verzögerte Auszahlungen erfordern zusätzliche Liquidität.',
     'Progressionsvorbehalt kann Steuernachzahlungen auslösen; individuelle Versicherungsbeiträge sind nicht enthalten.',
     ...(ignoredRowGrants?['Manuelle Zusatzleistungen wurden ohne bestätigte, datierte Anspruchsgrundlage nicht übernommen.']:[]),
+    ...(rejectedGrants.some(r=>r.reason.includes('außerhalb'))?['Bestätigte Zusatzleistungen außerhalb des Planungshorizonts wurden nicht stillschweigend berücksichtigt.']:[]),
     ...(prepared.some(r=>!r.maternityKnown)?['Ohne explizite Aufteilung können Mutterschaftsleistungen im kombinierten Arbeitseinkommen enthalten sein.']:[])
   ]};
 }
@@ -1518,6 +1963,102 @@ module.exports={projectFamilyBudget};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* FamilyBudget_END */
+/* ManualCostImpact_START */
+const ManualCostImpact=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+const {projectFamilyBudget}=require('./family-budget.cjs');
+function cents(value,label){
+ if(typeof value!=='number'||!Number.isFinite(value)||value<0||value>50000||Math.abs(value*100-Math.round(value*100))>1e-7)
+  throw new RangeError(label+': 0 bis 50.000 Euro und maximal zwei Nachkommastellen.');
+ return Math.round(value*100);
+}
+/**
+ * Scenario only: explicit extra insurance expenses and voluntarily allocated tax
+ * reserve, neither a tax calculation nor a legal insurance premium.
+ * Re-evaluates exactly the same family-budget stress model with identical assumptions.
+ */
+function compareManualCostBuffer({rows,expenses,minimum=0,assumptions={},insurancePerMonth=0,taxReservePerMonth=0,insuranceAlreadyIncluded=false}={}){
+ if(!Array.isArray(rows)||!rows.length)throw new TypeError('Lebensmonatsdaten fehlen.');
+ if(expenses===''||expenses===null||expenses===undefined)
+  return {knownExpenses:false,results:[],disclaimer:'Haushaltsausgaben unbekannt – kein Finanzüberschuss oder Rücklagenbedarf berechenbar.'};
+ const expenseCents=cents(expenses,'Haushaltsausgaben');
+ const insuranceCents=cents(insurancePerMonth,'Zusätzlicher Versicherungsbeitrag');
+ const taxCents=cents(taxReservePerMonth,'Frei gewählter Steuerpuffer');
+ if(typeof insuranceAlreadyIncluded!=='boolean')throw new TypeError('Angabe zu bereits enthaltenen Versicherungsbeiträgen muss eindeutig sein.');
+ if(insuranceAlreadyIncluded&&insuranceCents>0)throw new RangeError('Versicherungsbeitrag ist bereits in den Haushaltskosten enthalten: nicht doppelt ansetzen.');
+ const extraCents=insuranceCents+taxCents;
+ if(expenseCents+extraCents>1e9)throw new RangeError('Zusammengefasste Monatskosten zu hoch.');
+ const basis=projectFamilyBudget({rows,expenses:expenseCents/100,minimum,assumptions});
+ const adjusted=projectFamilyBudget({rows,expenses:(expenseCents+extraCents)/100,minimum,assumptions});
+ const results=basis.scenarios.map((scenario,i)=>({
+  id:scenario.id,label:scenario.label,
+  normalReserve:scenario.requiredReserves,
+  bufferReserve:adjusted.scenarios[i].requiredReserves,
+  additionalReserve:Math.round((adjusted.scenarios[i].requiredReserves-scenario.requiredReserves)*100)/100,
+  normalLowest:scenario.lowestAvailable,
+  adjustedLowest:adjusted.scenarios[i].lowestAvailable,
+  originalTotal:scenario.totalAvailable,
+  adjustedTotal:adjusted.scenarios[i].totalAvailable
+ }));
+ return {knownExpenses:true,months:rows.length,insurancePerMonth:insuranceCents/100,taxReservePerMonth:taxCents/100,
+  additionalAllocatedPerMonth:extraCents/100,results,
+  legalTaxCalculated:false,insurancePremiumInferred:false,entitlementChanged:false,
+  disclaimer:'Reiner Vergleich ausdrücklich angenommener zusätzlicher Beiträge und freiwilliger Steuerrückstellung. Keine amtliche Steuer-/Versicherungsberechnung. Beide Modellrechnungen verwenden identische Stressannahmen; keine Konto-Zahlungsprognose.'};
+}
+module.exports={compareManualCostBuffer};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* ManualCostImpact_END */
+/* CologneFees_START */
+const CologneFees=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+// This is a DATED 2025 tariff snapshot, NOT a live bill and never a benefit.
+// Source: Stadt Koeln, contribution rates effective 2025-08-01, checked 2026-10-17.
+const SOURCE='https://www.stadt-koeln.de/service/produkte/00405/index.html';
+const CHECKED='2026-10-17',EFFECTIVE_FROM='2025-08-01';
+const LIMITS=Object.freeze([24542,36813,49084,61355,78000,100000,120000,140000,160000,Infinity]);
+const TABLE=Object.freeze({
+ under2:{
+  25:[0,120.02,190.73,268.64,331.51,430.96,517.15,594.72,620.58,672.30],
+  35:[0,133.36,211.92,298.49,368.35,478.86,574.63,660.82,689.56,747.02],
+  45:[0,148.18,235.47,331.65,409.29,532.06,638.48,734.25,766.18,830.02]},
+ age2:{
+  25:[0,120.02,181.65,244.22,276.26,331.51,397.81,457.48,477.37,517.15],
+  35:[0,133.36,201.83,271.35,306.96,368.35,442.02,508.32,530.42,574.63],
+  45:[0,148.18,224.26,301.50,341.07,409.28,491.14,564.81,589.37,638.48]},
+ age3:{
+  25:[0,31.52,70.73,112.85,148.46,178.15,213.78,245.85,256.54,277.91],
+  35:[0,35.03,78.59,125.39,164.96,197.95,237.54,273.17,285.05,308.80],
+  45:[0,42.00,123.67,193.94,256.36,307.63,369.16,424.53,442.99,479.91]}
+});
+function checkedNumber(v,label,max=1e8){
+ if(typeof v!=='number'||!Number.isFinite(v)||v<0||v>max)throw new RangeError(label+' ist ungültig.');
+ return v;
+}
+function estimateCologneFee({lifeMonth,annualIncome,hours,meals=0,careDate}={}){
+ if(!Number.isInteger(lifeMonth)||lifeMonth<1||lifeMonth>96)throw new RangeError('Lebensmonat 1 bis 96 erforderlich.');
+ checkedNumber(annualIncome,'Kommunales Jahreseinkommen');
+ checkedNumber(meals,'Essensgeld',10000);
+ if(![25,35,45].includes(hours))throw new RangeError('Betreuungsstunden: nur 25, 35 oder 45 möglich.');
+ if(typeof careDate!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(careDate)||
+  Number.isNaN(Date.parse(careDate))||new Date(careDate+'T00:00:00Z').toISOString().slice(0,10)!==careDate)
+  throw new RangeError('Gültiges Betreuungsdatum erforderlich.');
+ const group=lifeMonth<=24?'under2':lifeMonth<=36?'age2':'age3';
+ const idx=LIMITS.findIndex(limit=>annualIncome<=limit);
+ const monthly=TABLE[group][hours][idx];
+ const cents=value=>Math.round(value*100);
+ const amount=(cents(monthly)+cents(meals))/100;
+ return {ratePerMonth:monthly,mealsPerMonth:meals,illustrativeTotal:amount,
+  group,incomeBand:idx,hours,source:SOURCE,checkedAt:CHECKED,effectiveFrom:EFFECTIVE_FROM,
+  snapshotStatus:careDate>CHECKED?'FUTURE_NOT_VERIFIED':careDate<EFFECTIVE_FROM?'BEFORE_REFERENCE_EFFECTIVE':'DATED_PUBLISHED_REFERENCE',
+  includesSiblingDiscount:false,includesContributionWaiver:false,usedInFamilyBudget:false};
+}
+module.exports={estimateCologneFee,TABLE,LIMITS,SOURCE,CHECKED,EFFECTIVE_FROM};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* CologneFees_END */
 /* PlanComparison_START */
 const PlanComparison=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
@@ -1911,11 +2452,6 @@ let cachedCalendarKey='',cachedCalendar=[];
 function calendarMonths(){if(cachedCalendarKey!==s.date){cachedCalendar=TimeAxes.lifeMonths(s.date,N);cachedCalendarKey=s.date;}return cachedCalendar;}
 function dateFor(lm){try{const m=calendarMonths()[lm-1];return TimeAxes.formatDateDE(m.startDate)+' bis '+TimeAxes.formatDateDE(m.endDate)}catch(e){return 'Datum prüfen'}}
 
-function ptNet(who){
- const hours=toNum(s[who==='f'?'hoursFather':'hoursMother']);
- const ref=toNum(s[who==='f'?'ptNetFather':'ptNetMother']);
- return hours<=0?0:ref*hours/28;
-}
 function rate(pre){if(pre>=LEGAL.replacement_full_high_eur)return LEGAL.replacement_high;if(pre>LEGAL.replacement_high_threshold_eur)return LEGAL.replacement_low-(pre-LEGAL.replacement_high_threshold_eur)*LEGAL.replacement_rate_step_per_eur;if(pre>=LEGAL.replacement_low_threshold_eur)return LEGAL.replacement_low;return Math.min(LEGAL.replacement_rate_max,LEGAL.replacement_low+(LEGAL.replacement_low_threshold_eur-pre)*LEGAL.replacement_rate_step_per_eur)}
 const benefitAmountCache=new Map();
 function benefitAmount(type,pre,after){
@@ -1934,105 +2470,13 @@ function equivalent(code){return code==='MS'||code==='B'||code==='R'?1:['P','T']
 function benefitCode(code){return ['B','R','P','T','K'].includes(code)}
 function leaveCode(code){return ['MS','B','R','P','T','Q','K','U'].includes(code)}
 function offCode(code){return ['B','P','U'].includes(code)}
-function evaluate(schedule){
- let consumed=0,conF=0,conM=0;
- const pF=ptNet('f'),pM=ptNet('m');
- const months=schedule.map((row,i)=>{
-  const f=STAT[row.f]?row.f:'W',m=i<2?'MS':STAT[row.m]?row.m:'W';
-  const fi=getWage(f,s.netFather,pF),mi=getWage(m,s.netMother,pM);
-  const fg=getBenefit(f,s.egNetFather,pF),mg=getBenefit(m,s.egNetMother,pM);
-  const fc=equivalent(f),mc=equivalent(m),income=fi+mi+fg+mg+s.kind;
-  consumed+=fc+mc;conF+=fc;conM+=mc;
-  return {lm:i+1,f,m,fi,mi,fg,mg,fc,mc,income,totalWage:fi+mi,totalEg:fg+mg,kind:s.kind,deficit:s.expenses!==''?income-s.expenses:null};
- });
- const errors=[],notices=[];
- if(consumed>14+.001)errors.push('Über 14 gemeinsame Basis-Monatsäquivalente ('+fmt1(consumed)+').');
- if(conF>12+.001)errors.push('Mehr als 12 Basis-Monatsäquivalente beim Vater.');
- if(conM>12+.001)errors.push('Mehr als 12 Basis-Monatsäquivalente bei der Mutter.');
- let parallel=0;const bonusMonths=[];
- for(let i=0;i<N;i++){
-  const r=months[i],lm=i+1;
-  const bothBase=['MS','B','R'].includes(r.m)&&['B','R'].includes(r.f);
-  if(bothBase){parallel++;if(lm>12)errors.push('Gleichzeitiges Basiselterngeld nach LM 12 (LM '+lm+').');}
-  if(lm>14&&['B','R'].includes(r.f)||lm>14&&['B','R'].includes(r.m))errors.push('Basiselterngeld nach LM 14 (LM '+lm+').');
-  if(lm>32&&['P','T','K'].some(x=>r.f===x||r.m===x))errors.push('ElterngeldPlus oder Bonus nach LM 32 (LM '+lm+').');
-  const fk=r.f==='K',mk=r.m==='K';if(fk!==mk)errors.push('Partnerschaftsbonus in LM '+lm+' nicht für beide gleichzeitig.');
-  if(fk||mk)bonusMonths.push(lm);
- }
- if(parallel>1)errors.push('Mehr als ein paralleler Basiselterngeldmonat.');
- if(bonusMonths.length){
-  if(bonusMonths.length<2||bonusMonths.length>4||!bonusMonths.every((x,i)=>i===0||x===bonusMonths[i-1]+1))errors.push('Partnerschaftsbonus muss 2–4 direkt aufeinanderfolgende Monate dauern.');
-  if(s.hoursFather<24||s.hoursFather>32||s.hoursMother<24||s.hoursMother>32)errors.push('Partnerschaftsbonus verlangt bei beiden 24–32 Stunden pro Woche.');
- }
- for(const [who,hours,label] of [['f',s.hoursFather,'Vater'],['m',s.hoursMother,'Mutter']]){
-  if(months.some(r=>['R','T','Q','K'].includes(r[who]))&&hours>32)errors.push('Teilzeit in Elternzeit bei '+label+' liegt über 32 Stunden pro Woche.');
- }
- const lastPlus=months.reduce((last,r,i)=>['P','T','K'].some(x=>r.f===x||r.m===x)?i+1:last,0);
- if(lastPlus>14){for(let lm=15;lm<=lastPlus;lm++){const r=months[lm-1];if(!['P','T','K'].some(x=>r.f===x||r.m===x)){errors.push('Bezugslücke ab LM 15: LM '+lm+' ohne ElterngeldPlus/Bonus.');break}}}
- if(s.egNetFather!==s.netFather||s.egNetMother!==s.netMother)notices.push('Das getrennt eingegebene pauschalierte Elterngeld-Netto weicht vom Auszahlungsnetto ab.');
- if(s.hoursFather!==28||s.hoursMother!==28)notices.push('Teilzeit-Netto ist aus dem Netto-Referenzwert bei 28 Stunden umgerechnet, nicht amtlich ermittelt.');
- if(s.expenses!==''){const short=months.slice(0,s.horizon).filter(r=>r.deficit<0).length;if(short)notices.push(short+' Lebensmonate unterschreiten das eingestellte Ausgabenbudget.');}
- const x={rows:months,errors,notices,consumed,conF,conM,valid:errors.length===0};
- x.sum=(n,key)=>months.slice(0,n).reduce((a,r)=>a+r[key],0);
- x.low=n=>Math.min(...months.slice(0,n).map(r=>r.income));
- x.fFree=months.filter(r=>offCode(r.f)).length;x.mFree=months.filter(r=>offCode(r.m)||r.m==='MS').length;
- x.fLeave=months.filter(r=>leaveCode(r.f)).length;x.mLeave=months.filter(r=>leaveCode(r.m)).length;
- x.bonusCount=bonusMonths.length;
- return x;
-}
 function getBuilderConfig(who){const ext=who==='f'?'Father':'Mother';const minStart=who==='f'?1:3;
  const start=int(s['leaveStart'+ext],minStart,N),count=int(s['leaveMonths'+ext],0,N-start+1);
  const mode=['B','P','M','N'].includes(s['benefit'+ext])?s['benefit'+ext]:'B';
  const basisFirst=int(s['basisFirst'+ext],0,12),partAfter=int(s['partAfter'+ext],0,999);
  return {who,start,count,mode,basisFirst,partAfter};
 }
-function builderSchedule(){
- const a=Array.from({length:N},()=>({f:'W',m:'W'}));a[0].m='MS';a[1].m='MS';
- const wanted=Array.from({length:N},()=>({f:'',m:''}));
- builderNotices=[];lastBuilderTruncated=0;
- for(const who of ['m','f']){
-  const q=getBuilderConfig(who),ext=who==='f'?'Father':'Mother';
-  const declaredCount=toNum(s['leaveMonths'+ext]);if(declaredCount>q.count){builderNotices.push((who==='f'?'Deine':'Die')+' Elternzeit passt nicht vollständig in die ersten 36 Lebensmonate; auf '+q.count+' Monate gekürzt.');lastBuilderTruncated++}
-  for(let j=0;j<q.count;j++){
-   const lm=q.start+j;if(lm>36)break;
-   const pt=j>=q.partAfter&&toNum(s[who==='f'?'hoursFather':'hoursMother'])>0;
-   const unpaid=pt?'Q':'U';a[lm-1][who]=unpaid;
-   const request=q.mode==='N'?'':q.mode==='M'?(j<q.basisFirst?'B':'P'):q.mode;
-   wanted[lm-1][who]=request;
-  }
- }
- let fSpent=0,mSpent=2,allSpent=2,parallel=0,unpaid=0;
- for(let i=0;i<N;i++){
-  for(const who of ['m','f']){
-   if(i<2&&who==='m')continue;
-   const request=wanted[i][who];if(!request)continue;
-   const lm=i+1,base=request==='B',weight=base?1:.5;
-   const part=a[i][who]==='Q';
-   const forbidden=base?lm>14:lm>32;
-   const concurrent=base&&['B','R','MS'].includes(a[i][who==='f'?'m':'f']);
-   const parallelForbidden=concurrent&&(lm>12||parallel>=1);
-   const own=who==='f'?fSpent:mSpent;
-   if(forbidden||parallelForbidden||allSpent+weight>14+.00001||own+weight>12+.00001){unpaid++;continue;}
-   if(concurrent)parallel++;
-   a[i][who]=base?(part?'R':'B'):(part?'T':'P');
-   allSpent+=weight;if(who==='f')fSpent+=weight;else mSpent+=weight;
-  }
- }
- // After LM 14, payments must be uninterrupted until the last Plus month.
- let hasGap=false,dropped=0;
- for(let i=14;i<N;i++){
-  const r=a[i],plusHere=['P','T','K'].some(code=>r.f===code||r.m===code);
-  const prevPlus=['P','T','K'].some(code=>a[i-1].f===code||a[i-1].m===code);
-  if(!prevPlus&&!plusHere)hasGap=true;
-  if(hasGap&&plusHere){for(const who of ['f','m'])if(['P','T'].includes(a[i][who])){a[i][who]=a[i][who]==='T'?'Q':'U';dropped++;}}
-  // If LM14 had no Plus, even LM15 cannot begin a new Plus series.
-  if(i===14&&!prevPlus&&plusHere){for(const who of ['f','m'])if(['P','T'].includes(a[i][who])){a[i][who]=a[i][who]==='T'?'Q':'U';dropped++;}hasGap=true;}
- }
- if(unpaid)builderNotices.push(unpaid+' gewünschte Elterngeldmonate werden wegen der üblichen Zeit-/Kontingentgrenzen als Elternzeit ohne Elterngeld geplant.');
- if(dropped)builderNotices.push(dropped+' Plus-Monate nach einer Bezugslücke ab LM 15 können nicht ausgezahlt werden und wurden in unbezahlte Elternzeit umgewandelt.');
- return a;
-}
-function clone(x){return JSON.parse(JSON.stringify(x))}
+function clone(x){return JSON.parse(JSON.stringify(x));}
 function applyBuilder(){s.employmentOverrides=null;s.benefitOverrides=null;s.schedule=builderSchedule();s.model='custom';builderActive=true;s.month=Math.min(Math.max(1,s.leaveStartFather),N);renderAll();persist();}
 function applyExample(name){
  const q=name==='extended'?{leaveStartFather:3,leaveMonthsFather:18,benefitFather:'B',basisFirstFather:8,partAfterFather:999}:{leaveStartFather:3,leaveMonthsFather:24,benefitFather:'P',basisFirstFather:8,partAfterFather:999};
@@ -2053,7 +2497,6 @@ function presetBuilderSync(id){
 function chooseModel(id){if(!SCENARIOS.some(c=>c.id===id))return;s.schedule=makeSchedule(id);s.employmentOverrides=null;s.benefitOverrides=null;s.model=id;builderActive=false;presetBuilderSync(id);s.month=id==='father13'?1:3;builderNotices=[];renderAll();persist();showToast('Modell geladen: '+SCENARIOS.find(c=>c.id===id).name);}
 function setTxt(id,value){const el=$(id);if(el)el.textContent=String(value)}
 function showToast(value){const el=$('toast');el.textContent=value;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2400)}
-function persist(){try{localStorage.setItem('elternzeit-familienplan-v2',JSON.stringify(s))}catch(e){}}
 function sanitizeImport(d){
  if(!d||typeof d!=='object'||Array.isArray(d)||!Array.isArray(d.schedule)||![32,N].includes(d.schedule.length))throw Error('Datei benötigt 32 oder 36 Lebensmonate.');
  const value=clone(defaults);
@@ -2086,13 +2529,6 @@ function sanitizeImport(d){
  return value;
 }
 
-function restore(){try{const raw=localStorage.getItem('elternzeit-familienplan-v2')||localStorage.getItem('elternzeit-familienplan-v1');if(raw){const d=JSON.parse(raw);if(Array.isArray(d.schedule)&&[32,N].includes(d.schedule.length))s=sanitizeImport(d)}}catch(e){}}
-function renderInputs(){document.querySelectorAll('[data-field], [data-build]').forEach(el=>{
- const field=el.dataset.field||el.dataset.build;const v=s[field];if(el.value!==String(v))el.value=String(v);
- });
- setTxt('ptEffectiveFather',euro(ptNet('f')));setTxt('ptEffectiveMother',euro(ptNet('m')));
- setTxt('ptHoursFather',s.hoursFather);setTxt('ptHoursMother',s.hoursMother);
-}
 function renderHeader(){const labels={PLAUSIBEL_STANDARD:'Standardregeln plausibel',REGELKONFLIKT:'Regelkonflikt',NICHT_UNTERSTUETZT:'Konstellation nicht validiert',DATEN_UNVOLLSTAENDIG:'Angaben zur Prüfung fehlen'};setTxt('globalPlanStatus','Alle Finanzwerte sind Schätzungen, keine amtlichen Bewilligungsbeträge. '+labels[current.validation.status]+' ('+current.validation.status+'). '+(current.valid?'Unabhängige fachliche Abnahme steht noch aus.':current.validation.findings[0]?.message||'Plan bitte korrigieren.'));setTxt('heroGross',euro(Number(s.netFather)+Number(s.netMother)));setTxt('heroCare',s.goalCare+' Lebensmonate');setTxt('heroMinimum',Number(s.goalMinIncome)>0?euro(s.goalMinIncome):'Noch nicht festgelegt');const r=current.rows[s.month-1];setTxt('liveAge',ageSpan(s.month));setTxt('liveMonth','LM '+s.month+' · '+dateFor(s.month));setTxt('liveBudget',euro(s.expenses===''?r.income:r.cashAfter));}
 function modelInfo(schedule,limit=s.horizon){const x=evaluate(schedule);return {total:x.sum(limit,'income'),eg:x.sum(N,'totalEg'),free:x.fFree,leave:x.fLeave,low:x.low(limit),valid:x.valid,errors:x.errors}}
 function renderModels(){
@@ -2197,11 +2633,6 @@ function renderCompare(){
  tbody.innerHTML=items.join('');setTxt('compareHorizon',s.horizon);
  tbody.querySelectorAll('tr[data-compare]').forEach(tr=>{const fn=()=>{if(tr.dataset.compare!=='custom'){chooseModel(tr.dataset.compare);showSlide(5)}};tr.addEventListener('click',fn);tr.addEventListener('keydown',e=>{if(e.key==='Enter')fn()})});
 }
-function renderPlus(){
- const b=basis(s.egNetFather,0),p=plus(s.egNetFather,0),part=ptNet('f'),pt=plus(s.egNetFather,part);
- setTxt('plusBase',euro(b));setTxt('plusHalf',euro(p));setTxt('plusPart',euro(pt));setTxt('plusWork',euro(part));setTxt('plusHours',s.hoursFather);
- setTxt('houseBase',euro(s.netMother+b+s.kind));setTxt('housePlus',euro(s.netMother+p+s.kind));setTxt('housePart',euro(s.netMother+part+pt+s.kind));
-}
 function renderChecks(){
  const v=current.validation;
  const labels={PLAUSIBEL_STANDARD:'Standardfall plausibel',REGELKONFLIKT:'Regelkonflikt',NICHT_UNTERSTUETZT:'Nicht unterstützt',DATEN_UNVOLLSTAENDIG:'Daten fehlen'};
@@ -2211,7 +2642,6 @@ function renderChecks(){
  $('checkItems').innerHTML=v.findings.map(f=>'<div class="note '+(f.status==='REGELKONFLIKT'?'danger':'warn')+'" style="margin-top:10px"><strong>'+esc(f.ruleId)+' · '+esc(f.message)+'</strong><p>'+esc((f.parents||[]).map(p=>p==='father'?parentName('father'):p==='mother'?parentName('mother'):p).join(', '))+' '+(f.lifeMonths?.length?' · LM '+esc(f.lifeMonths.join(', ')):'')+'</p><p>'+esc((f.alternatives||[]).join(' · '))+'</p><a href="'+esc(f.source?.url||'https://www.gesetze-im-internet.de/beeg/')+'" target="_blank" rel="noopener noreferrer">'+esc(f.source?.title||'Amtliche Quelle')+'</a><p class="input-caption">Prüfdatum: '+esc(f.source?.checkedAt||'offen')+'</p></div>').join('')+current.notices.map(e=>'<div class="note warn" style="margin-top:8px">'+esc(e)+'</div>').join('');
 }
 
-function renderAll(){current=evaluate(s.schedule);renderInputs();renderHeader();renderModels();renderBuilder();renderTimeline();renderChart();renderDetail();renderCompare();renderPlus();renderChecks();updateNav()}
 function updateNav(){const slides=[...document.querySelectorAll('.slide')];slides.forEach((sl,i)=>sl.classList.toggle('active',i===slideIndex));[...$('sectionNav').children].forEach((b,i)=>b.classList.toggle('active',i===slideIndex));setTxt('counter',(slideIndex+1)+' / '+slides.length);$('progress').style.width=100*(slideIndex+1)/slides.length+'%';$('previous').disabled=slideIndex===0;$('next').disabled=slideIndex===slides.length-1}
 function showSlide(i){slideIndex=Math.max(0,Math.min(document.querySelectorAll('.slide').length-1,i));updateNav();window.scrollTo?.({top:0,behavior:'smooth'})}
 function listenInputs(){
@@ -2245,17 +2675,10 @@ function initNav(){
  for(const [id,who]of [['fatherStatus','f'],['motherStatus','m']])$(id).addEventListener('change',e=>{if(who==='m'&&s.month<=2)return;s.schedule[s.month-1][who]=e.target.value;s.model='custom';builderActive=false;builderNotices=[];renderAll();persist()});
  $('prevMonth').addEventListener('click',()=>{s.month=Math.max(1,s.month-1);renderAll();persist()});
  $('nextMonth').addEventListener('click',()=>{s.month=Math.min(N,s.month+1);renderAll();persist()});
- $('btnReset').addEventListener('click',()=>{if(!confirm('Alle Eingaben und Änderungen zurücksetzen?'))return;cancelGoalSearch();deleteLocalData();s={...defaults,schedule:makeSchedule('father12')};goalStats=null;builderActive=false;builderNotices=[];renderAll();persist();QuickStartV38.onResetConfirmed();showToast('Ausgangswerte wiederhergestellt')});
+ $('btnReset').addEventListener('click',()=>{if(!confirm('Alle Eingaben und Änderungen zurücksetzen?'))return;cancelGoalSearch();deleteLocalData();recordedOpeningReserve='';$('recordedOpeningReserve').value='';resetV313PaymentAssumptions();resetFinanceGuidance();s={...defaults,schedule:makeSchedule('father12')};goalStats=null;builderActive=false;builderNotices=[];renderAll();persist();QuickStartV38.onResetConfirmed();showToast('Ausgangswerte wiederhergestellt')});
  $('btnCsv').addEventListener('click',downloadCsv);$('btnJson').addEventListener('click',downloadJson);$('importJson').addEventListener('change',importJson);
 }
 function download(content,name,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),800)}
-function downloadCsv(){
- const header=['Lebensmonat','Kindesalter_Beginn','Kindesalter_Ende','Datumszeitraum','Vater_Status','Mutter_Status','Vater_Gehalt','Mutter_Gehalt_oder_Mutterschutz','Elterngeld_Vater','Elterngeld_Mutter','Kindergeld','Familieneinkommen','Differenz_ggue_Vollzeit'];
- const records=current.rows.map(r=>[r.lm,age(r.lm-1),age(r.lm),dateFor(r.lm),r.f,r.m,Math.round(r.fi),Math.round(r.mi),Math.round(r.fg),Math.round(r.mg),r.kind,Math.round(r.income),Math.round(r.income-(s.netFather+s.netMother+s.kind))].join(';'));
- download('\ufeff'+[header.join(';'),...records].join('\r\n'),'Elternzeit_Monatsplan_mit_Kindesalter_2027.csv','text/csv;charset=utf-8');showToast('CSV mit Kindesalter gespeichert');
-}
-function downloadJson(){download(JSON.stringify({fileType:'elternzeit-interaktiv-v2',exportedAt:new Date().toISOString(),data:s},null,2),'Elternzeit_Individueller_Plan_2027.json','application/json;charset=utf-8');showToast('Plan als JSON gespeichert')}
-function importJson(evt){const file=evt.target.files?.[0];if(!file)return;if(file.size>1000000){alert('Importdatei ist größer als 1 MB. Bitte eine gültige Plan-Datei auswählen.');evt.target.value='';return;}const reader=new FileReader();reader.onload=()=>{try{const j=JSON.parse(reader.result),v=j.data||j;if(!Array.isArray(v.schedule)||![32,N].includes(v.schedule.length))throw Error('Ungültige Datei: 32 oder 36 Lebensmonate erwartet.');const imported=sanitizeImport(v);cancelGoalSearch();deleteLocalData();s=imported;builderActive=false;builderNotices=[];renderAll();persist();showToast('Plan erfolgreich geladen')}catch(e){alert('Import fehlgeschlagen: '+e.message)}evt.target.value=''};reader.readAsText(file)}
 // V3 Erweiterung: Standardfall DE/NRW; offline-Quellenstand 14.10.2026.
 // Source of truth: data/rechtsregeln-de-nrw-2026-10-14.json.
 // The next block is auto-generated for an OFFLINE-capable single HTML file.
@@ -2669,17 +3092,14 @@ function egPtNet(who,hours,ptFactor=1,preFactor=1){
 let maternityCacheKey='',maternityCache=[];
 function matDaysAt(lm){try{const key=[s.date,s.expectedDueDate,s.postnatalDays].join('|');if(key!==maternityCacheKey){const mat=TimeAxes.maternityTimeline({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,postnatalDays:Number(s.postnatalDays)||56});maternityCache=calendarMonths().map(m=>({days:TimeAxes.daysOverlapInclusive(m.startDate,m.endDate,mat.postnatal.startDate,mat.postnatal.endDate),len:m.days}));maternityCacheKey=key;}return maternityCache[lm-1]||{days:0,len:30}}catch(e){return {days:0,len:30}}}
 
-// Official Cologne contribution table valid since 2025-08-01 (future 2027 NOT verified).
-const COLOGNE_FEES_2025={
- upper:[24542,36813,49084,61355,78000,100000,120000,140000,160000,Infinity],
- under2:{25:[0,120.02,190.73,268.64,331.51,430.96,517.15,594.72,620.58,672.30],35:[0,133.36,211.92,298.49,368.35,478.86,574.63,660.82,689.56,747.02],45:[0,148.18,235.47,331.65,409.29,532.06,638.48,734.25,766.18,830.02]},
- age2:{25:[0,120.02,181.65,244.22,276.26,331.51,397.81,457.48,477.37,517.15],35:[0,133.36,201.83,271.35,306.96,368.35,442.02,508.32,530.42,574.63],45:[0,148.18,224.26,301.50,341.07,409.28,491.14,564.81,589.37,638.48]}
-};
+// The city publishes a 2025 tariff snapshot. It never replaces manually entered Kita costs.
 function cologneFee2025(lm){
- const annual=clampNum(s.childcareIncome),wk=[25,35,45].includes(Number(s.childcareHours))?Number(s.childcareHours):35;
- const idx=COLOGNE_FEES_2025.upper.findIndex(v=>annual<=v);
- const table=(lm<=24?COLOGNE_FEES_2025.under2:COLOGNE_FEES_2025.age2)[wk];
- return (table[idx<0?table.length-1:idx]||0)+clampNum(s.childcareMeals);
+ const period=calendarMonths()[lm-1];
+ const result=CologneFees.estimateCologneFee({
+  lifeMonth:lm,annualIncome:clampNum(s.childcareIncome),
+  hours:Number(s.childcareHours),meals:clampNum(s.childcareMeals),careDate:period.startDate
+ });
+ return result.illustrativeTotal;
 }
 function childcareEstimate(lm){
  if(!(Number(s.childcareStart)>0&&lm>=Number(s.childcareStart)))return 0;
@@ -2837,15 +3257,97 @@ function renderRegion(){
  }else if(region==='BY')parts.push({label:'Bayerisches Familiengeld',state:year>=2025?'Nicht anspruchsberechtigt':'Prüfung',message:'Für Kinder ab 01.01.2025 entfallen; das zeitweilig geplante Kinderstartgeld wurde 2025 nicht eingeführt.',url:'https://www.zbfs.bayern.de/familienleistungen/familiengeld/'});
  else if(region==='SN')parts.push({label:'Sächsisches Landeserziehungsgeld',state:'Individuell prüfen',message:'Es existieren besondere Einkommens-, Alters- und Betreuungsbedingungen; ohne geprüften Anspruch kein pauschaler Betrag.',url:'https://revosax.sachsen.de/vorschrift/5132.11'});
  else parts.push({label:'Weitere Landesprogramme',state:'Recherche offen',message:'Für dieses Bundesland ist kein belastbarer vollständiger Landesregelbestand hinterlegt. Nicht als „keine Leistung“ interpretieren.',url:'https://familienportal.de/'});
- parts.push({label:'Bund: Kinderzuschlag / Wohngeld',state:'Individuell prüfen',message:'Kann in bestimmten Einkommenssituationen relevant sein; weder Elterngeld-Ersatz noch pauschal addierbar. Individuelle Bedarfskalkulation erforderlich.',url:'https://www.arbeitsagentur.de/familie-und-kinder/kinderzuschlag-hoehe-dauer-anspruch'});
+ parts.push({label:'Bund: Kinderzuschlag (KiZ-Lotse)',state:'Offiziellen Anspruch prüfen',message:'Abhängig von Einkommen, Kindergeld, Wohnbedarf und Vermögen. Ohne individuelle Feststellung werden 0 Euro hinzuaddiert. KiZ-Lotse der Familienkasse nutzen.',url:'https://www.arbeitsagentur.de/familie-und-kinder/kinderzuschlag'});
+ parts.push({label:'Bund: Wohngeld-Plus-Rechner',state:'Amtliche Orientierung',message:'Amtlichen Wohngeld-Plus-Rechner nutzen; keine automatische Wohngeld-Gutschrift im Elternzeitbudget. Miete, Haushalt, Mietenstufe und Einkommen erforderlich.',url:'https://www.bmwsb.bund.de/DE/wohnen/wohngeld/wohngeldrechner/wohngeldrechner-2025_artikel.html'});
+ parts.push({label:'DRV: Kindererziehungszeiten',state:'Rentenanspruch prüfen',message:'Erziehungszeiten sind getrennt von Elterngeld und kein monatliches Familieneinkommen. Zuordnung und gegebenenfalls gemeinsame Erklärung mit der Rentenversicherung klären.',url:'https://www.deutsche-rentenversicherung.de/DRV/DE/Ueber-uns-und-Presse/Presse/Meldungen/2026/260114-kindererziehungszeiten-vaeter'});
+ if(region==='NRW'&&String(s.city||'').toLowerCase().includes('köln'))parts.push({label:'Köln: LITTLE BIRD Vormerkung',state:'Unverbindliche Warteliste',message:'Eine Anfrage ist keine Platzzusage. Frühzeitig vormerken und Eingewöhnung sowie tatsächlichen Start getrennt vom Leistungsende planen.',url:'https://www.stadt-koeln.de/service/produkte/00386/index.html'});
  const confirmed=0;
  $('regionResults').innerHTML=parts.map(p=>`<div class="status-line"><div><div class="status-title">${esc(p.label)} · <span style="color:var(--teal)">${esc(p.state)}</span></div><div class="status-sub">${esc(p.message)}</div><a style="font-size:11px" target="_blank" rel="noopener noreferrer" href="${p.url}">Amtliche Quelle ↗</a></div></div>`).join('')+
  `<div class="note ${confirmed?'':'warn'}" style="margin-top:10px">Mangels geprüfter Anspruchsgrundlage berücksichtigt: <strong>${euro(confirmed)}</strong> einmalig in LM ${int(s.grantMonth,1,N)} (manuelle Angabe). Kita-Kosten ab LM ${s.childcareStart||'–'}: ${euro(clampNum(s.childcareMonthly))} je Monat.</div>`;
+
+ const preview=$('v313ColognePreview');
+ const isCologne=region==='NRW'&&String(s.city||'').toLowerCase().includes('köln');
+ const lm=Number(s.childcareStart)||0;
+ preview.hidden=!(isCologne&&s.childcareMode==='cologne2025'&&lm>0&&lm<=N);
+ if(!preview.hidden){
+  const startAmount=cologneFee2025(lm),afterTwo=cologneFee2025(25);
+  preview.innerHTML='<strong>Historische Tarif-Orientierung – NICHT ins Budget übernommen:</strong> '+
+    'Köln, '+esc(s.childcareHours)+' Wochenstunden, kommunale Bemessung '+euro(Number(s.childcareIncome)||0)+'. '+
+    'Beitragstabelle ab 01.08.2025 inklusive eigener Essensgeldannahme: beim Start (LM '+lm+') '+
+    euro(startAmount)+', ab LM 25 '+euro(afterTwo)+'. '+
+    'Es gelten weiterhin eure <strong>manuell eingegebenen Kita-Kosten</strong>. '+
+    'Geschwisterbeiträge, Freibeträge und künftige Satzungen müssen individuell geprüft werden. '+
+    'Für 2027/2028 ist dieser Betrag keine garantierte Beitragshöhe. '+
+    '<a href="https://www.stadt-koeln.de/service/produkte/00405/index.html" target="_blank" rel="noopener noreferrer">Stadt Köln: Tarifquelle ↗</a>';
+ }
+
 }
 function familyBudget(calc,count=N){return FamilyBudget.projectFamilyBudget({rows:calc.rows.slice(0,count),expenses:s.expenses,minimum:s.goalMinIncome,assumptions:{wagePercent:s.riskPercent,fatherWagePercent:s.riskFatherPercent,motherWagePercent:s.riskMotherPercent,elterngeldPercent:s.riskEgPercent,costPercent:s.riskCostPercent}});}
 function stressCalculation(calc,scenario){const rows=scenario.months.map((m,i)=>{const r=calc.rows[i],ratio=r.totalEg>0?m.elterngeld/r.totalEg:0;return {...r,fi:m.fatherWage,mi:m.motherWage+m.maternityBenefits,maternityBenefits:m.maternityBenefits,fg:r.fg*ratio,mg:r.mg*ratio,kind:m.kindergeld,grant:m.confirmedAdditionalBenefits,childcare:m.childcare,totalWage:m.wages+m.maternityBenefits,totalEg:m.elterngeld,income:m.income,cashAfter:m.available,deficit:m.available};});const result={...calc,rows,stressScenario:scenario.id};result.sum=(n,key)=>rows.slice(0,n).reduce((sum,r)=>sum+(Number(r[key])||0),0);result.netLow=n=>Math.min(...rows.slice(0,n).map(r=>r.cashAfter));result.low=n=>Math.min(...rows.slice(0,n).map(r=>r.income));return result;}
 function riskScenarios(schedule=s.schedule){const calc=evaluate(schedule),budget=familyBudget(calc);return budget.scenarios.map((q,i)=>({id:['down','base','up'][i],name:q.label,desc:i===1?'Eure eingegebenen Einkommen und Kosten unverändert':`Einkommensband Vater ${budget.assumptions.fatherWagePercent} %, Mutter ${budget.assumptions.motherWagePercent} %; Leistungsbetrag ${budget.assumptions.elterngeldPercent} %, Kosten ${budget.assumptions.costPercent} %. Reiner Stresstest.`,calc:stressCalculation(calc,q)}));}
 
+let v313InsuranceMode='unknown',v313InsuranceIncluded='unknown';
+let v314InsuranceExtra='',v314TaxExtra='';
+function renderFinanceGuidance(){
+ const box=$('v313FinanceResults');if(!box)return;
+ try{
+  const report=FinanceGuidance.buildFinanceGuidance({
+   insuranceMode:v313InsuranceMode,insuranceIncluded:v313InsuranceIncluded,
+   hasHouseholdExpenses:s.expenses!==''
+  });
+  const caution=report.warnings.length?'<div class="note warn">'+report.warnings.map(esc).join(' ')+'</div>':'';
+  box.innerHTML=caution+report.cards.map(card=>
+   '<div class="status-line"><div><strong>'+esc(card.title)+'</strong><p class="status-sub">'+
+   esc(card.message)+'</p><a href="'+esc(card.source.url)+'" target="_blank" rel="noopener noreferrer">'+
+   esc(card.source.label)+' ↗</a><p class="input-caption">Amtliche Quelle kontrolliert: '+esc(card.source.verifiedAt)+
+   '. Kein automatischer Beitrags- oder Steuerbetrag.</p></div></div>').join('');
+ }catch(error){box.innerHTML='<div class="note danger">'+esc(error.message)+'</div>';}
+}
+function renderManualCostImpact(){
+ const box=$('v314CostResult');if(!box)return;
+ if(v314InsuranceExtra===''&&v314TaxExtra===''){
+  box.innerHTML='<p class="input-caption">Noch keine zusätzlichen Beiträge oder Rückstellungen angenommen. Keine zusätzlichen Kosten gebucht.</p>';
+  return;
+ }
+ if(s.expenses===''){
+  box.innerHTML='<div class="note warn">Haushaltsausgaben sind unbekannt. Bitte zuerst eure Monatskosten eingeben, bevor ein zusätzlicher Rücklagenbedarf bewertet wird.</div>';
+  return;
+ }
+ try{
+  const raw=id=>id===''?0:Number(id);
+  const r=ManualCostImpact.compareManualCostBuffer({
+   rows:current.rows.slice(0,s.horizon),expenses:s.expenses,minimum:s.goalMinIncome,
+   assumptions:{wagePercent:s.riskPercent,fatherWagePercent:s.riskFatherPercent,motherWagePercent:s.riskMotherPercent,
+    elterngeldPercent:s.riskEgPercent,costPercent:s.riskCostPercent},
+   insurancePerMonth:raw(v314InsuranceExtra),taxReservePerMonth:raw(v314TaxExtra),
+   insuranceAlreadyIncluded:v313InsuranceIncluded==='yes'
+  });
+  const possibleDouble=v313InsuranceIncluded==='unknown'&&r.insurancePerMonth>0?
+   '<div class="note warn">Unbekannt, ob Versicherungsbeiträge schon in den Haushaltskosten stecken. Bitte Dopplung ausschließen.</div>':'';
+  box.innerHTML=possibleDouble+'<p class="detail">Zusätzlich selbst angesetzt: Versicherung '+euro(r.insurancePerMonth)+
+   ' und Steuer-Rückstellung '+euro(r.taxReservePerMonth)+' monatlich. Keine Steuer- oder Beitragsberechnung.</p>'+
+   '<div class="h-scroll" tabindex="0" role="region" aria-label="Rücklagenvergleich unter eigenen Kostenannahmen"><table class="plan-budget-table" style="width:100%"><thead><tr><th scope="col">Szenario</th><th scope="col">Bisherige Rücklage</th><th scope="col">Mit Annahme</th><th scope="col">Unterschied</th></tr></thead><tbody>'+
+   r.results.map(x=>'<tr><th scope="row">'+esc(x.label)+'</th><td>'+euro(x.normalReserve)+'</td><td>'+euro(x.bufferReserve)+'</td><td>'+euro(x.additionalReserve)+'</td></tr>').join('')+
+   '</tbody></table></div><p class="input-caption">'+esc(r.disclaimer)+'</p>';
+ }catch(error){box.innerHTML='<div class="note danger" role="alert">'+esc(error.message)+'</div>';}
+}
+function resetFinanceGuidance(){
+ v313InsuranceMode='unknown';v313InsuranceIncluded='unknown';
+ v314InsuranceExtra='';v314TaxExtra='';
+ if($('v314InsuranceExtra'))$('v314InsuranceExtra').value='';
+ if($('v314TaxExtra'))$('v314TaxExtra').value='';
+ if($('v313InsuranceType'))$('v313InsuranceType').value='unknown';
+ if($('v313InsuranceIncluded'))$('v313InsuranceIncluded').value='unknown';
+}
+function listenFinanceGuidance(){
+ $('v313InsuranceType').addEventListener('change',e=>{v313InsuranceMode=e.target.value;renderFinanceGuidance();});
+ $('v313InsuranceIncluded').addEventListener('change',e=>{v313InsuranceIncluded=e.target.value;renderFinanceGuidance();renderManualCostImpact();});
+ for(const [id,key]of [['v314InsuranceExtra','insurance'],['v314TaxExtra','tax']])$(id).addEventListener('input',e=>{
+  if(key==='insurance')v314InsuranceExtra=e.target.value;
+  else v314TaxExtra=e.target.value;
+  renderManualCostImpact();
+ });
+}
 function renderRisk(){
  setTxt('riskValue',s.riskPercent+' %');setTxt('riskEgValue',s.riskEgPercent+' %');setTxt('riskCostValue',s.riskCostPercent+' %');
  if(s.expenses===''){
@@ -2895,7 +3397,7 @@ function renderAll(){
  if(goalSearchJob&&goalSearchJob.fingerprint!==goalInputsFingerprint())cancelGoalSearch('Eingaben geändert – Suche beendet. Bitte neu starten.');
  current=evaluate(s.schedule);renderInputs();renderHeader();renderModels();renderBuilder();renderTimeline();renderChart();renderDetail();renderCompare();renderPlus();renderChecks();
  renderIncomeGuide();
- renderMonthHourEditors();renderRegion();renderRuleLedger();renderRisk();renderGoalResult();renderTimeAxes();renderApplicationGuide();renderPlanningKnowledge();renderParentLabels();updateNav();
+ renderMonthHourEditors();renderRegion();renderRuleLedger();renderRisk();renderFinanceGuidance();renderManualCostImpact();renderGoalResult();renderTimeAxes();renderApplicationGuide();renderPlanningKnowledge();renderParentLabels();updateNav();
 }
 function planningKnowledgeForState(){
  const partTime=s.schedule.some(row=>['R','T','Q','K'].includes(row.f)||['R','T','Q','K'].includes(row.m));
@@ -2911,11 +3413,100 @@ function renderPlanningKnowledge(){
   $('planningKnowledgeCoverage').textContent=(info.warnings||[]).join(' ');
  }catch(error){output.textContent='Bitte zuerst ein gültiges Geburtsdatum angeben. Weitere Orientierung findet ihr auf der Familienstart-Seite.';$('planningKnowledgeCount').textContent='';$('planningKnowledgeCoverage').textContent='';}
 }
+function applicationGuideForState(){
+ const axes=TimeAxes.buildTimeAxes({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,schedule:s.schedule,leaveOverrides:s.leaveOverrides});
+ return ApplicationGuide.buildApplicationGuide({birthDate:s.date,expectedBirthDate:s.expectedDueDate||s.date,region:s.region,city:s.city,leavePeriods:axes.leavePeriods,childcareStartLm:Number(s.childcareStart)||0,legalEvents:LEGAL_EVENTS});
+}
+function downloadApplicationIcs(){
+ try{
+  const guide=applicationGuideForState();
+  const result=CalendarExport.calendarTaskExport(guide.tasks,{generatedAt:new Date().toISOString()});
+  if(result.included===0){showToast('Keine datierten Fristaufgaben zum Export vorhanden.');return;}
+  download(result.content,result.name,result.mime);
+  showToast(result.included+' unverbindliche Fristaufgaben als Kalenderdatei heruntergeladen.');
+ }catch(error){showToast('Kalenderexport nicht möglich: '+error.message);}
+}
 function renderApplicationGuide(){
- try{const axes=TimeAxes.buildTimeAxes({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,schedule:s.schedule,leaveOverrides:s.leaveOverrides});const guide=ApplicationGuide.buildApplicationGuide({birthDate:s.date,expectedBirthDate:s.expectedDueDate||s.date,region:s.region,city:s.city,leavePeriods:axes.leavePeriods,childcareStartLm:Number(s.childcareStart)||0,legalEvents:LEGAL_EVENTS});
+ try{const guide=applicationGuideForState();
  $('applicationChecklist').innerHTML='<div class="note">Quellen geprüft '+esc(guide.verifiedAt)+' · '+esc(guide.authority?.name||'Zuständigkeit vor Ort prüfen')+'</div>'+guide.tasks.map(t=>'<div class="card" style="margin-top:12px"><h3>'+esc(t.title)+'</h3><p>'+esc(t.dueDate?TimeAxes.formatDateDE(t.dueDate):'Nach der Geburt')+'</p><p class="footnote">'+esc(t.description)+'</p><ul>'+t.documents.map(d=>'<li>'+esc(d)+'</li>').join('')+'</ul><a href="'+esc(t.source.url)+'" target="_blank" rel="noopener noreferrer">'+esc(t.source.label)+'</a></div>').join('')+'<p class="footnote">Elterngeld-Netto: Für § 2c BEEG gilt der Arbeitnehmer-Pauschbetrag vom '+esc(TimeAxes.formatDateDE(guide.elterngeldEmployeeAllowanceReferenceDay))+' (nicht automatisch ein später vorgeschlagener Wert). Brutto-zu-Netto-Rechnung bleibt individuell zu prüfen.</p>'+'<p class="footnote">'+esc(guide.warnings.join(' '))+'</p>';
  }catch(e){$('applicationChecklist').textContent='Checkliste: Geburtsdatum und Abschnitte prüfen.';}
 }
+function renderRecordedCashflow(calendarCashflow){
+ const output=$('bankSummary');if(!output)return;
+ try{
+  const reserve=recordedOpeningReserve===''?null:Number(recordedOpeningReserve);
+  if(recordedOpeningReserve!==''&&!Number.isFinite(reserve))throw new RangeError('Bitte eine gültige Anfangsrücklage in Euro eintragen.');
+  const result=RecordedLiquidity.summarizeRecordedLiquidity({calendarCashflow,openingReserve:reserve});
+  if(!result.months.length){
+   output.innerHTML='<p class="footnote">Keine tatsächlichen Zahlungseingänge oder Ausgaben erfasst. Ein modellierter Leistungsanspruch ersetzt diese Daten nicht.</p>';return;
+  }
+  const rows=result.months.map(m=>'<tr><th scope="row">'+esc(m.calendarMonth)+'</th><td>'+
+   (m.hasRecords?euro(m.netRecordedTransfers):'Keine Buchungen erfasst')+'</td><td>'+
+   (m.illustrativeBalance===null?'Nicht berechnet':euro(m.illustrativeBalance))+'</td></tr>').join('');
+  const reserveText=result.openingReserveKnown?
+   'Erfasste Buchungen plus ausdrücklich angenommene Anfangsrücklage ergeben rechnerisch '+euro(result.endIllustrativeReserve)+'. '+
+    (result.firstNegativeIllustrativeMonth?'Der Rechensaldo ist ab '+esc(result.firstNegativeIllustrativeMonth)+' zeitweise negativ. ':'')+
+    'Das ist keine Kontostands- oder Liquiditätsprognose.':
+   'Ohne ausdrücklich eingegebene Anfangsrücklage wird kein Saldo oder Fehlbetrag behauptet.';
+  output.innerHTML='<p class="footnote"><strong>Nur tatsächlich erfasste Bankbuchungen:</strong> '+
+   'Sie sind getrennt vom modellierten Leistungsanspruch; nicht erfasste Zahlungen und Ausgaben können fehlen.</p>'+
+   '<div class="h-scroll" tabindex="0" role="region" aria-label="Erfasste Kalendermonatsbuchungen">'+
+   '<table class="plan-budget-table" style="width:100%"><thead><tr><th scope="col">Kalendermonat</th><th scope="col">Nur erfasste Buchungen</th><th scope="col">Illustrierte Rücklage</th></tr></thead><tbody>'+rows+
+   '</tbody></table></div><p class="footnote">'+reserveText+'</p>'+
+   '<p class="footnote">Fehlende Monate bedeuten lediglich „keine Einträge“, nicht „0 € auf dem Konto“. Ein Leistungsanspruch wird nicht automatisch als Eingang eingebucht.</p>';
+ }catch(error){output.innerHTML='<p class="note danger" role="alert">'+esc(error.message)+'</p>';}
+}
+let recordedOpeningReserve=''; // Nur in dieser Sitzung, nicht exportiert oder lokal gespeichert.
+let v313Payments=[],v313Seq=0,v313DelayDays=0,v313Opening='';
+function resetV313PaymentAssumptions(){
+ v313Payments=[];v313Seq=0;v313DelayDays=0;v313Opening='';
+ for(const id of ['v313PaymentDate','v313PaymentAmount','v313Opening']){
+  if($(id))$(id).value='';
+ }
+ if($('v313Delay'))$('v313Delay').value='0';
+ if($('v313PaymentError'))$('v313PaymentError').textContent='';
+}
+function renderExpectedPayments(){
+ const output=$('v313PaymentResults');if(!output)return;
+ const money=value=>new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
+ try {
+  const report=ExpectedPayments.compareExpectedPayments({
+   payments:v313Payments,delayDays:v313DelayDays,
+   openingReserve:v313Opening===''?null:Number(v313Opening)
+  });
+  if(!report.paymentCount){
+   output.innerHTML='<p class="footnote">Noch keine eigenen Zahlungserwartungen eingetragen. '+
+    'Aus dem Elterngeld-Monatsplan werden hier ausdrücklich keine Geldeingangstage abgeleitet.</p>';
+   return;
+  }
+  const rows=report.delayed.events.map(event=>'<tr><td>'+esc(event.originalDate)+'</td><td>'+
+   esc(event.plannedDate)+'</td><td>'+esc(event.direction==='incoming'?'Erwartete Einnahme':'Erwartete Ausgabe')+
+   '</td><td>'+money(event.amount)+'</td><td><button class="navbtn alt" type="button" '+
+   'data-v313-remove="'+esc(event.id)+'" aria-label="Annahme löschen">Entfernen</button></td></tr>').join('');
+  const original=report.regular.requiredBuffer,delayed=report.delayed.requiredBuffer;
+  const balance=report.delayed.assumedOpeningReserve===null?
+   'Keine Anfangsrücklage angegeben: Eine tatsächliche Konto-Unterdeckung wird nicht behauptet.':
+   'Mit der angenommenen Anfangsrücklage '+money(report.delayed.assumedOpeningReserve)+
+    ' läge der niedrigste rechnerische Zwischensaldo bei '+money(report.delayed.minimumIllustrativeBalance)+
+    '. Dies ist kein tatsächlicher Kontostand.';
+  output.innerHTML='<p><strong>Nur für die eingegebenen Zahlungen:</strong> '+
+   'benötigte theoretische Zwischenfinanzierung bei pünktlichen Eingängen '+money(original)+
+   ', bei '+report.delayDays+' Tagen angenommener Verzögerung '+money(delayed)+
+   ' (Veränderung '+money(report.additionalBuffer)+').</p>'+
+   '<p class="footnote">Tagesgenaue Reihenfolge; nicht eingetragene Rechnungen und Gehälter fehlen. '+
+   'Eingänge und Ausgaben am gleichen Tag werden vorsichtshalber als Ausgabe zuerst gerechnet.</p>'+
+   '<p>'+esc(balance)+'</p>'+
+   '<div class="h-scroll" tabindex="0" role="region" aria-label="Nur manuell angenommene Zahlungstermine">'+
+   '<table class="plan-budget-table" style="width:100%"><thead><tr><th scope="col">Geplanter Tag</th>'+
+   '<th scope="col">Im Szenario</th><th scope="col">Richtung</th><th scope="col">Betrag</th>'+
+   '<th scope="col">Aktion</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+   '<p class="footnote">Keine dieser Annahmen ist ein bestätigter Bankeingang, gesetzlicher Anspruch oder versprochener Auszahlungstermin. '+
+   'Dieser Vergleich ist separat vom gespeicherten Familienplan und vom Kassenbuch.</p>';
+ }catch(error){
+  output.innerHTML='<div class="note danger" role="alert">'+esc(error.message)+'</div>';
+ }
+}
+
 function renderTimeAxes(){
  let result;
  try{result=TimeAxes.buildTimeAxes({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,postnatalDays:Number(s.postnatalDays)||56,schedule:s.schedule,financialRows:current.rows,leaveOverrides:s.leaveOverrides,employmentOverrides:s.employmentOverrides,benefitOverrides:s.benefitOverrides,bankLedger:s.bankLedger,weeklyHours:{father:s.hoursFather,mother:s.hoursMother}})}
@@ -2924,7 +3515,8 @@ function renderTimeAxes(){
  for(const [key,who] of [['Father','father'],['Mother','mother']]){const periods=s.leaveOverrides?.[who]||[];$('axes'+key+'Start').value=periods[0]?.startDate||'';$('axes'+key+'End').value=periods[0]?.endDate||'';}
  renderExtraLeavePeriods();
  $('axisMonth').value=s.month;for(const [key,who]of [['Father','father'],['Mother','mother']]){const row=result.timeline[s.month-1].parents[who];$('axisHours'+key).value=row.employment.weeklyHours;$('axisBenefit'+key).value=row.benefit.type;}
- $('bankSummary').innerHTML=result.calendarCashflow.length?result.calendarCashflow.map(r=>'<p>'+esc(r.calendarMonth)+' · tatsächlich gebucht: '+euro(r.netRecordedTransfers)+'</p>').join(''):'<p class="footnote">Keine tatsächlichen Zahlungseingänge erfasst.</p>';
+ renderRecordedCashflow(result.calendarCashflow);
+ renderExpectedPayments();
  $('axesMaternity').textContent='Schutzfrist vor Geburt ab '+TimeAxes.formatDateDE(result.maternity.prenatal.startDate)+'; nach Geburt '+TimeAxes.formatDateDE(result.maternity.postnatal.startDate)+' bis '+TimeAxes.formatDateDE(result.maternity.postnatal.endDate)+' ('+result.maternity.postnatalDaysWithEarlyExtension+' Tage nach Geburt, zuzüglich Geburtstag).';
  $('axesWarnings').innerHTML=result.notices.length?result.notices.map(n=>'<div class="note warn" style="margin:8px 0">'+esc(n.message)+'</div>').join(''):'<div class="note">Keine zusätzlichen Zeitachsen-Konflikte im dargestellten Standardfall erkannt. Keine rechtliche Zusage.</div>';
  $('axesDeadlines').innerHTML='<div class="card"><h3>Elternzeit anmelden – rechnerische Sieben-Wochen-Orientierung</h3>'+ (result.deadlines.length?result.deadlines.map(d=>'<div class="status-line"><span>'+(d.parent==='father'?'Vater':'Mutter')+' · Beginn '+esc(TimeAxes.formatDateDE(d.startDate))+(d.note.includes('abgeleiteter')?' (abgeleitet)':' (manuell)')+'</span><strong>spätestens '+esc(TimeAxes.formatDateDE(d.sevenWeekNoticeBy))+'</strong></div>').join(''):'<p class="input-caption">Keine Elternzeitabschnitte eingetragen.</p>')+'<p class="input-caption">Frist abhängig von Alter des Kindes, Anmeldezeitpunkt und weiteren Umständen; hier nur Standardfall unter drei Jahren. Kein Versand und keine Arbeitgebermeldung.</p></div>';
@@ -2934,6 +3526,35 @@ function renderTimeAxes(){
 function periodEditor(who,n,start,end){const id=who+'-period-'+n;return '<div class="period-row" data-parent="'+who+'"><div class="form-group"><label for="'+id+'-start">'+(who==='father'?'Vater':'Mutter')+' Abschnitt '+n+' Beginn</label><input id="'+id+'-start" data-start type="date" value="'+esc(start)+'"></div><div class="form-group"><label for="'+id+'-end">Ende Abschnitt '+n+'</label><input id="'+id+'-end" data-end type="date" value="'+esc(end)+'"></div></div>';}
 function renderExtraLeavePeriods(){$('extraLeavePeriods').innerHTML=['father','mother'].flatMap(who=>(s.leaveOverrides?.[who]||[]).slice(1).map((p,i)=>periodEditor(who,i+2,p.startDate,p.endDate))).join('');}
 function listenTimeAxes(){
+ $('v313PaymentAdd').addEventListener('click',()=>{
+  const error=$('v313PaymentError');error.textContent='';
+  const raw=$('v313PaymentAmount').value;
+  try{
+   if(raw==='')throw new RangeError('Bitte einen angenommenen Zahlungsbetrag eintragen.');
+   const payment={id:'assumption-'+(++v313Seq),date:$('v313PaymentDate').value,
+    amount:Number(raw),direction:$('v313PaymentDirection').value,
+    category:$('v313PaymentCategory').value};
+   ExpectedPayments.validatePayments([...v313Payments,payment]);
+   v313Payments.push(payment);
+   $('v313PaymentAmount').value='';
+   renderExpectedPayments();
+  }catch(e){error.textContent=e.message;}
+ });
+ $('v313PaymentClear').addEventListener('click',()=>{resetV313PaymentAssumptions();renderExpectedPayments();});
+ $('v313Delay').addEventListener('change',e=>{v313DelayDays=Number(e.target.value);renderExpectedPayments();});
+ $('v313Opening').addEventListener('input',e=>{v313Opening=e.target.value;renderExpectedPayments();});
+ $('v313PaymentResults').addEventListener('click',e=>{
+  const button=e.target.closest('[data-v313-remove]');if(!button)return;
+  v313Payments=v313Payments.filter(p=>p.id!==button.dataset.v313Remove);
+  renderExpectedPayments();
+ });
+
+ $('recordedOpeningReserve')?.addEventListener('input',e=>{
+  recordedOpeningReserve=e.target.value;
+  try{renderRecordedCashflow(TimeAxes.calendarCashflow(TimeAxes.validateBankLedger(s.bankLedger||[])));}
+  catch(error){$('bankSummary').innerHTML='<p class="note danger" role="alert">'+esc(error.message)+'</p>';}
+ });
+
  $('axisMonth').addEventListener('change',e=>{s.month=int(e.target.value,1,N);renderAll()});
  $('axesIndependentApply').addEventListener('click',()=>{try{
   const employment=clone(s.employmentOverrides||{}),benefits=clone(s.benefitOverrides||{});
@@ -2975,7 +3596,14 @@ function renderGoalResult(){
  const filters={coverage:'Betreuungslücken',overlap:'Gemeinsame Auszeit überschritten',rules:'Regeln oder Berechnungsgrenzen',distribution:'Gewünschte Aufteilung nicht erreicht',budget:'Mindestbudget unterschritten'};
  const rejected=Object.entries(goalStats.rejected||{}).map(([k,v])=>esc(filters[k])+': '+v.toLocaleString('de-DE')).join(' · ');
  const intro=forecastNotice+'<div class="note '+(stale?'warn':'')+'"><strong>'+(stale?'Ergebnisse sind nach Änderungen veraltet. Bitte neu suchen.':goalStats.provisional?'Unverbindliche 2027-Szenariosuche abgeschlossen.':'Automatische Suche abgeschlossen.')+'</strong> '+goalStats.seen.toLocaleString('de-DE')+' unterschiedliche Muster geprüft, '+goalStats.valid.toLocaleString('de-DE')+' '+(goalStats.provisional?'technisch passende, nicht rechtsgeprüfte':'rechtlich und zur Betreuung plausible')+' Vorlagen. '+goalCandidates.length+' materiell unterschiedliche Vorschläge dargestellt.</div>';
- const scope='<p class="footnote">'+esc(GoalRanking.SEARCH_LIMITATIONS.join(' '))+' Mindestbudget im gesamten Vergleichszeitraum; bei Robustheit im vorsichtigen Szenario.</p>'+(rejected?'<details class="note"><summary>Warum wurden Vorlagen ausgeschlossen?</summary><p>'+rejected+'</p><p>Die Kategorien nennen den ersten nicht bestandenen Filter. Mehrere Konflikte je Plan sind möglich. Rohvarianten: '+goalStats.generated.toLocaleString('de-DE')+'; Dubletten: '+(goalStats.generated-goalStats.seen).toLocaleString('de-DE')+'. Kein Nachweis einer vollständigen Suche.</p></details>':'');
+ const searchAudit=SearchCoverage.summarizeSearchCoverage(goalStats);
+ const scope='<p class="footnote">'+esc(GoalRanking.SEARCH_LIMITATIONS.join(' '))+
+   ' Mindestbudget im gesamten Vergleichszeitraum; bei Robustheit im vorsichtigen Szenario. '+
+   'Suchfenster: '+searchAudit.generated.toLocaleString('de-DE')+' erzeugte, '+
+   searchAudit.seen.toLocaleString('de-DE')+' unterschiedliche, '+
+   searchAudit.excluded.toLocaleString('de-DE')+' aus fachlichen Gründen ausgeschlossene und '+
+   searchAudit.valid.toLocaleString('de-DE')+' technisch passende Varianten. '+
+   esc(searchAudit.caution)+'</p>'+(rejected?'<details class="note"><summary>Warum wurden Vorlagen ausgeschlossen?</summary><p>'+rejected+'</p><p>Die Kategorien nennen den ersten nicht bestandenen Filter. Mehrere Konflikte je Plan sind möglich. Rohvarianten: '+goalStats.generated.toLocaleString('de-DE')+'; Dubletten: '+(goalStats.generated-goalStats.seen).toLocaleString('de-DE')+'. Kein Nachweis einer vollständigen Suche.</p></details>':'');
  if(goalCandidates.length&&s.expenses===''){
   const proposals=goalCandidates.map((o,i)=>'<article class="plan-option card"><h3>Plan '+(i+1)+' – nur Zeitaufteilung</h3><p>Volle Monate ohne Erwerbsarbeit (einschließlich Mutterschutz): Elternteil 1: '+o.calc.fFree+' · Elternteil 2: '+o.calc.mFree+'.</p><p class="input-caption">Finanzielle Rangfolge und notwendige Rücklagen sind bei unbekannten Haushaltsausgaben nicht zuverlässig.</p><button class="navbtn" data-accept="'+i+'" type="button" '+(stale?'disabled title="Eingaben geändert – bitte neu suchen"':'')+'>Monatsplan übernehmen</button></article>').join('');
   $('goalResult').innerHTML=intro+scope+'<div class="note warn"><strong>Kein belastbarer Budgetvergleich:</strong> Haushaltsausgaben fehlen. Die angezeigte Reihenfolge beruht nur auf einem unvollständigen Modell und ist keine finanzielle Empfehlung. Erst Ausgaben eingeben und neu suchen, bevor ihr Budget oder Rücklagen bewertet.</div><div class="plan-options">'+proposals+'</div>';
@@ -2986,8 +3614,15 @@ function renderGoalResult(){
  const cards=goalCandidates.map((o,i)=>{
   const m=comparison.plans[i],a=m.realistic,d=m.conservative;
   const differences=(o.diversity?.comparedWith?.[0]?.differences||[]).map(v=>esc(v.label)+': '+(v.delta>0?'+':'')+fmt1(v.delta)+' '+esc(v.unit)).join(' · ');
+  const tradeoff=o.tradeoff?
+    '<p class="detail" data-goal-tradeoff="'+(o.tradeoff.isNondominated?'frontier':'dominated')+'"><strong>Zielkonflikt zwischen Geld und Auszeit:</strong> '+
+    (o.tradeoff.isNondominated?
+     'Unter den geprüften passenden Monatsmustern gibt es keines mit gleichzeitig mindestens gleich hohem Gesamtbudget und gleich vielen vollen Elternmonaten, davon einem höheren Wert.':
+     'Ein anderes geprüftes Monatsmuster bietet mindestens dasselbe Gesamtbudget und mindestens dieselbe volle Elternzeit-Summe, davon mindestens einen Wert höher.')+
+    ' Bezogen auf '+o.tradeoff.comparedCandidates.toLocaleString('de-DE')+
+    ' geeignete Suchmuster; volle Monate beider Eltern summiert (Überlappungen doppelt). Weder Betreuungsstunden noch ein vollständiges Optimum sind damit bestätigt.</p>':'';
   const delta=i?'<p class="note">Gegenüber Vorschlag 1: '+signed(m.delta.realistic.totalAvailable)+' verfügbar; '+signed(m.delta.conservative.requiredReserves)+' Rücklagenbedarf im vorsichtigen Fall (mehr bedeutet höheren Bedarf).</p>':'<p class="input-caption">Referenz für die Differenzen der weiteren Vorschläge; zuerst nach eurem gewählten Ziel geordnet.</p>';
-  return '<article class="plan-option card"><h3>Vorschlag '+(i+1)+' · '+esc(o.title)+'</h3><p>'+esc(o.explanation)+'</p><p class="detail">Volle Monate ohne Erwerbsarbeit: Vater '+m.freeMonths.father+' · Mutter '+m.freeMonths.mother+'. Einschließlich Mutterschutz; keine Betreuungsstunden.</p><table class="plan-budget-table"><caption>Budgetvergleich über '+comparison.horizon+' Lebensmonate nach allen eingetragenen Kosten</caption><thead><tr><th scope="col">Kennzahl</th><th scope="col">Realistisch</th><th scope="col">Vorsichtig</th></tr></thead><tbody><tr><th scope="row">Verfügbar gesamt</th><td>'+euro(a.totalAvailable)+'</td><td>'+euro(d.totalAvailable)+'</td></tr><tr><th scope="row">Niedrigster Monat</th><td>'+euro(a.lowestAvailable)+'</td><td>'+euro(d.lowestAvailable)+'</td></tr><tr><th scope="row">Anfangsrücklage</th><td>'+reserves(a.requiredReserves)+'</td><td>'+reserves(d.requiredReserves)+'</td></tr><tr><th scope="row">Engpass-Lebensmonate</th><td>'+esc(a.bottleneckMonths.join(', ')||'keine')+'</td><td>'+esc(d.bottleneckMonths.join(', ')||'keine')+'</td></tr></tbody></table>'+delta+(differences?'<p class="detail">Erkennbarer Unterschied: '+differences+'</p>':'')+'<button type="button" class="navbtn" data-accept="'+i+'" '+(stale?'disabled':'')+'>Plan übernehmen</button></article>';
+  return '<article class="plan-option card"><h3>Vorschlag '+(i+1)+' · '+esc(o.title)+'</h3><p>'+esc(o.explanation)+'</p><p class="detail">Volle Monate ohne Erwerbsarbeit: Vater '+m.freeMonths.father+' · Mutter '+m.freeMonths.mother+'. Einschließlich Mutterschutz; keine Betreuungsstunden.</p><table class="plan-budget-table"><caption>Budgetvergleich über '+comparison.horizon+' Lebensmonate nach allen eingetragenen Kosten</caption><thead><tr><th scope="col">Kennzahl</th><th scope="col">Realistisch</th><th scope="col">Vorsichtig</th></tr></thead><tbody><tr><th scope="row">Verfügbar gesamt</th><td>'+euro(a.totalAvailable)+'</td><td>'+euro(d.totalAvailable)+'</td></tr><tr><th scope="row">Niedrigster Monat</th><td>'+euro(a.lowestAvailable)+'</td><td>'+euro(d.lowestAvailable)+'</td></tr><tr><th scope="row">Anfangsrücklage</th><td>'+reserves(a.requiredReserves)+'</td><td>'+reserves(d.requiredReserves)+'</td></tr><tr><th scope="row">Engpass-Lebensmonate</th><td>'+esc(a.bottleneckMonths.join(', ')||'keine')+'</td><td>'+esc(d.bottleneckMonths.join(', ')||'keine')+'</td></tr></tbody></table>'+tradeoff+delta+(differences?'<p class="detail">Erkennbarer Unterschied: '+differences+'</p>':'')+'<button type="button" class="navbtn" data-accept="'+i+'" '+(stale?'disabled':'')+'>Plan übernehmen</button></article>';
  }).join('');
  $('goalResult').innerHTML=intro+scope+'<p class="note warn">Schätzungen des Leistungsanspruchs, keine Bank-Zahlungsprognose. Die taggenaue Mutterschaftsanrechnung bleibt fachlich ungeklärt. Rücklagen sind auf volle Euro aufgerundet.</p><p class="footnote">Stressannahmen: Erwerbsnetto Vater '+comparison.assumptions.fatherWagePercent+' %, Mutter '+comparison.assumptions.motherWagePercent+' %; Leistung '+comparison.assumptions.elterngeldPercent+' %, Kosten '+comparison.assumptions.costPercent+' %. Keine Wahrscheinlichkeiten. Szenarioannahmen gelten für alle Vorschläge gleich.</p>'+(comparison.comparisonNote?'<div class="note">'+esc(comparison.comparisonNote)+'</div>':'')+'<div class="plan-options">'+cards+'</div>';
  $('goalResult').querySelectorAll('[data-accept]').forEach(b=>b.addEventListener('click',()=>{
@@ -3043,13 +3678,18 @@ function* goalSearchIterator(){
     for(const fMode of ['BFirst','PFirst']){
      for(const bCount of Array.from({length:Math.min(12,fatherLen)+1},(_,i)=>i)){
       for(const pCount of Array.from({length:Math.min(24,fatherLen-bCount)+1},(_,i)=>i)){
-       for(const ptAt of [99,Number(s.childcareStart)||99].filter((x,i,a)=>a.indexOf(x)===i)){
+       // Eingewöhnung: im Teilzeit-Ziel auch Rückkehr einen Lebensmonat nach Kita-Start prüfen.
+       const careStart=Number(s.childcareStart)||0;
+       const partStarts=[99,careStart||99,
+        s.goalCareMode==='partial'&&Number(s.goalPart)===1&&careStart>0&&careStart<N?careStart+1:99]
+        .filter((x,i,a)=>a.indexOf(x)===i);
+       for(const ptAt of partStarts){
         for(const bonusMonths of [0,2,3,4]){
          if(bonusMonths&&Number(s.goalPart)!==1)continue;
          const original=generatorPlan(motherExtra,fStart,ptAt,fMode,bCount,pCount,mMode,bonusMonths);
          const variants=s.goalRoles==='mother'?[['mother',CandidatePatterns.mirrorCarePlan(original)]]:s.goalRoles==='both'?[['father',original],['mother',CandidatePatterns.mirrorCarePlan(original)]]:[['father',original]];
          for(const [careLead,a]of variants){
-          generated++;if(generated%64===0)yield {generated,seen:evaluated,valid:eligible,rejected:{...rejected}};
+          generated++;if(generated%512===0)yield {generated,seen:evaluated,valid:eligible,rejected:{...rejected}};
           const key=scheduleFingerprint(a);if(seen.has(key))continue;seen.add(key);evaluated++;
           if(!isCaredFor(a)){rejected.coverage++;continue;}
           const overlapping=a.filter(r=>offCode(r.f)&&('MS'===r.m||offCode(r.m))).length;
@@ -3117,8 +3757,8 @@ function downloadCsv(){
  const records=current.rows.map(r=>[r.lm,age(r.lm-1),age(r.lm),dateFor(r.lm),r.f,r.m,r.hf,r.hm,Math.round(r.fi),Math.round(r.mi),Math.round(r.fg),Math.round(r.mg),r.kind,r.grant,Math.round(r.childcare),Math.round(r.income),Math.round(r.cashAfter)].join(';'));
  download('\ufeff'+[hdr.join(';'),...records].join('\r\n'),'Elternzeit_Plan_V3_Kindesalter_Kosten.csv','text/csv;charset=utf-8');showToast('CSV mit Alter, Kosten und Einkommen gespeichert');
 }
-function downloadJson(){download(JSON.stringify({fileType:'elternzeit-offline-v3',version:V3_VERSION,legalReviewedAt:V3_ASOF,exportedAt:new Date().toISOString(),data:s},null,2),'Elternzeit_Plan_V3.json','application/json;charset=utf-8');showToast('V3-Plan als JSON exportiert')}
-function importJson(evt){const file=evt.target.files?.[0];if(!file)return;if(file.size>1000000){alert('Importdatei ist größer als 1 MB.');evt.target.value='';return;}const reader=new FileReader();reader.onload=()=>{try{const j=JSON.parse(reader.result),v=j.data||j;const imported=sanitizeImport(v);cancelGoalSearch();deleteLocalData();s=imported;builderActive=false;goalStats=null;QuickStartV38.onImported();renderAll();showToast('Import erfolgreich')}catch(e){alert('Import fehlgeschlagen: '+e.message)}evt.target.value=''};reader.readAsText(file)}
+function downloadJson(){download(JSON.stringify({fileType:'elternzeit-offline-v3',schemaVersion:1,version:V3_VERSION,legalReviewedAt:V3_ASOF,exportedAt:new Date().toISOString(),data:s},null,2),'Elternzeit_Plan_V3.json','application/json;charset=utf-8');showToast('V3-Plan als JSON exportiert')}
+function importJson(evt){const file=evt.target.files?.[0];if(!file)return;if(file.size>1000000){alert('Importdatei ist größer als 1 MB.');evt.target.value='';return;}const reader=new FileReader();reader.onload=()=>{try{const j=JSON.parse(reader.result);if(j.schemaVersion!==undefined&&j.schemaVersion!==1)throw Error('Unbekannte JSON-Schemaversion. Bitte einen kompatiblen Export verwenden.');if(j.fileType!==undefined&&j.fileType!=='elternzeit-offline-v3')throw Error('Falsches Dateiformat.');const v=j.data||j;const imported=sanitizeImport(v);cancelGoalSearch();deleteLocalData();recordedOpeningReserve='';$('recordedOpeningReserve').value='';resetV313PaymentAssumptions();resetFinanceGuidance();s=imported;builderActive=false;goalStats=null;QuickStartV38.onImported();renderAll();showToast('Import erfolgreich')}catch(e){alert('Import fehlgeschlagen: '+e.message)}evt.target.value=''};reader.readAsText(file)}
 
 function listenAdvanced(){
  document.querySelectorAll('[data-extra]').forEach(el=>{
@@ -3137,12 +3777,13 @@ function listenAdvanced(){
    else {const n=Number(raw);if(!Number.isFinite(n)||n<0||n>1e9){showToast('Monatsnetto muss eine nichtnegative Zahl sein');renderMonthHourEditors();return;}row[prop]=n;}
    s.model='custom';renderAll();persist();
  });
+ $('v313DownloadIcs').addEventListener('click',downloadApplicationIcs);
  $('runGoal').addEventListener('click',()=>{runGoalSearchAsync();});
  $('cancelGoalSearch').addEventListener('click',()=>cancelGoalSearch());
 
 }
 
-window.__elternzeitV3={planningKnowledge:planningKnowledgeForState,evaluate,runGoalSearch,runGoalSearchAsync,cancelGoalSearch,goalSearchState:()=>({running:!!goalSearchJob,progress:goalSearchJob?.progress||null}),goalComparison:()=>clone(goalComparison),goalStatistics:()=>clone(goalStats),goalResults:()=>goalCandidates.map(c=>({title:c.title,summary:c.summary,explanation:c.explanation,profile:c.profile,diversity:c.diversity,careLead:c.careLead,motherFree:c.calc.mFree,valid:c.calc.valid,score:c.score,free:c.calc.fFree,forecastPreview:c.calc.forecastPlanningReady===true,errors:c.calc.errors,total:c.calc.sum(Math.max(s.horizon,Number(s.goalCare)),'cashAfter'),schedule:clone(c.schedule)})),riskScenarios,budgetScenarios:()=>familyBudget(current),isCaredFor,matDaysAt,monthKind,ruleVersion:V3_VERSION,ruleCatalog:RULE_CATALOG,cologneFee2025,childcareEstimate,timeAxes:()=>TimeAxes.buildTimeAxes({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,postnatalDays:Number(s.postnatalDays)||56,schedule:s.schedule,financialRows:current.rows,leaveOverrides:s.leaveOverrides,employmentOverrides:s.employmentOverrides,benefitOverrides:s.benefitOverrides,bankLedger:s.bankLedger,weeklyHours:{father:s.hoursFather,mother:s.hoursMother}})};
+window.__elternzeitV3={planningKnowledge:planningKnowledgeForState,evaluate,runGoalSearch,runGoalSearchAsync,cancelGoalSearch,goalSearchState:()=>({running:!!goalSearchJob,progress:goalSearchJob?.progress||null}),goalComparison:()=>clone(goalComparison),goalStatistics:()=>clone(goalStats),goalResults:()=>goalCandidates.map(c=>({title:c.title,summary:c.summary,explanation:c.explanation,profile:c.profile,diversity:c.diversity,tradeoff:c.tradeoff,careLead:c.careLead,motherFree:c.calc.mFree,valid:c.calc.valid,score:c.score,free:c.calc.fFree,forecastPreview:c.calc.forecastPlanningReady===true,errors:c.calc.errors,total:c.calc.sum(Math.max(s.horizon,Number(s.goalCare)),'cashAfter'),schedule:clone(c.schedule)})),riskScenarios,budgetScenarios:()=>familyBudget(current),isCaredFor,matDaysAt,monthKind,ruleVersion:V3_VERSION,ruleCatalog:RULE_CATALOG,cologneFee2025,childcareEstimate,expectedPayments:()=>clone(v313Payments),timeAxes:()=>TimeAxes.buildTimeAxes({birthDate:s.date,expectedDueDate:s.expectedDueDate||s.date,postnatalDays:Number(s.postnatalDays)||56,schedule:s.schedule,financialRows:current.rows,leaveOverrides:s.leaveOverrides,employmentOverrides:s.employmentOverrides,benefitOverrides:s.benefitOverrides,bankLedger:s.bankLedger,weeklyHours:{father:s.hoursFather,mother:s.hoursMother}})};
 
 const parentTextTemplates=new WeakMap(),parentAttrTemplates=new WeakMap();
 function parentName(who){return (s[who==='father'?'parentNameFather':'parentNameMother']||'').trim()||(who==='father'?'Elternteil 1':'Elternteil 2');}
@@ -3193,6 +3834,7 @@ const QuickStartV38=(()=>{
  let mode='idle',selected='',expert=false;
  let lastEstimated={father:null,mother:null},wizardCompleted=false,formDirty=false;
  let scenarioDelay=2,goalFormDirty=false,goalWizardUsed=false;
+ let scenarioLost='',scenarioExtra='',scenarioFeesWaived=false;
  const costsKnown=()=>s.expenses!==''&&s.expenses!==null&&s.expenses!==undefined&&Number.isFinite(Number(s.expenses));
  const typeLabel=()=>mode==='example'?'Fiktives Beispiel':mode==='restored'?'Gespeicherter Entwurf':'Persönliche Näherung';
  function navRefresh(){
@@ -3286,14 +3928,46 @@ const QuickStartV38=(()=>{
   for(const lm of months){const last=result[result.length-1];if(last&&lm===last[1]+1)last[1]=lm;else result.push([lm,lm]);}
   return result;
  }
+ function careImpactMarkup(){
+  const start=Number(s.childcareStart)||0;
+  if(!start||start>current?.rows?.length)return '<p class="v38-caption">Ohne geplanten Kita-Start im Vergleichshorizont sind keine Verzögerungsbeträge darstellbar.</p>';
+  if(scenarioLost===''&&scenarioExtra===''&&!scenarioFeesWaived)
+   return '<p class="v38-caption">Noch keine eigenen finanziellen Annahmen eingegeben. Eine Kita-Verzögerung verändert das Elterngeld-Netto und die Kita-Gebühren nicht automatisch.</p>';
+  try {
+   const result=CareImpact.projectDelayedCareScenario({
+    rows:current.rows,startLm:start,delayMonths:scenarioDelay,
+    monthlyIncomeReduction:scenarioLost===''?0:Number(scenarioLost),
+    monthlyExtraCare:scenarioExtra===''?0:Number(scenarioExtra),
+    waiveOriginalFees:scenarioFeesWaived,expensesKnown:costsKnown()
+   });
+   const formatDelta=value=>(value>0?'+':'')+eur(value);
+   let summary='<p><strong>Veränderung gegenüber dem unveränderten Plan: '+
+     formatDelta(result.totalChange)+'</strong> für die betroffenen Lebensmonate'+
+     (result.affectedMonths.length?' ('+result.affectedMonths.map(x=>'LM '+x).join(', ')+')':' (keine bei 0 Monaten Verschiebung)')+'.</p>';
+   if(result.baselineBudgetKnown){
+    summary+='<p>Modellbudget dieser Lebensmonate: bisher '+eur(result.comparedBaselineTotal)+
+      ' · mit ausdrücklich angenommenen Änderungen '+eur(result.comparedAlternativeTotal)+'.</p>';
+   }else summary+='<p>Haushaltsausgaben fehlen: Der Unterschied ist modelliert, ein verfügbares Familienbudget ist nicht bestimmbar.</p>';
+   if(result.outsideHorizonMonths)summary+='<p>'+result.outsideHorizonMonths+' Monate der Verschiebung liegen außerhalb des berechneten Zeitraums.</p>';
+   return summary+'<p class="v38-caption">Das ist eine hypothetische Differenz auf Basis eurer Eingaben – kein Zahlungsplan, keine Entgelt-/Elterngeld-Neuberechnung und keine Zusage einer Kita-Gebührenerstattung.</p>';
+  }catch(e){return '<p class="v38-error" role="alert">'+escValue(e.message)+'</p>';}
+ }
  function bridgeMarkup(){
   const start=Number(s.childcareStart)||0,until=Math.min(36,Math.max(1,Number(s.goalCare)||18));
   const choices=Array.from({length:7},(_,n)=>'<option value="'+n+'"'+(scenarioDelay===n?' selected':'')+'>'+n+(n===1?' Lebensmonat':' Lebensmonate')+'</option>').join('');
   const control=start>0&&start<=until?
     '<label class="v311-delay" for="v311KitaDelay">Wenn die Kita später startet …'+
     '<select id="v311KitaDelay" aria-controls="v311BridgeResult">'+choices+'</select></label>':'';
+  const finance=control?'<details class="v312-finance"><summary>Finanzielle Folgen abschätzen (optionale Annahmen)</summary>'+
+    '<p class="v38-caption">Nur für die durch die Kita-Verschiebung betroffenen Lebensmonate. Tragt ein, welche monatlichen Änderungen ihr in diesem Szenario ausdrücklich annehmt. Ein späterer Kita-Start allein ändert keine Geldbeträge.</p>'+
+    '<div class="v312-finance-grid">'+
+    '<label for="v312LostWage">Entfallendes Erwerbsnetto / Monat (€)<input id="v312LostWage" type="number" inputmode="decimal" min="0" max="100000" step="0.01" placeholder="Noch nicht angegeben" value="'+escValue(scenarioLost)+'"></label>'+
+    '<label for="v312ExtraCare">Zusätzliche Überbrückungsbetreuung / Monat (€)<input id="v312ExtraCare" type="number" inputmode="decimal" min="0" max="100000" step="0.01" placeholder="Noch nicht angegeben" value="'+escValue(scenarioExtra)+'"></label>'+
+    '</div><label class="v312-fee-waiver" for="v312WaiveFees"><input type="checkbox" id="v312WaiveFees"'+(scenarioFeesWaived?' checked':'')+'>'+
+    'Die bisher geplanten Kita-Gebühren fallen in diesen Monaten laut eigener Annahme weg</label>'+
+    '<div id="v312ImpactResult" aria-live="polite">'+careImpactMarkup()+'</div></details>':'';
   return '<section class="v311-bridge" aria-label="Übergang von Elterngeld zu Betreuung und Beruf"><h4>Betreuung und finanzieller Übergang</h4>'+
-    control+'<div id="v311BridgeResult" aria-live="polite">'+bridgeResultMarkup()+'</div>'+
+    control+'<div id="v311BridgeResult" aria-live="polite">'+bridgeResultMarkup()+'</div>'+finance+
     '<button class="navbtn alt" type="button" data-v38-goto="slide-region">Kita-Annahmen bearbeiten</button></section>';
  }
  function syncGoalForm(){
@@ -3442,7 +4116,7 @@ const QuickStartV38=(()=>{
   if(!node('v38QuickStart'))return;
   navRefresh();costRefresh();
   if(!goalFormDirty)syncGoalForm();
-  const output=node('v38Summary');if(output)output.innerHTML=summary();
+  const output=node('v38Summary');if(output){const open=!!output.querySelector('.v312-finance')?.open;output.innerHTML=summary();const details=output.querySelector('.v312-finance');if(details)details.open=open;}
   for(const b of node('v38Templates')?.querySelectorAll('[data-v38-template]')||[]){
    b.setAttribute('aria-pressed',String(b.dataset.v38Template===selected));
   }
@@ -3462,7 +4136,7 @@ const QuickStartV38=(()=>{
    mode='example';node('localSave').checked=false;
    s.goalCare=template.goal;lastEstimated={father:null,mother:null};wizardCompleted=false;
   }
-  selected=id;goalFormDirty=false;if(!personal)goalWizardUsed=false;
+  selected=id;goalFormDirty=false;if(!personal){goalWizardUsed=false;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;}
   clearGoalInputError();chooseModel(template.model); // Existing financial, timeline and legal engine.
   refresh();showSummary();
  }
@@ -3538,7 +4212,7 @@ const QuickStartV38=(()=>{
   refresh();
  }
  function onResetConfirmed(){
-  mode='idle';selected='';wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=false;scenarioDelay=2;lastEstimated={father:null,mother:null};
+  mode='idle';selected='';wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=false;scenarioDelay=2;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;lastEstimated={father:null,mother:null};
   clearFieldErrors();
   for(const id of ['v38Birth','v38NetF','v38NetM','v38Expenses'])node(id).value='';
   node('v38Goal').value='18';
@@ -3551,7 +4225,9 @@ const QuickStartV38=(()=>{
  }
  function onImported(){
   mode='personal';selected=Object.keys(templates).find(key=>templates[key].model===s.model)||'';
-  lastEstimated={father:null,mother:null};wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=true;syncPersonalForm();refresh();
+  lastEstimated={father:null,mother:null};wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=true;
+  scenarioDelay=2;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;
+  syncPersonalForm();refresh();
  }
  function mount(){
   if(!node('v38QuickStart'))return;
@@ -3589,6 +4265,18 @@ const QuickStartV38=(()=>{
     scenarioDelay=parsed;
     const result=node('v311BridgeResult');
     if(result)result.innerHTML=bridgeResultMarkup();
+    const finance=node('v312ImpactResult');
+    if(finance)finance.innerHTML=careImpactMarkup();
+   }
+   if(evt.target.id==='v312WaiveFees'){
+    scenarioFeesWaived=evt.target.checked;
+    const result=node('v312ImpactResult');if(result)result.innerHTML=careImpactMarkup();
+   }
+  });
+  node('v38QuickStart').addEventListener('input',evt=>{
+   if(evt.target.id==='v312LostWage'||evt.target.id==='v312ExtraCare'){
+    if(evt.target.id==='v312LostWage')scenarioLost=evt.target.value;else scenarioExtra=evt.target.value;
+    const result=node('v312ImpactResult');if(result)result.innerHTML=careImpactMarkup();
    }
   });
   node('v38QuickStart').addEventListener('click',evt=>{
@@ -3640,7 +4328,7 @@ const v38OriginalChooseModel=chooseModel;
 chooseModel=function(...args){const r=v38OriginalChooseModel(...args);QuickStartV38.onModelChanged(args[0]);return r;};
 window.__elternzeitV38=QuickStartV38;
 /* V38_RUNTIME_END */
-restore();initNav();listenInputs();listenAdvanced();listenTimeAxes();listenIncomeGuide();
+restore();initNav();listenInputs();listenAdvanced();listenTimeAxes();listenFinanceGuidance();listenIncomeGuide();
 $('standardCaseConfirmed').value=s.standardCaseConfirmed===true?'yes':s.standardCaseConfirmed===false?'no':'';
 $('standardCaseConfirmed').addEventListener('change',e=>{s.standardCaseConfirmed=e.target.value==='yes'?true:e.target.value==='no'?false:null;renderAll();persist()});
 $('localSave').checked=s.storageConsent===true;$('localSave').addEventListener('change',e=>{s.storageConsent=e.target.checked;if(s.storageConsent)persist();else deleteLocalData()});$('deleteLocal').addEventListener('click',deleteLocalData);

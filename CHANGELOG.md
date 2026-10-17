@@ -1,5 +1,16 @@
 # Änderungen
 
+## V3.14 – interner Ausbau und Review-Vorbereitung, 17.10.2026 (kein Release-Tag)
+
+Enthält die aufeinander aufbauenden V3.12-, V3.13- und V3.14-Arbeitspakete aus den Feature-Branches. Das technische Paket sowie der aktuelle Export behalten Version 3.10.0 bis zu einer separaten Freigabe-/Versionsentscheidung. **Eine Zusammenführung nach main bedeutet keine öffentliche Freigabe.**
+
+- **V3.12:** Kita-Verzögerungen mit nur manuell belegten Finanzannahmen; Vergleich Budget gegen volle Elternmonate; tatsächliche Kalenderbuchungen und nur für die Sitzung angenommene Anfangsrücklage. Keine automatische Zahlungserfindung.
+- **V3.13:** Angenommene taggenaue Zahlungen mit 0–90 Tagen Verzögerung, Versicherungs-/Steuerhinweise, offizielle KiZ-/Wohngeld-/DRV-Wege, historischer Kölner Gebührenvergleich, transparente Zähler der Vorlagensuche, Quellenstatus, vorläufiger ICS-Export und explizite JSON-Schemaversion. Komponentenweise Cent-Rundung und Warnung für Zuschläge außerhalb des Planungshorizonts.
+- **V3.14:** Optionaler manueller Versicherungs-/Steuer-Kostenpuffer (ohne fingierte Beitragshöhe), separate datierte Kölner Tabelle für alle drei Altersgruppen, beschränkter aber vollständig enumerierter synthetischer Suchprüfraum mit 256 Varianten (127 plausibel, 129 Regelkonflikt), größere abbrechbare Suchschritte (512 statt 64 erzeugte Varianten), Entfernung überschatteter Alt-Controller, neue Tests für Speicher-/Offline-Schutz und rekonstruierbare Reviewer-Fallmatrix.
+- **Fachgrenzen:** Widersprüchliche Mutterschutz-Behördenreferenzen (4 statt 5 Resttage), keine unabhängig geprüfte Brutto-zu-Elterngeld-Netto-Engine, keine zehn unabhängigen vollständigen Familienreferenzen und keine externe Rechts-, Datenschutz- oder Nutzertestfreigabe. Die Datei data/release-gates.json bleibt blockiert.
+- **Technische Abnahme im Workbench (17.10.2026):** 375/375 Node-/DOM-Tests, 39/39 gesamte Browser-E2E, 3/3 zusätzliche file://-V3.14-E2E. Automatisches Axe ersetzt keine echte Screenreaderprüfung. Dokumentation: [V3.14-Fachreview-Paket](docs/ROADMAP-FACHABNAHME-V314-2026-10-17.md) und [Roadmap-Status](data/roadmap-status-2026-10-17.json).
+
+
 ## 3.10.0 – Familienstart, Wissenskarten und centgenaues Budget, 16.10.2026
 
 - **Design-Nachbesserung 17.10.2026:** redaktionelle Typografie, warmer Farbklang, differenzierte Themenkarten, zwölf lokale SVG-Symbole, klarere Rechner-/Beratungsbereiche und mobile Filter. Fünf Portaltests und acht zusätzliche Axe-Scans bei vier Breiten erfolgreich; [Nachweis](docs/DESIGN-2026-10-17.md).

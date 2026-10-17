@@ -14,6 +14,10 @@ Stand: **17. Oktober 2026**. Paket-/Export-Metadaten bleiben bis zu einer separa
 
 **Aktueller technischer Stand V3.14:** [Aktueller Review-/QA-Bericht](ROADMAP-FACHABNAHME-V314-2026-10-17.md), [Roadmap-Matrix](../data/roadmap-status-2026-10-17.json) und [Changelog](../CHANGELOG.md) zuerst lesen. V3.10-Nachweise bleiben historische Snapshots. Im Workbench: 375/375 Node-/DOM-Tests, 39/39 Browserfälle und 3/3 direkte V3.14-file://-Browserfälle bestanden. Die unabhängige öffentliche Freigabe bleibt gesperrt.
 
+**V3.16 QA:** 452/452 Node-/DOM-, 53/53 Chromium-Regressionen und 4/4 direkte V3.16-file://-Tests erfolgreich. Alle bestehenden öffentlichen Release-Gates bleiben unverändert.
+
+**V3.16 (interner Code):** [Gemeinsamer Eltern-Arbeitswochenplan](AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md), src/parent-coordination.cjs (rein) und eigener aufklappbarer Abschnitt in der Kita-Ansicht. Arbeitszeiten/Nettoannahmen beider Eltern und Tagesbegleitung bleiben session-only, werden weder importiert noch exportiert. Keine automatisch bestätigte Bonusberechtigung; Release-Gates unverändert blockiert.
+
 **V3.15.2 geprüfter Stand:** 430/430 Node-/DOM-Tests, 49/49 Browser-E2E und 10/10 direkte file://-V3.15.x-Browserfälle. Hinweise auf unbekannte Beträge, ungedeckte Stunden und 12-Wochen-Modellgrenze bleiben sichtbare Pflichtkennzeichnungen.
 
 **V3.15.2 Ausbau:** [Kita-Verzögerung im Robustheitsvergleich](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md). Neues reines src/care-resilience.cjs: eigener Kita-Plan und zusätzliche 2/4 Wochen unter identischen Arbeits- und Kostenannahmen. Kein Datenbankschreiben, kein Import-/Export-Schemawechsel und kein offizieller Anspruch.

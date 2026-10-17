@@ -1074,3 +1074,117 @@ test('V3.15.2 unknown extra costs and limit of 12-week delay have no false forec
  await expect(details).toContainText('Unbekannt');
  await expect(details).not.toContainText('Kita 4 Wochen später');
 });
+
+test('V3.16 two-parent overlapping versus staggered work reveals true childcare conflict on mobile',async({page},testInfo)=>{
+ await page.setViewportSize({width:320,height:840});
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('19');
+ const original=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('.v316-joint summary').first().click();
+ await page.locator('#v315DelayWeeks').fill('1');
+ await page.locator('#v315SettlingWeeks').fill('0');
+ await page.locator('#v315FirstHours').fill('0');
+ await page.locator('#v315TargetHours').fill('0');
+ await page.locator('#v316AWork').fill('20');
+ await page.locator('#v316BWork').fill('20');
+ await page.locator('#v316AStart').fill('08:00');
+ await page.locator('#v316BStart').fill('12:00');
+ await page.locator('#v316GapParent').selectOption('A');
+ await page.locator('#v316ANet').fill('400');
+ await page.locator('#v316BNet').fill('600');
+ const summary=page.locator('#v316JointResult');
+ await expect(summary).toContainText('A 0 h und B 0 h Arbeitszeit');
+ await expect(summary).toContainText('0 €');
+ await page.locator('#v316BStart').fill('08:00');
+ await expect(summary).toContainText('A 20 h und B 0 h Arbeitszeit');
+ await expect(summary).toContainText('400 €');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(original);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ const accessibility=await new AxeBuilder({page}).include('.v316-joint')
+  .withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(accessibility.violations.map(x=>x.id)).toEqual([]);
+ const dimensions=await page.evaluate(()=>({w:document.documentElement.scrollWidth,viewport:window.innerWidth}));
+ expect(dimensions.w).toBeLessThanOrEqual(dimensions.viewport+1);
+ await page.screenshot({path:testInfo.outputPath('v316-zwei-eltern-320.png'),fullPage:true});
+});
+
+test('V3.16 an escort parent can switch while other parent return is delayed; day breakdown stays keyboard usable',async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await standardInputs(page);
+ const original=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('.v316-joint summary').first().click();
+ await page.locator('#v315DelayWeeks').fill('0');
+ await page.locator('#v315SettlingWeeks').fill('1');
+ await page.locator('#v315FirstHours').fill('5');
+ await page.locator('#v315TargetHours').fill('20');
+ await page.locator('#v316AWork').fill('20');
+ await page.locator('#v316BWork').fill('20');
+ await page.locator('#v316ANet').fill('400');
+ await page.locator('#v316BNet').fill('600');
+ await page.locator('#v316BReturn').fill('4');
+ const result=page.locator('#v316JointResult');
+ await page.locator('#v316Escort').selectOption('A');
+ await expect(result).toContainText('A 5 h und B 0 h Arbeitszeit');
+ await expect(result).toContainText('100 €');
+ await page.locator('#v316Escort').selectOption('B');
+ await expect(result).toContainText('A 0 h und B 0 h Arbeitszeit');
+ await page.locator('.v316-escort-choices summary').click();
+ await expect(result.locator('.v316-escort-choices tbody tr')).toHaveCount(3);
+ const selector=page.locator('#v316WeekDetail');
+ await selector.focus();
+ await selector.selectOption('1');
+ await expect(page.locator('#v316WeekDetail')).toBeFocused();
+ await expect(result).toContainText('Regelvorschau');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(original);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+
+test('V3.16 unknown parental earnings and invalid work hours never claim legal entitlement or grant',async({page})=>{
+ await standardInputs(page);
+ await page.locator('.v316-joint summary').first().click();
+ await page.locator('#v316GapParent').selectOption('A');
+ await page.locator('#v316AWork').fill('40');
+ await expect(page.locator('#v316JointResult')).toContainText('maximal 32 Wochenstunden');
+ await expect(page.locator('#v316JointResult')).toContainText('Geldbelastung nicht vollständig berechenbar');
+ await expect(page.locator('#v316JointResult')).toContainText('kein Anspruch bestätigt');
+ await expect(page.locator('#v316JointResult a[href*="familienportal.de"]')).toHaveCount(2);
+ await page.locator('#v316AWork').fill('20.1');
+ await expect(page.locator('#v316JointResult [role="alert"]')).toContainText('Viertelstunden');
+ await page.locator('#v316JointReset').click();
+ await expect(page.locator('#v316AWork')).toHaveValue('28');
+ await expect(page.locator('#v316ANet')).toHaveValue('');
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+
+test('V3.16 joint-parent assumptions remain session-only even with explicit save consent and JSON export',async({page},testInfo)=>{
+ await standardInputs(page);
+ await page.locator('.v316-joint summary').first().click();
+ await page.locator('#v316AWork').fill('16');
+ await page.locator('#v316ANet').fill('987.65');
+ await page.locator('#v316BReturn').fill('11');
+ await page.locator('#v316Escort').selectOption('B');
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ // Expert mode shows the opt-in storage controls directly; the compact toggle is hidden.
+ await page.locator('#localSave').check();
+ const persisted=await page.evaluate(()=>localStorage.getItem('elternzeit-familienplan-v3'));
+ expect(persisted).not.toContain('987.65');
+ expect(persisted).not.toContain('v316');
+ const waiting=page.waitForEvent('download');
+ await page.locator('#btnJson').click();
+ const download=await waiting;
+ const exportPath=testInfo.outputPath('family-plan-v316.json');
+ await download.saveAs(exportPath);
+ const exported=await readFile(exportPath,'utf8');
+ expect(exported).not.toContain('987.65');
+ expect(exported).not.toContain('v316');
+ expect(JSON.parse(exported).data.storageConsent).toBe(true);
+ await page.locator('#importJson').setInputFiles(exportPath);
+ await expect(page.locator('#v316ANet')).toHaveValue('');
+ await expect(page.locator('#v316AWork')).toHaveValue('28');
+ await expect(page.locator('#v316BReturn')).toHaveValue('0');
+ await expect(page.locator('#v316Escort')).toHaveValue('A');
+ const final=await page.evaluate(()=>window.__elternzeitTest.getState());
+ expect(final.storageConsent).toBe(false);
+ expect(JSON.parse(before).date).toEqual(final.date);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});

@@ -79,3 +79,12 @@ Die ebenfalls reine Funktion transitionLifeMonthBridge übernimmt ausschließlic
 src/care-resilience.cjs kombiniert drei gültige Varianten derselben deterministischen Basis über compareSettlingIn und transitionLifeMonthBridge. Die Vergleichsannahmen sind fix: gleiches Geburtsdatum, gleicher Elternzeit-/Leistungsplan, derselbe gedachte Arbeitsbeginn, dieselben Betreuungskosten, Wochen- und Ersatzstunden. **Nur** die zusätzlichen zwei bzw. vier Wochen Kita-Verzögerung ändern sich; Varianten oberhalb zwölf Wochen werden transparent ausgelassen.
 
 Zusätzlich zu den angenommenen Zeit- und Kostenunterschieden wird nur bei **bekannten Haushaltsausgaben und vollständigen Zusatzkosten** ein niedrigster Monatsrest für die vom Übergang betroffenen Lebensmonate ausgegeben. Der Vergleich wird nicht zur Bankbilanz oder zu einem gesetzlichen Netto-/Bescheidergebnis hochgerechnet. Die Reactivity des HTML ist schreibgeschützt bezüglich `s`, schemaversioniertem JSON-Export und lokaler Speicherung: Die optionale Tabelle ist nur ein temporärer UI-Snapshot. Kein Ranking als global optimaler Familienplan.
+
+
+### V3.16 – gemeinsame Elternkoordination in Viertelstunden
+
+src/parent-coordination.cjs verwendet die bestehende Kita-Kohorte aus SettlingIn, aber **zwei unabhängige** elterliche Arbeits-/Wiedereinstiegs-Szenarien. Die idealisierte, identische Montag–Freitag-Woche verteilt jeden explizit angegebenen Wochenarbeitsumfang und die Kita-Stunden gleichmäßig in 15-Minuten-Slots. Elternzeit oder Arbeitgeberfreigabe werden nicht aus einer Arbeitswoche abgeleitet.
+
+Nur wenn beide Eltern zeitgleich arbeiten und für denselben Slot **kein Kita-Slot** vorhanden ist, gilt Ersatzbetreuung oder hypothetisch freizumachende Arbeitszeit als nötig. Eingewöhnungsbegleitung durch A/B oder tageweise abwechselnd wird dagegen selbst **innerhalb** bereits vorhandener Kita-Slots als Arbeitskonflikt des begleitenden Elternteils gezählt. Eine Freistellung ist ein ausdrücklich hypothetischer Bedarf.
+
+Fünf Wochentage, keine Fahrtwege/Feiertage/Schichten/Arbeitgeberkontingente. Mehrere reguläre, später zurückliegende Wochen sind als reine Vorschau vom einmaligen Übergang getrennt. Der Geldvergleich bleibt unverbindlich und **alternativ** zum Ein-Eltern-Szenario: nicht addieren. Alle Eingaben ausschließlich in flüchtigem UI-Zustand, separater Renderer, Snapshot-Generator-Bundling; JSON-Schema 1 und s unverändert. Offizielle Links erklären lediglich Teilzeit/Partnerschaftsbonus, die Wochenansicht prüft keine Lebensmonatsdurchschnitte oder Elterngeldberechtigung.

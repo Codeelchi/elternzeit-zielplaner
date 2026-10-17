@@ -2,6 +2,10 @@
 
 Historischer Entwicklungsverlauf seit V3.4, ergänzter **Stand vom 17. Oktober 2026: interner V3.14-Code** (Paket-/Exportversionsnummer 3.10.0 bis separater Release-Entscheidung). Technische Nachweise, fachliche Evidenz und öffentliche Freigaben sind getrennt. Ein Merge nach `main` ist keine Veröffentlichung und keine unabhängige Fachabnahme.
 
+## V3.16 Zwei-Eltern-Wochenkoordination, 17.10.2026
+
+Neuer 15-Minuten-Familienwochenplan mit getrennten Arbeitszeiten/Wiedereinstiegen, begleitender Person während der Kita-Eingewöhnung und realen zeitlichen Überschneidungskonflikten. Vollständige technische Tests: 452/452 Node-/DOM, 53/53 Chromium und 4/4 direkte file://-V3.16-Fälle. Beträge nur ausdrückliche Benutzerannahmen; keine Plan-/Speichermutation. Ausführliche Grenzen und Tests: [V3.16](AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md). Fachliche Freigaben bleiben blockiert.
+
 ## V3.15.2 begrenzter Kita-Verschiebungs-Stresstest, 17.10.2026
 
 Neue pure Sensitivitätsfunktion src/care-resilience.cjs sowie mobile, aufklappbare UI-Tabelle. Gesamtabnahme: 430/430 Node-/DOM-Tests, 49/49 Chromium-E2E und 10/10 direkte file://-V3.15.x-Browserfälle bestanden. Varianten: eigen, zwei und vier Wochen zusätzliche Verzögerung, aber maximal zwölf Wochen Gesamtverschiebung. Differenzen nur auf gleiche manuelle Wochen-/Geld-/Rückkehr-Annahmen bezogen; unbekannte Kosten bleiben unbekannt und der Plan wird nicht mutiert. [Detailbericht](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).

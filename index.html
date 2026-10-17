@@ -666,6 +666,28 @@ body.v38-lite.v38-pristine .live-strip{display:none}
   <button type="button" id="v315CareReset" class="navbtn alt" style="margin-top:10px">Eingewöhnungsannahmen zurücksetzen</button>
   <button type="button" id="v315CareBack" data-goto="slide-1" class="navbtn alt" style="margin-top:10px">Zurück zum Schnellstart</button>
  </section>
+ <details class="card v316-joint" style="margin-top:16px">
+  <summary><strong>Gemeinsamer Wochenplan: Wer arbeitet, wer begleitet die Kita-Eingewöhnung?</strong></summary>
+  <p class="footnote">Zwei Elternteile können zeitversetzt arbeiten. Entscheidend ist, ob beide gleichzeitig arbeiten, während keine Betreuung verfügbar ist. Eine Modellwoche wird Montag bis Freitag in 15-Minuten-Schritten betrachtet – ohne reale Schicht-, Wege- oder Urlaubszeiten.</p>
+  <div class="input-grid">
+   <div class="form-group"><label for="v316AWork">Elternteil A: Wochenarbeitsstunden</label><input type="number" min="0" max="40" step="0.25" id="v316AWork" value="28"></div>
+   <div class="form-group"><label for="v316AStart">Elternteil A: täglicher Arbeitsbeginn</label><input type="time" step="900" id="v316AStart" value="08:00"></div>
+   <div class="form-group"><label for="v316AReturn">Elternteil A: Wochen bis zum Arbeitsbeginn nach geplantem Kita-Start</label><input type="number" min="0" max="24" step="1" id="v316AReturn" value="0"></div>
+   <div class="form-group"><label for="v316ANet">Elternteil A: hypothetischer Nettoausfall je voller Arbeitswoche (€; optional)</label><input type="number" min="0" max="100000" step="0.01" id="v316ANet" placeholder="Unbekannt"></div>
+   <div class="form-group"><label for="v316BWork">Elternteil B: Wochenarbeitsstunden</label><input type="number" min="0" max="40" step="0.25" id="v316BWork" value="28"></div>
+   <div class="form-group"><label for="v316BStart">Elternteil B: täglicher Arbeitsbeginn</label><input type="time" step="900" id="v316BStart" value="09:00"></div>
+   <div class="form-group"><label for="v316BReturn">Elternteil B: Wochen bis zum Arbeitsbeginn nach geplantem Kita-Start</label><input type="number" min="0" max="24" step="1" id="v316BReturn" value="0"></div>
+   <div class="form-group"><label for="v316BNet">Elternteil B: hypothetischer Nettoausfall je voller Arbeitswoche (€; optional)</label><input type="number" min="0" max="100000" step="0.01" id="v316BNet" placeholder="Unbekannt"></div>
+   <div class="form-group"><label for="v316CareStart">Kita: angenommener täglicher Beginn</label><input type="time" step="900" id="v316CareStart" value="08:00"></div>
+   <div class="form-group"><label for="v316EscortHours">Eingewöhnung: Begleitungsstunden in der ersten Kita-Woche</label><input type="number" min="0" max="45" step="0.25" id="v316EscortHours" value="5"></div>
+   <div class="form-group"><label for="v316Escort">Wer begleitet das Kind während der Eingewöhnung?</label><select id="v316Escort"><option value="A">Elternteil A</option><option value="B">Elternteil B</option><option value="alternating">Abwechselnd nach Wochentag</option></select></div>
+   <div class="form-group"><label for="v316GapParent">Wer müsste bei fehlender Betreuung Arbeitszeit freimachen?</label><select id="v316GapParent"><option value="A">Elternteil A</option><option value="B">Elternteil B</option><option value="alternating" selected>Abwechselnd nach Wochentag</option></select></div>
+  </div>
+  <p class="input-caption">Kita-Verzögerung, Wochenstunden und Ersatzbetreuung werden aus dem Abschnitt darüber übernommen. Beide Eltern können unterschiedliche Arbeitszeiten und Wochen-Nettoannahmen haben. Die dortigen Ein-Eltern-Nettoannahmen gelten hier nicht. Ersatzbetreuung wird nur vereinfacht als frei verteilbare Stundenkapazität angenommen; eine Arbeitsfreistellung ist dadurch weder vereinbart noch genehmigt.</p>
+  <div id="v316JointResult" aria-live="polite"></div>
+  <button type="button" id="v316JointReset" class="navbtn alt" style="margin-top:10px">Wochenplan der Eltern zurücksetzen</button>
+  <p class="footnote">Nur ein privates Sitzungsszenario: kein Export, kein Speichern, keine Änderung von Elterngeld oder Bankbuchungen. Der gemeinsame Wochenplan ist eine <strong>Alternative</strong> zum Ein-Eltern-Szenario darüber; die dortigen Eurobeträge dürfen nicht zusätzlich aufgerechnet werden.</p>
+ </details>
  <details class="card v315-benefits" style="margin-top:16px">
   <summary><strong>Weitere Familienhilfen und Unterlagen prüfen</strong></summary>
   <p class="input-caption">Bei knappem Familienbudget sind Kinderzuschlag, Wohngeld und Bildung/Teilhabe mögliche Prüfwege. Es werden ohne Bescheid keine Leistungen angenommen oder automatisch addiert.</p>
@@ -2352,6 +2374,228 @@ module.exports={compareCareResilience};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* CareResilience_END */
+/* ParentCoordination_START */
+const ParentCoordination=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+const {compareSettlingIn}=require('./settling-in.cjs');
+const time=require('./time-axes.cjs');
+
+const DAYS=['Mo','Di','Mi','Do','Fr'];
+const OFFICIAL_PART_TIME_SOURCE='https://familienportal.de/familienportal/familienleistungen/elternzeit/faq/kann-ich-waehrend-der-elternzeit-teilzeit-arbeiten--124794';
+const OFFICIAL_BONUS_SOURCE='https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/was-ist-der-partnerschaftsbonus--155198';
+
+function quarterHours(value,label,max){
+ if(typeof value!=='number'||!Number.isFinite(value)||value<0||value>max||
+    !Number.isInteger(Math.round(value*4))||Math.abs(value*4-Math.round(value*4))>1e-8)
+  throw new RangeError(label+': nur Viertelstunden zwischen 0 und '+max+' zugelassen.');
+ return Math.round(value*4);
+}
+function euros(value,label,optional=false){
+ if(optional&&(value===null||value===undefined||value===''))return null;
+ if(typeof value!=='number'||!Number.isFinite(value)||value<0||value>100000||
+   Math.abs(value*100-Math.round(value*100))>1e-7)
+  throw new RangeError(label+': Eurobetrag zwischen 0 und 100.000 mit zwei Nachkommastellen erforderlich.');
+ return Math.round(value*100);
+}
+function whole(value,label,max){
+ if(!Number.isInteger(value)||value<0||value>max)throw new RangeError(label+': ganze Wochen von 0 bis '+max+' erforderlich.');
+ return value;
+}
+function parseClock(value,label){
+ if(typeof value!=='string'||!/^([01]\d|2[0-3]):(00|15|30|45)$/.test(value))
+  throw new RangeError(label+': gültige Uhrzeit HH:00/15/30/45 erforderlich.');
+ const [hour,minute]=value.split(':').map(Number);
+ return hour*4+minute/15;
+}
+function spreadSlots(weeklyQuarterHours){
+ const normal=Math.floor(weeklyQuarterHours/5),rest=weeklyQuarterHours%5;
+ return DAYS.map((_,i)=>normal+(i<rest?1:0));
+}
+function escortForDay(choice,day){
+ return choice==='alternating'?(day%2===0?'A':'B'):choice;
+}
+function validateParent(parent,label){
+ if(!parent||typeof parent!=='object'||Array.isArray(parent))throw new TypeError(label+': Arbeitsannahmen fehlen.');
+ const weekly=quarterHours(parent.weeklyWorkHours,label+' Wochenarbeitsstunden',40);
+ const start=parseClock(parent.workStart,label+' Arbeitsbeginn');
+ const returnWeek=whole(parent.returnWeek,label+' Wiedereinstieg',24);
+ const risk=euros(parent.weeklyNetAtRisk,label+' Wochen-Nettoausfall',true);
+ const byDay=spreadSlots(weekly);
+ if(byDay.some(duration=>start+duration>96))throw new RangeError(label+': Arbeitsende würde hinter Mitternacht liegen.');
+ return {weekly,returnWeek,risk,start,byDay};
+}
+function scenarioOrNull(opts){
+ const {birthDate,careStartLm,delayWeeks,settlingWeeks,targetCareHours,firstWeekCareHours,modelMonths}=opts;
+ return compareSettlingIn({birthDate,careStartLm,delayWeeks,settlingWeeks,targetCareHours,firstWeekCareHours,
+  plannedWorkHours:0,backupHours:0,workReturnWeeks:0,modelMonths});
+}
+function planJointCare({
+ birthDate,careStartLm,delayWeeks=0,settlingWeeks=4,targetCareHours=35,
+ firstWeekCareHours=5,firstWeekEscortHours=5,
+ careDayStart='08:00',escortParent='A',gapParent='alternating',
+ backupHours=0,backupHourlyCost=null,parentA,parentB,modelMonths=36
+}={}){
+ const a=validateParent(parentA,'Elternteil A');
+ const b=validateParent(parentB,'Elternteil B');
+ const careStart=parseClock(careDayStart,'Kita-Tagesbeginn');
+ const escortQuarter=quarterHours(firstWeekEscortHours,'Eingewöhnungsbegleitung pro Woche',45);
+ const backupQuarter=quarterHours(backupHours,'Flexible Ersatzbetreuung pro Woche',40);
+ const backupRate=euros(backupHourlyCost,'Ersatzbetreuung pro Stunde',true);
+ if(!['A','B','alternating'].includes(escortParent)||
+    !['A','B','alternating'].includes(gapParent))throw new RangeError('Betreuungsaufteilung nur A, B oder wechselnd.');
+ const scenario=scenarioOrNull({birthDate,careStartLm,delayWeeks,settlingWeeks,
+   targetCareHours,firstWeekCareHours,modelMonths});
+ if(!scenario.active)return {active:false,weeks:[],totalCost:null,reason:scenario.warning,changedPlan:false};
+ const careQuarter=quarterHours(targetCareHours,'Kita-Wochenstunden',45);
+ if(spreadSlots(careQuarter).some(slots=>careStart+slots>96))
+  throw new RangeError('Kita-Betreuungsende liegt hinter Mitternacht.');
+ const resultWeeks=[];
+ let sumReleaseA=0,sumReleaseB=0,sumGap=0,sumBackup=0,sumAccompanyA=0,sumAccompanyB=0;
+ let sumMoney=0,allCostsKnown=true;
+ const idxs=new Set(Array.from({length:scenario.transitionWeeks},(_,i)=>i));
+ idxs.add(Math.max(scenario.transitionWeeks,a.returnWeek));
+ idxs.add(Math.max(scenario.transitionWeeks,b.returnWeek));
+ const ordered=[...idxs].sort((x,y)=>x-y);
+ for(const idx of ordered){
+  const transition=idx<scenario.transitionWeeks;
+  const inDelay=idx<delayWeeks;
+  const settling=idx>=delayWeeks&&idx<delayWeeks+settlingWeeks;
+  let careWeekly=careQuarter;
+  if(inDelay)careWeekly=0;
+  else if(settling){
+   if(settlingWeeks===1)careWeekly=quarterHours(firstWeekCareHours,'Kita-Erstwoche',45);
+   else{
+    const first=quarterHours(firstWeekCareHours,'Kita-Erstwoche',45);
+    careWeekly=Math.round(first+(careQuarter-first)*(idx-delayWeeks)/(settlingWeeks-1));
+   }
+  }
+  let escortWeek=0;
+  if(settling){
+   escortWeek=settlingWeeks===1?escortQuarter:
+    Math.round(escortQuarter*(settlingWeeks-1-(idx-delayWeeks))/(settlingWeeks-1));
+   escortWeek=Math.min(careWeekly,escortWeek);
+  }
+  const careDays=spreadSlots(careWeekly),escortDays=spreadSlots(escortWeek);
+  let releaseA=0,releaseB=0,escortA=0,escortB=0,simultaneous=0,backupUsed=0,coverageConflict=0;
+  const dayDetails=[];
+  for(let d=0;d<5;d++){
+   const workA=idx>=a.returnWeek?new Set(Array.from({length:a.byDay[d]},(_,j)=>a.start+j)):new Set();
+   const workB=idx>=b.returnWeek?new Set(Array.from({length:b.byDay[d]},(_,j)=>b.start+j)):new Set();
+   const daycareEnd=careStart+careDays[d];
+   if(daycareEnd>96)throw new RangeError('Kita-Betreuungsende würde hinter Mitternacht liegen.');
+   const escortPerson=escortForDay(escortParent,d),gapPerson=escortForDay(gapParent,d);
+   const escortSlots=Math.min(careDays[d],escortDays[d]);
+   let dailyOverlapping=0,dailyConflict=0,dailyEscortA=0,dailyEscortB=0,dailyBackup=0;
+   for(let slot=0;slot<96;slot++){
+    const isKita=slot>=careStart&&slot<daycareEnd;
+    const acomp=isKita&&slot<careStart+escortSlots;
+    if(acomp){
+     if(escortPerson==='A'){escortA++;dailyEscortA++;if(workA.has(slot))releaseA++;}
+     else{escortB++;dailyEscortB++;if(workB.has(slot))releaseB++;}
+    }
+    if(workA.has(slot)&&workB.has(slot)&&!isKita){
+     simultaneous++;dailyOverlapping++;
+     if(backupUsed<backupQuarter){
+      backupUsed++;dailyBackup++;
+     }else{
+      coverageConflict++;dailyConflict++;
+      if(gapPerson==='A')releaseA++;else releaseB++;
+     }
+    }
+   }
+   dayDetails.push({
+    day:DAYS[d],parentAWorkHours:workA.size/4,parentBWorkHours:workB.size/4,
+    daycareHours:careDays[d]/4,accompanimentHours:escortSlots/4,
+    escortParent:escortSlots>0?escortPerson:null,
+    escortHoursA:dailyEscortA/4,escortHoursB:dailyEscortB/4,
+    overlappingWorkWithoutKitaHours:dailyOverlapping/4,assignedUncoveredHours:dailyConflict/4,
+    flexibleBackupHoursUsed:dailyBackup/4
+   });
+  }
+  const amount=(quarters,risk,weekly)=>quarters===0?0:
+   risk===null?null:Math.round(risk*quarters/weekly);
+  const costA=amount(releaseA,a.risk,a.weekly);
+  const costB=amount(releaseB,b.risk,b.weekly);
+  const costBackup=backupUsed===0?0:backupRate===null?null:
+    Math.round(backupRate*backupUsed/4);
+  const allKnown=[costA,costB,costBackup].every(x=>x!==null);
+  const total=allKnown?costA+costB+costBackup:null;
+  if(transition){
+   sumReleaseA+=releaseA;sumReleaseB+=releaseB;sumGap+=coverageConflict;
+   sumBackup+=backupUsed;sumAccompanyA+=escortA;sumAccompanyB+=escortB;
+   if(total===null)allCostsKnown=false;
+   else sumMoney+=total;
+  }
+  resultWeeks.push({
+   week:idx+1,weekStart:time.addDays(scenario.startDate,idx*7),
+   type:inDelay?'delay':settling?'settling':'regular_preview',
+   countsTowardTransition:transition,previewOnly:!transition,
+   daycareWeeklyHours:careWeekly/4,
+   parentAWeeklyWorkHours:idx>=a.returnWeek?a.weekly/4:0,
+   parentBWeeklyWorkHours:idx>=b.returnWeek?b.weekly/4:0,
+   accompanimentHoursA:escortA/4,accompanimentHoursB:escortB/4,
+   simultaneousWorkWithoutKitaHours:simultaneous/4,
+   flexibleBackupUsedHours:backupUsed/4,remainingCoverageConflictHours:coverageConflict/4,
+   assumedWorkReleaseA:releaseA/4,assumedWorkReleaseB:releaseB/4,
+   hypotheticalNetLossA:costA===null?null:costA/100,
+   hypotheticalNetLossB:costB===null?null:costB/100,
+   hypotheticalBackupCost:costBackup===null?null:costBackup/100,
+   hypotheticalCombinedCost:total===null?null:total/100,
+   days:dayDetails
+  });
+ }
+ const warnings=[
+  'Typische Montag-bis-Freitag-Woche mit in Viertelstunden gleichmäßig verteilten Wochenarbeitszeiten und Kita-Zeiten; keine Aussage zu realen Schichtplänen, Wochenenden, Urlaub, Pendelzeiten oder Krankheit.',
+  'Die Eltern sind außerhalb ihrer angegebenen Arbeitszeiten als frei verfügbar angenommen. Die Darstellung prüft keine arbeitsvertragliche Vereinbarung, keine Arbeitgeberfreigabe und keine örtliche Zusage zur Kinderbetreuung.',
+  'Wenn beide Eltern gleichzeitig arbeiten und die Kita geschlossen ist, wird flexible Ersatzbetreuung zuerst angenommen; sonst muss der gewählte Elternteil hypothetisch Arbeitszeit freimachen. Dies ist kein gewährter Urlaub, kein bezahlter Freistellungsanspruch und keine Behauptung tatsächlicher Kinderbetreuung.',
+  'Bei der Eingewöhnung wird die begleitende Person für die angegebenen Stunden als nicht für zeitgleiche Erwerbsarbeit verfügbar gerechnet. Teilzeit-Netto wird nur als manuelle, proportional verteilte Annahme behandelt.',
+  'Die hypothetischen Beträge beider Eltern dürfen NICHT zu den separat angezeigten Ein-Eltern-Eingewöhnungskosten addiert werden – beide beschreiben alternative Modelle derselben Übergangszeit.',
+  'Partnerbonus erfordert nach Bundesfamilienportal weitere Voraussetzungen und eine Prüfung des Durchschnitts pro Lebensmonat; diese Wochenansicht bescheinigt keinerlei Berechtigung.',
+  ...((a.weekly>128||b.weekly>128)?['Wenn die modellierte Arbeit während Elternzeit oder Elterngeldbezug stattfindet, sind laut Bundesfamilienportal im Regelfall maximal 32 Wochenstunden im Lebensmonatsdurchschnitt erlaubt. Hier kann auch die Zeit NACH der Elternzeit modelliert werden; daher keine automatische rechtliche Einstufung.']:[]),
+  ...((settlingWeeks>0&&escortQuarter>quarterHours(firstWeekCareHours,'Kita-Erstwoche',45))?['Angegebene Begleitungszeit ist größer als die mögliche Kita-Betreuungszeit der ersten Eingewöhnungswoche. Der Plan zeigt maximal die tatsächlich modellierten Kita-Stunden als Begleitung.']:[]),
+  'Kein Elterngeld-/Partnerschaftsbonus-, Steuer-, Gehalts-, Kinderkrankengeld- oder Bankbuchungsmodell wird verändert.',
+  ...(ordered.some(i=>time.addDays(scenario.startDate,i*7)>time.lifeMonths(birthDate,modelMonths).at(-1).endDate)?
+   ['Eine Wochenvorschau liegt außerhalb des 36-Lebensmonatsfensters; dafür wird kein Monatsbudget berechnet.']:[])
+ ];
+ return {
+  active:true,birthDate,careStartLm,careStartDate:scenario.startDate,
+  actualCareStartDate:scenario.actualCareStartDate,regularCareFrom:scenario.regularCareFrom,
+  weeks:resultWeeks,transitionWeeks:scenario.transitionWeeks,
+  returnDateA:time.addDays(scenario.startDate,a.returnWeek*7),
+  returnDateB:time.addDays(scenario.startDate,b.returnWeek*7),
+  transitionReleaseA:sumReleaseA/4,transitionReleaseB:sumReleaseB/4,
+  transitionEscortHoursA:sumAccompanyA/4,transitionEscortHoursB:sumAccompanyB/4,
+  transitionCoverageConflictHours:sumGap/4,transitionFlexibleBackupHours:sumBackup/4,
+  totalHypotheticalCost:allCostsKnown?sumMoney/100:null,
+  moneyKnown:allCostsKnown,changedPlan:false,modifiedElterngeld:false,
+  changedRecordedBankReceipts:false,
+  weekdaysOnly:true,slotMinutes:15,comparisonOnly:true,
+  officialSources:[OFFICIAL_PART_TIME_SOURCE,OFFICIAL_BONUS_SOURCE],warnings
+ };
+}
+function compareEscortChoices(options={}){
+ const scenarios=[
+  {mode:'A',label:'Elternteil A begleitet'},
+  {mode:'B',label:'Elternteil B begleitet'},
+  {mode:'alternating',label:'Abwechselnd nach Wochentag'}
+ ].map(choice=>{
+  const result=planJointCare({...options,escortParent:choice.mode});
+  return {mode:choice.mode,label:choice.label,active:result.active,
+   escortA:result.transitionEscortHoursA??0,
+   escortB:result.transitionEscortHoursB??0,
+   workReleaseA:result.transitionReleaseA??0,
+   workReleaseB:result.transitionReleaseB??0,
+   hypotheticalCost:result.totalHypotheticalCost,
+   moneyKnown:result.moneyKnown===true,
+   changedPlan:false};
+ });
+ return {scenarios,optimizationClaim:false,approvalsVerified:false,
+  warning:'Es wird nur der begleitende Elternteil gewechselt; Erwerbszeiten, Kita, Ersatzbetreuung und Geldannahmen bleiben unverändert. Kein rechtlicher Freistellungs- oder finanzieller Optimierungsnachweis.'};
+}
+module.exports={planJointCare,compareEscortChoices,OFFICIAL_PART_TIME_SOURCE,OFFICIAL_BONUS_SOURCE};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* ParentCoordination_END */
 /* BenefitsNavigator_START */
 const BenefitsNavigator=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
@@ -3515,10 +3759,48 @@ const LEGAL=RULE_CATALOG.standard_parameters;
 Object.assign(defaults,{parentNameFather:'Elternteil 1',parentNameMother:'Elternteil 2',incomeEntryMode:'estimate',standardCaseConfirmed:null,storageConsent:false,grantVerified:false,region:'NRW',city:'Köln',births:1,zve:'',childcareStart:19,childcareMonthly:300,confirmedGrant:0,grantMonth:1,goalCare:18,goalCareMode:'full',goalObjective:'income',goalMinFather:0,goalMinIncome:0,goalOverlap:2,goalPart:1,childcareMode:'manual',childcareHours:35,childcareIncome:95000,childcareMeals:90,riskFatherPercent:'',riskMotherPercent:'',goalRoles:'both',riskPercent:15,riskEgPercent:5,riskCostPercent:20,egPtNetFather:'',egPtNetMother:''});
 for(const [key,value] of Object.entries(defaults))if(s[key]===undefined)s[key]=value;
 let goalCandidates=[],goalStats=null,goalFingerprint='',goalComparison=null,goalSearchJob=null;
+const V316_JOINT_DEFAULTS=Object.freeze({
+ aHours:'28',aStart:'08:00',aReturn:'0',aNet:'',
+ bHours:'28',bStart:'09:00',bReturn:'0',bNet:'',
+ careStart:'08:00',escortHours:'5',escortParent:'A',gapParent:'alternating'
+});
+const V316_JOINT_FIELDS=Object.freeze([
+ ['v316AWork','aHours'],['v316AStart','aStart'],['v316AReturn','aReturn'],['v316ANet','aNet'],
+ ['v316BWork','bHours'],['v316BStart','bStart'],['v316BReturn','bReturn'],['v316BNet','bNet'],
+ ['v316CareStart','careStart'],['v316EscortHours','escortHours'],
+ ['v316Escort','escortParent'],['v316GapParent','gapParent']
+]);
+let v316Joint={...V316_JOINT_DEFAULTS},v316SelectedWeek=0;
+function resetV316Joint(){
+ v316Joint={...V316_JOINT_DEFAULTS};v316SelectedWeek=0;
+ for(const [id,key] of V316_JOINT_FIELDS)if($(id))$(id).value=v316Joint[key];
+}
+function v316JointInput(){
+ const number=key=>{
+  const raw=v316Joint[key];
+  if(raw==='')throw new RangeError('Bitte alle erforderlichen Eltern-Arbeitszeiten und Wochenstunden ausfüllen.');
+  return Number(raw);
+ };
+ return {
+  birthDate:s.date,careStartLm:Number(s.childcareStart)||0,
+  delayWeeks:Number(v315Care.delayWeeks),settlingWeeks:Number(v315Care.settlingWeeks),
+  firstWeekCareHours:Number(v315Care.firstWeekCareHours),
+  targetCareHours:Number(v315Care.targetCareHours),
+  firstWeekEscortHours:number('escortHours'),
+  careDayStart:v316Joint.careStart,escortParent:v316Joint.escortParent,gapParent:v316Joint.gapParent,
+  backupHours:Number(v315Care.backupHours),
+  backupHourlyCost:v315Care.hourlyBackupCost===''?null:Number(v315Care.hourlyBackupCost),
+  parentA:{weeklyWorkHours:number('aHours'),workStart:v316Joint.aStart,
+   returnWeek:number('aReturn'),weeklyNetAtRisk:v316Joint.aNet===''?null:Number(v316Joint.aNet)},
+  parentB:{weeklyWorkHours:number('bHours'),workStart:v316Joint.bStart,
+   returnWeek:number('bReturn'),weeklyNetAtRisk:v316Joint.bNet===''?null:Number(v316Joint.bNet)},
+  modelMonths:N
+ };
+}
 const V315_CARE_DEFAULTS=Object.freeze({delayWeeks:'0',settlingWeeks:'4',firstWeekCareHours:'5',targetCareHours:'35',plannedWorkHours:'28',workReturnWeeks:'0',backupHours:'0',hourlyBackupCost:'',weeklyNetAtRisk:''});
 let v315Care={...V315_CARE_DEFAULTS},v315BenefitDate='',v315KiZAlready='no',v315TaskStates=new Map(),v315CompareOpen=false;
 function resetV315Extras(){
- v315Care={...V315_CARE_DEFAULTS};v315BenefitDate='';v315KiZAlready='no';v315TaskStates=new Map();v315CompareOpen=false;
+ v315Care={...V315_CARE_DEFAULTS};v315BenefitDate='';v315KiZAlready='no';v315TaskStates=new Map();v315CompareOpen=false;resetV316Joint();
  for(const [id,key]of [['v315DelayWeeks','delayWeeks'],['v315SettlingWeeks','settlingWeeks'],
   ['v315FirstHours','firstWeekCareHours'],['v315TargetHours','targetCareHours'],['v315WorkHours','plannedWorkHours'],['v315WorkReturnWeeks','workReturnWeeks'],
   ['v315BackupHours','backupHours'],['v315BackupCost','hourlyBackupCost'],['v315NetRisk','weeklyNetAtRisk']]){
@@ -3809,6 +4091,97 @@ function renderV315Care(){
   out.querySelector('.v315-resilience')?.addEventListener('toggle',event=>{v315CompareOpen=event.target.open;});
  }catch(error){out.innerHTML='<div class="note danger" role="alert">'+esc(error.message)+'</div>';}
 }
+function renderV316Joint(){
+ const out=$('v316JointResult');if(!out)return;
+ try{
+  const params=v316JointInput();
+  if(Object.values(v315Care).some(v=>v==='')&&
+    ['delayWeeks','settlingWeeks','firstWeekCareHours','targetCareHours','backupHours'].some(k=>v315Care[k]===''))
+   throw new RangeError('Für den gemeinsamen Wochenplan fehlen erforderliche Kita-Zeiten.');
+  const result=ParentCoordination.planJointCare(params);
+  if(!result.active){out.innerHTML='<p class="note">Zuerst den geplanten Kita-Lebensmonat auswählen.</p>';return;}
+  const fmt=x=>new Intl.NumberFormat('de-DE',{maximumFractionDigits:2}).format(x);
+  const money=x=>x===null?'Unbekannt':euro(x);
+  const total=result.moneyKnown?
+    '<p><strong>Rein hypothetischer Arbeits-/Ersatzbetreuungsausfall in den '+result.transitionWeeks+
+      ' Übergangswochen:</strong> '+money(result.totalHypotheticalCost)+
+      '. Kein zusätzlicher Betrag zum Ein-Eltern-Vergleich oben.</p>':
+    '<p class="note warn"><strong>Geldbelastung nicht vollständig berechenbar:</strong> Für mindestens einen tatsächlichen Arbeitskonflikt fehlt ein wöchentlicher Nettoausfall oder ein angenommener Ersatzbetreuungspreis. Unbekannt ist nicht gleich null.</p>';
+  const summary='<p><strong>Geplante Arbeitsrückkehr:</strong> A ab '+
+   esc(TimeAxes.formatDateDE(result.returnDateA))+' · B ab '+
+   esc(TimeAxes.formatDateDE(result.returnDateB))+
+   '. Die Begleitung während der Eingewöhnung beträgt in den Übergangswochen A '+
+   fmt(result.transitionEscortHoursA)+' h und B '+fmt(result.transitionEscortHoursB)+
+   ' h. Wegen gleichzeitiger Arbeit müssten hypothetisch A '+
+   fmt(result.transitionReleaseA)+' h und B '+fmt(result.transitionReleaseB)+
+   ' h Arbeitszeit freimachen; flexibel angenommene Ersatzbetreuung: '+
+   fmt(result.transitionFlexibleBackupHours)+' h.</p>'+total;
+  const weekRows=result.weeks.map((w,i)=>'<tr><th scope="row">'+
+   esc(TimeAxes.formatDateDE(w.weekStart))+(w.previewOnly?' (nur Vorschau)':'')+
+   '</th><td>'+fmt(w.parentAWeeklyWorkHours)+'</td><td>'+fmt(w.parentBWeeklyWorkHours)+
+   '</td><td>'+fmt(w.daycareWeeklyHours)+'</td><td>'+fmt(w.accompanimentHoursA)+' / '+
+   fmt(w.accompanimentHoursB)+'</td><td>'+fmt(w.assumedWorkReleaseA)+' / '+
+   fmt(w.assumedWorkReleaseB)+'</td><td>'+fmt(w.remainingCoverageConflictHours)+
+   '</td><td>'+money(w.hypotheticalCombinedCost)+'</td></tr>').join('');
+  const selected=Math.min(v316SelectedWeek,result.weeks.length-1);
+  const w=result.weeks[selected];
+  const opts=result.weeks.map((entry,i)=>'<option value="'+i+'"'+
+   (i===selected?' selected':'')+'>Woche '+entry.week+' ab '+
+   esc(TimeAxes.formatDateDE(entry.weekStart))+
+   (entry.previewOnly?' – nur Regelvorschau':'')+'</option>').join('');
+  const days=w.days.map(d=>'<tr><th scope="row">'+esc(d.day)+'</th><td>'+
+   fmt(d.parentAWorkHours)+'</td><td>'+fmt(d.parentBWorkHours)+'</td><td>'+
+   fmt(d.daycareHours)+'</td><td>'+
+   (d.escortParent===null?'–':'Elternteil '+d.escortParent)+
+   ' ('+fmt(d.accompanimentHours)+' h)</td><td>'+
+   fmt(d.flexibleBackupHoursUsed)+'</td><td>'+
+   fmt(d.assignedUncoveredHours)+'</td></tr>').join('');
+  const choice=ParentCoordination.compareEscortChoices(params);
+  const choiceRows=choice.scenarios.map(c=>'<tr><th scope="row">'+esc(c.label)+
+   '</th><td>'+fmt(c.escortA)+' / '+fmt(c.escortB)+'</td><td>'+
+   fmt(c.workReleaseA)+' / '+fmt(c.workReleaseB)+'</td><td>'+
+   money(c.hypotheticalCost)+'</td></tr>').join('');
+  const choiceHtml='<details class="note v316-escort-choices"><summary><strong>Was ändert sich, wenn der andere Elternteil die Eingewöhnung begleitet?</strong></summary>'+
+   '<p class="input-caption">'+esc(choice.warning)+'</p>'+
+   '<div class="h-scroll" tabindex="0" role="region" aria-label="Drei Begleitungsvarianten">'+
+   '<table class="plan-budget-table" style="width:100%"><thead><tr><th scope="col">Begleitung</th>'+
+   '<th scope="col">Begleitstunden A / B</th><th scope="col">Angenommene Arbeitsfreistellung A / B</th>'+
+   '<th scope="col">Hypothetische Kosten</th></tr></thead><tbody>'+choiceRows+'</tbody></table></div></details>';
+  const bonus=' <p class="input-caption">Teilzeit und Partnerschaftsbonus sind nur als Hinweise berücksichtigt: '+
+   '<a href="'+esc(ParentCoordination.OFFICIAL_PART_TIME_SOURCE)+'" target="_blank" rel="noopener noreferrer">Elternzeit-Teilzeit (amtlich) ↗</a> · '+
+   '<a href="'+esc(ParentCoordination.OFFICIAL_BONUS_SOURCE)+'" target="_blank" rel="noopener noreferrer">Partnerschaftsbonus (amtlich) ↗</a>. '+
+   'Beim Partnerschaftsbonus zählen im Regelfall 24 bis 32 Wochenstunden im Durchschnitt des Lebensmonats sowie weitere Voraussetzungen, nicht bloß eine typische Modellwoche. Hier wird kein Anspruch bestätigt.</p>';
+  out.innerHTML=summary+
+   '<div class="h-scroll" tabindex="0" role="region" aria-label="Übergangswochen beider Eltern">'+
+   '<table class="plan-budget-table" style="width:100%"><thead><tr><th scope="col">Wochenbeginn</th>'+
+   '<th scope="col">Arbeit A h</th><th scope="col">Arbeit B h</th><th scope="col">Kita h</th>'+
+   '<th scope="col">Begleitung A/B h</th><th scope="col">Freizumachende Arbeit A/B h</th>'+
+   '<th scope="col">Konflikt h</th><th scope="col">Euro (hypothetisch)</th></tr></thead><tbody>'+weekRows+'</tbody></table></div>'+
+   '<div class="form-group" style="margin-top:12px"><label for="v316WeekDetail">Einzelne Beispielwoche ansehen</label>'+
+   '<select id="v316WeekDetail">'+opts+'</select></div>'+
+   '<div class="h-scroll" tabindex="0" role="region" aria-label="Beispielhafte Montag-bis-Freitag-Aufteilung">'+
+   '<table class="plan-budget-table" style="width:100%"><thead><tr><th scope="col">Tag</th>'+
+   '<th scope="col">Arbeit A h</th><th scope="col">Arbeit B h</th><th scope="col">Kita h</th>'+
+   '<th scope="col">Begleitung</th><th scope="col">Ersatzbetreuung h</th>'+
+   '<th scope="col">Arbeitskonflikt h</th></tr></thead><tbody>'+days+'</tbody></table></div>'+
+   choiceHtml+bonus+
+   '<p class="input-caption">'+esc(result.warnings.join(' '))+'</p>';
+  $('v316WeekDetail').addEventListener('change',event=>{
+   v316SelectedWeek=Number(event.target.value);
+   renderV316Joint();
+   $('v316WeekDetail')?.focus();
+  });
+ }catch(error){out.innerHTML='<div role="alert" class="note danger">'+esc(error.message)+'</div>';}
+}
+function listenV316Joint(){
+ for(const [id,key]of V316_JOINT_FIELDS){
+  $(id).addEventListener(['escortParent','gapParent'].includes(key)?'change':'input',event=>{
+   v316Joint[key]=event.target.value;
+   renderV316Joint();
+  });
+ }
+ $('v316JointReset').addEventListener('click',()=>{resetV316Joint();renderV316Joint();});
+}
 function renderV315Benefits(){
  const out=$('v315BenefitsResult');if(!out)return;
  try{
@@ -3830,7 +4203,7 @@ function listenV315Extras(){
  ['v315TargetHours','targetCareHours'],['v315WorkHours','plannedWorkHours'],['v315WorkReturnWeeks','workReturnWeeks'],['v315BackupHours','backupHours'],['v315BackupCost','hourlyBackupCost'],
  ['v315NetRisk','weeklyNetAtRisk']];
  for(const [id,key] of fields)$(id).addEventListener('input',event=>{
-  v315Care[key]=event.target.value;$('v315CarePreset').value='custom';renderV315Care();
+  v315Care[key]=event.target.value;$('v315CarePreset').value='custom';renderV315Care();renderV316Joint();
  });
  $('v315CarePreset').addEventListener('change',e=>{
   const presets={immediate:{delayWeeks:'0',settlingWeeks:'0',firstWeekCareHours:'0'},
@@ -3841,11 +4214,11 @@ function listenV315Extras(){
   if(!selected)return;
   Object.assign(v315Care,selected);
   for(const [id,key] of fields)$(id).value=v315Care[key];
-  renderV315Care();
+  renderV315Care();renderV316Joint();
  });
  $('v315CareReset').addEventListener('click',()=>{v315Care={...V315_CARE_DEFAULTS};v315CompareOpen=false;
   for(const [id,key] of fields)$(id).value=v315Care[key];
-  $('v315CarePreset').value='custom';renderV315Care();
+  $('v315CarePreset').value='custom';renderV315Care();renderV316Joint();
  });
  $('v315BenefitDate').addEventListener('change',e=>{v315BenefitDate=e.target.value;renderV315Benefits();});
  $('v315KiZAlready').addEventListener('change',e=>{v315KiZAlready=e.target.value;renderV315Benefits();});
@@ -3999,7 +4372,7 @@ function renderAll(){
  if(goalSearchJob&&goalSearchJob.fingerprint!==goalInputsFingerprint())cancelGoalSearch('Eingaben geändert – Suche beendet. Bitte neu starten.');
  current=evaluate(s.schedule);renderInputs();renderHeader();renderModels();renderBuilder();renderTimeline();renderChart();renderDetail();renderCompare();renderPlus();renderChecks();
  renderIncomeGuide();
- renderMonthHourEditors();renderRegion();renderV315Kibiz();renderV315Care();renderV315Benefits();renderRuleLedger();renderRisk();renderFinanceGuidance();renderManualCostImpact();renderGoalResult();renderTimeAxes();renderApplicationGuide();renderPlanningKnowledge();renderParentLabels();updateNav();
+ renderMonthHourEditors();renderRegion();renderV315Kibiz();renderV315Care();renderV316Joint();renderV315Benefits();renderRuleLedger();renderRisk();renderFinanceGuidance();renderManualCostImpact();renderGoalResult();renderTimeAxes();renderApplicationGuide();renderPlanningKnowledge();renderParentLabels();updateNav();
 }
 function planningKnowledgeForState(){
  const partTime=s.schedule.some(row=>['R','T','Q','K'].includes(row.f)||['R','T','Q','K'].includes(row.m));
@@ -4996,7 +5369,7 @@ const v38OriginalChooseModel=chooseModel;
 chooseModel=function(...args){const r=v38OriginalChooseModel(...args);QuickStartV38.onModelChanged(args[0]);return r;};
 window.__elternzeitV38=QuickStartV38;
 /* V38_RUNTIME_END */
-restore();initNav();listenInputs();listenAdvanced();listenTimeAxes();listenFinanceGuidance();listenV315Extras();listenIncomeGuide();
+restore();initNav();listenInputs();listenAdvanced();listenTimeAxes();listenFinanceGuidance();listenV315Extras();listenV316Joint();listenIncomeGuide();
 $('standardCaseConfirmed').value=s.standardCaseConfirmed===true?'yes':s.standardCaseConfirmed===false?'no':'';
 $('standardCaseConfirmed').addEventListener('change',e=>{s.standardCaseConfirmed=e.target.value==='yes'?true:e.target.value==='no'?false:null;renderAll();persist()});
 $('localSave').checked=s.storageConsent===true;$('localSave').addEventListener('change',e=>{s.storageConsent=e.target.checked;if(s.storageConsent)persist();else deleteLocalData()});$('deleteLocal').addEventListener('click',deleteLocalData);

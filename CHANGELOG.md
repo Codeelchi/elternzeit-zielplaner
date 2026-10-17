@@ -1,5 +1,14 @@
 # Änderungen
 
+## V3.16 – Gemeinsamer Betreuungs- und Wiedereinstiegsplan (interner Entwicklungsstand)
+
+- Parallele Eltern-Arbeitszeiten nicht mehr als einfache Stundenaddition: 15-Minuten-Überlappungsprüfung für fünf beispielhafte Wochentage, individuelle Arbeitsstarts/-Rückkehrtermine, gemeinsame Kita-Stunden.
+- Eingewöhnungsbegleitung durch A/B oder tageweise abwechselnd, Elternfreistellungs-Konflikte und freie Ersatzbetreuung transparent getrennt. Drei Begleitungsvarianten als rein hypothetischer Vergleich.
+- Euroangaben pro Elternteil nur explizit und ohne gesetzliche Finanzzusage; Wochen außerhalb der Eingewöhnung werden nie zu einmaligen Übergangskosten addiert.
+- Alles nur Sitzungsszenario: auch bei opt-in-Speicherung werden Arbeitszeit-/Eingewöhnungs-Eingaben nicht in Plan-JSON oder Bankdaten übernommen.
+- Amtliche Hinweise auf höchstens 32 Wochenstunden während der Elternzeit und auf zusätzliche Voraussetzungen beim Partnerschaftsbonus, ohne vermeintliche Anspruchsprüfung.
+- [Technik, fachliche Grenzen und Tests](docs/AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md). Öffentliche Freigabe weiterhin gesperrt.
+
 ## V3.15.2 – Unverbindlicher Robustheitsvergleich beim Kita-Start (interner Entwicklungszweig)
 
 - Drei klar begrenzte Verzögerungsvarianten direkt in der bestehenden Eingewöhnungsansicht: eigene Annahme, +2 und +4 Wochen (maximal zwölf Wochen insgesamt).

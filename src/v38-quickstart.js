@@ -17,6 +17,7 @@ const QuickStartV38=(()=>{
  let mode='idle',selected='',expert=false;
  let lastEstimated={father:null,mother:null},wizardCompleted=false,formDirty=false;
  let scenarioDelay=2,goalFormDirty=false,goalWizardUsed=false;
+ let scenarioLost='',scenarioExtra='',scenarioFeesWaived=false;
  const costsKnown=()=>s.expenses!==''&&s.expenses!==null&&s.expenses!==undefined&&Number.isFinite(Number(s.expenses));
  const typeLabel=()=>mode==='example'?'Fiktives Beispiel':mode==='restored'?'Gespeicherter Entwurf':'Persönliche Näherung';
  function navRefresh(){
@@ -110,14 +111,46 @@ const QuickStartV38=(()=>{
   for(const lm of months){const last=result[result.length-1];if(last&&lm===last[1]+1)last[1]=lm;else result.push([lm,lm]);}
   return result;
  }
+ function careImpactMarkup(){
+  const start=Number(s.childcareStart)||0;
+  if(!start||start>current?.rows?.length)return '<p class="v38-caption">Ohne geplanten Kita-Start im Vergleichshorizont sind keine Verzögerungsbeträge darstellbar.</p>';
+  if(scenarioLost===''&&scenarioExtra===''&&!scenarioFeesWaived)
+   return '<p class="v38-caption">Noch keine eigenen finanziellen Annahmen eingegeben. Eine Kita-Verzögerung verändert das Elterngeld-Netto und die Kita-Gebühren nicht automatisch.</p>';
+  try {
+   const result=CareImpact.projectDelayedCareScenario({
+    rows:current.rows,startLm:start,delayMonths:scenarioDelay,
+    monthlyIncomeReduction:scenarioLost===''?0:Number(scenarioLost),
+    monthlyExtraCare:scenarioExtra===''?0:Number(scenarioExtra),
+    waiveOriginalFees:scenarioFeesWaived,expensesKnown:costsKnown()
+   });
+   const formatDelta=value=>(value>0?'+':'')+eur(value);
+   let summary='<p><strong>Veränderung gegenüber dem unveränderten Plan: '+
+     formatDelta(result.totalChange)+'</strong> für die betroffenen Lebensmonate'+
+     (result.affectedMonths.length?' ('+result.affectedMonths.map(x=>'LM '+x).join(', ')+')':' (keine bei 0 Monaten Verschiebung)')+'.</p>';
+   if(result.baselineBudgetKnown){
+    summary+='<p>Modellbudget dieser Lebensmonate: bisher '+eur(result.comparedBaselineTotal)+
+      ' · mit ausdrücklich angenommenen Änderungen '+eur(result.comparedAlternativeTotal)+'.</p>';
+   }else summary+='<p>Haushaltsausgaben fehlen: Der Unterschied ist modelliert, ein verfügbares Familienbudget ist nicht bestimmbar.</p>';
+   if(result.outsideHorizonMonths)summary+='<p>'+result.outsideHorizonMonths+' Monate der Verschiebung liegen außerhalb des berechneten Zeitraums.</p>';
+   return summary+'<p class="v38-caption">Das ist eine hypothetische Differenz auf Basis eurer Eingaben – kein Zahlungsplan, keine Entgelt-/Elterngeld-Neuberechnung und keine Zusage einer Kita-Gebührenerstattung.</p>';
+  }catch(e){return '<p class="v38-error" role="alert">'+escValue(e.message)+'</p>';}
+ }
  function bridgeMarkup(){
   const start=Number(s.childcareStart)||0,until=Math.min(36,Math.max(1,Number(s.goalCare)||18));
   const choices=Array.from({length:7},(_,n)=>'<option value="'+n+'"'+(scenarioDelay===n?' selected':'')+'>'+n+(n===1?' Lebensmonat':' Lebensmonate')+'</option>').join('');
   const control=start>0&&start<=until?
     '<label class="v311-delay" for="v311KitaDelay">Wenn die Kita später startet …'+
     '<select id="v311KitaDelay" aria-controls="v311BridgeResult">'+choices+'</select></label>':'';
+  const finance=control?'<details class="v312-finance"><summary>Finanzielle Folgen abschätzen (optionale Annahmen)</summary>'+
+    '<p class="v38-caption">Nur für die durch die Kita-Verschiebung betroffenen Lebensmonate. Tragt ein, welche monatlichen Änderungen ihr in diesem Szenario ausdrücklich annehmt. Ein späterer Kita-Start allein ändert keine Geldbeträge.</p>'+
+    '<div class="v312-finance-grid">'+
+    '<label for="v312LostWage">Entfallendes Erwerbsnetto / Monat (€)<input id="v312LostWage" type="number" inputmode="decimal" min="0" max="100000" step="0.01" placeholder="Noch nicht angegeben" value="'+escValue(scenarioLost)+'"></label>'+
+    '<label for="v312ExtraCare">Zusätzliche Überbrückungsbetreuung / Monat (€)<input id="v312ExtraCare" type="number" inputmode="decimal" min="0" max="100000" step="0.01" placeholder="Noch nicht angegeben" value="'+escValue(scenarioExtra)+'"></label>'+
+    '</div><label class="v312-fee-waiver" for="v312WaiveFees"><input type="checkbox" id="v312WaiveFees"'+(scenarioFeesWaived?' checked':'')+'>'+
+    'Die bisher geplanten Kita-Gebühren fallen in diesen Monaten laut eigener Annahme weg</label>'+
+    '<div id="v312ImpactResult" aria-live="polite">'+careImpactMarkup()+'</div></details>':'';
   return '<section class="v311-bridge" aria-label="Übergang von Elterngeld zu Betreuung und Beruf"><h4>Betreuung und finanzieller Übergang</h4>'+
-    control+'<div id="v311BridgeResult" aria-live="polite">'+bridgeResultMarkup()+'</div>'+
+    control+'<div id="v311BridgeResult" aria-live="polite">'+bridgeResultMarkup()+'</div>'+finance+
     '<button class="navbtn alt" type="button" data-v38-goto="slide-region">Kita-Annahmen bearbeiten</button></section>';
  }
  function syncGoalForm(){
@@ -266,7 +299,7 @@ const QuickStartV38=(()=>{
   if(!node('v38QuickStart'))return;
   navRefresh();costRefresh();
   if(!goalFormDirty)syncGoalForm();
-  const output=node('v38Summary');if(output)output.innerHTML=summary();
+  const output=node('v38Summary');if(output){const open=!!output.querySelector('.v312-finance')?.open;output.innerHTML=summary();const details=output.querySelector('.v312-finance');if(details)details.open=open;}
   for(const b of node('v38Templates')?.querySelectorAll('[data-v38-template]')||[]){
    b.setAttribute('aria-pressed',String(b.dataset.v38Template===selected));
   }
@@ -286,7 +319,7 @@ const QuickStartV38=(()=>{
    mode='example';node('localSave').checked=false;
    s.goalCare=template.goal;lastEstimated={father:null,mother:null};wizardCompleted=false;
   }
-  selected=id;goalFormDirty=false;if(!personal)goalWizardUsed=false;
+  selected=id;goalFormDirty=false;if(!personal){goalWizardUsed=false;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;}
   clearGoalInputError();chooseModel(template.model); // Existing financial, timeline and legal engine.
   refresh();showSummary();
  }
@@ -362,7 +395,7 @@ const QuickStartV38=(()=>{
   refresh();
  }
  function onResetConfirmed(){
-  mode='idle';selected='';wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=false;scenarioDelay=2;lastEstimated={father:null,mother:null};
+  mode='idle';selected='';wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=false;scenarioDelay=2;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;lastEstimated={father:null,mother:null};
   clearFieldErrors();
   for(const id of ['v38Birth','v38NetF','v38NetM','v38Expenses'])node(id).value='';
   node('v38Goal').value='18';
@@ -375,7 +408,9 @@ const QuickStartV38=(()=>{
  }
  function onImported(){
   mode='personal';selected=Object.keys(templates).find(key=>templates[key].model===s.model)||'';
-  lastEstimated={father:null,mother:null};wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=true;syncPersonalForm();refresh();
+  lastEstimated={father:null,mother:null};wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=true;
+  scenarioDelay=2;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;
+  syncPersonalForm();refresh();
  }
  function mount(){
   if(!node('v38QuickStart'))return;
@@ -413,6 +448,18 @@ const QuickStartV38=(()=>{
     scenarioDelay=parsed;
     const result=node('v311BridgeResult');
     if(result)result.innerHTML=bridgeResultMarkup();
+    const finance=node('v312ImpactResult');
+    if(finance)finance.innerHTML=careImpactMarkup();
+   }
+   if(evt.target.id==='v312WaiveFees'){
+    scenarioFeesWaived=evt.target.checked;
+    const result=node('v312ImpactResult');if(result)result.innerHTML=careImpactMarkup();
+   }
+  });
+  node('v38QuickStart').addEventListener('input',evt=>{
+   if(evt.target.id==='v312LostWage'||evt.target.id==='v312ExtraCare'){
+    if(evt.target.id==='v312LostWage')scenarioLost=evt.target.value;else scenarioExtra=evt.target.value;
+    const result=node('v312ImpactResult');if(result)result.innerHTML=careImpactMarkup();
    }
   });
   node('v38QuickStart').addEventListener('click',evt=>{

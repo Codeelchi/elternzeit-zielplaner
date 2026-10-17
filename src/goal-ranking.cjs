@@ -100,6 +100,44 @@ function proposalTitle(profile, m, horizon, hasAdverse) {
     default: return `Gesamtbudget im Fokus · ${euro(m.total)} über ${horizon} LM`;
   }
 }
+/**
+ * Pareto comparison of the ALREADY validated/eligible candidate pool.
+ * Two visible, competing dimensions only: total household budget (max) and
+ * sum of full parent months (max). Double-counted overlap is disclosed by UI.
+ * Efficient O(pool size + distinct home values log distinct home values).
+ * This intentionally does not claim an exhaustive or legal optimum.
+ */
+function tradeoffFrontier(pool) {
+  if(!Array.isArray(pool))throw new TypeError('Geprüfte Muster als Liste erforderlich.');
+  const comparedCandidates=pool.length;
+  const bestByHome=new Map();
+  for(const item of pool){
+    const home=item?.metrics?.home,total=item?.metrics?.total;
+    if(!Number.isInteger(home)||home<0||!Number.isFinite(total))throw new TypeError('Vergleichsmetriken fehlen.');
+    const totalCents=Math.round(total*100);
+    if(!Number.isSafeInteger(totalCents))throw new RangeError('Gesamtbudget außerhalb des sicheren Vergleichs.');
+    const old=bestByHome.get(home);
+    if(old===undefined||totalCents>old)bestByHome.set(home,totalCents);
+  }
+  const homes=[...bestByHome.keys()].sort((a,b)=>b-a);
+  const bestHigher=new Map();
+  let maxFromHigher=-Infinity,frontierCombinations=0;
+  for(const home of homes){
+    bestHigher.set(home,maxFromHigher);
+    const best=bestByHome.get(home);
+    if(best>maxFromHigher)frontierCombinations++;
+    maxFromHigher=Math.max(maxFromHigher,best);
+  }
+  const annotate=metrics=>{
+    const own=Math.round(metrics.total*100);
+    const maxSameHome=bestByHome.get(metrics.home);
+    const maxHigherHome=bestHigher.get(metrics.home);
+    return {scope:'VALIDATED_CANDIDATE_POOL',axes:['totalAvailable','fullParentMonths'],
+      isNondominated:own===maxSameHome&&maxHigherHome<own,
+      comparedCandidates,frontierCombinations};
+  };
+  return {annotate,frontierCombinations,comparedCandidates};
+}
 /** Returns copies of candidates, selected in objective order then diverse profiles.
  * Input: {schedule, calc:{rows,valid}, adverse?:{rows}}. Search gates belong to caller.
  * Monetary values represent budgets after costs. Ranking is lexicographic, never
@@ -128,6 +166,7 @@ function rankCandidates(items, {horizon = 36, objective = 'finance', limit = 3, 
     m.adverseFloor = adverse.floor; m.adverseTotal = adverse.total;m.adverseReserve=adverse.reserve;
     pool.push({item, metrics:m, fingerprint, hasAdverse:!!item.adverse});
   }
+  const frontier=tradeoffFrontier(pool);
   const preferred = ['father','floor','robust','balanced','finance'].includes(objective) ? objective : 'finance';
   const profiles = [preferred, ...PROFILES.filter(profile => profile !== preferred)];
   const selected = [], chosen = [];
@@ -141,8 +180,8 @@ function rankCandidates(items, {horizon = 36, objective = 'finance', limit = 3, 
     const diversity = {kind:chosen.length?'alternative':'primary', comparedWith,
       thresholds:{...DIVERSITY_THRESHOLDS, totalEuro:DIVERSITY_THRESHOLDS.averageMonthlyEuro*horizon}};
     chosen.push(candidate);
-    selected.push({...candidate.item, profile, title:proposalTitle(profile,candidate.metrics,horizon,candidate.hasAdverse), rankingMetrics:{...candidate.metrics}, diversity, explanation:explanation(profile,candidate.metrics,horizon,candidate.hasAdverse), score:candidate.metrics[profile==='father'?'father':profile==='robust'?(candidate.hasAdverse?'adverseFloor':'floor'):profile==='floor'?'floor':profile==='balanced'?'balance':'total']});
+    selected.push({...candidate.item, profile, title:proposalTitle(profile,candidate.metrics,horizon,candidate.hasAdverse), rankingMetrics:{...candidate.metrics}, tradeoff:frontier.annotate(candidate.metrics), diversity, explanation:explanation(profile,candidate.metrics,horizon,candidate.hasAdverse), score:candidate.metrics[profile==='father'?'father':profile==='robust'?(candidate.hasAdverse?'adverseFloor':'floor'):profile==='floor'?'floor':profile==='balanced'?'balance':'total']});
   }
   return selected;
 }
-module.exports = {rankCandidates, scheduleFingerprint, SEARCH_LIMITATIONS, DIVERSITY_THRESHOLDS};
+module.exports = {rankCandidates, scheduleFingerprint, tradeoffFrontier, SEARCH_LIMITATIONS, DIVERSITY_THRESHOLDS};

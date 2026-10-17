@@ -12,6 +12,8 @@ Stand: **16. Oktober 2026 / V3.10.0**. Reihenfolge nach Abhängigkeit und Priori
 
 **V3.11 (separater Entwicklungszweig, ohne Release-Anspruch):** Geführter Einstieg in die vorhandene Zielsuche sowie 0–6-Monate-Kita-Verzögerungsanzeige und bessere Monatslückenhinweise implementiert. Finanzielle Kita-Folgeberechnung, unabhängige Fachfreigaben und vollständiger Pareto-Suchraum folgen getrennt. [Arbeitsstand](AUSBAU-V3-11-FAMILIENUEBERGANG.md).
 
+**V3.12 (lokaler Entwicklungszweig):** Kita-Verzögerung mit ausdrücklich gesetzten Kosten-/Einkommensannahmen und nur manuell bestätigtem Wegfall bereits eingeplanter Kita-Gebühren; 2D-Pareto-Erklärung unter den validierten Suchmustern; kalenderbasierte Darstellung nur erfasster Bankbuchungen und eine nicht gespeicherte, optionale Anfangsrücklage. Kein automatisches Elterngeld- oder Zahlungsreforecast, keine Rechtsfreigabe. [Technische Grenzen und offene Schritte](AUSBAU-V3-12-KITA-LIQUIDITAET-ZIELKONFLIKTE.md).
+
 ## Erreichter Stand
 
 | Bereich | Implementiert | Noch offen |

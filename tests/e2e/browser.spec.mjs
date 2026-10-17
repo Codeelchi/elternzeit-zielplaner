@@ -152,6 +152,9 @@ test('goal search validates, explains and applies distinct proposals', async ({p
   }
   expect(proposals.every(p=>p.valid)).toBe(true);
   expect(proposals.every(p=>typeof p.explanation==='string'&&p.explanation.length>20)).toBe(true);
+  expect(proposals.every(p=>p.tradeoff?.scope==='VALIDATED_CANDIDATE_POOL')).toBe(true);
+  await expect(page.locator('#goalResult [data-goal-tradeoff]')).toHaveCount(proposals.length);
+  await expect(page.locator('#goalResult')).toContainText('Weder Betreuungsstunden noch ein vollständiges Optimum');
   await expect(page.locator('#goalResult')).toContainText('Begrenzte Vorlagensuche');
   expect(new Set(proposals.map(p=>JSON.stringify(p.schedule))).size).toBe(proposals.length);
   const comparison=await page.evaluate(()=>window.__elternzeitV3.goalComparison());
@@ -733,4 +736,56 @@ for(const width of [320,390])test(`V3.11 guided objective and Kita delay at ${wi
  expect(axe.violations.map(v=>v.id)).toEqual([]);
  await page.screenshot({path:testInfo.outputPath(`v311-goals-${width}.png`),fullPage:true});
  expect(external).toEqual([]);
+});
+
+for(const width of [320,390])test(`V3.12 explicit Kita financial counterfactual stays non-destructive at ${width}px`,async({page},testInfo)=>{
+ await page.setViewportSize({width,height:820});
+ await navigate(page,'slide-1');
+ await page.locator('[data-v38-template="classic"]').click();
+ await navigate(page,'slide-region');
+ await page.locator('#childcareStart').selectOption('15');
+ await navigate(page,'slide-2');
+ await page.locator('#expenses').fill('1200');
+ await navigate(page,'slide-goal');
+ await page.locator('#goalCare').selectOption('18');
+ await page.locator('#goalCareMode').selectOption('partial');
+ await navigate(page,'slide-1');
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await expect(page.locator('.v312-finance')).toBeVisible();
+ await page.locator('.v312-finance summary').click();
+ await page.locator('#v312LostWage').fill('300.55');
+ await page.locator('#v312ExtraCare').fill('50.05');
+ await page.locator('#v311KitaDelay').selectOption('3');
+ await expect(page.locator('#v312ImpactResult')).toContainText('-1.051,80');
+ await expect(page.locator('#v312ImpactResult')).toContainText('kein Zahlungsplan');
+ await page.locator('#v312WaiveFees').check();
+ await expect(page.locator('#v312ImpactResult')).toContainText('-151,80');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(before);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ const dims=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
+ expect(dims.scroll).toBeLessThanOrEqual(dims.width+1);
+ const axe=await new AxeBuilder({page}).include('.v312-finance').withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(axe.violations.map(v=>v.id)).toEqual([]);
+ await page.screenshot({path:testInfo.outputPath(`v312-kita-scenario-${width}.png`),fullPage:true});
+});
+
+test('V3.12 recorded calendar bookings stay separate from modeled entitlements and session reserve',async({page})=>{
+ await navigate(page,'slide-axes');
+ await page.locator('#bankDate').fill('2026-05-13');
+ await page.locator('#bankAmount').fill('100');
+ await page.locator('#bankCategory').selectOption('wage');
+ await page.locator('#bankAdd').click();
+ await page.locator('#bankDate').fill('2026-07-13');
+ await page.locator('#bankAmount').fill('-150.25');
+ await page.locator('#bankCategory').selectOption('childcare');
+ await page.locator('#bankAdd').click();
+ const state=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await expect(page.locator('#bankSummary')).toContainText('2026-06');
+ await expect(page.locator('#bankSummary')).toContainText('Keine Buchungen erfasst');
+ await expect(page.locator('#bankSummary')).toContainText('Ohne ausdrücklich eingegebene Anfangsrücklage');
+ await page.locator('#recordedOpeningReserve').fill('0');
+ await expect(page.locator('#bankSummary')).toContainText('Der Rechensaldo ist ab 2026-07 zeitweise negativ');
+ await expect(page.locator('#bankSummary')).toContainText('keine Kontostands- oder Liquiditätsprognose');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(state);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
 });

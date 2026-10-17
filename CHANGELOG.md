@@ -1,5 +1,15 @@
 # Änderungen
 
+## V3.15 – Eingewöhnung und geprüfte Kita-Zukunftsfassungen (interner Branch, 17.10.2026)
+
+- NRW-KiBiz-Fassung 01.08.2026–31.07.2027 vs. verkündete künftige Fassung ab 01.08.2027 werden nach gewähltem Betreuungstag unterschieden; inklusive sechsmonatiger Anzeige, optionaler örtlicher früher Vormerkung und nur vorläufigem Beitragsfreiheits-Hinweis.
+- Neuer wochenweiser, rein hypothetischer Kita-Eingewöhnungs-/Wiedereinstiegsplan: Verzögerung, Stundenrampe, zusätzliche Betreuung und optionaler expliziter Nettoausfall, ohne Elternzeit-, Leistungs- oder Bankbuchungsänderung.
+- Lokale Antragsstatusmarkierungen samt Ausschluss selbst als erledigt markierter Aufgaben aus dem vorläufigen ICS; KiZ-Unterlagenfenster für sechs Kalendermonate, amtliche Wohngeld-/BuT-Wege ohne automatische Zusatzleistungen.
+- Einfachere Übersicht der Zielsuche nach freier Zeit, modelliertem Budget und vorsichtiger Rücklage, ausschließlich unter den bereits dargestellten Varianten.
+- Neue versionierte Quellenmetadaten und Unit-/DOM-/Browser-Negativtests; neue Eingaben standardmäßig nur Sitzungsszenarien, JSON-Schema v1 bleibt erhalten. Keine automatische Brutto-Elterngeld-Netto-Engine.
+- **Fach- und öffentliche Release-Gates bleiben gesperrt.** Verschlüsselte private Mehrgeräte-Übergabe ist mangels unabhängig geprüftem Sicherheitskonzept bewusst nicht enthalten.
+- Dokumentation und Tests: [V3.15 Ausbau/Abnahme](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
 ## V3.14 – interner Ausbau und Review-Vorbereitung, 17.10.2026 (kein Release-Tag)
 
 Enthält die aufeinander aufbauenden V3.12-, V3.13- und V3.14-Arbeitspakete aus den Feature-Branches. Das technische Paket sowie der aktuelle Export behalten Version 3.10.0 bis zu einer separaten Freigabe-/Versionsentscheidung. **Eine Zusammenführung nach main bedeutet keine öffentliche Freigabe.**

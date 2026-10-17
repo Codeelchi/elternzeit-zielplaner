@@ -417,6 +417,14 @@ const QuickStartV38=(()=>{
   if(s.storageConsent){mode='restored';selected=Object.keys(templates).find(id=>templates[id].model===s.model)||'';}
   node('v38Templates').querySelectorAll('button[data-v38-template]').forEach(b=>b.addEventListener('click',()=>loadTemplate(b.dataset.v38Template)));
   node('v38PersonalForm')?.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',()=>{formDirty=true;}));
+  node('v315CareJump')?.addEventListener('click',()=>{
+   const slides=[...document.querySelectorAll('.slide')];
+   const idx=slides.findIndex(x=>x.id==='slide-region');
+   if(idx<0)return;
+   showSlide(idx);
+   const heading=node('slide-region')?.querySelector('h2');
+   if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}
+  });
   node('v311GoalJump')?.addEventListener('click',()=>{
    node('v311Goals')?.scrollIntoView?.({behavior:'smooth',block:'start'});node('v311Priority')?.focus();
   });

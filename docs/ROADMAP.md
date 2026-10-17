@@ -18,6 +18,8 @@ Stand der aktiven Arbeitspakete: **17. Oktober 2026 / interner V3.14-Code** (tec
 
 **Nacharbeit V3.14 vom 17.10.2026:** Manuelle Versicherungskosten-/Steuerrücklagen-Szenarien, alle drei Kölner Gebühren-Altersgruppen als datiertes Referenzmodul, technischer 256er-Mikro-Suchraum, optimierte schrittweise Suche, Bereinigung überschriebener Controller-Funktionen und ausführbare Prüfnachweise für Privatsphäre, Mutterschutzdelta und zehn vorbereitete externe Fachfälle. Die Rechts- und Nutzerabnahmen bleiben ausdrücklich offen. [V3.14 Fachreview-Paket](ROADMAP-FACHABNAHME-V314-2026-10-17.md).
 
+**Technische Fortsetzung V3.15 vom 17.10.2026:** KiBiz-Rechtsstand 2026/ab 2027 als datierte Kohorte; flexible wöchentliche Kita-Eingewöhnung mit manuellen Stunden-/Finanzfolgen; Aufgabenstatus/ICS, KiZ-Dokumentenfenster und drei verständliche Ergebnis-Perspektiven implementiert. Ohne unabhängige Rechts-/Datenschutz-/Nutzerabnahme keine öffentliche Freigabe; verschlüsselte gemeinsame Pläne bleiben eine gesonderte Sicherheits- und Produkterweiterung. [V3.15 Details](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
 ## Erreichter Stand
 
 | Bereich | Implementiert | Noch offen |

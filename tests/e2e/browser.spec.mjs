@@ -907,6 +907,98 @@ test('V3.14 goal search reports bounded counts and never global completeness',as
  expect(stats.valid).toBeLessThanOrEqual(stats.seen);
  expect(stats.valid+Object.values(stats.rejected).reduce((a,b)=>a+b,0)).toBe(stats.seen);
  await expect(page.locator('#goalResult')).toContainText('Suchfenster:');
+ await expect(page.locator('#goalResult')).toContainText('Drei Perspektiven');
+ await expect(page.locator('#goalResult')).toContainText('Weniger Rücklagenrisiko');
  await expect(page.locator('#goalResult')).toContainText('welcher Anteil aller denkbaren');
  expect(await page.evaluate(()=>window.__elternzeitV3.goalResults().every(x=>x.valid))).toBe(true);
+});
+
+for(const width of [320,390])test(`V3.15 Kita transition, NRW source cohorts and local-only assumptions at ${width}px`,async({page},testInfo)=>{
+ await page.setViewportSize({width,height:844});
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('18');
+ await expect(page.locator('#v315KibizResult')).toContainText('Verkündet, ab 01.08.2027 künftig wirksam');
+ await expect(page.locator('#v315KibizResult')).toContainText('Keine individuelle Beitragsfreigabe');
+ const original=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('#v315CarePreset').selectOption('late');
+ await expect(page.locator('#v315CareResult')).toContainText('angenommene volle Wochenbetreuung');
+ await page.locator('#v315WorkHours').fill('28');
+ await page.locator('#v315BackupHours').fill('8');
+ await page.locator('#v315BackupCost').fill('12');
+ await page.locator('#v315NetRisk').fill('560');
+ await expect(page.locator('#v315CareResult')).toContainText('zusätzliche Finanzbelastung');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(original);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ const violations=await new AxeBuilder({page}).include('.v315-care').withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(violations.violations.map(v=>v.id)).toEqual([]);
+ const dims=await page.evaluate(()=>({page:document.documentElement.scrollWidth,view:window.innerWidth}));
+ expect(dims.page).toBeLessThanOrEqual(dims.view+1);
+ await page.screenshot({path:testInfo.outputPath(`v315-transition-${width}.png`),fullPage:true});
+});
+
+test('V3.15 NRW 2026 versus promulgated 2027 stays dated and historic Cologne fees never enter budget',async({page})=>{
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('12');
+ await expect(page.locator('#v315KibizResult')).toContainText('Fassung zum geplanten Kita-Beginn bereits in Kraft');
+ await expect(page.locator('#v315KibizResult')).toContainText('28.10.2026');
+ const original=await page.evaluate(()=>window.__elternzeitTest.evaluate().rows[11].childcare);
+ await page.locator('#childcareMode').selectOption('cologne2025');
+ expect(await page.evaluate(()=>window.__elternzeitTest.evaluate().rows[11].childcare)).toBe(original);
+ await page.locator('#childcareStart').selectOption('18');
+ await expect(page.locator('#v315KibizResult')).toContainText('Verkündet, ab 01.08.2027 künftig wirksam');
+ await expect(page.locator('#v313ColognePreview')).toContainText('NICHT ins Budget übernommen');
+});
+
+test('V3.15 local checklist status excludes own completed tasks from tentative ICS without official submission',async({page},testInfo)=>{
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('12');
+ await navigate(page,'slide-9');
+ const task=page.locator('#applicationChecklist [data-v315-task="nrw-childcare-notice"]');
+ await expect(task).toBeVisible();
+ await task.focus();
+ await task.selectOption('done');
+ await expect(page.locator('#applicationChecklist [data-v315-task="nrw-childcare-notice"]')).toBeFocused();
+ await expect(page.locator('#applicationChecklist')).toContainText('selbst als erledigt markiert');
+ const download=page.waitForEvent('download');
+ await page.locator('#v313DownloadIcs').click();
+ const item=await download,file=testInfo.outputPath('offene-fristen.ics');
+ await item.saveAs(file);
+ const ics=await readFile(file,'utf8');
+ expect(ics).toContain('BEGIN:VCALENDAR');
+ expect(ics).toContain('STATUS:TENTATIVE');
+ expect(ics).not.toContain('NRW-Kita-Betreuungsbedarf beim Jugendamt anzeigen');
+ expect(ics).toContain('Elterngeldantrag');
+ await navigate(page,'slide-region');
+ await page.locator('#childcareStart').selectOption('18');
+ await navigate(page,'slide-9');
+ await expect(page.locator('#applicationChecklist [data-v315-task="nrw-childcare-notice"]')).toHaveValue('open');
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+
+test('V3.15 KiZ document navigator uses the six prior calendar months without assigning fictitious grants',async({page})=>{
+ await standardInputs(page);
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('.v315-benefits summary').click();
+ await page.locator('#v315BenefitDate').fill('2027-02-28');
+ await expect(page.locator('#v315BenefitsResult')).toContainText('2026-08, 2026-09, 2026-10, 2026-11, 2026-12, 2027-01');
+ await page.locator('#v315KiZAlready').selectOption('yes');
+ await expect(page.locator('#v315BenefitsResult')).toContainText('Folgeanträgen');
+ await expect(page.locator('#v315BenefitsResult')).not.toContainText('2026-08, 2026-09');
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(before);
+ const scan=await new AxeBuilder({page}).include('.v315-benefits').withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(scan.violations.map(v=>v.id)).toEqual([]);
+});
+
+test('V3.15 beginner can open settling-in planner without enabling all expert views',async({page})=>{
+ // The global beforeEach activates expert mode; deliberately return to lite.
+ await page.locator('#v38Advanced').click();
+ await expect(page.locator('#v38Advanced')).toHaveAttribute('aria-pressed','false');
+ await page.locator('#v315CareJump').click();
+ await expect(page.locator('#slide-region')).toBeVisible();
+ await expect(page.locator('#slide-region h2')).toBeFocused();
+ await expect(page.locator('#v315CarePreset')).toBeVisible();
+ await expect(page.locator('#v38Advanced')).toHaveAttribute('aria-pressed','false');
+ await page.locator('#v315CareBack').click();
+ await expect(page.locator('#slide-1')).toBeVisible();
+ await expect(page.locator('#v38Advanced')).toHaveAttribute('aria-pressed','false');
 });

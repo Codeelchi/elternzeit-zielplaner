@@ -33,9 +33,15 @@ test('KiBiz notice works with February/leap months as calendar months, not 180 d
  assert.equal(minusCalendarMonths('2028-11-28',6),'2028-05-28');
  assert.throws(()=>minusCalendarMonths('2027-02-29',6));
 });
-test('historical Kita start before 2027-08-01 does not cite future KiBiz version',()=>{
+test('2026-era Kita start has six-month notice from the effective 2026 KiBiz, not the future version',()=>{
  const g=buildApplicationGuide({birthDate:'2026-01-01',childcareStartLm:14,region:'NRW',legalEvents:registry});
- assert.equal(g.tasks.some(x=>x.id==='nrw-childcare-notice'),false);
+ const task=g.tasks.find(x=>x.id==='nrw-childcare-notice');
+ assert.ok(task);
+ assert.equal(task.careStartDate,'2027-02-01');
+ assert.equal(task.dueDate,'2026-08-01');
+ assert.equal(task.legal_status,'effective');
+ assert.match(task.source.url,/01082026-/);
+ assert.doesNotMatch(task.source.url,/01082027-/);
 });
 test('non-NRW or no planned childcare never creates a false NRW deadline',()=>{
  for(const opts of [{region:'BY',childcareStartLm:19},{region:'NRW',childcareStartLm:0}]){

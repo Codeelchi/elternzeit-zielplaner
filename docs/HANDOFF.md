@@ -14,6 +14,8 @@ Stand: **17. Oktober 2026**. Paket-/Export-Metadaten bleiben bis zu einer separa
 
 **Aktueller technischer Stand V3.14:** [Aktueller Review-/QA-Bericht](ROADMAP-FACHABNAHME-V314-2026-10-17.md), [Roadmap-Matrix](../data/roadmap-status-2026-10-17.json) und [Changelog](../CHANGELOG.md) zuerst lesen. V3.10-Nachweise bleiben historische Snapshots. Im Workbench: 375/375 Node-/DOM-Tests, 39/39 Browserfälle und 3/3 direkte V3.14-file://-Browserfälle bestanden. Die unabhängige öffentliche Freigabe bleibt gesperrt.
 
+**V3.15-Folgestand:** [Wochenweise Eingewöhnung und KiBiz-Kohorten](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md), Module kibiz-cohorts.cjs, settling-in.cjs und benefits-navigator.cjs. Die neuen UI-Szenarien, KiZ-Datumsauswahl und Aufgabenmarker bleiben nur im Arbeitsspeicher; Plan und Export-Schema v1 bleiben unverändert. Negative Unit- und Browserfälle sichern die Trennung. QA: 403/403 Node-/DOM-Tests; voller Chromium-Lauf 45/45, abschließend V3.15-Härtung separat 6/6 HTTP und 6/6 file://. Das bleibt ein technischer Arbeitsstand ohne öffentliche Freigabe.
+
 ## Übergabeumfang und Status
 
 Eine kleine Familienstart-Infowebseite (`start.html`) und ein offlinefähiger deutscher Elternzeit-/Elterngeld-Planer als eigenständige HTML-Datei (`index.html`). Technisch weit fortgeschritten, **kein fachlich abgenommener öffentlicher Beta-Release**. `data/release-gates.json` bleibt gesperrt. Ein Merge ändert daran nichts.

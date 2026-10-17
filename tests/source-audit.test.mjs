@@ -32,3 +32,17 @@ test('future source checks, duplicate IDs, false approval and unrecognized state
   assert.throws(()=>audit(data));
  }
 });
+
+
+test('the NRW 2027 version is promulgated but not active at the 2026 evidence date',()=>{
+ const result=audit(sources),future=result.items.find(x=>x.id==='nrw-kibiz-2027');
+ assert.equal(future.status,'promulgated_future_effective');
+ assert.equal(future.effectiveOnReview,false);
+ assert.ok(result.findings.some(x=>x.id===future.id&&x.type==='PROMULGATED_FUTURE'));
+ assert.equal(future.calculationApproved,false);
+});
+test('date/status inversion cannot mark future KiBiz as already effective',()=>{
+ const data=structuredClone(sources);
+ data.items.find(x=>x.id==='nrw-kibiz-2027').status='effective';
+ assert.throws(()=>audit(data),/Noch nicht wirksame/);
+});

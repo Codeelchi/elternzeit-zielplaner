@@ -98,3 +98,40 @@ Zusätzliche Negativ- und Konsistenztests decken Null-Wochen, spätere Rückkehr
 - Die öffentliche Releaseprüfung bleibt absichtlich **BLOCKED**, bis unabhängige Berechnungsprüfung, Recht, Datenschutz, Nutzertests und öffentliche Freigabe nachweisbar abgeschlossen sind. Die amtliche Mutterschutz-Referenzabweichung ist weiterhin ungelöst.
 
 Die Nachbesserung ist ein **technisch geprüfter interner Arbeitsstand**, keine behördliche Berechnung oder freigeschaltete öffentliche Beta.
+
+
+## V3.15.2 – Vergleiche für zusätzlichen Kita-Verzug (interne Weiterentwicklung)
+
+Eine ergänzte, standardmäßig geschlossene Vergleichsübersicht in der vorhandenen Kita-Eingewöhnungsansicht bietet einen **begrenzten Stresstest mit unveränderten Arbeitsannahmen**. Dargestellt werden die eigene Verzögerung, **weitere zwei Wochen** und **weitere vier Wochen**, soweit insgesamt **maximal zwölf Wochen** erreicht werden. Eingaben in dieser Übersicht werden nicht in den Familienplan übernommen.
+
+### Tatsächlich verglichene Werte
+
+- spätere Kita-Aufnahme und der daraus resultierende Zeitraum mit Warte-/Eingewöhnungswochen;
+- zusätzlich rechnerisch unbetreute Arbeitsstunden **innerhalb** der Übergangsphase;
+- zusätzliche selbst angenommene Ersatzbetreuungskosten und hypothetische Nettoausfälle (nur wenn die Eingaben hierfür genügen);
+- Euro-Differenz relativ zur unveränderten eigenen Basisannahme; bei **unbekannten Werten keine fiktive Null**;
+- sofern Haushaltsausgaben eingegeben wurden und sich die Brücke für die jeweiligen Lebensmonate vollständig berechnen lässt: der **niedrigste hypothetische Monatsrest nur unter den betroffenen Lebensmonaten** (kein Gesamtminimum des 36-Monatsplans);
+- der Hinweis auf Zeiträume jenseits des Planungsfensters und bewusst ausgelassene, sonst unzulässige Varianten.
+
+### Explizite Modellgrenzen
+
+Die zentrale Funktion src/care-resilience.cjs verwendet die bestehenden reinen Funktionen compareSettlingIn und transitionLifeMonthBridge. Zwischen Varianten bleibt **derselbe geplante Arbeitsbeginn**, das gleiche Kita-Stundenziel, die gleiche Eingewöhnungsdauer und dieselben manuell genannten Beträge erhalten. **Nur der zusätzliche Kita-Verzug unterscheidet sich**. Das ist keine Auszahlungs- oder Behördenentscheidung, keine Verteilungsoptimierung, keine Wahrscheinlichkeit einer Kitaplatzvergabe und kein zusätzlicher Elterngeldrechner.
+
+**Wichtig für die Interpretation:** Eine weitere Kita-Verzögerung verändert in der Realität möglicherweise auch tatsächliche Arbeitsstunden und Lohnzahlungen. Diese komplexe Wechselwirkung wird im Stresstest **nicht automatisch** fortgeschrieben; die Eltern müssen bei Bedarf ihren geplanten Wiedereinstieg selbst als separates Szenario verändern. Dauerhafte Betreuungslücken nach dem Übergang bleiben getrennt und sind **nicht in der Mehrbelastung der Eingewöhnung enthalten**.
+
+Die Tabelle liegt innerhalb eines horizontal scrollbaren und mit Tastatur erreichbaren Bereichs. Ein aufgeklappter Vergleich bleibt beim Ändern der Wochenannahmen geöffnet. Maximal drei Varianten, bewusst keine unbeschränkte Suche und keine Speicherung im JSON/Browser-Storage.
+
+### Zusätzliche Tests und Sicherheit
+
+Reine Unit-Tests: mathematische Basiskonsistenz, unbekanntes Einkommen, bekannte versus unbekannte Haushaltskosten, späterer Arbeitsbeginn, 12-Wochen-Obergrenze ohne stilles Abschneiden, 36-Monats-Horizont, ungültige Eingaben und Unveränderlichkeit der Plan- und Bankdaten. DOM und Browser prüfen korrekte Basis-/Delta-Anzeige, mobile Breite von 320 px, anhaltende Offenheit der Tabelle beim Editieren, Axe und unveränderten exportierbaren Familienplan.
+
+**Öffentliche Freigabe:** unverändert BLOCKED; die oben erläuterten Modellgrenzen müssen bei Fach-/Rechts- und UX-Review explizit geprüft werden.
+
+
+### V3.15.2 – geprüfter technischer Abschluss am 17.10.2026
+
+- **430/430 Node-/DOM-Tests** bestanden, inklusive aller bisherigen Elterngeld- und Familienbudgetfälle, aller neuen Sensitivitäts- und 80 deterministisch durchgespielter Kombinationen aus Geburtsdatum, Betreuungsstart und Verzögerungsdauer.
+- **49/49 Chromium-Gesamttests** bestanden, inklusive Desktop- und Mobil-Accessibility, unverändertem JSON-Roundtrip und den beiden neuen Variantenvergleichs-Testfällen.
+- **10/10 direkte file://-Chromium-Fälle** für V3.15 bis V3.15.2 bestanden, darunter Mobilbreite von 320 px, gleiche Arbeitszeiten über alle Varianten, geöffnete Vergleichstabelle nach Eingabeänderung, fehlende Kosten, ausgeschlossene Verzögerungen und fehlende Browser-Speicherung.
+- Module, Quellen, Roadmap-Status, Legacy-Handler und technische Offline-Datenschutzgrenzen durch automatisierte Checks erneut geprüft.
+- **KEIN** unabhängiger Rechts-, Behörden-, Steuer-, Nutzer- oder Datenschutzreview. Die öffentliche Release-Sperre bleibt bestehen; die amtlich widersprüchliche Mutterschutz-Anrechnung ist nicht fachlich gelöst. Für die V3.15.2-Suche ist keine globale Optimierung oder valide Prognose des tatsächlichen Kita-Platzes belegt.

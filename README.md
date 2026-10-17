@@ -6,6 +6,10 @@
 
 **Technische V3.15-Abnahme (17.10.2026):** 403/403 Node-/DOM-Tests, 45/45 gesamter Chromium-Browserlauf und nach abschließender Navigationskorrektur jeweils 6/6 V3.15-Browserfälle über HTTP und direkte Offline-Datei. Diese technischen Ergebnisse sind keine unabhängige Fach-/Rechtsfreigabe. [Nachweise](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
 
+**V3.15.2 technische QA (17.10.2026):** 430/430 Node-/DOM-, 49/49 gesamter Chromium-Browserlauf und 10/10 direkte file://-V3.15.x-Browserfälle bestanden. Die öffentliche fachliche Freigabe bleibt gesperrt. [Details](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**Weiterentwicklung V3.15.2:** Die Eingewöhnungsplanung enthält jetzt einen optionalen Robustheitsvergleich für zwei beziehungsweise vier zusätzliche Wochen ohne Kitaplatz. Er zeigt verfügbare Betreuung, hypothetische Mehrkosten und – nur bei bekannten Haushaltskosten – den niedrigsten Monatsrest unter den betroffenen Lebensmonaten. Es werden keine Familienplanwerte oder Bankbuchungen verändert. [Technische und fachliche Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
 **V3.15.1 technische QA:** 418/418 Node-/DOM-Tests; vollständiger Chromium-Lauf 47/47; direkte file://-Prüfung aller 8 V3.15-/V3.15.1-Browserfälle bestanden. Keine unabhängige Rechts-/Fachabnahme. [Abnahme und Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
 
 **Nachbesserung V3.15.1:** Der Kita-Vergleich unterscheidet jetzt ausdrücklich einmalige Eingewöhnungsbelastungen von dauerhaft offenen Betreuungsstunden. Arbeit kann erst Wochen nach Kita-Start beginnen; hypothetische Zusatzkosten werden separat und centgenau auf Lebensmonate verteilt. Es werden weder Leistungsansprüche noch gespeicherte Pläne still geändert. [Fachliche Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).

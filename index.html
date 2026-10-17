@@ -988,7 +988,7 @@ module.exports = {
 return Object.freeze(module.exports);})();
 /* TIME_AXES_MODULE_END */
 /* PlanningKnowledge_START */
-const PlanningKnowledge=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const PlanningKnowledge=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 const time = require('./time-axes.cjs');
 const VERIFIED_AT = '2026-10-16';
@@ -1074,7 +1074,7 @@ module.exports={DATA,SOURCES,selectPlanningKnowledge};
 return Object.freeze(module.exports);})(TimeAxes);
 /* PlanningKnowledge_END */
 /* Money_START */
-const Money=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const Money=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 
 /** Cent rounding for calculated euro amounts.
@@ -1142,7 +1142,7 @@ module.exports = {roundEuro, roundEuroByPercent, meanEuro, MAX_EURO};
 return Object.freeze(module.exports);})(TimeAxes);
 /* Money_END */
 /* CandidatePatterns_START */
-const CandidatePatterns=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const CandidatePatterns=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 
 /** Create a second care template by exchanging the parents' monthly choices.
@@ -1176,7 +1176,7 @@ module.exports = {mirrorCarePlan};
 return Object.freeze(module.exports);})(TimeAxes);
 /* CandidatePatterns_END */
 /* PlanningModel_START */
-const PlanningModel=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const PlanningModel=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 
 // Canonical bridge between independent axes and the existing financial model.
@@ -1261,7 +1261,7 @@ module.exports={materializePlan,codeFor};
 return Object.freeze(module.exports);})(TimeAxes);
 /* PlanningModel_END */
 /* GoalRanking_START */
-const GoalRanking=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const GoalRanking=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 
 // Ranking only: callers must validate law, coverage and minimum budgets first.
@@ -1453,7 +1453,7 @@ module.exports = {rankCandidates, scheduleFingerprint, tradeoffFrontier, SEARCH_
 return Object.freeze(module.exports);})(TimeAxes);
 /* GoalRanking_END */
 /* CareImpact_START */
-const CareImpact=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const CareImpact=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 
 const {roundEuro,MAX_EURO}=require('./money.cjs');
@@ -1528,7 +1528,7 @@ module.exports={projectDelayedCareScenario};
 return Object.freeze(module.exports);})(TimeAxes);
 /* CareImpact_END */
 /* RecordedLiquidity_START */
-const RecordedLiquidity=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const RecordedLiquidity=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 
 const {roundEuro,MAX_EURO}=require('./money.cjs');
@@ -1584,7 +1584,7 @@ module.exports={summarizeRecordedLiquidity};
 return Object.freeze(module.exports);})(TimeAxes);
 /* RecordedLiquidity_END */
 /* ExpectedPayments_START */
-const ExpectedPayments=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const ExpectedPayments=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 
 const MAX_ROWS=36, MAX_EURO=100000;
@@ -1674,7 +1674,7 @@ module.exports={compareExpectedPayments,validatePayments};
 return Object.freeze(module.exports);})(TimeAxes);
 /* ExpectedPayments_END */
 /* FinanceGuidance_START */
-const FinanceGuidance=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const FinanceGuidance=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 
 const VERIFIED_AT='2026-10-17';
@@ -1708,7 +1708,7 @@ module.exports={buildFinanceGuidance,SOURCES,VERIFIED_AT};
 return Object.freeze(module.exports);})(TimeAxes);
 /* FinanceGuidance_END */
 /* SearchCoverage_START */
-const SearchCoverage=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const SearchCoverage=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 const FILTERS=['coverage','overlap','rules','distribution','budget'];
 function integer(v,label) {
@@ -1740,7 +1740,7 @@ module.exports={summarizeSearchCoverage,FILTERS};
 return Object.freeze(module.exports);})(TimeAxes);
 /* SearchCoverage_END */
 /* CalendarExport_START */
-const CalendarExport=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const CalendarExport=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 const DAY=86400000;
 function isoDay(date){
@@ -1798,7 +1798,7 @@ return Object.freeze(module.exports);})(TimeAxes);
 /* CalendarExport_END */
 
 /* KibizCohorts_START */
-const KibizCohorts=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const KibizCohorts=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 const time=require('./time-axes.cjs');
 const LAW_2026='https://recht.nrw.de/lrgv/gesetz/01082026-gesetz-zur-fruehen-bildung-und-foerderung-von-kindern-kinderbildungsgesetz/';
@@ -1857,7 +1857,7 @@ module.exports={childcareLawWindow,minusMonths,LAW_2026,LAW_2027,COLOGNE,REVIEWE
 return Object.freeze(module.exports);})(TimeAxes);
 /* KibizCohorts_END */
 /* ApplicationGuide_START */
-const ApplicationGuide=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const ApplicationGuide=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 const time=require('./time-axes.cjs');
 const kibiz=require('./kibiz-cohorts.cjs');
@@ -1945,7 +1945,7 @@ module.exports={buildApplicationGuide,minusCalendarMonths,allowanceReferenceDay,
 return Object.freeze(module.exports);})(TimeAxes);
 /* ApplicationGuide_END */
 /* FamilyBudget_START */
-const FamilyBudget=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const FamilyBudget=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 const {roundEuro,roundEuroByPercent,MAX_EURO}=require('./money.cjs');
 /** Life-month entitlement projections; never a prediction of bank receipt dates. */
@@ -2066,7 +2066,7 @@ return Object.freeze(module.exports);})(TimeAxes);
 /* FamilyBudget_END */
 
 /* SettlingIn_START */
-const SettlingIn=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const SettlingIn=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 const time=require('./time-axes.cjs');
 const MAX_MONEY=100000;
@@ -2274,8 +2274,86 @@ module.exports={compareSettlingIn,transitionLifeMonthBridge};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* SettlingIn_END */
+/* CareResilience_START */
+const CareResilience=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+const {compareSettlingIn,transitionLifeMonthBridge}=require('./settling-in.cjs');
+
+/**
+ * A deliberately bounded what-if view, NOT an optimiser or a benefit forecast.
+ * The three scenarios hold every assumption fixed except extra childcare delay.
+ * The user can still edit the source scenario independently.
+ */
+function compareCareResilience({birthDate,careStartLm,delayWeeks=0,settlingWeeks=4,
+ targetCareHours=35,firstWeekCareHours=5,plannedWorkHours=28,
+ workReturnWeeks=0,backupHours=0,hourlyBackupCost=null,weeklyNetAtRisk=null,
+ modelMonths=36,rows,expensesKnown=false}={}){
+ if(!Array.isArray(rows)||rows.length!==modelMonths)throw new TypeError('Vergleich benötigt denselben vollständigen Lebensmonatshorizont.');
+ const sameInputs={birthDate,careStartLm,settlingWeeks,targetCareHours,firstWeekCareHours,
+  plannedWorkHours,workReturnWeeks,backupHours,hourlyBackupCost,weeklyNetAtRisk,modelMonths};
+ const variants=[];
+ const skips=[];
+ for(const [id,additionalWeeks,label]of [['current',0,'Eigene Annahme'],['plus2',2,'Kita 2 Wochen später'],['plus4',4,'Kita 4 Wochen später']]){
+  if(!Number.isInteger(delayWeeks)||delayWeeks<0||delayWeeks>12){
+   throw new RangeError('Geplante Kita-Verschiebung muss 0 bis 12 ganze Wochen betragen.');
+  }
+  const actualDelay=delayWeeks+additionalWeeks;
+  if(actualDelay>12){skips.push({id,additionalWeeks,reason:'Maximal 12 Wochen Verzögerung im derzeitigen Modell.'});continue;}
+  const scenario=compareSettlingIn({...sameInputs,delayWeeks:actualDelay});
+  if(!scenario.active){
+   return {active:false,variants:[],skipped:[],reason:scenario.warning,mutatedPlan:false};
+  }
+  const bridge=transitionLifeMonthBridge({birthDate,scenario,rows,expensesKnown});
+  const extraCost=scenario.combinedMoneyImpact===null?null:
+   -scenario.combinedMoneyImpact;
+  const first=variants[0]??null;
+  const baseCost=first?.extraCost;
+  const differenceCost=extraCost===null?null:
+   first===null?0:baseCost===null?null:Math.round((extraCost-baseCost)*100)/100;
+  const hasOutside=bridge.outsideHorizonDays>0;
+  const variant={id,label,additionalWeeks,actualDelayWeeks:actualDelay,
+   childcareStartDate:scenario.actualCareStartDate,
+   regularCareDate:scenario.regularCareFrom,workReturnDate:scenario.workReturnDate,
+   transitionWeeks:scenario.transitionWeeks,uncoveredTransitionHours:scenario.uncoveredHours,
+   extraCost,differenceCost,
+   additionalUncoveredHours:first?Math.round((scenario.uncoveredHours-first.uncoveredTransitionHours)*100)/100:0,
+   recurringWeeklyGapHours:scenario.regularWeeklyUncoveredHours,
+   budgetMonthsWithTransition:bridge.months.map(m=>m.lm),
+   cheapestMonthlyAvailable:expensesKnown&&bridge.months.length>0&&
+    bridge.months.every(m=>m.alternativeAfterCosts!==null)?
+    Math.min(...bridge.months.map(m=>m.alternativeAfterCosts)):null,
+   monthsUnknown:bridge.months.some(m=>m.alternativeAfterCosts===null),
+   outsideHorizonDays:bridge.outsideHorizonDays,
+   outsideHorizonMoney:bridge.outsideHorizonMoney,
+   entirelyWithinHorizon:!hasOutside,
+   workOrBenefitPlanChanged:false,bankReceiptsPredicted:false};
+  variants.push(variant);
+ }
+ return {active:true,baseDelayWeeks:delayWeeks,variants,skipped:skips,
+  hasAllVariants:variants.length===3,
+  allMoneyKnown:variants.every(v=>v.extraCost!==null),
+  beyondModel:variants.some(v=>v.outsideHorizonDays>0),
+  maxAdditionalDelayWeeks:12-delayWeeks,
+  mutatedPlan:false,modifiedElterngeld:false,
+  comparisonBasis:'SAME_WORK_RETURN_AND_HOURS_VARY_CHILDCARE_DELAY_ONLY',
+  warnings:[
+   'Verglichen wird ausschließlich ein späterer Kita-Beginn bei sonst gleichen, ausdrücklich selbst angenommenen Wochenstunden, Einkommen und Rückkehrdatum.',
+   'Die Varianten sind keine Wahrscheinlichkeiten, keine optimierten Empfehlungen und keine Vorhersagen über die tatsächliche Platzvergabe.',
+   'Dauerhafte Betreuungslücken, Änderungen der Arbeitsaufnahme, Elterngeld-/Steuerfolgen sowie tatsächliche Bankeingänge bleiben getrennt zu prüfen.',
+   'Unbekannte Versicherungs-, Steuer-, Lohn- oder Betreuungskosten werden nicht geschätzt oder still auf null gesetzt.',
+   ...(variants.some(v=>v.recurringWeeklyGapHours>0)?
+    ['Es gibt nach den eigenen Wochenstundenannahmen zusätzlich eine nicht bezifferte DAUERHAFTE Betreuungslücke.']:[]),
+   ...(skips.length?['Weitere Verzögerungsvarianten wurden aufgrund des auf zwölf Wochen begrenzten Modellraums ausgelassen.']:[]),
+   ...(variants.some(v=>v.outsideHorizonDays>0)?
+    ['Ein Teil der Übergangszeiten liegt außerhalb der berechneten Lebensmonate; Geldbeträge müssen dann getrennt eingeordnet werden.']:[])
+  ]};
+}
+module.exports={compareCareResilience};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* CareResilience_END */
 /* BenefitsNavigator_START */
-const BenefitsNavigator=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const BenefitsNavigator=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 const time=require('./time-axes.cjs');
 const KI_Z='https://www.arbeitsagentur.de/familie-und-kinder/kinderzuschlag-verstehen/kinderzuschlag-anspruch-hoehe-dauer';
@@ -2319,7 +2397,7 @@ module.exports={precedingMonths,benefitNavigator};
 return Object.freeze(module.exports);})(TimeAxes);
 /* BenefitsNavigator_END */
 /* ManualCostImpact_START */
-const ManualCostImpact=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const ManualCostImpact=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 
 const {projectFamilyBudget}=require('./family-budget.cjs');
@@ -2366,7 +2444,7 @@ module.exports={compareManualCostBuffer};
 return Object.freeze(module.exports);})(TimeAxes);
 /* ManualCostImpact_END */
 /* CologneFees_START */
-const CologneFees=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const CologneFees=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 
 // This is a DATED 2025 tariff snapshot, NOT a live bill and never a benefit.
@@ -2415,7 +2493,7 @@ module.exports={estimateCologneFee,TABLE,LIMITS,SOURCE,CHECKED,EFFECTIVE_FROM};
 return Object.freeze(module.exports);})(TimeAxes);
 /* CologneFees_END */
 /* PlanComparison_START */
-const PlanComparison=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const PlanComparison=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 
 const {projectFamilyBudget}=require('./family-budget.cjs');
@@ -2499,7 +2577,7 @@ module.exports={comparePlans};
 return Object.freeze(module.exports);})(TimeAxes);
 /* PlanComparison_END */
 /* RuleValidator_START */
-const RuleValidator=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const RuleValidator=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
 
 /** Pure fail-closed validation of the explicitly confirmed employee standard case.
@@ -3438,9 +3516,9 @@ Object.assign(defaults,{parentNameFather:'Elternteil 1',parentNameMother:'Eltern
 for(const [key,value] of Object.entries(defaults))if(s[key]===undefined)s[key]=value;
 let goalCandidates=[],goalStats=null,goalFingerprint='',goalComparison=null,goalSearchJob=null;
 const V315_CARE_DEFAULTS=Object.freeze({delayWeeks:'0',settlingWeeks:'4',firstWeekCareHours:'5',targetCareHours:'35',plannedWorkHours:'28',workReturnWeeks:'0',backupHours:'0',hourlyBackupCost:'',weeklyNetAtRisk:''});
-let v315Care={...V315_CARE_DEFAULTS},v315BenefitDate='',v315KiZAlready='no',v315TaskStates=new Map();
+let v315Care={...V315_CARE_DEFAULTS},v315BenefitDate='',v315KiZAlready='no',v315TaskStates=new Map(),v315CompareOpen=false;
 function resetV315Extras(){
- v315Care={...V315_CARE_DEFAULTS};v315BenefitDate='';v315KiZAlready='no';v315TaskStates=new Map();
+ v315Care={...V315_CARE_DEFAULTS};v315BenefitDate='';v315KiZAlready='no';v315TaskStates=new Map();v315CompareOpen=false;
  for(const [id,key]of [['v315DelayWeeks','delayWeeks'],['v315SettlingWeeks','settlingWeeks'],
   ['v315FirstHours','firstWeekCareHours'],['v315TargetHours','targetCareHours'],['v315WorkHours','plannedWorkHours'],['v315WorkReturnWeeks','workReturnWeeks'],
   ['v315BackupHours','backupHours'],['v315BackupCost','hourlyBackupCost'],['v315NetRisk','weeklyNetAtRisk']]){
@@ -3678,6 +3756,36 @@ function renderV315Care(){
    moneyValue(m.totalHypotheticalExtra)+'</td><td>'+
    (m.baselineAfterCosts===null?'Nicht bekannt':euro(m.baselineAfterCosts))+'</td><td>'+
    (m.alternativeAfterCosts===null?'Nicht berechenbar':euro(m.alternativeAfterCosts))+'</td></tr>').join('');
+  const resilience=CareResilience.compareCareResilience({
+   birthDate:s.date,careStartLm:Number(s.childcareStart)||0,
+   delayWeeks:required('delayWeeks'),settlingWeeks:required('settlingWeeks'),
+   firstWeekCareHours:required('firstWeekCareHours'),targetCareHours:required('targetCareHours'),
+   plannedWorkHours:required('plannedWorkHours'),workReturnWeeks:required('workReturnWeeks'),
+   backupHours:required('backupHours'),
+   weeklyNetAtRisk:opt('weeklyNetAtRisk'),hourlyBackupCost:opt('hourlyBackupCost'),
+   modelMonths:N,rows:current.rows,expensesKnown:s.expenses!==''
+  });
+  const careCost=x=>x===null?'Unbekannt':euro(x);
+  const varianceRows=resilience.variants.map(v=>'<tr><th scope="row">'+esc(v.label)+'</th>'+
+   '<td>'+esc(TimeAxes.formatDateDE(v.childcareStartDate))+'</td><td>'+
+   v.transitionWeeks+'</td><td>'+fmt(v.uncoveredTransitionHours)+'</td>'+
+   '<td>'+careCost(v.extraCost)+'</td><td>'+careCost(v.differenceCost)+'</td>'+
+   '<td>'+ (v.cheapestMonthlyAvailable===null?'Nicht berechenbar':euro(v.cheapestMonthlyAvailable))+
+   '</td></tr>').join('');
+  const resilienceHtml='<details class="note v315-resilience"'+(v315CompareOpen?' open':'')+'>'+
+   '<summary><strong>Kita-Verschiebung vergleichen: eigene Annahme, +2 und +4 Wochen</strong></summary>'+
+   '<p class="input-caption">Ein kleiner Stresstest statt einer automatischen Empfehlung: Die gewählte Arbeitsrückkehr, Wochenstunden, Kosten und alle übrigen Annahmen bleiben gleich. Nur die Verzögerung des Kita-Starts ändert sich.</p>'+
+   '<div class="h-scroll" tabindex="0" role="region" aria-label="Drei Kita-Verzögerungsszenarien">'+
+   '<table class="plan-budget-table" style="width:100%"><thead><tr><th scope="col">Annahme</th>'+
+   '<th scope="col">Kita ab</th><th scope="col">Übergangswochen</th>'+
+   '<th scope="col">Ungedeckte Arbeitsstunden</th><th scope="col">Hypothetische Übergangsbelastung</th>'+
+   '<th scope="col">Mehr als eigene Annahme</th>'+
+   '<th scope="col">Niedrigster Monatsrest im betroffenen Zeitraum</th></tr></thead><tbody>'+
+   varianceRows+'</tbody></table></div>'+
+   (resilience.skipped.length?'<p class="note warn">'+resilience.skipped.length+
+    ' zusätzliche Varianten ausgelassen: Das Modell ist auf maximal 12 Wochen Kita-Verzögerung begrenzt.</p>':'')+
+   '<p class="input-caption">Ein negativer Monatsrest ist ausschließlich eine Schätzung unter den eingegebenen Haushaltsannahmen; angezeigt wird nur der niedrigste Rest unter den betroffenen Lebensmonaten, nicht das globale Minimum des Familienplans.</p>'+
+   '<p class="input-caption">'+esc(resilience.warnings.join(' '))+'</p></details>';
   const bridgeHtml=comparison.months.length?
    '<details class="note" open><summary><strong>Übergangskosten nach Lebensmonaten zuordnen</strong></summary>'+
    '<p class="input-caption">Die zusätzlichen angenommenen Wochenkosten werden centgenau und gleichmäßig nach Kalendertagen verteilt. Das ist ein separater Vergleich, keine Änderung des ursprünglichen Monatsplans und keine Prognose von Zahlungseingängen.</p>'+
@@ -3697,7 +3805,8 @@ function renderV315Care(){
    esc(TimeAxes.formatDateDE(r.workReturnDate))+'. Während der '+r.transitionWeeks+
    ' Übergangswochen bleiben '+fmt(r.uncoveredHours)+' Arbeitsstunden rechnerisch unbetreut.</p>'+sum+gap+
    '<div class="h-scroll" tabindex="0" role="region" aria-label="Wochenweise Eingewöhnungs- und Arbeitsplanung"><table class="plan-budget-table" style="width:100%"><thead><tr><th scope="col">Wochenbeginn</th><th scope="col">Phase</th><th scope="col">Kita h</th><th scope="col">Arbeit h</th><th scope="col">Ersatz h</th><th scope="col">Arbeitslücke h</th><th scope="col">Nettoausfall</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
-   bridgeHtml+'<p class="input-caption">'+esc(r.warnings.join(' '))+'</p>';
+   bridgeHtml+resilienceHtml+'<p class="input-caption">'+esc(r.warnings.join(' '))+'</p>';
+  out.querySelector('.v315-resilience')?.addEventListener('toggle',event=>{v315CompareOpen=event.target.open;});
  }catch(error){out.innerHTML='<div class="note danger" role="alert">'+esc(error.message)+'</div>';}
 }
 function renderV315Benefits(){
@@ -3734,7 +3843,7 @@ function listenV315Extras(){
   for(const [id,key] of fields)$(id).value=v315Care[key];
   renderV315Care();
  });
- $('v315CareReset').addEventListener('click',()=>{v315Care={...V315_CARE_DEFAULTS};
+ $('v315CareReset').addEventListener('click',()=>{v315Care={...V315_CARE_DEFAULTS};v315CompareOpen=false;
   for(const [id,key] of fields)$(id).value=v315Care[key];
   $('v315CarePreset').value='custom';renderV315Care();
  });

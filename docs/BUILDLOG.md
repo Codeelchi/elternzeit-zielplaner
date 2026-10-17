@@ -2,6 +2,10 @@
 
 Historischer Entwicklungsverlauf seit V3.4, ergänzter **Stand vom 17. Oktober 2026: interner V3.14-Code** (Paket-/Exportversionsnummer 3.10.0 bis separater Release-Entscheidung). Technische Nachweise, fachliche Evidenz und öffentliche Freigaben sind getrennt. Ein Merge nach `main` ist keine Veröffentlichung und keine unabhängige Fachabnahme.
 
+## V3.15.2 begrenzter Kita-Verschiebungs-Stresstest, 17.10.2026
+
+Neue pure Sensitivitätsfunktion src/care-resilience.cjs sowie mobile, aufklappbare UI-Tabelle. Gesamtabnahme: 430/430 Node-/DOM-Tests, 49/49 Chromium-E2E und 10/10 direkte file://-V3.15.x-Browserfälle bestanden. Varianten: eigen, zwei und vier Wochen zusätzliche Verzögerung, aber maximal zwölf Wochen Gesamtverschiebung. Differenzen nur auf gleiche manuelle Wochen-/Geld-/Rückkehr-Annahmen bezogen; unbekannte Kosten bleiben unbekannt und der Plan wird nicht mutiert. [Detailbericht](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
 ## V3.15.1 Korrektur und technischer QA-Abschluss, 17.10.2026
 
 Kita-Eingewöhnung: fälschlich mitgezählte reguläre Woche entfernt; Arbeitsrückkehr 0–24 Wochen getrennt, dauerhaft ungedeckte Wochenstunden als eigenes Problem benannt. Rein hypothetische Cent-Zuordnung zu Lebensmonaten mit vollständiger Offenlegung unberücksichtigter Zeiträume, ohne gespeicherte Planänderung. Vollständige Tests: 418/418 Node-/DOM, 47/47 Chromium, 8/8 direkte file:// V3.15.x-Browserfälle. Release-Gates unabhängig weiterhin BLOCKED. [Detailnachweis](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).

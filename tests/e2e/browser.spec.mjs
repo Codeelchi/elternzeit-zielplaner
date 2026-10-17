@@ -1033,3 +1033,44 @@ test('V3.15.1 zero-week settling-in costs exclude recurring childcare shortfall'
  await expect(page.locator('#v315CareResult')).toContainText('0 Übergangswochen');
  await expect(page.locator('#v315CareResult')).toContainText('Regelwoche – nur Vorschau');
 });
+
+test('V3.15.2 mobile delayed-Kita sensitivity compares same work return and retains active plan',async({page})=>{
+ await page.setViewportSize({width:320,height:850});
+ await standardInputs(page);
+ await page.locator('#childcareStart').selectOption('19');
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('#v315CarePreset').selectOption('late');
+ await page.locator('#v315BackupHours').fill('8');
+ await page.locator('#v315BackupCost').fill('12');
+ await page.locator('#v315NetRisk').fill('560');
+ const details=page.locator('.v315-resilience');
+ await details.locator('summary').click();
+ await expect(details).toHaveAttribute('open','');
+ await expect(details).toContainText('Kita 2 Wochen später');
+ await expect(details).toContainText('Kita 4 Wochen später');
+ await expect(details).toContainText('992 €');
+ await expect(details).toContainText('1.984 €');
+ await expect(details).toContainText('Niedrigster Monatsrest im betroffenen Zeitraum');
+ await expect(details).not.toContainText('Nicht berechenbar');
+ // The new comparison remains open when normal scenario fields change.
+ await page.locator('#v315WorkReturnWeeks').fill('4');
+ await expect(page.locator('.v315-resilience')).toHaveAttribute('open','');
+ await expect(page.locator('.v315-resilience')).toContainText('Kita 2 Wochen später');
+ const dimensions=await page.evaluate(()=>({w:document.documentElement.scrollWidth,viewport:window.innerWidth}));
+ expect(dimensions.w).toBeLessThanOrEqual(dimensions.viewport+1);
+ const accessibility=await new AxeBuilder({page}).include('.v315-care')
+  .withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(accessibility.violations.map(x=>x.id)).toEqual([]);
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(before);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+test('V3.15.2 unknown extra costs and limit of 12-week delay have no false forecast',async({page})=>{
+ await standardInputs(page);
+ await page.locator('#v315DelayWeeks').fill('11');
+ const details=page.locator('.v315-resilience');
+ await details.locator('summary').click();
+ await expect(details).toContainText('zusätzliche Varianten ausgelassen');
+ await expect(details).toContainText('Nicht berechenbar');
+ await expect(details).toContainText('Unbekannt');
+ await expect(details).not.toContainText('Kita 4 Wochen später');
+});

@@ -72,3 +72,10 @@ Details und offene unabhängige Prüfung: [V3.15 Ausbau](AUSBAU-V315-KITA-WIEDER
 Die Core-Funktion compareSettlingIn verarbeitet geplanten Kita-Start und tatsächlich geplanten Arbeitsbeginn getrennt. Die Wochen des tatsächlichen Übergangs tragen countsTowardTransition=true; die anschließende Regelwoche trägt previewOnly=true und wird weder summiert noch als Dauerleistung fortgeschrieben. Eine möglicherweise dauerhaft unzureichende Betreuung wird ausschließlich als Wochenstunden-Differenz angezeigt.
 
 Die ebenfalls reine Funktion transitionLifeMonthBridge übernimmt ausschließlich die expliziten Übergangswochen und weist deren Kosten proportional zu den betroffenen *Kalendertagen* den Lebensmonaten des Kindes zu. Ganze Eurocent bleiben erhalten (größter Rest), auch an Monats-/Jahresgrenzen und bei außerhalb des 36-Monatsmodells liegenden Wochen. Ohne bekannte Haushaltsausgaben wird kein verfügbares Restbudget behauptet. Keine Modell-, Export-, Behörden- oder Kontomutation.
+
+
+### V3.15.2 – reine begrenzte Sensitivität statt Optimierungsversprechen
+
+src/care-resilience.cjs kombiniert drei gültige Varianten derselben deterministischen Basis über compareSettlingIn und transitionLifeMonthBridge. Die Vergleichsannahmen sind fix: gleiches Geburtsdatum, gleicher Elternzeit-/Leistungsplan, derselbe gedachte Arbeitsbeginn, dieselben Betreuungskosten, Wochen- und Ersatzstunden. **Nur** die zusätzlichen zwei bzw. vier Wochen Kita-Verzögerung ändern sich; Varianten oberhalb zwölf Wochen werden transparent ausgelassen.
+
+Zusätzlich zu den angenommenen Zeit- und Kostenunterschieden wird nur bei **bekannten Haushaltsausgaben und vollständigen Zusatzkosten** ein niedrigster Monatsrest für die vom Übergang betroffenen Lebensmonate ausgegeben. Der Vergleich wird nicht zur Bankbilanz oder zu einem gesetzlichen Netto-/Bescheidergebnis hochgerechnet. Die Reactivity des HTML ist schreibgeschützt bezüglich `s`, schemaversioniertem JSON-Export und lokaler Speicherung: Die optionale Tabelle ist nur ein temporärer UI-Snapshot. Kein Ranking als global optimaler Familienplan.

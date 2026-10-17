@@ -162,3 +162,34 @@ test('legacy imported plan resets nonexported weekly return assumptions',()=>{
  assert.deepEqual(errors,[]);
  dom.window.close();
 });
+
+test('V3.15.2 controlled Kita delay sensitivities compare fixed return dates without storing them',()=>{
+ const {dom,d,api,change,errors}=setup();
+ api.changeValue('date','2026-05-28');api.changeValue('childcareStart',19);
+ const original=JSON.stringify(api.getState());
+ change('v315CarePreset','late','change');
+ change('v315BackupHours','8');change('v315BackupCost','12');change('v315NetRisk','560');
+ const view=d.getElementById('v315CareResult'),details=view.querySelector('.v315-resilience');
+ assert.ok(details);
+ const text=details.textContent;
+ assert.match(text,/Kita 2 Wochen später/);
+ assert.match(text,/Kita 4 Wochen später/);
+ assert.match(text,/Mehr als eigene Annahme/);
+ assert.match(text,/992 €/);
+ assert.match(text,/1\.984 €/);
+ assert.match(text,/Nicht berechenbar/);
+ assert.equal(JSON.stringify(api.getState()),original);
+ assert.equal(dom.window.localStorage.length,0);
+ assert.deepEqual(errors,[]);
+ dom.window.close();
+});
+test('V3.15.2 unknown cash and skipped variants remain explicitly incomplete',()=>{
+ const {dom,d,change}=setup();
+ change('v315DelayWeeks','11');
+ const text=d.querySelector('.v315-resilience').textContent;
+ assert.match(text,/zusätzliche Varianten ausgelassen/);
+ assert.doesNotMatch(text,/Kita 4 Wochen später/);
+ assert.match(text,/Unbekannt/);
+ assert.match(text,/Nicht berechenbar/);
+ dom.window.close();
+});

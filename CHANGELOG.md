@@ -1,5 +1,13 @@
 # Änderungen
 
+## V3.15.2 – Unverbindlicher Robustheitsvergleich beim Kita-Start (interner Entwicklungszweig)
+
+- Drei klar begrenzte Verzögerungsvarianten direkt in der bestehenden Eingewöhnungsansicht: eigene Annahme, +2 und +4 Wochen (maximal zwölf Wochen insgesamt).
+- Gleiche Wochenstunden, Arbeitsrückkehr und Geldannahmen in allen Varianten; ausgegeben werden zusätzlich ungedeckte Übergangsstunden, vorläufige Euro-Unterschiede und bei vollständigen Haushaltsannahmen der schwächste betroffene Lebensmonat.
+- Kein automatisches Ranking als beste Familienstrategie, keine Prognose der Platzvergabe, keine verdeckte Planübernahme und keine Berechnung veränderter Löhne/Elterngeldansprüche.
+- Bei fehlendem Netto, fehlenden Haushaltskosten oder Überschreitung der Modellgrenze werden die Lücken explizit gezeigt.
+- Neue reine Unit-Tests und DOM-/Chromium-Mobile-Regressionen. [Dokumentierte Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
 ## V3.15.1 – Wiedereinstiegs- und Liquiditätsdarstellung korrigiert (interner Branch)
 
 - Die reguläre Kita-Woche ist keine zusätzliche Übergangswoche mehr: null Eingewöhnungs-/Wartewochen ergeben null einmalige Übergangsmehrkosten.

@@ -36,6 +36,13 @@ test('wizard only recalculates its own estimates, never values manually edited i
  const input=t.doc.getElementById('egNetFather');input.value='1760';
  input.dispatchEvent(new t.dom.window.Event('input',{bubbles:true}));
  wizard(t,{father:'2300',mother:'2450'});
+ // Previous behavior silently retained the manually edited expert value.
+ // New behavior requires conscious keep/estimate/clear before updating.
+ assert.equal(t.ui.getState().netFather,2250);
+ assert.equal(t.ui.getState().egNetFather,1760);
+ assert.equal(t.doc.getElementById('v38NettoChoice').getAttribute('aria-invalid'),'true');
+ t.doc.getElementById('v38NettoChoice').value='keep';
+ wizard(t,{father:'2300',mother:'2450'});
  assert.equal(t.ui.getState().egNetFather,1760);
  assert.equal(t.ui.getState().egNetMother,2450);
  assert.equal(t.ui.getState().incomeEntryMode,'estimate');

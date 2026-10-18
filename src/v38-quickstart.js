@@ -260,7 +260,12 @@ const QuickStartV38=(()=>{
   const year=Number(String(s.date).slice(0,4));
   const notices=[];
   if(mode==='example')notices.push('Erfundene Einkommensdaten und unverbindliche Beispielannahmen. Dieser Plan wurde nicht aus euren Angaben erstellt und nicht gespeichert.');
-  if(mode==='personal'&&wizardCompleted)notices.push('Elterngeld-Netto vorläufig gleich Auszahlungsnetto aus der Schnelleingabe geschätzt. Manuell geänderte Fachwerte werden nicht automatisch ersetzt.');
+  if(mode==='personal'&&wizardCompleted)notices.push(
+   s.egNetFather===''||s.egNetMother===''?
+    'Mindestens ein Elterngeld-Netto ist ausdrücklich unbekannt. Dafür liegt keine geprüfte Leistungsberechnung vor.':
+   preservedExpertParents().length?
+    'Hinweis: Mindestens ein beibehaltener Elterngeld-Netto-Fachwert hat eine nicht unabhängig geprüfte Herkunft. Er wurde nicht still durch das neue Auszahlungsnetto ersetzt.':
+    'Elterngeld-Netto vorläufig gleich Auszahlungsnetto aus der Schnelleingabe geschätzt. Dies ist keine amtliche Berechnung.');
   if(mode==='personal'&&!wizardCompleted)notices.push('Teilweise angepasstes Beispiel: Nicht selbst eingegebene Werte stammen weiterhin aus einer fiktiven Vorlage. Bitte alle weiteren Annahmen kontrollieren.');
   if(mode==='restored')notices.push(PUBLIC_TEST_PREVIEW?'Importierter Testentwurf ohne amtliche Fachprüfung. Ausschließlich synthetische Daten verwenden.':'Gespeicherter Entwurf, noch keine bestätigte amtliche Berechnung. Persönliche Zahlen und Leistungen separat prüfen.');
   if(!known)notices.push('Haushaltsausgaben fehlen: Die angezeigten Beträge sind Einnahmen, kein frei verfügbares Budget. Rücklagen und Engpassmonate sind nicht belastbar.');
@@ -288,7 +293,7 @@ const QuickStartV38=(()=>{
     nextStepsMarkup()+bridgeMarkup()+
     '<details class="v39-assumptions"><summary>Welche Zahlen und Annahmen stecken dahinter?</summary>'+
       '<p>Geburtstermin: '+escValue(s.date)+' · Auszahlungsnetto Elternteil 1: '+eur(s.netFather)+' · Elternteil 2: '+eur(s.netMother)+'.</p>'+
-      '<p>Verwendetes Elterngeld-Netto (noch nicht automatisch amtlich ermittelt): '+eur(s.egNetFather)+' und '+eur(s.egNetMother)+'. Kindergeldansatz: '+eur(s.kind)+' monatlich.</p>'+
+      '<p>Verwendetes Elterngeld-Netto (noch nicht automatisch amtlich ermittelt): '+(s.egNetFather===''?'unbekannt':eur(s.egNetFather))+' und '+(s.egNetMother===''?'unbekannt':eur(s.egNetMother))+'. Kindergeldansatz: '+eur(s.kind)+' monatlich.</p>'+      '<p>Herkunft Elterngeld-Netto: Elternteil 1: '+escValue(explainNettoOrigin('father'))+'; Elternteil 2: '+escValue(explainNettoOrigin('mother'))+'. Diese Herkunftsangabe ist keine externe Fachprüfung.</p>'+
       '<p>Haushaltsausgaben: '+(known?eur(s.expenses)+' pro Monat':'nicht angegeben')+'. Zusätzliche Kosten und Leistungs-/Steuereffekte können fehlen. Monatlicher Leistungsanspruch ist kein Auszahlungstermin.</p></details>'+
     '<div class="v38-footer-actions">'+alternative+align+missingLong+
     '<button class="navbtn alt" type="button" data-v38-goto="slide-4">Lebensmonate ansehen</button>'+
@@ -318,8 +323,17 @@ const QuickStartV38=(()=>{
    Object.assign(s,clone(defaults),{storageConsent:false,standardCaseConfirmed:null,zve:'',expenses:'',incomeEntryMode:'estimate'});
    mode='example';node('localSave').checked=false;
    s.goalCare=template.goal;lastEstimated={father:null,mother:null};wizardCompleted=false;
+   // A newly chosen fictional example is a clean draft, not the previous
+   // personal wizard's unsaved specialist-value decision.
+   formDirty=false;clearFieldErrors();clearNettoChoiceError();
+   if(node('v38NettoChoice'))node('v38NettoChoice').value='';
+   if(node('v38NettoChoiceWrap'))node('v38NettoChoiceWrap').hidden=true;
+   if(node('v38Personal'))node('v38Personal').open=false;
+   for(const field of ['v38Birth','v38NetF','v38NetM','v38Expenses'])if(node(field))node(field).value='';
   }
-  clearResultOutdated();selected=id;goalFormDirty=false;if(!personal){goalWizardUsed=false;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;}
+  if(personal&&formDirty)markResultOutdated('Die Schnellstartänderungen sind noch nicht übernommen. Die Kennzahlen zeigen weiterhin den zuletzt gültigen Entwurf. Bitte die Netto-Entscheidung abschließen.');
+  else clearResultOutdated();
+  selected=id;goalFormDirty=false;if(!personal){goalWizardUsed=false;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;}
   clearGoalInputError();chooseModel(template.model); // Existing financial, timeline and legal engine.
   refresh();showSummary();
  }
@@ -346,6 +360,38 @@ const QuickStartV38=(()=>{
   for(const id of ['v38Birth','v38NetF','v38NetM','v38Goal','v38Expenses'])
    {const input=node(id);input?.removeAttribute('aria-invalid');input?.removeAttribute('aria-describedby');}
  }
+ function preservedExpertParents(){
+  return [['father','egNetFather'],['mother','egNetMother']]
+   .filter(([parent,key])=>lastEstimated[parent]===null&&s[key]!==''&&s[key]!==null&&s[key]!==undefined)
+   .map(([parent])=>parent);
+ }
+ function requiresNettoChoice(father,mother){
+  if(!['personal','restored'].includes(mode))return false;
+  const changed=father!==Number(s.netFather)||mother!==Number(s.netMother);
+  return changed&&preservedExpertParents().length>0;
+ }
+ function clearNettoChoiceError(){
+  const choice=node('v38NettoChoice'),error=node('v38NettoChoiceError');
+  if(error)error.textContent='';
+  choice?.removeAttribute('aria-invalid');
+  choice?.setAttribute('aria-describedby','v38NettoChoiceExplanation');
+ }
+ function refreshNettoChoice(){
+  const wrapper=node('v38NettoChoiceWrap'),choice=node('v38NettoChoice');
+  if(!wrapper||!choice)return false;
+  const father=Number(node('v38NetF')?.value),mother=Number(node('v38NetM')?.value);
+  const required=requiresNettoChoice(father,mother);
+  wrapper.hidden=!required;
+  if(!required){choice.value='';clearNettoChoiceError();}
+  return required;
+ }
+ function explainNettoOrigin(parent){
+  const field=parent==='father'?'egNetFather':'egNetMother',value=s[field];
+  if(value===''||value===null||value===undefined)return 'fehlt / unbekannt';
+  if(mode==='example')return 'erfundener Beispielwert';
+  if(lastEstimated[parent]!==null&&lastEstimated[parent]===value)return 'vereinfachte Schätzung aus dem Schnellstart';
+  return 'beibehaltener Fach- oder Importwert (Herkunft nicht unabhängig bestätigt)';
+ }
  function personalSubmit(evt){
   evt.preventDefault();
   clearFieldErrors();
@@ -360,6 +406,16 @@ const QuickStartV38=(()=>{
   }
   goal=Number(node('v38Goal')?.value);
   if(![14,18,24,30,36].includes(goal)){invalidField('v38Goal','Bitte eine Betreuungsdauer auswählen.');return;}
+  const needsChoice=requiresNettoChoice(n1,n2),decision=node('v38NettoChoice')?.value;
+  if(needsChoice&&!['keep','estimate','clear'].includes(decision)){
+   const choice=node('v38NettoChoice');
+   node('v38NettoChoiceWrap').hidden=false;
+   node('v38NettoChoiceError').textContent='Bitte entscheiden, ob vorhandene Elterngeld-Netto-Fachwerte beibehalten, als Schätzung ersetzt oder gelöscht werden.';
+   choice.setAttribute('aria-invalid','true');
+   choice.setAttribute('aria-describedby','v38NettoChoiceExplanation v38NettoChoiceError');
+   markResultOutdated('Vor der Neuberechnung fehlt eine Entscheidung über vorhandene Elterngeld-Netto-Fachwerte. Der letzte gültige Plan bleibt unverändert.');
+   choice.focus();return;
+  }
   const first=mode==='idle',firstOwn=mode==='idle'||mode==='example';
   // All validation happens before the state is changed; repeated submissions
   // modify exactly the five short-form fields and preserve month-level edits.
@@ -368,9 +424,19 @@ const QuickStartV38=(()=>{
    s.incomeEntryMode='estimate';s.standardCaseConfirmed=null;s.zve='';
    lastEstimated={father:n1,mother:n2};
   }else{
-   // Only values known to originate from this wizard may be auto-refreshed.
+   // Wizard-created estimates follow changed wages; expert/import values never do
+   // unless their owner explicitly selects estimate or clear.
+   const expertParents=preservedExpertParents();
    if(lastEstimated.father!==null&&s.egNetFather===lastEstimated.father){s.egNetFather=n1;lastEstimated.father=n1;}
    if(lastEstimated.mother!==null&&s.egNetMother===lastEstimated.mother){s.egNetMother=n2;lastEstimated.mother=n2;}
+   if(needsChoice&&(decision==='estimate'||decision==='clear')){
+    for(const parent of expertParents){
+     const key=parent==='father'?'egNetFather':'egNetMother';
+     s[key]=decision==='estimate'?(parent==='father'?n1:n2):'';
+     lastEstimated[parent]=decision==='estimate'?s[key]:null;
+    }
+    s.incomeEntryMode='estimate';
+   }
   }
   Object.assign(s,{date,netFather:n1,netMother:n2,expenses,goalCare:goal});
   wizardCompleted=true;formDirty=false;
@@ -382,7 +448,7 @@ const QuickStartV38=(()=>{
    // A repeat edit is NOT consent to replace a chosen or custom schedule.
    renderAll();persist();
   }
-  mode='personal';refresh();clearResultOutdated();showSummary();
+  mode='personal';refresh();clearNettoChoiceError();refreshNettoChoice();clearResultOutdated();showSummary();
  }
  function syncPersonalForm(){
   if(!['personal','restored'].includes(mode))return;
@@ -394,10 +460,13 @@ const QuickStartV38=(()=>{
   if(mode!=='personal'){mode='personal';wizardCompleted=false;}
   if(!formDirty&&node('v38Personal')?.open)syncPersonalForm();
   refresh();
+  if(node('v38Personal')?.open)refreshNettoChoice();
  }
  function onResetConfirmed(){
   mode='idle';selected='';wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=false;scenarioDelay=2;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;lastEstimated={father:null,mother:null};
-  clearFieldErrors();clearResultOutdated('all');
+  clearFieldErrors();clearResultOutdated('all');clearNettoChoiceError();
+  if(node('v38NettoChoice'))node('v38NettoChoice').value='';
+  if(node('v38NettoChoiceWrap'))node('v38NettoChoiceWrap').hidden=true;
   for(const id of ['v38Birth','v38NetF','v38NetM','v38Expenses'])node(id).value='';
   node('v38Goal').value='18';
   refresh();
@@ -411,13 +480,18 @@ const QuickStartV38=(()=>{
   mode='personal';selected=Object.keys(templates).find(key=>templates[key].model===s.model)||'';
   lastEstimated={father:null,mother:null};wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=true;
   scenarioDelay=2;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;
-  syncPersonalForm();refresh();
+  syncPersonalForm();refresh();refreshNettoChoice();
  }
  function mount(){
   if(!node('v38QuickStart'))return;
   if(s.storageConsent){mode='restored';selected=Object.keys(templates).find(id=>templates[id].model===s.model)||'';}
   node('v38Templates').querySelectorAll('button[data-v38-template]').forEach(b=>b.addEventListener('click',()=>loadTemplate(b.dataset.v38Template)));
-  node('v38PersonalForm')?.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',()=>{formDirty=true;markResultOutdated('Schnellstartwerte wurden verändert, aber noch nicht neu berechnet. Das Ergebnis gehört zum letzten gültigen Entwurf.');}));
+  node('v38PersonalForm')?.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',()=>{
+   formDirty=true;
+   if(input.id==='v38NettoChoice')clearNettoChoiceError();
+   refreshNettoChoice();
+   markResultOutdated('Schnellstartwerte wurden verändert, aber noch nicht neu berechnet. Das Ergebnis gehört zum letzten gültigen Entwurf.');
+  }));
   node('v315CareJump')?.addEventListener('click',()=>{
    const slides=[...document.querySelectorAll('.slide')];
    const idx=slides.findIndex(x=>x.id==='slide-region');
@@ -431,7 +505,7 @@ const QuickStartV38=(()=>{
   });
   node('v38EditOwn')?.addEventListener('click',()=>{
    const panel=node('v38Personal');if(!formDirty)syncPersonalForm();
-   panel.open=true;node('v38Birth')?.focus();
+   panel.open=true;refreshNettoChoice();node('v38Birth')?.focus();
   });
   const mobileMenu=node('v39MobileMenu'),mobileActions=node('topActions');
   const closeMobile=()=>{mobileActions?.classList.remove('v39-open');mobileMenu?.setAttribute('aria-expanded','false');};

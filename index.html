@@ -163,6 +163,13 @@ body.v38-lite.v38-pristine .live-strip{display:none}
 .v312-fee-waiver input{width:18px;height:18px;flex:none;margin:2px 0 0}
 .v312-finance .v38-error{font-size:12px;padding:10px;background:#fff3f1}
 
+/* Provenance decision is local to the short wizard; never changes schema 1. */
+.v38-netto-choice{border:1px solid #ad7144;border-radius:12px;margin:12px 0 16px;padding:12px 15px;background:#fff8f1;}
+.v38-netto-choice[hidden]{display:none}
+.v38-netto-choice legend{font-weight:700;padding:0 5px}
+.v38-netto-choice label{display:block;font-weight:600;margin:8px 0}
+.v38-netto-choice select{width:100%;max-width:100%;min-height:44px;padding:9px}
+
 /* V38_STYLES_END */
 
 /* V3.17: descriptive scope gate, deliberately never a positive release badge. */
@@ -230,6 +237,14 @@ body.v38-lite.v38-pristine .live-strip{display:none}
     <button type="button" class="action" id="btnFullscreen" title="Vollbildansicht">Vollbild</button>
   </div>
  </header>
+ <div id="importNotice" class="noprint" style="padding:4px 14px">
+  <details aria-label="Hinweise zum Planimport">
+   <summary>Planimport: Diese Daten werden übernommen, diese nicht</summary>
+   <p>Ein kompatibler JSON-Export stellt Eingaben, den Lebensmonatsplan und enthaltene manuelle Bankbuchungen wieder her und ersetzt den geöffneten Entwurf. <strong>Nicht übernommen</strong> werden unter anderem flüchtige Kita-/Eingewöhnungsvarianten, Zahlungszeitpunkt- und Liquiditätstests, temporäre Risikoannahmen, Suchergebnisse und Lernaufgaben. Vorher benötigte Varianten getrennt notieren; der Import stellt keine heruntergeladenen Dateien wieder her.</p>
+   <p>Der Import löscht die optionale Browserkopie, sofern der Browser dies erlaubt. Die Speicherzustimmung wird nie automatisch übernommen. Nur eigene vertrauenswürdige, lokal gespeicherte JSON-Testdateien importieren. Maximal 1 MB.</p>
+  </details>
+  <p id="importFeedback" role="status" aria-live="polite" hidden></p>
+ </div>
  <div class="privacy-strip"><div class="v39-privacy-summary">Lokal und privat · kein Konto. <button id="v39PrivacyToggle" type="button" aria-expanded="false" aria-controls="v39PrivacyDetail">Datenschutz & Speichern</button></div><div id="v39PrivacyDetail">Ohne Konto, ohne Telemetrie. Berechnung auf diesem Gerät. Lokales Speichern ist optional und im Browser unverschlüsselt; auf gemeinsam genutzten Geräten ausgeschaltet lassen. Exportierte Dateien enthalten eure Finanzdaten. <label><input id="localSave" type="checkbox"> Automatisch auf diesem Gerät speichern</label> <button type="button" id="deleteLocal">Browserkopie löschen</button></div><p id="privacyStorageStatus" class="privacy-storage-status" role="status" aria-live="polite" hidden></p></div><nav class="section-nav noprint" id="sectionNav" aria-label="Präsentationsnavigation"></nav>
  <div class="live-strip noprint" aria-live="polite">
    <div class="live-item"><span>Kindesalter im gewählten Monat</span><strong id="liveAge">0–1 Monat</strong></div>
@@ -292,6 +307,18 @@ body.v38-lite.v38-pristine .live-strip{display:none}
     <p>Hier beginnt ihr mit einer Schätzung. Bekannte Elterngeld-Netto-Werte könnt ihr anschließend unter „Einkommen genauer eingeben“ übernehmen. Ein leeres Feld bedeutet unbekannt, eine bewusst eingetragene 0 bedeutet null Euro.</p>
     <p>Gehaltsabrechnungen und gegebenenfalls Bescheid bereithalten. <a href="https://familienportal.de/familienportal/rechner-antraege/elterngeldrechner" target="_blank" rel="noopener noreferrer">Zum amtlichen Elterngeldrechner (externe Seite)</a> – es werden keine Eingaben aus diesem Plan übertragen.</p>
    </details>
+   <fieldset id="v38NettoChoiceWrap" class="v38-netto-choice" hidden>
+    <legend>Elterngeld-Netto: vorhandene Fachwerte bei geändertem Auszahlungsnetto</legend>
+    <p id="v38NettoChoiceExplanation" class="v38-caption">Mindestens ein Elterngeld-Netto stammt aus einem vorhandenen Fachwert oder Import. Auszahlungsnetto und Elterngeld-Netto sind verschieden. Entscheidet ausdrücklich, bevor der Schnellstart neu berechnet wird.</p>
+    <label for="v38NettoChoice">Was soll mit diesen Fachwerten passieren?</label>
+    <select id="v38NettoChoice" aria-describedby="v38NettoChoiceExplanation">
+     <option value="">Bitte auswählen</option>
+     <option value="keep">Bisherige Fachwerte unverändert beibehalten</option>
+     <option value="estimate">Durch neue unverbindliche Schätzung aus dem Auszahlungsnetto ersetzen</option>
+     <option value="clear">Fachwerte löschen und als unbekannt kennzeichnen</option>
+    </select>
+    <p id="v38NettoChoiceError" class="v38-error" role="alert" aria-live="polite"></p>
+   </fieldset>
    <button type="submit" class="navbtn">Vorlage mit meinen Angaben berechnen</button>
    <p id="v38PersonalError" class="v38-error" role="alert" aria-live="polite"></p>
   </form>
@@ -5364,7 +5391,82 @@ function downloadJson(){
   showToast('V3-Plan mit Prüfhinweisen exportiert – keine amtliche Freigabe');
  }catch(error){showToast('JSON-Export gestoppt: Modellstatus bitte prüfen');}
 }
-function importJson(evt){const file=evt.target.files?.[0];if(!file)return;if(file.size>1000000){alert('Importdatei ist größer als 1 MB.');evt.target.value='';return;}const reader=new FileReader();reader.onload=()=>{try{const j=JSON.parse(reader.result);if(j.schemaVersion!==undefined&&j.schemaVersion!==1)throw Error('Unbekannte JSON-Schemaversion. Bitte einen kompatiblen Export verwenden.');if(j.fileType!==undefined&&j.fileType!=='elternzeit-offline-v3')throw Error('Falsches Dateiformat.');const v=j.data||j;const imported=sanitizeImport(v);cancelGoalSearch();const storageDeleted=deleteLocalData();recordedOpeningReserve='';$('recordedOpeningReserve').value='';resetV313PaymentAssumptions();resetFinanceGuidance();resetV315Extras();resetUnderstandingGuide();s=imported;builderActive=false;goalStats=null;clearAllSpecialistInputErrors();clearResultOutdated('all');QuickStartV38.onImported();renderAll();showToast(storageDeleted?'Import erfolgreich. Alte Browserkopien gelöscht.':'Import geladen, aber alte Browserkopien konnten NICHT sicher gelöscht werden.')}catch(e){alert('Import fehlgeschlagen: '+e.message)}evt.target.value=''};reader.readAsText(file)}
+const importFieldLabels=Object.freeze({
+ netFather:'Auszahlungs-Netto Elternteil 1',
+ netMother:'Auszahlungs-Netto Elternteil 2',
+ egNetFather:'Elterngeld-Netto Elternteil 1',
+ egNetMother:'Elterngeld-Netto Elternteil 2',
+ ptNetFather:'Teilzeit-Netto Elternteil 1',
+ ptNetMother:'Teilzeit-Netto Elternteil 2',
+ egPtNetFather:'Elterngeld-Netto Teilzeit Elternteil 1',
+ egPtNetMother:'Elterngeld-Netto Teilzeit Elternteil 2',
+ grossFather:'Brutto Elternteil 1',
+ grossMother:'Brutto Elternteil 2',
+ expenses:'monatliche Haushaltsausgaben',
+ zve:'gemeinsames zu versteuerndes Vorjahreseinkommen',
+ date:'Geburtsdatum',
+ hoursFather:'Wochenstunden Elternteil 1',
+ hoursMother:'Wochenstunden Elternteil 2',
+ hf:'Wochenstunden Elternteil 1 im Lebensmonat',
+ hm:'Wochenstunden Elternteil 2 im Lebensmonat',
+ wf:'Erwerbsnetto Elternteil 1 im Lebensmonat',
+ wm:'Erwerbsnetto Elternteil 2 im Lebensmonat',
+ ef:'Elterngeld-Netto Elternteil 1 im Lebensmonat',
+ em:'Elterngeld-Netto Elternteil 2 im Lebensmonat'
+});
+function importFailureMessage(error){
+ const message=String(error?.message||'');
+ if(error instanceof SyntaxError)return 'Die Datei enthält kein gültiges JSON. Bitte einen unveränderten JSON-Export des Zielplaners auswählen.';
+ let match=message.match(/^(Ungültige Zahl|Ungültiger Wert|Wert außerhalb des Eingabebereichs): (\w+)$/);
+ if(match)return 'Ungültige Eingabe für „'+(importFieldLabels[match[2]]||'eine Angabe im Entwurf')+'“. Bitte den Wert in der Quelldatei prüfen und den Plan erneut exportieren.';
+ match=message.match(/^Ungültiges Monatsnetto: (\w+)$/);
+ if(match)return 'Ungültiger Lebensmonatsbetrag („'+(importFieldLabels[match[1]]||'Monatsnetto')+'“). Bitte einen nichtnegativen, endlichen Betrag verwenden.';
+ if(message==='Ungültige Wochenstunden')return 'Ungültige Wochenstunden in einem Lebensmonat. Erlaubt sind 0 bis 40 Stunden.';
+ if(/^Unbekannter Monatsstatus LM \d+$/.test(message))return message+'. Bitte eine kompatible, unveränderte Datei verwenden.';
+ const known=['Unbekannte JSON-Schemaversion','Falsches Dateiformat','Datei benötigt 32 oder 36 Lebensmonate',
+  'Ungültige Elternbezeichnung','Unbekannter Einkommenseinstieg','Unbekannte Einkommensart','Unbekannter Elternteil in Elternzeitabschnitten'];
+ if(known.some(x=>message.startsWith(x)))return message;
+ return 'Der Entwurf wurde wegen ungültiger oder unvollständiger Angaben abgelehnt. Der bisherige Plan bleibt erhalten.';
+}
+function importReport(message,isError=false){
+ const output=$('importFeedback');
+ if(output){output.hidden=false;output.dataset.importResult=isError?'error':'success';output.textContent=message;}
+ if(isError)alert(message);else showToast(message);
+}
+function importJson(evt){
+ const input=evt.target,file=input.files?.[0];
+ if(!file)return;
+ if(file.size>1000000){
+  importReport('Import fehlgeschlagen: Die Datei ist größer als 1 MB. Der bisherige Plan bleibt erhalten.',true);
+  input.value='';return;
+ }
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const j=JSON.parse(reader.result);
+   if(j.schemaVersion!==undefined&&j.schemaVersion!==1)throw Error('Unbekannte JSON-Schemaversion. Bitte einen kompatiblen Export verwenden.');
+   if(j.fileType!==undefined&&j.fileType!=='elternzeit-offline-v3')throw Error('Falsches Dateiformat.');
+   const v=j.data||j,imported=sanitizeImport(v);
+   // All validation above is read-only. No state is modified on rejection.
+   cancelGoalSearch();
+   const storageDeleted=deleteLocalData();
+   recordedOpeningReserve='';$('recordedOpeningReserve').value='';
+   resetV313PaymentAssumptions();resetFinanceGuidance();resetV315Extras();resetUnderstandingGuide();
+   s=imported;builderActive=false;goalStats=null;
+   clearAllSpecialistInputErrors();clearResultOutdated('all');QuickStartV38.onImported();renderAll();
+   importReport(storageDeleted?
+    'Import erfolgreich. Temporäre Zahlungs-, Kita- und Risiko-Szenarien wurden zurückgesetzt. Vorherige Browserkopien gelöscht.':
+    'Import erfolgreich, aber alte Browserkopien konnten nicht sicher gelöscht werden. Browserdaten manuell kontrollieren. Temporäre Szenarien wurden zurückgesetzt.');
+  }catch(error){
+   importReport('Import fehlgeschlagen: '+importFailureMessage(error)+' Der bisherige Plan bleibt erhalten.',true);
+  }finally{input.value='';}
+ };
+ reader.onerror=()=>{
+  importReport('Import fehlgeschlagen: Die JSON-Datei konnte nicht gelesen werden. Der bisherige Plan bleibt erhalten.',true);
+  input.value='';
+ };
+ reader.readAsText(file);
+}
 
 function listenAdvanced(){
  document.querySelectorAll('[data-extra]').forEach(el=>{
@@ -5704,7 +5806,12 @@ const QuickStartV38=(()=>{
   const year=Number(String(s.date).slice(0,4));
   const notices=[];
   if(mode==='example')notices.push('Erfundene Einkommensdaten und unverbindliche Beispielannahmen. Dieser Plan wurde nicht aus euren Angaben erstellt und nicht gespeichert.');
-  if(mode==='personal'&&wizardCompleted)notices.push('Elterngeld-Netto vorläufig gleich Auszahlungsnetto aus der Schnelleingabe geschätzt. Manuell geänderte Fachwerte werden nicht automatisch ersetzt.');
+  if(mode==='personal'&&wizardCompleted)notices.push(
+   s.egNetFather===''||s.egNetMother===''?
+    'Mindestens ein Elterngeld-Netto ist ausdrücklich unbekannt. Dafür liegt keine geprüfte Leistungsberechnung vor.':
+   preservedExpertParents().length?
+    'Hinweis: Mindestens ein beibehaltener Elterngeld-Netto-Fachwert hat eine nicht unabhängig geprüfte Herkunft. Er wurde nicht still durch das neue Auszahlungsnetto ersetzt.':
+    'Elterngeld-Netto vorläufig gleich Auszahlungsnetto aus der Schnelleingabe geschätzt. Dies ist keine amtliche Berechnung.');
   if(mode==='personal'&&!wizardCompleted)notices.push('Teilweise angepasstes Beispiel: Nicht selbst eingegebene Werte stammen weiterhin aus einer fiktiven Vorlage. Bitte alle weiteren Annahmen kontrollieren.');
   if(mode==='restored')notices.push(PUBLIC_TEST_PREVIEW?'Importierter Testentwurf ohne amtliche Fachprüfung. Ausschließlich synthetische Daten verwenden.':'Gespeicherter Entwurf, noch keine bestätigte amtliche Berechnung. Persönliche Zahlen und Leistungen separat prüfen.');
   if(!known)notices.push('Haushaltsausgaben fehlen: Die angezeigten Beträge sind Einnahmen, kein frei verfügbares Budget. Rücklagen und Engpassmonate sind nicht belastbar.');
@@ -5732,7 +5839,7 @@ const QuickStartV38=(()=>{
     nextStepsMarkup()+bridgeMarkup()+
     '<details class="v39-assumptions"><summary>Welche Zahlen und Annahmen stecken dahinter?</summary>'+
       '<p>Geburtstermin: '+escValue(s.date)+' · Auszahlungsnetto Elternteil 1: '+eur(s.netFather)+' · Elternteil 2: '+eur(s.netMother)+'.</p>'+
-      '<p>Verwendetes Elterngeld-Netto (noch nicht automatisch amtlich ermittelt): '+eur(s.egNetFather)+' und '+eur(s.egNetMother)+'. Kindergeldansatz: '+eur(s.kind)+' monatlich.</p>'+
+      '<p>Verwendetes Elterngeld-Netto (noch nicht automatisch amtlich ermittelt): '+(s.egNetFather===''?'unbekannt':eur(s.egNetFather))+' und '+(s.egNetMother===''?'unbekannt':eur(s.egNetMother))+'. Kindergeldansatz: '+eur(s.kind)+' monatlich.</p>'+      '<p>Herkunft Elterngeld-Netto: Elternteil 1: '+escValue(explainNettoOrigin('father'))+'; Elternteil 2: '+escValue(explainNettoOrigin('mother'))+'. Diese Herkunftsangabe ist keine externe Fachprüfung.</p>'+
       '<p>Haushaltsausgaben: '+(known?eur(s.expenses)+' pro Monat':'nicht angegeben')+'. Zusätzliche Kosten und Leistungs-/Steuereffekte können fehlen. Monatlicher Leistungsanspruch ist kein Auszahlungstermin.</p></details>'+
     '<div class="v38-footer-actions">'+alternative+align+missingLong+
     '<button class="navbtn alt" type="button" data-v38-goto="slide-4">Lebensmonate ansehen</button>'+
@@ -5762,8 +5869,17 @@ const QuickStartV38=(()=>{
    Object.assign(s,clone(defaults),{storageConsent:false,standardCaseConfirmed:null,zve:'',expenses:'',incomeEntryMode:'estimate'});
    mode='example';node('localSave').checked=false;
    s.goalCare=template.goal;lastEstimated={father:null,mother:null};wizardCompleted=false;
+   // A newly chosen fictional example is a clean draft, not the previous
+   // personal wizard's unsaved specialist-value decision.
+   formDirty=false;clearFieldErrors();clearNettoChoiceError();
+   if(node('v38NettoChoice'))node('v38NettoChoice').value='';
+   if(node('v38NettoChoiceWrap'))node('v38NettoChoiceWrap').hidden=true;
+   if(node('v38Personal'))node('v38Personal').open=false;
+   for(const field of ['v38Birth','v38NetF','v38NetM','v38Expenses'])if(node(field))node(field).value='';
   }
-  clearResultOutdated();selected=id;goalFormDirty=false;if(!personal){goalWizardUsed=false;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;}
+  if(personal&&formDirty)markResultOutdated('Die Schnellstartänderungen sind noch nicht übernommen. Die Kennzahlen zeigen weiterhin den zuletzt gültigen Entwurf. Bitte die Netto-Entscheidung abschließen.');
+  else clearResultOutdated();
+  selected=id;goalFormDirty=false;if(!personal){goalWizardUsed=false;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;}
   clearGoalInputError();chooseModel(template.model); // Existing financial, timeline and legal engine.
   refresh();showSummary();
  }
@@ -5790,6 +5906,38 @@ const QuickStartV38=(()=>{
   for(const id of ['v38Birth','v38NetF','v38NetM','v38Goal','v38Expenses'])
    {const input=node(id);input?.removeAttribute('aria-invalid');input?.removeAttribute('aria-describedby');}
  }
+ function preservedExpertParents(){
+  return [['father','egNetFather'],['mother','egNetMother']]
+   .filter(([parent,key])=>lastEstimated[parent]===null&&s[key]!==''&&s[key]!==null&&s[key]!==undefined)
+   .map(([parent])=>parent);
+ }
+ function requiresNettoChoice(father,mother){
+  if(!['personal','restored'].includes(mode))return false;
+  const changed=father!==Number(s.netFather)||mother!==Number(s.netMother);
+  return changed&&preservedExpertParents().length>0;
+ }
+ function clearNettoChoiceError(){
+  const choice=node('v38NettoChoice'),error=node('v38NettoChoiceError');
+  if(error)error.textContent='';
+  choice?.removeAttribute('aria-invalid');
+  choice?.setAttribute('aria-describedby','v38NettoChoiceExplanation');
+ }
+ function refreshNettoChoice(){
+  const wrapper=node('v38NettoChoiceWrap'),choice=node('v38NettoChoice');
+  if(!wrapper||!choice)return false;
+  const father=Number(node('v38NetF')?.value),mother=Number(node('v38NetM')?.value);
+  const required=requiresNettoChoice(father,mother);
+  wrapper.hidden=!required;
+  if(!required){choice.value='';clearNettoChoiceError();}
+  return required;
+ }
+ function explainNettoOrigin(parent){
+  const field=parent==='father'?'egNetFather':'egNetMother',value=s[field];
+  if(value===''||value===null||value===undefined)return 'fehlt / unbekannt';
+  if(mode==='example')return 'erfundener Beispielwert';
+  if(lastEstimated[parent]!==null&&lastEstimated[parent]===value)return 'vereinfachte Schätzung aus dem Schnellstart';
+  return 'beibehaltener Fach- oder Importwert (Herkunft nicht unabhängig bestätigt)';
+ }
  function personalSubmit(evt){
   evt.preventDefault();
   clearFieldErrors();
@@ -5804,6 +5952,16 @@ const QuickStartV38=(()=>{
   }
   goal=Number(node('v38Goal')?.value);
   if(![14,18,24,30,36].includes(goal)){invalidField('v38Goal','Bitte eine Betreuungsdauer auswählen.');return;}
+  const needsChoice=requiresNettoChoice(n1,n2),decision=node('v38NettoChoice')?.value;
+  if(needsChoice&&!['keep','estimate','clear'].includes(decision)){
+   const choice=node('v38NettoChoice');
+   node('v38NettoChoiceWrap').hidden=false;
+   node('v38NettoChoiceError').textContent='Bitte entscheiden, ob vorhandene Elterngeld-Netto-Fachwerte beibehalten, als Schätzung ersetzt oder gelöscht werden.';
+   choice.setAttribute('aria-invalid','true');
+   choice.setAttribute('aria-describedby','v38NettoChoiceExplanation v38NettoChoiceError');
+   markResultOutdated('Vor der Neuberechnung fehlt eine Entscheidung über vorhandene Elterngeld-Netto-Fachwerte. Der letzte gültige Plan bleibt unverändert.');
+   choice.focus();return;
+  }
   const first=mode==='idle',firstOwn=mode==='idle'||mode==='example';
   // All validation happens before the state is changed; repeated submissions
   // modify exactly the five short-form fields and preserve month-level edits.
@@ -5812,9 +5970,19 @@ const QuickStartV38=(()=>{
    s.incomeEntryMode='estimate';s.standardCaseConfirmed=null;s.zve='';
    lastEstimated={father:n1,mother:n2};
   }else{
-   // Only values known to originate from this wizard may be auto-refreshed.
+   // Wizard-created estimates follow changed wages; expert/import values never do
+   // unless their owner explicitly selects estimate or clear.
+   const expertParents=preservedExpertParents();
    if(lastEstimated.father!==null&&s.egNetFather===lastEstimated.father){s.egNetFather=n1;lastEstimated.father=n1;}
    if(lastEstimated.mother!==null&&s.egNetMother===lastEstimated.mother){s.egNetMother=n2;lastEstimated.mother=n2;}
+   if(needsChoice&&(decision==='estimate'||decision==='clear')){
+    for(const parent of expertParents){
+     const key=parent==='father'?'egNetFather':'egNetMother';
+     s[key]=decision==='estimate'?(parent==='father'?n1:n2):'';
+     lastEstimated[parent]=decision==='estimate'?s[key]:null;
+    }
+    s.incomeEntryMode='estimate';
+   }
   }
   Object.assign(s,{date,netFather:n1,netMother:n2,expenses,goalCare:goal});
   wizardCompleted=true;formDirty=false;
@@ -5826,7 +5994,7 @@ const QuickStartV38=(()=>{
    // A repeat edit is NOT consent to replace a chosen or custom schedule.
    renderAll();persist();
   }
-  mode='personal';refresh();clearResultOutdated();showSummary();
+  mode='personal';refresh();clearNettoChoiceError();refreshNettoChoice();clearResultOutdated();showSummary();
  }
  function syncPersonalForm(){
   if(!['personal','restored'].includes(mode))return;
@@ -5838,10 +6006,13 @@ const QuickStartV38=(()=>{
   if(mode!=='personal'){mode='personal';wizardCompleted=false;}
   if(!formDirty&&node('v38Personal')?.open)syncPersonalForm();
   refresh();
+  if(node('v38Personal')?.open)refreshNettoChoice();
  }
  function onResetConfirmed(){
   mode='idle';selected='';wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=false;scenarioDelay=2;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;lastEstimated={father:null,mother:null};
-  clearFieldErrors();clearResultOutdated('all');
+  clearFieldErrors();clearResultOutdated('all');clearNettoChoiceError();
+  if(node('v38NettoChoice'))node('v38NettoChoice').value='';
+  if(node('v38NettoChoiceWrap'))node('v38NettoChoiceWrap').hidden=true;
   for(const id of ['v38Birth','v38NetF','v38NetM','v38Expenses'])node(id).value='';
   node('v38Goal').value='18';
   refresh();
@@ -5855,13 +6026,18 @@ const QuickStartV38=(()=>{
   mode='personal';selected=Object.keys(templates).find(key=>templates[key].model===s.model)||'';
   lastEstimated={father:null,mother:null};wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=true;
   scenarioDelay=2;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;
-  syncPersonalForm();refresh();
+  syncPersonalForm();refresh();refreshNettoChoice();
  }
  function mount(){
   if(!node('v38QuickStart'))return;
   if(s.storageConsent){mode='restored';selected=Object.keys(templates).find(id=>templates[id].model===s.model)||'';}
   node('v38Templates').querySelectorAll('button[data-v38-template]').forEach(b=>b.addEventListener('click',()=>loadTemplate(b.dataset.v38Template)));
-  node('v38PersonalForm')?.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',()=>{formDirty=true;markResultOutdated('Schnellstartwerte wurden verändert, aber noch nicht neu berechnet. Das Ergebnis gehört zum letzten gültigen Entwurf.');}));
+  node('v38PersonalForm')?.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',()=>{
+   formDirty=true;
+   if(input.id==='v38NettoChoice')clearNettoChoiceError();
+   refreshNettoChoice();
+   markResultOutdated('Schnellstartwerte wurden verändert, aber noch nicht neu berechnet. Das Ergebnis gehört zum letzten gültigen Entwurf.');
+  }));
   node('v315CareJump')?.addEventListener('click',()=>{
    const slides=[...document.querySelectorAll('.slide')];
    const idx=slides.findIndex(x=>x.id==='slide-region');
@@ -5875,7 +6051,7 @@ const QuickStartV38=(()=>{
   });
   node('v38EditOwn')?.addEventListener('click',()=>{
    const panel=node('v38Personal');if(!formDirty)syncPersonalForm();
-   panel.open=true;node('v38Birth')?.focus();
+   panel.open=true;refreshNettoChoice();node('v38Birth')?.focus();
   });
   const mobileMenu=node('v39MobileMenu'),mobileActions=node('topActions');
   const closeMobile=()=>{mobileActions?.classList.remove('v39-open');mobileMenu?.setAttribute('aria-expanded','false');};

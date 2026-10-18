@@ -1,6 +1,20 @@
-# Entwickler-Handoff – interner Code-Stand V3.14
+# Entwickler-Handoff – V3.17-A–D: interne Implementierung und offene Freigaben
 
-Stand: **17. Oktober 2026**. Paket-/Export-Metadaten bleiben bis zu einer separaten Release-Entscheidung bei 3.10.0; die zusammengeführten internen Feature-Stände reichen bis V3.14. Einstieg für eine neue Sitzung oder einen übernehmenden Entwickler. Mit [Buildlog](BUILDLOG.md), [Architektur](ARCHITEKTUR.md) und [Roadmap](ROADMAP.md) lesen.
+Stand: **18. Oktober 2026**. Paket-/Export-Metadaten bleiben bis zu einer separaten Release-Entscheidung bei 3.10.0; die V3.17-Arbeit baut auf PR #20 (V3.15–V3.16, Merge `19f047d`, CI erfolgreich) auf und enthält nun die technischen Teile A–D. Einstieg für eine neue Sitzung oder einen übernehmenden Entwickler. Mit [Buildlog](BUILDLOG.md), [Architektur](ARCHITEKTUR.md) und [Roadmap](ROADMAP.md) lesen.
+
+**V3.17-D (18.10.2026):** [Acht lokale synthetische Verständnisfälle, moderiertes UX-/Accessibility-Protokoll und Null-Evidenzmatrix](PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md); Modul `src/understanding-guide.cjs`, Node-Schutz `src/usability-evidence.cjs` und `npm run usability:check`. Die Übung manipuliert weder Familienplan noch Speicher/Export, ist keine echte Nutzerstudie und vergibt keine Freigabe. **Technischer QA-Nachweis:** 495/495 Node-/DOM-, 63/63 vollständige Chromium-E2E und 3/3 separate V3.17-D-`file://`-Browserfälle bestanden. GitHub-PR-CI vor Merge gegen identischen Commit prüfen.
+
+**Externes Fachreview vorbereiten:** [Neutrale V3.17-Fallvorlage](FACHABNAHME-V317-REFERENZFALL-VORLAGE.md) mit zehn noch nicht bestätigten synthetischen Fällen, expliziter Trennung von unabhängigen Sollwerten und internem Ist. Dies ist kein beauftragter/eingegangener externer Review.
+
+**V3.17-B/C QA:** 481/481 Node-/DOM-, 60/60 vollständige Chromium-E2E und 4/4 zusätzliche echte `file://`-V3.17-B-Browserfälle bestanden. Manipulierte JSON-Freigabeinformationen werden ignoriert; unbekannte Haushaltskosten bleiben im CSV-Rest leer. Der unabhängige Evidenzcheck meldet 10 vorbereitete, 0 extern bestätigte Fälle. Rechts-/Datenschutz-/Nutzer- und echte Referenzfreigaben weiterhin offen.
+
+**V3.17-B/C neuer interner Stand:** [Exportvertrags- und Referenzevidenz-Härtung](AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md). `src/export-disclosure.cjs` für begrenzte JSON-/CSV-Hinweise; `src/independent-review-evidence.cjs` und `scripts/independent-evidence-check.mjs` für getrennte strukturelle Prüfung der noch fehlenden externen Familienreferenzen. Exporte folgen weiterhin Schema 1 (CSV hat sieben neue Zusatzspalten); importierte Freigabe-Claims werden ignoriert; Kosten unbekannt heißt CSV-Rest leer. Fachreviewstatus: 0/10.
+
+**V3.17-A komplette technische QA:** 468/468 Node-/DOM-, 56/56 vollständige Chromium-Browserfälle und 3/3 direkte `file://`-V3.17-Tests; Browserstatus, 2027-Flag, Export-Kompatibilität und 320-px-Schnellstart geprüft. Paketversion 3.10.0 und öffentliche Review-Gates unverändert.
+
+**Implementierter V3.17-A-Arbeitsstand:** [Statusanzeige und Testgrenzen](AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md) nutzt nur den bestehenden RuleValidator, ohne Quellen- oder Berechnungsregeländerung. Die zentrale pure Funktion liegt in src/model-scope.cjs, über scripts/embed-modules.mjs in der Offline-Datei gebündelt. Technische Tests und Freigabe weiterhin unabhängig behandeln.
+
+**Aktueller Einstieg V3.17:** [Neue operative Roadmap](ROADMAP.md), [Abgleich des externen Audits](PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) und [aktuelle Nutzeranleitung](ANLEITUNG.md). Beauftragter erster Ausbau: sichtbarer, validatorbasierter Umfang-/Unsicherheitsstatus, **ohne** Rechtsänderung oder Freigabe. Frühere Versionsabschnitte unten sind **historische Teststände**, keine Live-Statusmeldung.
 
 **Ergänzung 15.10.2026 / V3.5.0:** 48 monetäre Vergleichstests (22 direkt veröffentlichte Beispielwerte und Gesamtsummen einschließlich des L-Bank-Familienfalls, 4 amtlich veröffentlichte Grenzen, 22 Formelableitungen) erfolgreich. Der vollständige [Quellenabgleich](AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md) dokumentiert den ungelösten Widerspruch zwischen Familienportal (5/30 Resttage) und KomNet/MuSchG/SGB V (4/30 Resttage). **Release gesperrt.** Für 2027 wurde ausschließlich eine deutlich markierte, nicht rechtsfreigegebene Szenariosuche ergänzt; Status bleibt NICHT_UNTERSTUETZT. CI-Browserprüfung des neuen E2E-Falles nach Branch-Push ausführen.
 
@@ -12,7 +26,7 @@ Stand: **17. Oktober 2026**. Paket-/Export-Metadaten bleiben bis zu einer separa
 
 **V3.9 – auf main integriert:** Neue Schutzlogik liegt im weiterhin offline-fähigen HTML-Schnellstart und der bestehenden Renderlogik; nicht in einer zweiten Leistungs-Engine. Akzeptanztests unter `tests/usability-v39.test.mjs` und zusätzlichen Playwright-Szenarien. Es darf keine automatische öffentliche Freigabe entstehen. [UX-Details](UX-NACHBESSERUNG-V3.9.md).
 
-**Aktueller technischer Stand V3.14:** [Aktueller Review-/QA-Bericht](ROADMAP-FACHABNAHME-V314-2026-10-17.md), [Roadmap-Matrix](../data/roadmap-status-2026-10-17.json) und [Changelog](../CHANGELOG.md) zuerst lesen. V3.10-Nachweise bleiben historische Snapshots. Im Workbench: 375/375 Node-/DOM-Tests, 39/39 Browserfälle und 3/3 direkte V3.14-file://-Browserfälle bestanden. Die unabhängige öffentliche Freigabe bleibt gesperrt.
+**Historischer technischer Stand V3.14:** [Aktueller Review-/QA-Bericht](ROADMAP-FACHABNAHME-V314-2026-10-17.md), [Roadmap-Matrix](../data/roadmap-status-2026-10-17.json) und [Changelog](../CHANGELOG.md) zuerst lesen. V3.10-Nachweise bleiben historische Snapshots. Im Workbench: 375/375 Node-/DOM-Tests, 39/39 Browserfälle und 3/3 direkte V3.14-file://-Browserfälle bestanden. Die unabhängige öffentliche Freigabe bleibt gesperrt.
 
 **V3.16 QA:** 452/452 Node-/DOM-, 53/53 Chromium-Regressionen und 4/4 direkte V3.16-file://-Tests erfolgreich. Alle bestehenden öffentlichen Release-Gates bleiben unverändert.
 
@@ -32,7 +46,7 @@ Stand: **17. Oktober 2026**. Paket-/Export-Metadaten bleiben bis zu einer separa
 
 Eine kleine Familienstart-Infowebseite (`start.html`) und ein offlinefähiger deutscher Elternzeit-/Elterngeld-Planer als eigenständige HTML-Datei (`index.html`). Technisch weit fortgeschritten, **kein fachlich abgenommener öffentlicher Beta-Release**. `data/release-gates.json` bleibt gesperrt. Ein Merge ändert daran nichts.
 
-Verbindliches Repository: `Codeelchi/elternzeit-zielplaner`. Kein zweites Repository und keine parallele Neuentwicklung. PR #9: Dokumentation; #10: Rechtskatalog; #11: Zeitachsen; #12: integrierte V3.4. Der Nutzer hat die Integration beauftragt. Tatsächlichen Merge-/CI-Status bei Übernahme neu abrufen.
+Verbindliches Repository: Codeelchi/elternzeit-zielplaner. PR #20 (V3.15–V3.16) wurde nach grüner GitHub-CI in main gemergt; Merge-SHA 19f047d. Arbeit an V3.17 nur im neuen Feature-Branch und ohne automatische Weitergabe nach main. Den Live-Status bei Übernahme dennoch neu abrufen.
 
 Modellrahmen: zwei abhängig beschäftigte Eltern in Deutschland, gemeinsamer Haushalt und eigene Betreuung, ein regulär geborenes Kind; Basiselterngeld, Plus, Partnerschaftsbonus, reguläre Elternzeit/Teilzeit. NRW/Köln regional vertieft. Positive Standardkohorte laut Katalog **01.04.2025 bis 31.12.2026**; 2027 bleibt ungeprüft. Explizite Standardfallbestätigung erforderlich.
 

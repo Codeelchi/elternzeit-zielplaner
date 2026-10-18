@@ -1,183 +1,80 @@
-# Geplante Roadmap zur öffentlichen Beta
+# Roadmap: vom internen Familienplaner zum fachlich abgegrenzten Produkt
 
-Stand der aktiven Arbeitspakete: **17. Oktober 2026 / interner V3.16-Code** (technische Paket-/Exportversion noch 3.10.0, keine öffentliche Beta). Die aktuelle [Review- und Evidenzmatrix](../data/roadmap-status-2026-10-17.json) zählt **vier technisch umgesetzte, drei teilweise umgesetzte und fünf extern offene Prüfpakete**. Reihenfolge nach Abhängigkeit und Priorität; keine zugesagten Termine. Repository-Integration und öffentliche Freigabe sind getrennte Entscheidungen. Implementiert bedeutet noch nicht unabhängig fachlich abgenommen.
+**Stand 18. Oktober 2026 · Ausgangspunkt für V3.17: `main`-Merge `19f047d` (PR #20 / V3.16). Dieser Dokumentstand beschreibt V3.17-A–D.** Paket-, Embedded- und Exportversion bleiben **3.10.0**, JSON-Schema **1**. Weder V3.16 noch V3.17-A–D sind ein öffentlicher Release. **Öffentliche Beta: GESPERRT.**
 
-**Ergänzung V3.5.0:** Acht zusätzliche publizierte 12-/24-Monats-Summen, zwei Mindest-/Geringverdienstfälle und vier amtliche Familienbeträge mit variierenden Teilzeitgehältern sind gegen die echte Programmprojektion getestet. Das Mutterschutz-Delta ist nun quellenübergreifend als widersprüchliche Behördenaussage belegt, **nicht** behoben. Für 2027 besteht eine mit Warnung und strikter Validierungssperre gekennzeichnete Prognosesuche, nicht eine gesetzliche Freigabe. [Vollständiger Abgleich](AMTLICHE-REFERENZPRUEFUNG-2026-10-15.md).
+**Produktbild:** *Familien-Szenario- und Budgetplaner* für nachvollziehbare Varianten von Familienzeit, Lebensmonatsbudget, Rücklagen, Betreuung und Berufsrückkehr. **Kein** bescheidgenauer amtlicher Elterngeldrechner, keine rechtlich oder finanziell garantierte „Optimierung“, kein belegtes Markt-Alleinstellungsmerkmal.
 
-**Erweiterung V3.6.0:** Vier echte anonymisierte historische Bescheidverfahren als quellengebundene Dokumentreferenz, ohne behauptete vollständige Berechnung. Einkommensarten einschließlich Provisionen/Einmalzahlungen werden in der UI unterschieden und für die Standard-Fachfreigabe konservativ blockiert. Kindergeldentwurf/Antragsautomatisierung und KiBiz NRW 2027 sind getrennt datiert; die Kita-Bedarfsanzeigefrist wird aus Lebensmonat und Geburtsdatum berechnet. [Detaillierte Evidenzgrenzen](HISTORISCHE-BESCHEIDE-UND-RECHTSSTAND-2027.md).
+**Nachweise und Priorität:** Der aktuelle [technische Hand-off](HANDOFF.md), die [Freigabegates](../data/release-gates.json), die [maschinenlesbare Statusmatrix](../data/roadmap-status-2026-10-17.json) und [Fachreview-Vorbereitung](ROADMAP-FACHABNAHME-V314-2026-10-17.md) sind die operative Grundlage. Die als fremde Prüfung übergebene Produktreife-Einschätzung vom 17.10.2026 ist **keine unabhängig durchgeführte Code- oder Rechtsabnahme**; ihre belegbaren Hinweise und Grenzen werden im [Audit-Abgleich](PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) getrennt bewertet. [Historische vollständige Roadmap bis V3.16](ROADMAP-HISTORIE-BIS-V316-2026-10-17.md).
 
-**Ergänzung V3.8:** Fünf direkt auswählbare Beispielvorlagen, kurzer Eingabeassistent und strikte Kennzeichnung unbekannter Haushaltsausgaben. Bereits dokumentierte rechtliche Freigabelücken bleiben offen. [Details und Prüfumfang](SCHNELLSTART-V3.8.md).
+## 1. Was schon existiert – ohne amtliche Produktfreigabe
 
-**Stand V3.9 (interner Kandidat):** Datenverlust-/Reset-/Vorlagenhorizontfehler behoben, Kostenwarnungen über Schnellstart und Robustheitsansicht vereinheitlicht, mobile Einstiegshürde deutlich verringert, Tastatur- und Fehlerführung verbessert. [Details/Tests](UX-NACHBESSERUNG-V3.9.md). Externe Nutzer- und Fachabnahmen weiterhin offen.
-
-**V3.11 (separater Entwicklungszweig, ohne Release-Anspruch):** Geführter Einstieg in die vorhandene Zielsuche sowie 0–6-Monate-Kita-Verzögerungsanzeige und bessere Monatslückenhinweise implementiert. Finanzielle Kita-Folgeberechnung, unabhängige Fachfreigaben und vollständiger Pareto-Suchraum folgen getrennt. [Arbeitsstand](AUSBAU-V3-11-FAMILIENUEBERGANG.md).
-
-**V3.12 (lokaler Entwicklungszweig):** Kita-Verzögerung mit ausdrücklich gesetzten Kosten-/Einkommensannahmen und nur manuell bestätigtem Wegfall bereits eingeplanter Kita-Gebühren; 2D-Pareto-Erklärung unter den validierten Suchmustern; kalenderbasierte Darstellung nur erfasster Bankbuchungen und eine nicht gespeicherte, optionale Anfangsrücklage. Kein automatisches Elterngeld- oder Zahlungsreforecast, keine Rechtsfreigabe. [Technische Grenzen und offene Schritte](AUSBAU-V3-12-KITA-LIQUIDITAET-ZIELKONFLIKTE.md).
-
-**Statusreview V3.13 vom 17.10.2026:** Technische Zusatzpakete für manuell erwartete Kalendertagszahlungen und Verzögerungen, Versicherungs-/Steuerhinweise, amtliche Leistungslotsen, historische Kita-Gebührenorientierung, Nachweise der eingeschränkten Suche, Quellenstatusprüfung, Fristen-ICS und versionierte JSON-Exporte sind implementiert. Die unabhängigen P0- und P1-R8-Abnahmen bleiben offen. Die aktualisierte überprüfbare Matrix trennt technische Fertigstellung von externer Freigabe: [Roadmap-Abschlussstand](ROADMAP-ABSCHLUSSSTAND-2026-10-17.md).
-
-**Nacharbeit V3.14 vom 17.10.2026:** Manuelle Versicherungskosten-/Steuerrücklagen-Szenarien, alle drei Kölner Gebühren-Altersgruppen als datiertes Referenzmodul, technischer 256er-Mikro-Suchraum, optimierte schrittweise Suche, Bereinigung überschriebener Controller-Funktionen und ausführbare Prüfnachweise für Privatsphäre, Mutterschutzdelta und zehn vorbereitete externe Fachfälle. Die Rechts- und Nutzerabnahmen bleiben ausdrücklich offen. [V3.14 Fachreview-Paket](ROADMAP-FACHABNAHME-V314-2026-10-17.md).
-
-**V3.16 – Gemeinsame Betreuung und Teilzeit:** Separate Eltern-A/B-Wochenplanung mit 15-Minuten-Takt, zeitversetzter Erwerbsarbeit, Begleitung in der Kita und nur hypothetischen Einkommens-/Ersatzkosten. Reale Arbeitstage, Bonusprüfung und Lohnfolgen sind **nicht** unabhängig bestätigt; P1-R6 bleibt teilweise. [V3.16 Bericht](AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md).
-
-**V3.15.2 – Robustheit des Kita-Beginns:** Begrenzter Vergleich +2/+4 Wochen bei sonst gleichen Annahmen eingebaut, inklusive Wochenstunden, Centdifferenz und vorsichtigem Monatsrest. Weiterhin kein offiziell geprüfter Betrag und keine Prognose des tatsächlichen Kita-Platzes; P1-R6 bleibt teilweise. [Umsetzung](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
-
-**V3.15.1 – Prüfung des Kita-/Arbeitsübergangs:** Der Übergangsaufwand zählt nur Warte- und Eingewöhnungswochen. Ein eigener Rückkehrzeitpunkt und eine centgenau nach Kalendertagen geteilte Lebensmonatsüberleitung verbessern den Budgetvergleich; Dauerlücken werden gesondert sichtbar. P1-R6 bleibt wegen unverifizierter echter Lohn-, Versicherungs- und Rechtsfolgen **teilweise**. [Nachbesserung und Testgrenzen](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
-
-**Technische Fortsetzung V3.15 vom 17.10.2026:** KiBiz-Rechtsstand 2026/ab 2027 als datierte Kohorte; flexible wöchentliche Kita-Eingewöhnung mit manuellen Stunden-/Finanzfolgen; Aufgabenstatus/ICS, KiZ-Dokumentenfenster und drei verständliche Ergebnis-Perspektiven implementiert. Ohne unabhängige Rechts-/Datenschutz-/Nutzerabnahme keine öffentliche Freigabe; verschlüsselte gemeinsame Pläne bleiben eine gesonderte Sicherheits- und Produkterweiterung. [V3.15 Details](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
-
-## Erreichter Stand
-
-| Bereich | Implementiert | Noch offen |
+| Bereich | Technische Implementierung auf `main` | Explizite Grenze |
 | --- | --- | --- |
-| Regeln / #2 | Versionierter Katalog, Quellen, Prüfdaten, Gültigkeit, Snapshot-CI | Wiederprüfung veränderlicher Regeln und 2027; restliche Legacy-Parameter |
-| Zeitachsen / #3 | Taggenauer Mutterschutz, Lebensmonate, mehrere Elternzeitabschnitte, unabhängiger Erwerb/Bezug und Bankbuchungen | Unabhängige Abnahme der Datumsgrenzen und Mutterschutz-Anrechnung |
-| Validator / #4 | Vier Statuscodes, erklärbare Findings, konservative Eingabe-/Quellenprüfung | Fachreview, vollständige Referenzfamilien |
-| Zielsuche / #5 | Mutter-/Vater-Schwerpunkte, drei Profile, strenge Filter, veraltete Empfehlungen gesperrt | Quantifizierte Abdeckung, Reaktionsfähigkeit, breitere Arbeitsmuster |
-| Budget / #6 | Drei Szenarien, persönliche Erwerbsbänder, Rücklagen und Engpässe | Amtliches Netto, unabhängige Teilzeitfälle, Steuer-/Versicherungseinordnung |
-| Region / #7 | Datierte NRW-/Köln-Antragswege, Checkliste, unbestätigte Zuschläge ausgeschlossen | Aktuelle Tarif-/Anspruchsnachweise mit Wiederprüfverfahren |
-| UX/QA / #8 | Responsiv, Offline, Speicher-Opt-in/Löschung, Import/Export, aktuelle Tests und Browsernachweise im [QA-Bericht V3.10](QA-V3.10.md) | Datenschutz-/Rechtsreview, Nutzertests, Assistenztechnik, weitere Browser |
-| Referenzen / #1 | Acht veröffentlichte Beträge, vier Grenzen, 22 Formelableitungen, sichtbarer Tagesdelta | Mindestens zehn vollständige unabhängige Standardfamilien; Kerndifferenz klären |
+| Standardfall-/Regelprüfung | `src/rule-validator.cjs`, datierter Rechtskatalog, Statuscodes `PLAUSIBEL_STANDARD`, `DATEN_UNVOLLSTAENDIG`, `NICHT_UNTERSTUETZT`, `REGELKONFLIKT` | „Plausibel“ ist **keine** geprüfte Bewilligung; Geburtsfenster 01.04.2025–31.12.2026 technisch begrenzt, 2027 bloß Vorschau |
+| Zeit und Elterngeld | Kind-Lebensmonate, Mutterschutz, Erwerb, arbeitsrechtliche Elternzeit, Bezugsarten getrennt | Nachgeburtliche Mutterschutzanrechnung 4/30 gegen Portalbeispiel 5/30 **ungeklärt** |
+| Finanzen | Lebensmonatsbudget, centbasierte Rücklagen-/Bandbreiten; separat manuelle Zahlungstermine und erfasste Bankmonate | Kein automatisches Behörden-Netto oder echter Kontoabruf; Zahlungsannahmen sind keine Gutschriften |
+| Ziele | Fünf fiktive Vorlagen, konfigurierbare Monatsfolgen, begrenzte Kandidatensuche und erklärte Zielkonflikte | Kein vollständiger Suchraum, kein bewiesenes globales Optimum |
+| Betreuung | KiBiz-Kohorten 2026/2027, Köln-Beiträge als historischer Vergleich, Eingewöhnungs-/Verzögerungs-Szenarien | Kein bestätigter Kita-Platz, keine unverändert garantierte kommunale Gebühr |
+| Beide Eltern (V3.16) | Vereinfachter Mo–Fr-15-Minuten-Wochenplan, Begleitung A/B, zeitversetzte Arbeit, Ersatzbetreuung | Keine echten Schichten/Pendelzeiten/Urlaubsrechte; Netto-/Bonussimulation nicht fachlich bestätigt |
+| Datenschutz/Technik | Offline-Einzeldatei, Speicher-Opt-in, Löschung, CSV/JSON, Tests | Ein unabhängiger Datenschutzreview fehlt; temporäre Wochenvarianten werden **nicht** exportiert oder gespeichert |
 
-Issues #1–#8 bleiben bis zur jeweiligen Abnahme offen. Ursprung: [MVP-Spezifikation](MVP-2026-10-14.md). Historische Fortschritte: [Changelog](../CHANGELOG.md), [Buildlog](BUILDLOG.md), [Abnahmebericht](MVP-ABNAHME-2026-10-15.md).
+**Technischer letzter Vollnachweis (vor V3.17):** 452/452 Node-/DOM-, 53/53 Chromium- und 4/4 zusätzliche V3.16-`file://`-Tests; GitHub-PR-CI #20 grün. Das ist ein **Software-** und kein unabhängiger Fachnachweis.
 
-## P0 – Fachliche Voraussetzungen
+## 2. P0: Vor einem extern angebotenen Finanzplaner nachweisen
 
-### P0-R1: Taggenaue Mutterschutz-Anrechnung klären
+**Verantwortliche Rollen sind noch zu benennen.** Eine vorbereitete Vorlage, ein automatischer Test und ein grüner Merge dürfen nicht als externe Unterschrift ausgegeben werden.
 
-**Bezug:** #1, #3, #4. **Blockiert:** öffentliche Fachfreigabe.
+| ID / Reihenfolge | Entscheidung bzw. Nachweis | Akzeptanz vor Freigabe | Status |
+| --- | --- | --- | --- |
+| **P0-1** Mutterschutz (blockiert Berechnungsabnahme) | Achtwöchige Nachgeburtsfrist, Mutterschaftsleistung und Elterngeldrest im Beispielfall 20.05. mit amtlicher Auslegung abgleichen | Schriftliche Fach-/Behördenherleitung inklusive Fristbeginn, Entbindungstag, Leistungsende, Resttage und `4/30` vs. `5/30`; danach unabhängiger Solltest | **EXTERN OFFEN** |
+| **P0-2** Anwendungsbereich und Ergebnisbedeutung | Technischen Standardfall und **Negativfälle** fachlich entscheiden; Eingabevertrag für gewöhnliches Netto vs. **Elterngeld-Netto** festhalten | Schriftlich bestätigte Positiv-/Negativliste samt Geburtskohorten, offizielle Verantwortungsrolle, sichtbare Warn-/Sperrwirkung in UI und Export | **Fachlich offen; V3.17 UI-Ausbau begonnen** |
+| **P0-3** Referenzfamilien | Zehn vorbereitete synthetische vollständige Fälle `data/independent-case-requests-2026-10-17.json` | Je Fall alle Eingaben, Rechtsfassung, Zwischenwerte, LM-Zuordnung, separate Zahlungsannahmen, Quellen, Reviewentscheidung und unabhängiger Soll-/Ist-Abgleich; **derzeit 0/10 extern bestätigt** | **EXTERN OFFEN** |
+| **P0-4** Regel-/Elterngeld-Netto-Freigabe | Manuell vorgegebenes Elterngeld-Netto versus automatische Brutto-Netto-Umrechnung abgrenzen; Teilzeit und 2027-Kohorte getrennt | Validierte manuelle Standardfallrechnung oder ausdrückliche Nichtunterstützung; keine ungeprüfte 2027-Berechnung als geltend; juristische Reviewentscheidung je anwendbarer Fassung | **EXTERN OFFEN** |
+| **P0-5** Anspruch/Zahlung/Buchung | Gleiche Eingaben auf Lebensmonat, Kalendermonat und Banktag verständlich gegentesten | Prüffälle für Monatsende, Schaltjahr, verspätete Zahlung, manuelle Buchung, keine Doppelzählung und unbekannte Beträge; echte Nutzer verstehen die drei Ebenen | **Technisch vorhanden, fachlich/UX offen** |
+| **P0-6** Datenschutz, Barrierefreiheit, Kommunikation | Datenfluss/Netzwerk, lokale Speicherung, Löschung, Export, mobile Bedienelemente; Betreiberinformationen | Unabhängig dokumentierter Datenschutz-/Rechtsreview, manuelle Tastatur-/Screenreader-Prüfung, Impressum/Datenschutzhinweis nach Betriebsform und behobene kritische Befunde | **EXTERN OFFEN** |
+| **P0-7** Nutzertest und Betrieb | Moderierte synthetische Aufgaben, Rückfrage-/Fehlerkanal, verantwortliche Freigabe und Rollback | Teilnehmerprotokolle ohne persönliche Echtdaten, verständliche Resultate, Betreiberrolle, Regelpflege, Stop- und Rücknahmeregel; danach *gesonderte* Releaseentscheidung | **EXTERN OFFEN** |
 
-- Geburt 20. Mai mit tatsächlichem/erwartetem Termin, Schutzfrist und betroffenem Lebensmonat vollständig dokumentieren.
-- Kalenderrecht und Anrechnung der Mutterschaftsleistungen getrennt belegen. Bundesrechner-Kalenderfunktion allein beweist keinen Restgeldbetrag.
-- Amtliche Richtlinie oder unabhängigen Behördenfall zum Teilmonat prüfen. Bei Widerspruch Fachentscheidung dokumentieren und Sperre erhalten.
-- Erst nach bestätigter Grundlage Code/Referenz ändern; Originalquelle und frühere Abweichung historisch erhalten.
+### Fachliche Klärung der Mutterschutztage – keine automatische Korrektur
 
-**Abnahme:** Unabhängiger Reviewer kann Tage und Geldbetrag aus Quellen reproduzieren; begründeter Delta-Bericht. Ungeklärte Abweichung bleibt Release-Blocker.
+Offizielle Portalreferenz: Geburt **20. Mai**, Leistungen bis **14. Juli**, **fünf Resttage** des 20.06.–19.07.-Lebensmonats. Die im Projekt implementierte Frist-Herleitung zu MuSchG § 3, BGB §§ 187/188 ergibt **15. Juli / vier Resttage**. **Weder die offizielle Referenz noch die eigene Berechnung wird als abschließend richtig erklärt.** Relevant sind zudem SGB V § 24i und die Anrechnung nach BEEG; Fristende und tatsächliches Mutterschaftsgeld **getrennt** prüfen. Aktenstand/Prüfauftrag: [V3.14-Fachabnahme](ROADMAP-FACHABNAHME-V314-2026-10-17.md). Ohne unabhängige Klärung: Release bleibt **BLOCKED**.
 
-### P0-R2: Vollständige Referenzmatrix erweitern
+### Kleinste mögliche externe Pilotfreigabe
 
-**Bezug:** #1, #4, #5. **Abhängigkeit:** parallel zu R1 vorbereitbar; Geldabnahme braucht geklärte Formeln.
+Vor erfolgreicher P0-Abnahme nur **moderierte UX-Demonstration mit synthetischen Daten**, ausdrücklich ohne individuelle Finanzentscheidung. Ein echter Pilot mit finanzieller Entscheidungswirkung setzt die fachlich bestätigte Eingrenzung und alle dazu nötigen Sicherheits-/Betriebsreviews voraus. **Keine** voraussichtliche Veröffentlichung und kein Beta-Label als Ersatz für Nachweise.
 
-- Mindestens zehn vollständige synthetische Standardfamilien mit unabhängig amtlich belegten Eingaben/Ergebnissen dokumentieren.
-- Basis/Plus-Wechsel, beide Eltern, Teilzeit, Bonus, Einkommensgrenzen, minimale/maximale Beträge und Monatsendgeburten abdecken.
-- Je Fall Herkunft, Gültigkeit, Prüftag, Bemessungsannahmen und monatliche Sollbeträge erfassen. Publizierte Einzelwerte nicht als vollständige Familien umetikettieren.
-- Vergleich mit Bundesrechner nur bei gleichartigen Brutto-/Steuer-/Versicherungsdaten; eingegebenes Elterngeld-Netto ist kein identischer Ausgangsfall.
+## 3. V3.17 – Jetzt beginnen: Verständlichkeit und Scope-Evidenz (intern)
 
-**Abnahme:** Reproduzierbare Soll-/Ist-Deltas mit begründeter Toleranz; unabhängiger Fachreview der wichtigsten Finanzfälle. Keine Erwartungen an unerklärte Implementierungswerte angleichen.
+| Paket | Umsetzung / klare Grenze | Definition of Done | Status |
+| --- | --- | --- | --- |
+| **V3.17-A** Status vor Zahlen | Unabhängig vom Ergebnis kompakte, klar priorisierte Anzeige: Standardfall-Status, Geburtsfenster, geschätzt/übernommene Werte, offene Prüfungen | Reine Funktion nutzt bestehenden Validator; echte UI-Reaktion auf Eingaben; 2027, Sonderfall, Konflikt, unbestätigter Standardfall und plausibles Beispiel getestet | **TECHNISCH UMGESETZT; externe Abnahme offen** |
+| **V3.17-B** Kontext im Ergebnis und Export | [Reine Exportkennzeichnung](AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md): JSON-Top-Level-Metadaten, CSV-Zusatzspalten, fehlende Kosten bleiben leer; alte JSON-Imports bleiben möglich | JSON-Schema 1 unverändert; CSV-Altspalten bestehen, aber neue Gesamtspaltenzahl; Tests gegen Fälschungen und Offline | **TECHNISCH UMGESETZT; keine Fachfreigabe** |
+| **V3.17-C** reproduzierbares Fachpaket | [Neutrale Prüffall-Vorlage](FACHABNAHME-V317-REFERENZFALL-VORLAGE.md), [SHA-gebundene maschinenprüfbare Fallmatrix](AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md), zusätzliche negative Evidenztests | Fehlende/gefälschte Nachweise scheitern; keine automatische fachliche Bestätigung, **0/10 extern bestätigt** | **Technischer Nachweischeck umgesetzt; externe Fachabnahme offen** |
+| **V3.17-D** Nutzerprüfung vorbereiten | [Acht interaktive synthetische Lernfälle und moderiertes Nutzer-/Accessibility-Protokoll](PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md); formale, SHA-gebundene Null-Evidenzmatrix in `data/usability-review-v317d.json` | Übungen ohne Speicher-/Planmutation; technische Browser-/Offline-/Negativtests; **0 reale Nutzerreviews** und **keine Freigabe** | **Technisch umgesetzt; echte Nutzertests und manuelle Accessibility offen** |
 
-### P0-R3: Amtliche Nettoermittlung spezifizieren und absichern
+**V3.17-D (18.10.2026):** Die interaktive Verständlichkeitsübung ist für **acht fiktive Themen** implementiert; `npm run usability:check` bestätigt **acht vorbereitete Aufgaben, null reale Beobachtungen und null Freigaben**. [Moderator- und Accessibility-Protokoll](PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md). **Technische Gesamtabnahme: 495/495 Node-/DOM-Tests, 63/63 vollständige Chromium-Browserfälle und 3/3 zusätzliche direkte `file://`-V3.17-D-Tests bestanden.** Der exakte GitHub-PR-CI-Nachweis folgt beim Merge; keine reale Nutzerabnahme. Die Durchführung echter Nutzertests bleibt ein **offener P0-Nachweis**.
 
-**Bezug:** #1, #2, #6. **Abhängigkeit:** Spezifikation vor Umsetzung; R2 begleitet Entwicklung.
+**V3.17-B/C technische Abnahme (17.10.2026):** 481/481 Node-/DOM-, 60/60 vollständige Chromium-Browser-Regressionen und 4/4 zusätzliche V3.17-B-`file://`-Browserfälle bestanden. Export- und Evidenzaufbau sind technisch umgesetzt, aber **0/10 Familienfälle unabhängig bestätigt**. Diese Prüfungen stellen keine fachliche und keine öffentliche Freigabe dar. [Nachweise](AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md).
 
-- Beschäftigungs-/Bemessungsfall definieren: laufende Bezüge, ausgeschlossene Bestandteile, relevante Monate, Steuerklasse, Pauschalen, Versicherungsmerkmale.
-- Nicht unterstützte Einkommen/Unterbrechungen sperren oder transparent manuelle Elterngeld-Netto-Eingabe anbieten.
-- Erwerbsnetto, Elterngeld-Netto, Mutterschaft und tatsächliche Zahlung getrennt benennen.
-- Reine Berechnungsmodule mit datierten Parametern ergänzen; bestehende manuelle Planung erhalten.
+**V3.17-A technische Regression (17.10.2026):** 468/468 Node-/DOM-Tests, 56/56 vollständige Chromium-Browserfälle, 3/3 neue V3.17-Fälle direkt per file:// bestanden. Die aufklappbare Scope-Karte ist auf einem 320-Pixel-Bildschirm geschlossen ca. 90 px hoch und hält den Schnellstart im ersten Viewport. Diese technischen Ergebnisse ändern **keinen** P0-Reviewstatus. [Details](AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md).
 
-**Abnahme:** Unabhängige vollständige Standardfälle innerhalb begründeter Toleranz. Oberfläche unterscheidet berechnete und manuell geschätzte Werte. Keine Scheingenauigkeit bei Sonderfällen.
+**Technikregeln:** Kein neuer amtlicher Nettorechner; keine Regeländerung zum Mutterschutz ohne unabhängige Quelle; keine Rechte-, Speicher- oder JSON-Schemaänderung allein aufgrund einer neuen Hinweiskarte. Dokumentation vor und während Umsetzung aktualisieren. Neue UI auch mit direktem `file://` testen. Kein PR-Merge oder Push ohne entsprechenden Auftrag.
 
-### P0-R4: Rechts-/Standardfallreview abschließen
+## 4. P1 nach abgegrenztem Standardfall – bewusst keine automatische P0-Ausweitung
 
-**Bezug:** #2, #3, #4. **Abhängigkeit:** geklärte Grundlagen; Quellenpflege parallel möglich.
+1. **Wochenplanung:** echte Arbeitswochen, Pendelzeiten, Feiertage, individuelle Abholzeiten; vor Nutzung fachlich/organisatorisch prüfen. Optionaler privater Export/Verschlüsselung nur mit gesondertem Recovery- und Datenschutzkonzept.
+2. **Automatisierte Brutto-zu-Elterngeld-Netto-Engine:** getrenntes Fachprojekt mit unabhängiger Bemessungs-/Lohnsteuerreferenz und Nutzungsbedingungen für mögliche BMF-Schnittstellen.
+3. **Sonderfälle:** Selbstständige/Mischeinkünfte, Mehrlinge, Alleinerziehende, Frühgeburt, Adoption und atypische Mutterschutzfristen jeweils als **eigene** geprüfte Erweiterung.
+4. **Regionale Angebote:** aktuelle kommunale Kita-Gebühren/Verfahren, weitere Länderleistungen und unterschiedliche Zuständigkeiten; kein erfundener bundeseinheitlicher Kita-Tarif.
+5. **Synchronisierung:** optionaler Multi-Device-/Partneraustausch erst nach unabhängiger Bedrohungsmodell-, Datenschutz- und Schlüsselerholungskonzeption.
+6. **Suche:** stärkere Kandidatenabdeckung und echte Performance-Messung auf Smartphones; „bestes gefundenes Szenario“, kein globales Optimum.
 
-- Jede relevante Regel auf amtliche Quelle, tatsächliches Prüfdatum, Gültigkeit und Kohorte kontrollieren.
-- Kontingente, gleichzeitigen Bezug, Bezugsgruppen, Bonusstunden, Mutterschutz und unabhängige Arbeitgeber-Elternzeit systematisch prüfen.
-- Fehlende Daten, Typfehler, Sonderfälle und unbekannte Quellen in UI und Engine prüfen.
-- Geburten 2027 nur nach eigener Rechtsprüfung freigeben; Softwaredatum ist kein Nachweis.
+## 5. Operative Qualitätsschranken und Zuständigkeiten
 
-**Abnahme:** Unabhängiger Fach-/Rechtsreview mit Scope, Einschränkungen und Reviewerentscheidung. Nur tatsächlich bestätigte Gates in `data/release-gates.json` ändern.
+- **Vor jedem Merge:** `npm test`, vollständige Chromium-E2E, direkte `file://`-Fälle, `git diff --check`, Quellen-/Roadmap-/Privacy-Checks, keine Secrets/Testartefakte. CI muss gegen den **exakten** Commit bestanden sein.
+- **Vor jedem öffentlichen Start:** `npm run release:check` darf ausschließlich nach extern belegten P0-Reviewentscheidungen und verantwortlicher Betreiberfreigabe grün werden. `data/release-gates.json` nicht allein zur Fehlerbehebung verändern.
+- **Bei neuen Gesetzen:** Gültigkeitsbeginn, Quellenstatus und Geburtskohorte separat pflegen; parlamentarische Pläne/Entwürfe nicht als heutiges Recht behandeln.
+- **Verantwortliche Rollen:** Fach-/BEEG-Reviewer, Rechts-/Betreiberverantwortung, Datenschutzverantwortung, manuelle Accessibility-/UX-Review, technische Pflege und Freigabeverantwortung – **Zuweisung und Nachweise stehen aus.**
+- **Reproduzierbarkeit:** unabhängige Referenzwerte im Prüfprotokoll, keine automatisch aus dem getesteten Rechner abgeleiteten Sollwerte; datierte Quellen und Rundungen je Fall.
+- **Berichte:** [aktueller Handoff](HANDOFF.md), [detaillierte V3.15/16-Abnahmen](AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md), [historische Roadmap](ROADMAP-HISTORIE-BIS-V316-2026-10-17.md). Die maschinenlesbare alte P0/P1-Statusmatrix bleibt bis zur Migration als **historische Zuordnung** erhalten.
 
-## P1 – Planung und Bedienung
-
-### P1-R5: Suchraum und Reaktionsfähigkeit
-
-**Bezug:** #5. **Parallel möglich:** ohne Änderung ungeklärter Rechtsformeln.
-
-- Erzeugte/eindeutige/ausgesonderte/geeignete Kandidaten und Ausschlussgründe verständlich ausweisen.
-- Lange Suche unterbrechen/abbrechen können; Worker oder schrittweise Auswertung mit weiter bestehender Einzeldatei-Verteilung prüfen.
-- Weitere Teilzeitstarts/Wiedereinstiegsmodelle ergänzen; Abdeckung an kleinen vollständig enumerierbaren Teilräumen messen.
-- Gleichmäßige Betreuung nachvollziehbar bewerten. Monatscodes nicht als exakte Betreuungsstunden darstellen.
-
-**Abnahme:** Dokumentierter Benchmark, bedienbar auf Smartphone, Abbruch ohne Zustandsverlust. Alle Ergebnisse passieren denselben Validator. Keine unbelegte globale Optimalität.
-
-### P1-R6: Budget und Liquidität vertiefen
-
-**Bezug:** #6. **Abhängigkeit:** genaue Leistungsberechnung braucht P0; Anzeige unabhängig verbesserbar.
-
-- Steuer-/Jahreswirkung und individuelle Versicherungsbeiträge fachlich abgrenzen oder nach geprüfter Grundlage modellieren.
-- Anspruchsszenarien von einer optionalen ausdrücklich angenommenen Zahlungsplanung trennen.
-- Kita-Einstieg, Eingewöhnung, Betreuungskosten und sonstige Ausgaben besser vergleichbar machen.
-- Mindestbudget, Engpassmonate und Rücklagen direkt zwischen Varianten vergleichen.
-
-**Abnahme:** Keine doppelte Mutterschaft, keine erfundenen Bankeingänge; identische Stressannahmen in Karte/Diagramm/Suche; unabhängige Monatsfälle geprüft.
-
-### P1-R7: NRW/Köln-Daten aktualisieren
-
-**Bezug:** #7. **Parallel möglich:** keine pauschalen Zuschläge freischalten.
-
-- Aktuelle amtliche Tarife/Leistungen mit Anspruchsdatum, Gültigkeit, Einkommen und Betreuungskonstellation erfassen.
-- Regeladapter pro Region, Wiederprüfdatum und zuständige Behörde pflegen.
-- Checkliste um geprüfte dokumentabhängige Varianten ergänzen; Fristen mit Datum erklären.
-- Historische Tarife informativ erhalten; nur bestätigte Werte optional ins Budget übernehmen.
-
-**Abnahme:** Quellen-/Datumsbeleg pro Zahl; abgelaufene/unbestätigte Regel addiert null. Offizielle Links/Zuständigkeit geprüft.
-
-### P1-R8: Nutzertests, Datenschutz und Barrierefreiheit
-
-**Bezug:** #8. **Abhängigkeit:** vor öffentlicher Beta zwingend, parallel zum Fachreview organisierbar.
-
-- Mit repräsentativen Testpersonen Einstieg, Begriffe, Suche, Engpassverständnis und Export prüfen; keine privaten Daten im Repository.
-- Datenschutzinformationen und lokale Speicherung unabhängig prüfen, einschließlich geteilter Geräte und Exporte.
-- Tastatur, Fokus, Screenreader, Vergrößerung und Touch manuell prüfen; weitere Browser berücksichtigen.
-- Kritische Befunde beheben und nachtesten; Unsicherheit verständlich darstellen.
-
-**Abnahme:** Protokoll mit Scope/Befunden, keine kritischen offenen Probleme, echte Reviewentscheidung. Axe allein genügt nicht.
-
-## P2 – Wartung und Architektur
-
-- Legacy-Doppeldefinitionen/Events schrittweise in eindeutige UI-/Importmodule überführen; Offline-Single-HTML erhalten.
-- Datenformatschema/Migrationen versionieren; alte/neue Export-Roundtrips und Privatsphäre prüfen.
-- Actions auf unterstützte Laufzeiten migrieren; Artefaktquote verwalten, ohne fremde Nachweise ungefragt zu löschen.
-- Stabile visuelle Regressionen mit synthetischen Fixtures und nachvollziehbarer Freigabe ergänzen.
-- Weitere Regionen/Sonderfälle erst als eigene validierte Pakete nach Standardfallabnahme.
-
-**Abnahme:** Kleine überprüfbare PRs, keine Funktionsverluste, synchroner Offline-Build und relevante Regressionen grün. Architekturwechsel begründen und einfach verteilbare Version erhalten.
-
-## Release-Gates: Definition „Beta bereit“
-
-1. Verbindliche P0-Funktionen implementiert und unabhängig geprüft.
-2. Wichtige Finanz-/Datumsfälle reproduzierbar belegt; keine ungeklärte kritische Kerndifferenz.
-3. Rechtsquellen/Kohorten eindeutig, Sonderfälle und Schätzungen transparent.
-4. CI, Browser, Offline, Import und Datenschutzprüfungen grün; keine kritischen Befunde.
-5. Fach-, Rechts-, Datenschutzreview und Nutzertests dokumentiert und freigegeben.
-6. README, Anleitung, Buildlog, Handoff, Quellen und Einschränkungen aktuell.
-7. Release Candidate mit exaktem Commit; gesonderte Entscheidung zur öffentlichen Veröffentlichung.
-
-`npm run release:check` bleibt derzeit rot. Merge, grüner CI-Lauf und Versionsnummer erfüllen diese Liste nicht automatisch.
-
-## Ablauf pro Paket
-
-GitHub-Stand/amtliche Grundlage prüfen → Feature-Branch → implementieren → relevante automatische/visuelle Prüfungen → Delta/Quellen/Dokumentation → PR mit Evidenz und Grenzen → Review/Merge gemäß Auftrag. Bei Fachblockern parallel unabhängige Pakete bearbeiten. Historische Nachweise nicht umdeuten und Dritte nicht ungefragt kontaktieren.
-
-## Produktreview nach erneuter Wettbewerbsrecherche
-
-Der [Audit vom 15.10.2026 gegen V3.6](WETTBEWERB-MVP-AUDIT-2026-10-15.md) bestätigt Marktüberschneidungen bei Optimierung, Budget, lokalem Betrieb und Quellen. Priorität für den Nutzenbeleg: Eingaben entpersonalisieren und Netto-Einstieg führen; Betreuung/Mindestbudget/Rücklage samt vorsichtigem Fall direkt zwischen Plänen vergleichen; Suchvielfalt und Verständlichkeit testen. Die ursprüngliche MVP-Spezifikation erlaubt transparente manuelle EG-Netto-Werte. Eine vollständige Bruttoengine ist eine bewusst zu entscheidende Ausbaustufe, kein durch den Wettbewerbsvergleich nachträglich bewiesenes Muss. Fachfreigaben und Referenzabweichung bleiben unverändert offen. Zusätzlich QA-Metadaten zur tatsächlichen Version konsolidieren: CI V3.6 belegt 186/13, lokaler eingecheckter Browserumgebungsnachweis nennt noch V3.4/11.
-
-## Umsetzung der Produktprioritäten V3.7
-
-Neutraler Netto-Einstieg, materielle Ergebnisvielfalt, direkter realistischer/vorsichtiger Budgetvergleich und bedienbar unterbrechbare Suche sind umgesetzt; siehe [Abschlussnachweis](UMSETZUNG-ZIELBUDGET-V3.7.md). Die Cent-Rundung ist amtlich belegt und implementiert. 217 Node-Tests sowie 16 Dateiprotokoll-Browserfälle mit 52 Axe-Scans bestehen.
-
-P0-R1 bleibt hinsichtlich des Mutterschutz-Eurobetrags offen. P0-R3 ist für den ausdrücklich erlaubten manuellen MVP-Eingabeweg technisch umgesetzt; eine vollständige automatische Bruttoengine bleibt gesonderter Ausbau und wird nicht vorgetäuscht. Fachreview der tatsächlichen Monats-/Nettoeingaben bleibt erforderlich. P1-R5/R6 sind hinsichtlich Vielfalt, Abbruch und Direktvergleich verbessert; globale Suchvollständigkeit und Zahlungsliquidität bleiben ausgeschlossen. P1-R8: [Nutzertestprotokoll](NUTZERTEST-PROTOKOLL-V3.7.md) vorbereitet, Durchführung und unabhängige Reviews offen. Keine öffentliche Freigabe.
-
-
-## Fortsetzung V3.10: kleine Infowebseite und nächste Abnahme
-
-`start.html` bündelt Schwangerschafts-/Familienstarttipps, amtliche Beratung und Rechnerzugang. Kontextwissen und direkte Korrekturschritte verbessern die Entscheidungsführung; centgenaue Budgetbuchungen beseitigen Phantomdefizite. Diese Produktarbeit ersetzt keine der offenen P0-Fachabnahmen.
-
-Nächste priorisierte Pakete:
-
-1. P0-R1 und P0-R2: Mutterschutz-Eurobetrag unabhängig klären und vollständige Referenzfamilien verbreitern.
-2. Öffentliche Anbieter-/Impressumsangaben sowie Rechts-/Datenschutz-/Redaktionsreview für beide Seiten klären; Freigaben dokumentieren.
-3. Echte formative Tests auf Smartphone: Informationsbedarf finden, eigene Werte verstehen, Betreuungslücke erkennen und passende Beratung erreichen.
-4. Quellenwartung für Schwangerschafts-/Beratungslinks und Geburtskohorten; regionale Vertiefung Köln/NRW belegen. Neue medizinische Inhalte nur mit belastbarer redaktioneller Grundlage.
-5. Assistenztechnik und weitere Browser prüfen. Keine behauptete globale Suchoptimalität, medizinische Empfehlung oder 2027-Freigabe.
+**Status: intern technisch fortentwickelbar · fachlich und öffentlich nicht freigegeben.**

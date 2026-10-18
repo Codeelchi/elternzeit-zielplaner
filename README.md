@@ -1,6 +1,20 @@
 # Elternzeit-Zielplaner
 
-**Interner Funktionsstand V3.16 (17. Oktober 2026)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner. Die technischen Paket- und Export-Versionsangaben bleiben vorerst bei **3.10.0**, weil die V3.12–V3.14-Ausbaustufen noch **kein öffentlicher Produkt-Release** sind.
+**Interner Funktionsstand V3.17-A–D (18. Oktober 2026; Basis: PR #20 / `19f047d` für V3.16)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner. Die technischen Paket- und Export-Versionsangaben bleiben vorerst bei **3.10.0**, weil die bisherigen internen Ausbaustufen **kein öffentlicher Produkt-Release** sind.
+
+**V3.17-D technische QA:** 495/495 Node-/DOM-, 63/63 Chromium-Gesamt- und zusätzlich 3/3 direkte `file://`-Browserfälle erfolgreich. Die zehn unabhängigen Berechnungsreferenzen und echte UX-/Rechts-/Datenschutz-Freigaben bleiben offen.
+
+**Neu im internen Ausbau V3.17-D (18.10.2026):** [Acht geführte, vollständig fiktive Verständlichkeitsaufgaben](docs/PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md) im Bereich „Plan prüfen“. Sie helfen, Regelgültigkeit, Einnahmen, Budgetlücken, Zahlungszeitachsen und Datenschutzgrenzen zu verstehen. Antworten bleiben flüchtig, werden weder gespeichert noch exportiert. **Dies ist keine echte Nutzerstudie**; die vorbereitete Evidenzmatrix meldet 0 reale Beobachtungen und 0 Freigaben.
+
+**V3.17-B/C Software-QA:** 481/481 Node-/DOM-, 60/60 vollständige Chromium-Browserfälle und 4/4 direkte Offline-`file://`-Browsertests bestanden. Unabhängige Elterngeld-/Rechts-, Datenschutz- und Nutzerabnahme **nicht** erfolgt; öffentliche Beta gesperrt.
+
+**Neu im internen Ausbau V3.17-B/C:** [JSON-/CSV-Transparenz und unabhängiges Referenzevidenz-Schema](docs/AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md). JSON ergänzt nicht vertrauenswürdige (beim Import verworfene) Erklärungshinweise; CSV behält seine bisherigen 17 Spalten und erhält sieben neue Hinweisfelder. Bei unbekannten Haushaltskosten bleibt der Restwert leer. Die zehn synthetischen externen Referenzfälle sind weiterhin **nicht fachlich bestätigt**.
+
+**V3.17-A technischer Teststand:** 468/468 Node-/DOM-, 56/56 vollständige Chromium-Tests und zusätzlich 3/3 V3.17-Browserfälle direkt über `file://` erfolgreich. Nur Softwaretests; die öffentliche Freigabe bleibt gesperrt.
+
+**Neu in der internen V3.17-A-Entwicklung:** [Erkennbarkeit des Modellumfangs](docs/AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md): Schon im Überblick wird eingeordnet, ob euer Fall unvollständig, außerhalb der geprüften Kohorte, nur für 2027 prognostiziert oder im Standardmodell technisch plausibel ist. Keine Bewilligung und weiterhin gesperrte öffentliche Beta.
+
+**Aktuelle Produktreife-Arbeit V3.17:** [Operative Produktreife-Roadmap](docs/ROADMAP.md), [Abgleich des extern übergebenen Audits](docs/PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) und [aktuelle Anleitung](docs/ANLEITUNG.md). Der Standardfall, der Geburtszeitraum und die Ergebnisgrenzen werden verständlicher angezeigt – ohne neue Rechtsberechnung oder automatische Freigabe.
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
 
@@ -18,7 +32,7 @@
 
 **Nachbesserung V3.15.1:** Der Kita-Vergleich unterscheidet jetzt ausdrücklich einmalige Eingewöhnungsbelastungen von dauerhaft offenen Betreuungsstunden. Arbeit kann erst Wochen nach Kita-Start beginnen; hypothetische Zusatzkosten werden separat und centgenau auf Lebensmonate verteilt. Es werden weder Leistungsansprüche noch gespeicherte Pläne still geändert. [Fachliche Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
 
-**Neu in V3.15 (separater Entwicklungszweig):** Wochenweiser Kita-Eingewöhnungs- und Wiedereinstiegsplan mit manueller Verzögerung und Ersatzbetreuung; getrennte NRW-KiBiz-Fassungen für 2026 und ab 01.08.2027; nach Geburtsdatum bestimmte Anzeige- und mögliche Beitragsfreiheits-Hinweise; Aufgabenfortschritt, vorläufiger Kalenderexport, KiZ-Unterlagenfenster und verständlichere Suchperspektiven. **Kein festgestellter Rechtsanspruch, keine automatische Änderung von Plan/Bank und keine neue öffentliche Freigabe.** [V3.15 Umsetzung und Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+**Historie V3.15 (seit PR #20 auf main):** Wochenweiser Kita-Eingewöhnungs- und Wiedereinstiegsplan mit manueller Verzögerung und Ersatzbetreuung; getrennte NRW-KiBiz-Fassungen für 2026 und ab 01.08.2027; nach Geburtsdatum bestimmte Anzeige- und mögliche Beitragsfreiheits-Hinweise; Aufgabenfortschritt, vorläufiger Kalenderexport, KiZ-Unterlagenfenster und verständlichere Suchperspektiven. **Kein festgestellter Rechtsanspruch, keine automatische Änderung von Plan/Bank und keine neue öffentliche Freigabe.** [V3.15 Umsetzung und Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
 
 **V3.14 (interner Entwicklungsstand):** Eigene Versicherungs-/Steuerpuffer im Finanzvergleich, Kölner historische Gebührentabelle in drei Altersgruppen, technisch vollständiger kleiner Suchraum, schnellere abbrechbare Vorlagensuche, eindeutige UI-Handler und maschinenlesbarer Fachreview-Übergabesatz. Keine unabhängige Rechts-/Datenschutz-/Nutzerfreigabe. [Details und Übergabe](docs/ROADMAP-FACHABNAHME-V314-2026-10-17.md).
 

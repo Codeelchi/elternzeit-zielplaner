@@ -1,5 +1,28 @@
 # Änderungen
 
+## V3.17-D – fiktiver Verständlichkeitscheck und Reviewvorbereitung (intern)
+
+- Acht interaktive synthetische Fragen zu Standardkohorte, Elterngeld-Netto, Leistungs-/Zahlungsmonat, Bankbuchung, unbekannten Kosten, Mutterschutz 4/5, Zielsuche und lokalem Speicher. Erklärendes, nicht bewertendes Feedback, vollständig ohne Familienplan- oder Persistenzwirkung.
+- Eigene dokumentierte Moderator-/Barrierefreiheits-Prüfvorlage und SHA-gebundene Null-Evidenzmatrix mit `npm run usability:check`. Gefälschte Teilnehmer- und Freigabeangaben werden abgewiesen; echte Teilnehmer wurden **nicht** beobachtet.
+- Technische Gesamtabnahme: **495/495** Node-/DOM-, **63/63** vollständige Chromium-Regressionen und **3/3** zusätzliche direkte V3.17-D-`file://`-Fälle bestanden.
+- [Umsetzung und Testgrenzen](docs/PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md). Release-Gates, Mutterschutz-Referenz und 0/10 externe Referenzfälle bleiben offen.
+
+## V3.17-B/C – Exporttransparenz und Referenzevidenz (intern, keine Fachfreigabe)
+
+- JSON-Schema 1 / Exportversion 3.10.0 behalten; erläuternde, **nicht signierte** Top-Level-`planningDisclosure`-Metadaten, die beim Import bewusst ignoriert werden. Echte/alte JSON-Dateien weiterhin kompatibel.
+- CSV um sieben maschinenlesbare Scope-/Schätz-/Quellenfelder rechts erweitert, alte 17 Spalten behalten; bei unbekannten Ausgaben kein fiktiver `Frei_nach_Kosten`-Betrag.
+- Neuer aufklappbarer UI-Bereich erklärt Export-Grenzen; reine Modulvalidierung stoppt Exporte bei fehlendem Status statt falsche Freigabe vorzutäuschen.
+- Zehn externe Prüffälle in SHA256-gebundenem Manifest angelegt; `npm run independent-evidence:check` prüft Struktur, behauptete Freigaben und fehlende Quellen. **0/10 extern bestätigt, Release-Gates unverändert.**
+- Vollständige Softwaretests: 481/481 Node-/DOM-, 60/60 Chromium-Regressionen, 4/4 neue echte `file://`-V3.17-B-Fälle grün. Rechts- und Datenschutzreview sowie unabhängige Referenzfälle nicht erledigt.
+- [Umsetzung und Grenzen](docs/AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md).
+
+## V3.17 – Produktreife-/Scope-Orientierung (interner Entwicklungszweig; noch kein öffentlicher Release)
+
+- Dokumentation neu geordnet: [aktuelle operative Roadmap](docs/ROADMAP.md), [archivierte Vorgängerroadmap](docs/ROADMAP-HISTORIE-BIS-V316-2026-10-17.md), [Audit-Abgleich](docs/PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) und modernisierte [Nutzeranleitung](docs/ANLEITUNG.md).
+- V3.15–V3.16 liegen nach erfolgreicher GitHub-CI und PR #20 unter Merge 19f047d auf main (alte Branch-Hinweise nur noch historisch).
+- V3.17-A technisch implementiert: unverbindlicher Status vor der Planung und im Regelcheck; kompakte aufklappbare Mobilansicht, Validator-Wiederverwendung ohne neue Rechtsregel, Schätz-/Kohorten-/Freigabehinweise. 468/468 Node-/DOM-, 56/56 Chromium- und 3/3 direkte V3.17-file://-Tests bestanden. [QA](docs/AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md).
+- Mutterschutz 4/5, null unabhängig abgenommene vollständige Familienreferenzen, Rechts-/Datenschutz-/Nutzerreview und öffentlicher Release bleiben **offen/gesperrt**.
+
 ## V3.16 – Gemeinsamer Betreuungs- und Wiedereinstiegsplan (interner Entwicklungsstand)
 
 - Parallele Eltern-Arbeitszeiten nicht mehr als einfache Stundenaddition: 15-Minuten-Überlappungsprüfung für fünf beispielhafte Wochentage, individuelle Arbeitsstarts/-Rückkehrtermine, gemeinsame Kita-Stunden.

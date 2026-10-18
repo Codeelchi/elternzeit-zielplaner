@@ -1,3 +1,4 @@
+<!-- Status 17.10.2026: V3.16 durch PR #20 in main (19f047d), kein öffentlicher Release. Paket-/Exportversion 3.10.0, Schema 1. Aktuelle Prioritäten in ROADMAP.md. -->
 # Architektur – interner Code-Stand V3.14, historisch aus V3.7 erweitert
 
 Der verteilbare Rechner bleibt eine einzelne lokale index.html; die optionale Familienstartseite start.html wird daneben verteilt. Es gibt kein Backend, Konto, Laufzeitpakete oder Telemetrie. Node-Abhängigkeiten dienen ausschließlich Entwicklung und Tests. Diese Entscheidung erhält die Offline-Verteilung und vermeidet die Übertragung privater Haushaltsdaten.
@@ -88,3 +89,17 @@ src/parent-coordination.cjs verwendet die bestehende Kita-Kohorte aus SettlingIn
 Nur wenn beide Eltern zeitgleich arbeiten und für denselben Slot **kein Kita-Slot** vorhanden ist, gilt Ersatzbetreuung oder hypothetisch freizumachende Arbeitszeit als nötig. Eingewöhnungsbegleitung durch A/B oder tageweise abwechselnd wird dagegen selbst **innerhalb** bereits vorhandener Kita-Slots als Arbeitskonflikt des begleitenden Elternteils gezählt. Eine Freistellung ist ein ausdrücklich hypothetischer Bedarf.
 
 Fünf Wochentage, keine Fahrtwege/Feiertage/Schichten/Arbeitgeberkontingente. Mehrere reguläre, später zurückliegende Wochen sind als reine Vorschau vom einmaligen Übergang getrennt. Der Geldvergleich bleibt unverbindlich und **alternativ** zum Ein-Eltern-Szenario: nicht addieren. Alle Eingaben ausschließlich in flüchtigem UI-Zustand, separater Renderer, Snapshot-Generator-Bundling; JSON-Schema 1 und s unverändert. Offizielle Links erklären lediglich Teilzeit/Partnerschaftsbonus, die Wochenansicht prüft keine Lebensmonatsdurchschnitte oder Elterngeldberechtigung.
+
+
+### V3.17-B/C – unvertrauenswürdige Exporthinweise und externe Sollwerte
+
+`src/export-disclosure.cjs` ist eine reine Interpretation des bestehenden `ModelScope`, nicht ein eigener Rechtsvalidator. Die Browseranwendung bettet diese Funktion über `scripts/embed-modules.mjs` inline ein; JSON erhält `planningDisclosure` **außerhalb** von `data`, Import ignoriert es. CSV ergänzt sieben Spalten rechts, ohne alte Spalten umzubenennen; ohne definierte Ausgaben bleibt `Frei_nach_Kosten` leer. Bei fehlerhaftem Scope scheitert der Export geschlossen. Das importierte Dokument gilt niemals als externe Review-Bestätigung; Berechnungs-/Speicherzustand bleiben separat.
+
+`src/independent-review-evidence.cjs` wird dagegen **nicht in die Browserdatei eingebettet**. Es prüft als reines Node-Modul die strukturelle Vollständigkeit eines neutralen, durch SHA256 an die ursprünglichen zehn synthetischen Referenzanfragen gebundenen Manifests. Selbst angeblich vollständig eingereichte unabhängige Werte sind nur `submitted_unverified` und dürfen keinen Release-Gate-Status ändern. Der Checker authentifiziert weder eine Prüferperson noch rechtliche Aussagen. Die außerhalb liegenden Review-/Freigabegates bleiben bis zum belegten, autorisierten Abnahmeprozess grundsätzlich gesperrt.
+
+
+### V3.17-D – flüchtige synthetische Lernfälle und getrennte UX-Evidenz
+
+`src/understanding-guide.cjs` definiert acht unabhängige, fiktive Multiple-Choice-Fälle zu Modellumfang, Einkommensbegriffen, Zeitachsen, Budget, Mutterschutz-Unsicherheit, Suche und Datenhaltung. `scripts/embed-modules.mjs` bettet das CommonJS-Modul in die einzelne Offline-HTML ein. Die UI auf `slide-10` nutzt ein natives `details`, ein `fieldset` mit `legend`, Radiogruppen und ein `role=status`-Feedback. Alle Auswahl- und Ablaufvariablen sind **rein flüchtig**; sie sind nicht Teil des `s`-Plans, des JSON-Schemas, der CSV oder des lokalen Speicher-Opt-ins. Import und bestätigter Reset setzen sie zurück. Kein Lernfortschritt wird als reale Nutzerreview-Entscheidung bewertet.
+
+Ein **separater, nur für Node** gedachter Integritätschecker `src/usability-evidence.cjs` schützt `data/usability-review-v317d.json` über SHA256-Bindung an die tatsächlichen Aufgabenquellen und fail-closed-Validierung gegen unzulässige Teilnehmer-, Beobachtungs- oder Freigabe-Claims. Er hält eine **leere** Reviewvorlage ein, nicht authentifizierte Nutzerdaten. Für reale moderierte Sitzungen ist ein gesonderter datensparsamer Prozess mit menschlicher Verantwortung nötig; Techniktests ersetzen keinen echten Screenreader-/Nutzerreview.

@@ -165,6 +165,44 @@ body.v38-lite.v38-pristine .live-strip{display:none}
 
 /* V38_STYLES_END */
 
+/* V3.17: descriptive scope gate, deliberately never a positive release badge. */
+.v317-scope{border:1px solid #b8cec9;background:#f6f9f7;border-radius:12px;padding:14px 17px;margin:12px 0 18px;overflow-wrap:anywhere}
+.v317-scope h3{font-size:15px;line-height:1.4;margin:0 0 6px;color:#183f43}
+.v317-scope p{font-size:13px;line-height:1.55;margin:5px 0;color:#285055}
+.v317-scope .v317-status{font-weight:750;font-size:14px;color:#173e40}
+.v317-scope .v317-details{font-size:12px;color:#355c5b}
+.v317-scope .v317-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+ .v317-scope>summary{cursor:pointer;font-weight:650;line-height:1.55;font-size:13px;color:#183f43}
+.v317-scope>summary strong{font-size:14px;font-weight:750;display:block}
+.v317-scope>summary:focus-visible{outline:3px solid #00776b;outline-offset:3px}
+.v317-scope>.v317-teaser{font-size:12px;margin-top:3px}
+.v317-scope:not([open]) .v317-expanded{display:none}
+.v317-scope button{min-height:42px}
+.v317-scope button:focus-visible{outline:3px solid #00776b;outline-offset:3px}
+@media(max-width:420px){.v317-scope{padding:12px}.v317-scope .v317-actions button{width:100%}}
+
+/* V3.17-B: explanatory export information remains collapsed and local. */
+.v317-export{margin:14px 0;border:1px solid #bdcfc9;border-radius:12px;padding:12px 15px;background:#f6faf8;overflow-wrap:anywhere}
+.v317-export summary{font-weight:750;cursor:pointer;min-height:32px;line-height:1.5}
+.v317-export summary:focus-visible{outline:3px solid #00776b;outline-offset:3px}
+.v317-export p{font-size:12px;line-height:1.6;color:#2c5157;margin:9px 0}
+.v317-export .v317-export-main{font-weight:700}
+.v317-export .v317-export-caution{border-top:1px solid #cfddd8;padding-top:9px}
+
+/* V3.17-D: synthetic comprehension walkthrough; never used as a real participant review. */
+.v317d-guide{margin:18px 0;border:1px solid #bed5cf;border-radius:14px;background:#f7faf8;padding:15px;overflow-wrap:anywhere}
+.v317d-guide>summary{font-weight:750;line-height:1.55;cursor:pointer;min-height:38px}
+.v317d-guide>summary:focus-visible{outline:3px solid #00776b;outline-offset:3px}
+.v317d-guide .v317d-choices{border:0;margin:12px 0;padding:0;min-width:0}
+.v317d-guide .v317d-choices legend{font-weight:700;margin-bottom:9px;line-height:1.6}
+.v317d-guide .v317d-choice{display:flex;gap:10px;align-items:flex-start;padding:11px 10px;margin-bottom:7px;border:1px solid #cbded7;border-radius:9px;background:#fff;cursor:pointer;min-height:44px;font-size:13px;line-height:1.6}
+.v317d-guide input[type=radio]{flex-shrink:0;width:17px;height:17px;margin-top:3px}
+.v317d-guide .v317d-action{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.v317d-guide button{min-height:44px}
+.v317d-guide button:focus-visible,.v317d-guide input:focus-visible{outline:3px solid #00776b;outline-offset:3px}
+.v317d-guide .v317d-feedback{margin:10px 0;border-left:3px solid #006e63;padding:9px 12px;background:#edf7f2;font-size:13px;line-height:1.6}
+.v317d-guide .v317d-meta{font-size:12px;color:#325b60}
+@media(max-width:420px){.v317d-guide{padding:11px}.v317d-guide .v317d-action button{flex:1}}
 /* V3.10 contextual information: native disclosures work with keyboard and offline. */
 .planning-knowledge{margin:20px 0;padding:18px 20px;border:1px solid #bfd8d1;border-radius:14px;background:#fff}
 .planning-knowledge>summary{cursor:pointer;font-size:16px;font-weight:750;line-height:1.6;min-height:32px}
@@ -203,6 +241,20 @@ body.v38-lite.v38-pristine .live-strip{display:none}
  <div id="v38CostBanner" role="status" class="noprint" hidden></div>
  <main class="stage" id="stage">
   <section class="slide active" data-title="Überblick" id="slide-1">
+   <details class="v317-scope" id="v317Scope">
+    <summary><span id="v317ScopeHeading">Passt euer Fall zum Modell?</span> <strong id="v317ScopeStatus" role="status">Modellstatus wird geprüft.</strong></summary>
+    <p class="v317-teaser">Nur Planung, keine amtliche Bewilligung. Hinweise und nächste Schritte aufklappen.</p>
+    <div class="v317-expanded">
+     <p id="v317ScopeBirth"></p>
+     <p id="v317ScopeMoney"></p>
+     <p class="v317-details" id="v317ScopeReasons"></p>
+     <p class="v317-details" id="v317ScopeReview"></p>
+     <div class="v317-actions noprint">
+      <button type="button" class="navbtn alt" data-goto="slide-2">Standardfall und Netto prüfen</button>
+      <button type="button" class="navbtn alt" data-goto="slide-10">Regelhinweise ansehen</button>
+     </div>
+    </div>
+   </details>
 <!-- V38_MARKUP_START -->
 <div id="v38QuickStart" class="v38-shell noprint" aria-label="Schnellstart für Elternzeit und Familienbudget">
  <div class="v38-intro">
@@ -548,6 +600,30 @@ body.v38-lite.v38-pristine .live-strip{display:none}
   <section class="slide" data-title="Plan prüfen" id="slide-10">
    <span class="eyebrow">10 / Planungs-Check</span><h2>Ist eure Aufteilung plausibel?</h2>
    <p class="subtitle">Der Rechner erkennt typische Regelkonflikte direkt und unterscheidet unbezahlte Elternzeit von finanziertem Elterngeld. Rechtliche Sonderfaelle, abweichende Mutterschutzfristen, individuelle Versicherungsbeitraege und die amtliche Elterngeld-Netto-Berechnung können abweichen.</p>
+   <div class="v317-scope" aria-label="Einordnung der aktuellen Modellprüfung">
+    <p class="v317-status" id="v317ScopeResultStatus">Status wird geprüft.</p>
+    <p id="v317ScopeResultDetail"></p>
+    <p class="v317-details">Auch ein plausibles Modell ist kein unabhängiger Bescheid oder amtlich geprüfter Auszahlungsbetrag.</p>
+   </div>
+   <details id="v317ExportNotice" class="v317-export">
+    <summary>Was steht in JSON- und CSV-Exporten?</summary>
+    <p class="v317-export-main" id="v317ExportStatus">Der Export enthält Modellwerte, keine amtlich bestätigten Auszahlungen.</p>
+    <p id="v317ExportScope"></p>
+    <p id="v317ExportLimits"></p>
+    <p class="v317-export-caution">JSON behält das bisherige Importschema 1 und ergänzt nur erklärende, beim Import nicht als Nachweis akzeptierte Metadaten. CSV behält alle bisherigen Monatsspalten und fügt Statusfelder rechts an. Beide Dateien können eure Familien- und Einkommensdaten enthalten. V3.15-/V3.16-Wochen- und Eingewöhnungsvarianten bleiben temporär und werden nicht exportiert.</p>
+   </details>
+   <details id="v317dUnderstanding" class="v317d-guide">
+    <summary>Fiktive Beispiele verstehen – 8 kurze Übungsaufgaben</summary>
+    <p class="v317d-meta">Reines Lernangebot mit synthetischen Angaben. Kein Wissenstest mit medizinischer, rechtlicher oder behördlicher Freigabe. Antworten werden weder gespeichert noch exportiert oder an Dritte gesendet. Eine absolvierte Übung ersetzt <strong>keinen echten Nutzertest</strong>.</p>
+    <div id="v317dTask" aria-label="Fiktiver Verständnisfall"></div>
+    <p id="v317dFeedback" class="v317d-feedback" role="status" aria-live="polite" hidden></p>
+    <div class="v317d-action">
+     <button type="button" id="v317dCheck" class="navbtn">Einordnung prüfen</button>
+     <button type="button" id="v317dNext" class="navbtn alt" hidden>Nächsten Übungsfall ansehen</button>
+     <button type="button" id="v317dReset" class="navbtn alt">Übung neu starten</button>
+    </div>
+    <p class="v317d-meta" id="v317dProgress" aria-live="polite"></p>
+   </details>
    <div class="grid two" style="margin-top:20px">
     <div class="card"><div class="kicker">Verbrauchte Basismonats-Äquivalente</div><div class="metric" id="checkShare">0 / 14</div><div class="detail">Lebensmonate mit Mutterschaftsleistungen verbrauchen Basis-Kontingent bei der gebärenden Person. Betroffene Tage werden gesondert modelliert; die konkrete Teilmonatsanrechnung ist noch fachlich ungeklärt. Ein Plus-Monat entspricht 0,5 Basis-Monaten.</div></div>
     <div class="card"><div class="kicker">Prüfstatus</div><div class="metric" id="checkValid">Prüfe</div><div class="detail" id="checkValidDesc"></div></div>
@@ -3072,6 +3148,283 @@ module.exports={VALIDATION_STATUS,validatePlan};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* RuleValidator_END */
+/* ModelScope_START */
+const ModelScope=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+// Read-only interpretation of the EXISTING RuleValidator result. This module
+// does not compute benefits, rewrite legal dates or decide any release gate.
+const STATES=Object.freeze({
+ PLAUSIBEL_STANDARD:'PLAUSIBLE_MODEL',
+ NICHT_UNTERSTUETZT:'OUTSIDE_SCOPE',
+ DATEN_UNVOLLSTAENDIG:'INPUTS_INCOMPLETE',
+ REGELKONFLIKT:'RULE_CONFLICT'
+});
+const TITLES=Object.freeze({
+ PLAUSIBLE_MODEL:'Standardmodell technisch plausibel – keine Freigabe',
+ OUTSIDE_SCOPE:'Fall außerhalb des bestätigten Standardmodells',
+ INPUTS_INCOMPLETE:'Bitte zuerst die grundlegenden Angaben prüfen',
+ RULE_CONFLICT:'Die gewählte Monatsfolge enthält Regelkonflikte',
+ FORECAST_ONLY:'Nur unverbindliche Zukunftsprognose'
+});
+const NEXT_STEPS=Object.freeze({
+ PLAUSIBLE_MODEL:'Nettoangaben, Mutterschutz und individuelle Besonderheiten unabhängig prüfen. Keine amtliche Berechnungszusage.',
+ OUTSIDE_SCOPE:'Abweichende Familien- oder Einkommenskonstellation beziehungsweise Regelgültigkeit in den Grundlagen prüfen; für Ansprüche zuständige Stelle kontaktieren.',
+ INPUTS_INCOMPLETE:'Den unterstützten Standardfall, Einkommen, Geburtstag und gegebenenfalls fehlende Eingaben in den Grundlagen bestätigen.',
+ RULE_CONFLICT:'Im Abschnitt „Plan prüfen“ betroffene Lebensmonate, mögliche Korrekturen und Quellen einsehen.',
+ FORECAST_ONLY:'2027er-Rechtslage vor der Verwendung amtlich prüfen. Die vorläufige Suche ist keine positive Anspruchsentscheidung.'
+});
+const MODE_EXPLANATIONS=Object.freeze({
+ estimate:'Beispiel-/Schätzwerte: keine persönlichen oder amtlich geprüften Einkommensangaben.',
+ known:'Eigene bekannte Nettoangaben: Gehalts-Auszahlungsnetto und Elterngeld-Netto bleiben verschiedene Werte; keine automatische amtliche Prüfung.',
+ official:'Werte als extern ermittelt gekennzeichnet: Die App hat Herkunft, Bescheid und Zeiträume nicht überprüft. Nicht den Elterngeld-Monatsbetrag als Elterngeld-Netto eingeben.'
+});
+const ISO=/^\d{4}-\d{2}-\d{2}$/;
+function describeModelScope({validation,state,catalogue,publicReleaseApproved=false}={}){
+ if(!validation||typeof validation!=='object'||!Object.hasOwn(STATES,validation.status)||
+    !Array.isArray(validation.findings)||typeof validation.provisionalPlanningEligible!=='boolean')
+  throw new TypeError('Strukturierter Validatorstatus erforderlich; ohne diesen keine Standardfall-Einstufung.');
+ if(!state||typeof state!=='object'||Array.isArray(state))
+  throw new TypeError('Planungsannahmen erforderlich.');
+ const window=catalogue?.applicable_standard_birth_window;
+ if(!window||!ISO.test(window.from)||!ISO.test(window.through)||window.from>window.through||
+    !ISO.test(catalogue.verified_as_of))
+  throw new TypeError('Datierter Rechtskatalog mit gültiger Standardkohorte erforderlich.');
+ // Intentionally fail shut if a future release decision is set elsewhere.
+ // Public launch has a separate, independent evidence-and-approval workflow.
+ if(publicReleaseApproved!==false)throw new RangeError('Öffentliche Freigabe darf nicht aus einer Modell-Einstufung abgeleitet werden.');
+ const codes=validation.findings.map(f=>String(f?.code??''));
+ const missingBirth=codes.includes('BIRTH_DATE_INVALID');
+ const forecast=validation.provisionalPlanningEligible===true &&
+    validation.status==='NICHT_UNTERSTUETZT';
+ const kind=missingBirth?'INPUTS_INCOMPLETE':forecast?'FORECAST_ONLY':STATES[validation.status];
+ const date=typeof state.date==='string'?state.date:'';
+ const withinWindow=ISO.test(date)&&date>=window.from&&date<=window.through;
+ const mode=Object.hasOwn(MODE_EXPLANATIONS,state.incomeEntryMode)?
+  state.incomeEntryMode:'estimate';
+ const expensesKnown=state.expenses!==''&&state.expenses!==null&&state.expenses!==undefined;
+ const sample=state.standardCaseConfirmed===true?'Bestätigung des Standardfalls gesetzt':
+  state.standardCaseConfirmed===false?'Standardfall verneint – individuelle Prüfung erforderlich':
+  'Standardfall noch nicht bestätigt';
+ const reasons=validation.findings.slice(0,3).map(f=>({
+   code:String(f.code??''),
+   status:String(f.status??''),
+   message:String(f.message??'')
+ }));
+ const birthText=withinWindow?
+  'Geburtsdatum innerhalb der technisch berücksichtigten Standardkohorte.':
+  forecast?'Geburtsdatum außerhalb der bestätigten Standardkohorte – Prognose ausdrücklich ohne Regelzusage.':
+  'Geburtsdatum liegt nicht in der bestätigten Standardkohorte oder ist ungültig.';
+ const moneyText=MODE_EXPLANATIONS[mode]+
+   (expensesKnown?' Haushaltsausgaben sind eingegeben, aber nicht extern überprüft.':
+   ' Haushaltsausgaben unbekannt: Der verbleibende Monatsbetrag ist nicht belastbar.');
+ return {
+  code:kind,title:TITLES[kind],nextStep:NEXT_STEPS[kind],
+  modelPlausible:kind==='PLAUSIBLE_MODEL',
+  forecastOnly:kind==='FORECAST_ONLY',
+  publicUseApproved:false,officialEntitlementConfirmed:false,
+  inputMode:mode,expensesKnown,withinStandardBirthWindow:withinWindow,
+  birthWindow:{from:window.from,through:window.through},
+  sourceCheckedAt:catalogue.verified_as_of,
+  sourceVersion:catalogue.version??null,
+  birthText,standardText:sample,moneyText,
+  reasons,remainingFindings:Math.max(0,validation.findings.length-reasons.length),
+  releaseText:'Öffentliche Freigabe ausstehend: unabhängige Berechnungs-, Rechts-, Datenschutz- und Nutzertests fehlen. Der Mutterschutz-Referenzkonflikt (4/5 Resttage) ist ungeklärt.',
+  disclaimer:'Dies ist eine Statusinterpretation der vorhandenen Modellprüfung, keine neue Rechtsregel, keine Bewilligung und kein Ersatz für persönliche Beratung.'
+ };
+}
+module.exports={describeModelScope,STATES,MODE_EXPLANATIONS};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* ModelScope_END */
+/* ExportDisclosure_START */
+const ExportDisclosure=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+// Export-only advisory. Never trust an imported copy as proof, never alter the
+// source financial state, and never put personal data or derived benefit amounts
+// into the advisory. Actual benefits remain exclusively in the plan payload.
+const CODES=Object.freeze(['PLAUSIBLE_MODEL','OUTSIDE_SCOPE','INPUTS_INCOMPLETE','RULE_CONFLICT','FORECAST_ONLY']);
+const MODES=Object.freeze(['estimate','known','official']);
+const LIMITATIONS=Object.freeze([
+ 'Alle dargestellten Eurobeträge sind Modell-/Nutzereingaben und keine amtlich bestätigten Auszahlungsbeträge.',
+ 'Auszahlungsnetto ist nicht dasselbe wie das Elterngeld-Netto; diese Anwendung leitet das amtliche Elterngeld-Netto nicht automatisch aus Brutto ab.',
+ 'Lebensmonatsanspruch, erwartete Kalenderzahlung und tatsächliche manuelle Bankbuchung sind verschiedene Informationen.',
+ 'Die Vorlagensuche ermittelt kein mathematisch garantiert globales Optimum.',
+ 'Mutterschutz: Eine amtliche Referenz nennt fünf Resttage, die Modellherleitung vier; unabhängige fachliche Klärung fehlt.',
+ 'Alle zusätzlichen Kita-/Wochenkoordinationsannahmen der V3.15–V3.16-Ansicht bleiben flüchtig und sind nicht im Hauptplanexport enthalten.'
+]);
+function buildExportDisclosure(scope){
+ if(!scope||typeof scope!=='object'||!CODES.includes(scope.code)||
+    !MODES.includes(scope.inputMode)||typeof scope.sourceCheckedAt!=='string'||
+    !/^\d{4}-\d{2}-\d{2}$/.test(scope.sourceCheckedAt)||
+    !scope.birthWindow||typeof scope.birthWindow.from!=='string'||typeof scope.birthWindow.through!=='string'||
+    typeof scope.expensesKnown!=='boolean'||scope.publicUseApproved!==false||
+    scope.officialEntitlementConfirmed!==false||typeof scope.modelPlausible!=='boolean'||
+    scope.modelPlausible!==(scope.code==='PLAUSIBLE_MODEL'))
+  throw new TypeError('Ohne vollständige, nicht amtlich freigegebene Modell-Einordnung ist kein Exporthinweis zulässig.');
+ const incomeSource=scope.inputMode==='official'?'extern_eingetragen_herkunft_nicht_geprueft':
+  scope.inputMode==='known'?'eigene_nettowerte_nicht_fachgeprueft':'beispiel_oder_schaetzung';
+ return {
+  advisoryVersion:1,
+  basedOn:'current_validator_not_independent_review',
+  modelClassification:scope.code,
+  technicalStandardBirthWindow:{from:scope.birthWindow.from,through:scope.birthWindow.through,approvalStatus:'technische_standardregel_keine_freigabe'},
+  sourceCheckedAt:scope.sourceCheckedAt,
+  inputProvenance:incomeSource,
+  expensesProvided:scope.expensesKnown,
+  budgetAfterExpensesReliable:scope.expensesKnown?'nicht_unabhaengig_verifiziert':'nicht_berechenbar_ohne_ausgaben',
+  legallyVerified:false,
+  independentlyReviewed:false,
+  publicReleaseApproved:false,
+  applicableFutureLawVerified:false,
+  containsOnlyScopeMetadata:true,
+  warnings:[...LIMITATIONS]
+ };
+}
+const CSV_EXTRA_COLUMNS=Object.freeze([
+ 'Modell_Einordnung','Quellen_geprueft_am','Einkommen_Herkunft',
+ 'Haushaltsausgaben_vorhanden','Amtliche_Freigabe','Mutterschutz_Referenz','Monatswerte'
+]);
+function csvAdvisoryFields(info){
+ if(!info||!CODES.includes(info.modelClassification)||info.legallyVerified!==false||
+    info.publicReleaseApproved!==false||info.independentlyReviewed!==false)
+  throw new TypeError('Exporthinweis ungültig oder fälschlich als freigegeben markiert.');
+ return [
+  info.modelClassification,info.sourceCheckedAt,info.inputProvenance,
+  info.expensesProvided?'ja_ungeprueft':'nein_unbekannt',
+  'NEIN','4_oder_5_Resttage_offen','SCHAETZUNG_KEINE_AUSZAHLUNGSZUSAGE'
+ ];
+}
+module.exports={buildExportDisclosure,csvAdvisoryFields,CSV_EXTRA_COLUMNS};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* ExportDisclosure_END */
+/* UnderstandingGuide_START */
+const UnderstandingGuide=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+// Synthetic educational scenarios. Never derives answers from a real family
+// profile, never changes benefits, and never counts a tutorial as a user study.
+const TASKS=[
+ {
+  id:'cohort-2027',topic:'Geltungsbereich',
+  scenario:'Eine Familie plant mit Geburt im Mai 2027. Der geprüfte Standard-Regelkatalog reicht bisher nur bis zum 31. Dezember 2026.',
+  question:'Was bedeutet eine Zahl aus dem Planer für 2027?',
+  choices:[
+   {id:'approved',label:'Sie ist bereits rechtlich geprüft und verbindlich.'},
+   {id:'forecast',label:'Sie ist nur eine unverbindliche Vorschau; die anwendbaren Regeln müssen geprüft werden.'},
+   {id:'zero',label:'Für 2027 wird automatisch kein Elterngeld ausgezahlt.'}
+  ],
+  answer:'forecast',
+  explanation:'Die Geburtskohorte 2027 ist in diesem Stand nicht fachlich bestätigt. Die Vorschau sagt weder einen Anspruch noch einen Nullanspruch aus.'
+ },
+ {
+  id:'net-types',topic:'Einkommensbegriffe',
+  scenario:'Auf der Gehaltsabrechnung stehen 2.600 € Auszahlungsnetto. Für die Planung wird zusätzlich nach dem Elterngeld-Netto gefragt.',
+  question:'Was darf man daraus schließen?',
+  choices:[
+   {id:'same',label:'Beide Netto-Werte sind zwingend identisch.'},
+   {id:'external',label:'Das Elterngeld-Netto wird gesondert ermittelt und ist hier nicht automatisch aus Brutto berechnet.'},
+   {id:'payment',label:'2.600 € ist bereits der bewilligte Elterngeldbetrag.'}
+  ],
+  answer:'external',
+  explanation:'Gehalts-Auszahlungsnetto, elterngeldrechtlicher Bemessungswert und bewilligter Elterngeldbetrag sind unterschiedliche Begriffe. Eine externe Angabe wird vom Planer nicht authentifiziert.'
+ },
+ {
+  id:'life-calendar',topic:'Zeitachsen',
+  scenario:'Der Planer zeigt 1.200 € modellierten Elterngeldanspruch für einen Lebensmonat des Kindes.',
+  question:'Ist damit ein Geldeingang im gleichen Kalendermonat sicher?',
+  choices:[
+   {id:'yes',label:'Ja, weil Lebens- und Kalendermonat immer gleich lang sind.'},
+   {id:'no',label:'Nein. Der Lebensmonat beschreibt den Bezugszeitraum, nicht den tatsächlichen Überweisungstag.'},
+   {id:'tomorrow',label:'Ja, spätestens am zweiten Tag des Lebensmonats.'}
+  ],
+  answer:'no',
+  explanation:'Ein modellierter Anspruch ist kein Kontoeingang. Kalenderzeitpunkte müssen ausdrücklich geplant, tatsächliche Buchungen separat erfasst werden.'
+ },
+ {
+  id:'expected-recorded',topic:'Zahlung und Bank',
+  scenario:'Für den 6. des Monats sind 1.200 € als erwartete Zahlung eingetragen. In den tatsächlichen Buchungen steht nichts.',
+  question:'Was zeigt der Bankbereich?',
+  choices:[
+   {id:'booked',label:'Eine bestätigte Zahlung von 1.200 €.'},
+   {id:'overdue',label:'Eine verbindlich festgestellte Zahlungsverzögerung.'},
+   {id:'unknown',label:'Keine erfasste tatsächliche Buchung; die erwartete Zahlung bleibt nur eine Annahme.'}
+  ],
+  answer:'unknown',
+  explanation:'Erwartete Zahlungen und tatsächlich erfasste Buchungen dürfen nicht doppelt gezählt oder als identisch bezeichnet werden.'
+ },
+ {
+  id:'unknown-expenses',topic:'Haushaltsbudget',
+  scenario:'Im Modell sind 4.200 € Familieneinkommen eingetragen, aber die Haushaltsausgaben fehlen.',
+  question:'Wie viel bleibt nach Kosten zuverlässig übrig?',
+  choices:[
+   {id:'all',label:'4.200 €, denn nicht eingegebene Kosten sind null.'},
+   {id:'unknown',label:'Das ist ohne Ausgabenannahme nicht bestimmbar.'},
+   {id:'half',label:'Genau 2.100 €, denn das Modell rechnet automatisch mit der Hälfte.'}
+  ],
+  answer:'unknown',
+  explanation:'Unbekannt ist nicht gleich null. Ein Monatsrest nach Kosten darf ohne angegebene Kosten nicht als verfügbarer Betrag erscheinen.'
+ },
+ {
+  id:'maternity-dispute',topic:'Offene Fachfrage',
+  scenario:'Beim Beispiel zur nachgeburtlichen Mutterschutzanrechnung kommt die Portalreferenz auf fünf, die dokumentierte Frist-Herleitung auf vier Resttage.',
+  question:'Was ist für eure Entscheidung die verlässliche Aussage?',
+  choices:[
+   {id:'portal',label:'Das Portalbeispiel beweist allein die Freigabe aller Ergebnisse.'},
+   {id:'code',label:'Die Programmherleitung beweist allein, dass das Portal falsch ist.'},
+   {id:'review',label:'Der Widerspruch ist ungeklärt und muss unabhängig fachlich geprüft werden.'}
+  ],
+  answer:'review',
+  explanation:'Schutzfrist, Mutterschaftsleistung und Elterngeldanrechnung sind getrennt zu prüfen. Die App hat dafür keine unabhängige Abnahme.'
+ },
+ {
+  id:'limited-search',topic:'Zielsuche',
+  scenario:'Der Zielplaner vergleicht viele Kandidaten und zeigt die bestbewertete gefundene Variante.',
+  question:'Was ist damit nachgewiesen?',
+  choices:[
+   {id:'global',label:'Dass keine andere zulässige Kombination besser sein kann.'},
+   {id:'limited',label:'Dass diese Variante unter den tatsächlich untersuchten Kandidaten gut abschneidet.'},
+   {id:'approved',label:'Dass eine Behörde die Aufteilung genehmigt hat.'}
+  ],
+  answer:'limited',
+  explanation:'Die Suchabdeckung ist begrenzt. Ein mathematisch globales Optimum oder ein amtlicher Anspruch wird nicht zugesagt.'
+ },
+ {
+  id:'local-and-export',topic:'Speichern und Datenschutz',
+  scenario:'Ein Familienplan wird auf einem gemeinsam genutzten Gerät gespeichert. Ein JSON wird zusätzlich heruntergeladen; neue Kita-Wochenannahmen wurden nur im Sitzungsbereich eingetragen.',
+  question:'Welche Aussage ist richtig?',
+  choices:[
+   {id:'encrypted',label:'Alle gespeicherten Werte sind automatisch verschlüsselt und sämtliche Wochenannahmen werden exportiert.'},
+   {id:'safe',label:'Lokaler Speicher ist optional und unverschlüsselt; Downloads können sensible Daten enthalten, flüchtige Wochenannahmen fehlen im Hauptplanexport.'},
+   {id:'deleted',label:'Beim Löschen des Browserplans verschwinden automatisch sämtliche Downloads.'}
+  ],
+  answer:'safe',
+  explanation:'Auf gemeinsam genutzten Geräten sollten eigene Finanzdaten nicht unnötig persistent gespeichert werden. Downloads müssen getrennt gelöscht werden.'
+ }
+];
+const IDS=new Set(TASKS.map(t=>t.id));
+if(IDS.size!==TASKS.length||TASKS.length!==8)throw new Error('Verständnisaufgaben müssen acht eindeutige IDs besitzen.');
+for(const item of TASKS){
+ if(item.choices.length!==3||new Set(item.choices.map(c=>c.id)).size!==3||
+   !item.choices.some(c=>c.id===item.answer))throw new Error('Ungültige synthetische Aufgabe: '+item.id);
+}
+function getUnderstandingTasks(){
+ return TASKS.map(t=>({...t,choices:t.choices.map(c=>({...c}))}));
+}
+function assessUnderstandingAnswer(taskId,choiceId){
+ const item=TASKS.find(t=>t.id===taskId);
+ if(!item||typeof choiceId!=='string'||!item.choices.some(c=>c.id===choiceId))
+  throw new RangeError('Unbekannte Verständnisaufgabe oder Antwort.');
+ return {taskId,selected:choiceId,understandingMatch:choiceId===item.answer,
+  suggestedAnswer:item.answer,explanation:item.explanation,
+  humanStudyCompleted:false,officialAnswerCertified:false};
+}
+module.exports={getUnderstandingTasks,assessUnderstandingAnswer};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* UnderstandingGuide_END */
 'use strict';
 (function(){
 const N=36;
@@ -3207,6 +3560,110 @@ function sanitizeImport(d){
 }
 
 function renderHeader(){const labels={PLAUSIBEL_STANDARD:'Standardregeln plausibel',REGELKONFLIKT:'Regelkonflikt',NICHT_UNTERSTUETZT:'Konstellation nicht validiert',DATEN_UNVOLLSTAENDIG:'Angaben zur Prüfung fehlen'};setTxt('globalPlanStatus','Alle Finanzwerte sind Schätzungen, keine amtlichen Bewilligungsbeträge. '+labels[current.validation.status]+' ('+current.validation.status+'). '+(current.valid?'Unabhängige fachliche Abnahme steht noch aus.':current.validation.findings[0]?.message||'Plan bitte korrigieren.'));setTxt('heroGross',euro(Number(s.netFather)+Number(s.netMother)));setTxt('heroCare',s.goalCare+' Lebensmonate');setTxt('heroMinimum',Number(s.goalMinIncome)>0?euro(s.goalMinIncome):'Noch nicht festgelegt');const r=current.rows[s.month-1];setTxt('liveAge',ageSpan(s.month));setTxt('liveMonth','LM '+s.month+' · '+dateFor(s.month));setTxt('liveBudget',euro(s.expenses===''?r.income:r.cashAfter));}
+// A guided *synthetic* walkthrough, kept out of the user plan and all exports.
+let v317dIndex=0,v317dSelection=null,v317dReviewed=false;
+const v317dTasks=UnderstandingGuide.getUnderstandingTasks();
+function renderUnderstandingGuide(){
+ const task=v317dTasks[v317dIndex];
+ const holder=$('v317dTask');if(!holder||!task)return;
+ holder.innerHTML='<p class="v317d-meta"><strong>Aufgabe '+(v317dIndex+1)+' von '+v317dTasks.length+
+  ' · '+esc(task.topic)+'</strong></p><p>'+esc(task.scenario)+'</p>'+
+  '<fieldset class="v317d-choices"><legend>'+esc(task.question)+'</legend>'+
+  task.choices.map((choice,j)=>'<label class="v317d-choice"><input type="radio" name="v317dAnswer" value="'+
+   esc(choice.id)+'"'+(v317dSelection===choice.id?' checked':'')+(v317dReviewed?' disabled':'')+
+   '> <span>'+esc(choice.label)+'</span></label>').join('')+'</fieldset>';
+ holder.querySelectorAll('[name=v317dAnswer]').forEach(input=>input.addEventListener('change',()=>{
+  if(v317dReviewed)return;
+  v317dSelection=input.value;
+  $('v317dCheck').disabled=false;
+  $('v317dFeedback').hidden=true;
+ }));
+ $('v317dCheck').disabled=v317dReviewed||!v317dSelection;
+ $('v317dCheck').hidden=v317dReviewed;
+ $('v317dNext').hidden=!v317dReviewed;
+ $('v317dNext').textContent=v317dIndex===v317dTasks.length-1?'Übungen neu starten':'Nächsten Übungsfall ansehen';
+ $('v317dProgress').textContent='Diese Beispielaufgaben werden nicht als echte Nutzerstudie gezählt oder gespeichert.';
+}
+function resetUnderstandingGuide(){
+ v317dIndex=0;v317dSelection=null;v317dReviewed=false;
+ if($('v317dFeedback')){$('v317dFeedback').hidden=true;$('v317dFeedback').textContent='';}
+ renderUnderstandingGuide();
+}
+function listenUnderstandingGuide(){
+ $('v317dCheck').addEventListener('click',()=>{
+  if(!v317dSelection||v317dReviewed)return;
+  const task=v317dTasks[v317dIndex];
+  const outcome=UnderstandingGuide.assessUnderstandingAnswer(task.id,v317dSelection);
+  const advice=outcome.understandingMatch?'Passende Einordnung. ':'Hier ist eine andere Einordnung wichtig. ';
+  const feedback=$('v317dFeedback');
+  feedback.textContent=advice+outcome.explanation;
+  feedback.hidden=false;v317dReviewed=true;
+  renderUnderstandingGuide();
+  feedback.focus?.();
+ });
+ $('v317dNext').addEventListener('click',()=>{
+  if(!v317dReviewed)return;
+  if(v317dIndex===v317dTasks.length-1){resetUnderstandingGuide();}
+  else{v317dIndex++;v317dSelection=null;v317dReviewed=false;
+   $('v317dFeedback').hidden=true;renderUnderstandingGuide();}
+  $('v317dTask').querySelector('input')?.focus();
+ });
+ $('v317dReset').addEventListener('click',()=>{
+  resetUnderstandingGuide();$('v317dTask').querySelector('input')?.focus();
+ });
+ renderUnderstandingGuide();
+}
+function currentModelScope(){
+ return ModelScope.describeModelScope({
+  validation:current.validation,state:s,catalogue:RULE_CATALOG,
+  publicReleaseApproved:false
+ });
+}
+function currentExportDisclosure(){
+ return ExportDisclosure.buildExportDisclosure(currentModelScope());
+}
+function renderV317Scope(){
+ // All labels derive from the EXISTING validator, never duplicate BEEG checks.
+ const card=$('v317Scope');
+ try{
+  const report=currentModelScope();
+  if(card)card.dataset.scopeCode=report.code;
+  setTxt('v317ScopeStatus',report.title);
+  setTxt('v317ScopeBirth',report.standardText+'. '+report.birthText+
+   ' Technisches Geburtsfenster: '+report.birthWindow.from+' bis '+report.birthWindow.through+
+   '; Quellenstand: '+report.sourceCheckedAt+'.');
+  setTxt('v317ScopeMoney',report.moneyText);
+  const examples=report.reasons.map(reason=>reason.message).filter(Boolean);
+  setTxt('v317ScopeReasons',(examples.length?'Offene Punkte: '+examples.join(' · ')+'. ':'')+
+   (report.remainingFindings?'Weitere '+report.remainingFindings+' Hinweise unter „Plan prüfen“. ':'')+
+   'Nächster Schritt: '+report.nextStep);
+  setTxt('v317ScopeReview',report.releaseText);
+  setTxt('v317ScopeResultStatus',report.title);
+  setTxt('v317ScopeResultDetail',report.birthText+' '+report.moneyText+' '+report.releaseText);
+  // Same source as the export payload; do not display unverified imported notices.
+  const advisory=ExportDisclosure.buildExportDisclosure(report);
+  setTxt('v317ExportStatus','Modellstatus im Export: '+advisory.modelClassification+
+   ' · Keine amtlich bestätigten Auszahlungsbeträge.');
+  setTxt('v317ExportScope','Technische Standardkohorte: '+advisory.technicalStandardBirthWindow.from+
+   ' bis '+advisory.technicalStandardBirthWindow.through+
+   ' · Regelquellen zuletzt geprüft: '+advisory.sourceCheckedAt+
+   ' · Einkommenswerte: '+report.moneyText);
+  setTxt('v317ExportLimits',advisory.warnings.join(' '));
+ }catch(error){
+  // Fail closed: a malformed catalogue/validator must never yield a green verdict.
+  if(card)card.dataset.scopeCode='UNAVAILABLE';
+  setTxt('v317ScopeStatus','Modellumfang nicht überprüfbar');
+  setTxt('v317ScopeBirth','Bitte den aktuellen Regel-/Datenstatus prüfen.');
+  setTxt('v317ScopeMoney','Keine amtlich bestätigte Berechnung oder Auszahlung.');
+  setTxt('v317ScopeReasons','Es konnte kein belastbarer Scope-Status ermittelt werden.');
+  setTxt('v317ScopeReview','Öffentliche Freigabe bleibt gesperrt.');
+  setTxt('v317ScopeResultStatus','Modellumfang nicht überprüfbar');
+  setTxt('v317ScopeResultDetail','Keine Freigabe. Bitte Eingaben und Quellen prüfen.');
+  setTxt('v317ExportStatus','Exportstatus nicht prüfbar – bitte keine Daten exportieren.');
+  setTxt('v317ExportScope','Quellen- oder Validierungsstatus fehlt.');
+  setTxt('v317ExportLimits','Kein amtlicher Nachweis.');
+ }
+}
 function modelInfo(schedule,limit=s.horizon){const x=evaluate(schedule);return {total:x.sum(limit,'income'),eg:x.sum(N,'totalEg'),free:x.fFree,leave:x.fLeave,low:x.low(limit),valid:x.valid,errors:x.errors}}
 function renderModels(){
  $('modelGrid').innerHTML=SCENARIOS.map(x=>{const q=modelInfo(makeSchedule(x.id));return '<button type="button" class="model-card '+(s.model===x.id?'selected':'')+'" data-model="'+x.id+'" aria-pressed="'+(s.model===x.id)+'"><span class="model-title">'+esc(x.name)+'</span><span class="model-desc">'+esc(x.short)+'</span><span class="model-amount">'+euro(q.total)+'</span><span class="model-sub">Familienbudget / '+s.horizon+' LM (0–'+age(s.horizon)+')</span></button>';}).join('');
@@ -3352,7 +3809,7 @@ function initNav(){
  for(const [id,who]of [['fatherStatus','f'],['motherStatus','m']])$(id).addEventListener('change',e=>{if(who==='m'&&s.month<=2)return;s.schedule[s.month-1][who]=e.target.value;s.model='custom';builderActive=false;builderNotices=[];renderAll();persist()});
  $('prevMonth').addEventListener('click',()=>{s.month=Math.max(1,s.month-1);renderAll();persist()});
  $('nextMonth').addEventListener('click',()=>{s.month=Math.min(N,s.month+1);renderAll();persist()});
- $('btnReset').addEventListener('click',()=>{if(!confirm('Alle Eingaben und Änderungen zurücksetzen?'))return;cancelGoalSearch();deleteLocalData();recordedOpeningReserve='';$('recordedOpeningReserve').value='';resetV313PaymentAssumptions();resetFinanceGuidance();resetV315Extras();s={...defaults,schedule:makeSchedule('father12')};goalStats=null;builderActive=false;builderNotices=[];renderAll();persist();QuickStartV38.onResetConfirmed();showToast('Ausgangswerte wiederhergestellt')});
+ $('btnReset').addEventListener('click',()=>{if(!confirm('Alle Eingaben und Änderungen zurücksetzen?'))return;cancelGoalSearch();deleteLocalData();recordedOpeningReserve='';$('recordedOpeningReserve').value='';resetV313PaymentAssumptions();resetFinanceGuidance();resetV315Extras();resetUnderstandingGuide();s={...defaults,schedule:makeSchedule('father12')};goalStats=null;builderActive=false;builderNotices=[];renderAll();persist();QuickStartV38.onResetConfirmed();showToast('Ausgangswerte wiederhergestellt')});
  $('btnCsv').addEventListener('click',downloadCsv);$('btnJson').addEventListener('click',downloadJson);$('importJson').addEventListener('change',importJson);
 }
 function download(content,name,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),800)}
@@ -4370,7 +4827,7 @@ function renderMonthHourEditors(){
 }
 function renderAll(){
  if(goalSearchJob&&goalSearchJob.fingerprint!==goalInputsFingerprint())cancelGoalSearch('Eingaben geändert – Suche beendet. Bitte neu starten.');
- current=evaluate(s.schedule);renderInputs();renderHeader();renderModels();renderBuilder();renderTimeline();renderChart();renderDetail();renderCompare();renderPlus();renderChecks();
+ current=evaluate(s.schedule);renderInputs();renderHeader();renderV317Scope();renderModels();renderBuilder();renderTimeline();renderChart();renderDetail();renderCompare();renderPlus();renderChecks();
  renderIncomeGuide();
  renderMonthHourEditors();renderRegion();renderV315Kibiz();renderV315Care();renderV316Joint();renderV315Benefits();renderRuleLedger();renderRisk();renderFinanceGuidance();renderManualCostImpact();renderGoalResult();renderTimeAxes();renderApplicationGuide();renderPlanningKnowledge();renderParentLabels();updateNav();
 }
@@ -4777,12 +5234,28 @@ function restore(){
 function deleteLocalData(){for(const key of ['elternzeit-familienplan-v1','elternzeit-familienplan-v2','elternzeit-familienplan-v3'])localStorage.removeItem(key);s.storageConsent=false;$('localSave').checked=false;showToast('Lokale Kopien gelöscht. Aktueller Plan bleibt bis zum Schließen geöffnet.');}
 
 function downloadCsv(){
- const hdr=['Lebensmonat','Alter_Beginn','Alter_Ende','Zeitraum','Vater','Mutter','Stunden_Vater','Stunden_Mutter','Netto_Vater','Netto_Mutter_Mutterschutz','Elterngeld_Vater','Elterngeld_Mutter','Kindergeld','Bestätigte_Sonderzahlung','Kita_Kosten','Familieneinkommen','Frei_nach_Kosten'];
- const records=current.rows.map(r=>[r.lm,age(r.lm-1),age(r.lm),dateFor(r.lm),r.f,r.m,r.hf,r.hm,Math.round(r.fi),Math.round(r.mi),Math.round(r.fg),Math.round(r.mg),r.kind,r.grant,Math.round(r.childcare),Math.round(r.income),Math.round(r.cashAfter)].join(';'));
- download('\ufeff'+[hdr.join(';'),...records].join('\r\n'),'Elternzeit_Plan_V3_Kindesalter_Kosten.csv','text/csv;charset=utf-8');showToast('CSV mit Alter, Kosten und Einkommen gespeichert');
+ try{
+  const advisory=currentExportDisclosure();
+  // Backwards-compatible prefix: do not rename, reorder or alter old CSV columns.
+  const hdr=['Lebensmonat','Alter_Beginn','Alter_Ende','Zeitraum','Vater','Mutter','Stunden_Vater','Stunden_Mutter','Netto_Vater','Netto_Mutter_Mutterschutz','Elterngeld_Vater','Elterngeld_Mutter','Kindergeld','Bestätigte_Sonderzahlung','Kita_Kosten','Familieneinkommen','Frei_nach_Kosten',...ExportDisclosure.CSV_EXTRA_COLUMNS];
+  const notes=ExportDisclosure.csvAdvisoryFields(advisory);
+  const records=current.rows.map(r=>[r.lm,age(r.lm-1),age(r.lm),dateFor(r.lm),r.f,r.m,r.hf,r.hm,Math.round(r.fi),Math.round(r.mi),Math.round(r.fg),Math.round(r.mg),r.kind,r.grant,Math.round(r.childcare),Math.round(r.income),s.expenses===''?'':Math.round(r.cashAfter),...notes].join(';'));
+  download('\ufeff'+[hdr.join(';'),...records].join('\r\n'),'Elternzeit_Plan_V3_Kindesalter_Kosten.csv','text/csv;charset=utf-8');
+  showToast('CSV mit Modellerklärung exportiert – keine amtlichen Beträge');
+ }catch(error){showToast('CSV-Export gestoppt: Modellstatus bitte prüfen');}
 }
-function downloadJson(){download(JSON.stringify({fileType:'elternzeit-offline-v3',schemaVersion:1,version:V3_VERSION,legalReviewedAt:V3_ASOF,exportedAt:new Date().toISOString(),data:s},null,2),'Elternzeit_Plan_V3.json','application/json;charset=utf-8');showToast('V3-Plan als JSON exportiert')}
-function importJson(evt){const file=evt.target.files?.[0];if(!file)return;if(file.size>1000000){alert('Importdatei ist größer als 1 MB.');evt.target.value='';return;}const reader=new FileReader();reader.onload=()=>{try{const j=JSON.parse(reader.result);if(j.schemaVersion!==undefined&&j.schemaVersion!==1)throw Error('Unbekannte JSON-Schemaversion. Bitte einen kompatiblen Export verwenden.');if(j.fileType!==undefined&&j.fileType!=='elternzeit-offline-v3')throw Error('Falsches Dateiformat.');const v=j.data||j;const imported=sanitizeImport(v);cancelGoalSearch();deleteLocalData();recordedOpeningReserve='';$('recordedOpeningReserve').value='';resetV313PaymentAssumptions();resetFinanceGuidance();resetV315Extras();s=imported;builderActive=false;goalStats=null;QuickStartV38.onImported();renderAll();showToast('Import erfolgreich')}catch(e){alert('Import fehlgeschlagen: '+e.message)}evt.target.value=''};reader.readAsText(file)}
+function downloadJson(){
+ try{
+  const advisory=currentExportDisclosure();
+  // Schema 1 and data remain unchanged. Top-level advisory is intentionally
+  // informational only; imports always revalidate the data from scratch.
+  download(JSON.stringify({fileType:'elternzeit-offline-v3',schemaVersion:1,version:V3_VERSION,
+   legalReviewedAt:V3_ASOF,exportedAt:new Date().toISOString(),planningDisclosure:advisory,data:s},null,2),
+   'Elternzeit_Plan_V3.json','application/json;charset=utf-8');
+  showToast('V3-Plan mit Prüfhinweisen exportiert – keine amtliche Freigabe');
+ }catch(error){showToast('JSON-Export gestoppt: Modellstatus bitte prüfen');}
+}
+function importJson(evt){const file=evt.target.files?.[0];if(!file)return;if(file.size>1000000){alert('Importdatei ist größer als 1 MB.');evt.target.value='';return;}const reader=new FileReader();reader.onload=()=>{try{const j=JSON.parse(reader.result);if(j.schemaVersion!==undefined&&j.schemaVersion!==1)throw Error('Unbekannte JSON-Schemaversion. Bitte einen kompatiblen Export verwenden.');if(j.fileType!==undefined&&j.fileType!=='elternzeit-offline-v3')throw Error('Falsches Dateiformat.');const v=j.data||j;const imported=sanitizeImport(v);cancelGoalSearch();deleteLocalData();recordedOpeningReserve='';$('recordedOpeningReserve').value='';resetV313PaymentAssumptions();resetFinanceGuidance();resetV315Extras();resetUnderstandingGuide();s=imported;builderActive=false;goalStats=null;QuickStartV38.onImported();renderAll();showToast('Import erfolgreich')}catch(e){alert('Import fehlgeschlagen: '+e.message)}evt.target.value=''};reader.readAsText(file)}
 
 function listenAdvanced(){
  document.querySelectorAll('[data-extra]').forEach(el=>{
@@ -5369,7 +5842,7 @@ const v38OriginalChooseModel=chooseModel;
 chooseModel=function(...args){const r=v38OriginalChooseModel(...args);QuickStartV38.onModelChanged(args[0]);return r;};
 window.__elternzeitV38=QuickStartV38;
 /* V38_RUNTIME_END */
-restore();initNav();listenInputs();listenAdvanced();listenTimeAxes();listenFinanceGuidance();listenV315Extras();listenV316Joint();listenIncomeGuide();
+restore();initNav();listenInputs();listenAdvanced();listenTimeAxes();listenFinanceGuidance();listenV315Extras();listenV316Joint();listenIncomeGuide();listenUnderstandingGuide();
 $('standardCaseConfirmed').value=s.standardCaseConfirmed===true?'yes':s.standardCaseConfirmed===false?'no':'';
 $('standardCaseConfirmed').addEventListener('change',e=>{s.standardCaseConfirmed=e.target.value==='yes'?true:e.target.value==='no'?false:null;renderAll();persist()});
 $('localSave').checked=s.storageConsent===true;$('localSave').addEventListener('change',e=>{s.storageConsent=e.target.checked;if(s.storageConsent)persist();else deleteLocalData()});$('deleteLocal').addEventListener('click',deleteLocalData);

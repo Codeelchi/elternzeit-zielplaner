@@ -1,6 +1,24 @@
 # Buildlog und Integrationsnachweis
 
-Historischer Entwicklungsverlauf seit V3.4, ergänzter **Stand vom 17. Oktober 2026: interner V3.14-Code** (Paket-/Exportversionsnummer 3.10.0 bis separater Release-Entscheidung). Technische Nachweise, fachliche Evidenz und öffentliche Freigaben sind getrennt. Ein Merge nach `main` ist keine Veröffentlichung und keine unabhängige Fachabnahme.
+Historischer Entwicklungsverlauf seit V3.4, ergänzter **Stand vom 17. Oktober 2026: auf main integrierter V3.16-Funktionsstand** (Paket-/Exportversionsnummer 3.10.0 bis separater Release-Entscheidung). Technische Nachweise, fachliche Evidenz und öffentliche Freigaben sind getrennt. Ein Merge nach `main` ist keine Veröffentlichung und keine unabhängige Fachabnahme.
+
+## V3.17-D – lokale Verständnisübung und unabhängiger Nutzerreview-Vorbereitungsprozess, 18.10.2026
+
+Acht fiktive Lernfälle in `src/understanding-guide.cjs` und im Prüfbereich der Offline-App; reine Sitzungsauswahl, kein Plan-/Finanz-/Exportstatus. Separate `data/usability-review-v317d.json`-Vorlage und `npm run usability:check` verhindern vorgespiegelte Nutzerstudien. [V3.17-D-Moderations- und Accessibility-Leitfaden](PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md). **0 tatsächlich getestete Personen, keine Freigabe.** Technische Gesamtregression: **495/495** Node-/DOM-, **63/63** Chromium-E2E- und **3/3** direkte V3.17-D-`file://`-Browserfälle bestanden. PR-CI und Merge weiterhin getrennt zu belegen.
+
+## V3.17-B/C – Exporthinweise und prüfbare externe Referenzevidenz, 17.10.2026
+
+**Vollständiger Testabschluss:** 481/481 Node-/DOM-Tests, 60/60 Chromium-Browser-E2E und 4/4 neue V3.17-B-`file://`-Fälle bestanden. Externe Fachreferenzen weiterhin 0/10. Vor dem Commit: generiertes `qa/browser-results.json` auf unveränderten Repo-Stand zurücksetzen; keine Testartefakte, Secrets oder Freigabeflags einchecken.
+
+Die reinen Module `src/export-disclosure.cjs` (im Offline-Browser eingebettet) und `src/independent-review-evidence.cjs` (nur Build/CLI) ergänzen die technische Produkthärtung. JSON-Schema 1 bleibt stabil; Top-Level-`planningDisclosure` wird beim Import ignoriert, CSV erhält sieben neue Metadaten-Spalten und bei unbekannten Kosten einen leeren statt fiktiven Restbetrag. Die externen Prüfanfragen sind über SHA256 an zehn Fall-IDs gebunden; keine unabhängige Abnahme wird behauptet. [Ausführlicher Bericht](AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md).
+
+## V3.17-A – erste Umsetzung und Gesamtabnahme, 17.10.2026
+
+Neue reine Einordnung `src/model-scope.cjs` mit HTML-Status vor dem Schnellstart sowie in „Plan prüfen“. Modellplausibilität, 2027-Vorschau, unbestätigte Fälle, Datenlücken und Einkommen-/Ausgaben-Herkunft werden **ohne** neue Gesetzesberechnung erläutert. Mobile Eingangsansicht nach eigener visueller Prüfung von 875 auf ca. 90 px verkürzt (klappbare Details). Gesamtlauf: 468/468 Node-/DOM, 56/56 Chromium-E2E und 3/3 zusätzliche V3.17-filenative Tests. [Ausbau/Abnahme](AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md). Neutrale [Referenzfall-Vorlage](FACHABNAHME-V317-REFERENZFALL-VORLAGE.md) vorbereitet, weiterhin 0/10 externe Vollabnahmen. Freigaben bleiben gesperrt.
+
+## Integration von PR #20 und Produktreifeplanung V3.17, 17.10.2026
+
+V3.15–V3.16 nach erfolgreicher GitHub-PR-CI in main gemergt (Merge 19f047d), Workbench nachgezogen, sauberer Stand. Das extern übergebene Produktreife-Audit wurde mit dem Code abgeglichen; fachliche und datenschutzbezogene Freigaben bleiben ausdrücklich offen. [Neue operative Roadmap](ROADMAP.md), [Audit-Abgleich](PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md), [aktuelle Anleitung](ANLEITUNG.md) und [historische Roadmap](ROADMAP-HISTORIE-BIS-V316-2026-10-17.md). Der V3.17-Ausbau beginnt mit einer rein informativen Standardfall-/Warnungsanzeige, nicht mit einer Änderung an den Berechnungsregeln.
 
 ## V3.16 Zwei-Eltern-Wochenkoordination, 17.10.2026
 
@@ -14,7 +32,7 @@ Neue pure Sensitivitätsfunktion src/care-resilience.cjs sowie mobile, aufklappb
 
 Kita-Eingewöhnung: fälschlich mitgezählte reguläre Woche entfernt; Arbeitsrückkehr 0–24 Wochen getrennt, dauerhaft ungedeckte Wochenstunden als eigenes Problem benannt. Rein hypothetische Cent-Zuordnung zu Lebensmonaten mit vollständiger Offenlegung unberücksichtigter Zeiträume, ohne gespeicherte Planänderung. Vollständige Tests: 418/418 Node-/DOM, 47/47 Chromium, 8/8 direkte file:// V3.15.x-Browserfälle. Release-Gates unabhängig weiterhin BLOCKED. [Detailnachweis](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
 
-## V3.15 Folgeentwicklung, 17.10.2026 (noch nicht nach main integriert)
+## Historischer V3.15-Entwicklungszweig, 17.10.2026 (inzwischen als PR #20 auf main integriert)
 
 Arbeitszweig feat/v3-15-eingewoehnung-kibiz-20271017 baut auf main fa1fda2 auf. Neue reine Module: KiBiz-Rechtsfassung nach Betreuungsdatum, Wochen-Eingewöhnung/Ersatzbetreuung und Bundesleistungen-Dokumentennavigator. Vorhandene Antrags-Aufgaben erhalten fristgebundene lokale Statusmarkierungen und den unverbindlichen Fristenkalender. Transparente Vergleichskarten nutzen ausschließlich die vorhandene begrenzte Kandidatenliste. Alle neuen Eingaben sind nur temporär, keine Datenschema-Migration. Zu erwartender Testnachweis und fachliche Grenzen: [V3.15 Ausbau](AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
 

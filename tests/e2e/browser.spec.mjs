@@ -1188,3 +1188,286 @@ test('V3.16 joint-parent assumptions remain session-only even with explicit save
  expect(JSON.parse(before).date).toEqual(final.date);
  expect(await page.evaluate(()=>localStorage.length)).toBe(0);
 });
+
+test('V3.17 scope warns before amounts and distinguishes incomplete, plausible, and unsupported cases on mobile',async({page})=>{
+ await page.setViewportSize({width:320,height:820});
+ const card=page.locator('#v317Scope');
+ await expect(card).toBeVisible();
+ await expect(card).toHaveAttribute('data-scope-code','OUTSIDE_SCOPE');
+ await expect(card).toContainText('Öffentliche Freigabe ausstehend');
+ await expect(card).not.toHaveAttribute('open','');
+ const introPositions=await page.evaluate(()=>({
+  quickstartTop:document.getElementById('v38QuickStart').getBoundingClientRect().top,
+  viewportHeight:innerHeight
+ }));
+ expect(introPositions.quickstartTop).toBeLessThan(introPositions.viewportHeight);
+ await navigate(page,'slide-2');
+ await page.locator('#date').fill('2026-05-28');
+ await page.locator('#date').blur();
+ await navigate(page,'slide-1');
+ await expect(card).toHaveAttribute('data-scope-code','INPUTS_INCOMPLETE');
+ await standardInputs(page);
+ await navigate(page,'slide-1');
+ await expect(card).toHaveAttribute('data-scope-code','PLAUSIBLE_MODEL');
+ await expect(card).toContainText('Standardmodell technisch plausibel – keine Freigabe');
+ await expect(card).toContainText('2026-12-31');
+ await expect(card).toContainText('Haushaltsausgaben sind eingegeben');
+ const a11y=await new AxeBuilder({page}).include('#v317Scope')
+  .withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(a11y.violations.map(x=>x.id)).toEqual([]);
+ const bounds=await page.evaluate(()=>({width:document.documentElement.scrollWidth,viewport:window.innerWidth}));
+ expect(bounds.width).toBeLessThanOrEqual(bounds.viewport+1);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+
+test('V3.17 future birth is forecast only while mixed income remains out of scope, with safe official mode wording',async({page})=>{
+ await standardInputs(page);
+ await navigate(page,'slide-2');
+ await page.locator('#incomeEntryMode').selectOption('official');
+ await page.locator('#date').fill('2027-05-28');
+ await page.locator('#date').blur();
+ await navigate(page,'slide-1');
+ const card=page.locator('#v317Scope');
+ await expect(card).toHaveAttribute('data-scope-code','FORECAST_ONLY');
+ await expect(card).toContainText('Nur unverbindliche Zukunftsprognose');
+ await expect(card).toContainText('Herkunft, Bescheid und Zeiträume nicht überprüft');
+ await navigate(page,'slide-2');
+ await page.locator('#date').fill('2026-05-28');
+ await page.locator('#date').blur();
+ await page.locator('#incomeProfileFather').selectOption('mixed_or_self_employed');
+ await navigate(page,'slide-1');
+ await expect(card).toHaveAttribute('data-scope-code','OUTSIDE_SCOPE');
+ await card.locator('summary').click();
+ await expect(card).toHaveAttribute('open','');
+ await card.getByRole('button',{name:'Regelhinweise ansehen'}).click();
+ await expect(page.locator('#slide-10')).toBeVisible();
+ await expect(page.locator('#v317ScopeResultStatus')).toContainText('Fall außerhalb');
+ await expect(page.locator('#v317ScopeResultDetail')).toContainText('Öffentliche Freigabe');
+});
+
+test('V3.17 status stays explanatory only through local save and JSON import',async({page},testInfo)=>{
+ await standardInputs(page);
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await page.locator('#localSave').check();
+ await navigate(page,'slide-2');
+ await page.locator('#incomeEntryMode').selectOption('known');
+ const wait=page.waitForEvent('download');
+ await page.locator('#btnJson').click();
+ const download=await wait;
+ const exportPath=testInfo.outputPath('v317-unchanged-schema.json');
+ await download.saveAs(exportPath);
+ const exported=JSON.parse(await readFile(exportPath,'utf8'));
+ expect(exported.schemaVersion).toBe(1);
+ expect(exported.version).toBe('3.10.0');
+ expect(Object.keys(exported)).not.toContain('scopeCertified');
+ expect(exported.data.standardCaseConfirmed).toBe(true);
+ await page.locator('#importJson').setInputFiles(exportPath);
+ await navigate(page,'slide-1');
+ await expect(page.locator('#v317Scope')).toHaveAttribute('data-scope-code','PLAUSIBLE_MODEL');
+ await expect(page.locator('#v317Scope')).toContainText('keine Freigabe');
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ const after=await page.evaluate(()=>window.__elternzeitTest.getState());
+ expect(after.date).toBe(JSON.parse(before).date);
+ expect(after.storageConsent).toBe(false);
+});
+
+test('V3.17-B JSON export includes unsigned non-binding disclosure and import ignores forged approval',async({page},testInfo)=>{
+ await standardInputs(page);
+ await navigate(page,'slide-2');
+ await page.locator('#incomeEntryMode').selectOption('official');
+ await navigate(page,'slide-10');
+ const note=page.locator('#v317ExportNotice');
+ await note.locator('summary').click();
+ await expect(note).toContainText('Regelquellen');
+ await expect(note).toContainText('Mutterschutz');
+ const a11y=await new AxeBuilder({page}).include('#v317ExportNotice')
+  .withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(a11y.violations.map(x=>x.id)).toEqual([]);
+ const pending=page.waitForEvent('download');
+ await page.locator('#btnJson').click();
+ const download=await pending;
+ const pathname=testInfo.outputPath('v317b-plan.json');await download.saveAs(pathname);
+ const original=JSON.parse(await readFile(pathname,'utf8'));
+ expect(original.schemaVersion).toBe(1);
+ expect(original.version).toBe('3.10.0');
+ expect(original.planningDisclosure.modelClassification).toBe('PLAUSIBLE_MODEL');
+ expect(original.planningDisclosure.sourceCheckedAt).toBe(original.legalReviewedAt);
+ expect(original.planningDisclosure.inputProvenance).toBe('extern_eingetragen_herkunft_nicht_geprueft');
+ expect(original.planningDisclosure.legallyVerified).toBe(false);
+ expect(original.planningDisclosure.independentlyReviewed).toBe(false);
+ expect(original.planningDisclosure.publicReleaseApproved).toBe(false);
+ expect(original.planningDisclosure.warnings.join(' ')).toContain('Mutterschutz');
+ expect(Object.keys(original.data)).not.toContain('planningDisclosure');
+ const forged={...original,planningDisclosure:{...original.planningDisclosure,
+  modelClassification:'APPROVED',publicReleaseApproved:true,legallyVerified:true,independentlyReviewed:true}};
+ await page.locator('#importJson').setInputFiles({
+  name:'forged-advisory.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(forged))
+ });
+ await expect(page.locator('#v317Scope')).toHaveAttribute('data-scope-code','PLAUSIBLE_MODEL');
+ await expect(page.locator('#v317ExportStatus')).toContainText('Keine amtlich bestätigten');
+ await expect(page.locator('#v317ScopeReview')).toContainText('Öffentliche Freigabe ausstehend');
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ // Old schema-1 exports with no advice remain supported.
+ const legacy={...original};delete legacy.planningDisclosure;
+ await page.locator('#importJson').setInputFiles({
+  name:'legacy-v310.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(legacy))
+ });
+ await expect(page.locator('#v317Scope')).toHaveAttribute('data-scope-code','PLAUSIBLE_MODEL');
+});
+
+test('V3.17-B CSV retains original columns and appends provenance/status to each of 36 life months',async({page},testInfo)=>{
+ await standardInputs(page);
+ const expectedLegacy=['Lebensmonat','Alter_Beginn','Alter_Ende','Zeitraum','Vater','Mutter',
+  'Stunden_Vater','Stunden_Mutter','Netto_Vater','Netto_Mutter_Mutterschutz','Elterngeld_Vater',
+  'Elterngeld_Mutter','Kindergeld','Bestätigte_Sonderzahlung','Kita_Kosten',
+  'Familieneinkommen','Frei_nach_Kosten'];
+ const pending=page.waitForEvent('download');
+ await page.locator('#btnCsv').click();
+ const download=await pending;const pathname=testInfo.outputPath('v317b-plan.csv');
+ await download.saveAs(pathname);const contents=await readFile(pathname,'utf8');
+ expect(contents.charCodeAt(0)).toBe(0xfeff);
+ const records=contents.slice(1).trim().split('\r\n').map(row=>row.split(';'));
+ expect(records.length).toBe(37);
+ expect(records[0].slice(0,17)).toEqual(expectedLegacy);
+ const extra=records[0].slice(17);
+ expect(extra).toEqual(['Modell_Einordnung','Quellen_geprueft_am','Einkommen_Herkunft',
+  'Haushaltsausgaben_vorhanden','Amtliche_Freigabe','Mutterschutz_Referenz','Monatswerte']);
+ expect(records.slice(1).every(row=>row.length===records[0].length)).toBe(true);
+ expect(records.slice(1).map(row=>row[0])).toEqual(Array.from({length:36},(_,i)=>String(i+1)));
+ for(const row of records.slice(1)){
+  expect(row[17]).toBe('PLAUSIBLE_MODEL');
+  expect(row[18]).toBe('2026-10-15');
+  expect(row[20]).toBe('ja_ungeprueft');
+  expect(row[21]).toBe('NEIN');
+  expect(row[22]).toContain('offen');
+  expect(row[23]).toContain('SCHAETZUNG');
+ }
+});
+
+test('V3.17-B a future cohort CSV and JSON never claim that 2027 is legally verified',async({page},testInfo)=>{
+ await standardInputs(page);
+ await navigate(page,'slide-2');
+ await page.locator('#date').fill('2027-05-28');
+ await page.locator('#date').blur();
+ await navigate(page,'slide-1');
+ await expect(page.locator('#v317Scope')).toHaveAttribute('data-scope-code','FORECAST_ONLY');
+ const awaitingCsv=page.waitForEvent('download');await page.locator('#btnCsv').click();
+ const csv=await awaitingCsv;
+ const csvPath=testInfo.outputPath('v317b-2027.csv');await csv.saveAs(csvPath);
+ const csvText=await readFile(csvPath,'utf8');
+ expect(csvText).toContain('FORECAST_ONLY');
+ expect(csvText).toContain('SCHAETZUNG_KEINE_AUSZAHLUNGSZUSAGE');
+ const awaitingJson=page.waitForEvent('download');await page.locator('#btnJson').click();
+ const json=await awaitingJson;
+ const jsonPath=testInfo.outputPath('v317b-2027.json');await json.saveAs(jsonPath);
+ const parsed=JSON.parse(await readFile(jsonPath,'utf8'));
+ expect(parsed.planningDisclosure.modelClassification).toBe('FORECAST_ONLY');
+ expect(parsed.planningDisclosure.applicableFutureLawVerified).toBe(false);
+ expect(parsed.planningDisclosure.publicReleaseApproved).toBe(false);
+});
+
+test('V3.17-B CSV never invents free money after expenses when household costs are unknown',async({page},testInfo)=>{
+ await expect(page.locator('#expenses')).toHaveValue('');
+ const pending=page.waitForEvent('download');
+ await page.locator('#btnCsv').click();
+ const download=await pending;
+ const pathname=testInfo.outputPath('v317b-expenses-unknown.csv');
+ await download.saveAs(pathname);
+ const csv=(await readFile(pathname,'utf8')).slice(1).trim().split('\r\n').map(s=>s.split(';'));
+ expect(csv.length).toBe(37);
+ expect(csv[0][16]).toBe('Frei_nach_Kosten');
+ for(const row of csv.slice(1)){
+  expect(row[16]).toBe('');
+  expect(row[20]).toBe('nein_unbekannt');
+  expect(row[21]).toBe('NEIN');
+ }
+});
+
+test('V3.17-D eight fictional understanding questions stay local, keyboard-usable and mobile accessible',async({page},testInfo)=>{
+ await page.setViewportSize({width:320,height:820});
+ await standardInputs(page);
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await navigate(page,'slide-10');
+ const guide=page.locator('#v317dUnderstanding');
+ await expect(guide).not.toHaveAttribute('open','');
+ await guide.locator('summary').focus();
+ await page.keyboard.press('Enter');
+ await expect(guide).toHaveAttribute('open','');
+ await expect(page.locator('#v317dTask')).toContainText('Aufgabe 1 von 8');
+ await expect(page.locator('#v317dCheck')).toBeDisabled();
+ const axe=await new AxeBuilder({page}).include('#v317dUnderstanding')
+  .withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(axe.violations.map(x=>x.id)).toEqual([]);
+ const answers=['forecast','external','no','unknown','unknown','review','limited','safe'];
+ for(let i=0;i<8;i++){
+  await expect(page.locator('#v317dTask')).toContainText('Aufgabe '+(i+1)+' von 8');
+  await page.locator('#v317dTask [name="v317dAnswer"][value="'+answers[i]+'"]').check();
+  await page.locator('#v317dCheck').click();
+  await expect(page.locator('#v317dFeedback')).toContainText('Passende Einordnung');
+  await page.locator('#v317dNext').click();
+ }
+ await expect(page.locator('#v317dTask')).toContainText('Aufgabe 1 von 8');
+ await expect(page.locator('#v317dCheck')).toBeDisabled();
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(before);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ const width=await page.evaluate(()=>({page:document.documentElement.scrollWidth,viewport:innerWidth}));
+ expect(width.page).toBeLessThanOrEqual(width.viewport+1);
+ await page.screenshot({path:testInfo.outputPath('v317d-mobile-320.png'),fullPage:true});
+});
+
+test('V3.17-D wrong answer explains uncertainty and is not a legal score, reload clears it',async({page})=>{
+ await navigate(page,'slide-10');
+ await page.locator('#v317dUnderstanding > summary').click();
+ await page.locator('#v317dTask [name="v317dAnswer"][value="approved"]').check();
+ await page.locator('#v317dCheck').click();
+ await expect(page.locator('#v317dFeedback')).toContainText('andere Einordnung wichtig');
+ await expect(page.locator('#v317dFeedback')).toContainText('2027');
+ await expect(page.locator('#v317dProgress')).toContainText('nicht als echte Nutzerstudie');
+ await page.reload();
+ await navigate(page,'slide-10');
+ await page.locator('#v317dUnderstanding > summary').click();
+ await expect(page.locator('#v317dTask')).toContainText('Aufgabe 1 von 8');
+ await expect(page.locator('#v317dCheck')).toBeDisabled();
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+
+test('V3.17-D resets on confirmed family reset and JSON import, never leaks into saved plan',async({page},testInfo)=>{
+ await standardInputs(page);
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await navigate(page,'slide-10');
+ await page.locator('#v317dUnderstanding > summary').click();
+ await page.locator('#v317dTask [name="v317dAnswer"][value="forecast"]').check();
+ await page.locator('#v317dCheck').click();
+ await page.locator('#v317dNext').click();
+ await expect(page.locator('#v317dTask')).toContainText('Aufgabe 2 von 8');
+ const pending=page.waitForEvent('download');
+ await page.locator('#btnJson').click();
+ const download=await pending;
+ const path=testInfo.outputPath('v317d-json-local-no-answers.json');
+ await download.saveAs(path);
+ const file=await readFile(path,'utf8');
+ const record=JSON.parse(file);
+ expect(JSON.stringify(record)).not.toContain('v317d');
+ expect(JSON.stringify(record)).not.toContain('humanStudyCompleted');
+ expect(record.schemaVersion).toBe(1);
+ await page.locator('#importJson').setInputFiles(path);
+ await expect(page.locator('#v317dTask')).toContainText('Aufgabe 1 von 8');
+ await expect(page.locator('#v317dCheck')).toBeDisabled();
+ const normalized=await page.evaluate(()=>window.__elternzeitTest.getState());
+ const initial=JSON.parse(before);
+ // The legacy importer normalizes numeric input types/property order, but must
+ // retain all meaningful family values and MUST NOT add tutorial progress.
+ expect(normalized.date).toBe(initial.date);
+ expect(normalized.standardCaseConfirmed).toBe(initial.standardCaseConfirmed);
+ expect(normalized.expenses).toBe(initial.expenses);
+ expect(normalized.schedule).toEqual(initial.schedule);
+ expect(JSON.stringify(normalized)).not.toContain('v317d');
+ await page.locator('#v317dTask [name="v317dAnswer"][value="forecast"]').check();
+ await page.locator('#v317dCheck').click();
+ await page.locator('#v317dNext').click();
+ page.once('dialog',dialog=>dialog.accept());
+ await page.locator('#btnReset').click();
+ await expect(page.locator('#v317dTask')).toContainText('Aufgabe 1 von 8');
+ await expect(page.locator('#v317dCheck')).toBeDisabled();
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});

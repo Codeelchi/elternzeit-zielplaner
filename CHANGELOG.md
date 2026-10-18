@@ -176,3 +176,7 @@ Erster getrennt testbarer Zeitachsen-Prototyp in PR #11; 59 Tests.
 ## 3.1.1
 
 Zentraler versionierter Rechtskatalog und amtliche Betragsfixtures in PR #10; 51 Tests.
+
+## V3.18 (18.10.2026) – interne Sicherheits- und Staging-Vorbereitung
+
+Importstatus-Codes sind auf eigene erlaubte Einträge begrenzt; privater, nur loopback-gebundener Staging-Build mit gehashtem Skript-CSP und reproduzierbarer Header-Vorlage ist vorbereitet. **Keine öffentliche Bereitstellung und keine neue externe Freigabe.** [Prüf- und Betriebsdokument](docs/STAGING-UND-FREIGABE-V318-2026-10-18.md).

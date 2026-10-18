@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Offline-Elternzeit- und Elterngeld-Zielplaner mit datierten Rechtsregeln und Szenariensuche",
   "scripts": {
-    "test": "npm run rules:check && npm run legislation:check && npm run axes:check && npm run modules:check && npm run sources:check && npm run roadmap:check && npm run legacy:check && npm run maternity:check && npm run independent-cases:check && npm run independent-evidence:check && npm run usability:check && npm run privacy:technical-check && npm run search:micro-proof && npm run quickstart:check && node --test tests/*.test.mjs",
+    "test": "npm run rules:check && npm run legislation:check && npm run axes:check && npm run modules:check && npm run sources:check && npm run roadmap:check && npm run legacy:check && npm run maternity:check && npm run independent-cases:check && npm run independent-evidence:check && npm run usability:check && npm run privacy:technical-check && npm run search:micro-proof && npm run quickstart:check && npm run staging:check && node --test tests/*.test.mjs",
     "check": "npm test",
     "rules:sync": "node scripts/embed-rules.mjs",
     "rules:check": "node scripts/embed-rules.mjs --check",
@@ -29,7 +29,10 @@
     "privacy:technical-check": "node scripts/privacy-technical-check.mjs",
     "search:micro-proof": "node scripts/search-micro-proof.mjs",
     "independent-evidence:check": "node scripts/independent-evidence-check.mjs",
-    "usability:check": "node scripts/usability-check.mjs"
+    "usability:check": "node scripts/usability-check.mjs",
+    "staging:build": "node scripts/staging-build.mjs",
+    "staging:check": "node scripts/staging-check.mjs",
+    "staging:smoke": "node scripts/staging-smoke.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

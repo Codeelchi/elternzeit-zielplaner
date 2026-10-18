@@ -108,3 +108,10 @@ body.v38-lite.v38-pristine .live-strip{display:none}
 .v312-fee-waiver{display:flex;align-items:flex-start;gap:10px;font-size:12px;line-height:1.6;font-weight:650;color:#264954;margin:12px 0}
 .v312-fee-waiver input{width:18px;height:18px;flex:none;margin:2px 0 0}
 .v312-finance .v38-error{font-size:12px;padding:10px;background:#fff3f1}
+
+/* Provenance decision is local to the short wizard; never changes schema 1. */
+.v38-netto-choice{border:1px solid #ad7144;border-radius:12px;margin:12px 0 16px;padding:12px 15px;background:#fff8f1;}
+.v38-netto-choice[hidden]{display:none}
+.v38-netto-choice legend{font-weight:700;padding:0 5px}
+.v38-netto-choice label{display:block;font-weight:600;margin:8px 0}
+.v38-netto-choice select{width:100%;max-width:100%;min-height:44px;padding:9px}

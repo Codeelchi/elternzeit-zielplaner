@@ -34,6 +34,18 @@
     <p>Hier beginnt ihr mit einer Schätzung. Bekannte Elterngeld-Netto-Werte könnt ihr anschließend unter „Einkommen genauer eingeben“ übernehmen. Ein leeres Feld bedeutet unbekannt, eine bewusst eingetragene 0 bedeutet null Euro.</p>
     <p>Gehaltsabrechnungen und gegebenenfalls Bescheid bereithalten. <a href="https://familienportal.de/familienportal/rechner-antraege/elterngeldrechner" target="_blank" rel="noopener noreferrer">Zum amtlichen Elterngeldrechner (externe Seite)</a> – es werden keine Eingaben aus diesem Plan übertragen.</p>
    </details>
+   <fieldset id="v38NettoChoiceWrap" class="v38-netto-choice" hidden>
+    <legend>Elterngeld-Netto: vorhandene Fachwerte bei geändertem Auszahlungsnetto</legend>
+    <p id="v38NettoChoiceExplanation" class="v38-caption">Mindestens ein Elterngeld-Netto stammt aus einem vorhandenen Fachwert oder Import. Auszahlungsnetto und Elterngeld-Netto sind verschieden. Entscheidet ausdrücklich, bevor der Schnellstart neu berechnet wird.</p>
+    <label for="v38NettoChoice">Was soll mit diesen Fachwerten passieren?</label>
+    <select id="v38NettoChoice" aria-describedby="v38NettoChoiceExplanation">
+     <option value="">Bitte auswählen</option>
+     <option value="keep">Bisherige Fachwerte unverändert beibehalten</option>
+     <option value="estimate">Durch neue unverbindliche Schätzung aus dem Auszahlungsnetto ersetzen</option>
+     <option value="clear">Fachwerte löschen und als unbekannt kennzeichnen</option>
+    </select>
+    <p id="v38NettoChoiceError" class="v38-error" role="alert" aria-live="polite"></p>
+   </fieldset>
    <button type="submit" class="navbtn">Vorlage mit meinen Angaben berechnen</button>
    <p id="v38PersonalError" class="v38-error" role="alert" aria-live="polite"></p>
   </form>

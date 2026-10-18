@@ -87,7 +87,52 @@ function enrichPlanner(html,packageVersion,ruleDate){
  html=replaceOnce(html,'id="bankAdd" style="margin-top:12px">Buchung erfassen</button>',
   'id="bankAdd" style="margin-top:12px">Testbuchung erfassen</button>',
   'recorded payments action');
-
+ for(const [original,synthetic,label] of [
+  ['Die Beispiele sind vollständig fiktiv; eigene Angaben sind erst im zweiten Schritt nötig.',
+   'Alle Beispiele sind erfunden. Verwendet auch beim Anpassen ausschließlich neue, frei erfundene Testwerte.','preview intro'],
+  ['Wählt zuerst ein Beispiel oder gebt eigene Zahlen ein.',
+   'Wählt zuerst ein Beispiel oder gebt ausschließlich frei erfundene Zahlen ein.','goal intro'],
+  ['Vorlage mit meinen Angaben berechnen',
+   'Vorlage mit fiktiven Testwerten berechnen','quickstart submit'],
+  ['Unsere Netto-Werte sind bekannt',
+   'Weitere synthetische Netto-Werte simulieren','income choice known'],
+  ['Werte aus einer amtlichen Berechnung oder einem Bescheid übernehmen',
+   'Nur erfundene Werte nach Art einer amtlichen Berechnung testen (keine Bescheide)','income choice official'],
+  ['Bitte ersetzt sie durch eure eigenen Werte oder kennzeichnet sie bewusst als Schätzung.',
+   'Die vorbelegten Zahlen sind erfunden. Ersetzt sie ausschließlich durch andere erfundene Testwerte.','income explanation'],
+  ['Name oder Bezeichnung Elternteil 1',
+   'Fiktive Bezeichnung Elternteil 1 (keine echten Namen)','fake first parent'],
+  ['Name oder Bezeichnung Elternteil 2',
+   'Fiktive Bezeichnung Elternteil 2 (keine echten Namen)','fake second parent'],
+  ['Namen sind optional und bleiben lokal.',
+   'Keine echten Namen eingeben. Eingaben werden nur in diesem Browser berechnet.','name context'],
+  ['Im Rechner werden eure Angaben daraus ein vergleichbares Modell.',
+   'Der Rechner zeigt ausschließlich Modellannahmen; keine individuelle Anspruchsprüfung.','case study context'],
+  ['Geburtsdatum aus eigener Planung übernehmen',
+   'Fiktives Geburtsdatum verwenden','birth context']
+ ]){
+  // Explicit text-only substitutions may be absent in future source versions;
+  // fail closed for actual present anchors, never silently ship mixed copy.
+  if(html.includes(original))html=replaceOnce(html,original,synthetic,label);
+  else if(!['case study context','birth context'].includes(label))throw Error('Review-preview text anchor missing: '+label);
+ }
+ return html;
+}
+function enrichStart(html){
+ for(const [oldText,newText,label] of [
+  ['Sammelt eure verlässlichen Einkommensangaben und laufenden Kosten.',
+   'Erfindet für diesen öffentlichen Test plausible Einkommen und Kosten; keine echten Unterlagen verwenden.','planning card'],
+  ['Welche Angaben sollte ich für die Planung bereithalten?',
+   'Welche fiktiven Angaben benötigt die Testvorschau?','FAQ question'],
+  ['Hilfreich sind der voraussichtliche Geburtstermin, Arbeitszeiten, verlässliche Einkommensangaben und regelmäßige Haushalts- und Betreuungskosten.',
+   'Für diesen öffentlichen Test reichen erfundene Geburtstermine, Arbeitszeiten sowie fiktive Einkommens-, Haushalts- und Betreuungskosten.','FAQ answer'],
+  ['Im Rechner werden eure Angaben daraus ein vergleichbares Modell.',
+   'Der Rechner zeigt daraus nur ein unverbindliches Testmodell.','plan illustration'],
+  ['Euren Familienplan vergleichen →',
+   'Fiktive Szenarien vergleichen →','planning link'],
+  ['Keine Datenübertragung im Rechner',
+   'Keine Eingabeübertragung · GitHub Pages protokolliert Abrufe','reassurance']
+ ])html=replaceOnce(html,oldText,newText,'start: '+label);
  return html;
 }
 export function buildPagesPreview(){
@@ -111,7 +156,7 @@ export function buildPagesPreview(){
  for(const name of whitelist){
   const html=readFileSync(path.join(root,name),'utf8');
   if((html.match(/<body>/gi)||[]).length!==1||!html.includes('</head>'))throw Error('HTML structure unexpected: '+name);
-  const enriched=name==='index.html'?enrichPlanner(html,pkg.version,ruleDate):html;
+  const enriched=name==='index.html'?enrichPlanner(html,pkg.version,ruleDate):enrichStart(html);
   const csp=cspForPage(enriched,name);
   const withMeta=replaceOnce(enriched,'</head>',
    '<meta name="robots" content="noindex,nofollow,noarchive">\n'+

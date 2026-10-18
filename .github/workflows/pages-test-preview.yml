@@ -81,7 +81,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && inputs.confirm_public_preview == true
     needs: deploy
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 15 # Allow time for Pages CDN propagation (up to 10 min cache TTL)
     permissions:
       contents: read
     steps:
@@ -92,9 +92,9 @@ jobs:
         run: |
           set -eu
           site="https://codeelchi.github.io/elternzeit-zielplaner"
-          for attempt in $(seq 1 24); do
-            curl --fail --silent --show-error --location --max-time 15               "$site/?test-preview-run=$EXPECTED_RUN_ID" -o /tmp/preview-index.html || true
-            curl --fail --silent --show-error --location --max-time 15               "$site/start.html?test-preview-run=$EXPECTED_RUN_ID" -o /tmp/preview-start.html || true
+          for attempt in $(seq 1 72); do
+            curl --fail --silent --show-error --location --max-time 15 --header "Cache-Control: no-cache" --header "Pragma: no-cache"               "$site/?test-preview-run=$EXPECTED_RUN_ID" -o /tmp/preview-index.html || true
+            curl --fail --silent --show-error --location --max-time 15 --header "Cache-Control: no-cache" --header "Pragma: no-cache"               "$site/start.html?test-preview-run=$EXPECTED_RUN_ID" -o /tmp/preview-start.html || true
             if test -f /tmp/preview-index.html && test -f /tmp/preview-start.html &&
               grep -Fq "$EXPECTED_SHA" /tmp/preview-index.html &&
               grep -Fq "$EXPECTED_SHA" /tmp/preview-start.html &&
@@ -105,7 +105,7 @@ jobs:
               echo "Verified public GitHub Pages preview: exact commit $EXPECTED_SHA / workflow $EXPECTED_RUN_ID"
               exit 0
             fi
-            echo "Preview not yet propagated (attempt $attempt/24)."
+            echo "Preview not yet propagated (attempt $attempt/72)."
             sleep 10
           done
           echo "::error::Public Pages readback did not match the deployed commit/run or lacked preview notices."

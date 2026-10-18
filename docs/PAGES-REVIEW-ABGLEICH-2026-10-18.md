@@ -42,6 +42,8 @@ https://familienportal.de/familienportal/familienleistungen/mutterschaftsleistun
 
 ## Pages-Rollout und Verantwortlichkeit
 
+Das GitHub-Actions-Readback wartet nach der Bereitstellung bis zu zwölf Minuten auf die tatsächlich aktualisierte öffentliche Seite; dies berücksichtigt die GitHub-Pages-CDN-Zwischenspeicherung. Es prüft auf **beiden** HTML-Seiten exakt den Git-Commit und die Workflow-ID sowie die Testwarnungen. Keine bloße Annahme, dass ein grüner Deployment-Schritt die aktualisierte HTML-Auslieferung bereits beweist.
+
 Die GitHub-Pages-Testvorschau wird **nur auf manuell bestätigten GitHub-Actions-Lauf von main** aktualisiert. Ein grüner PR-CI-Lauf oder Merge veröffentlicht die Vorschau **nicht automatisch**. Nach dem Merge und Start von „Public GitHub Pages test preview (not a product release)“ muss der tatsächliche öffentliche HTML-Inhalt erneut mit dem Git-Commit, dem erwarteten Warnhinweis und der Workflow-ID abgeglichen werden.
 
 Der Repositorybetreiber ist für die bewusste **öffentliche Repository-Sichtbarkeit** sowie für eventuelle später zugelassene echte Nutzerdaten verantwortlich. Solange sämtliche fachlichen Gate-Freigaben fehlen: **Ausschließlich fiktive Testdaten, kein offizieller Familienfinanzplaner.**

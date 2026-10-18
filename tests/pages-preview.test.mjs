@@ -91,4 +91,6 @@ test('manual Pages workflow only deploys a test preview, then reads back the exa
  assert.match(yaml,/EXPECTED_RUN_ID: \$\{\{ github\.run_id \}\}/);
  assert.match(yaml,/grep -Fq "\$EXPECTED_SHA"/);
  assert.match(yaml,/grep -Fq "Deployment-Lauf \$EXPECTED_RUN_ID"/);
+ assert.match(yaml,/seq 1 72/,'give the published CDN content time to propagate');
+ assert.match(yaml,/Cache-Control: no-cache/,'request fresh Pages content');
 });

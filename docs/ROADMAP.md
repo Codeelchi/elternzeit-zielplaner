@@ -92,3 +92,7 @@ Die 07/2026-Richtlinien bestätigen an einem veröffentlichten **7/31-Beispiel**
 ## V3.20 – Nachweisgebundene Release-Sperre (18.10.2026)
 
 Der Release-Direktbefehl prüft neben Administrations-Flags jetzt die unabhängig validierten Familien-/Nutzer-Evidenzen, Mutterschutz-Fachentscheid, aktuelle SHA-256-Hashes der Offline-HTML-Seiten und einen echten extern kontrollierten Betreiberentscheid. Manipulierte Freigabe-Flags allein lösen **keine** Produktfreigabe mehr aus. Bestehende Referenzfamilien: **0/10**, reale Nutzertests: **0**, 4/30-gegen-5/30-Differenz und externe Rechts-/Datenschutz-/Betreiberfreigaben offen. **Keine Änderung an Berechnung, Paketversion, JSON-Schema oder den echten Freigabedateien.** [Tests und Nachweise](RELEASE-EVIDENZ-SPERRE-V320-2026-10-18.md).
+
+## GitHub Pages – öffentliche, ausdrücklich unfreigegebene Testvorschau
+
+Ein ausschließlich manuell ausgelöster GitHub-Actions-Workflow stellt für Tests **nur zwei HTML-Seiten** als öffentlich abrufbare Pages-Vorschau bereit. Beide Seiten tragen eine sichtbare Warnung, Noindex und ein JavaScript-SHA-CSP. Das Repository bleibt privat; die Vorschau ist **öffentlich**, erfordert fiktive Testdaten und ist kein rechts- oder datenschutzgeprüftes Produkt. Die eigentliche öffentliche Produkt-Release-Sperre bleibt BLOCKED; **keine** automatische Veröffentlichung bei Push auf main. [Testanleitung](GITHUB-PAGES-TESTVORSCHAU-2026-10-18.md).

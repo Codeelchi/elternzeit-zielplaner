@@ -1,0 +1,77 @@
+name: Public GitHub Pages test preview (not a product release)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_public_preview:
+        description: "The site will be accessible by everyone: publish TEST PREVIEW only"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-pages-test-preview
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: github.ref == 'refs/heads/main' && inputs.confirm_public_preview == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install reproducible test dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Verify privacy checks and Pages preview whitelist
+        run: |
+          npm run privacy:technical-check
+          npm run sources:check
+          npm run roadmap:check
+          npm run pages:check
+      - name: Assert public product-release gates are STILL blocked
+        run: |
+          if npm run release:check; then
+            echo "Refusing TEST preview: public product-release gate changed unexpectedly."
+            exit 1
+          fi
+          echo "Release remains blocked; this is only a publicly accessible TEST preview."
+      - name: Install Chromium for real browser smoke
+        run: npx playwright install --with-deps chromium
+      - name: Test Pages subpath, disclaimer, mobile and direct file
+        run: npm run test:e2e -- tests/e2e/pages-preview.spec.mjs
+      - name: Build whitelisted Pages artifact
+        run: npm run pages:build
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload ONLY the preview folder
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/pages-preview
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && inputs.confirm_public_preview == true
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy public TEST preview (not production)
+        id: deployment
+        uses: actions/deploy-pages@v4

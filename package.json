@@ -32,7 +32,9 @@
     "usability:check": "node scripts/usability-check.mjs",
     "staging:build": "node scripts/staging-build.mjs",
     "staging:check": "node scripts/staging-check.mjs",
-    "staging:smoke": "node scripts/staging-smoke.mjs"
+    "staging:smoke": "node scripts/staging-smoke.mjs",
+    "pages:build": "node scripts/pages-preview-build.mjs",
+    "pages:check": "node --test tests/pages-preview.test.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

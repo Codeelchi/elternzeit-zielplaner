@@ -141,6 +141,9 @@ test('goal search validates, explains and applies distinct proposals', async ({p
   await page.locator('#runGoal').click();
   await expect(page.locator('#runGoal')).toBeEnabled({timeout:90000});
   await expect(page.locator('#goalResult')).toContainText('Automatische Suche abgeschlossen');
+  await expect(page.locator('#goalResult')).toHaveAttribute('aria-busy','false');
+  await expect(page.locator('#goalSearchProgress')).toContainText('Gemessene Laufzeit auf diesem Gerät');
+  await expect(page.locator('#goalResult [data-goal-duration="local"]')).toContainText('Keine garantierte Suchdauer');
   const proposals=await page.evaluate(()=>window.__elternzeitV3.goalResults());
   expect(proposals.length).toBeGreaterThanOrEqual(2);
   const titles=await page.locator('#goalResult .plan-option h3').allTextContents();
@@ -160,6 +163,18 @@ test('goal search validates, explains and applies distinct proposals', async ({p
   const comparison=await page.evaluate(()=>window.__elternzeitV3.goalComparison());
   expect(comparison.plans).toHaveLength(proposals.length);
   expect(comparison.bankReceiptsPredicted).toBe(false);
+  await expect(page.locator('#goalResult .goal-quick-metrics')).toHaveCount(proposals.length);
+  await expect(page.locator('#goalResult .goal-deep-dive')).toHaveCount(proposals.length);
+  await expect(page.locator('#goalResult .goal-search-method')).toHaveCount(1);
+  const expectedMetrics=['Gesamt nach Kosten · realistisch','Niedrigster Lebensmonat · realistisch','Anfangsrücklage · vorsichtig'];
+  for(const card of await page.locator('#goalResult .plan-option').all()){
+    await expect(card.locator('.goal-quick-metrics dt')).toHaveText(expectedMetrics);
+    await expect(card.locator('.goal-deep-dive')).not.toHaveAttribute('open','');
+    await expect(card).toContainText('keine tatsächlichen Kontobuchungen');
+  }
+  await page.locator('#goalResult .plan-option .goal-deep-dive summary').first().click();
+  await expect(page.locator('#goalResult .goal-deep-dive').first()).toHaveAttribute('open','');
+  await page.locator('#goalResult .plan-option .goal-deep-dive summary').first().click();
   const money=x=>Math.round(x).toLocaleString('de-DE')+' €';
   for(let i=0;i<comparison.plans.length;i++){
     const card=page.locator('#goalResult .plan-option').nth(i),plan=comparison.plans[i];
@@ -177,7 +192,7 @@ test('goal search validates, explains and applies distinct proposals', async ({p
     await expect(card).toContainText('Engpass-Lebensmonate');
   }
   const comparisonScans=[];
-  for(const width of [1440,390]){
+  for(const width of [1440,430,390,320]){
     await page.setViewportSize({width,height:900});
     const dimensions=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,view:window.innerWidth}));
     expect(dimensions.scroll,'comparison horizontal overflow').toBeLessThanOrEqual(dimensions.view+1);
@@ -430,16 +445,22 @@ test('async goal search can be cancelled, stopped by changed assumptions and res
   await page.locator('#goalCare').selectOption('12');await page.locator('#goalMinFather').fill('2');await page.locator('#goalPart').selectOption('0');
   const original=await page.evaluate(()=>window.__elternzeitTest.getState().schedule);
   await page.locator('#runGoal').click();await expect(page.locator('#cancelGoalSearch')).toBeVisible();
+  await expect(page.locator('#goalResult')).toHaveAttribute('aria-busy','true');
   expect(await page.evaluate(()=>window.__elternzeitV3.goalSearchState().running)).toBe(true);
   await expect(page.locator('#goalSearchProgress')).not.toBeEmpty();
   await page.locator('#cancelGoalSearch').click();await expect(page.locator('#runGoal')).toBeEnabled();
+  await expect(page.locator('#goalResult')).toHaveAttribute('aria-busy','false');
+  await expect(page.locator('#goalSearchProgress')).toContainText('Gemessene Laufzeit dieses Versuchs');
   await expect(page.locator('#goalResult')).toContainText('abgebrochen');
   expect(await page.evaluate(()=>window.__elternzeitV3.goalSearchState().running)).toBe(false);
   expect(await page.evaluate(()=>window.__elternzeitTest.getState().schedule)).toEqual(original);
   expect(await page.locator('#goalResult [data-accept]').count()).toBe(0);
   await page.locator('#runGoal').click();await expect(page.locator('#cancelGoalSearch')).toBeVisible();
   await page.locator('#goalMinIncome').fill('100');await page.locator('#goalMinIncome').blur();
-  await expect(page.locator('#runGoal')).toBeEnabled();await expect(page.locator('#goalResult')).toContainText('Eingaben geändert');
+  await expect(page.locator('#runGoal')).toBeEnabled();
+  await expect(page.locator('#goalResult')).toHaveAttribute('aria-busy','false');
+  await expect(page.locator('#goalSearchProgress')).toContainText('Gemessene Laufzeit dieses Versuchs');
+  await expect(page.locator('#goalResult')).toContainText('Eingaben geändert');
   expect(await page.evaluate(()=>window.__elternzeitTest.getState().schedule)).toEqual(original);
   await page.locator('#goalMinIncome').fill('0');await page.locator('#runGoal').click();
   await expect(page.locator('#runGoal')).toBeEnabled({timeout:90000});

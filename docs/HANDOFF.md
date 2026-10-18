@@ -1,4 +1,6 @@
-# Entwickler-Handoff – V3.17-A–D: interne Implementierung und offene Freigaben
+# Entwickler-Handoff – V3.19: technische Datenschutzresilienz, keine externe Freigabe
+
+**Aktueller Arbeitsstand V3.19 (18.10.2026):** Ausgangspunkt GitHub-main a4afb8a (PR #23, V3.18 integriert). Neue Browser-Speicherfehlerbehandlung und CI-Aufteilung auf node/browser/staging mit fail-closed Schlussjob test. Fachliche Freigabestände weiterhin 0/10 Referenzfamilien, null Nutzer, Mutterschutzkonflikt 4/5 offen; release:check bleibt gesperrt. [V3.19-Nachweise](PRIVACY-ROBUSTNESS-V319-2026-10-18.md). Historische V3.17-Prüfzahlen weiter unten sind keine Abnahme des neuen Commits.
 
 Stand: **18. Oktober 2026**. Paket-/Export-Metadaten bleiben bis zu einer separaten Release-Entscheidung bei 3.10.0; die V3.17-Arbeit baut auf PR #20 (V3.15–V3.16, Merge `19f047d`, CI erfolgreich) auf und enthält nun die technischen Teile A–D. Einstieg für eine neue Sitzung oder einen übernehmenden Entwickler. Mit [Buildlog](BUILDLOG.md), [Architektur](ARCHITEKTUR.md) und [Roadmap](ROADMAP.md) lesen.
 

@@ -90,6 +90,9 @@ test('source-bound preview separates technical version, rule date, personal data
    await expect(note).toContainText('2027 und Sonderfälle');
    if(id==='slide-axes'){await expect(page.getByRole('heading',{name:'Fiktive Zahlungseingänge (Testmodus)'})).toBeVisible();}
   }
+  // The preview now starts with a supported 2026 test example; deliberately
+  // select 2027 to verify the explicit future-cohort safety boundary.
+  await page.evaluate(()=>window.__elternzeitTest.changeValue('date','2027-05-28'));
   await expect(page.locator('#globalPlanStatus')).toContainText('NICHT_UNTERSTUETZT');
   expect(errors).toEqual([]);
  });

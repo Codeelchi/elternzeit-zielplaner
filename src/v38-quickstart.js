@@ -19,7 +19,7 @@ const QuickStartV38=(()=>{
  let scenarioDelay=2,goalFormDirty=false,goalWizardUsed=false;
  let scenarioLost='',scenarioExtra='',scenarioFeesWaived=false;
  const costsKnown=()=>s.expenses!==''&&s.expenses!==null&&s.expenses!==undefined&&Number.isFinite(Number(s.expenses));
- const typeLabel=()=>mode==='example'?'Fiktives Beispiel':mode==='restored'?'Gespeicherter Entwurf':'Persönliche Näherung';
+ const typeLabel=()=>mode==='example'?'Fiktives Beispiel':mode==='restored'?(PUBLIC_TEST_PREVIEW?'Gespeicherter Testentwurf':'Gespeicherter Entwurf'):(PUBLIC_TEST_PREVIEW?'Angepasstes Testbeispiel':'Persönliche Näherung');
  function navRefresh(){
   document.body.classList.toggle('v38-lite',!expert);
   document.body.classList.toggle('v38-expert',expert);
@@ -36,7 +36,7 @@ const QuickStartV38=(()=>{
   const known=costsKnown(),strip=node('v38CostBanner');
   if(strip){
    strip.hidden=known||mode==='idle';
-   strip.textContent=!known&&mode!=='idle'?'Haushaltsausgaben unbekannt: Es werden modellierte Einnahmen vor persönlichen Ausgaben gezeigt. Engpässe, Überschüsse und Rücklagen können so noch nicht zuverlässig berechnet werden.':'';
+   strip.textContent=!known&&mode!=='idle'?(PUBLIC_TEST_PREVIEW?'Fiktive Haushaltsausgaben fehlen. Der Plan zeigt nur Modelleinnahmen und kein geprüftes Budget.':'Haushaltsausgaben unbekannt: Es werden modellierte Einnahmen vor persönlichen Ausgaben gezeigt. Engpässe, Überschüsse und Rücklagen können so noch nicht zuverlässig berechnet werden.') :'';
   }
   const budgetLabel=node('liveBudget')?.previousElementSibling;
   if(budgetLabel)budgetLabel.textContent=known?'Modelliertes Budget nach eingetragenen Kosten':'Einnahmen vor Haushaltsausgaben';
@@ -115,7 +115,7 @@ const QuickStartV38=(()=>{
   const start=Number(s.childcareStart)||0;
   if(!start||start>current?.rows?.length)return '<p class="v38-caption">Ohne geplanten Kita-Start im Vergleichshorizont sind keine Verzögerungsbeträge darstellbar.</p>';
   if(scenarioLost===''&&scenarioExtra===''&&!scenarioFeesWaived)
-   return '<p class="v38-caption">Noch keine eigenen finanziellen Annahmen eingegeben. Eine Kita-Verzögerung verändert das Elterngeld-Netto und die Kita-Gebühren nicht automatisch.</p>';
+   return '<p class="v38-caption">'+(PUBLIC_TEST_PREVIEW?'Noch keine synthetischen Finanzannahmen eingegeben.':'Noch keine eigenen finanziellen Annahmen eingegeben.')+' Eine Kita-Verzögerung verändert das Elterngeld-Netto und die Kita-Gebühren nicht automatisch.</p>';
   try {
    const result=CareImpact.projectDelayedCareScenario({
     rows:current.rows,startLm:start,delayMonths:scenarioDelay,
@@ -178,8 +178,8 @@ const QuickStartV38=(()=>{
  function submitGoalSearch(evt){
   evt.preventDefault();
   clearGoalInputError();
-  if(mode==='idle'){goalInputError('v311GoalsSubmit','Bitte zuerst ein Beispiel auswählen oder eure eigenen Angaben eingeben.');return;}
-  if(formDirty){goalInputError('v311GoalsSubmit','Im Formular für eigene Werte sind noch Änderungen offen. Bitte diese zuerst berechnen.');return;}
+  if(mode==='idle'){goalInputError('v311GoalsSubmit',PUBLIC_TEST_PREVIEW?'Bitte zuerst ein Beispiel auswählen oder fiktive Testwerte eingeben.':'Bitte zuerst ein Beispiel auswählen oder eure eigenen Angaben eingeben.');return;}
+  if(formDirty){goalInputError('v311GoalsSubmit',PUBLIC_TEST_PREVIEW?'Im Formular für fiktive Testwerte sind noch Änderungen offen. Bitte diese zuerst berechnen.':'Im Formular für eigene Werte sind noch Änderungen offen. Bitte diese zuerst berechnen.');return;}
   const priority=node('v311Priority')?.value,care=Number(node('v311Care')?.value);
   const raw=node('v311Minimum')?.value.trim()||'';
   const minimum=raw===''?0:Number(raw);
@@ -248,7 +248,7 @@ const QuickStartV38=(()=>{
    (steps.length?'<ul>'+steps.map(x=>'<li><button type="button" data-v38-goto="'+x.slide+'"'+(x.focus?' data-v310-focus="'+x.focus+'"':'')+'><span>'+escValue(x.label)+'</span><span aria-hidden="true"> →</span></button></li>').join('')+'</ul>':'')+'</section>';
  }
  function summary(){
-  if(mode==='idle')return '<h3>Beispiel auswählen</h3><p>Startet ohne Eingaben. Danach könnt ihr Einkommen und Betreuungsdauer persönlich anpassen.</p>';
+  if(mode==='idle')return '<h3>Beispiel auswählen</h3><p>'+(PUBLIC_TEST_PREVIEW?'Startet ohne Eingaben. Verändert Einkommen und Betreuungsdauer nur mit frei erfundenen Zahlen.':'Startet ohne Eingaben. Danach könnt ihr Einkommen und Betreuungsdauer persönlich anpassen.')+'</p>';
   if(!Array.isArray(current?.rows)||current.rows.length===0)return '<div class="v38-notice">Der Monatsplan konnte nicht berechnet werden.</div>';
   const template=effectiveTemplate();
   const until=Math.min(36,Math.max(1,Number(s.goalCare)||18));
@@ -262,7 +262,7 @@ const QuickStartV38=(()=>{
   if(mode==='example')notices.push('Erfundene Einkommensdaten und unverbindliche Beispielannahmen. Dieser Plan wurde nicht aus euren Angaben erstellt und nicht gespeichert.');
   if(mode==='personal'&&wizardCompleted)notices.push('Elterngeld-Netto vorläufig gleich Auszahlungsnetto aus der Schnelleingabe geschätzt. Manuell geänderte Fachwerte werden nicht automatisch ersetzt.');
   if(mode==='personal'&&!wizardCompleted)notices.push('Teilweise angepasstes Beispiel: Nicht selbst eingegebene Werte stammen weiterhin aus einer fiktiven Vorlage. Bitte alle weiteren Annahmen kontrollieren.');
-  if(mode==='restored')notices.push('Gespeicherter Entwurf, noch keine bestätigte amtliche Berechnung. Persönliche Zahlen und Leistungen separat prüfen.');
+  if(mode==='restored')notices.push(PUBLIC_TEST_PREVIEW?'Importierter Testentwurf ohne amtliche Fachprüfung. Ausschließlich synthetische Daten verwenden.':'Gespeicherter Entwurf, noch keine bestätigte amtliche Berechnung. Persönliche Zahlen und Leistungen separat prüfen.');
   if(!known)notices.push('Haushaltsausgaben fehlen: Die angezeigten Beträge sind Einnahmen, kein frei verfügbares Budget. Rücklagen und Engpassmonate sind nicht belastbar.');
   if(!covered)notices.push('Betreuungslücke ab LM '+gap+': Die gewählte Vorlage sichert die Betreuung bis LM '+until+' nicht durchgehend. Es ist weitere Betreuung oder ein anderes Modell nötig.');
   if(year>2026)notices.push('Geburtsjahr '+year+': Diese Modellrechnung ist eine unverbindliche Zukunftsprognose. Die Rechtsregeln für diese Geburtskohorte wurden nicht abschließend bestätigt.');
@@ -283,7 +283,7 @@ const QuickStartV38=(()=>{
       '<div class="v38-kpi"><span>'+(known?'Summe nach eingegebenen Kosten':'Gesamteinnahmen vor Ausgaben')+'</span><strong>'+eur(total)+'</strong></div>'+
       '<div class="v38-kpi"><span>Rechtsstatus</span><strong style="font-size:14px">'+escValue(year>2026?'2027+ · unverbindlich':legal==='PLAUSIBEL_STANDARD'?'Standardregeln plausibel':'Nicht freigegeben')+'</strong></div>'+
     '</div>'+
-    '<p class="v38-caption">'+(known?'Ergebnis nach eingegebenen Haushalts- und Kita-Annahmen; weitere Kosten/Steuern/Versicherungen möglich.':'Persönliche Haushaltsausgaben sind unbekannt. Deshalb keine Aussage über verfügbares Restbudget oder notwendige Rücklagen.')+'</p>'+
+    '<p class="v38-caption">'+(known?'Ergebnis nach eingegebenen Haushalts- und Kita-Annahmen; weitere Kosten/Steuern/Versicherungen möglich.':(PUBLIC_TEST_PREVIEW?'Im Testbeispiel fehlen fiktive Haushaltsausgaben. Deshalb keine Aussage über Restbudget oder Rücklagen.':'Persönliche Haushaltsausgaben sind unbekannt. Deshalb keine Aussage über verfügbares Restbudget oder notwendige Rücklagen.'))+'</p>'+
     notices.map(t=>'<div class="v38-notice">'+escValue(t)+'</div>').join('')+
     nextStepsMarkup()+bridgeMarkup()+
     '<details class="v39-assumptions"><summary>Welche Zahlen und Annahmen stecken dahinter?</summary>'+
@@ -319,7 +319,7 @@ const QuickStartV38=(()=>{
    mode='example';node('localSave').checked=false;
    s.goalCare=template.goal;lastEstimated={father:null,mother:null};wizardCompleted=false;
   }
-  selected=id;goalFormDirty=false;if(!personal){goalWizardUsed=false;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;}
+  clearResultOutdated();selected=id;goalFormDirty=false;if(!personal){goalWizardUsed=false;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;}
   clearGoalInputError();chooseModel(template.model); // Existing financial, timeline and legal engine.
   refresh();showSummary();
  }
@@ -335,6 +335,7 @@ const QuickStartV38=(()=>{
   const input=node(id),error=node('v38PersonalError');
   if(error)error.textContent=message;
   if(input){
+   markResultOutdated('Bitte das markierte Schnellstartfeld korrigieren. Die Kennzahlen zeigen weiterhin den letzten gültigen Entwurf.');
    input.setAttribute('aria-invalid','true');
    input.setAttribute('aria-describedby','v38PersonalError');
    input.focus();
@@ -381,7 +382,7 @@ const QuickStartV38=(()=>{
    // A repeat edit is NOT consent to replace a chosen or custom schedule.
    renderAll();persist();
   }
-  mode='personal';refresh();showSummary();
+  mode='personal';refresh();clearResultOutdated();showSummary();
  }
  function syncPersonalForm(){
   if(!['personal','restored'].includes(mode))return;
@@ -396,7 +397,7 @@ const QuickStartV38=(()=>{
  }
  function onResetConfirmed(){
   mode='idle';selected='';wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=false;scenarioDelay=2;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;lastEstimated={father:null,mother:null};
-  clearFieldErrors();
+  clearFieldErrors();clearResultOutdated('all');
   for(const id of ['v38Birth','v38NetF','v38NetM','v38Expenses'])node(id).value='';
   node('v38Goal').value='18';
   refresh();
@@ -416,7 +417,7 @@ const QuickStartV38=(()=>{
   if(!node('v38QuickStart'))return;
   if(s.storageConsent){mode='restored';selected=Object.keys(templates).find(id=>templates[id].model===s.model)||'';}
   node('v38Templates').querySelectorAll('button[data-v38-template]').forEach(b=>b.addEventListener('click',()=>loadTemplate(b.dataset.v38Template)));
-  node('v38PersonalForm')?.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',()=>{formDirty=true;}));
+  node('v38PersonalForm')?.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',()=>{formDirty=true;markResultOutdated('Schnellstartwerte wurden verändert, aber noch nicht neu berechnet. Das Ergebnis gehört zum letzten gültigen Entwurf.');}));
   node('v315CareJump')?.addEventListener('click',()=>{
    const slides=[...document.querySelectorAll('.slide')];
    const idx=slides.findIndex(x=>x.id==='slide-region');

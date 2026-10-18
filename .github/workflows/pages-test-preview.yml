@@ -75,3 +75,38 @@ jobs:
       - name: Deploy public TEST preview (not production)
         id: deployment
         uses: actions/deploy-pages@v4
+
+
+  verify:
+    if: github.ref == 'refs/heads/main' && inputs.confirm_public_preview == true
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15 # Allow time for Pages CDN propagation (up to 10 min cache TTL)
+    permissions:
+      contents: read
+    steps:
+      - name: Read back the exact public Pages commit, workflow run and safety notices
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          EXPECTED_RUN_ID: ${{ github.run_id }}
+        run: |
+          set -eu
+          site="https://codeelchi.github.io/elternzeit-zielplaner"
+          for attempt in $(seq 1 72); do
+            curl --fail --silent --show-error --location --max-time 15 --header "Cache-Control: no-cache" --header "Pragma: no-cache"               "$site/?test-preview-run=$EXPECTED_RUN_ID" -o /tmp/preview-index.html || true
+            curl --fail --silent --show-error --location --max-time 15 --header "Cache-Control: no-cache" --header "Pragma: no-cache"               "$site/start.html?test-preview-run=$EXPECTED_RUN_ID" -o /tmp/preview-start.html || true
+            if test -f /tmp/preview-index.html && test -f /tmp/preview-start.html &&
+              grep -Fq "$EXPECTED_SHA" /tmp/preview-index.html &&
+              grep -Fq "$EXPECTED_SHA" /tmp/preview-start.html &&
+              grep -Fq "Deployment-Lauf $EXPECTED_RUN_ID" /tmp/preview-index.html &&
+              grep -Fq "Deployment-Lauf $EXPECTED_RUN_ID" /tmp/preview-start.html &&
+              grep -Fq 'NUR FIKTIVE DATEN VERWENDEN' /tmp/preview-index.html &&
+              grep -Fq 'KEIN AMTLICHER ELTERNGELDRECHNER' /tmp/preview-start.html; then
+              echo "Verified public GitHub Pages preview: exact commit $EXPECTED_SHA / workflow $EXPECTED_RUN_ID"
+              exit 0
+            fi
+            echo "Preview not yet propagated (attempt $attempt/72)."
+            sleep 10
+          done
+          echo "::error::Public Pages readback did not match the deployed commit/run or lacked preview notices."
+          exit 1

@@ -40,3 +40,7 @@ Der Betreiber kann GitHub Pages unter Repository → **Settings → Pages** deak
 - npm run release:check – bleibt bei fehlenden unabhängigen Freigaben absichtlich **NO-GO**.
 
 **Wichtig:** Kein passwortgeschütztes Pages für ein persönliches Repository. Das Noindex-Metatag ist kein Zugriffsschutz. Falls GitHub die Pages-Administration wegen fehlender Tokenberechtigungen zurückweist, ist der manuelle Schritt unter Settings → Pages erforderlich.
+
+## Pages-Testseiten-Review: nachvollziehbarer Build und synthetische Daten
+
+Die nächste **manuell ausgelöste** öffentliche Pages-Testvorschau zeigt nun die Paketversion 3.10.0, den getrennten Stand der Rechtsquellen (15.10.2026), den exakten Git-Commit samt Link und – im GitHub-Workflow – die Ausführungs-ID. Historische V3.15/V3.16-Modulnamen werden getrennt erklärt. Alle Eingabe-, Zeitachsen-/Buchungs- und Ergebnisansichten verweisen in dieser Vorschau ausdrücklich auf **ausschließlich synthetische Testdaten**. Die Original-Offline-Quellen bleiben unverändert; JSON-Schema 1 und Rechenlogik ebenfalls. Die NRW-KomNet-Fachauskunft stärkt die eigenständige Schutzfrist-Herleitung, **löst die 4/5-Tage-Anrechnung nicht abschließend**. P0-A/B/D/E und Betreiberfreigabe bleiben offen. Die Vorschau wird nicht automatisch beim Merge veröffentlicht. [Externer Review-Abgleich, Prüfergebnisse und Rollout-Grenzen](PAGES-REVIEW-ABGLEICH-2026-10-18.md).

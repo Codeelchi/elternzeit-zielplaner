@@ -23,6 +23,8 @@ test('staging artifacts are identical to offline files and enforce hashed JavaSc
    assert.equal(readFileSync(path.join(out,file),'utf8'),html.toString('utf8'));
   }
   assert.match(config,/access_log off/);
+  assert.match(config,/absolute_redirect off/);
+  assert.match(config,/client_body_temp_path \/tmp\/nginx-client-body/);
   assert.match(config,/Cache-Control "no-store"/);
   assert.match(config,/add_header Content-Security-Policy/);
   assert.doesNotMatch(config, /@@CSP@@/);

@@ -8,7 +8,14 @@ http {
   default_type application/octet-stream;
   access_log off;
   server_tokens off;
+  absolute_redirect off;
   sendfile on;
+  # Writable paths are constrained to the read-only container's /tmp tmpfs.
+  client_body_temp_path /tmp/nginx-client-body;
+  proxy_temp_path /tmp/nginx-proxy;
+  fastcgi_temp_path /tmp/nginx-fastcgi;
+  uwsgi_temp_path /tmp/nginx-uwsgi;
+  scgi_temp_path /tmp/nginx-scgi;
   server {
     listen 8080;
     server_name _;

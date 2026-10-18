@@ -31,7 +31,8 @@
     "independent-evidence:check": "node scripts/independent-evidence-check.mjs",
     "usability:check": "node scripts/usability-check.mjs",
     "staging:build": "node scripts/staging-build.mjs",
-    "staging:check": "node scripts/staging-check.mjs"
+    "staging:check": "node scripts/staging-check.mjs",
+    "staging:smoke": "node scripts/staging-smoke.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

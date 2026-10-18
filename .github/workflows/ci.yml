@@ -50,3 +50,22 @@ jobs:
           if(process.env.UPLOAD_OUTCOME!=='success')summary+='Artifact upload failed; inspect upload logs (storage quota may be exhausted). Checked-in QA reports and screenshots remain available.\n';
           appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary);
           JS
+
+  staging:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build and verify private staging artifacts
+        run: node scripts/staging-build.mjs && node scripts/staging-check.mjs
+      - name: Start isolated Nginx and check real HTTP security boundaries
+        run: |
+          docker compose -f deploy/staging/compose.yaml up --build --wait -d
+          npm run staging:smoke
+      - name: Stop staging and remove containers
+        if: always()
+        run: docker compose -f deploy/staging/compose.yaml down --remove-orphans

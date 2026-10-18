@@ -1,8 +1,10 @@
 # Elternzeit-Zielplaner
 
-**Interner Funktionsstand V3.17-A–D (18. Oktober 2026; Basis: PR #20 / `19f047d` für V3.16)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner. Die technischen Paket- und Export-Versionsangaben bleiben vorerst bei **3.10.0**, weil die bisherigen internen Ausbaustufen **kein öffentlicher Produkt-Release** sind.
+**V3.19 – aktueller technischer Ausbau (18.10.2026):** Fehlerbehandlung für verweigerte Browser-Speicherung/-Löschung, dauerhafte und zugängliche Warnmeldung, Schutz der flüchtigen Daten beim Reset/Import und separate, parallel arbeitende CI-Suiten mit gemeinsamer Sperre. Keine neue Rechts-/Datenschutz-/Benutzerfreigabe. [Technische Prüfung und Bedienhinweise](docs/PRIVACY-ROBUSTNESS-V319-2026-10-18.md). Paketversion 3.10.0 und JSON-Schema 1 bleiben bestehen.
 
-**V3.17-D technische QA:** 495/495 Node-/DOM-, 63/63 Chromium-Gesamt- und zusätzlich 3/3 direkte `file://`-Browserfälle erfolgreich. Die zehn unabhängigen Berechnungsreferenzen und echte UX-/Rechts-/Datenschutz-Freigaben bleiben offen.
+**Interner Funktionsstand V3.19 (18. Oktober 2026; V3.18 auf main, V3.19 in technischer Prüfung).** Offlinefähiger Familien-Szenario- und Budgetplaner sowie optionale Familienstartseite; kein amtlicher Elterngeldrechner. **Öffentliche Veröffentlichung weiterhin gesperrt.** Paket-/Exportversion 3.10.0, JSON-Schema 1.
+
+**Historische V3.17-D technische QA:** 495/495 Node-/DOM-, 63/63 Chromium-Gesamt- und zusätzlich 3/3 direkte `file://`-Browserfälle erfolgreich. Die zehn unabhängigen Berechnungsreferenzen und echte UX-/Rechts-/Datenschutz-Freigaben bleiben offen.
 
 **Neu im internen Ausbau V3.17-D (18.10.2026):** [Acht geführte, vollständig fiktive Verständlichkeitsaufgaben](docs/PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md) im Bereich „Plan prüfen“. Sie helfen, Regelgültigkeit, Einnahmen, Budgetlücken, Zahlungszeitachsen und Datenschutzgrenzen zu verstehen. Antworten bleiben flüchtig, werden weder gespeichert noch exportiert. **Dies ist keine echte Nutzerstudie**; die vorbereitete Evidenzmatrix meldet 0 reale Beobachtungen und 0 Freigaben.
 

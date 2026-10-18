@@ -1,6 +1,8 @@
 # Anleitung – Familien-Szenario- und Budgetplaner
 
-**Interner technischer Stand: V3.16, auf `main` seit PR #20 (`19f047d`), 17.10.2026.** Paket-/JSON-Exportversion **3.10.0**, kompatibles Importschema **1**. Neue V3.17-Prüfhilfen befinden sich auf einem getrennten Arbeitszweig, nicht auf `main`. **Öffentliche Freigabe gesperrt.** Keine Rechtsberatung, keine amtliche Leistungsberechnung und keine zugesagte Zahlung.
+**Datenschutz auf gemeinsam genutzten Geräten:** Bei blockiertem Speichern bleibt die Option ausgeschaltet; bei nicht bestätigter Löschung zeigt die App eine dauerhafte Warnung. „Browserkopie löschen“ entfernt **nicht** den noch offenen Plan; dafür zusätzlich „Zurücksetzen“ nutzen. Heruntergeladene JSON-/CSV-/ICS-Dateien separat löschen. [Details zur Browser-Speicherprüfung](PRIVACY-ROBUSTNESS-V319-2026-10-18.md).
+
+**Interner technischer Stand V3.19 (18.10.2026).** Frühere V3.17-Funktionen sind bereits auf main integriert; V3.19 stärkt den Umgang mit blockiertem Browser-Speicher. Paket-/Exportversion 3.10.0, JSON-Importschema 1. **Keine öffentliche Freigabe, keine amtliche Leistungsberechnung.**
 
 ## Starten und Beispiel verstehen
 
@@ -8,7 +10,7 @@
 
 Wichtig: Für einen persönlichen Entwurf müsst ihr eure Konstellation und die verwendeten Zahlen unabhängig bestätigen. Eine visuelle Berechnung auf dem Bildschirm ist noch **keine** bestätigte Anspruchsprüfung.
 
-**Hinweis für den getrennten V3.17-Arbeitszweig:** Eine neue Karte „Passt euer Fall zu den technisch geprüften Annahmen?“ im Überblick und unter „Plan prüfen“ erklärt Standardfall, Quellenstand, Schätzwerte und die noch offene Freigabe. Auf einem unveränderten V3.16-`main` ist diese zusätzliche Karte noch nicht vorhanden. Sie ersetzt den bestehenden Validator nicht.
+**Bereits integrierte V3.17-Funktion:** Die Übersichtskarte „Passt euer Fall zu den technisch geprüften Annahmen?“ erklärt Standardfall, Quellenstand, Schätzwerte und offene Freigaben. Sie ersetzt den vorhandenen Validator nicht.
 
 ## 1. Unterstützten Fall und Einkommenswerte prüfen
 

@@ -17,9 +17,33 @@ for(const [name,page] of [['Kalkulator',index],['Infoportal',portal]]) {
  if(violations.length)throw Error(name+': '+violations.join(', '));
  console.log(name+': im HTML statisch keine aktiven Netzwerk-/Cookie-/Drittmedien-Schnittstellen erkennbar.');
 }
-if(!/if\(!s\.storageConsent\)return;try\{localStorage\.setItem\('elternzeit-familienplan-v3'/.test(index))
- throw Error('Der aktuelle Plan darf erst nach Speicher-Opt-in gespeichert werden.');
-if(!/function deleteLocalData\(\)/.test(index))throw Error('Sichtbarer Löschpfad erforderlich.');
+// Check behavior-relevant structure, not one historic one-line function layout.
+function method(name){
+ const start=index.indexOf('function '+name+'(');
+ if(start<0)throw Error(name+': Pfad fehlt.');
+ const end=index.indexOf('\n}',start);
+ if(end<0)throw Error(name+': unvollständiger Funktionsblock.');
+ return index.slice(start,end+2);
+}
+const save=method('persist'),erase=method('deleteLocalData'),restore=method('restore');
+if(!/if\s*\(!s\.storageConsent\)\s*return\s+false\s*;/.test(save)||
+ !/try\s*\{[\s\S]*localStorage\.setItem\('elternzeit-familienplan-v3'/.test(save)||
+ !/catch\s*\([\w]+\)\s*\{[\s\S]*s\.storageConsent\s*=\s*false/.test(save)||
+ !save.includes("reportStorageStatus("))
+ throw Error('Opt-in-Pflicht, bestätigtes Speichern oder Fail-Closed-Behandlung fehlen.');
+if(!erase.includes('PRIVATE_STORAGE_KEYS')||
+ !/removeItem\(key\)/.test(erase)||
+ !/verified\s*=\s*PRIVATE_STORAGE_KEYS\.every\(key\s*=>\s*localStorage\.getItem\(key\)===null\)/.test(erase)||
+ !erase.includes('catch(e)')||
+ !erase.includes('return verified'))
+ throw Error('Löschung darf nur nach bestätigter Entfernung als erfolgreich gemeldet werden.');
+if(!restore.includes('try{')||!restore.includes('catch(e)')||
+ !restore.includes('reportStorageStatus('))
+ throw Error('Wiederherstellungsfehler müssen sichtbar und fail-safe behandelt werden.');
+if(!/id="privacyStorageStatus"[^>]*role="status"[^>]*aria-live="polite"/.test(index))
+ throw Error('Zugänglicher permanenter Browser-Speicherstatus fehlt.');
+for(const key of ['elternzeit-familienplan-v1','elternzeit-familienplan-v2','elternzeit-familienplan-v3'])
+ if(!index.includes(key))throw Error('Legacy-Browser-Schlüssel fehlt: '+key);
 for(const fragment of ['v314InsuranceExtra','v314TaxExtra','v313Payments']) {
  if(!index.includes(fragment))throw Error('Session-Szenario fehlt: '+fragment);
 }

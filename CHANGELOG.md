@@ -1,5 +1,11 @@
 # Änderungen
 
+## V3.19 – Browser-Speicherresilienz und CI-Qualität (interner Kandidat, 18.10.2026)
+
+- Fehlgeschlagenes localStorage-Speichern deaktiviert die bisher irreführend aktive Opt-in-Auswahl und zeigt eine dauerhafte, screenreaderfreundliche Warnung.
+- Browserkopien werden nur nach bestätigtem Entfernen als gelöscht gemeldet; Reset des laufenden Plans funktioniert auch bei blockierter Persistenz; JSON-Import bleibt flüchtig möglich, ohne alte Browserkopien fälschlich als gelöscht anzugeben.
+- Vier DOM- und vier Chromium-Negativ-/Offlinefälle; GitHub-Jobs node, browser, staging und fail-closed Schlussjob test. Keine neue fachliche Logik, kein Release-Gate-Umschalten, keine Schemaänderung. [Prüfnotizen](docs/PRIVACY-ROBUSTNESS-V319-2026-10-18.md).
+
 ## V3.17-D – fiktiver Verständlichkeitscheck und Reviewvorbereitung (intern)
 
 - Acht interaktive synthetische Fragen zu Standardkohorte, Elterngeld-Netto, Leistungs-/Zahlungsmonat, Bankbuchung, unbekannten Kosten, Mutterschutz 4/5, Zielsuche und lokalem Speicher. Erklärendes, nicht bewertendes Feedback, vollständig ohne Familienplan- oder Persistenzwirkung.

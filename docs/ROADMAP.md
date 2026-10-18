@@ -1,6 +1,8 @@
 # Roadmap: vom internen Familienplaner zum fachlich abgegrenzten Produkt
 
-**Stand 18. Oktober 2026 · Ausgangspunkt für V3.17: `main`-Merge `19f047d` (PR #20 / V3.16). Dieser Dokumentstand beschreibt V3.17-A–D.** Paket-, Embedded- und Exportversion bleiben **3.10.0**, JSON-Schema **1**. Weder V3.16 noch V3.17-A–D sind ein öffentlicher Release. **Öffentliche Beta: GESPERRT.**
+**V3.19 P0-D-Zwischenstand:** Browser-Speicherfehler dürfen weder eine erfolgreiche Speicherung noch eine bestätigte Löschung vortäuschen. Negativtests und zugängliche Warnung ergänzt; CI wird ohne Reduktion der Volltests auf parallele Node-, Chromium- und Docker-Jobs mit abschließendem Fail-Closed-Gate verteilt. Unabhängiger Datenschutzreview und Realgerätetests bleiben offen. [Befund](PRIVACY-ROBUSTNESS-V319-2026-10-18.md).
+
+**Stand 18. Oktober 2026 · V3.18 in main (PR #22/#23), V3.19 technischer Kandidat.** Paket-/Exportversion 3.10.0, JSON-Schema 1. **Öffentliche Beta GESPERRT.** Technische Integration ist keine Fach-, Betreiber- oder Datenschutzfreigabe.
 
 **Produktbild:** *Familien-Szenario- und Budgetplaner* für nachvollziehbare Varianten von Familienzeit, Lebensmonatsbudget, Rücklagen, Betreuung und Berufsrückkehr. **Kein** bescheidgenauer amtlicher Elterngeldrechner, keine rechtlich oder finanziell garantierte „Optimierung“, kein belegtes Markt-Alleinstellungsmerkmal.
 

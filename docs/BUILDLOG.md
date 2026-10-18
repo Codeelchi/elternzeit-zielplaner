@@ -1,5 +1,7 @@
 # Buildlog und Integrationsnachweis
 
+**V3.19 – interner Ausbau (18.10.2026):** Reproduzierter Fehler bei verweigertem localStorage-Speichern/Löschen; Abhilfe in der Offline-Datei inklusive sichtbarer Warnung und fehlersicherem Reset/Import. Vier neue DOM-Negativtests und vier direkte Chromiumfälle vorbereitet, dazu parallele CI-Jobs mit finalem test-Gate. Basistests/PR-CI vor Merge gesondert prüfen. [Fachlich und datenschutzrechtlich nicht freigegeben](PRIVACY-ROBUSTNESS-V319-2026-10-18.md).
+
 Historischer Entwicklungsverlauf seit V3.4, ergänzter **Stand vom 17. Oktober 2026: auf main integrierter V3.16-Funktionsstand** (Paket-/Exportversionsnummer 3.10.0 bis separater Release-Entscheidung). Technische Nachweise, fachliche Evidenz und öffentliche Freigaben sind getrennt. Ein Merge nach `main` ist keine Veröffentlichung und keine unabhängige Fachabnahme.
 
 ## V3.17-D – lokale Verständnisübung und unabhängiger Nutzerreview-Vorbereitungsprozess, 18.10.2026

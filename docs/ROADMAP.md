@@ -82,3 +82,7 @@ Vor erfolgreicher P0-Abnahme nur **moderierte UX-Demonstration mit synthetischen
 ## V3.18 (18.10.2026) – interne Sicherheits- und Staging-Vorbereitung
 
 Importstatus-Codes sind auf eigene erlaubte Einträge begrenzt; privater, nur loopback-gebundener Staging-Build mit gehashtem Skript-CSP und reproduzierbarer Header-Vorlage ist vorbereitet. **Keine öffentliche Bereitstellung und keine neue externe Freigabe.** [Prüf- und Betriebsdokument](STAGING-UND-FREIGABE-V318-2026-10-18.md).
+
+## Amtliche BEEG-Richtlinien Juli 2026 – zusätzliche Teilreferenz
+
+Die 07/2026-Richtlinien bestätigen an einem veröffentlichten **7/31-Beispiel** die taggenaue Anrechnung nach BEEG § 3. Eine neue, explizit **nicht als vollständiger Familien-Review gezählte** Zeitachsenregression prüft den veröffentlichten Teilfall; die 4/30-gegen-5/30-Frage vom 20.05., **0/10 externe Familienreferenzen** und alle externen Freigaben bleiben offen. Details: [Fachquellen-Abgleich](FACHABNAHME-RICHTLINIEN-2026-10-18.md). Die 2027er-KiBiz-Fassung ist getrennt von der nicht freigegebenen BEEG-Prognose zu behandeln.

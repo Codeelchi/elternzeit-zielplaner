@@ -1,0 +1,39 @@
+{
+  "asOf": "2026-10-18",
+  "sourcePublication": "BMBFSFJ/211, Richtlinien zum BEEG, Ausgabe 07/2026",
+  "sourceUrl": "https://www.bmbfsfj.bund.de/resource/blob/243236/a81e922c7e43128d76c4299778d83e89/richtlinien-zum-beeg-data.pdf",
+  "section": "Teil I, BEEG-RL 3.1.2 (Taggenaue Anrechnung bei nur teilweise uebereinstimmenden Bezugszeiten)",
+  "evidenceClass": "official_published_example_partial_month_only",
+  "independentOfApplication": true,
+  "independentlyVerifiedFullFamily": false,
+  "publicReleaseApproved": false,
+  "example": {
+    "childLifeMonthDays": 31,
+    "maternityBenefitDays": 7,
+    "matchingBenefitFraction": "7/31",
+    "notCoveredDays": 24,
+    "note": "Die Richtlinie veranschaulicht die taggenaue ANRECHNUNG; sie legt kein Schutzfrist- oder Leistungsende fuer die Geburt am 20. Mai fest."
+  },
+  "contestedExample": {
+    "birthDate": "2026-05-20",
+    "lifeMonthStart": "2026-06-20",
+    "lifeMonthEnd": "2026-07-19",
+    "lifeMonthDays": 30,
+    "federalPortal": {
+      "lastBenefitDate": "2026-07-14",
+      "remainingDays": 5,
+      "ratio": "5/30",
+      "sourceUrl": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/kann-ich-elterngeld-und-mutterschaftsleistungen-bekommen--124776"
+    },
+    "timeAxisImplementation": {
+      "postnatalProtectionLastDate": "2026-07-15",
+      "remainingDays": 4,
+      "ratio": "4/30",
+      "lawUrl": "https://www.gesetze-im-internet.de/muschg_2018/__3.html"
+    },
+    "status": "UNRESOLVED_EXTERNAL_EXPERT_REVIEW_REQUIRED",
+    "financialDecisionAllowed": false
+  },
+  "sourceInterpretation": "Taggenaue Anrechnung nach BEEG-Richtlinie belegt. Widerspruch beim Ende des Leistungszeitraums aus diesem Ausschnitt nicht entscheidbar.",
+  "reviewersReceived": 0
+}

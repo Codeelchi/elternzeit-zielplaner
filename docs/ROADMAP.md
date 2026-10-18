@@ -78,3 +78,7 @@ Vor erfolgreicher P0-Abnahme nur **moderierte UX-Demonstration mit synthetischen
 - **Berichte:** [aktueller Handoff](HANDOFF.md), [detaillierte V3.15/16-Abnahmen](AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md), [historische Roadmap](ROADMAP-HISTORIE-BIS-V316-2026-10-17.md). Die maschinenlesbare alte P0/P1-Statusmatrix bleibt bis zur Migration als **historische Zuordnung** erhalten.
 
 **Status: intern technisch fortentwickelbar · fachlich und öffentlich nicht freigegeben.**
+
+## V3.18 (18.10.2026) – interne Sicherheits- und Staging-Vorbereitung
+
+Importstatus-Codes sind auf eigene erlaubte Einträge begrenzt; privater, nur loopback-gebundener Staging-Build mit gehashtem Skript-CSP und reproduzierbarer Header-Vorlage ist vorbereitet. **Keine öffentliche Bereitstellung und keine neue externe Freigabe.** [Prüf- und Betriebsdokument](STAGING-UND-FREIGABE-V318-2026-10-18.md).

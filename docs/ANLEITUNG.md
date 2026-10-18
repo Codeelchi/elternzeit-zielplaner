@@ -65,3 +65,7 @@ Mit **„Plan herunterladen“** wird der Hauptplan als JSON exportiert; mit **�
 Offizielle Übersicht: [Familienportal](https://familienportal.de/familienportal/), [Bundes-Elterngeldrechner](https://familienportal.de/familienportal/meta/egr). Für konkrete Ansprüche zuständige Elterngeldstelle und bei Erwerbs-/Elternzeitfragen Arbeitgeber bzw. fachkundige Beratung hinzuziehen. Die [aktuelle Roadmap](ROADMAP.md) listet die vor öffentlicher Freigabe **noch offenen** Nachweise.
 
 **Stand und Versionshinweis:** V3.16 bezeichnet hier den **intern implementierten Funktionsumfang**, nicht die Paketversion oder eine Freigabe für eine Geburtskohorte. Für Rechtslage und Berechnungsannahmen ist die jeweilige datierte Quelle ausschlaggebend; eine neue Nummer allein belegt nichts.
+
+## V3.18 (18.10.2026) – interne Sicherheits- und Staging-Vorbereitung
+
+Importstatus-Codes sind auf eigene erlaubte Einträge begrenzt; privater, nur loopback-gebundener Staging-Build mit gehashtem Skript-CSP und reproduzierbarer Header-Vorlage ist vorbereitet. **Keine öffentliche Bereitstellung und keine neue externe Freigabe.** [Prüf- und Betriebsdokument](STAGING-UND-FREIGABE-V318-2026-10-18.md).

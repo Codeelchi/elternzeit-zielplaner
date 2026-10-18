@@ -185,3 +185,7 @@ Nächste Abnahmearbeit bleibt P0-R1 (Mutterschutz-Geldanrechnung) und P0-R2 (vol
 ## Design-Nachbesserung 17.10.2026
 
 Die aktuelle Portalgestaltung und ihre gezielten Nachweise stehen in [DESIGN-2026-10-17.md](DESIGN-2026-10-17.md). Der Rechner bleibt unverändert. Frühere vollständige Browserberichte und deren Portalhash beziehen sich auf den 16.10.; die neue Portaldatei hat einen eigenen Hash und einen getrennten Bericht. PR #17 wird damit aktualisiert.
+
+## V3.18 (18.10.2026) – interne Sicherheits- und Staging-Vorbereitung
+
+Importstatus-Codes sind auf eigene erlaubte Einträge begrenzt; privater, nur loopback-gebundener Staging-Build mit gehashtem Skript-CSP und reproduzierbarer Header-Vorlage ist vorbereitet. **Keine öffentliche Bereitstellung und keine neue externe Freigabe.** [Prüf- und Betriebsdokument](STAGING-UND-FREIGABE-V318-2026-10-18.md).

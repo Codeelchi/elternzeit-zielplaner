@@ -173,3 +173,7 @@ Alle Beträge sind **Modellrechnungen**, keine Bewilligung. Das tatsächliche El
 V3.4 ergänzt getrennte Einkommensrisiken beider Eltern, Schwerpunktvarianten mit längerer mütterlicher oder väterlicher Auszeit und vollständige Wiederherstellung der unabhängigen Achsen samt Bankbuchungen. Die Robustheitsgrafik und Zielsuche verwenden dieselben Stresstests.
 
 V3.7: 217 automatisierte Tests, 16 Offline-file-Browserfälle und 52 Axe-Prüfungen bestanden. Vorschläge zeigen realistische/vorsichtige Budgets, Engpässe und Rücklagen unmittelbar. Die schrittweise Suche ist abbrechbar, unterscheidet Ausschlussgründe und zeigt nur materiell verschiedene Alternativen. Freie Elternbezeichnungen ändern keine rechtlichen Rollen.
+
+## V3.18 (18.10.2026) – interne Sicherheits- und Staging-Vorbereitung
+
+Importstatus-Codes sind auf eigene erlaubte Einträge begrenzt; privater, nur loopback-gebundener Staging-Build mit gehashtem Skript-CSP und reproduzierbarer Header-Vorlage ist vorbereitet. **Keine öffentliche Bereitstellung und keine neue externe Freigabe.** [Prüf- und Betriebsdokument](docs/STAGING-UND-FREIGABE-V318-2026-10-18.md).

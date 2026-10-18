@@ -48,6 +48,12 @@ Im Abschnitt **Leistungen vor Ort** befinden sich getrennte Hilfen:
 
 **Wichtig zu flüchtigen Eingaben:** Die Wochen- und Begleitungsannahmen der neueren Kita-Planer werden **auch bei eingeschaltetem lokalem Speichern nicht exportiert oder wiederhergestellt**. Ein Neustart oder Import setzt sie zurück. Längerfristige Entscheidungen deshalb unabhängig dokumentieren, bis ein gesondert geprüftes Exportkonzept bereitsteht.
 
+## Optionaler Verständlichkeits-Check (V3.17-D-Entwicklungsstand)
+
+Im Bereich **„Plan prüfen“** lässt sich eine Gruppe aus acht **fiktiven Übungen** öffnen. Sie erklären Standardfall/Kohorte, Elterngeld-Netto, Lebensmonat versus Geldzufluss, echte Bankbuchungen, unbekannte Ausgaben, den ungeklärten Mutterschutzfall, begrenzte Zielsuche und lokale Datenhaltung. Nach einer Auswahl auf **„Einordnung prüfen“** klicken, die Erklärung lesen und mit der nächsten Aufgabe fortfahren. Es gibt keinen echten Wissenstest, keine Bewertung durch Menschen, keine Rechtsfreigabe und keine Speicherung oder Übertragung dieser Übungsantworten.
+
+Beim Import, bestätigten Zurücksetzen oder Seitenreload beginnt der Lernteil neu. Er ist unabhängig von euren eigenen Angaben und ändert keine Planberechnungen. Hinweise für eine spätere tatsächliche Nutzerprüfung stehen im [separaten Moderationsprotokoll](PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md). Technische Tests bestätigen die Bedienbarkeit in Chromium und lokalem Offlinebetrieb, ersetzen aber **keine** reale Moderation oder Screenreader-Abnahme.
+
 ## 5. Daten auf diesem Gerät
 
 Ohne ausdrückliche Zustimmung wird kein Familienplan persistent im Browser gespeichert. Nach Aktivierung von **„Automatisch auf diesem Gerät speichern“** liegt der Hauptplan lokal, aber **nicht verschlüsselt**, im Browser. Auf gemeinsam verwendeten Geräten nicht aktivieren.

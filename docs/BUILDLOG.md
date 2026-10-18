@@ -2,6 +2,10 @@
 
 Historischer Entwicklungsverlauf seit V3.4, ergänzter **Stand vom 17. Oktober 2026: auf main integrierter V3.16-Funktionsstand** (Paket-/Exportversionsnummer 3.10.0 bis separater Release-Entscheidung). Technische Nachweise, fachliche Evidenz und öffentliche Freigaben sind getrennt. Ein Merge nach `main` ist keine Veröffentlichung und keine unabhängige Fachabnahme.
 
+## V3.17-D – lokale Verständnisübung und unabhängiger Nutzerreview-Vorbereitungsprozess, 18.10.2026
+
+Acht fiktive Lernfälle in `src/understanding-guide.cjs` und im Prüfbereich der Offline-App; reine Sitzungsauswahl, kein Plan-/Finanz-/Exportstatus. Separate `data/usability-review-v317d.json`-Vorlage und `npm run usability:check` verhindern vorgespiegelte Nutzerstudien. [V3.17-D-Moderations- und Accessibility-Leitfaden](PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md). **0 tatsächlich getestete Personen, keine Freigabe.** Technische Gesamtregression: **495/495** Node-/DOM-, **63/63** Chromium-E2E- und **3/3** direkte V3.17-D-`file://`-Browserfälle bestanden. PR-CI und Merge weiterhin getrennt zu belegen.
+
 ## V3.17-B/C – Exporthinweise und prüfbare externe Referenzevidenz, 17.10.2026
 
 **Vollständiger Testabschluss:** 481/481 Node-/DOM-Tests, 60/60 Chromium-Browser-E2E und 4/4 neue V3.17-B-`file://`-Fälle bestanden. Externe Fachreferenzen weiterhin 0/10. Vor dem Commit: generiertes `qa/browser-results.json` auf unveränderten Repo-Stand zurücksetzen; keine Testartefakte, Secrets oder Freigabeflags einchecken.

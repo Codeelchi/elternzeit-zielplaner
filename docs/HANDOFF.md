@@ -1,6 +1,8 @@
-# Entwickler-Handoff – V3.16 auf main, V3.17 im neuen Arbeitszweig
+# Entwickler-Handoff – V3.17-A–D: interne Implementierung und offene Freigaben
 
-Stand: **17. Oktober 2026**. Paket-/Export-Metadaten bleiben bis zu einer separaten Release-Entscheidung bei 3.10.0; der nach PR #20 integrierte Hauptzweig enthält V3.15 bis V3.16 (Merge 19f047d, CI erfolgreich). Einstieg für eine neue Sitzung oder einen übernehmenden Entwickler. Mit [Buildlog](BUILDLOG.md), [Architektur](ARCHITEKTUR.md) und [Roadmap](ROADMAP.md) lesen.
+Stand: **18. Oktober 2026**. Paket-/Export-Metadaten bleiben bis zu einer separaten Release-Entscheidung bei 3.10.0; die V3.17-Arbeit baut auf PR #20 (V3.15–V3.16, Merge `19f047d`, CI erfolgreich) auf und enthält nun die technischen Teile A–D. Einstieg für eine neue Sitzung oder einen übernehmenden Entwickler. Mit [Buildlog](BUILDLOG.md), [Architektur](ARCHITEKTUR.md) und [Roadmap](ROADMAP.md) lesen.
+
+**V3.17-D (18.10.2026):** [Acht lokale synthetische Verständnisfälle, moderiertes UX-/Accessibility-Protokoll und Null-Evidenzmatrix](PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md); Modul `src/understanding-guide.cjs`, Node-Schutz `src/usability-evidence.cjs` und `npm run usability:check`. Die Übung manipuliert weder Familienplan noch Speicher/Export, ist keine echte Nutzerstudie und vergibt keine Freigabe. **Technischer QA-Nachweis:** 495/495 Node-/DOM-, 63/63 vollständige Chromium-E2E und 3/3 separate V3.17-D-`file://`-Browserfälle bestanden. GitHub-PR-CI vor Merge gegen identischen Commit prüfen.
 
 **Externes Fachreview vorbereiten:** [Neutrale V3.17-Fallvorlage](FACHABNAHME-V317-REFERENZFALL-VORLAGE.md) mit zehn noch nicht bestätigten synthetischen Fällen, expliziter Trennung von unabhängigen Sollwerten und internem Ist. Dies ist kein beauftragter/eingegangener externer Review.
 

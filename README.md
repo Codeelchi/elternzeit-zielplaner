@@ -1,6 +1,10 @@
 # Elternzeit-Zielplaner
 
-**Auf main integrierter Funktionsstand V3.16 (PR #20, Commit 19f047d, 17. Oktober 2026)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner. Die technischen Paket- und Export-Versionsangaben bleiben vorerst bei **3.10.0**, weil die bisherigen internen Ausbaustufen **kein öffentlicher Produkt-Release** sind.
+**Interner Funktionsstand V3.17-A–D (18. Oktober 2026; Basis: PR #20 / `19f047d` für V3.16)** – kleine Infowebseite für werdende Eltern mit Schwangerschafts- und Beratungstipps sowie offlinefähigem Elternzeit-/Familienbudgetplaner. Die technischen Paket- und Export-Versionsangaben bleiben vorerst bei **3.10.0**, weil die bisherigen internen Ausbaustufen **kein öffentlicher Produkt-Release** sind.
+
+**V3.17-D technische QA:** 495/495 Node-/DOM-, 63/63 Chromium-Gesamt- und zusätzlich 3/3 direkte `file://`-Browserfälle erfolgreich. Die zehn unabhängigen Berechnungsreferenzen und echte UX-/Rechts-/Datenschutz-Freigaben bleiben offen.
+
+**Neu im internen Ausbau V3.17-D (18.10.2026):** [Acht geführte, vollständig fiktive Verständlichkeitsaufgaben](docs/PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md) im Bereich „Plan prüfen“. Sie helfen, Regelgültigkeit, Einnahmen, Budgetlücken, Zahlungszeitachsen und Datenschutzgrenzen zu verstehen. Antworten bleiben flüchtig, werden weder gespeichert noch exportiert. **Dies ist keine echte Nutzerstudie**; die vorbereitete Evidenzmatrix meldet 0 reale Beobachtungen und 0 Freigaben.
 
 **V3.17-B/C Software-QA:** 481/481 Node-/DOM-, 60/60 vollständige Chromium-Browserfälle und 4/4 direkte Offline-`file://`-Browsertests bestanden. Unabhängige Elterngeld-/Rechts-, Datenschutz- und Nutzerabnahme **nicht** erfolgt; öffentliche Beta gesperrt.
 
@@ -10,7 +14,7 @@
 
 **Neu in der internen V3.17-A-Entwicklung:** [Erkennbarkeit des Modellumfangs](docs/AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md): Schon im Überblick wird eingeordnet, ob euer Fall unvollständig, außerhalb der geprüften Kohorte, nur für 2027 prognostiziert oder im Standardmodell technisch plausibel ist. Keine Bewilligung und weiterhin gesperrte öffentliche Beta.
 
-**Aktuelle Arbeitsrichtung V3.17 (separater Branch):** [Operative Produktreife-Roadmap](docs/ROADMAP.md), [Abgleich des extern übergebenen Audits](docs/PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) und [aktuelle Anleitung](docs/ANLEITUNG.md). Der Standardfall, der Geburtszeitraum und die Ergebnisgrenzen werden verständlicher angezeigt – ohne neue Rechtsberechnung oder automatische Freigabe.
+**Aktuelle Produktreife-Arbeit V3.17:** [Operative Produktreife-Roadmap](docs/ROADMAP.md), [Abgleich des extern übergebenen Audits](docs/PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) und [aktuelle Anleitung](docs/ANLEITUNG.md). Der Standardfall, der Geburtszeitraum und die Ergebnisgrenzen werden verständlicher angezeigt – ohne neue Rechtsberechnung oder automatische Freigabe.
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
 

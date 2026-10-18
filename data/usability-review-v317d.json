@@ -1,0 +1,91 @@
+{
+  "format": "v317d-synthetic-comprehension-study",
+  "schemaVersion": 1,
+  "preparedAt": "2026-10-18",
+  "tasksSourceSha256": "303aa0030b2ab90f04175f77fd2e2ccd8dc9d0a6796fc199afb5afaab251646b",
+  "publicReleaseApproved": false,
+  "userReviewApproved": false,
+  "sessions": [],
+  "tasks": [
+    {
+      "id": "cohort-2027",
+      "status": "not_conducted",
+      "participantCount": 0,
+      "answerObserved": null,
+      "comprehensionOutcome": null,
+      "findingCodes": null,
+      "facilitatorNotes": null,
+      "approved": false
+    },
+    {
+      "id": "net-types",
+      "status": "not_conducted",
+      "participantCount": 0,
+      "answerObserved": null,
+      "comprehensionOutcome": null,
+      "findingCodes": null,
+      "facilitatorNotes": null,
+      "approved": false
+    },
+    {
+      "id": "life-calendar",
+      "status": "not_conducted",
+      "participantCount": 0,
+      "answerObserved": null,
+      "comprehensionOutcome": null,
+      "findingCodes": null,
+      "facilitatorNotes": null,
+      "approved": false
+    },
+    {
+      "id": "expected-recorded",
+      "status": "not_conducted",
+      "participantCount": 0,
+      "answerObserved": null,
+      "comprehensionOutcome": null,
+      "findingCodes": null,
+      "facilitatorNotes": null,
+      "approved": false
+    },
+    {
+      "id": "unknown-expenses",
+      "status": "not_conducted",
+      "participantCount": 0,
+      "answerObserved": null,
+      "comprehensionOutcome": null,
+      "findingCodes": null,
+      "facilitatorNotes": null,
+      "approved": false
+    },
+    {
+      "id": "maternity-dispute",
+      "status": "not_conducted",
+      "participantCount": 0,
+      "answerObserved": null,
+      "comprehensionOutcome": null,
+      "findingCodes": null,
+      "facilitatorNotes": null,
+      "approved": false
+    },
+    {
+      "id": "limited-search",
+      "status": "not_conducted",
+      "participantCount": 0,
+      "answerObserved": null,
+      "comprehensionOutcome": null,
+      "findingCodes": null,
+      "facilitatorNotes": null,
+      "approved": false
+    },
+    {
+      "id": "local-and-export",
+      "status": "not_conducted",
+      "participantCount": 0,
+      "answerObserved": null,
+      "comprehensionOutcome": null,
+      "findingCodes": null,
+      "facilitatorNotes": null,
+      "approved": false
+    }
+  ]
+}

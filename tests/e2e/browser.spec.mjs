@@ -1382,3 +1382,92 @@ test('V3.17-B CSV never invents free money after expenses when household costs a
   expect(row[21]).toBe('NEIN');
  }
 });
+
+test('V3.17-D eight fictional understanding questions stay local, keyboard-usable and mobile accessible',async({page},testInfo)=>{
+ await page.setViewportSize({width:320,height:820});
+ await standardInputs(page);
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await navigate(page,'slide-10');
+ const guide=page.locator('#v317dUnderstanding');
+ await expect(guide).not.toHaveAttribute('open','');
+ await guide.locator('summary').focus();
+ await page.keyboard.press('Enter');
+ await expect(guide).toHaveAttribute('open','');
+ await expect(page.locator('#v317dTask')).toContainText('Aufgabe 1 von 8');
+ await expect(page.locator('#v317dCheck')).toBeDisabled();
+ const axe=await new AxeBuilder({page}).include('#v317dUnderstanding')
+  .withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+ expect(axe.violations.map(x=>x.id)).toEqual([]);
+ const answers=['forecast','external','no','unknown','unknown','review','limited','safe'];
+ for(let i=0;i<8;i++){
+  await expect(page.locator('#v317dTask')).toContainText('Aufgabe '+(i+1)+' von 8');
+  await page.locator('#v317dTask [name="v317dAnswer"][value="'+answers[i]+'"]').check();
+  await page.locator('#v317dCheck').click();
+  await expect(page.locator('#v317dFeedback')).toContainText('Passende Einordnung');
+  await page.locator('#v317dNext').click();
+ }
+ await expect(page.locator('#v317dTask')).toContainText('Aufgabe 1 von 8');
+ await expect(page.locator('#v317dCheck')).toBeDisabled();
+ expect(await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()))).toBe(before);
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+ const width=await page.evaluate(()=>({page:document.documentElement.scrollWidth,viewport:innerWidth}));
+ expect(width.page).toBeLessThanOrEqual(width.viewport+1);
+ await page.screenshot({path:testInfo.outputPath('v317d-mobile-320.png'),fullPage:true});
+});
+
+test('V3.17-D wrong answer explains uncertainty and is not a legal score, reload clears it',async({page})=>{
+ await navigate(page,'slide-10');
+ await page.locator('#v317dUnderstanding > summary').click();
+ await page.locator('#v317dTask [name="v317dAnswer"][value="approved"]').check();
+ await page.locator('#v317dCheck').click();
+ await expect(page.locator('#v317dFeedback')).toContainText('andere Einordnung wichtig');
+ await expect(page.locator('#v317dFeedback')).toContainText('2027');
+ await expect(page.locator('#v317dProgress')).toContainText('nicht als echte Nutzerstudie');
+ await page.reload();
+ await navigate(page,'slide-10');
+ await page.locator('#v317dUnderstanding > summary').click();
+ await expect(page.locator('#v317dTask')).toContainText('Aufgabe 1 von 8');
+ await expect(page.locator('#v317dCheck')).toBeDisabled();
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});
+
+test('V3.17-D resets on confirmed family reset and JSON import, never leaks into saved plan',async({page},testInfo)=>{
+ await standardInputs(page);
+ const before=await page.evaluate(()=>JSON.stringify(window.__elternzeitTest.getState()));
+ await navigate(page,'slide-10');
+ await page.locator('#v317dUnderstanding > summary').click();
+ await page.locator('#v317dTask [name="v317dAnswer"][value="forecast"]').check();
+ await page.locator('#v317dCheck').click();
+ await page.locator('#v317dNext').click();
+ await expect(page.locator('#v317dTask')).toContainText('Aufgabe 2 von 8');
+ const pending=page.waitForEvent('download');
+ await page.locator('#btnJson').click();
+ const download=await pending;
+ const path=testInfo.outputPath('v317d-json-local-no-answers.json');
+ await download.saveAs(path);
+ const file=await readFile(path,'utf8');
+ const record=JSON.parse(file);
+ expect(JSON.stringify(record)).not.toContain('v317d');
+ expect(JSON.stringify(record)).not.toContain('humanStudyCompleted');
+ expect(record.schemaVersion).toBe(1);
+ await page.locator('#importJson').setInputFiles(path);
+ await expect(page.locator('#v317dTask')).toContainText('Aufgabe 1 von 8');
+ await expect(page.locator('#v317dCheck')).toBeDisabled();
+ const normalized=await page.evaluate(()=>window.__elternzeitTest.getState());
+ const initial=JSON.parse(before);
+ // The legacy importer normalizes numeric input types/property order, but must
+ // retain all meaningful family values and MUST NOT add tutorial progress.
+ expect(normalized.date).toBe(initial.date);
+ expect(normalized.standardCaseConfirmed).toBe(initial.standardCaseConfirmed);
+ expect(normalized.expenses).toBe(initial.expenses);
+ expect(normalized.schedule).toEqual(initial.schedule);
+ expect(JSON.stringify(normalized)).not.toContain('v317d');
+ await page.locator('#v317dTask [name="v317dAnswer"][value="forecast"]').check();
+ await page.locator('#v317dCheck').click();
+ await page.locator('#v317dNext').click();
+ page.once('dialog',dialog=>dialog.accept());
+ await page.locator('#btnReset').click();
+ await expect(page.locator('#v317dTask')).toContainText('Aufgabe 1 von 8');
+ await expect(page.locator('#v317dCheck')).toBeDisabled();
+ expect(await page.evaluate(()=>localStorage.length)).toBe(0);
+});

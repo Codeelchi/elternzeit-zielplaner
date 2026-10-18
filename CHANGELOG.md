@@ -1,5 +1,12 @@
 # Änderungen
 
+## V3.17-D – fiktiver Verständlichkeitscheck und Reviewvorbereitung (intern)
+
+- Acht interaktive synthetische Fragen zu Standardkohorte, Elterngeld-Netto, Leistungs-/Zahlungsmonat, Bankbuchung, unbekannten Kosten, Mutterschutz 4/5, Zielsuche und lokalem Speicher. Erklärendes, nicht bewertendes Feedback, vollständig ohne Familienplan- oder Persistenzwirkung.
+- Eigene dokumentierte Moderator-/Barrierefreiheits-Prüfvorlage und SHA-gebundene Null-Evidenzmatrix mit `npm run usability:check`. Gefälschte Teilnehmer- und Freigabeangaben werden abgewiesen; echte Teilnehmer wurden **nicht** beobachtet.
+- Technische Gesamtabnahme: **495/495** Node-/DOM-, **63/63** vollständige Chromium-Regressionen und **3/3** zusätzliche direkte V3.17-D-`file://`-Fälle bestanden.
+- [Umsetzung und Testgrenzen](docs/PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md). Release-Gates, Mutterschutz-Referenz und 0/10 externe Referenzfälle bleiben offen.
+
 ## V3.17-B/C – Exporttransparenz und Referenzevidenz (intern, keine Fachfreigabe)
 
 - JSON-Schema 1 / Exportversion 3.10.0 behalten; erläuternde, **nicht signierte** Top-Level-`planningDisclosure`-Metadaten, die beim Import bewusst ignoriert werden. Echte/alte JSON-Dateien weiterhin kompatibel.

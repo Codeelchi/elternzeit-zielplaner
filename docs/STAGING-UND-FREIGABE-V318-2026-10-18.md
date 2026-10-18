@@ -65,3 +65,7 @@
 - **PR #22 wurde gemergt** (GitHub-main `d809fa6d5769630d622c6e46765035575c1c826a`); **PR-CI mit beiden Jobs `test` und `staging` erfolgreich**: https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39107072032. Dies ist ausdrücklich eine technische Integration, keine öffentliche Freigabe.
 - Separat lief die komplette lokale Chromium-Matrix mit der vorhandenen ausführbaren Workbench-Browserdatei: **65/65 PASS**, davon zwei neue V3.18-Sicherheitsfälle (CSP, Angriffswert-Import, direkte Offline-Datei). Der Docker-Staging-Test wurde **real auf dem CI-Runner ausgeführt** und hat bestanden; es existiert **keine öffentliche Staging-URL**.
 - Node-/DOM-Basis zum Zeitpunkt der Integration: **496/496 PASS**. Für die neue amtliche 7/31-Quellenreferenz gelten die separaten Tests und die Folge-PR-Abnahme, nicht fiktive Bescheide.
+
+## Release-Gates – fachliche Nachweise statt Statusfelder (V3.20)
+
+Der technische Direktbefehl npm run release:check prüft künftig neben Statusfeldern auch die SHA-256-gebundenen Familien- und Nutzerevidenzen, den Mutterschutz-Fachentscheid, die aktuelle HTML-Integrität und einen echten Betreiberentscheid. Die bisherigen historischen Freigabe-Metadaten sind dafür **nicht ausreichend**. Dieser technische Schutz ersetzt keine echte externe Abnahme. [Details und manipulierte-Status-Negativtests](RELEASE-EVIDENZ-SPERRE-V320-2026-10-18.md).

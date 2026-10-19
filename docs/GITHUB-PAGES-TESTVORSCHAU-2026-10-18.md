@@ -1,6 +1,6 @@
 # GitHub Pages – öffentliche Testvorschau (18.10.2026)
 
-**Statusnachtrag 19.10.2026:** Der GitHub-Pages-Abruf zeigt noch den **alten Vorschau-Commit \`ee2bb2dfe683a29392502a2bb8976e2d8014f226\`** (Deployment-Lauf \`39146755107\`). Der letzte integrierte Funktions-\`main\` ist bereits **\`3c837cbf47fe818a94157202a2b5699d7e697212\`** (PR #30). Die Preview enthält daher **noch nicht alle P1/P2-Verbesserungen**, obwohl sie im Repo und der Main-CI bestanden haben. Nur ein bestätigter manueller GitHub-Pages-Workflow erzeugt und verifiziert den aktuellen Teststand. Sein Start ist über den verbundenen PAT mit HTTP 403 fehlgeschlagen; **durch den Betreiber über die GitHub-Oberfläche auszulösen**. Keine Freigabe oder Redeploy-Automatik setzen. [Eindeutiger Projekt-/Freigabestatus](STATUS-TECHNISCH-2026-10-19.md).
+**Aktueller Statusnachtrag 19.10.2026:** Die manuelle Testvorschau wurde erfolgreich auf den damaligen Main-Commit bec8bf0a9ce73d86b165694fa6150dd290d4c5da aktualisiert ([GitHub-Pages-Lauf 39208423971](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39208423971), Jobs prepare/deploy/verify erfolgreich); der Live-Abruf bestätigte Commit und Deployment-ID. Frühere Meldungen über ee2bb2d bzw. ein fehlgeschlagenes PAT-Dispatch (403) waren **historische Zwischenstände**. Ein Merge von PR #32 ändert die Vorschau **nicht automatisch**. Nur fiktive Testwerte, keine Produktfreigabe. [Projektstatus](STATUS-TECHNISCH-2026-10-19.md).
 
 
 ## Ziel und Abgrenzung

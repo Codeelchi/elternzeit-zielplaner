@@ -75,3 +75,30 @@ test('offline website exposes distinct 2027 legal statuses and NRW Kita checklis
  assert.deepEqual(errors,[]);
  dom.window.close();
 });
+test('Elterngeld reform draft stays a secondary-source hint and never feeds calculations',()=>{
+ const e=registry.events.find(x=>x.id==='elterngeld-reform-debate-2027');
+ const u=e['research_update_2026-10-19'];
+ assert.equal(u.verification_status,'secondary_sources_only');
+ assert.match(e.calculation_effect,/never used for calculations/);
+ assert.equal(u.reported_draft_content.applies_to_births_from,'2027-11-01');
+ assert.ok(e.sources.every(s=>s.startsWith('https://')));
+ assert.ok(e.sources.includes('https://www.bundesregierung.de/breg-de/aktuelles/regierungspressekonferenz-vom-7-juli-2026-2446104'));
+ assert.match(u.status_note,/nur Sekundärberichte/);
+ assert.equal(Object.hasOwn(u.reported_draft_content,'income_limit_eur'),false);
+ assert.equal(u.reported_draft_content.minimum_eur,330);
+ assert.equal(u.reported_draft_content.maximum_eur,1900);
+});
+
+test('November 2027 remains unsupported even with reform draft details in the event registry',()=>{
+ const {validatePlan}=require('../src/rule-validator.cjs');
+ const catalogue=JSON.parse(readFileSync(new URL('../data/rechtsregeln-de-nrw-2026-10-14.json',import.meta.url),'utf8'));
+ const state={date:'2027-11-01',births:1,zve:95000,standardCaseConfirmed:true,hoursFather:28,hoursMother:28,
+  netFather:3000,netMother:2800,egNetFather:2770,egNetMother:2500,ptNetFather:2000,ptNetMother:1900};
+ const schedule=Array.from({length:36},(_,i)=>({f:i>=2&&i<14?'B':'W',m:i<2?'MS':'W'}));
+ const result=validatePlan({state,schedule},catalogue);
+ assert.equal(result.status,'NICHT_UNTERSTUETZT');
+ assert.ok(result.findings.some(f=>f.code==='FUTURE_COHORT_UNVERIFIED'||f.code==='BIRTH_COHORT_UNSUPPORTED'));
+ const e=registry.events.find(x=>x.id==='elterngeld-reform-debate-2027');
+ assert.equal(e.status,'policy_discussion_no_enacted_parameter');
+ assert.equal(e.calculation_effect,'no automatic model changes; draft values are never used for calculations');
+});

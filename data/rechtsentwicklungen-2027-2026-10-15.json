@@ -71,13 +71,32 @@
     {
       "id": "elterngeld-reform-debate-2027",
       "scope": "DE",
-      "title": "Politische Diskussion über eine Elterngeldreform",
+      "title": "Elterngeldreform: Referentenentwurf (nicht beschlossen)",
       "status": "policy_discussion_no_enacted_parameter",
       "observed_at": "2026-10-15",
       "sources": [
-        "https://www.bundesregierung.de/breg-de/suche/regierungspressekonferenz-vom-26-juni-2026-2445352"
+        "https://www.bundesregierung.de/breg-de/suche/regierungspressekonferenz-vom-26-juni-2026-2445352",
+        "https://www.bundesregierung.de/breg-de/aktuelles/regierungspressekonferenz-vom-7-juli-2026-2446104",
+        "https://www.haufe.de/personal/arbeitsrecht/aktuelles-zur-elterngeldreform_76_509900.html",
+        "https://www.elterngeld.net/elterngeld-kuerzung.html"
       ],
-      "calculation_effect": "no automatic model changes; specific 7+7-month rule not established"
+      "calculation_effect": "no automatic model changes; draft values are never used for calculations",
+      "research_update_2026-10-19": {
+        "status_note": "Amtliche Regierungspressekonferenz 07.07.2026 bestätigt einen Entwurf in der Ressortabstimmung und geplante Satzanhebungen, aber nicht die exakten 330/1.900-Euro-Werte, 3-3-6-Verteilung oder den 01.11.2027 als Gesetzesstichtag. Diese Einzelheiten sind nur Sekundärberichte; kein Kabinetts-/Parlamentsbeschluss oder geltender Parameter nachgewiesen.",
+        "reported_draft_content": {
+          "basic_months": 12,
+          "reserved_per_parent": 3,
+          "freely_shareable": 6,
+          "minimum_eur": 330,
+          "maximum_eur": 1900,
+          "applies_to_births_from": "2027-11-01"
+        },
+        "verification_status": "secondary_sources_only",
+        "secondary_sources": [
+          "https://www.haufe.de/personal/arbeitsrecht/aktuelles-zur-elterngeldreform_76_509900.html",
+          "https://www.elterngeld.net/elterngeld-kuerzung.html"
+        ]
+      }
     }
   ]
 }

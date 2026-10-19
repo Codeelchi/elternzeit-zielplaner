@@ -1,8 +1,8 @@
 # Roadmap: vom internen Familienplaner zum fachlich abgegrenzten Produkt
 
-**V3.19 P0-D-Zwischenstand:** Browser-Speicherfehler dürfen weder eine erfolgreiche Speicherung noch eine bestätigte Löschung vortäuschen. Negativtests und zugängliche Warnung ergänzt; CI wird ohne Reduktion der Volltests auf parallele Node-, Chromium- und Docker-Jobs mit abschließendem Fail-Closed-Gate verteilt. Unabhängiger Datenschutzreview und Realgerätetests bleiben offen. [Befund](PRIVACY-ROBUSTNESS-V319-2026-10-18.md).
+**Aktuelle technische Ausgangslage (19.10.2026):** V3.17–V3.20 sowie die Preview-, Eingabe-, Import- und Zielsuche-Verbesserungen aus **PR #21–#30 sind vollständig auf \`main\`**; letztes Software-Merge \`3c837cb\`. [CI des Softwarestands](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39162208549) grün, **512/512 Node-/DOM- und 93/93 Chromium-Tests**. Versionsmetadaten **3.10.0**, JSON-Schema **1**.
 
-**Stand 18. Oktober 2026 · V3.18 in main (PR #22/#23), V3.19 technischer Kandidat.** Paket-/Exportversion 3.10.0, JSON-Schema 1. **Öffentliche Beta GESPERRT.** Technische Integration ist keine Fach-, Betreiber- oder Datenschutzfreigabe.
+**Aktuelle Freigabeübersicht und Nachweispfade:** [Technischer Projektstatus 19.10.2026](STATUS-TECHNISCH-2026-10-19.md). **Öffentliche Produkt-Beta/Release GESPERRT**; die gesonderte GitHub-Pages-Testvorschau ist nicht mit \`main\` synchron (Stand 19.10. noch \`ee2bb2d\`). Keine eigenmächtige Änderung der 4/5-Tage-Regel, der externen Null-Evidenzen oder Freigabe-Gates. V3.19 bleibt als **historischer** Datenschutz-/CI-Ausbau unter [V3.19](PRIVACY-ROBUSTNESS-V319-2026-10-18.md) dokumentiert.
 
 **Produktbild:** *Familien-Szenario- und Budgetplaner* für nachvollziehbare Varianten von Familienzeit, Lebensmonatsbudget, Rücklagen, Betreuung und Berufsrückkehr. **Kein** bescheidgenauer amtlicher Elterngeldrechner, keine rechtlich oder finanziell garantierte „Optimierung“, kein belegtes Markt-Alleinstellungsmerkmal.
 

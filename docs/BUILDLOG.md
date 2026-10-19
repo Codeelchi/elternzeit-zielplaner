@@ -1,8 +1,8 @@
 # Buildlog und Integrationsnachweis
 
-**V3.19 – interner Ausbau (18.10.2026):** Reproduzierter Fehler bei verweigertem localStorage-Speichern/Löschen; Abhilfe in der Offline-Datei inklusive sichtbarer Warnung und fehlersicherem Reset/Import. Vier neue DOM-Negativtests und vier direkte Chromiumfälle vorbereitet, dazu parallele CI-Jobs mit finalem test-Gate. Basistests/PR-CI vor Merge gesondert prüfen. [Fachlich und datenschutzrechtlich nicht freigegeben](PRIVACY-ROBUSTNESS-V319-2026-10-18.md).
+**Stand 19.10.2026:** [Kanonischer aktueller Projektstatus](STATUS-TECHNISCH-2026-10-19.md). Letzter auf \`main\` integrierter Funktionsstand vor dem reinen Dokumentationsabgleich: **\`3c837cbf47fe818a94157202a2b5699d7e697212\`**, [CI 39162208549 erfolgreich](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39162208549). Vollständiger lokaler Software-Volltest **512/512 Node-/DOM- und 93/93 Chromium-Fälle**. Direkte Offlinefälle, Quellen, Staging, Browser-Speicherfehler, Pages-Test und Release-Sperre bleiben eigenständige Prüfgegenstände.
 
-Historischer Entwicklungsverlauf seit V3.4, ergänzter **Stand vom 17. Oktober 2026: auf main integrierter V3.16-Funktionsstand** (Paket-/Exportversionsnummer 3.10.0 bis separater Release-Entscheidung). Technische Nachweise, fachliche Evidenz und öffentliche Freigaben sind getrennt. Ein Merge nach `main` ist keine Veröffentlichung und keine unabhängige Fachabnahme.
+**Veröffentlichung:** Die öffentliche synthetische GitHub-Pages-Testvorschau war beim Abruf vom 19.10. noch auf \`ee2bb2d\` – kein automatischer Deploy beim Merge. Der öffentliche **Produktrelease bleibt NO-GO**: 0/10 externe Familienreferenzen, 0 reale Nutzerreviews, Mutterschutz 4/5 Tage ungeklärt sowie offene Betreiber-, Datenschutz- und Rechtsreviews. Paketversion **3.10.0**, JSON-Schema **1**. Nachfolgende V3.17-/V3.19-Testzahlen sind historische, teils ältere Snapshots.
 
 ## V3.17-D – lokale Verständnisübung und unabhängiger Nutzerreview-Vorbereitungsprozess, 18.10.2026
 

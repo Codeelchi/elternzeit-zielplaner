@@ -1,7 +1,8 @@
-<!-- Stand 18.10.2026: V3.18 auf main (PR #22/#23), V3.19 technischer Kandidat, keine öffentliche Freigabe. Paket-/Exportversion 3.10.0, Schema 1. -->
+# Architektur – integrierter technischer Stand vom 19.10.2026
 
-**V3.19 Datenschutz-/CI-Schnittstelle:** Browser-localStorage bleibt ein optionaler, unverschlüsselter Speicherort ohne Backend. Zugriffsfehler beim Wiederherstellen, Speichern und Löschen werden sichtbar und ohne falsche Erfolgsmeldungen verarbeitet; Zustand im Arbeitsspeicher bleibt beim erfolgreichen Import explizit vom Browser-Löschstatus getrennt. Eine private Live-Staging-Konfiguration wird in GitHub-CI separat ausgeführt; node, browser, staging müssen vor grünem technischem Schlussjob test erfolgreich sein. [Sicherheits- und Regressionsevidenz](PRIVACY-ROBUSTNESS-V319-2026-10-18.md).
-# Architektur – interner Entwicklungsstand V3.19
+**Aktueller Kontext:** [Verifizierter Projektstatus](STATUS-TECHNISCH-2026-10-19.md). V3.17–V3.20 und die UX-/Import-/Zielsuche-PRs #28–#30 sind auf \`main\` (letzter Funktions-Merge \`3c837cb\`). Paketversion 3.10.0 und JSON-Schema 1 bleiben unverändert. Die offlinefähigen HTML-Seiten bleiben ohne Berechnungs-Backend und App-Telemetrie. Browser-\`localStorage\` ist optional, **unverschlüsselt** und bei Fehlern fail-closed. GitHub Pages ist nur ein **gesonderter öffentlicher manuell bestätigter Preview-Build**, nicht der ausgelieferte Main-Stand oder der Produktrelease. Node-/Browser-/Staging-/Abschluss-CI ersetzt keine unabhängige Fach-, Datenschutz- oder Nutzerfreigabe.
+
+**Historischer V3.19-Ausbau:** Bei Browser-Speicher-/Löschfehlern wird kein unbestätigter Erfolg behauptet. [Design und technische Negativtests](PRIVACY-ROBUSTNESS-V319-2026-10-18.md).
 
 Der verteilbare Rechner bleibt eine einzelne lokale index.html; die optionale Familienstartseite start.html wird daneben verteilt. Es gibt kein Backend, Konto, Laufzeitpakete oder Telemetrie. Node-Abhängigkeiten dienen ausschließlich Entwicklung und Tests. Diese Entscheidung erhält die Offline-Verteilung und vermeidet die Übertragung privater Haushaltsdaten.
 

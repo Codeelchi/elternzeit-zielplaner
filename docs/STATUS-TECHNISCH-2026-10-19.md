@@ -13,7 +13,7 @@ Diese Seite ist der **aktuelle Einstieg** für Entwicklung, Fachreview und Betre
 | Merge-Kette | [PR #21](https://github.com/Codeelchi/elternzeit-zielplaner/pull/21) bis [PR #30](https://github.com/Codeelchi/elternzeit-zielplaner/pull/30): integriert; am 19.10. keine offenen PRs, keine nicht integrierten Remote-Branches |
 | Bestätigte technische CI auf Funktions-Main | [GitHub Actions 39162208549](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39162208549): Node, Chromium, Staging, Abschlussjob erfolgreich |
 | Manuell reproduzierter lokaler Volltest dieses Funktionsstands | **512/512 Node-/DOM-Tests** und **93/93 Chromium-Fälle**, 18.10.2026; **keine** unabhängige Fach-/Rechts-/Nutzerabnahme |
-| Offline-Seiten, Funktionsstand | `index.html` SHA-256 `30d277e1147d61a963c197bf531939706a4dd210261ede85340ce9730fab2074`; `start.html` SHA-256 `d78367896ea4560cd74ed7052f2b239cbf78be510bfdcb50d65bb8f495016207` |
+| Offline-Seiten, Funktionsstand | `index.html` SHA-256 `a3555bd59c2f213bc4634e21d53ed7c5f0d72751addab53890a4ba29796d9a34`; `start.html` SHA-256 `d78367896ea4560cd74ed7052f2b239cbf78be510bfdcb50d65bb8f495016207` |
 | Paketmetadaten und Austauschformat | `package.json` Version **3.10.0**; JSON-Import-/Exportschema **1**. Interne Phasennamen V3.17–V3.20/P1/P2 sind **keine** neue Paketversion |
 | Aktuelle manuelle GitHub-Pages-Vorschau **bei Abruf am 19.10.2026** | https://codeelchi.github.io/elternzeit-zielplaner/ lieferte weiterhin `ee2bb2dfe683a29392502a2bb8976e2d8014f226`; letzter bestätigter Preview-Deploy [39146755107](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39146755107). **Nicht** mit `main` gleichgesetzt |
 

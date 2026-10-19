@@ -4,7 +4,7 @@
 
 **Nachprüfung vom 19.10.2026:** Frisches npm ci und **518/518 Node-/DOM-Tests** einschließlich sechs neuer Dokumentations-Negativtests erfolgreich. Das ist eine technische Prüfung und keine unabhängige Fach- oder Nutzerabnahme.
 
-**Verbindlicher Einstieg:** [Aktueller Projektstatus, offene P0-Gates, Tests und GitHub-Pages-Abgleich](docs/STATUS-TECHNISCH-2026-10-19.md). Offlinefähiger **Familien-Szenario- und Budgetplaner**, **kein amtlicher Elterngeldrechner**. Öffentlicher **Produktrelease weiterhin NO-GO** (4/5 Mutterschutztage ungeklärt, 0/10 unabhängige Referenzfamilien, 0 echte Nutzertests, Rechts-/Datenschutz-/Betreiberfreigaben fehlen). Die bereits öffentliche GitHub-Pages-**Testvorschau** war beim Abruf vom 19.10. noch auf Commit \`ee2bb2d\` und ist **nicht** der aktuelle Main-Stand. Nur fiktive Testwerte verwenden.
+**Verbindlicher Einstieg:** [Aktueller Projektstatus, offene P0-Gates, Tests und GitHub-Pages-Abgleich](docs/STATUS-TECHNISCH-2026-10-19.md). Offlinefähiger **Familien-Szenario- und Budgetplaner**, **kein amtlicher Elterngeldrechner**. Öffentlicher **Produktrelease weiterhin NO-GO** (4/5 Mutterschutztage ungeklärt, 0/10 unabhängige Referenzfamilien, 0 echte Nutzertests, Rechts-/Datenschutz-/Betreiberfreigaben fehlen). Die **GitHub-Pages-Testvorschau** wurde am 19.10.2026 manuell und erfolgreich auf den damaligen Main-Stand bec8bf0a9ce73d86b165694fa6150dd290d4c5da aktualisiert ([Deploy-Lauf 39208423971](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39208423971)); weitere PR-Änderungen werden **nicht** automatisch auf Pages veröffentlicht. Nur fiktive Testwerte verwenden.
 
 ## Dokumentation und Übergabe
 

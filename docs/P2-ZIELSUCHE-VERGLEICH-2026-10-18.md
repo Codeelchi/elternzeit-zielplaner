@@ -21,7 +21,7 @@ CLI-Befehl: CHROMIUM_PATH=/opt/ms-playwright/chromium-1234/chrome-linux64/chrome
 
 Der Benchmark startet ein frisches Chromium-Profil pro Durchlauf, verwendet direkt file:// ohne HTTP(S)-Zugriffe oder lokale Speicherung und berechnet für einen fiktiven Fall (Geburt 28.05.2026, Standardfall bestätigt, angenommene Ausgaben 1.800 €, zvE 95.000 €, 12 Lebensmonate, Elternteil 1 mindestens zwei freie Monate, keine Teilzeitbedingung) drei Vorschläge. Protokolliert werden der SHA-256-Wert des tatsächlich getesteten HTML, Working-Tree-Status, Browser-/Hardwareangaben sowie CLI-Wallzeit und im UI sichtbare Suchdauer. Dies ist ein manueller Diagnosebefehl, **kein CI-Performance-Gate**.
 
-**Beobachtete Workbench-Ausführung vor Commit, HTML-SHA256 a3555bd59c2f213bc4634e21d53ed7c5f0d72751addab53890a4ba29796d9a34:**
+**Beobachtete Workbench-Ausführung vor Commit, HTML-SHA256 30d277e1147d61a963c197bf531939706a4dd210261ede85340ce9730fab2074:**
 - Umgebung: Linux x64, Intel Xeon E5-2680 v3, 6 logische CPUs, Node 22.23.3, Chromium 151.0.7922.34, 390 x 844 CSS-Pixel.
 - Zwei Wiederholungen: **4555 ms** und **4485 ms** gemessene Wallzeit. Das UI selbst berichtete jeweils 4,2 Sekunden für den Suchlauf; beide Werte beruhen auf leicht unterschiedlichen Startpunkten.
 - Jeweils drei Vorschläge, 0 beobachtete HTTP(S)-Requests und 0 Browser-Speicherschlüssel. Diese Zeitwerte sind weder smartphone-repräsentativ noch eine Leistungszusage.

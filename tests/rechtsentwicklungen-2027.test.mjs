@@ -75,3 +75,11 @@ test('offline website exposes distinct 2027 legal statuses and NRW Kita checklis
  assert.deepEqual(errors,[]);
  dom.window.close();
 });
+test('Elterngeld reform draft stays a secondary-source hint and never feeds calculations',()=>{
+ const e=registry.events.find(x=>x.id==='elterngeld-reform-debate-2027');
+ const u=e['research_update_2026-10-19'];
+ assert.equal(u.verification_status,'secondary_sources_only');
+ assert.match(e.calculation_effect,/never used for calculations/);
+ assert.equal(u.reported_draft_content.applies_to_births_from,'2027-11-01');
+ assert.ok(e.sources.every(s=>s.startsWith('https://')));
+});

@@ -6,56 +6,6 @@
 
 **Verbindlicher Einstieg:** [Aktueller Projektstatus, offene P0-Gates, Tests und GitHub-Pages-Abgleich](docs/STATUS-TECHNISCH-2026-10-19.md). Offlinefähiger **Familien-Szenario- und Budgetplaner**, **kein amtlicher Elterngeldrechner**. Öffentlicher **Produktrelease weiterhin NO-GO** (4/5 Mutterschutztage ungeklärt, 0/10 unabhängige Referenzfamilien, 0 echte Nutzertests, Rechts-/Datenschutz-/Betreiberfreigaben fehlen). Die bereits öffentliche GitHub-Pages-**Testvorschau** war beim Abruf vom 19.10. noch auf Commit \`ee2bb2d\` und ist **nicht** der aktuelle Main-Stand. Nur fiktive Testwerte verwenden.
 
-**Historische V3.17-D technische QA:** 495/495 Node-/DOM-, 63/63 Chromium-Gesamt- und zusätzlich 3/3 direkte `file://`-Browserfälle erfolgreich. Die zehn unabhängigen Berechnungsreferenzen und echte UX-/Rechts-/Datenschutz-Freigaben bleiben offen.
-
-**Neu im internen Ausbau V3.17-D (18.10.2026):** [Acht geführte, vollständig fiktive Verständlichkeitsaufgaben](docs/PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md) im Bereich „Plan prüfen“. Sie helfen, Regelgültigkeit, Einnahmen, Budgetlücken, Zahlungszeitachsen und Datenschutzgrenzen zu verstehen. Antworten bleiben flüchtig, werden weder gespeichert noch exportiert. **Dies ist keine echte Nutzerstudie**; die vorbereitete Evidenzmatrix meldet 0 reale Beobachtungen und 0 Freigaben.
-
-**V3.17-B/C Software-QA:** 481/481 Node-/DOM-, 60/60 vollständige Chromium-Browserfälle und 4/4 direkte Offline-`file://`-Browsertests bestanden. Unabhängige Elterngeld-/Rechts-, Datenschutz- und Nutzerabnahme **nicht** erfolgt; öffentliche Beta gesperrt.
-
-**Neu im internen Ausbau V3.17-B/C:** [JSON-/CSV-Transparenz und unabhängiges Referenzevidenz-Schema](docs/AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md). JSON ergänzt nicht vertrauenswürdige (beim Import verworfene) Erklärungshinweise; CSV behält seine bisherigen 17 Spalten und erhält sieben neue Hinweisfelder. Bei unbekannten Haushaltskosten bleibt der Restwert leer. Die zehn synthetischen externen Referenzfälle sind weiterhin **nicht fachlich bestätigt**.
-
-**V3.17-A technischer Teststand:** 468/468 Node-/DOM-, 56/56 vollständige Chromium-Tests und zusätzlich 3/3 V3.17-Browserfälle direkt über `file://` erfolgreich. Nur Softwaretests; die öffentliche Freigabe bleibt gesperrt.
-
-**Neu in der internen V3.17-A-Entwicklung:** [Erkennbarkeit des Modellumfangs](docs/AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md): Schon im Überblick wird eingeordnet, ob euer Fall unvollständig, außerhalb der geprüften Kohorte, nur für 2027 prognostiziert oder im Standardmodell technisch plausibel ist. Keine Bewilligung und weiterhin gesperrte öffentliche Beta.
-
-**Historische Produktreife-Arbeit V3.17:** [Operative Produktreife-Roadmap](docs/ROADMAP.md), [Abgleich des extern übergebenen Audits](docs/PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) und [aktuelle Anleitung](docs/ANLEITUNG.md). Der Standardfall, der Geburtszeitraum und die Ergebnisgrenzen werden verständlicher angezeigt – ohne neue Rechtsberechnung oder automatische Freigabe.
-
-**Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
-
-**Technische V3.15-Abnahme (17.10.2026):** 403/403 Node-/DOM-Tests, 45/45 gesamter Chromium-Browserlauf und nach abschließender Navigationskorrektur jeweils 6/6 V3.15-Browserfälle über HTTP und direkte Offline-Datei. Diese technischen Ergebnisse sind keine unabhängige Fach-/Rechtsfreigabe. [Nachweise](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
-
-**Technische V3.16-Abnahme (17.10.2026):** 452/452 Node-/DOM-, 53/53 Chromium-Regressionen und 4/4 zusätzliche direkte file://-V3.16-Browserfälle bestanden. Keine unabhängige rechtliche, steuerliche, Datenschutz- oder Nutzertestfreigabe. [Nachweise](docs/AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md).
-
-**Neu in V3.16 (interner Ausbau):** Elternteil A und B können ihre Arbeitszeiten, Wiedereinstiege und Eingewöhnungsbegleitung in einem gemeinsamen Wochenplan abstimmen. Viertelstundenbasierte Betreuungskonflikte, alternative Begleitungsaufteilungen und nur manuell angenommene finanzielle Folgen bleiben strikt vom Elterngeld-/Bankmodell getrennt. [Umsetzung und klare Grenzen](docs/AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md).
-
-**V3.15.2 technische QA (17.10.2026):** 430/430 Node-/DOM-, 49/49 gesamter Chromium-Browserlauf und 10/10 direkte file://-V3.15.x-Browserfälle bestanden. Die öffentliche fachliche Freigabe bleibt gesperrt. [Details](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
-
-**Weiterentwicklung V3.15.2:** Die Eingewöhnungsplanung enthält jetzt einen optionalen Robustheitsvergleich für zwei beziehungsweise vier zusätzliche Wochen ohne Kitaplatz. Er zeigt verfügbare Betreuung, hypothetische Mehrkosten und – nur bei bekannten Haushaltskosten – den niedrigsten Monatsrest unter den betroffenen Lebensmonaten. Es werden keine Familienplanwerte oder Bankbuchungen verändert. [Technische und fachliche Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
-
-**V3.15.1 technische QA:** 418/418 Node-/DOM-Tests; vollständiger Chromium-Lauf 47/47; direkte file://-Prüfung aller 8 V3.15-/V3.15.1-Browserfälle bestanden. Keine unabhängige Rechts-/Fachabnahme. [Abnahme und Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
-
-**Nachbesserung V3.15.1:** Der Kita-Vergleich unterscheidet jetzt ausdrücklich einmalige Eingewöhnungsbelastungen von dauerhaft offenen Betreuungsstunden. Arbeit kann erst Wochen nach Kita-Start beginnen; hypothetische Zusatzkosten werden separat und centgenau auf Lebensmonate verteilt. Es werden weder Leistungsansprüche noch gespeicherte Pläne still geändert. [Fachliche Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
-
-**Historie V3.15 (seit PR #20 auf main):** Wochenweiser Kita-Eingewöhnungs- und Wiedereinstiegsplan mit manueller Verzögerung und Ersatzbetreuung; getrennte NRW-KiBiz-Fassungen für 2026 und ab 01.08.2027; nach Geburtsdatum bestimmte Anzeige- und mögliche Beitragsfreiheits-Hinweise; Aufgabenfortschritt, vorläufiger Kalenderexport, KiZ-Unterlagenfenster und verständlichere Suchperspektiven. **Kein festgestellter Rechtsanspruch, keine automatische Änderung von Plan/Bank und keine neue öffentliche Freigabe.** [V3.15 Umsetzung und Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
-
-**V3.14 (interner Entwicklungsstand):** Eigene Versicherungs-/Steuerpuffer im Finanzvergleich, Kölner historische Gebührentabelle in drei Altersgruppen, technisch vollständiger kleiner Suchraum, schnellere abbrechbare Vorlagensuche, eindeutige UI-Handler und maschinenlesbarer Fachreview-Übergabesatz. Keine unabhängige Rechts-/Datenschutz-/Nutzerfreigabe. [Details und Übergabe](docs/ROADMAP-FACHABNAHME-V314-2026-10-17.md).
-
-**Historie V3.13:** Manuell angenommene Tageszahlungsplanung, Versicherung-/Steuerhinweise, offizielle KiZ-/Wohngeld-/DRV-Verweise, explizit nur historischer Kölner Kita-Tarifvergleich, Quellen- und Roadmapchecks, Fristen-Kalenderexport, versionierter JSON-Import und zusätzliche Suche-/Cent-Sicherungen. **Keine amtlich geprüfte Brutto-Netto-Engine; keine unabhängigen Freigaben.** [V3.13 Status und verbliebene Aufgaben](docs/ROADMAP-ABSCHLUSSSTAND-2026-10-17.md).
-
-**Historie V3.12:** Manuell nachvollziehbares Kita-Finanzdeltaszenario, Geld-/Auszeit-Zielkonfliktvergleich im tatsächlich geprüften Suchraum und illustratives Kassenbuch auf Basis ausschließlich eingegebener Bankbuchungen. Keine Änderung amtlicher Ansprüche, keine öffentliche Rechtsfreigabe. [Details und Grenzen](docs/AUSBAU-V3-12-KITA-LIQUIDITAET-ZIELKONFLIKTE.md).
-
-**Historie V3.11:** Der Schnellstart bekommt einen geführten Rückwärts-Zielplaner und einen variablen Kita-Verzögerungsvergleich. Es wird nur die vorhandene Regel- und Suchengine verwendet; keine neue Fachfreigabe. [Umsetzung, Tests und Grenzen](docs/AUSBAU-V3-11-FAMILIENUEBERGANG.md).
-
-**V3.9 (auf main integriert):** Schutz individueller Monatspläne und genauer Elterngeld-Eingaben vor ungewolltem Überschreiben im Schnellassistenten; keine falschen Rücklagen bei fehlenden Kosten; mobile Karten früher sichtbar und bessere Tastatur-/Formularbedienung. [UX-Abnahme V3.9](docs/UX-NACHBESSERUNG-V3.9.md). Öffentliche Freigabe bleibt gesperrt.
-
-**Neu in V3.10:** [Familienstart](start.html) bündelt Orientierung, offizielle Beratung und den [Rechner](index.html). Der Rechner ergänzt kontextbezogene Wissenskarten, konkrete nächste Eingabeschritte und centgenaue Budgetbuchungen. [Umsetzung und Grenzen](docs/UMSETZUNG-V3.10.md).
-
-**Historischer Prüfstand V3.10:** 279 Node-Tests und 27 direkte file://-Browserfälle bestanden; Nachweise und Grenzen im [QA-Bericht](docs/QA-V3.10.md).
-
-**Aktueller technischer Prüfstand V3.14:** 375/375 Node-/DOM-Tests, 39/39 Chromium-E2E-Browserfälle und 3/3 zusätzliche V3.14-Datei-Tests direkt per file:// bestanden (Workbench, 17.10.2026). Die Suche ist auf Vorlagen begrenzt, die 256er-Vollständigkeit betrifft ausschließlich einen synthetischen Zweimonats-Prüfraum. Es gab keine unabhängige juristische, behördliche, steuerliche oder personenbezogene Usability-Abnahme. [V3.14-Abnahme und externe Übergabe](docs/ROADMAP-FACHABNAHME-V314-2026-10-17.md).
-
-**Design-Nachbesserung 17.10.:** wärmere Farben, klarere Typografie, thematische Symbole und bessere mobile Karten/Filter. [Gestaltung und gezielte QA](docs/DESIGN-2026-10-17.md). Der historische V3.10-Gesamtlauf stammt vom 16.10.; die Portalanpassung erhielt zusätzlich eine eigene Prüfung bei vier Bildschirmbreiten. Die oben angegebene V3.14-Regression stammt vom 17.10.
-
 ## Dokumentation und Übergabe
 
 - [Schnellstart V3.8](docs/SCHNELLSTART-V3.8.md): fünf fiktive Beispielvorlagen, persönlicher Kurzassistent, Betreuungslücken, unbekannte Ausgaben, Datenschutz und Nutzertestgrenzen.
@@ -211,3 +161,58 @@ Bei Änderung des Schnellstart-Auszahlungsnettos und schon vorhandenen manuellen
 ## P2-Zielsuche: drei vergleichbare Modellkennzahlen und Laufzeit
 
 Die bestehende Zielsuche zeigt nun je Vorschlag direkt dieselben drei Kennzahlen: Gesamtbudget realistisch, niedrigster Lebensmonat realistisch und Anfangsruecklage vorsichtig. Die vollstaendige Realistisch/Vorsichtig-Tabelle samt Engpassmonaten und Zielkonflikten ist weiterhin in aufklappbaren Details verfuegbar. Die Suchgrenzen und der fehlende globale Optimalitaetsnachweis bleiben sichtbar; angezeigte Betragswerte sind weder Bewilligungen noch Bankbuchungen. Der Suchlauf zeigt den Busy-Status, echten Fortschritt und die nur auf diesem Geraet beobachtete Laufzeit; Abbruch und Eingabeaenderungen uebernehmen nie ungefragt den Monatsplan. Ein separat startbarer, synthetischer file://-Chromium-Benchmark protokolliert getesteten HTML-SHA, Plattform, Browser und Wallzeit ohne Speicherung oder Netzwerk. Quellformeln, JSON-Schema und Release-Sperre bleiben unveraendert. Mutterschutz 4/5 Tage, 0/10 externe Referenzen, Nutzer-/Screenreader-/Datenschutz-/Rechts-/Betreiberfreigaben bleiben offen. GitHub Pages bleibt eine nur manuell ausgeloeste synthetische Testvorschau. [Vollstaendiger technischer Bericht](docs/P2-ZIELSUCHE-VERGLEICH-2026-10-18.md).
+
+## Historische Ausbaustufen (nicht der aktuelle Stand)
+
+_Chronologische Einzelmeldungen früherer Stufen; maßgeblich ist allein der [aktuelle Projektstatus](docs/STATUS-TECHNISCH-2026-10-19.md)._
+
+
+**Historische V3.17-D technische QA:** 495/495 Node-/DOM-, 63/63 Chromium-Gesamt- und zusätzlich 3/3 direkte `file://`-Browserfälle erfolgreich. Die zehn unabhängigen Berechnungsreferenzen und echte UX-/Rechts-/Datenschutz-Freigaben bleiben offen.
+
+**Neu im internen Ausbau V3.17-D (18.10.2026):** [Acht geführte, vollständig fiktive Verständlichkeitsaufgaben](docs/PRODUKTREIFE-V317D-NUTZERPRUEFUNG.md) im Bereich „Plan prüfen“. Sie helfen, Regelgültigkeit, Einnahmen, Budgetlücken, Zahlungszeitachsen und Datenschutzgrenzen zu verstehen. Antworten bleiben flüchtig, werden weder gespeichert noch exportiert. **Dies ist keine echte Nutzerstudie**; die vorbereitete Evidenzmatrix meldet 0 reale Beobachtungen und 0 Freigaben.
+
+**V3.17-B/C Software-QA:** 481/481 Node-/DOM-, 60/60 vollständige Chromium-Browserfälle und 4/4 direkte Offline-`file://`-Browsertests bestanden. Unabhängige Elterngeld-/Rechts-, Datenschutz- und Nutzerabnahme **nicht** erfolgt; öffentliche Beta gesperrt.
+
+**Neu im internen Ausbau V3.17-B/C:** [JSON-/CSV-Transparenz und unabhängiges Referenzevidenz-Schema](docs/AUSBAU-V317B-C-EXPORTE-EVIDENZ-2026-10-17.md). JSON ergänzt nicht vertrauenswürdige (beim Import verworfene) Erklärungshinweise; CSV behält seine bisherigen 17 Spalten und erhält sieben neue Hinweisfelder. Bei unbekannten Haushaltskosten bleibt der Restwert leer. Die zehn synthetischen externen Referenzfälle sind weiterhin **nicht fachlich bestätigt**.
+
+**V3.17-A technischer Teststand:** 468/468 Node-/DOM-, 56/56 vollständige Chromium-Tests und zusätzlich 3/3 V3.17-Browserfälle direkt über `file://` erfolgreich. Nur Softwaretests; die öffentliche Freigabe bleibt gesperrt.
+
+**Neu in der internen V3.17-A-Entwicklung:** [Erkennbarkeit des Modellumfangs](docs/AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md): Schon im Überblick wird eingeordnet, ob euer Fall unvollständig, außerhalb der geprüften Kohorte, nur für 2027 prognostiziert oder im Standardmodell technisch plausibel ist. Keine Bewilligung und weiterhin gesperrte öffentliche Beta.
+
+**Historische Produktreife-Arbeit V3.17:** [Operative Produktreife-Roadmap](docs/ROADMAP.md), [Abgleich des extern übergebenen Audits](docs/PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) und [aktuelle Anleitung](docs/ANLEITUNG.md). Der Standardfall, der Geburtszeitraum und die Ergebnisgrenzen werden verständlicher angezeigt – ohne neue Rechtsberechnung oder automatische Freigabe.
+
+**Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
+
+**Technische V3.15-Abnahme (17.10.2026):** 403/403 Node-/DOM-Tests, 45/45 gesamter Chromium-Browserlauf und nach abschließender Navigationskorrektur jeweils 6/6 V3.15-Browserfälle über HTTP und direkte Offline-Datei. Diese technischen Ergebnisse sind keine unabhängige Fach-/Rechtsfreigabe. [Nachweise](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**Technische V3.16-Abnahme (17.10.2026):** 452/452 Node-/DOM-, 53/53 Chromium-Regressionen und 4/4 zusätzliche direkte file://-V3.16-Browserfälle bestanden. Keine unabhängige rechtliche, steuerliche, Datenschutz- oder Nutzertestfreigabe. [Nachweise](docs/AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md).
+
+**Neu in V3.16 (interner Ausbau):** Elternteil A und B können ihre Arbeitszeiten, Wiedereinstiege und Eingewöhnungsbegleitung in einem gemeinsamen Wochenplan abstimmen. Viertelstundenbasierte Betreuungskonflikte, alternative Begleitungsaufteilungen und nur manuell angenommene finanzielle Folgen bleiben strikt vom Elterngeld-/Bankmodell getrennt. [Umsetzung und klare Grenzen](docs/AUSBAU-V316-GEMEINSAME-BETREUUNG-2026-10-17.md).
+
+**V3.15.2 technische QA (17.10.2026):** 430/430 Node-/DOM-, 49/49 gesamter Chromium-Browserlauf und 10/10 direkte file://-V3.15.x-Browserfälle bestanden. Die öffentliche fachliche Freigabe bleibt gesperrt. [Details](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**Weiterentwicklung V3.15.2:** Die Eingewöhnungsplanung enthält jetzt einen optionalen Robustheitsvergleich für zwei beziehungsweise vier zusätzliche Wochen ohne Kitaplatz. Er zeigt verfügbare Betreuung, hypothetische Mehrkosten und – nur bei bekannten Haushaltskosten – den niedrigsten Monatsrest unter den betroffenen Lebensmonaten. Es werden keine Familienplanwerte oder Bankbuchungen verändert. [Technische und fachliche Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**V3.15.1 technische QA:** 418/418 Node-/DOM-Tests; vollständiger Chromium-Lauf 47/47; direkte file://-Prüfung aller 8 V3.15-/V3.15.1-Browserfälle bestanden. Keine unabhängige Rechts-/Fachabnahme. [Abnahme und Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**Nachbesserung V3.15.1:** Der Kita-Vergleich unterscheidet jetzt ausdrücklich einmalige Eingewöhnungsbelastungen von dauerhaft offenen Betreuungsstunden. Arbeit kann erst Wochen nach Kita-Start beginnen; hypothetische Zusatzkosten werden separat und centgenau auf Lebensmonate verteilt. Es werden weder Leistungsansprüche noch gespeicherte Pläne still geändert. [Fachliche Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**Historie V3.15 (seit PR #20 auf main):** Wochenweiser Kita-Eingewöhnungs- und Wiedereinstiegsplan mit manueller Verzögerung und Ersatzbetreuung; getrennte NRW-KiBiz-Fassungen für 2026 und ab 01.08.2027; nach Geburtsdatum bestimmte Anzeige- und mögliche Beitragsfreiheits-Hinweise; Aufgabenfortschritt, vorläufiger Kalenderexport, KiZ-Unterlagenfenster und verständlichere Suchperspektiven. **Kein festgestellter Rechtsanspruch, keine automatische Änderung von Plan/Bank und keine neue öffentliche Freigabe.** [V3.15 Umsetzung und Grenzen](docs/AUSBAU-V315-KITA-WIEDEREINSTIEG-NAVIGATOR.md).
+
+**V3.14 (interner Entwicklungsstand):** Eigene Versicherungs-/Steuerpuffer im Finanzvergleich, Kölner historische Gebührentabelle in drei Altersgruppen, technisch vollständiger kleiner Suchraum, schnellere abbrechbare Vorlagensuche, eindeutige UI-Handler und maschinenlesbarer Fachreview-Übergabesatz. Keine unabhängige Rechts-/Datenschutz-/Nutzerfreigabe. [Details und Übergabe](docs/ROADMAP-FACHABNAHME-V314-2026-10-17.md).
+
+**Historie V3.13:** Manuell angenommene Tageszahlungsplanung, Versicherung-/Steuerhinweise, offizielle KiZ-/Wohngeld-/DRV-Verweise, explizit nur historischer Kölner Kita-Tarifvergleich, Quellen- und Roadmapchecks, Fristen-Kalenderexport, versionierter JSON-Import und zusätzliche Suche-/Cent-Sicherungen. **Keine amtlich geprüfte Brutto-Netto-Engine; keine unabhängigen Freigaben.** [V3.13 Status und verbliebene Aufgaben](docs/ROADMAP-ABSCHLUSSSTAND-2026-10-17.md).
+
+**Historie V3.12:** Manuell nachvollziehbares Kita-Finanzdeltaszenario, Geld-/Auszeit-Zielkonfliktvergleich im tatsächlich geprüften Suchraum und illustratives Kassenbuch auf Basis ausschließlich eingegebener Bankbuchungen. Keine Änderung amtlicher Ansprüche, keine öffentliche Rechtsfreigabe. [Details und Grenzen](docs/AUSBAU-V3-12-KITA-LIQUIDITAET-ZIELKONFLIKTE.md).
+
+**Historie V3.11:** Der Schnellstart bekommt einen geführten Rückwärts-Zielplaner und einen variablen Kita-Verzögerungsvergleich. Es wird nur die vorhandene Regel- und Suchengine verwendet; keine neue Fachfreigabe. [Umsetzung, Tests und Grenzen](docs/AUSBAU-V3-11-FAMILIENUEBERGANG.md).
+
+**V3.9 (auf main integriert):** Schutz individueller Monatspläne und genauer Elterngeld-Eingaben vor ungewolltem Überschreiben im Schnellassistenten; keine falschen Rücklagen bei fehlenden Kosten; mobile Karten früher sichtbar und bessere Tastatur-/Formularbedienung. [UX-Abnahme V3.9](docs/UX-NACHBESSERUNG-V3.9.md). Öffentliche Freigabe bleibt gesperrt.
+
+**Neu in V3.10:** [Familienstart](start.html) bündelt Orientierung, offizielle Beratung und den [Rechner](index.html). Der Rechner ergänzt kontextbezogene Wissenskarten, konkrete nächste Eingabeschritte und centgenaue Budgetbuchungen. [Umsetzung und Grenzen](docs/UMSETZUNG-V3.10.md).
+
+**Historischer Prüfstand V3.10:** 279 Node-Tests und 27 direkte file://-Browserfälle bestanden; Nachweise und Grenzen im [QA-Bericht](docs/QA-V3.10.md).
+
+**Aktueller technischer Prüfstand V3.14:** 375/375 Node-/DOM-Tests, 39/39 Chromium-E2E-Browserfälle und 3/3 zusätzliche V3.14-Datei-Tests direkt per file:// bestanden (Workbench, 17.10.2026). Die Suche ist auf Vorlagen begrenzt, die 256er-Vollständigkeit betrifft ausschließlich einen synthetischen Zweimonats-Prüfraum. Es gab keine unabhängige juristische, behördliche, steuerliche oder personenbezogene Usability-Abnahme. [V3.14-Abnahme und externe Übergabe](docs/ROADMAP-FACHABNAHME-V314-2026-10-17.md).
+
+**Design-Nachbesserung 17.10.:** wärmere Farben, klarere Typografie, thematische Symbole und bessere mobile Karten/Filter. [Gestaltung und gezielte QA](docs/DESIGN-2026-10-17.md). Der historische V3.10-Gesamtlauf stammt vom 16.10.; die Portalanpassung erhielt zusätzlich eine eigene Prüfung bei vier Bildschirmbreiten. Die oben angegebene V3.14-Regression stammt vom 17.10.

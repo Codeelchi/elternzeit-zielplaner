@@ -1,8 +1,8 @@
 # Elternzeit-Zielplaner
 
-**V3.19 – aktueller technischer Ausbau (18.10.2026):** Fehlerbehandlung für verweigerte Browser-Speicherung/-Löschung, dauerhafte und zugängliche Warnmeldung, Schutz der flüchtigen Daten beim Reset/Import und separate, parallel arbeitende CI-Suiten mit gemeinsamer Sperre. Keine neue Rechts-/Datenschutz-/Benutzerfreigabe. [Technische Prüfung und Bedienhinweise](docs/PRIVACY-ROBUSTNESS-V319-2026-10-18.md). Paketversion 3.10.0 und JSON-Schema 1 bleiben bestehen.
+**Aktueller technischer Stand (19.10.2026):** Die bisherige Funktionsentwicklung einschließlich V3.17–V3.20 und P1/P2 aus PR #21–#30 ist auf \`main\` integriert. Letzter geprüfter Funktions-Main vor dieser Doku-Aktualisierung: \`3c837cbf47fe818a94157202a2b5699d7e697212\`, [CI erfolgreich](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39162208549); zuletzt reproduziert: **512/512 Node-/DOM- und 93/93 Chromium-Tests**. Paketversion **3.10.0**, JSON-Schema **1**.
 
-**Interner Funktionsstand V3.19 (18. Oktober 2026; V3.18 auf main, V3.19 in technischer Prüfung).** Offlinefähiger Familien-Szenario- und Budgetplaner sowie optionale Familienstartseite; kein amtlicher Elterngeldrechner. **Öffentliche Veröffentlichung weiterhin gesperrt.** Paket-/Exportversion 3.10.0, JSON-Schema 1.
+**Verbindlicher Einstieg:** [Aktueller Projektstatus, offene P0-Gates, Tests und GitHub-Pages-Abgleich](docs/STATUS-TECHNISCH-2026-10-19.md). Offlinefähiger **Familien-Szenario- und Budgetplaner**, **kein amtlicher Elterngeldrechner**. Öffentlicher **Produktrelease weiterhin NO-GO** (4/5 Mutterschutztage ungeklärt, 0/10 unabhängige Referenzfamilien, 0 echte Nutzertests, Rechts-/Datenschutz-/Betreiberfreigaben fehlen). Die bereits öffentliche GitHub-Pages-**Testvorschau** war beim Abruf vom 19.10. noch auf Commit \`ee2bb2d\` und ist **nicht** der aktuelle Main-Stand. Nur fiktive Testwerte verwenden.
 
 **Historische V3.17-D technische QA:** 495/495 Node-/DOM-, 63/63 Chromium-Gesamt- und zusätzlich 3/3 direkte `file://`-Browserfälle erfolgreich. Die zehn unabhängigen Berechnungsreferenzen und echte UX-/Rechts-/Datenschutz-Freigaben bleiben offen.
 
@@ -16,7 +16,7 @@
 
 **Neu in der internen V3.17-A-Entwicklung:** [Erkennbarkeit des Modellumfangs](docs/AUSBAU-V317-PRODUKTREIFE-EINORDNUNG.md): Schon im Überblick wird eingeordnet, ob euer Fall unvollständig, außerhalb der geprüften Kohorte, nur für 2027 prognostiziert oder im Standardmodell technisch plausibel ist. Keine Bewilligung und weiterhin gesperrte öffentliche Beta.
 
-**Aktuelle Produktreife-Arbeit V3.17:** [Operative Produktreife-Roadmap](docs/ROADMAP.md), [Abgleich des extern übergebenen Audits](docs/PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) und [aktuelle Anleitung](docs/ANLEITUNG.md). Der Standardfall, der Geburtszeitraum und die Ergebnisgrenzen werden verständlicher angezeigt – ohne neue Rechtsberechnung oder automatische Freigabe.
+**Historische Produktreife-Arbeit V3.17:** [Operative Produktreife-Roadmap](docs/ROADMAP.md), [Abgleich des extern übergebenen Audits](docs/PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) und [aktuelle Anleitung](docs/ANLEITUNG.md). Der Standardfall, der Geburtszeitraum und die Ergebnisgrenzen werden verständlicher angezeigt – ohne neue Rechtsberechnung oder automatische Freigabe.
 
 **Keine öffentliche Beta-Freigabe:** Mutterschutz-Referenzabweichung und unabhängige Fach-/Rechts-/Datenschutzreviews sowie Nutzertests bleiben Release-Gates. Der eingegrenzte MVP verwendet transparente manuelle Nettoangaben; eine automatische amtliche Brutto-Netto-Ermittlung ist nicht enthalten. 2027 erhält keine positive Standardbewertung.
 

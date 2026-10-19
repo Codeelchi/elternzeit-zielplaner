@@ -1,5 +1,8 @@
 # GitHub Pages – öffentliche Testvorschau (18.10.2026)
 
+**Statusnachtrag 19.10.2026:** Der GitHub-Pages-Abruf zeigt noch den **alten Vorschau-Commit \`ee2bb2dfe683a29392502a2bb8976e2d8014f226\`** (Deployment-Lauf \`39146755107\`). Der letzte integrierte Funktions-\`main\` ist bereits **\`3c837cbf47fe818a94157202a2b5699d7e697212\`** (PR #30). Die Preview enthält daher **noch nicht alle P1/P2-Verbesserungen**, obwohl sie im Repo und der Main-CI bestanden haben. Nur ein bestätigter manueller GitHub-Pages-Workflow erzeugt und verifiziert den aktuellen Teststand. Sein Start ist über den verbundenen PAT mit HTTP 403 fehlgeschlagen; **durch den Betreiber über die GitHub-Oberfläche auszulösen**. Keine Freigabe oder Redeploy-Automatik setzen. [Eindeutiger Projekt-/Freigabestatus](STATUS-TECHNISCH-2026-10-19.md).
+
+
 ## Ziel und Abgrenzung
 
 Diese Bereitstellung dient ausschließlich einem **öffentlich erreichbaren Funktionstest mit fiktiven Beispieldaten**. Sie ist ausdrücklich **keine** Produktveröffentlichung oder fachliche, rechtliche oder datenschutzrechtliche Freigabe. Das private Repository bleibt privat, **die GitHub-Pages-Website ist dennoch weltweit öffentlich abrufbar**. Der aktuelle Standardfall ist nicht unabhängig fachlich geprüft; der Mutterschutz-Konflikt 4/30 versus 5/30 ist offen.

@@ -1,5 +1,7 @@
 # Anleitung – Familien-Szenario- und Budgetplaner
 
+**Aktueller Stand (19.10.2026):** [Technische Produktgrenzen, Release-Gates und aktuelle Testumgebung](STATUS-TECHNISCH-2026-10-19.md). Dieser Rechner ist **kein amtlicher Elterngeldrechner**; die bestehende öffentliche GitHub-Pages-Version dient **ausschließlich fiktiven Eingaben** und kann gegenüber \`main\` veraltet sein. Für den Offlinebetrieb liegen alle Dateien lokal; reale Familien-/Finanzdaten keinesfalls in der öffentlichen Testvorschau eingeben. Die nachfolgenden historischen Versionskapitel sind keine aktuelle Fachfreigabe.
+
 **Datenschutz auf gemeinsam genutzten Geräten:** Bei blockiertem Speichern bleibt die Option ausgeschaltet; bei nicht bestätigter Löschung zeigt die App eine dauerhafte Warnung. „Browserkopie löschen“ entfernt **nicht** den noch offenen Plan; dafür zusätzlich „Zurücksetzen“ nutzen. Heruntergeladene JSON-/CSV-/ICS-Dateien separat löschen. [Details zur Browser-Speicherprüfung](PRIVACY-ROBUSTNESS-V319-2026-10-18.md).
 
 **Interner technischer Stand V3.19 (18.10.2026).** Frühere V3.17-Funktionen sind bereits auf main integriert; V3.19 stärkt den Umgang mit blockiertem Browser-Speicher. Paket-/Exportversion 3.10.0, JSON-Importschema 1. **Keine öffentliche Freigabe, keine amtliche Leistungsberechnung.**

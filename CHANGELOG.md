@@ -1,6 +1,13 @@
 # Änderungen
 
-## V3.19 – Browser-Speicherresilienz und CI-Qualität (interner Kandidat, 18.10.2026)
+## 19.10.2026 – integrierter technischer Stand und nachweisbare Dokumentationsprüfung
+
+- V3.17–V3.20 sowie UX-/Import-/Zielsuche-Änderungen aus PR #21–#30 sind vollständig auf main. Letzter geprüfter Software-Merge: 3c837cbf47fe818a94157202a2b5699d7e697212 ([CI erfolgreich](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39162208549)); zuletzt **512/512 Node-/DOM- und 93/93 Chromium-Tests**.
+- Neue [aktuelle Dokumentations-/Freigabeübersicht](docs/STATUS-TECHNISCH-2026-10-19.md) und automatische Checks auf Dokumentationslinks, Paketversion, HTML-Hashes, Release-Sperre und veraltete aktuelle Aussagen. Bestehende historische Kapitel bleiben als Nachweise erhalten.
+- Paket **3.10.0**, JSON-Schema **1** und Planerformeln unverändert. Die GitHub-Pages-**Testvorschau** liefert zuletzt noch den alten Commit ee2bb2d; ein Update erfordert den separaten manuellen Workflow. **Öffentlicher Produktrelease NO-GO:** 4/5 Mutterschutztage, 0/10 unabhängige Familienreferenzen, reale Nutzer-/Screenreader- sowie Betreiber-/Rechts-/Datenschutzfreigaben offen.
+
+
+## V3.19 – Browser-Speicherresilienz und CI-Qualität (historischer interner Ausbau, 18.10.2026)
 
 - Fehlgeschlagenes localStorage-Speichern deaktiviert die bisher irreführend aktive Opt-in-Auswahl und zeigt eine dauerhafte, screenreaderfreundliche Warnung.
 - Browserkopien werden nur nach bestätigtem Entfernen als gelöscht gemeldet; Reset des laufenden Plans funktioniert auch bei blockierter Persistenz; JSON-Import bleibt flüchtig möglich, ohne alte Browserkopien fälschlich als gelöscht anzugeben.

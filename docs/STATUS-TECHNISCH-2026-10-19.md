@@ -1,0 +1,82 @@
+# Verifizierter Projektstatus – 19. Oktober 2026
+
+**Produktstatus: TECHNISCH PRÜFBAR · ÖFFENTLICHER PRODUKTRELEASE: NO-GO.**
+
+Diese Seite ist der **aktuelle Einstieg** für Entwicklung, Fachreview und Betreiberentscheid. Frühere V3.17-, V3.18-, V3.19- und V3.20-Berichte dokumentieren **historische Ausbaustufen**, nicht den gegenwärtigen Branch- oder Freigabestatus. Ein erfolgreiches GitHub Pages **Test-Deployment** darf nicht mit einer Produktfreigabe verwechselt werden.
+
+## 1. Identität und verbindlicher technischer Bezug
+
+| Gegenstand | Nachweis / Einordnung |
+| --- | --- |
+| Repository | Privates `Codeelchi/elternzeit-zielplaner`, Branch `main` |
+| Letzter integrierter Funktionsstand **vor diesem Dokumentationsabgleich** | `3c837cbf47fe818a94157202a2b5699d7e697212` (Merge PR #30, 18.10.2026) |
+| Merge-Kette | [PR #21](https://github.com/Codeelchi/elternzeit-zielplaner/pull/21) bis [PR #30](https://github.com/Codeelchi/elternzeit-zielplaner/pull/30): integriert; am 19.10. keine offenen PRs, keine nicht integrierten Remote-Branches |
+| Bestätigte technische CI auf Funktions-Main | [GitHub Actions 39162208549](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39162208549): Node, Chromium, Staging, Abschlussjob erfolgreich |
+| Manuell reproduzierter lokaler Volltest dieses Funktionsstands | **512/512 Node-/DOM-Tests** und **93/93 Chromium-Fälle**, 18.10.2026; **keine** unabhängige Fach-/Rechts-/Nutzerabnahme |
+| Offline-Seiten, Funktionsstand | `index.html` SHA-256 `30d277e1147d61a963c197bf531939706a4dd210261ede85340ce9730fab2074`; `start.html` SHA-256 `d78367896ea4560cd74ed7052f2b239cbf78be510bfdcb50d65bb8f495016207` |
+| Paketmetadaten und Austauschformat | `package.json` Version **3.10.0**; JSON-Import-/Exportschema **1**. Interne Phasennamen V3.17–V3.20/P1/P2 sind **keine** neue Paketversion |
+| Aktuelle manuelle GitHub-Pages-Vorschau **bei Abruf am 19.10.2026** | https://codeelchi.github.io/elternzeit-zielplaner/ lieferte weiterhin `ee2bb2dfe683a29392502a2bb8976e2d8014f226`; letzter bestätigter Preview-Deploy [39146755107](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39146755107). **Nicht** mit `main` gleichgesetzt |
+
+Ein **neuer reiner Dokumentations-Merge** ändert den Git-SHA von `main`, aber nicht automatisch die hier protokollierten Prüfergebnisse der unveränderten HTML-Dateien. Der exakt aktuelle Git-Main-SHA ist beim Abschluss aus `git rev-parse origin/main` und dem zugehörigen CI-Lauf abzulesen; diese Zeile benennt den fachlich geprüften *Softwarebasisstand*, nicht eine unveränderliche Zukunfts-SHA.
+
+## 2. Was technisch vorhanden ist
+
+- Familien-Szenario- und Budgetplaner mit fiktiven Schnellstart-Vorlagen, 36 Lebensmonaten, getrennten Arbeits-, Mutterschutz-, Leistungs-, Betreuungs-, Zahlungs- und Bankbuchungsachsen; begrenzte abbrechbare Zielsuche **ohne globales Optimum**.
+- Der Standardfall ist für Geburten **01.04.2025–31.12.2026** eingegrenzt (zwei abhängig Beschäftigte, reguläre Einzelgeburt, gemeinsamer deutscher Haushalt und passende Eingabeannahmen). Das Label `PLAUSIBEL_STANDARD` ist **keine Bewilligung**.
+- **P1:** Öffentliche Preview-Textführung nur für synthetische Angaben, feldnahe Validierung, Kennzeichnung noch nicht übernommener Entwürfe; Vorschau startet mit fiktivem 2026-Fall.
+- **P2:** Bei Änderung von Schnellstart-Netto werden erhaltene Fach-/Importwerte nur nach ausdrücklicher Entscheidung **beibehalten / geschätzt ersetzt / als unbekannt geleert**; Herkunft und fehlende Werte werden sichtbar. Robuster JSON-Import mit verständlicher Fehlermeldung und transparenter Liste *nicht* übernommener temporärer Szenarien.
+- **P2-Zielsuche:** Je Variante drei direkt vergleichbare Modellkennzahlen und aufklappbare Tabellen; Suchfortschritt, Abbruch, Browser-Busy-Zustand und lokal gemessene Laufzeit. Fachformeln und JSON-Schema unverändert.
+- Kein Benutzerkonto, kein Rechen-Backend, keine appseitige Telemetrie. Lokale Speicherung nur nach Opt-in und **unverschlüsselt**; keine positive Datenschutzbewertung. JSON/CSV-Exporte und Downloads liegen außerhalb der Browserkopie. Die GitHub-Pages-Plattform hat eigene Zugriffsprotokollierung.
+- Für ein privates, loopback-gebundenes Staging existieren reproduzierbarer Build und Sicherheitskonfiguration. **Ein tatsächlich externer HTTPS-Produktivbetrieb samt Betreiberabnahme ist nicht bestätigt.**
+
+Details: [Architektur](ARCHITEKTUR.md), [Anleitung](ANLEITUNG.md), [P1](P1-UX-VALIDIERUNG-2026-10-18.md), [P2-Netto/Import](P2-NETTO-HERKUNFT-IMPORT-2026-10-18.md), [P2-Zielsuche](P2-ZIELSUCHE-VERGLEICH-2026-10-18.md).
+
+## 3. P0-Gates und wirkliche Zuständigkeiten
+
+| Gate | Technisch nachgewiesen | Offene **externe** Maßnahme / Rolle | Veröffentlichungsrisiko |
+| --- | --- | --- | --- |
+| **P0-A Mutterschutz** | Unterschied dokumentiert: Modell letzter Leistungstag 15.07., 4/30 Rest; Familienportal-Beispiel 14.07., 5/30. Amtliche 7/31-Teilmonatsregel separat belegt. | Schriftliche verbindliche Einordnung von fachkundiger Elterngeldstelle oder unabhängig qualifizierter BEEG-/MuSchG-Fachperson; 28-/30-/31-Tage-Gegenbeispiele und Kontingentverbrauch bestätigen. | Falsche anteilige Leistungen und Restmonatsbeträge |
+| **P0-B Referenzfamilien** | Zehn unabhängige Prüfanfragen und maschinenprüfbare Null-Evidenz vorbereitet; **0/10** qualifiziert extern bestätigt. | Unabhängige Sollwerte, Qualifikation, Quellen und signierter Review je Familie; Fachreviewer. | Beträge trotz grüner Softwaretests nicht sachlich validiert |
+| **P0-C Standardfall/2027** | Regelvalidator grenzt Kohorten/Sonderfälle ein; 2027 ausdrücklich Prognose/nicht unterstützt. | Nachweis jedes amtlich verkündeten Inkrafttretens und Zuordnung nach gesetzlichem Stichtag; Rechts-/Fachverantwortung. Ein geplanter 2027-Kindergeldwert ist **kein** bestätigter geltender Parameter. | Falsche Kohortenfreigabe / Fehleinschätzung |
+| **P0-D Datenschutz/Betreiber** | Offline-Browser- und Storage-Negativtests, CSP-Vorbereitung, statischer Netzwerkaudit, Import/Export. | Verantwortlicher Betreiber, Impressum/Kontakt, Rechts- und Datenschutzprüfung der **tatsächlichen** Hostingform, realer Betrieb/Protokollierung; Betreiber und Datenschutzfachperson. | Rechtlicher Betrieb nicht freigegeben |
+| **P0-E Nutzer/Barrierefreiheit** | Acht **synthetische** Verständnisaufgaben, automatisierte Tastatur-, Axe- und Responsive-Tests; **0 echte Sitzungen**. | Moderierte tatsächliche Familien-Nutzertests, manuelle Screenreader-/Mobilgeräte-Prüfung und dokumentierter Review; UX-/Accessibility-Reviewer. | Nutzer könnten Ergebnisse missverstehen oder Bedienung nicht nutzen |
+
+Alle Gates bleiben **offen**. Die maschinenlesbaren maßgeblichen Quellen sind `data/release-gates.json`, `data/independent-review-evidence-v317.json` und `data/usability-review-v317d.json`. Agententests oder intern abgeleitete Sollwerte dürfen diese Evidenz nicht ersetzen.
+
+Nicht unterstützt sind insbesondere Selbstständigkeit/Mischeinkünfte, Mehrlinge, Frühgeburten, Alleinerziehung und atypische Mutterschutz-/Auslandskonstellationen. Ein vereinfachtes Elterngeld-Netto ist **keine** amtliche Brutto-zu-Elterngeld-Netto-Ermittlung. Kindergeld-Planungsannahmen für 2027 sind gesondert als nicht verbindlich zu behandeln.
+
+## 4. Abnahmekommandos und Auswertung
+
+Im MCP-Workbench im Repo-Stamm, mit Node 22 und installiertem Chromium:
+
+```bash
+npm ci --ignore-scripts --no-audit --no-fund
+npm test
+CHROMIUM_PATH=/opt/ms-playwright/chromium-1234/chrome-linux64/chrome PLAYWRIGHT_PORT=8950 npm run test:e2e
+npm run sources:check
+npm run roadmap:check
+npm run independent-evidence:check
+npm run usability:check
+npm run privacy:technical-check
+npm run staging:check
+npm run pages:check
+npm run release:check
+git diff --check
+```
+
+**Erwartung:** Bis unabhängige Evidenzen und Betreiberfreigaben tatsächlich hinterlegt sind, endet **`release:check` mit Exit 1 / BLOCKED**. Das ist ein beabsichtigter Sicherheitserfolg, kein zu umgehender CI-Fehler. `npm test` und Browser-Regressionen sind hiervon unabhängig und ersetzen keine reale Nutzersitzung oder Rechtsprüfung. Browser-Snapshots in `qa/browser-results.json` bzw. `qa/browser-accessibility-comparison.json` sind nach Testlauf auf Repo-Stand zurückzusetzen, sofern sie nur automatisch veränderte Testartefakte sind.
+
+**Wichtig:** Der technische Datenschutzcheck prüft vorrangig statische Schutzgeländer, nicht den vollständigen Datenschutz beim GitHub-Hosting oder an Privatgeräten. `staging:check` ersetzt keine erfolgreiche externe TLS-/Proxy- und Betriebskonfiguration.
+
+## 5. GitHub Pages und nächster Betreiberauftrag
+
+- **Bestehende öffentlich abrufbare Testseite:** https://codeelchi.github.io/elternzeit-zielplaner/ – **nur fiktive Daten**, keine echte Familien-/Finanzberatung.
+- Ein normaler Merge deployed **nicht** nach GitHub Pages. Der separate Workflow `.github/workflows/pages-test-preview.yml` muss auf `main` manuell mit `confirm_public_preview=true` gestartet werden. Die CI liest danach **Commit-SHA und Deployment-Lauf-ID** aus beiden live ausgelieferten HTML-Seiten zurück. Diese explizite Test-Autorisierung ersetzt **keine** Produktfreigabe.
+- Am 19.10.2026 wurde der Trigger mit dem verbundenen Personal-Access-Token erneut geprüft: **HTTP 403 – Resource not accessible by personal access token**. Der Operator kann den manuellen Workflow in der GitHub-Actions-Oberfläche auslösen. **Kein heimlicher automatischer Deploy**, kein Abschwächen von Freigabesperren.
+- Externer Betreiber muss vor einem **Produktstart** echte rechtliche Inhalte, verantwortliche Kontaktstelle, Datenschutzprüfung und Releaseentscheidung dokumentieren. GitHub Pages hat keine private Zugangskontrolle für diese Seite; `noindex` ist kein Schutz vor öffentlichem Abruf.
+
+Siehe [Pages-Arbeitsanleitung](GITHUB-PAGES-TESTVORSCHAU-2026-10-18.md), [Roadmap](ROADMAP.md) und [Staging-Betriebsdokument](STAGING-UND-FREIGABE-V318-2026-10-18.md).
+
+## 6. Nächster Abschluss
+
+Reihenfolge: (1) Dokumentation und Regressionen auf `main` prüfen und den genauen CI-SHA festhalten; (2) **unabhängige** Mutterschutzklärung, zehn Referenzfamilien und echte Nutzer-/Screenreaderprüfungen; (3) verantwortliche Betreiber- und Datenschutz-/Rechtsentscheidung; (4) formales Go/No-Go; (5) erst danach ausdrücklich autorisierter Produktrollout. Der Testseiten-Pages-Workflow bleibt davon getrennt.

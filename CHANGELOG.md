@@ -3,6 +3,7 @@
 ## 19.10.2026 – integrierter technischer Stand und nachweisbare Dokumentationsprüfung
 
 - V3.17–V3.20 sowie UX-/Import-/Zielsuche-Änderungen aus PR #21–#30 sind vollständig auf main. Letzter geprüfter Software-Merge: 3c837cbf47fe818a94157202a2b5699d7e697212 ([CI erfolgreich](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39162208549)); zuletzt **512/512 Node-/DOM- und 93/93 Chromium-Tests**.
+- Erneuter lokaler QA-Lauf nach frischem npm ci: **518/518 Node-/DOM-Tests** (sechs davon neue Dokumentations-Konsistenzprüfungen) bestanden; Fach-/Rechts-/Betreiber- und Nutzertestfreigaben bleiben unverändert offen.
 - Neue [aktuelle Dokumentations-/Freigabeübersicht](docs/STATUS-TECHNISCH-2026-10-19.md) und automatische Checks auf Dokumentationslinks, Paketversion, HTML-Hashes, Release-Sperre und veraltete aktuelle Aussagen. Bestehende historische Kapitel bleiben als Nachweise erhalten.
 - Paket **3.10.0**, JSON-Schema **1** und Planerformeln unverändert. Die GitHub-Pages-**Testvorschau** liefert zuletzt noch den alten Commit ee2bb2d; ein Update erfordert den separaten manuellen Workflow. **Öffentlicher Produktrelease NO-GO:** 4/5 Mutterschutztage, 0/10 unabhängige Familienreferenzen, reale Nutzer-/Screenreader- sowie Betreiber-/Rechts-/Datenschutzfreigaben offen.
 

@@ -17,6 +17,8 @@ Diese Seite ist der **aktuelle Einstieg** für Entwicklung, Fachreview und Betre
 | Paketmetadaten und Austauschformat | `package.json` Version **3.10.0**; JSON-Import-/Exportschema **1**. Interne Phasennamen V3.17–V3.20/P1/P2 sind **keine** neue Paketversion |
 | Aktuelle manuelle GitHub-Pages-Vorschau **bei Abruf am 19.10.2026** | https://codeelchi.github.io/elternzeit-zielplaner/ lieferte weiterhin `ee2bb2dfe683a29392502a2bb8976e2d8014f226`; letzter bestätigter Preview-Deploy [39146755107](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39146755107). **Nicht** mit `main` gleichgesetzt |
 
+**Erneuter MCP-Workbench-Test nach diesem Dokumentationsabgleich, 19.10.2026:** Frische Installation aus dem bestehenden Lockfile erfolgreich (npm ci: 44 Pakete). Vollständiges npm test auf dem Dokumentationsbranch: **518/518 Node-/DOM-Tests bestanden**, keine Fehler oder ausgelassenen Tests. Davon sind **sechs** neue positive und negative Dokumentations-Konsistenztests. Die zusätzlich benötigte vollständige Chromium-/GitHub-CI-Prüfung ist gegen den jeweils exakten Commit separat zu belegen; dadurch entsteht weder eine externe Fachfreigabe noch automatisch ein Pages-Deployment.
+
 Ein **neuer reiner Dokumentations-Merge** ändert den Git-SHA von `main`, aber nicht automatisch die hier protokollierten Prüfergebnisse der unveränderten HTML-Dateien. Der exakt aktuelle Git-Main-SHA ist beim Abschluss aus `git rev-parse origin/main` und dem zugehörigen CI-Lauf abzulesen; diese Zeile benennt den fachlich geprüften *Softwarebasisstand*, nicht eine unveränderliche Zukunfts-SHA.
 
 ## 2. Was technisch vorhanden ist
@@ -54,6 +56,7 @@ npm ci --ignore-scripts --no-audit --no-fund
 npm test
 CHROMIUM_PATH=/opt/ms-playwright/chromium-1234/chrome-linux64/chrome PLAYWRIGHT_PORT=8950 npm run test:e2e
 npm run sources:check
+npm run docs:check
 npm run roadmap:check
 npm run independent-evidence:check
 npm run usability:check
@@ -72,7 +75,7 @@ git diff --check
 
 - **Bestehende öffentlich abrufbare Testseite:** https://codeelchi.github.io/elternzeit-zielplaner/ – **nur fiktive Daten**, keine echte Familien-/Finanzberatung.
 - Ein normaler Merge deployed **nicht** nach GitHub Pages. Der separate Workflow `.github/workflows/pages-test-preview.yml` muss auf `main` manuell mit `confirm_public_preview=true` gestartet werden. Die CI liest danach **Commit-SHA und Deployment-Lauf-ID** aus beiden live ausgelieferten HTML-Seiten zurück. Diese explizite Test-Autorisierung ersetzt **keine** Produktfreigabe.
-- Am 19.10.2026 wurde der Trigger mit dem verbundenen Personal-Access-Token erneut geprüft: **HTTP 403 – Resource not accessible by personal access token**. Der Operator kann den manuellen Workflow in der GitHub-Actions-Oberfläche auslösen. **Kein heimlicher automatischer Deploy**, kein Abschwächen von Freigabesperren.
+- Beim zuletzt dokumentierten Dispatch-Versuch am 18.10.2026 scheiterte der Trigger mit dem verbundenen Personal-Access-Token: **HTTP 403 – Resource not accessible by personal access token**. Der Operator kann den manuellen Workflow in der GitHub-Actions-Oberfläche auslösen. **Kein heimlicher automatischer Deploy**, kein Abschwächen von Freigabesperren.
 - Externer Betreiber muss vor einem **Produktstart** echte rechtliche Inhalte, verantwortliche Kontaktstelle, Datenschutzprüfung und Releaseentscheidung dokumentieren. GitHub Pages hat keine private Zugangskontrolle für diese Seite; `noindex` ist kein Schutz vor öffentlichem Abruf.
 
 Siehe [Pages-Arbeitsanleitung](GITHUB-PAGES-TESTVORSCHAU-2026-10-18.md), [Roadmap](ROADMAP.md) und [Staging-Betriebsdokument](STAGING-UND-FREIGABE-V318-2026-10-18.md).

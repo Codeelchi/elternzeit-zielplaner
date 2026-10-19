@@ -2,6 +2,8 @@
 
 **Aktueller technischer Stand (19.10.2026):** Die bisherige Funktionsentwicklung einschließlich V3.17–V3.20 und P1/P2 aus PR #21–#30 ist auf \`main\` integriert. Letzter geprüfter Funktions-Main vor dieser Doku-Aktualisierung: \`3c837cbf47fe818a94157202a2b5699d7e697212\`, [CI erfolgreich](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39162208549); zuletzt reproduziert: **512/512 Node-/DOM- und 93/93 Chromium-Tests**. Paketversion **3.10.0**, JSON-Schema **1**.
 
+**Nachprüfung vom 19.10.2026:** Frisches npm ci und **518/518 Node-/DOM-Tests** einschließlich sechs neuer Dokumentations-Negativtests erfolgreich. Das ist eine technische Prüfung und keine unabhängige Fach- oder Nutzerabnahme.
+
 **Verbindlicher Einstieg:** [Aktueller Projektstatus, offene P0-Gates, Tests und GitHub-Pages-Abgleich](docs/STATUS-TECHNISCH-2026-10-19.md). Offlinefähiger **Familien-Szenario- und Budgetplaner**, **kein amtlicher Elterngeldrechner**. Öffentlicher **Produktrelease weiterhin NO-GO** (4/5 Mutterschutztage ungeklärt, 0/10 unabhängige Referenzfamilien, 0 echte Nutzertests, Rechts-/Datenschutz-/Betreiberfreigaben fehlen). Die bereits öffentliche GitHub-Pages-**Testvorschau** war beim Abruf vom 19.10. noch auf Commit \`ee2bb2d\` und ist **nicht** der aktuelle Main-Stand. Nur fiktive Testwerte verwenden.
 
 **Historische V3.17-D technische QA:** 495/495 Node-/DOM-, 63/63 Chromium-Gesamt- und zusätzlich 3/3 direkte `file://`-Browserfälle erfolgreich. Die zehn unabhängigen Berechnungsreferenzen und echte UX-/Rechts-/Datenschutz-Freigaben bleiben offen.

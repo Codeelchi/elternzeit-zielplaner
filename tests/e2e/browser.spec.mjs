@@ -516,7 +516,7 @@ test('V3.8: personal five-field wizard distinguishes unknown from zero costs and
  state=await page.evaluate(()=>window.__elternzeitTest.getState());
  expect(state.expenses).toBe(0);
  await expect(page.locator('#v38CostBanner')).toBeHidden();
- await expect(page.locator('#v38Summary')).toContainText('nach eingegebenen Kosten');
+ await expect(page.locator('#v38Summary')).toContainText('Rest nach Haushalts- und Kita-Kosten über 18 LM');
 });
 
 test('V3.9 mobile first template is visible without scrolling and mobile actions are accessible',async({page})=>{

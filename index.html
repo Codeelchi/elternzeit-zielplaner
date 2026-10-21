@@ -287,6 +287,13 @@ html:focus-within{scroll-behavior:auto}
 .planning-knowledge-card p,.planning-knowledge-card li{font-size:13px;line-height:1.65;margin:9px 0;overflow-wrap:anywhere}
 .planning-knowledge-card ul{padding-left:18px}.planning-knowledge-card a{overflow-wrap:anywhere}
 .planning-knowledge-card .knowledge-meta{font-size:11px;color:#45606b;margin-top:12px}
+/* Static official orientation: no planner values or application logic. */
+#postBirthLinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0 0;padding:0;list-style:none}
+#postBirthLinks li{min-width:0}
+#postBirthLinks a{display:block;font-size:12px;line-height:1.5;overflow-wrap:anywhere;text-decoration:underline}
+#postBirthLinks a:focus-visible{outline:3px solid #006e64;outline-offset:3px}
+#postBirthLinks span{display:block;font-size:11px;font-weight:400}
+@media(max-width:720px){#slide-9 .step:has(> #postBirthLinks){grid-column:1/-1;max-width:calc(100vw - 32px)}#postBirthLinks{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -339,6 +346,7 @@ html:focus-within{scroll-behavior:auto}
    <a id="v38ExampleJump" class="v38-primary-entry" href="#v38Templates">Beispiel ansehen <span aria-hidden="true">↓</span></a>
   <button type="button" id="v38EditOwn" class="navbtn">Mit eigenen Zahlen planen</button>
   </div>
+  <p id="v38EntryGuidance">Vorlagen könnt ihr ohne eigene Eingaben ansehen. Für einen eigenen Modellfall prüft zuerst die Grundangaben und verwendet ausschließlich frei erfundene Testwerte.</p>
  </div>
  <aside class="v38-orientation" aria-label="Orientierung im bestehenden Ablauf">
   <svg class="v38-selection-art" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="240" height="112" viewBox="0 0 240 112" fill="none">
@@ -707,7 +715,14 @@ html:focus-within{scroll-behavior:auto}
    <div id="applicationChecklist" aria-live="polite"></div><div class="card" style="margin:12px 0"><button type="button" id="v313DownloadIcs" class="navbtn">Vorläufige Fristen als Kalenderdatei (.ics) herunterladen</button><p class="input-caption">Die Kalendereinträge sind nur Prüfaufgaben, keine verbindliche behördliche Fristbestätigung. Prüft vor einer Benachrichtigung die zutreffende Regel, Rechtskohorte und Zuständigkeit. Es findet kein automatischer Kalenderzugriff statt.</p></div><div class="steps">
     <div class="step"><strong>Vor der Geburt</strong><p>Gehaltsabrechnungen, voraussichtliches Elterngeld-Netto, passende Steuer- und Versicherungsangaben, Teilzeitmöglichkeiten und Familienbudget prüfen.</p></div>
     <div class="step"><strong>Mindestens 7 Wochen vorher</strong><p>Elternzeit beim Arbeitgeber in Textform anmelden. Bei Start ab Geburt zählt der errechnete Entbindungstermin.</p></div>
-    <div class="step"><strong>Nach der Geburt</strong><p>Geburtsdaten und Lebensmonate festhalten; Elterngeldantrag samt Einkommens- und Mutterschutznachweisen einreichen.</p></div>
+    <div class="step"><strong>Nach der Geburt</strong><p>Geburtsdaten und Lebensmonate festhalten; Elterngeldantrag samt Einkommens- und Mutterschutznachweisen einreichen.</p>
+     <ul id="postBirthLinks" aria-label="Offizielle Orientierung nach der Geburt">
+      <li><a href="https://familienportal.de/familienportal/lebenslagen/schwangerschaft-geburt/checklisten/checkliste-nach-der-geburt-197882" target="_blank" rel="noopener noreferrer">Offizielle Checkliste nach der Geburt<span>öffnet in neuem Tab</span></a></li>
+      <li><a href="https://familienportal.de/familienportal/familienleistungen/kindergeld/faq/wie-wird-kindergeld-beantragt-und-ausgezahlt--124954" target="_blank" rel="noopener noreferrer">Kindergeld beantragen: Informationen und häufige Fragen<span>öffnet in neuem Tab</span></a></li>
+      <li><a href="https://familienportal.de/familienportal/familienleistungen/mutterschaftsleistungen/was-sind-mutterschaftsleistungen-mutterschutzlohn-und-mutterschaftsgeld--124744" target="_blank" rel="noopener noreferrer">Mutterschaftsleistungen im Überblick<span>öffnet in neuem Tab</span></a></li>
+      <li><a href="https://www.kindergesundheit-info.de/themen/frueherkennung-u1-u9-und-j1/terminrechner-u-z-und-j1-untersuchungen/" target="_blank" rel="noopener noreferrer">U-, Z- und J1-Zeiträume anzeigen<span>öffnet in neuem Tab</span></a></li>
+     </ul>
+    </div>
     <div class="step"><strong>Innerhalb von 3 Lebensmonaten</strong><p>Elterngeld möglichst früh beantragen; rückwirkende Zahlung ist nur begrenzt möglich.</p></div>
    </div>
    <h3 style="margin-top:26px">Offizielle Quellen und Rechner</h3>

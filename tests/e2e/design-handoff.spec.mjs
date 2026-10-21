@@ -130,7 +130,7 @@ test('entry and permanent import notice pass automated axe checks',async({page})
 test('200 percent root text enlargement increases entry type and retains reflow',async({page})=>{
  for(const width of [320,390]){
   await open(page,width);
-  const intro=page.locator('.v38-intro>p');
+  const intro=page.locator('.v38-intro>p:first-of-type');
   const before=await intro.evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
   await page.addStyleTag({content:'html { font-size:200% !important; }'});
   expect(await intro.evaluate(el=>parseFloat(getComputedStyle(el).fontSize))).toBe(before*2);

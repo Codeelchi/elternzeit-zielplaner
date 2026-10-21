@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "source_report": "docs/TESTDATEN-QUELLEN-2026-10-21.md",
+  "source_report_sha256": "32e505d9685a6c490d52f60afb146340347a9d0de9fa024ad8f1fdfebc8bfc74",
+  "evidence_kind": "published_component_example",
+  "complete_family_reference": false,
+  "source_retrieved_on": "2026-10-21",
+  "approval_status": "awaiting_external_review",
+  "external_reviewer": null,
+  "source_excerpt_hash": null,
+  "financial_source": {
+    "publisher": "Familienportal des Bundes",
+    "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-viel-elterngeld-kann-ich-bekommen--124616",
+    "locator": "Beispiele für Kombinationen von Basiselterngeld und ElterngeldPlus",
+    "publication_date": null
+  },
+  "net_to_benefit_cases": [
+    {
+      "id": "A02",
+      "existing_reference_ids": ["ref-03", "ref-04"],
+      "locator": "500 Euro Einkommen nach der Geburt",
+      "published_inputs_eur_per_month": {
+        "prebirth_net": 2000,
+        "postbirth_net": 500,
+        "income_difference": 1500
+      },
+      "published_outputs_eur_per_month": {
+        "basis": 975,
+        "theoretical_basis_without_postbirth_income": 1300,
+        "plus_ceiling": 650,
+        "plus": 650
+      },
+      "published_comparison": {
+        "basis_months": 12,
+        "basis_total_eur": 11700,
+        "plus_months": 24,
+        "plus_total_eur": 15600
+      },
+      "plus_ceiling_effect": "binding"
+    },
+    {
+      "id": "A03",
+      "existing_reference_ids": ["ref-05", "ref-06"],
+      "locator": "1.200 Euro Einkommen nach der Geburt",
+      "published_inputs_eur_per_month": {
+        "prebirth_net": 2000,
+        "postbirth_net": 1200,
+        "income_difference": 800
+      },
+      "published_outputs_eur_per_month": {
+        "basis": 520,
+        "theoretical_basis_without_postbirth_income": 1300,
+        "plus_ceiling": 650,
+        "plus": 520
+      },
+      "published_comparison": {
+        "basis_months": 12,
+        "basis_total_eur": 6240,
+        "plus_months": 24,
+        "plus_total_eur": 12480
+      },
+      "plus_ceiling_effect": "not_binding"
+    },
+    {
+      "id": "A04",
+      "existing_reference_ids": ["ref-07", "ref-08"],
+      "locator": "Vorgeburtliches Netto-Einkommen über 2.770 Euro",
+      "published_inputs_eur_per_month": {
+        "prebirth_net": 3200,
+        "prebirth_net_considered_cap": 2770,
+        "postbirth_net": 1570,
+        "income_difference": 1200
+      },
+      "published_outputs_eur_per_month": {
+        "basis": 780,
+        "theoretical_basis_without_postbirth_income": 1800,
+        "plus_ceiling": 900,
+        "plus": 780
+      },
+      "published_comparison": {
+        "basis_months": 12,
+        "basis_total_eur": 9360,
+        "plus_months": 24,
+        "plus_total_eur": 18720
+      },
+      "plus_ceiling_effect": "not_binding"
+    }
+  ],
+  "life_month_case": {
+    "id": "A06",
+    "source": {
+      "publisher": "Familienportal des Bundes",
+      "url": "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/wie-lange-kann-ich-elterngeld-bekommen--124728",
+      "locator": "Lebensmonate",
+      "publication_date": null
+    },
+    "published_birth_month_day": "02-15",
+    "published_birth_year": null,
+    "published_intervals_month_day": [
+      {"lm": 1, "start": "02-15", "end": "03-14"},
+      {"lm": 2, "start": "03-15", "end": "04-14"},
+      {"lm": 3, "start": "04-15", "end": "05-14"}
+    ],
+    "synthetic_adapter_years": [2025, 2026]
+  },
+  "interface_mapping": {
+    "adapter": "index.html window.__elternzeitTest.basis / plus; src/time-axes.cjs lifeMonths",
+    "input_semantics": "Already determined Elterngeld-Netto before and after birth, not wage payslip net or gross.",
+    "year_adaptation": "A06's published example is yearless. Synthetic 2025/2026 are component date adapters, not official year-specific cases."
+  },
+  "not_validated": [
+    "Official Elterngeld-Netto derivation from tax/social-insurance data",
+    "Maternity-benefit daily offset and four-versus-five remaining days",
+    "Entitlement, parallel-use rules and complete 12/24-month family plans",
+    "Employment hours and calendar eligibility",
+    "Optimization, household budgets, actual bank payouts and complete families",
+    "Any statutory 2027 extension or independent legal, privacy or product release approval"
+  ]
+}

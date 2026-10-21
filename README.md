@@ -1,12 +1,16 @@
 # Elternzeit-Zielplaner
 
-**Aktueller technischer Stand (19.10.2026):** Die bisherige Funktionsentwicklung einschließlich V3.17–V3.20 und P1/P2 aus PR #21–#30 ist auf \`main\` integriert. Letzter geprüfter Funktions-Main vor dieser Doku-Aktualisierung: \`3c837cbf47fe818a94157202a2b5699d7e697212\`, [CI erfolgreich](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39162208549); zuletzt reproduziert: **512/512 Node-/DOM- und 93/93 Chromium-Tests**. Paketversion **3.10.0**, JSON-Schema **1**.
+**Historischer technischer Prüfstand (19.10.2026):** Die bisherige Funktionsentwicklung einschließlich V3.17–V3.20 und P1/P2 aus PR #21–#30 ist auf \`main\` integriert. Letzter geprüfter Funktions-Main vor dieser Doku-Aktualisierung: \`3c837cbf47fe818a94157202a2b5699d7e697212\`, [CI erfolgreich](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39162208549); zuletzt reproduziert: **512/512 Node-/DOM- und 93/93 Chromium-Tests**. Paketversion **3.10.0**, JSON-Schema **1**.
 
 **Nachprüfung vom 19.10.2026:** Frisches npm ci und **518/518 Node-/DOM-Tests** einschließlich sechs neuer Dokumentations-Negativtests erfolgreich. Das ist eine technische Prüfung und keine unabhängige Fach- oder Nutzerabnahme.
 
 **Verbindlicher Einstieg:** [Aktueller Projektstatus, offene P0-Gates, Tests und GitHub-Pages-Abgleich](docs/STATUS-TECHNISCH-2026-10-19.md). Offlinefähiger **Familien-Szenario- und Budgetplaner**, **kein amtlicher Elterngeldrechner**. Öffentlicher **Produktrelease weiterhin NO-GO** (4/5 Mutterschutztage ungeklärt, 0/10 unabhängige Referenzfamilien, 0 echte Nutzertests, Rechts-/Datenschutz-/Betreiberfreigaben fehlen). Die **GitHub-Pages-Testvorschau** wurde am 19.10.2026 manuell und erfolgreich auf den damaligen Main-Stand bec8bf0a9ce73d86b165694fa6150dd290d4c5da aktualisiert ([Deploy-Lauf 39208423971](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39208423971)); weitere PR-Änderungen werden **nicht** automatisch auf Pages veröffentlicht. Nur fiktive Testwerte verwenden.
 
+**Update 21.10.2026:** [PR #36](https://github.com/Codeelchi/elternzeit-zielplaner/pull/36) hat offizielle Nachgeburtslinks und die unveränderte Recherche zu Testdatenquellen nach `main` übernommen. Die unten verlinkten zusätzlichen A02–A04-/A06-Tests prüfen ausschließlich amtlich veröffentlichte **Komponentenbeispiele** (plus fachlich markierte synthetische Kalenderjahre). Sie sind keine amtliche Gesamtrechnung, keine neue rechtliche Freigabe und kein bestandener Referenzfamilien-Abgleich.
+
 ## Dokumentation und Übergabe
+
+- [Amtliche Komponentenreferenzen A02–A04 und A06 – Umsetzung und Grenzen](docs/UMSETZUNG-AMTLICHE-KOMPONENTENREFERENZEN-2026-10-21.md): zusätzliche Zwischenwert-/Deckelungs- und Lebensmonatsregressionen auf Grundlage des [Quellenberichts vom 21.10.2026](docs/TESTDATEN-QUELLEN-2026-10-21.md); keine neuen unabhängigen Vollfamilienfälle oder externe Fachfreigabe.
 
 - [Schnellstart V3.8](docs/SCHNELLSTART-V3.8.md): fünf fiktive Beispielvorlagen, persönlicher Kurzassistent, Betreuungslücken, unbekannte Ausgaben, Datenschutz und Nutzertestgrenzen.
 

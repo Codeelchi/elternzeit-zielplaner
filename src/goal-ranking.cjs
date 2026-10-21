@@ -5,7 +5,7 @@
 const SEARCH_LIMITATIONS = Object.freeze([
   'Begrenzte Vorlagensuche: keine vollständige Prüfung aller möglichen Monatsfolgen.',
   'Die Vorlagen beschränken Wechsel, Teilzeitstarts und Bonusabschnitte; frei editierte Pläne können andere Ergebnisse liefern.',
-  'Empfehlungen vergleichen geschätzte Lebensmonatsbudgets, keine garantierten Bankeingänge oder globalen Optima.'
+  'Empfehlungen vergleichen geschätzte Reste nach eingetragenen Haushalts- und Kita-Kosten je Lebensmonat, keine garantierten Bankeingänge oder globalen Optima.'
 ]);
 const FREE = new Set(['B', 'P', 'U', 'MS']);
 const PROFILES = ['finance', 'balanced', 'robust'];
@@ -49,15 +49,15 @@ function diversityDifferences(a, b, horizon) {
     ['sharedHome', 'Gemeinsame volle Monate ohne Erwerbsarbeit', 1, 'Monate'],
     ['fatherPartTime', 'Teilzeitmonate beim Vater', 1, 'Monate'],
     ['motherPartTime', 'Teilzeitmonate bei der Mutter', 1, 'Monate'],
-    ['floor', 'Niedrigster Monatsbetrag', DIVERSITY_THRESHOLDS.monthlyEuro, 'EUR'],
-    ['total', 'Gesamtbudget', DIVERSITY_THRESHOLDS.averageMonthlyEuro * horizon, 'EUR'],
-    ['reserve', 'Anfangsrücklage gegenüber dem Mindestbetrag', DIVERSITY_THRESHOLDS.reserveEuro, 'EUR']
+    ['floor', 'Niedrigster Rest nach Haushalts- und Kita-Kosten / LM', DIVERSITY_THRESHOLDS.monthlyEuro, 'EUR'],
+    ['total', 'Rest nach Haushalts- und Kita-Kosten über den Zeitraum', DIVERSITY_THRESHOLDS.averageMonthlyEuro * horizon, 'EUR'],
+    ['reserve', 'Anfangsrücklage gegenüber dem Mindest-Rest nach Haushalts- und Kita-Kosten über den Zeitraum', DIVERSITY_THRESHOLDS.reserveEuro, 'EUR']
   ];
   // An absent stress scenario must never be presented as measured robustness.
   if (a.hasAdverse && b.hasAdverse) dimensions.push(
-    ['adverseFloor', 'Niedrigster Monatsbetrag im vorsichtigen Szenario', DIVERSITY_THRESHOLDS.monthlyEuro, 'EUR'],
-    ['adverseTotal', 'Gesamtbudget im vorsichtigen Szenario', DIVERSITY_THRESHOLDS.averageMonthlyEuro * horizon, 'EUR'],
-    ['adverseReserve','Anfangsrücklage im vorsichtigen Szenario',DIVERSITY_THRESHOLDS.reserveEuro,'EUR']);
+    ['adverseFloor', 'Niedrigster Rest nach Haushalts- und Kita-Kosten / LM im vorsichtigen Szenario', DIVERSITY_THRESHOLDS.monthlyEuro, 'EUR'],
+    ['adverseTotal', 'Rest nach Haushalts- und Kita-Kosten über den Zeitraum im vorsichtigen Szenario', DIVERSITY_THRESHOLDS.averageMonthlyEuro * horizon, 'EUR'],
+    ['adverseReserve','Anfangsrücklage gegenüber dem Mindest-Rest nach Haushalts- und Kita-Kosten im vorsichtigen Szenario',DIVERSITY_THRESHOLDS.reserveEuro,'EUR']);
   return dimensions.flatMap(([code,label,threshold,unit])=>{
     const delta = a.metrics[code] - b.metrics[code];
     return Math.abs(delta) >= threshold ? [{code,label,delta,threshold,unit}] : [];
@@ -79,11 +79,11 @@ function euro(amount) {
   return new Intl.NumberFormat('de-DE', {style:'currency',currency:'EUR',maximumFractionDigits:0}).format(amount);
 }
 function explanation(profile, m, horizon, hasAdverse) {
-  if (profile === 'father') return `${m.father} volle Monate ohne Erwerbsarbeit beim Vater im Vergleichszeitraum; bei Gleichstand entscheidet das verfügbare Budget.`;
+  if (profile === 'father') return `${m.father} volle Monate ohne Erwerbsarbeit beim Vater im Vergleichszeitraum; bei Gleichstand entscheidet der Rest nach Haushalts- und Kita-Kosten.`;
   if (profile === 'balanced') return `Möglichst gleichmäßige volle Monate ohne Erwerbsarbeit: Vater ${m.father}, Mutter ${m.mother} (einschließlich Mutterschutz). Dies misst Monate, keine tatsächlichen Betreuungsstunden.`;
-  if (profile === 'floor') return `Höchster niedrigster Monatsbetrag unter den verbleibenden Vorlagen: ${euro(m.floor)}; bei Gleichstand entscheidet das Gesamtbudget.`;
-  if (profile === 'robust') return hasAdverse ? `Stabilität im vorsichtigen Szenario: niedrigster Monatsbetrag ${euro(m.adverseFloor)}, Gesamtbudget ${euro(m.adverseTotal)} über ${horizon} Lebensmonate.` : `Vergleich nach niedrigstem Monatsbetrag ${euro(m.floor)}. Ohne vorsichtiges Szenario ist keine Aussage zur Robustheit möglich.`;
-  return `Höchstes geschätztes verfügbares Gesamtbudget unter den verbleibenden Vorlagen: ${euro(m.total)} über ${horizon} Lebensmonate; niedrigster Monat ${euro(m.floor)}.`;
+  if (profile === 'floor') return `Höchster niedrigster Rest nach Haushalts- und Kita-Kosten je LM unter den verbleibenden Vorlagen: ${euro(m.floor)}; bei Gleichstand entscheidet der Rest nach Haushalts- und Kita-Kosten über den Zeitraum.`;
+  if (profile === 'robust') return hasAdverse ? `Stabilität im vorsichtigen Szenario: niedrigster Rest nach Haushalts- und Kita-Kosten je LM ${euro(m.adverseFloor)}, Rest nach Haushalts- und Kita-Kosten über ${horizon} LM ${euro(m.adverseTotal)}.` : `Vergleich nach niedrigstem Rest nach Haushalts- und Kita-Kosten je LM ${euro(m.floor)}. Ohne vorsichtiges Szenario ist keine Aussage zur Robustheit möglich.`;
+  return `Höchster geschätzter Rest nach Haushalts- und Kita-Kosten unter den verbleibenden Vorlagen: ${euro(m.total)} über ${horizon} LM; niedrigster Rest je LM ${euro(m.floor)}.`;
 }
 /** A selected objective is more informative than raw whole-month totals alone.
  * Profile names describe the focus among the remaining search candidates,
@@ -93,11 +93,11 @@ function proposalTitle(profile, m, horizon, hasAdverse) {
   switch (profile) {
     case 'father': return `Vaterzeit im Fokus · ${m.father} volle Monate`;
     case 'balanced': return `Zeitaufteilung im Fokus · ${m.father}/${m.mother} volle Monate`;
-    case 'floor': return `Monatliches Budget im Fokus · mindestens ${euro(m.floor)}`;
+    case 'floor': return `Rest nach Haushalts- und Kita-Kosten je LM im Fokus · mindestens ${euro(m.floor)}`;
     case 'robust': return hasAdverse
-      ? `Vorsichtiges Szenario · mindestens ${euro(m.adverseFloor)} im Monat`
-      : `Monatliches Budget ohne Stresstest · mindestens ${euro(m.floor)}`;
-    default: return `Gesamtbudget im Fokus · ${euro(m.total)} über ${horizon} LM`;
+      ? `Vorsichtiges Szenario · Rest nach Haushalts- und Kita-Kosten je LM mindestens ${euro(m.adverseFloor)}`
+      : `Rest nach Haushalts- und Kita-Kosten je LM ohne Stresstest · mindestens ${euro(m.floor)}`;
+    default: return `Rest nach Haushalts- und Kita-Kosten im Fokus · ${euro(m.total)} über ${horizon} LM`;
   }
 }
 /**

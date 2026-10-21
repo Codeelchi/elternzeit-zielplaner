@@ -39,7 +39,7 @@ const QuickStartV38=(()=>{
    strip.textContent=!known&&mode!=='idle'?(PUBLIC_TEST_PREVIEW?'Fiktive Haushaltsausgaben fehlen. Der Plan zeigt nur Modelleinnahmen und kein geprüftes Budget.':'Haushaltsausgaben unbekannt: Es werden modellierte Einnahmen vor persönlichen Ausgaben gezeigt. Engpässe, Überschüsse und Rücklagen können so noch nicht zuverlässig berechnet werden.') :'';
   }
   const budgetLabel=node('liveBudget')?.previousElementSibling;
-  if(budgetLabel)budgetLabel.textContent=known?'Modelliertes Budget nach eingetragenen Kosten':'Einnahmen vor Haushaltsausgaben';
+  if(budgetLabel)budgetLabel.textContent=known?'Rest nach eingetragenen Haushalts- und Kita-Kosten / LM':'Einnahmen vor Haushalts- und Kita-Kosten / LM';
  }
  function firstCoverageGap(){
   const until=Math.min(36,Math.max(0,Number(s.goalCare)||0));
@@ -84,9 +84,9 @@ const QuickStartV38=(()=>{
   const newlyOpen=delayed.gaps.filter(lm=>!baseline.gaps.includes(lm));
   const newlyRanges=bridgeAnalysisRanges(newlyOpen);
   const cash=baseline.costsKnown?(baseline.cashDeficits.length?
-     'Negatives Modellbudget in '+formatRanges(baseline.deficitRanges)+'. Dies ist kein Beleg für einen tatsächlichen Zahlungsengpass.':
-     'In den ausgewerteten Lebensmonaten kein negatives Modellbudget nach eingegebenen Kosten.') :
-     'Ausgaben fehlen: keine belastbare Aussage zu negativen Monatsbudgets.';
+     'Negativer Rest nach Haushalts- und Kita-Kosten in '+formatRanges(baseline.deficitRanges)+'. Dies ist kein Beleg für einen tatsächlichen Zahlungsengpass.':
+     'In den ausgewerteten Lebensmonaten kein negativer Rest nach Haushalts- und Kita-Kosten.') :
+     'Ausgaben fehlen: keine belastbare Aussage zu negativen Restbeträgen.';
   const delayText=scenarioDelay===0?'wie geplant':scenarioDelay===1?'einen Lebensmonat':
     scenarioDelay===2?'zwei Lebensmonate':scenarioDelay===3?'drei Lebensmonate':scenarioDelay+' Lebensmonate';
   const summary=delayed.gaps.length?
@@ -128,7 +128,7 @@ const QuickStartV38=(()=>{
      formatDelta(result.totalChange)+'</strong> für die betroffenen Lebensmonate'+
      (result.affectedMonths.length?' ('+result.affectedMonths.map(x=>'LM '+x).join(', ')+')':' (keine bei 0 Monaten Verschiebung)')+'.</p>';
    if(result.baselineBudgetKnown){
-    summary+='<p>Modellbudget dieser Lebensmonate: bisher '+eur(result.comparedBaselineTotal)+
+    summary+='<p>Rest nach Haushalts- und Kita-Kosten dieser Lebensmonate: bisher '+eur(result.comparedBaselineTotal)+
       ' · mit ausdrücklich angenommenen Änderungen '+eur(result.comparedAlternativeTotal)+'.</p>';
    }else summary+='<p>Haushaltsausgaben fehlen: Der Unterschied ist modelliert, ein verfügbares Familienbudget ist nicht bestimmbar.</p>';
    if(result.outsideHorizonMonths)summary+='<p>'+result.outsideHorizonMonths+' Monate der Verschiebung liegen außerhalb des berechneten Zeitraums.</p>';
@@ -284,8 +284,8 @@ const QuickStartV38=(()=>{
     '<p class="v38-caption">Ausgewertet: '+until+' Kindeslebensmonate'+(template?' · Vorlagenmodell: '+template.goal+' Monate':'')+'. Die Werte sind keine feststehenden Geldeingangstermine.</p>'+
     '<div class="v38-kpis">'+
       '<div class="v38-kpi"><span>Betreuung bis Zielalter</span><strong>'+(covered?'Rechnerisch ja':'Lücke / offen')+'</strong></div>'+
-      '<div class="v38-kpi"><span>'+(known?'Niedrigster Monat nach Annahmen':'Niedrigste Monatseinnahmen')+'</span><strong>'+eur(min)+'</strong></div>'+
-      '<div class="v38-kpi"><span>'+(known?'Summe nach eingegebenen Kosten':'Gesamteinnahmen vor Ausgaben')+'</span><strong>'+eur(total)+'</strong></div>'+
+  '<div class="v38-kpi"><span>'+(known?'Niedrigster Rest nach Haushalts- und Kita-Kosten / LM':'Niedrigste Einnahmen vor Haushalts- und Kita-Kosten / LM')+'</span><strong>'+eur(min)+'</strong></div>'+
+  '<div class="v38-kpi"><span>'+(known?'Rest nach Haushalts- und Kita-Kosten über '+until+' LM':'Einnahmen vor Haushalts- und Kita-Kosten über '+until+' LM')+'</span><strong>'+eur(total)+'</strong></div>'+
       '<div class="v38-kpi"><span>Rechtsstatus</span><strong style="font-size:14px">'+escValue(year>2026?'2027+ · unverbindlich':legal==='PLAUSIBEL_STANDARD'?'Standardregeln plausibel':'Nicht freigegeben')+'</strong></div>'+
     '</div>'+
     '<p class="v38-caption">'+(known?'Ergebnis nach eingegebenen Haushalts- und Kita-Annahmen; weitere Kosten/Steuern/Versicherungen möglich.':(PUBLIC_TEST_PREVIEW?'Im Testbeispiel fehlen fiktive Haushaltsausgaben. Deshalb keine Aussage über Restbudget oder Rücklagen.':'Persönliche Haushaltsausgaben sind unbekannt. Deshalb keine Aussage über verfügbares Restbudget oder notwendige Rücklagen.'))+'</p>'+

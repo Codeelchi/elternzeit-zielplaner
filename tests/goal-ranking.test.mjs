@@ -179,7 +179,7 @@ test('financially distinct proposals with identical full-home month counts recei
  assert.deepEqual(selected.map(x=>x.profile),['finance','balanced','robust']);
  assert.ok(selected.every(x=>x.rankingMetrics.father===1&&x.rankingMetrics.mother===1));
  assert.equal(new Set(selected.map(x=>x.title)).size,3);
- assert.match(selected[0].title,/Gesamtbudget im Fokus/);
+ assert.match(selected[0].title,/Rest nach Haushalts- und Kita-Kosten im Fokus/);
  assert.match(selected[0].title,/5.200/);
  assert.match(selected[1].title,/Zeitaufteilung im Fokus/);
  assert.match(selected[1].title,/1\/1 volle Monate/);

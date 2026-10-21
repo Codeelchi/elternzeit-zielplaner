@@ -84,7 +84,7 @@ test('unknown household costs are NOT reported as spendable monthly surplus or r
  assert.match(quick.summary(),/keine Aussage über verfügbares Restbudget/);
  assert.ok(!doc.getElementById('v38CostBanner').hidden);
  assert.match(doc.getElementById('v38CostBanner').textContent,/Haushaltsausgaben unbekannt/);
- assert.match(doc.getElementById('liveBudget').previousElementSibling.textContent,/Einnahmen vor Haushaltsausgaben/);
+ assert.match(doc.getElementById('liveBudget').previousElementSibling.textContent,/Einnahmen vor Haushalts- und Kita-Kosten/);
  ui.changeValue('expenses',900);
  assert.equal(quick.state().costsKnown,true);
  assert.ok(doc.getElementById('v38CostBanner').hidden);

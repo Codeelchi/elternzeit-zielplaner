@@ -1,0 +1,751 @@
+{
+  "source": "Synthetic golden numbers from 71a45eec251b6dd93b489a748d282792fee14856 index.html. Financial models use expenses unknown. Goal scenario starts in a fresh document with its own explicit inputs; no runtime history dependency.",
+  "financial": {
+    "rows": [
+      {
+        "lm": 1,
+        "income": 4659,
+        "cashAfter": 4659,
+        "kind": 259,
+        "childcare": 0,
+        "totalEg": 0,
+        "grant": 0
+      },
+      {
+        "lm": 3,
+        "income": 3819,
+        "cashAfter": 3819,
+        "kind": 259,
+        "childcare": 0,
+        "totalEg": 1560,
+        "grant": 0
+      },
+      {
+        "lm": 12,
+        "income": 3819,
+        "cashAfter": 3469,
+        "kind": 259,
+        "childcare": 350,
+        "totalEg": 1560,
+        "grant": 0
+      },
+      {
+        "lm": 18,
+        "income": 4659,
+        "cashAfter": 4309,
+        "kind": 259,
+        "childcare": 350,
+        "totalEg": 0,
+        "grant": 0
+      },
+      {
+        "lm": 24,
+        "income": 4659,
+        "cashAfter": 4309,
+        "kind": 259,
+        "childcare": 350,
+        "totalEg": 0,
+        "grant": 0
+      }
+    ],
+    "sums": {
+      "income18": 73691.67548387096,
+      "income24": 101645.67548387096,
+      "cashAfter18": 71241.67548387096,
+      "cashAfter24": 97095.67548387096,
+      "totalEg24": 18887.74,
+      "childcare24": 4550,
+      "low18": 3819,
+      "low24": 3819
+    },
+    "metrics": {
+      "builderIncome": "101.646 €",
+      "incomeTotal": "101.646 €",
+      "liveBudget": "3.819 €",
+      "detailTotal": "3.819 €",
+      "detailSurplus": "Inklusive Kindergeld; ohne Ausgabenabzug",
+      "periodLabel": "24",
+      "builderHorizon": "24",
+      "modelTotal": "101.646 €"
+    },
+    "axes": [
+      [
+        "LM 1 · 0 Monate – 1 Monat",
+        "17.06.2026 – 16.07.2026",
+        "30 / 30 Tage",
+        "0 / 0 Tage",
+        "40 / 0 h",
+        "– / Mutterschutzanrechnung",
+        "4.659 €"
+      ],
+      [
+        "LM 3 · 2 Monate – 3 Monate",
+        "17.08.2026 – 16.09.2026",
+        "0 / 31 Tage",
+        "31 / 0 Tage",
+        "0 / 40 h",
+        "Basis / –",
+        "3.819 €"
+      ],
+      [
+        "LM 12 · 11 Monate – 1 Jahr",
+        "17.05.2027 – 16.06.2027",
+        "0 / 31 Tage",
+        "31 / 0 Tage",
+        "0 / 40 h",
+        "Basis / –",
+        "3.819 €"
+      ],
+      [
+        "LM 18 · 1 J. 5 Mon. – 1 J. 6 Mon.",
+        "17.11.2027 – 16.12.2027",
+        "0 / 30 Tage",
+        "0 / 0 Tage",
+        "40 / 40 h",
+        "– / –",
+        "4.659 €"
+      ],
+      [
+        "LM 24 · 1 J. 11 Mon. – 2 Jahre",
+        "17.05.2028 – 16.06.2028",
+        "0 / 31 Tage",
+        "0 / 0 Tage",
+        "40 / 40 h",
+        "– / –",
+        "4.659 €"
+      ]
+    ],
+    "models": {
+      "floor": {
+        "sumIncome": 111725.67548387096,
+        "sumCashAfter": 107175.67548387096,
+        "low": 4568.675483870968
+      },
+      "balanced": {
+        "sumIncome": 111725.67548387096,
+        "sumCashAfter": 107175.67548387096,
+        "low": 4568.675483870968
+      },
+      "care": {
+        "sumIncome": 111725.67548387096,
+        "sumCashAfter": 107175.67548387096,
+        "low": 4568.675483870968
+      },
+      "frontload": {
+        "sumIncome": 111725.67548387096,
+        "sumCashAfter": 107175.67548387096,
+        "low": 4568.675483870968
+      },
+      "split": {
+        "sumIncome": 111725.67548387096,
+        "sumCashAfter": 107175.67548387096,
+        "low": 4568.675483870968
+      }
+    },
+    "expenseVariants": [
+      {
+        "expenses": "",
+        "rows": [
+          {
+            "lm": 1,
+            "income": 4659,
+            "cashAfter": 4659
+          },
+          {
+            "lm": 3,
+            "income": 3819,
+            "cashAfter": 3819
+          },
+          {
+            "lm": 12,
+            "income": 3819,
+            "cashAfter": 3469
+          },
+          {
+            "lm": 18,
+            "income": 4659,
+            "cashAfter": 4309
+          },
+          {
+            "lm": 24,
+            "income": 4659,
+            "cashAfter": 4309
+          }
+        ],
+        "cashAfter18": 71241.67548387096,
+        "cashAfter24": 97095.67548387096,
+        "liveBudget": "3.819 €",
+        "detailTotal": "3.819 €",
+        "detailSurplus": "Inklusive Kindergeld; ohne Ausgabenabzug"
+      },
+      {
+        "expenses": 0,
+        "rows": [
+          {
+            "lm": 1,
+            "income": 4659,
+            "cashAfter": 4659
+          },
+          {
+            "lm": 3,
+            "income": 3819,
+            "cashAfter": 3819
+          },
+          {
+            "lm": 12,
+            "income": 3819,
+            "cashAfter": 3469
+          },
+          {
+            "lm": 18,
+            "income": 4659,
+            "cashAfter": 4309
+          },
+          {
+            "lm": 24,
+            "income": 4659,
+            "cashAfter": 4309
+          }
+        ],
+        "cashAfter18": 71241.67548387096,
+        "cashAfter24": 97095.67548387096,
+        "liveBudget": "3.819 €",
+        "detailTotal": "3.819 €",
+        "detailSurplus": "Nach euren Ausgaben verbleiben 3.819 €"
+      },
+      {
+        "expenses": 2500,
+        "rows": [
+          {
+            "lm": 1,
+            "income": 4659,
+            "cashAfter": 2159
+          },
+          {
+            "lm": 3,
+            "income": 3819,
+            "cashAfter": 1319
+          },
+          {
+            "lm": 12,
+            "income": 3819,
+            "cashAfter": 969
+          },
+          {
+            "lm": 18,
+            "income": 4659,
+            "cashAfter": 1809
+          },
+          {
+            "lm": 24,
+            "income": 4659,
+            "cashAfter": 1809
+          }
+        ],
+        "cashAfter18": 26241.675483870968,
+        "cashAfter24": 37095.67548387097,
+        "liveBudget": "1.319 €",
+        "detailTotal": "3.819 €",
+        "detailSurplus": "Nach euren Ausgaben verbleiben 1.319 €"
+      }
+    ]
+  },
+  "goal": {
+    "count": 3,
+    "stats": {
+      "seen": 13448,
+      "generated": 33648,
+      "valid": 2044,
+      "rejected": {
+        "coverage": 0,
+        "overlap": 10965,
+        "rules": 244,
+        "distribution": 195,
+        "budget": 0
+      },
+      "provisional": false
+    },
+    "comparison": {
+      "horizon": 18,
+      "bankReceiptsPredicted": false,
+      "freeMonths": [
+        {
+          "father": 6,
+          "mother": 6
+        },
+        {
+          "father": 6,
+          "mother": 6
+        },
+        {
+          "father": 10,
+          "mother": 2
+        }
+      ]
+    },
+    "results": [
+      {
+        "title": "Gesamtbudget im Fokus · 56.641 € über 18 LM",
+        "schedule": [
+          {
+            "f": "W",
+            "m": "MS"
+          },
+          {
+            "f": "W",
+            "m": "MS"
+          },
+          {
+            "f": "W",
+            "m": "B"
+          },
+          {
+            "f": "W",
+            "m": "B"
+          },
+          {
+            "f": "W",
+            "m": "B"
+          },
+          {
+            "f": "W",
+            "m": "B"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          }
+        ],
+        "fFree": 6,
+        "mFree": 6,
+        "income": 89040.66333333333,
+        "cashAfter": 56640.66333333333,
+        "low": 4549
+      },
+      {
+        "title": "Zeitaufteilung im Fokus · 6/6 volle Monate",
+        "schedule": [
+          {
+            "f": "W",
+            "m": "MS"
+          },
+          {
+            "f": "W",
+            "m": "MS"
+          },
+          {
+            "f": "W",
+            "m": "B"
+          },
+          {
+            "f": "W",
+            "m": "B"
+          },
+          {
+            "f": "W",
+            "m": "B"
+          },
+          {
+            "f": "W",
+            "m": "B"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "P",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          }
+        ],
+        "fFree": 6,
+        "mFree": 6,
+        "income": 88195.66333333333,
+        "cashAfter": 55795.66333333333,
+        "low": 3704
+      },
+      {
+        "title": "Vorsichtiges Szenario · mindestens 1.915 € im Monat",
+        "schedule": [
+          {
+            "f": "W",
+            "m": "MS"
+          },
+          {
+            "f": "W",
+            "m": "MS"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "B",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          },
+          {
+            "f": "W",
+            "m": "W"
+          }
+        ],
+        "fFree": 10,
+        "mFree": 2,
+        "income": 89040.66333333333,
+        "cashAfter": 56640.66333333333,
+        "low": 4549
+      }
+    ]
+  }
+}

@@ -173,3 +173,39 @@ test('Pages sticky warning does not cover entry, open-form or file-input keyboar
   }
  }
 });
+
+for(const width of [320,390]){
+ test(`post-birth card spans only its mobile row at ${width}px with text reflow and keyboard focus`,async({page})=>{
+  for(const enlarged of [false,true]){
+   await open(page,width);
+   if(enlarged)await page.addStyleTag({content:'html { font-size:200% !important; }'});
+   await page.locator('#v38Advanced').click();
+   const slideIndex=await page.locator('.slide').evaluateAll(slides=>slides.findIndex(slide=>slide.id==='slide-9'));
+   await page.locator(`#sectionNav button[data-slide="${slideIndex}"]`).click();
+   const links=page.locator('#postBirthLinks'),card=links.locator('..');
+   await expect(card).toBeVisible();
+   const geometry=await card.evaluate(el=>{
+    const grid=el.parentElement,rect=el.getBoundingClientRect(),parent=grid.getBoundingClientRect(),style=getComputedStyle(el),gridStyle=getComputedStyle(grid);
+    const paddingLeft=parseFloat(gridStyle.paddingLeft),paddingRight=parseFloat(gridStyle.paddingRight);
+    return {left:rect.left,right:rect.right,width:rect.width,gridLeft:parent.left+parseFloat(gridStyle.borderLeftWidth)+paddingLeft,gridWidth:grid.clientWidth-paddingLeft-paddingRight,start:style.gridColumnStart,end:style.gridColumnEnd,columns:gridStyle.gridTemplateColumns.split(' ').length,scrollWidth:document.documentElement.scrollWidth,scrollX:window.scrollX,others:[...grid.children].filter(e=>e!==el).map(e=>({start:getComputedStyle(e).gridColumnStart,end:getComputedStyle(e).gridColumnEnd}))};
+   });
+   expect(geometry.start).toBe('1');expect(geometry.end).toBe('-1');
+   expect(geometry.columns).toBe(2);
+   expect(Math.abs(geometry.width-geometry.gridWidth)).toBeLessThan(1);
+   expect(Math.abs(geometry.left-geometry.gridLeft)).toBeLessThan(1);
+   expect(geometry.left).toBeGreaterThanOrEqual(0);expect(geometry.right).toBeLessThanOrEqual(width);
+   expect(geometry.scrollWidth).toBeLessThanOrEqual(width);expect(geometry.scrollX).toBe(0);
+   expect(geometry.others.every(e=>e.start==='auto'&&e.end==='auto')).toBe(true);
+   expect(await links.evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length)).toBe(1);
+   await expect(links.locator('a')).toHaveCount(4);
+   await links.locator('a').first().focus();
+   for(let i=1;i<4;i++){
+    await page.keyboard.press('Tab');
+    await expect(links.locator('a').nth(i)).toBeFocused();
+    expect(await links.locator('a').nth(i).evaluate(el=>({style:getComputedStyle(el).outlineStyle,width:getComputedStyle(el).outlineWidth}))).toEqual({style:'solid',width:'3px'});
+    expect(await page.evaluate(()=>window.scrollX)).toBe(0);
+   }
+   await page.screenshot({path:test.info().outputPath(`post-birth-${width}-root-${enlarged?200:100}.png`),fullPage:true});
+  }
+ });
+}

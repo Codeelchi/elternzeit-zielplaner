@@ -235,3 +235,24 @@ test('BEEG-15 is required for over-limit derived Q but not unrelated ordinary ba
  x.schedule[14].hf=32;assert.equal(validate(x,c).valid,true);
  x.schedule[14].m='Q';x.schedule[14].hm=35;const r=validate(x,leaveCatalogue());assert.ok(r.findings.some(f=>f.code==='LEAVE_WORK_HOURS_EXCEEDED'&&f.parents.includes('mother')));
 });
+
+// Synthetic regression matrix for the existing catalogue, not a new legal approval.
+test('annual zvE eligibility is independent of the technical form and import limits',()=>{
+ for(const amount of [0,100000,100001,174999.99,175000,175000.01,180000,1000000000]){
+  for(const value of [amount,String(amount)]){
+   const x=input();x.state.zve=value;const before=JSON.stringify(x),result=validate(x);
+   assert.equal(has(result,'INCOME_LIMIT_EXCEEDED'),amount>175000,String(value));
+   assert.equal(result.status,amount>175000?'REGELKONFLIKT':'PLAUSIBEL_STANDARD');
+   assert.equal(result.valid,amount<=175000);
+   assert.equal(JSON.stringify(x),before);
+  }
+ }
+});
+test('annual zvE validator keeps absent and malformed amounts separate from income exclusion',()=>{
+ for(const value of ['',undefined,-1,NaN,Infinity,'not a number']){
+  const x=input();x.state.zve=value;const result=validate(x);
+  assert.ok(has(result,'INCOME_LIMIT_DATA_MISSING'),String(value));
+  assert.equal(has(result,'INCOME_LIMIT_EXCEEDED'),false);
+  assert.equal(result.valid,false);
+ }
+});

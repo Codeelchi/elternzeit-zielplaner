@@ -519,13 +519,21 @@ test('V3.8: personal five-field wizard distinguishes unknown from zero costs and
  await expect(page.locator('#v38Summary')).toContainText('Rest nach Haushalts- und Kita-Kosten über 18 LM');
 });
 
-test('V3.9 mobile first template is visible without scrolling and mobile actions are accessible',async({page})=>{
+test('mobile primary example entry is visible without scrolling, reaches all templates and preserves mobile actions',async({page})=>{
  await page.setViewportSize({width:320,height:740});
  await page.goto('about:blank');
  await page.goto(appUrl); // Fresh navigation instead of reload, which can restore the previous scroll position under file://.
- const rect=await page.locator('[data-v38-template="classic"]').evaluate(el=>el.getBoundingClientRect().toJSON());
- expect(rect.top).toBeLessThan(740);
+ const rect=await page.locator('#v38ExampleJump').evaluate(el=>el.getBoundingClientRect().toJSON());
+ expect(rect.bottom).toBeLessThanOrEqual(740);
  expect(rect.top).toBeGreaterThanOrEqual(0);
+ await page.locator('#v38ExampleJump').focus();
+ await page.keyboard.press('Enter');
+ await expect(page.locator('#v38Templates')).toBeFocused();
+ await expect(page.locator('.v38-template')).toHaveCount(5);
+ await page.keyboard.press('Tab');
+ await expect(page.locator('[data-v38-template="classic"]')).toBeFocused();
+ await page.keyboard.press('Space');
+ await expect(page.locator('#v38Summary')).toContainText('Fiktives Beispiel');
  await expect(page.locator('#v39MobileMenu')).toBeVisible();
  await page.locator('#v39MobileMenu').click();
  await expect(page.locator('#btnJson')).toBeVisible();

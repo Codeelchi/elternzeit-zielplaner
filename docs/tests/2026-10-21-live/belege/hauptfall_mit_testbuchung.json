@@ -1,0 +1,263 @@
+{
+  "fileType": "elternzeit-offline-v3",
+  "schemaVersion": 1,
+  "version": "3.10.0",
+  "legalReviewedAt": "2026-10-15",
+  "exportedAt": "2026-10-21T05:52:02.814Z",
+  "planningDisclosure": {
+    "advisoryVersion": 1,
+    "basedOn": "current_validator_not_independent_review",
+    "modelClassification": "PLAUSIBLE_MODEL",
+    "technicalStandardBirthWindow": {
+      "from": "2025-04-01",
+      "through": "2026-12-31",
+      "approvalStatus": "technische_standardregel_keine_freigabe"
+    },
+    "sourceCheckedAt": "2026-10-15",
+    "inputProvenance": "beispiel_oder_schaetzung",
+    "expensesProvided": true,
+    "budgetAfterExpensesReliable": "nicht_unabhaengig_verifiziert",
+    "legallyVerified": false,
+    "independentlyReviewed": false,
+    "publicReleaseApproved": false,
+    "applicableFutureLawVerified": false,
+    "containsOnlyScopeMetadata": true,
+    "warnings": [
+      "Alle dargestellten Eurobeträge sind Modell-/Nutzereingaben und keine amtlich bestätigten Auszahlungsbeträge.",
+      "Auszahlungsnetto ist nicht dasselbe wie das Elterngeld-Netto; diese Anwendung leitet das amtliche Elterngeld-Netto nicht automatisch aus Brutto ab.",
+      "Lebensmonatsanspruch, erwartete Kalenderzahlung und tatsächliche manuelle Bankbuchung sind verschiedene Informationen.",
+      "CSV-Zeilen gelten jeweils für den angegebenen Lebensmonat und Zeitraum. Familieneinkommen bezeichnet Modelleinnahmen vor Haushalts- und Kita-Kosten. Frei_nach_Kosten bezeichnet den Rest nach eingetragenen Haushalts- und Kita-Kosten, nicht einen Kontostand. Bei unbekannten Haushaltsausgaben bleibt dieses Feld leer. Weitere Kosten können fehlen.",
+      "JSON enthält Eingaben und den Lebensmonatsplan, keine berechnete Einnahmen- oder Restsumme. goalMinIncome ist der gewünschte Mindestrest je Lebensmonat nach eingetragenen Haushalts- und Kita-Kosten. Datierte manuelle Bankbuchungen bleiben separat von Modellwerten und erwarteten Zahlungen.",
+      "Die Vorlagensuche ermittelt kein mathematisch garantiert globales Optimum.",
+      "Mutterschutz: Eine amtliche Referenz nennt fünf Resttage, die Modellherleitung vier; unabhängige fachliche Klärung fehlt.",
+      "Alle zusätzlichen Kita-/Wochenkoordinationsannahmen der V3.15–V3.16-Ansicht bleiben flüchtig und sind nicht im Hauptplanexport enthalten."
+    ]
+  },
+  "data": {
+    "grossFather": 4000,
+    "grossMother": 4000,
+    "netFather": 3100,
+    "netMother": 2400,
+    "egNetFather": 2800,
+    "egNetMother": 2200,
+    "ptNetFather": 1900,
+    "ptNetMother": 1900,
+    "hoursFather": 28,
+    "hoursMother": 28,
+    "kind": 259,
+    "expenses": 2800,
+    "date": "2026-06-17",
+    "incomeProfileFather": "salary_only",
+    "incomeProfileMother": "salary_only",
+    "model": "custom",
+    "month": 3,
+    "horizon": 24,
+    "leaveStartFather": 3,
+    "leaveMonthsFather": 16,
+    "benefitFather": "B",
+    "basisFirstFather": 8,
+    "partAfterFather": 999,
+    "leaveStartMother": 3,
+    "leaveMonthsMother": 0,
+    "benefitMother": "B",
+    "basisFirstMother": 2,
+    "partAfterMother": 999,
+    "expectedDueDate": "",
+    "postnatalDays": 56,
+    "leaveOverrides": null,
+    "employmentOverrides": null,
+    "benefitOverrides": null,
+    "bankLedger": [
+      {
+        "id": "bank-1792561921008",
+        "paymentDate": "2026-08-20",
+        "amount": 875,
+        "category": "elterngeld",
+        "parent": null,
+        "source": "recorded_transfer"
+      }
+    ],
+    "parentNameFather": "Testperson Alpha",
+    "parentNameMother": "Testperson Beta",
+    "incomeEntryMode": "estimate",
+    "standardCaseConfirmed": true,
+    "storageConsent": false,
+    "grantVerified": false,
+    "region": "NRW",
+    "city": "Köln",
+    "births": 1,
+    "zve": "68000",
+    "childcareStart": 19,
+    "childcareMonthly": 300,
+    "confirmedGrant": 0,
+    "grantMonth": 1,
+    "goalCare": 18,
+    "goalCareMode": "full",
+    "goalObjective": "income",
+    "goalMinFather": 0,
+    "goalMinIncome": 0,
+    "goalOverlap": 2,
+    "goalPart": 1,
+    "childcareMode": "manual",
+    "childcareHours": 35,
+    "childcareIncome": 95000,
+    "childcareMeals": 90,
+    "riskFatherPercent": "",
+    "riskMotherPercent": "",
+    "goalRoles": "both",
+    "riskPercent": 15,
+    "riskEgPercent": 5,
+    "riskCostPercent": 20,
+    "egPtNetFather": "",
+    "egPtNetMother": "",
+    "schedule": [
+      {
+        "f": "W",
+        "m": "MS"
+      },
+      {
+        "f": "W",
+        "m": "MS"
+      },
+      {
+        "f": "T",
+        "m": "W",
+        "hf": 28,
+        "wf": 1700,
+        "ef": 1550
+      },
+      {
+        "f": "B",
+        "m": "W"
+      },
+      {
+        "f": "B",
+        "m": "W"
+      },
+      {
+        "f": "B",
+        "m": "W"
+      },
+      {
+        "f": "B",
+        "m": "W"
+      },
+      {
+        "f": "B",
+        "m": "W"
+      },
+      {
+        "f": "B",
+        "m": "W"
+      },
+      {
+        "f": "B",
+        "m": "W"
+      },
+      {
+        "f": "B",
+        "m": "W"
+      },
+      {
+        "f": "B",
+        "m": "W"
+      },
+      {
+        "f": "B",
+        "m": "W"
+      },
+      {
+        "f": "B",
+        "m": "W"
+      },
+      {
+        "f": "U",
+        "m": "W"
+      },
+      {
+        "f": "U",
+        "m": "W"
+      },
+      {
+        "f": "U",
+        "m": "W"
+      },
+      {
+        "f": "U",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      },
+      {
+        "f": "W",
+        "m": "W"
+      }
+    ]
+  }
+}

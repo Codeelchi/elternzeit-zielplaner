@@ -1,19 +1,41 @@
 <div id="v38QuickStart" class="v38-shell noprint" aria-label="Schnellstart für Elternzeit und Familienbudget">
+ <div class="v38-entry-grid">
  <div class="v38-intro">
   <span class="eyebrow">Schnellstart · Version 3.10</span>
   <h2>Familienzeit verstehen – mit einem Beispiel beginnen.</h2>
   <p>Wählt eine Vorlage und seht direkt den 36-Monatsplan mit Einnahmen und Betreuung. Die Beispiele sind vollständig fiktiv; eigene Angaben sind erst im zweiten Schritt nötig.</p>
+  <div class="v38-entry-actions">
+   <a id="v38ExampleJump" class="v38-primary-entry" href="#v38Templates">Beispiel ansehen <span aria-hidden="true">↓</span></a>
+  <button type="button" id="v38EditOwn" class="navbtn">Mit eigenen Zahlen planen</button>
+  </div>
  </div>
- <div id="v38Templates" class="v38-templates" role="group" aria-label="Fünf Beispielpläne">
-  <button type="button" class="v38-template" data-v38-template="classic" aria-pressed="false"><strong>Klassisch: 12 + 2 Monate</strong><span>Basiselterngeld und Mutterschutz für die ersten 14 Lebensmonate.</span><small>Beispiel sofort ansehen →</small></button>
-  <button type="button" class="v38-template" data-v38-template="long18" aria-pressed="false"><strong>18 Monate zu Hause</strong><span>Längere Familienzeit, zum Teil ohne laufendes Elterngeld.</span><small>Beispiel sofort ansehen →</small></button>
-  <button type="button" class="v38-template" data-v38-template="parttime" aria-pressed="false"><strong>ElterngeldPlus & Teilzeit</strong><span>Arbeiten mit reduzierten Stunden – Betreuung zusätzlich organisieren.</span><small>Beispiel sofort ansehen →</small></button>
-  <button type="button" class="v38-template" data-v38-template="shared" aria-pressed="false"><strong>Gemeinsam aufteilen</strong><span>Betreuungszeit nacheinander zwischen beiden Elternteilen aufteilen.</span><small>Beispiel sofort ansehen →</small></button>
-  <button type="button" class="v38-template" data-v38-template="return" aria-pressed="false"><strong>Früher zurück in den Beruf</strong><span>Frühere Rückkehr, aber möglicher Betreuungsbedarf.</span><small>Beispiel sofort ansehen →</small></button>
+ <aside class="v38-orientation" aria-label="Orientierung im bestehenden Ablauf">
+  <svg class="v38-selection-art" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="240" height="112" viewBox="0 0 240 112" fill="none">
+  <g stroke="#175d50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="7" y="17" width="38" height="78" rx="7" fill="#fff"/>
+    <rect x="54" y="17" width="38" height="78" rx="7" fill="#fff"/>
+    <rect x="101" y="17" width="38" height="78" rx="7" fill="#fff"/>
+    <rect x="148" y="17" width="38" height="78" rx="7" fill="#fff"/>
+    <rect x="195" y="17" width="38" height="78" rx="7" fill="#fff"/>
+    <path d="M17 33h18m29 0h18m29 0h18m29 0h18m29 0h18"/>
+    <path d="M17 43h12m35 0h12m35 0h12m35 0h12m35 0h12"/>
+    <path d="M17 75h18m29 0h18m29 0h18m29 0h18m29 0h18"/>
+  </g>
+</svg>
+  <p>Erst erkunden. Dann anpassen.</p>
+  <ol class="v38-entry-steps"><li>Beispiel ansehen</li><li>Werte anpassen</li><li>Plan prüfen</li></ol>
+ </aside>
+ </div>
+ <h3 class="v38-templates-heading">Welches Beispiel möchtet ihr ansehen?</h3>
+ <div id="v38Templates" tabindex="-1" class="v38-templates" role="group" aria-label="Fünf Beispielpläne">
+  <button type="button" class="v38-template" data-v38-template="classic" aria-pressed="false"><strong>Klassisch: 12 + 2 Monate</strong><span>Basiselterngeld und Mutterschutz für die ersten 14 Lebensmonate.</span><small>Beispiel ansehen →</small></button>
+  <button type="button" class="v38-template" data-v38-template="long18" aria-pressed="false"><strong>18 Monate zu Hause</strong><span>Längere Familienzeit, zum Teil ohne laufendes Elterngeld.</span><small>Beispiel ansehen →</small></button>
+  <button type="button" class="v38-template" data-v38-template="parttime" aria-pressed="false"><strong>ElterngeldPlus & Teilzeit</strong><span>Arbeiten mit reduzierten Stunden – Betreuung zusätzlich organisieren.</span><small>Beispiel ansehen →</small></button>
+  <button type="button" class="v38-template" data-v38-template="shared" aria-pressed="false"><strong>Gemeinsam aufteilen</strong><span>Betreuungszeit nacheinander zwischen beiden Elternteilen aufteilen.</span><small>Beispiel ansehen →</small></button>
+  <button type="button" class="v38-template" data-v38-template="return" aria-pressed="false"><strong>Früher zurück in den Beruf</strong><span>Frühere Rückkehr, aber möglicher Betreuungsbedarf.</span><small>Beispiel ansehen →</small></button>
  </div>
  <p class="v38-caption">Alle Vorlagen sind unverbindlich. Elterngeld-Netto und genaue Auszahlungstermine werden nicht automatisch aus dem Lohnabrechnungsnetto ermittelt. Für Geburten 2027 bleibt der Rechtsstand ungeprüft.</p>
  <div class="v38-actions">
-  <button type="button" id="v38EditOwn" class="navbtn">Mit eigenen Zahlen planen</button>
   <button type="button" id="v311GoalJump" class="navbtn alt">Ziele statt Vorlage festlegen</button>
   <button type="button" id="v315CareJump" class="navbtn alt">Kita-Eingewöhnung planen</button>
   <button type="button" id="v38Advanced" class="navbtn alt" aria-pressed="false">Fachansichten einblenden</button>
@@ -21,6 +43,15 @@
  <details id="v38Personal" class="v38-personal">
   <summary>Eigene Werte eingeben – nur fünf Angaben</summary>
   <form id="v38PersonalForm" novalidate>
+   <svg class="v38-form-art" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="96" height="88" viewBox="0 0 96 88" fill="none">
+  <g stroke="#175d50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="9" y="8" width="61" height="72" rx="9" fill="#fff"/>
+    <path d="M21 24h18M21 44h18M21 64h12"/>
+    <path d="M21 32h35M21 52h25" stroke="#75857c"/>
+    <path d="m51 64 5-14L77 29a4 4 0 0 1 6 6L62 56l-11 8Z" fill="#edf5f1"/>
+    <path d="m73 33 6 6M56 50l6 6"/>
+  </g>
+</svg>
    <div class="v38-form-grid">
     <label for="v38Birth">Geburtstermin<input id="v38Birth" type="date" required></label>
     <label for="v38NetF">Auszahlungsnetto Elternteil 1 (€)<input id="v38NetF" type="number" min="0" max="100000" step="0.01" required></label>
@@ -50,6 +81,10 @@
    <p id="v38PersonalError" class="v38-error" role="alert" aria-live="polite"></p>
   </form>
  </details>
+ <aside class="v38-advice" aria-label="Weitere Orientierung">
+  <div><h3>Gut zu wissen für euren Plan</h3><p>Kurze Orientierung zu Geld, Arbeit und Betreuung. Die Hinweise ändern keine Beträge und ersetzen keine individuelle Beratung.</p></div>
+  <a href="start.html#beratung" target="_blank" rel="noopener noreferrer">Familienstart &amp; Beratung ↗ <span>(neuer Tab)</span></a>
+ </aside>
  <p id="v38OutdatedResult" class="note warn" role="status" aria-live="polite" hidden></p>
  <div id="v38Summary" class="v38-summary" aria-live="polite">
   <h3>Beispiel auswählen</h3><p>Nach einem Klick erscheinen Betreuung, Monatseinnahmen und die Grenzen der Modellrechnung.</p>

@@ -32,7 +32,7 @@ test('information preserves open disclosures, shows contextual care and has safe
   const url=new URL(a.href);assert.equal(url.protocol,'https:');assert.equal(url.search,'');
   assert.equal(a.getAttribute('rel'),'noopener noreferrer');
  }
- assert.equal(t.doc.querySelector('a[href="start.html"]').textContent,'Familienstart & Beratung');
+ assert.equal(t.doc.querySelector('a[href="start.html"]').textContent,'Familienstart & Beratung (neuer Tab)');
  for(const link of t.doc.querySelectorAll('a[href^="start.html"]')){assert.equal(link.target,'_blank');assert.equal(link.rel,'noopener noreferrer');}
  t.ui.changeValue('date','2027-05-28');
  assert.match(t.doc.querySelector('#planningKnowledgeCoverage').textContent,/keine pauschale Bestätigung für 2027/);

@@ -181,6 +181,61 @@ body.v38-lite.v38-pristine .live-strip{display:none}
 .v38-netto-choice label{display:block;font-weight:600;margin:8px 0}
 .v38-netto-choice select{width:100%;max-width:100%;min-height:44px;padding:9px}
 
+/* Reviewed design handoff: presentation only; runtime and calculation contracts stay unchanged. */
+#v38QuickStart{--entry-ink:#203531;--entry-muted:#50625d;--entry-accent:#175d50;--entry-soft:#edf5f1;--entry-line:#75857c;background:#fafbf8;color:var(--entry-ink);border:1px solid var(--entry-line);box-shadow:none;padding:32px;font-size:16px;line-height:1.55}
+#v38QuickStart .v38-entry-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:32px;align-items:center;margin-bottom:32px}
+#v38QuickStart .v38-intro h2{font-size:clamp(1.9rem,3.3vw,2.75rem);line-height:1.15;letter-spacing:-.035em;margin:16px 0;max-width:25ch}
+#v38QuickStart .v38-intro>p{font-size:1rem;line-height:1.55;color:var(--entry-muted);margin:0;max-width:62ch}
+.v38-entry-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:20px}
+#v38QuickStart .v38-primary-entry,#v38QuickStart #v38EditOwn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:11px 16px;border:1px solid var(--entry-accent);border-radius:8px;background:var(--entry-accent);color:#fff;font-size:1rem;line-height:1.4;text-decoration:none;font-weight:700;max-width:100%}
+#v38QuickStart #v38EditOwn{background:transparent;color:var(--entry-accent);border-color:transparent;text-decoration:underline;text-underline-offset:.22em}
+.v38-orientation{background:var(--entry-soft);border:1px solid #d5e5dd;padding:20px 24px;border-radius:16px;min-width:0}
+.v38-selection-art{display:block;width:240px;max-width:100%;height:auto;margin:0 auto 8px}
+.v38-orientation>p{font-size:.875rem;text-align:center;color:var(--entry-muted);margin:0}
+.v38-entry-steps{margin:16px 0 0;padding:0;list-style:none;counter-reset:entry;display:grid;gap:10px}
+.v38-entry-steps li{display:flex;align-items:center;gap:12px;font-weight:650;font-size:1rem}
+.v38-entry-steps li::before{counter-increment:entry;content:counter(entry);display:grid;place-items:center;flex:none;width:30px;height:30px;border:1px solid var(--entry-accent);border-radius:50%;color:var(--entry-accent);font-size:.875rem}
+#v38QuickStart .v38-templates-heading{font-size:1.5rem;line-height:1.25;margin:0 0 16px}
+#v38QuickStart .v38-templates{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:0 0 16px}
+#v38QuickStart .v38-template{display:flex;flex-direction:column;align-items:stretch;min-width:0;min-height:0;height:auto;gap:14px;padding:18px 16px;border:1px solid var(--entry-line);border-radius:12px;background:white;color:var(--entry-ink);box-shadow:none}
+#v38QuickStart .v38-template:hover{border-color:var(--entry-accent);box-shadow:0 0 0 1px var(--entry-accent)}
+#v38QuickStart .v38-template strong{font-size:1.0625rem;line-height:1.35}
+#v38QuickStart .v38-template span{font-size:.9375rem;line-height:1.55;color:var(--entry-muted)}
+#v38QuickStart .v38-template small{display:block;margin-top:auto;min-height:48px;padding-top:14px;border-top:1px solid var(--entry-line);font-size:.9375rem;line-height:1.5;color:var(--entry-accent)}
+#v38QuickStart .v38-template[aria-pressed="true"]{border:2px solid var(--entry-accent);padding:17px 15px;background:var(--entry-soft)}
+#v38QuickStart .v38-template[aria-pressed="true"]::after{content:"✓ Ausgewählt";font-size:.875rem;font-weight:700;color:var(--entry-accent)}
+@supports(grid-template-rows:subgrid){#v38QuickStart .v38-template{display:grid;grid-template-rows:subgrid;grid-row:span 4}#v38QuickStart .v38-template::after{content:""}#v38QuickStart .v38-template[aria-pressed="true"]::after{content:"✓ Ausgewählt"}}
+#v38QuickStart .v38-caption{font-size:.9375rem;color:var(--entry-muted);line-height:1.55}
+#v38QuickStart .v38-personal{margin-top:24px;border-color:var(--entry-line);border-radius:16px;padding:20px;background:white}
+#v38QuickStart .v38-personal>summary{font-size:1.125rem;min-height:44px}
+.v38-form-art{display:block;width:80px;max-width:100%;height:auto;margin:16px 0 0 auto}
+#v38PersonalForm>.public-preview-only{background:#fff5df;color:#684616;border-color:#98651f;font-size:.9375rem}
+#v38PersonalForm .v38-form-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:20px 0}
+#v38PersonalForm .v38-form-grid label{font-size:1rem;color:var(--entry-ink)}
+#v38PersonalForm .v38-form-grid input,#v38PersonalForm .v38-form-grid select{font-size:1rem;min-height:48px;height:auto;border-color:var(--entry-line);padding:10px 12px}
+#v38PersonalForm .v38-form-grid input::placeholder{color:var(--entry-muted);opacity:1}
+#v38QuickStart .v38-actions{margin:24px 0;gap:12px}
+.v38-advice{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px;margin-top:24px;border-radius:16px;background:var(--entry-soft)}
+.v38-advice>div{max-width:65ch;min-width:0}.v38-advice h3{font-size:1.5rem;line-height:1.25}.v38-advice p{font-size:.9375rem;color:var(--entry-muted);margin:8px 0 0}
+.v38-advice a{display:inline-flex;flex-direction:column;justify-content:center;min-height:48px;color:var(--entry-accent);font-size:1rem}.v38-advice a span{font-size:.875rem;font-weight:400}
+#v38QuickStart :is(a,button,summary,input,select),#v38Templates,.v38-import-panel{scroll-margin-block:12rem}
+#v38QuickStart :is(a,button,summary,input,select):focus-visible,#v38Templates:focus-visible,.v38-import-panel :is(a,input):focus-visible{outline:3px solid #974500;outline-offset:4px}
+#v38QuickStart :is(button,a,summary),.v38-import-panel{overflow-wrap:anywhere}
+.v38-import-panel{padding:24px;background:#fff5df;color:#684616;border:1px solid #98651f;border-radius:12px;margin:24px 0;font-size:.9375rem;line-height:1.55}
+.v38-import-panel h3{font-size:1.125rem;line-height:1.4}.v38-import-panel p{margin:12px 0}.v38-import-panel label{display:block;font-weight:700;margin-top:20px}.v38-import-panel input{display:block;font:inherit;max-width:100%;min-height:48px;margin-top:8px;color:#203531}.v38-import-panel input::file-selector-button{font:inherit;white-space:normal;max-width:100%;padding:10px 12px;margin:0 8px 8px 0;min-height:48px;background:#fff;color:#175d50;border:1px solid #75857c;border-radius:8px}
+@media(max-width:1050px){#v38QuickStart .v38-templates{grid-template-columns:repeat(3,minmax(0,1fr))}#v38QuickStart .v38-entry-grid{gap:24px;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}#v38PersonalForm .v38-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v38-advice{align-items:flex-start;flex-direction:column}}
+@media(max-width:680px){#v38QuickStart{padding:20px}#v38QuickStart .v38-entry-grid{grid-template-columns:1fr;gap:20px;margin-bottom:24px}#v38QuickStart .v38-templates{grid-template-columns:1fr}.v38-selection-art,.v38-form-art{display:none}.v38-orientation{padding:16px}.v38-orientation>p{display:none}.v38-entry-steps{margin:0}.v38-entry-actions{flex-direction:column;align-items:stretch;gap:8px}#v38QuickStart .v38-primary-entry{width:100%}#v38PersonalForm .v38-form-grid{grid-template-columns:1fr}#v38QuickStart .v38-personal,.v38-advice{padding:16px}.v38-import-panel{padding:20px}#v38QuickStart .v38-template{padding:20px}#v38QuickStart .v38-template[aria-pressed="true"]{padding:19px}}
+@media print{.v38-entry-actions,.v38-orientation,.v38-advice{display:none!important}}
+
+/* Intrinsic sizing must not clip enlarged text inside the existing stage. */
+#v38QuickStart .v38-entry-grid>*{min-width:0}
+#v38QuickStart .v38-entry-steps li{min-width:0;overflow-wrap:anywhere}
+#v38QuickStart .v38-form-grid>label{min-width:0;overflow-wrap:anywhere}
+#v38QuickStart .v38-intro h2{overflow-wrap:anywhere}
+html:focus-within{scroll-behavior:auto}
+@media(max-width:680px){#v38QuickStart .v38-entry-grid,#v38PersonalForm .v38-form-grid{grid-template-columns:minmax(0,1fr)}}
+#v38QuickStart{overflow-wrap:anywhere}
+
 /* V38_STYLES_END */
 
 /* V3.17: descriptive scope gate, deliberately never a positive release badge. */
@@ -240,22 +295,14 @@ body.v38-lite.v38-pristine .live-strip{display:none}
   <div class="brand"><span class="brand-symbol"></span> FAMILIENFINANZEN <small>/ lokal & privat</small></div>
   <button type="button" id="v39MobileMenu" aria-controls="topActions" aria-expanded="false" aria-label="Weitere Optionen öffnen">Weitere Optionen</button>
  <div class="top-actions" id="topActions">
-    <a href="start.html" target="_blank" rel="noopener noreferrer" title="Infoseite in neuem Tab öffnen – euer Plan bleibt hier" class="action" style="text-decoration:none">Familienstart & Beratung</a>
+    <a href="start.html" target="_blank" rel="noopener noreferrer" title="Infoseite in neuem Tab öffnen – euer Plan bleibt hier" class="action" style="text-decoration:none">Familienstart &amp; Beratung (neuer Tab)</a>
     <button type="button" class="action" id="btnReset" title="Ausgangswerte wiederherstellen">Zurücksetzen</button>
     <button type="button" class="action" id="btnCsv" title="Monatsdaten als CSV exportieren">CSV</button>
     <button type="button" class="action" id="btnJson" title="Eingaben und Modell als JSON exportieren">Plan herunterladen</button>
-    <label for="importJson" class="action" style="cursor:pointer">Plan importieren</label><input id="importJson" class="sr-only" type="file" accept="application/json,.json">
+    <a href="#importNotice" class="action">Planimport: Hinweise &amp; Dateiauswahl</a>
     <button type="button" class="action" id="btnFullscreen" title="Vollbildansicht">Vollbild</button>
   </div>
  </header>
- <div id="importNotice" class="noprint" style="padding:4px 14px">
-  <details aria-label="Hinweise zum Planimport">
-   <summary>Planimport: Diese Daten werden übernommen, diese nicht</summary>
-   <p>Ein kompatibler JSON-Export stellt Eingaben, den Lebensmonatsplan und enthaltene manuelle Bankbuchungen wieder her und ersetzt den geöffneten Entwurf. <strong>Nicht übernommen</strong> werden unter anderem flüchtige Kita-/Eingewöhnungsvarianten, Zahlungszeitpunkt- und Liquiditätstests, temporäre Risikoannahmen, Suchergebnisse und Lernaufgaben. Vorher benötigte Varianten getrennt notieren; der Import stellt keine heruntergeladenen Dateien wieder her.</p>
-   <p>Der Import löscht die optionale Browserkopie, sofern der Browser dies erlaubt. Die Speicherzustimmung wird nie automatisch übernommen. Nur eigene vertrauenswürdige, lokal gespeicherte JSON-Testdateien importieren. Maximal 1 MB.</p>
-  </details>
-  <p id="importFeedback" role="status" aria-live="polite" hidden></p>
- </div>
  <div class="privacy-strip"><div class="v39-privacy-summary">Lokal und privat · kein Konto. <button id="v39PrivacyToggle" type="button" aria-expanded="false" aria-controls="v39PrivacyDetail">Datenschutz & Speichern</button></div><div id="v39PrivacyDetail">Ohne Konto, ohne Telemetrie. Berechnung auf diesem Gerät. Lokales Speichern ist optional und im Browser unverschlüsselt; auf gemeinsam genutzten Geräten ausgeschaltet lassen. Exportierte Dateien enthalten eure Finanzdaten. <label><input id="localSave" type="checkbox"> Automatisch auf diesem Gerät speichern</label> <button type="button" id="deleteLocal">Browserkopie löschen</button></div><p id="privacyStorageStatus" class="privacy-storage-status" role="status" aria-live="polite" hidden></p></div><nav class="section-nav noprint" id="sectionNav" aria-label="Präsentationsnavigation"></nav>
  <div class="live-strip noprint" aria-live="polite">
    <div class="live-item"><span>Kindesalter im gewählten Monat</span><strong id="liveAge">0–1 Monat</strong></div>
@@ -283,21 +330,43 @@ body.v38-lite.v38-pristine .live-strip{display:none}
    </details>
 <!-- V38_MARKUP_START -->
 <div id="v38QuickStart" class="v38-shell noprint" aria-label="Schnellstart für Elternzeit und Familienbudget">
+ <div class="v38-entry-grid">
  <div class="v38-intro">
   <span class="eyebrow">Schnellstart · Version 3.10</span>
   <h2>Familienzeit verstehen – mit einem Beispiel beginnen.</h2>
   <p>Wählt eine Vorlage und seht direkt den 36-Monatsplan mit Einnahmen und Betreuung. Die Beispiele sind vollständig fiktiv; eigene Angaben sind erst im zweiten Schritt nötig.</p>
+  <div class="v38-entry-actions">
+   <a id="v38ExampleJump" class="v38-primary-entry" href="#v38Templates">Beispiel ansehen <span aria-hidden="true">↓</span></a>
+  <button type="button" id="v38EditOwn" class="navbtn">Mit eigenen Zahlen planen</button>
+  </div>
  </div>
- <div id="v38Templates" class="v38-templates" role="group" aria-label="Fünf Beispielpläne">
-  <button type="button" class="v38-template" data-v38-template="classic" aria-pressed="false"><strong>Klassisch: 12 + 2 Monate</strong><span>Basiselterngeld und Mutterschutz für die ersten 14 Lebensmonate.</span><small>Beispiel sofort ansehen →</small></button>
-  <button type="button" class="v38-template" data-v38-template="long18" aria-pressed="false"><strong>18 Monate zu Hause</strong><span>Längere Familienzeit, zum Teil ohne laufendes Elterngeld.</span><small>Beispiel sofort ansehen →</small></button>
-  <button type="button" class="v38-template" data-v38-template="parttime" aria-pressed="false"><strong>ElterngeldPlus & Teilzeit</strong><span>Arbeiten mit reduzierten Stunden – Betreuung zusätzlich organisieren.</span><small>Beispiel sofort ansehen →</small></button>
-  <button type="button" class="v38-template" data-v38-template="shared" aria-pressed="false"><strong>Gemeinsam aufteilen</strong><span>Betreuungszeit nacheinander zwischen beiden Elternteilen aufteilen.</span><small>Beispiel sofort ansehen →</small></button>
-  <button type="button" class="v38-template" data-v38-template="return" aria-pressed="false"><strong>Früher zurück in den Beruf</strong><span>Frühere Rückkehr, aber möglicher Betreuungsbedarf.</span><small>Beispiel sofort ansehen →</small></button>
+ <aside class="v38-orientation" aria-label="Orientierung im bestehenden Ablauf">
+  <svg class="v38-selection-art" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="240" height="112" viewBox="0 0 240 112" fill="none">
+  <g stroke="#175d50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="7" y="17" width="38" height="78" rx="7" fill="#fff"/>
+    <rect x="54" y="17" width="38" height="78" rx="7" fill="#fff"/>
+    <rect x="101" y="17" width="38" height="78" rx="7" fill="#fff"/>
+    <rect x="148" y="17" width="38" height="78" rx="7" fill="#fff"/>
+    <rect x="195" y="17" width="38" height="78" rx="7" fill="#fff"/>
+    <path d="M17 33h18m29 0h18m29 0h18m29 0h18m29 0h18"/>
+    <path d="M17 43h12m35 0h12m35 0h12m35 0h12m35 0h12"/>
+    <path d="M17 75h18m29 0h18m29 0h18m29 0h18m29 0h18"/>
+  </g>
+</svg>
+  <p>Erst erkunden. Dann anpassen.</p>
+  <ol class="v38-entry-steps"><li>Beispiel ansehen</li><li>Werte anpassen</li><li>Plan prüfen</li></ol>
+ </aside>
+ </div>
+ <h3 class="v38-templates-heading">Welches Beispiel möchtet ihr ansehen?</h3>
+ <div id="v38Templates" tabindex="-1" class="v38-templates" role="group" aria-label="Fünf Beispielpläne">
+  <button type="button" class="v38-template" data-v38-template="classic" aria-pressed="false"><strong>Klassisch: 12 + 2 Monate</strong><span>Basiselterngeld und Mutterschutz für die ersten 14 Lebensmonate.</span><small>Beispiel ansehen →</small></button>
+  <button type="button" class="v38-template" data-v38-template="long18" aria-pressed="false"><strong>18 Monate zu Hause</strong><span>Längere Familienzeit, zum Teil ohne laufendes Elterngeld.</span><small>Beispiel ansehen →</small></button>
+  <button type="button" class="v38-template" data-v38-template="parttime" aria-pressed="false"><strong>ElterngeldPlus & Teilzeit</strong><span>Arbeiten mit reduzierten Stunden – Betreuung zusätzlich organisieren.</span><small>Beispiel ansehen →</small></button>
+  <button type="button" class="v38-template" data-v38-template="shared" aria-pressed="false"><strong>Gemeinsam aufteilen</strong><span>Betreuungszeit nacheinander zwischen beiden Elternteilen aufteilen.</span><small>Beispiel ansehen →</small></button>
+  <button type="button" class="v38-template" data-v38-template="return" aria-pressed="false"><strong>Früher zurück in den Beruf</strong><span>Frühere Rückkehr, aber möglicher Betreuungsbedarf.</span><small>Beispiel ansehen →</small></button>
  </div>
  <p class="v38-caption">Alle Vorlagen sind unverbindlich. Elterngeld-Netto und genaue Auszahlungstermine werden nicht automatisch aus dem Lohnabrechnungsnetto ermittelt. Für Geburten 2027 bleibt der Rechtsstand ungeprüft.</p>
  <div class="v38-actions">
-  <button type="button" id="v38EditOwn" class="navbtn">Mit eigenen Zahlen planen</button>
   <button type="button" id="v311GoalJump" class="navbtn alt">Ziele statt Vorlage festlegen</button>
   <button type="button" id="v315CareJump" class="navbtn alt">Kita-Eingewöhnung planen</button>
   <button type="button" id="v38Advanced" class="navbtn alt" aria-pressed="false">Fachansichten einblenden</button>
@@ -305,6 +374,15 @@ body.v38-lite.v38-pristine .live-strip{display:none}
  <details id="v38Personal" class="v38-personal">
   <summary>Eigene Werte eingeben – nur fünf Angaben</summary>
   <form id="v38PersonalForm" novalidate>
+   <svg class="v38-form-art" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="96" height="88" viewBox="0 0 96 88" fill="none">
+  <g stroke="#175d50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="9" y="8" width="61" height="72" rx="9" fill="#fff"/>
+    <path d="M21 24h18M21 44h18M21 64h12"/>
+    <path d="M21 32h35M21 52h25" stroke="#75857c"/>
+    <path d="m51 64 5-14L77 29a4 4 0 0 1 6 6L62 56l-11 8Z" fill="#edf5f1"/>
+    <path d="m73 33 6 6M56 50l6 6"/>
+  </g>
+</svg>
    <div class="v38-form-grid">
     <label for="v38Birth">Geburtstermin<input id="v38Birth" type="date" required></label>
     <label for="v38NetF">Auszahlungsnetto Elternteil 1 (€)<input id="v38NetF" type="number" min="0" max="100000" step="0.01" required></label>
@@ -334,6 +412,10 @@ body.v38-lite.v38-pristine .live-strip{display:none}
    <p id="v38PersonalError" class="v38-error" role="alert" aria-live="polite"></p>
   </form>
  </details>
+ <aside class="v38-advice" aria-label="Weitere Orientierung">
+  <div><h3>Gut zu wissen für euren Plan</h3><p>Kurze Orientierung zu Geld, Arbeit und Betreuung. Die Hinweise ändern keine Beträge und ersetzen keine individuelle Beratung.</p></div>
+  <a href="start.html#beratung" target="_blank" rel="noopener noreferrer">Familienstart &amp; Beratung ↗ <span>(neuer Tab)</span></a>
+ </aside>
  <p id="v38OutdatedResult" class="note warn" role="status" aria-live="polite" hidden></p>
  <div id="v38Summary" class="v38-summary" aria-live="polite">
   <h3>Beispiel auswählen</h3><p>Nach einem Klick erscheinen Betreuung, Monatseinnahmen und die Grenzen der Modellrechnung.</p>
@@ -826,6 +908,14 @@ body.v38-lite.v38-pristine .live-strip{display:none}
 </section>
 
  </main>
+ <section id="importNotice" class="noprint v38-import-panel" aria-labelledby="importNoticeTitle">
+  <h3 id="importNoticeTitle">Planimport: Diese Daten werden übernommen, diese nicht</h3>
+   <p>Ein kompatibler JSON-Export stellt Eingaben, den Lebensmonatsplan und enthaltene manuelle Bankbuchungen wieder her und ersetzt den geöffneten Entwurf. <strong>Nicht übernommen</strong> werden unter anderem flüchtige Kita-/Eingewöhnungsvarianten, Zahlungszeitpunkt- und Liquiditätstests, temporäre Risikoannahmen, Suchergebnisse und Lernaufgaben. Vorher benötigte Varianten getrennt notieren; der Import stellt keine heruntergeladenen Dateien wieder her.</p>
+   <p>Der Import löscht die optionale Browserkopie, sofern der Browser dies erlaubt. Die Speicherzustimmung wird nie automatisch übernommen. Nur eigene vertrauenswürdige, lokal gespeicherte JSON-Testdateien importieren. Maximal 1 MB.</p>
+  <label for="importJson">Plan importieren <input id="importJson" type="file" accept="application/json,.json" aria-describedby="importNoticeTitle"></label>
+  <p id="importFeedback" role="status" aria-live="polite" hidden></p>
+ </section>
+
  <footer class="footer-nav noprint"><button class="navbtn alt" id="previous">&larr; Zurück</button><div style="display:flex;align-items:center;gap:15px"><span class="counter" id="counter">1 / 10</span><div class="progress"><span id="progress"></span></div></div><button class="navbtn" id="next">Weiter &rarr;</button></footer>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>

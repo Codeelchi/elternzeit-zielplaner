@@ -9,6 +9,8 @@ const LIMITATIONS=Object.freeze([
  'Alle dargestellten Eurobeträge sind Modell-/Nutzereingaben und keine amtlich bestätigten Auszahlungsbeträge.',
  'Auszahlungsnetto ist nicht dasselbe wie das Elterngeld-Netto; diese Anwendung leitet das amtliche Elterngeld-Netto nicht automatisch aus Brutto ab.',
  'Lebensmonatsanspruch, erwartete Kalenderzahlung und tatsächliche manuelle Bankbuchung sind verschiedene Informationen.',
+ 'CSV-Zeilen gelten jeweils für den angegebenen Lebensmonat und Zeitraum. Familieneinkommen bezeichnet Modelleinnahmen vor Haushalts- und Kita-Kosten. Frei_nach_Kosten bezeichnet den Rest nach eingetragenen Haushalts- und Kita-Kosten, nicht einen Kontostand. Bei unbekannten Haushaltsausgaben bleibt dieses Feld leer. Weitere Kosten können fehlen.',
+ 'JSON enthält Eingaben und den Lebensmonatsplan, keine berechnete Einnahmen- oder Restsumme. goalMinIncome ist der gewünschte Mindestrest je Lebensmonat nach eingetragenen Haushalts- und Kita-Kosten. Datierte manuelle Bankbuchungen bleiben separat von Modellwerten und erwarteten Zahlungen.',
  'Die Vorlagensuche ermittelt kein mathematisch garantiert globales Optimum.',
  'Mutterschutz: Eine amtliche Referenz nennt fünf Resttage, die Modellherleitung vier; unabhängige fachliche Klärung fehlt.',
  'Alle zusätzlichen Kita-/Wochenkoordinationsannahmen der V3.15–V3.16-Ansicht bleiben flüchtig und sind nicht im Hauptplanexport enthalten.'
@@ -52,7 +54,7 @@ function csvAdvisoryFields(info){
  return [
   info.modelClassification,info.sourceCheckedAt,info.inputProvenance,
   info.expensesProvided?'ja_ungeprueft':'nein_unbekannt',
-  'NEIN','4_oder_5_Resttage_offen','SCHAETZUNG_KEINE_AUSZAHLUNGSZUSAGE'
+  'NEIN','4_oder_5_Resttage_offen','SCHAETZUNG_KEINE_AUSZAHLUNGSZUSAGE | je Lebensmonat und Zeitraum | Familieneinkommen: Einnahmen vor Haushalts- und Kita-Kosten | Frei_nach_Kosten: Rest nach eingetragenen Haushalts- und Kita-Kosten - leer bei unbekannten Haushaltsausgaben - weitere Kosten koennen fehlen | kein datierter Zahlungseingang oder Kontostand'
  ];
 }
 module.exports={buildExportDisclosure,csvAdvisoryFields,CSV_EXTRA_COLUMNS};

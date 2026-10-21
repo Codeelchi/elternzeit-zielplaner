@@ -101,7 +101,7 @@ test('missing expenses hide reserve totals, financial stress labels and charts e
  assert.match(doc.getElementById('riskValue').textContent,/20 %/);
  t.ui.changeValue('expenses',0);
  assert.match(doc.getElementById('reserveReport').textContent,/Erforderliche Anfangsrücklage/);
- assert.match(doc.getElementById('riskCards').textContent,/Verfügbar über/);
+ assert.match(doc.getElementById('riskCards').textContent,/Rest nach eingetragenen Haushalts- und Kita-Kosten über/);
  assert.deepEqual(t.errors,[]);t.dom.window.close();
 });
 test('header uses income before costs and actual cash-after value once costs are entered',()=>{
@@ -111,7 +111,7 @@ test('header uses income before costs and actual cash-after value once costs are
  t.ui.changeValue('expenses',1000);
  const z=t.ui.evaluate().rows[t.ui.getState().month-1];
  assert.equal(t.doc.getElementById('liveBudget').textContent.replace(/\D/g,''),String(Math.round(z.cashAfter)));
- assert.match(t.doc.getElementById('liveBudget').previousElementSibling.textContent,/nach eingetragenen Kosten/);
+ assert.match(t.doc.getElementById('liveBudget').previousElementSibling.textContent,/nach eingetragenen Haushalts- und Kita-Kosten/);
  t.dom.window.close();
 });
 test('keyboard paging does not hijack a focused quickstart card, while expert arrows still work',()=>{
@@ -181,7 +181,7 @@ test('financial candidate UI never claims estimated 0-euro reserve before expens
  const results=t.app.runGoalSearch();
  assert.ok(results.length>0);
  const text=t.doc.getElementById('goalResult').textContent;
- assert.match(text,/Kein belastbarer Budgetvergleich/);
+ assert.match(text,/Kein belastbarer Restvergleich nach Kosten/);
  assert.match(text,/nur Zeitaufteilung/);
  assert.doesNotMatch(text,/Erforderliche Anfangsrücklage\s*0/);
  assert.doesNotMatch(text,/Verfügbar über/);

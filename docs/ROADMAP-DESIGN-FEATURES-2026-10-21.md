@@ -24,21 +24,23 @@ Eltern sollen mit fiktiven oder bewusst selbst eingegebenen Angaben verstehen k�
 
 ## Paket 2 – Interaktiver Zeitstrahl und Was-wäre-wenn-Vergleich
 
-**Status: geplant; noch nicht implementiert.** Abhängig von der Stabilität von Paket 1 und bestehenden `TimeAxes`-/Budgetmodulen.
+**Status 22.10.2026: Paket 2A (zugänglicher Monatszeitstrahl) und 2B (bis zu drei flüchtige Varianten) im Review-Branch implementiert, CI und Merge noch offen. Paket 2C bleibt geplant.** Die technischen Grenzen und Tests beschreibt [Umsetzung Paket 2](UMSETZUNG-PAKET2-FAMILIENZEIT-2026-10-22.md). Ursprung: Paket 1 und bestehende `TimeAxes`-/Budgetmodulen.
 
-### 2A. Gemeinsamer Familienzeitstrahl (Priorität hoch)
+### 2A. Gemeinsamer Familienzeitstrahl (erste Monatsversion technisch umgesetzt)
 
 - Darstellung aller relevanten Kind-Lebensmonate auf **einer gemeinsamen Achse**: Elternteil 1/2, rechtliche Elternzeit, tatsächlich modellierte Arbeit/Teilzeit, Leistungsarten, Betreuungsannahmen und monatsbezogene Einnahmen/Kosten; Zahlungsbuchungen bleiben davon separat.
 - Kein erfundener Kita-Platz: bekannte Betreuung, angenommene Unterstützung und rechnerische Lücken visuell und textlich unterscheiden. Gestaffelte Betreuungskohorten und Elternwechsel erkennbar machen.
 - Pro Monat ein Detailbereich mit Herkunft der Werte, *vor Kosten* versus *nach eingegebenen Kosten* sowie erwarteter Leistung versus separatem Zahlungstermin.
 - **Abnahme:** jede Darstellung lässt sich vollständig über Tastatur erreichen, hat gleichwertige zugängliche Tabellen-/Textansicht und ist bei 320 px und 200 % Schrift lesbar. Für zwölf synthetische Übergangs-/Grenzfälle keine Inkonsistenz zur bestehenden Zeitachsenberechnung. Mutterschutz-P0 nicht als gelöst markieren.
 
-### 2B. Zwei oder drei Varianten festhalten und vergleichen
+### 2B. Bis zu drei flüchtige Varianten festhalten und vergleichen (technisch umgesetzt)
 
 - Nutzer können **maximal drei Entwürfe** als lokale Vergleichs-Snapshots markieren. Aktiven Plan, Vergleichssnapshots und tatsächlich eingetragene Buchungen eindeutig voneinander trennen.
 - Vergleich nach **Betreuungszeit**, **erster Betreuungslücke**, **niedrigstem Rest**, **benötigter Rücklage** und **offenen Nachweisen**; fehlende Kosten führen zu „nicht vergleichbar“, nicht zu 0 €.
-- Ein Snapshot überschreibt den aktiven Plan **nicht automatisch**. Übernahme nur auf bestätigte Aktion; Reset/Import löscht oder kennzeichnet veraltete temporäre Vergleiche korrekt.
-- **Abnahme:** reproduzierbare Node-/Browser-Tests für Planwechsel, Eingabeänderung, unbekannte Werte und kein stilles Persistieren. Bei benötigter dauerhafter Speicherung zuerst Schema-Versionierung/Migration separat spezifizieren.
+- Ein Snapshot überschreibt den aktiven Plan **nicht**. Eine Übernahmefunktion gehört nicht zu diesem Paket; erfolgreiche Importe und bestätigte Resets leeren die flüchtigen Vergleiche, Fehlimporte und abgebrochene Resets nicht.
+- **Abnahme:** Node-/Chromium-Tests für Modellwechsel, Monatswahl, maximal drei Snapshots, unbekannte Werte, Import/Reset, temporäre Nichtpersistenz und HTML-Escaping. Für spätere dauerhafte Speicherung oder Planübernahme erst gesonderte Freigabe und Schema-Versionierung.
+
+**Ausbaugrenzen von 2A/2B:** Die erste Ansicht zeigt vorhandene Status- und Geldwerte je Lebensmonat, aber noch keine juristisch geprüfte Zuordnung sämtlicher Elternzeitabschnitte oder echte wöchentliche Betreuungsabdeckung. Die Begriffe Kita angenommen / nicht zugeordnet sind ausdrücklich keine Platzzusage bzw. amtliche Betreuungslücke. Die automatisierten A11y-Tests ersetzen keine manuelle Screenreader-Abnahme. Weitere fachlich abgenommene Übergangs-/Grenzfälle bleiben offen.
 
 ### 2C. Was-wäre-wenn-Regler (nach 2A/2B)
 

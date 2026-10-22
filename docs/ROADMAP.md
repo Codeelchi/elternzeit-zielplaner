@@ -8,6 +8,8 @@
 
 **Nachweise und Priorität:** Der aktuelle [technische Hand-off](HANDOFF.md), die [Freigabegates](../data/release-gates.json), die [maschinenlesbare Statusmatrix](../data/roadmap-status-2026-10-17.json) und [Fachreview-Vorbereitung](ROADMAP-FACHABNAHME-V314-2026-10-17.md) sind die operative Grundlage. Die als fremde Prüfung übergebene Produktreife-Einschätzung vom 17.10.2026 ist **keine unabhängig durchgeführte Code- oder Rechtsabnahme**; ihre belegbaren Hinweise und Grenzen werden im [Audit-Abgleich](PRODUKTREIFE-ABGLEICH-V317-2026-10-17.md) getrennt bewertet. [Historische vollständige Roadmap bis V3.16](ROADMAP-HISTORIE-BIS-V316-2026-10-17.md).
 
+**Paket 2, technischer Reviewstand 22.10.2026:** [Familienzeitstrahl und maximal drei flüchtige Vergleichsvarianten](UMSETZUNG-PAKET2-FAMILIENZEIT-2026-10-22.md) sind im Entwicklungsbranch implementiert. Paket 2C und Paket 3 bleiben geplant, alle externen Freigaben offen.
+
 **Design- und Feature-Folgeplan (21.10.2026):** [Paket 1 UI/Verständlichkeit und verbindliche Roadmap für Pakete 2 und 3](ROADMAP-DESIGN-FEATURES-2026-10-21.md). Paket 1 ändert keine Berechnungsformeln; Paket 2 (Zeitstrahl, Modelle vergleichen, Was-wäre-wenn) und Paket 3 (Druckbericht, Aufgaben, echte Nutzertests) bleiben getrennte Vorhaben. Externe P0-Freigaben bleiben unberührt.
 
 ## 1. Was schon existiert – ohne amtliche Produktfreigabe

@@ -1,0 +1,31 @@
+<section id="v42FamilyPlanner" class="v42-family" aria-labelledby="v42Title">
+ <header class="v42-head">
+  <div>
+   <span class="eyebrow">Familienzeit · Monatsübersicht</span>
+   <h3 id="v42Title">Beide Eltern, Betreuung und Finanzen auf einem Zeitstrahl</h3>
+   <p id="v42Intro">Alle Angaben sind Modellannahmen. Ein freier Elternteil ist keine stundenweise Betreuungszusage; ein geplanter Kita-Start ist keine Platzzusage. Monatsbeträge sind keine Bankeingänge.</p>
+  </div>
+  <p class="v42-chip">Nur in diesem Browser-Tab</p>
+ </header>
+ <p class="v42-help" id="v42TimelineHelp">Ein Lebensmonat lässt sich über die Spaltenüberschrift auswählen. Mit den Pfeiltasten kannst du zum nächsten oder vorherigen Lebensmonat wechseln. Die Tabelle ist auch ohne Farben lesbar.</p>
+ <div class="v42-scroll" tabindex="0" aria-label="Zeitleiste horizontal verschieben">
+  <div id="v42Timeline" aria-live="off"></div>
+ </div>
+ <div id="v42MonthDetail" class="v42-month-detail" aria-live="polite"></div>
+ <section id="v42Compare" class="v42-compare" aria-labelledby="v42CompareTitle">
+  <div class="v42-compare-title">
+   <div><h4 id="v42CompareTitle">Varianten direkt vergleichen</h4>
+    <p>Merke bis zu drei Momentaufnahmen des Plans. Sie bleiben ausschließlich bis zum Schließen oder Neuladen dieses Browser-Tabs erhalten. Keine Speicherung, kein Export, keine Änderung am aktiven Plan.</p>
+   </div>
+  </div>
+  <div class="v42-controls">
+   <label for="v42VariantName">Optionale Bezeichnung
+    <input id="v42VariantName" type="text" maxlength="40" autocomplete="off" placeholder="z. B. späterer Kita-Start">
+   </label>
+   <button type="button" class="navbtn" id="v42Save">Aktuelle Variante merken</button>
+   <button type="button" class="navbtn alt" id="v42Clear" disabled>Vergleich leeren</button>
+  </div>
+  <div id="v42Feedback" class="v42-feedback" role="status" aria-live="polite"></div>
+  <div id="v42Comparison" class="v42-comparison"></div>
+ </section>
+</section>

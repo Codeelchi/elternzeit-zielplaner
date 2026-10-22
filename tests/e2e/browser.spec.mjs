@@ -476,9 +476,9 @@ test('V3.8: example in one click, care-gap warning and unknown-cost transparency
  await expect(page.locator('#v38Summary')).toContainText('Beispiel auswählen');
  await page.locator('[data-v38-template="long18"]').click();
  await expect(page.locator('#v38Summary')).toContainText('Fiktives Beispiel');
- await expect(page.locator('#v38Summary')).toContainText('Rechnerisch ja');
- await expect(page.locator('#v38Summary')).toContainText('Geburtsjahr 2027');
- await expect(page.locator('#v38Summary')).toContainText('Einnahmen, kein frei verfügbares Budget');
+ await expect(page.locator('#v38Summary [data-v41-metric="gap"] strong')).toHaveText('Keine bis LM 18');
+ await expect(page.locator('#v38Summary .v41-major-notice')).toContainText('Rechtsstand für 2027 offen');
+ await expect(page.locator('#v38Summary [data-v41-metric="cash"] strong')).toHaveText('Nicht berechenbar');
  await expect(page.locator('#v38CostBanner')).toBeVisible();
  const state=await page.evaluate(()=>({state:window.__elternzeitTest.getState(),quick:window.__elternzeitV38.state()}));
  expect(state.state.storageConsent).toBe(false);
@@ -505,7 +505,7 @@ test('V3.8: personal five-field wizard distinguishes unknown from zero costs and
  await expect(page.locator('#v38Summary')).toContainText('Persönliche Näherung');
  await expect(page.locator('#v38Summary')).toContainText('Betreuungslücke ab LM 15');
  await page.locator('[data-v38-match="long18"]').click();
- await expect(page.locator('#v38Summary')).toContainText('Rechnerisch ja');
+ await expect(page.locator('#v38Summary [data-v41-metric="gap"] strong')).toHaveText('Keine bis LM 18');
  let state=await page.evaluate(()=>window.__elternzeitTest.getState());
  expect(state.netFather).toBe(2350);expect(state.netMother).toBe(2600);
  expect(state.expenses).toBe('');expect(state.zve).toBe('');

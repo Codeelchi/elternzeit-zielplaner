@@ -152,7 +152,8 @@ test('mobile options/privacy toggles and download naming work without losing foc
 test('partially edited example says some values still originate from fictional assumptions',()=>{
  const t=setup();template(t,'long18');
  const input=t.doc.getElementById('netFather');input.value='2350';input.dispatchEvent(new t.dom.window.Event('input',{bubbles:true}));
- assert.match(t.quick.summary(),/Teilweise angepasstes Beispiel/);
+ assert.match(t.quick.summary(),/Einzelne Angaben wurden geändert/);
+ assert.match(t.quick.summary(),/Teilweise geändert, Herkunft prüfen/);
  assert.match(t.quick.summary(),/fiktiven Vorlage/);
  assert.match(t.quick.summary(),/Welche Zahlen und Annahmen/);
  assert.deepEqual(t.errors,[]);t.dom.window.close();

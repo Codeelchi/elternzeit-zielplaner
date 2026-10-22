@@ -10,6 +10,8 @@
 
 ## Dokumentation und Übergabe
 
+- [Designpaket 1 und Roadmap der Folgepakete 2/3](docs/ROADMAP-DESIGN-FEATURES-2026-10-21.md): fortlaufende Sechs-Schritte-Navigation, vier zentrale Ergebnisfragen und sichtbare Datenqualität; Zeitstrahl, Variantenvergleich, Druckbericht, Aufgaben und Nutzerabnahme sind separat geplant. Keine neuen rechtlichen Leistungsberechnungen oder Freigaben.
+
 - [Amtliche Komponentenreferenzen A02–A04 und A06 – Umsetzung und Grenzen](docs/UMSETZUNG-AMTLICHE-KOMPONENTENREFERENZEN-2026-10-21.md): zusätzliche Zwischenwert-/Deckelungs- und Lebensmonatsregressionen auf Grundlage des [Quellenberichts vom 21.10.2026](docs/TESTDATEN-QUELLEN-2026-10-21.md); keine neuen unabhängigen Vollfamilienfälle oder externe Fachfreigabe.
 
 - [Schnellstart V3.8](docs/SCHNELLSTART-V3.8.md): fünf fiktive Beispielvorlagen, persönlicher Kurzassistent, Betreuungslücken, unbekannte Ausgaben, Datenschutz und Nutzertestgrenzen.

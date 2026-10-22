@@ -19,19 +19,47 @@ const QuickStartV38=(()=>{
  let scenarioDelay=2,goalFormDirty=false,goalWizardUsed=false;
  let scenarioLost='',scenarioExtra='',scenarioFeesWaived=false;
  const costsKnown=()=>s.expenses!==''&&s.expenses!==null&&s.expenses!==undefined&&Number.isFinite(Number(s.expenses));
- const typeLabel=()=>mode==='example'?'Fiktives Beispiel':mode==='restored'?(PUBLIC_TEST_PREVIEW?'Gespeicherter Testentwurf':'Gespeicherter Entwurf'):(PUBLIC_TEST_PREVIEW?'Angepasstes Testbeispiel':'Persönliche Näherung');
+ const typeLabel=()=>mode==='example'?'Fiktives Beispiel':mode==='restored'?(PUBLIC_TEST_PREVIEW?'Geladener Testentwurf':'Geladener Entwurf'):(PUBLIC_TEST_PREVIEW?'Angepasstes Testbeispiel':'Persönliche Näherung');
+ // The six common steps are a real sequential route, not a subsequence of
+ // 16 expert-only slide numbers. A detail slide explicitly opened from a
+ // checklist remains visible as an extra step until the next navigation.
+ function visibleSlideIndices(){
+  const slides=[...document.querySelectorAll('.slide')];
+  return slides.map((_,i)=>i).filter(i=>expert||navCore.has(slides[i].id)||i===slideIndex);
+ }
  function navRefresh(){
   document.body.classList.toggle('v38-lite',!expert);
   document.body.classList.toggle('v38-expert',expert);
   document.body.classList.toggle('v38-pristine',mode==='idle');
-  const slides=[...document.querySelectorAll('.slide')];
+  const slides=[...document.querySelectorAll('.slide')],indices=visibleSlideIndices();
   for(const btn of node('sectionNav')?.querySelectorAll('[data-slide]')||[]){
-   const sl=slides[Number(btn.dataset.slide)];
-   btn.hidden=!expert&&!navCore.has(sl?.id)&&Number(btn.dataset.slide)!==slideIndex;
+   const i=Number(btn.dataset.slide),order=indices.indexOf(i),extra=!expert&&!navCore.has(slides[i]?.id);
+   btn.hidden=order<0;
+   btn.textContent=order<0?'':String(order+1).padStart(2,'0')+' '+(extra?'Detail: ':'')+String(slides[i]?.dataset.title||'Ansicht');
+   if(i===slideIndex)btn.setAttribute('aria-current','step');else btn.removeAttribute('aria-current');
   }
-  const b=node('v38Advanced');
-  if(b){b.textContent=expert?'Fachansichten ausblenden':'Fachansichten einblenden';b.setAttribute('aria-pressed',String(expert));}
+  const position=indices.indexOf(slideIndex);
+  if(position>=0&&indices.length){
+   node('counter').textContent=(position+1)+' / '+indices.length;
+   node('progress').style.width=100*(position+1)/indices.length+'%';
+   node('previous').disabled=position===0;
+   node('next').disabled=position===indices.length-1;
+  }
+  for(const b of [node('v38Advanced'),node('v41ModeToggle')]){
+   if(b){b.textContent=expert?'Fachansichten ausblenden':'Fachansichten einblenden';b.setAttribute('aria-pressed',String(expert));}
+  }
  }
+ // The original previous/next listeners navigate raw slide indices. Override
+ // just those clicks while the simple path is active; expert mode is unchanged.
+ function simpleStep(direction,event){
+  if(expert)return;
+  const indices=visibleSlideIndices(),position=indices.indexOf(slideIndex);
+  if(position<0)return;
+  event.preventDefault();event.stopImmediatePropagation();
+  const next=indices[position+direction];
+  if(next!==undefined)showSlide(next);
+ }
+
  function costRefresh(){
   const known=costsKnown(),strip=node('v38CostBanner');
   if(strip){
@@ -247,14 +275,35 @@ const QuickStartV38=(()=>{
    '<p class="v38-caption">'+(steps.length?steps.length+' offene Prüfpunkte. Ihr könnt sie in beliebiger Reihenfolge bearbeiten.':'Keine offenen Punkte in dieser Kurzprüfung. Schätzungen, Quellenstand und vollständige Regelprüfung trotzdem beachten.')+' Dies ist keine Freigabe oder Antragsprüfung.</p>'+
    (steps.length?'<ul>'+steps.map(x=>'<li><button type="button" data-v38-goto="'+x.slide+'"'+(x.focus?' data-v310-focus="'+x.focus+'"':'')+'><span>'+escValue(x.label)+'</span><span aria-hidden="true"> →</span></button></li>').join('')+'</ul>':'')+'</section>';
  }
+ // Presentation-only provenance. None of these labels certifies an official
+ // source, and 'entered' never means independently checked.
+ function dataQualityMarkup(){
+  const entry=mode==='example'?'Fiktive Vorlage':mode==='restored'?'Wiederhergestellt, ungeprüft':
+   mode==='personal'?(wizardCompleted?'Selbst eingegeben, weitere Annahmen prüfen':'Teilweise geändert, Herkunft prüfen'):'Noch kein Entwurf';
+  const missingEg=s.egNetFather===''||s.egNetFather==null||s.egNetMother===''||s.egNetMother==null;
+  const eg=missingEg?'Mindestens ein Wert fehlt':mode==='example'?'Fiktive Beispielwerte':
+   s.incomeEntryMode==='official'?'Als übernommen angegeben, nicht verifiziert':
+   s.incomeEntryMode==='known'?'Als bekannt angegeben, ungeprüft':
+   wizardCompleted&&lastEstimated.father!==null&&lastEstimated.mother!==null?
+   'Vereinfachte Schnellstart-Schätzung':'Schätzung / Herkunft nicht geprüft';
+  const costs=costsKnown()?(mode==='example'?'Fiktive Kosteneingabe':'Eingegeben, nicht geprüft'):'Nicht angegeben';
+  const entries=[['Planbasis',entry],['Elterngeld-Netto',eg],['Haushaltskosten',costs]];
+  return '<section class="v41-quality" aria-label="Herkunft und Datenqualität"><h4>Datenqualität</h4>'+
+   '<ul>'+entries.map(([name,value])=>'<li><span>'+escValue(name)+'</span><strong>'+escValue(value)+'</strong></li>').join('')+'</ul>'+
+   '<p class="v38-caption">„Bekannt“ oder „übernommen“ bedeutet keine amtliche Prüfung. Der Rechner überträgt keine Werte an eine Behörde.</p></section>';
+ }
  function summary(){
   if(mode==='idle')return '<h3>Beispiel auswählen</h3><p>'+(PUBLIC_TEST_PREVIEW?'Startet ohne Eingaben. Verändert Einkommen und Betreuungsdauer nur mit frei erfundenen Zahlen.':'Startet ohne Eingaben. Danach könnt ihr Einkommen und Betreuungsdauer persönlich anpassen.')+'</p>';
   if(!Array.isArray(current?.rows)||current.rows.length===0)return '<div class="v38-notice">Der Monatsplan konnte nicht berechnet werden.</div>';
   const template=effectiveTemplate();
   const until=Math.min(36,Math.max(1,Number(s.goalCare)||18));
   const rows=current.rows.slice(0,until);
-  const known=costsKnown(),values=rows.map(x=>Number(known?x.cashAfter:x.income)||0);
-  const min=Math.min(...values),total=values.reduce((a,b)=>a+b,0);
+  const known=costsKnown();
+  const grossValues=rows.map(x=>Number(x.income)||0);
+  const grossTotal=grossValues.reduce((a,b)=>a+b,0);
+  const cashValues=known?rows.map(x=>Number(x.cashAfter)||0):[];
+  const minCash=known?Math.min(...cashValues):null;
+  const cashTotal=known?cashValues.reduce((a,b)=>a+b,0):null;
   const gap=firstCoverageGap(),covered=gap===null;
   const legal=current.validation?.status||'NICHT_UNTERSTUETZT';
   const year=Number(String(s.date).slice(0,4));
@@ -266,8 +315,8 @@ const QuickStartV38=(()=>{
    preservedExpertParents().length?
     'Hinweis: Mindestens ein beibehaltener Elterngeld-Netto-Fachwert hat eine nicht unabhängig geprüfte Herkunft. Er wurde nicht still durch das neue Auszahlungsnetto ersetzt.':
     'Elterngeld-Netto vorläufig gleich Auszahlungsnetto aus der Schnelleingabe geschätzt. Dies ist keine amtliche Berechnung.');
-  if(mode==='personal'&&!wizardCompleted)notices.push('Teilweise angepasstes Beispiel: Nicht selbst eingegebene Werte stammen weiterhin aus einer fiktiven Vorlage. Bitte alle weiteren Annahmen kontrollieren.');
-  if(mode==='restored')notices.push(PUBLIC_TEST_PREVIEW?'Importierter Testentwurf ohne amtliche Fachprüfung. Ausschließlich synthetische Daten verwenden.':'Gespeicherter Entwurf, noch keine bestätigte amtliche Berechnung. Persönliche Zahlen und Leistungen separat prüfen.');
+  if(mode==='personal'&&!wizardCompleted)notices.push('Einzelne Angaben wurden geändert. Weitere Werte können aus einer fiktiven Vorlage oder einem geladenen Entwurf stammen; bitte alle Annahmen kontrollieren.');
+  if(mode==='restored')notices.push(PUBLIC_TEST_PREVIEW?'Geladener Testentwurf ohne amtliche Fachprüfung. Ausschließlich synthetische Daten verwenden.':'Geladener Entwurf, noch keine bestätigte amtliche Berechnung. Persönliche Zahlen und Leistungen separat prüfen.');
   if(!known)notices.push('Haushaltsausgaben fehlen: Die angezeigten Beträge sind Einnahmen, kein frei verfügbares Budget. Rücklagen und Engpassmonate sind nicht belastbar.');
   if(!covered)notices.push('Betreuungslücke ab LM '+gap+': Die gewählte Vorlage sichert die Betreuung bis LM '+until+' nicht durchgehend. Es ist weitere Betreuung oder ein anderes Modell nötig.');
   if(year>2026)notices.push('Geburtsjahr '+year+': Diese Modellrechnung ist eine unverbindliche Zukunftsprognose. Die Rechtsregeln für diese Geburtskohorte wurden nicht abschließend bestätigt.');
@@ -280,31 +329,51 @@ const QuickStartV38=(()=>{
   const align=template&&template.goal!==until?
     '<button class="navbtn alt" type="button" data-v39-sync-goal="'+escValue(selected)+'">Ziel auf '+template.goal+' Monate setzen</button>':'';
   const missingLong=!covered&&!match?'<p class="v38-caption">Für dieses lange Betreuungsziel gibt es noch keine fertige Schnellstart-Vorlage. Verwendet den Monatskonfigurator oder die Zielsuche; die Betreuung bleibt bis dahin ungeklärt.</p>':'';
+  const legalLabel=year>2026?'Rechtsstand '+year+' offen':legal==='PLAUSIBEL_STANDARD'?'Nur Plausibilität':'Nicht fachlich bestätigt';
+  const legalHint=year>2026?'Diese Geburtskohorte ist nicht abschließend rechtlich geprüft.':
+   legal==='PLAUSIBEL_STANDARD'?'Kein amtlicher Bescheid und keine externe Abnahme.':
+   'Regelstatus: '+legal+'. Fachprüfung weiterhin erforderlich.';
+  const warning=year>2026?
+   '<div class="v41-major-notice"><strong>Rechtsstand für '+year+' offen</strong><p>Dieses '+(mode==='example'?'fiktive Beispiel':'Szenario')+' ist nur eine Zukunftsvorschau. Die angezeigten Beträge sind keine bestätigten Ansprüche. Prüfdetails bleiben unten erhalten.</p></div>':
+   legal!=='PLAUSIBEL_STANDARD'?
+   '<div class="v41-major-notice"><strong>Keine fachliche Freigabe</strong><p>Der Plan ist nicht als Bewilligungsgrundlage geprüft. Bitte die Regelhinweise vor Entscheidungen ansehen.</p></div>':'';
   return '<h3>'+escValue(typeLabel()+' · '+(template?.label||'Individueller Plan'))+'</h3>'+
     '<p class="v38-caption">Ausgewertet: '+until+' Kindeslebensmonate'+(template?' · Vorlagenmodell: '+template.goal+' Monate':'')+'. Die Werte sind keine feststehenden Geldeingangstermine.</p>'+
-    '<div class="v38-kpis">'+
-      '<div class="v38-kpi"><span>Betreuung bis Zielalter</span><strong>'+(covered?'Rechnerisch ja':'Lücke / offen')+'</strong></div>'+
-  '<div class="v38-kpi"><span>'+(known?'Niedrigster Rest nach Haushalts- und Kita-Kosten / LM':'Niedrigste Einnahmen vor Haushalts- und Kita-Kosten / LM')+'</span><strong>'+eur(min)+'</strong></div>'+
-  '<div class="v38-kpi"><span>'+(known?'Rest nach Haushalts- und Kita-Kosten über '+until+' LM':'Einnahmen vor Haushalts- und Kita-Kosten über '+until+' LM')+'</span><strong>'+eur(total)+'</strong></div>'+
-      '<div class="v38-kpi"><span>Rechtsstatus</span><strong style="font-size:14px">'+escValue(year>2026?'2027+ · unverbindlich':legal==='PLAUSIBEL_STANDARD'?'Standardregeln plausibel':'Nicht freigegeben')+'</strong></div>'+
-    '</div>'+
-    '<p class="v38-caption">'+(known?'Ergebnis nach eingegebenen Haushalts- und Kita-Annahmen; weitere Kosten/Steuern/Versicherungen möglich.':(PUBLIC_TEST_PREVIEW?'Im Testbeispiel fehlen fiktive Haushaltsausgaben. Deshalb keine Aussage über Restbudget oder Rücklagen.':'Persönliche Haushaltsausgaben sind unbekannt. Deshalb keine Aussage über verfügbares Restbudget oder notwendige Rücklagen.'))+'</p>'+
-    notices.map(t=>'<div class="v38-notice">'+escValue(t)+'</div>').join('')+
+    warning+
+    '<section class="v41-overview" aria-label="Plan im Überblick"><h4>Plan im Überblick</h4><div class="v38-kpis">'+
+    '<div class="v38-kpi" data-v41-metric="duration"><span>Betreuungsziel</span><strong>'+until+' LM</strong><small>Rechnerisches Modell, keine Betreuungszusage</small></div>'+
+    '<div class="v38-kpi" data-v41-metric="gap"><span>Erste Betreuungslücke</span><strong>'+(covered?'Keine bis LM '+until:'Ab LM '+gap)+'</strong><small>'+(covered?'Nach den vereinfachten Modellannahmen':'Weitere Betreuung oder Planänderung nötig')+'</small></div>'+
+    '<div class="v38-kpi" data-v41-metric="cash"><span>Niedrigster Rest nach Kosten / LM</span><strong>'+(known?eur(minCash):'Nicht berechenbar')+'</strong><small>'+(known?'Nur nach eingegebenen Haushalts- und Kita-Kosten':'Haushaltsausgaben fehlen; kein verfügbares Budget ableitbar')+'</small></div>'+
+    '<div class="v38-kpi" data-v41-metric="legal"><span>Prüfstatus</span><strong>'+escValue(legalLabel)+'</strong><small>'+escValue(legalHint)+'</small></div>'+
+    '</div></section>'+
+    '<p class="v41-totals"><strong>Modellierte Einnahmen vor Haushalts- und Kita-Kosten über '+until+' LM: '+eur(grossTotal)+'</strong>'+
+    (known?'<span>Rest nach Haushalts- und Kita-Kosten über '+until+' LM: '+eur(cashTotal)+'. Weitere Kosten und Steuern können fehlen.</span>':
+     '<span>Persönliche Haushaltsausgaben sind unbekannt; daher keine Aussage über verfügbares Restbudget, Engpässe oder Rücklagen.</span>')+'</p>'+
+    dataQualityMarkup()+
     nextStepsMarkup()+bridgeMarkup()+
+    '<details class="v41-review"><summary>Alle Einschränkungen und Hinweise ('+notices.length+')</summary>'+
+      notices.map(t=>'<div class="v38-notice">'+escValue(t)+'</div>').join('')+'</details>'+
     '<details class="v39-assumptions"><summary>Welche Zahlen und Annahmen stecken dahinter?</summary>'+
       '<p>Geburtstermin: '+escValue(s.date)+' · Auszahlungsnetto Elternteil 1: '+eur(s.netFather)+' · Elternteil 2: '+eur(s.netMother)+'.</p>'+
-      '<p>Verwendetes Elterngeld-Netto (noch nicht automatisch amtlich ermittelt): '+(s.egNetFather===''?'unbekannt':eur(s.egNetFather))+' und '+(s.egNetMother===''?'unbekannt':eur(s.egNetMother))+'. Kindergeldansatz: '+eur(s.kind)+' monatlich.</p>'+      '<p>Herkunft Elterngeld-Netto: Elternteil 1: '+escValue(explainNettoOrigin('father'))+'; Elternteil 2: '+escValue(explainNettoOrigin('mother'))+'. Diese Herkunftsangabe ist keine externe Fachprüfung.</p>'+
+      '<p>Verwendetes Elterngeld-Netto (noch nicht automatisch amtlich ermittelt): '+(s.egNetFather===''?'unbekannt':eur(s.egNetFather))+' und '+(s.egNetMother===''?'unbekannt':eur(s.egNetMother))+'. Kindergeldansatz: '+eur(s.kind)+' monatlich.</p>'+
+      '<p>Herkunft Elterngeld-Netto: Elternteil 1: '+escValue(explainNettoOrigin('father'))+'; Elternteil 2: '+escValue(explainNettoOrigin('mother'))+'. Diese Herkunftsangabe ist keine externe Fachprüfung.</p>'+
       '<p>Haushaltsausgaben: '+(known?eur(s.expenses)+' pro Monat':'nicht angegeben')+'. Zusätzliche Kosten und Leistungs-/Steuereffekte können fehlen. Monatlicher Leistungsanspruch ist kein Auszahlungstermin.</p></details>'+
     '<div class="v38-footer-actions">'+alternative+align+missingLong+
     '<button class="navbtn alt" type="button" data-v38-goto="slide-4">Lebensmonate ansehen</button>'+
     '<button class="navbtn alt" type="button" data-v38-goto="slide-2">Einkommen genauer eingeben</button>'+
     '<button class="navbtn alt" type="button" data-v38-goto="slide-10">Regelprüfung ansehen</button></div>';
  }
+
  function refresh(){
   if(!node('v38QuickStart'))return;
   navRefresh();costRefresh();
   if(!goalFormDirty)syncGoalForm();
-  const output=node('v38Summary');if(output){const open=!!output.querySelector('.v312-finance')?.open;output.innerHTML=summary();const details=output.querySelector('.v312-finance');if(details)details.open=open;}
+  const output=node('v38Summary');
+  if(output){
+   const opened=['.v312-finance','.v41-review','.v39-assumptions'].filter(selector=>!!output.querySelector(selector)?.open);
+   output.innerHTML=summary();
+   for(const selector of opened){const details=output.querySelector(selector);if(details)details.open=true;}
+  }
   for(const b of node('v38Templates')?.querySelectorAll('[data-v38-template]')||[]){
    b.setAttribute('aria-pressed',String(b.dataset.v38Template===selected));
   }
@@ -477,7 +546,7 @@ const QuickStartV38=(()=>{
   refresh();
  }
  function onImported(){
-  mode='personal';selected=Object.keys(templates).find(key=>templates[key].model===s.model)||'';
+  mode='restored';selected=Object.keys(templates).find(key=>templates[key].model===s.model)||'';
   lastEstimated={father:null,mother:null};wizardCompleted=false;formDirty=false;goalFormDirty=false;goalWizardUsed=true;
   scenarioDelay=2;scenarioLost='';scenarioExtra='';scenarioFeesWaived=false;
   syncPersonalForm();refresh();refreshNettoChoice();
@@ -519,7 +588,10 @@ const QuickStartV38=(()=>{
    const el=document.querySelector('.privacy-strip'),open=el.classList.toggle('v39-open');
    privacy.setAttribute('aria-expanded',String(open));
   });
-  node('v38Advanced')?.addEventListener('click',()=>{expert=!expert;refresh();});
+  for(const [id,delta] of [['next',1],['previous',-1]])
+   node(id)?.addEventListener('click',event=>simpleStep(delta,event),true);
+  for(const id of ['v38Advanced','v41ModeToggle'])
+   node(id)?.addEventListener('click',()=>{expert=!expert;refresh();if(id==='v41ModeToggle')closeMobile();});
   node('v38PersonalForm')?.addEventListener('submit',personalSubmit);
   node('v311GoalsForm')?.querySelectorAll('input,select').forEach(input=>
    input.addEventListener('input',()=>{goalFormDirty=true;clearGoalInputError();}));
@@ -564,7 +636,7 @@ const QuickStartV38=(()=>{
    }
   });
   // Edits in the existing expert UI must not remain labelled as untouched demo data.
-  document.querySelectorAll('[data-field],[data-extra],[data-profile]').forEach(input=>input.addEventListener('input',markPersonal));
+  document.querySelectorAll('[data-field],[data-extra],[data-profile]').forEach(input=>input.addEventListener(input.tagName==='SELECT'?'change':'input',markPersonal));
   node('standardCaseConfirmed')?.addEventListener('change',markPersonal);
   for(const [id,parent] of [['egNetFather','father'],['egNetMother','mother']])
    node(id)?.addEventListener('input',()=>{lastEstimated[parent]=null;});

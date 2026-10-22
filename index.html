@@ -379,6 +379,73 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 @media print{.v42-family .v42-controls,.v42-family .v42-saved{display:none}.v42-family .v42-scroll,.v42-family .v42-compare-scroll{overflow:visible}}
 
 /* V42_STYLES_END */
+/* V43_STYLES_START */
+/* Paket 2C: bounded hypothetical controls and non-certifying comparison. */
+.v43-what-if{margin:22px 0 30px;padding:clamp(14px,2vw,24px);border:1px solid #bad2cc;border-radius:16px;background:#fff;color:#21463d;overflow-wrap:anywhere;max-width:100%}
+.v43-what-if .v43-head{display:flex;justify-content:space-between;align-items:start;gap:18px;margin-bottom:13px}
+.v43-what-if .v43-head h3{font-size:clamp(1.2rem,2vw,1.55rem);margin:5px 0 10px;line-height:1.34;color:#153a32}
+.v43-what-if p{font-size:.87rem;line-height:1.6;margin:4px 0 12px;color:#3d5a52}
+.v43-what-if .v43-chip{flex-shrink:0;font-size:.75rem;font-weight:750;line-height:1.4;border-radius:25px;padding:8px 12px;background:#fdf4e7;border:1px solid #d5b891;color:#755022}
+.v43-form{display:grid;gap:13px;grid-template-columns:1fr;max-width:100%}
+.v43-group{border:1px solid #d5e3dc;border-radius:12px;background:#f9fcfa;min-width:0;margin:0;padding:15px}
+.v43-group legend{font-size:.98rem;font-weight:800;line-height:1.45;padding:0 6px;color:#175345}
+.v43-group>p{margin:3px 0 12px}
+.v43-group label{display:grid;gap:7px;font-size:.84rem;line-height:1.5;font-weight:700;color:#264d41;min-width:0}
+.v43-group .v43-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin:12px 0}
+.v43-group input:not([type=checkbox]),.v43-group select{width:100%;max-width:100%;min-width:0;box-sizing:border-box;background:#fff;border-radius:9px;border:1px solid #9dbbb0;color:#173e34;font-size:1rem;line-height:1.3;padding:11px 12px;min-height:44px}
+.v43-group select{min-height:46px}
+.v43-group input[type=range]{padding:2px 0;accent-color:#17745e;cursor:pointer}
+.v43-group input:disabled,.v43-group select:disabled{background:#edf2ee;opacity:.6;cursor:not-allowed}
+.v43-group input:focus-visible,.v43-group select:focus-visible,.v43-actions button:focus-visible{outline:3px solid #ae6418;outline-offset:3px}
+.v43-group input[aria-invalid=true]{border:2px solid #ae461d}
+.v43-group .v43-check{display:flex;align-items:start;gap:9px;cursor:pointer;font-size:.85rem;font-weight:650}
+.v43-group .v43-check input{width:18px;height:18px;flex-shrink:0;margin:2px 0 0;accent-color:#23735e}
+.v43-group output{font-variant-numeric:tabular-nums;font-weight:800;color:#176150}
+.v43-actions{display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:12px;margin:14px 0}
+.v43-actions button{min-height:44px}
+.v43-result{border:1px solid #bfd8ca;border-radius:12px;background:#f7faf6;padding:16px;max-width:100%;min-width:0}
+.v43-result h4{margin:0 0 8px;color:#173e33;font-size:1.1rem}
+.v43-result h5{margin:0 0 8px;font-size:.95rem;line-height:1.4;color:#204a3e}
+.v43-result .v43-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:12px 0}
+.v43-result .v43-panel{min-width:0;background:#fff;border:1px solid #d1e0d7;border-radius:11px;padding:15px}
+.v43-result .v43-panel.v43-alt{background:#f1f8f4;border-color:#a8d1bf}
+.v43-result dl{margin:10px 0 0;display:grid;gap:10px}
+.v43-result dl>div{border-top:1px solid #e0ebe5;padding-top:9px}
+.v43-result dt{font-size:.79rem;line-height:1.45;color:#3f6155}
+.v43-result dd{margin:3px 0 0;font-size:.97rem;font-weight:800;line-height:1.4;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.v43-result .v43-delta{padding:12px 14px;background:#eaf5ee;border:1px solid #bee0c9;border-radius:9px;margin:15px 0;color:#1d5140}
+.v43-result .v43-delta strong{font-size:1.06rem;display:block}
+.v43-result .v43-issue{border-left:4px solid #b97724;background:#fff5e8;padding:11px 13px;color:#6c4e22;border-radius:6px;margin:12px 0}
+.v43-result .v43-issue strong{display:block;margin-bottom:5px}
+.v43-result .v43-issue ul{margin:4px 0;padding-left:20px}
+.v43-result .v43-issue li{margin:6px 0;font-size:.83rem;line-height:1.45}
+.v43-result .v43-table-wrap{max-width:100%;overflow-x:auto;border:1px solid #cadfd1;border-radius:8px;margin:12px 0}
+.v43-result table{border-collapse:collapse;width:100%;min-width:610px;font-size:.79rem}
+.v43-result th,.v43-result td{border:1px solid #deebe2;padding:9px 10px;text-align:left;vertical-align:top}
+.v43-result thead th{background:#e3f2e9;color:#164738}
+.v43-result td{font-variant-numeric:tabular-nums}
+.v43-result .v43-unknown{background:#fff4e6;color:#6a4c22;font-weight:650}
+.v43-result .v43-notes{background:#fffaf3;border:1px solid #e7d9c2;padding:12px 16px;border-radius:9px}
+.v43-result .v43-notes li{font-size:.82rem;line-height:1.55;color:#69502e;margin:6px 0}
+.v43-result .v43-notes ul{margin:5px 0;padding-left:21px}
+.v43-what-if .v43-footnote{font-size:.8rem;color:#594d39;margin:13px 0 0}
+@media(max-width:760px){
+ .v43-what-if .v43-head{display:block}
+ .v43-what-if .v43-chip{display:inline-block;margin-bottom:9px}
+ .v43-group .v43-split{grid-template-columns:1fr}
+}
+@media(max-width:540px){
+ .v43-what-if{padding:11px}
+ .v43-group{padding:11px}
+ .v43-result{padding:11px}
+ .v43-result .v43-grid{grid-template-columns:1fr}
+ .v43-actions button{width:100%}
+}
+@media print{.v43-what-if .v43-form,.v43-what-if .v43-actions{display:none}}
+
+.v43-what-if .v43-status{font-size:.82rem;font-weight:700;color:#275c49;min-height:1.2rem;margin:10px 0}
+
+/* V43_STYLES_END */
 
 /* V3.17: descriptive scope gate, deliberately never a positive release badge. */
 .v317-scope{border:1px solid #b8cec9;background:#f6f9f7;border-radius:12px;padding:14px 17px;margin:12px 0 18px;overflow-wrap:anywhere}
@@ -830,6 +897,77 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  </section>
 </section>
 <!-- V42_MARKUP_END -->
+<!-- V43_MARKUP_START -->
+<section id="v43WhatIf" class="v43-what-if" aria-labelledby="v43Title">
+ <header class="v43-head">
+  <div><span class="eyebrow">Paket 2C · hypothetische Szenarien</span>
+   <h3 id="v43Title">Was wäre, wenn sich eure Planung ändert?</h3>
+   <p>Vergleiche den aktuellen Plan mit <strong>einer unverbindlichen Alternative</strong>. Es ändern sich hier ausschließlich eure Szenarioannahmen – niemals der aktive Plan, das Elterngeld, die Buchungen oder die Speicherentscheidung.</p>
+  </div>
+  <span class="v43-chip">Nur im Browser-Tab · kein Antrag</span>
+ </header>
+ <div class="v43-form" role="group" aria-label="Was-wäre-wenn-Annahmen">
+  <fieldset class="v43-group">
+   <legend>1 · Kita später als geplant</legend>
+   <p id="v43CareHelp">Die Verschiebung wirkt nur, wenn im aktiven Plan bereits ein Kita-Start eingetragen ist. Kita-Zusage und Gebührenwegfall werden nicht vorausgesetzt.</p>
+   <label for="v43Delay">Kita-Start um Lebensmonate verschieben
+    <select id="v43Delay" aria-describedby="v43CareHelp">
+     <option value="0">Keine Verschiebung</option>
+     <option value="1">1 Lebensmonat</option>
+     <option value="2">2 Lebensmonate</option>
+     <option value="3">3 Lebensmonate</option>
+     <option value="4">4 Lebensmonate</option>
+     <option value="5">5 Lebensmonate</option>
+     <option value="6">6 Lebensmonate</option>
+    </select>
+   </label>
+   <div class="v43-split">
+    <label for="v43BridgeWage">Monatlicher Erwerbsnetto-Ausfall nur während der Verzögerung (€)
+     <input id="v43BridgeWage" type="number" inputmode="decimal" min="0" max="10000" step="0.01" placeholder="Auch 0 ausdrücklich eingeben">
+    </label>
+    <label for="v43BridgeCare">Zusätzliche Überbrückungsbetreuung nur während der Verzögerung (€/LM)
+     <input id="v43BridgeCare" type="number" inputmode="decimal" min="0" max="10000" step="0.01" placeholder="Auch 0 ausdrücklich eingeben">
+    </label>
+   </div>
+   <label class="v43-check"><input id="v43WaiveFees" type="checkbox"> Angenommener Wegfall der ursprünglich geplanten Kita-Beiträge in den Verzögerungsmonaten (nur wenn ausdrücklich gewählt)</label>
+  </fieldset>
+  <fieldset class="v43-group">
+   <legend>2 · Teilzeit anders verteilen</legend>
+   <p>Die neuen Stunden gelten <strong>nur für bestehende Teilzeit-Monate</strong>, nicht für Vollzeit oder Elternzeit ohne Arbeit. Ohne ausdrücklich eingegebene Nettoänderung ist ein belastbarer finanzieller Vergleich <strong>nicht berechenbar</strong>. Elterngeld und Stunden-Gültigkeit werden nicht neu bewilligt.</p>
+   <div class="v43-split">
+    <label for="v43FatherHours">Teilzeit Elternteil 1: angenommene Wochenstunden (1–32)
+     <input id="v43FatherHours" type="number" inputmode="numeric" min="1" max="32" step="1" placeholder="Keine Änderung">
+    </label>
+    <label for="v43FatherNet">Elternteil 1: Änderung des Monatsnettos in bestehenden Teilzeit-LM (€)
+     <input id="v43FatherNet" type="number" inputmode="decimal" min="-10000" max="10000" step="0.01" placeholder="Plus oder Minus; auch 0">
+    </label>
+    <label for="v43MotherHours">Teilzeit Elternteil 2: angenommene Wochenstunden (1–32)
+     <input id="v43MotherHours" type="number" inputmode="numeric" min="1" max="32" step="1" placeholder="Keine Änderung">
+    </label>
+    <label for="v43MotherNet">Elternteil 2: Änderung des Monatsnettos in bestehenden Teilzeit-LM (€)
+     <input id="v43MotherNet" type="number" inputmode="decimal" min="-10000" max="10000" step="0.01" placeholder="Plus oder Minus; auch 0">
+    </label>
+   </div>
+  </fieldset>
+  <fieldset class="v43-group">
+   <legend>3 · Ausgaben und Einkommensrisiko</legend>
+   <div class="v43-split">
+    <label for="v43ExpensesDelta">Monatliche Änderung der Haushaltsausgaben (€/LM)
+     <input id="v43ExpensesDelta" type="number" inputmode="decimal" min="-10000" max="10000" step="0.01" value="0">
+    </label>
+    <label for="v43WageRisk">Vorsichtiges Nettolohn-Risikoband (nur Erwerbsnetto): <output id="v43WageRiskValue" for="v43WageRisk">0 %</output>
+     <input id="v43WageRisk" type="range" min="0" max="30" step="5" value="0">
+    </label>
+   </div>
+   <p>Das Risikoband mindert lediglich das angenommene Erwerbsnetto – <strong>nicht</strong> Mutterschaftsleistungen oder Elterngeld. Etwaige Folgewirkungen auf den Elterngeldanspruch bleiben ungeprüft.</p>
+  </fieldset>
+ </div>
+ <div class="v43-actions"><button id="v43Reset" type="button" class="navbtn alt">Nur diese Annahmen zurücksetzen</button></div>
+ <p id="v43Status" class="v43-status" role="status" aria-live="polite" aria-atomic="true"></p>
+ <div id="v43Result" class="v43-result" aria-live="off"></div>
+ <p class="v43-footnote">Ausgabe ist eine <strong>rechnerische Was-wäre-wenn-Differenz</strong>, keine amtliche Berechnung, Kita-Platzzusage, Liquiditätsprognose oder global optimierte Empfehlung. Alle P0-Fach- und Release-Sperren bleiben bestehen.</p>
+</section>
+<!-- V43_MARKUP_END -->
    <div class="chart-zone">
     <div class="chart-card"><div class="inline-pair"><h3>Modelleinnahmen vor Haushalts- und Kita-Kosten / Lebensmonat</h3><span class="source-foot">Vollzeit-Referenz gestrichelt</span></div><div id="incomeChart" aria-label="Monatliche Einkommensbalken"></div><div class="legend" style="margin:0"><span><i class="dot" style="background:#456f8b"></i>Gehalt / Mutterschutz</span><span><i class="dot" style="background:#008e81"></i>Elterngeld</span><span><i class="dot" style="background:#e59a56"></i>Kindergeld</span></div></div>
     <div class="overview-side">
@@ -1407,7 +1545,7 @@ module.exports = {
 return Object.freeze(module.exports);})();
 /* TIME_AXES_MODULE_END */
 /* PlanningKnowledge_START */
-const PlanningKnowledge=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const PlanningKnowledge=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 const time = require('./time-axes.cjs');
 const VERIFIED_AT = '2026-10-16';
@@ -1493,7 +1631,7 @@ module.exports={DATA,SOURCES,selectPlanningKnowledge};
 return Object.freeze(module.exports);})(TimeAxes);
 /* PlanningKnowledge_END */
 /* Money_START */
-const Money=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const Money=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 /** Cent rounding for calculated euro amounts.
@@ -1561,7 +1699,7 @@ module.exports = {roundEuro, roundEuroByPercent, meanEuro, MAX_EURO};
 return Object.freeze(module.exports);})(TimeAxes);
 /* Money_END */
 /* CandidatePatterns_START */
-const CandidatePatterns=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const CandidatePatterns=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 /** Create a second care template by exchanging the parents' monthly choices.
@@ -1595,7 +1733,7 @@ module.exports = {mirrorCarePlan};
 return Object.freeze(module.exports);})(TimeAxes);
 /* CandidatePatterns_END */
 /* PlanningModel_START */
-const PlanningModel=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const PlanningModel=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 // Canonical bridge between independent axes and the existing financial model.
@@ -1680,7 +1818,7 @@ module.exports={materializePlan,codeFor};
 return Object.freeze(module.exports);})(TimeAxes);
 /* PlanningModel_END */
 /* GoalRanking_START */
-const GoalRanking=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const GoalRanking=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 // Ranking only: callers must validate law, coverage and minimum budgets first.
@@ -1872,7 +2010,7 @@ module.exports = {rankCandidates, scheduleFingerprint, tradeoffFrontier, SEARCH_
 return Object.freeze(module.exports);})(TimeAxes);
 /* GoalRanking_END */
 /* CareImpact_START */
-const CareImpact=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const CareImpact=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 const {roundEuro,MAX_EURO}=require('./money.cjs');
@@ -1947,7 +2085,7 @@ module.exports={projectDelayedCareScenario};
 return Object.freeze(module.exports);})(TimeAxes);
 /* CareImpact_END */
 /* RecordedLiquidity_START */
-const RecordedLiquidity=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const RecordedLiquidity=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 const {roundEuro,MAX_EURO}=require('./money.cjs');
@@ -2003,7 +2141,7 @@ module.exports={summarizeRecordedLiquidity};
 return Object.freeze(module.exports);})(TimeAxes);
 /* RecordedLiquidity_END */
 /* ExpectedPayments_START */
-const ExpectedPayments=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const ExpectedPayments=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 const MAX_ROWS=36, MAX_EURO=100000;
@@ -2093,7 +2231,7 @@ module.exports={compareExpectedPayments,validatePayments};
 return Object.freeze(module.exports);})(TimeAxes);
 /* ExpectedPayments_END */
 /* FinanceGuidance_START */
-const FinanceGuidance=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const FinanceGuidance=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 const VERIFIED_AT='2026-10-17';
@@ -2127,7 +2265,7 @@ module.exports={buildFinanceGuidance,SOURCES,VERIFIED_AT};
 return Object.freeze(module.exports);})(TimeAxes);
 /* FinanceGuidance_END */
 /* SearchCoverage_START */
-const SearchCoverage=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const SearchCoverage=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 const FILTERS=['coverage','overlap','rules','distribution','budget'];
 function integer(v,label) {
@@ -2159,7 +2297,7 @@ module.exports={summarizeSearchCoverage,FILTERS};
 return Object.freeze(module.exports);})(TimeAxes);
 /* SearchCoverage_END */
 /* CalendarExport_START */
-const CalendarExport=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const CalendarExport=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 const DAY=86400000;
 function isoDay(date){
@@ -2217,7 +2355,7 @@ return Object.freeze(module.exports);})(TimeAxes);
 /* CalendarExport_END */
 
 /* KibizCohorts_START */
-const KibizCohorts=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const KibizCohorts=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 const time=require('./time-axes.cjs');
 const LAW_2026='https://recht.nrw.de/lrgv/gesetz/01082026-gesetz-zur-fruehen-bildung-und-foerderung-von-kindern-kinderbildungsgesetz/';
@@ -2276,7 +2414,7 @@ module.exports={childcareLawWindow,minusMonths,LAW_2026,LAW_2027,COLOGNE,REVIEWE
 return Object.freeze(module.exports);})(TimeAxes);
 /* KibizCohorts_END */
 /* ApplicationGuide_START */
-const ApplicationGuide=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const ApplicationGuide=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 const time=require('./time-axes.cjs');
 const kibiz=require('./kibiz-cohorts.cjs');
@@ -2364,7 +2502,7 @@ module.exports={buildApplicationGuide,minusCalendarMonths,allowanceReferenceDay,
 return Object.freeze(module.exports);})(TimeAxes);
 /* ApplicationGuide_END */
 /* FamilyBudget_START */
-const FamilyBudget=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const FamilyBudget=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 const {roundEuro,roundEuroByPercent,MAX_EURO}=require('./money.cjs');
 /** Life-month entitlement projections; never a prediction of bank receipt dates. */
@@ -2485,7 +2623,7 @@ return Object.freeze(module.exports);})(TimeAxes);
 /* FamilyBudget_END */
 
 /* SettlingIn_START */
-const SettlingIn=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const SettlingIn=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 const time=require('./time-axes.cjs');
 const MAX_MONEY=100000;
@@ -2694,7 +2832,7 @@ module.exports={compareSettlingIn,transitionLifeMonthBridge};
 return Object.freeze(module.exports);})(TimeAxes);
 /* SettlingIn_END */
 /* CareResilience_START */
-const CareResilience=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const CareResilience=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 const {compareSettlingIn,transitionLifeMonthBridge}=require('./settling-in.cjs');
 
@@ -2772,7 +2910,7 @@ module.exports={compareCareResilience};
 return Object.freeze(module.exports);})(TimeAxes);
 /* CareResilience_END */
 /* ParentCoordination_START */
-const ParentCoordination=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const ParentCoordination=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 const {compareSettlingIn}=require('./settling-in.cjs');
 const time=require('./time-axes.cjs');
@@ -2994,7 +3132,7 @@ module.exports={planJointCare,compareEscortChoices,OFFICIAL_PART_TIME_SOURCE,OFF
 return Object.freeze(module.exports);})(TimeAxes);
 /* ParentCoordination_END */
 /* BenefitsNavigator_START */
-const BenefitsNavigator=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const BenefitsNavigator=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 const time=require('./time-axes.cjs');
 const KI_Z='https://www.arbeitsagentur.de/familie-und-kinder/kinderzuschlag-verstehen/kinderzuschlag-anspruch-hoehe-dauer';
@@ -3038,7 +3176,7 @@ module.exports={precedingMonths,benefitNavigator};
 return Object.freeze(module.exports);})(TimeAxes);
 /* BenefitsNavigator_END */
 /* ManualCostImpact_START */
-const ManualCostImpact=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const ManualCostImpact=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 const {projectFamilyBudget}=require('./family-budget.cjs');
@@ -3085,7 +3223,7 @@ module.exports={compareManualCostBuffer};
 return Object.freeze(module.exports);})(TimeAxes);
 /* ManualCostImpact_END */
 /* CologneFees_START */
-const CologneFees=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const CologneFees=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 // This is a DATED 2025 tariff snapshot, NOT a live bill and never a benefit.
@@ -3134,7 +3272,7 @@ module.exports={estimateCologneFee,TABLE,LIMITS,SOURCE,CHECKED,EFFECTIVE_FROM};
 return Object.freeze(module.exports);})(TimeAxes);
 /* CologneFees_END */
 /* FamilyOverview_START */
-const FamilyOverview=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const FamilyOverview=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 // Presentation-only projection of the EXISTING evaluated life-month rows.
@@ -3204,8 +3342,176 @@ module.exports={buildFamilyView,LABELS};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* FamilyOverview_END */
+/* WhatIfScenarios_START */
+const WhatIfScenarios=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
+'use strict';
+
+// Strictly hypothetical, read-only comparison of the existing evaluated life months.
+// Reuses the project's independent care-delay impact model and family overview.
+// Does NOT re-evaluate benefits, infer net salary from hours, or predict bank receipts.
+const {projectDelayedCareScenario}=require('./care-impact.cjs');
+const {buildFamilyView}=require('./family-overview.cjs');
+
+const PART_TIME=new Set(['R','T','Q','K']);
+function moneyCents(value,label,{signed=false,limit=1e9}={}) {
+ if(typeof value!=='number'||!Number.isFinite(value)||Math.abs(value)>limit||(!signed&&value<0)||
+    Math.abs(value*100-Math.round(value*100))>1e-6)
+  throw new RangeError(label+': gültigen Eurobetrag mit maximal zwei Dezimalstellen eingeben.');
+ return Math.round(value*100);
+}
+// Existing evaluated wage rows may contain more than two decimal places (hour
+// interpolation). Normalize source projections to cents; require exact cents
+// only for NEW user-entered hypothetical assumptions.
+function sourceCents(value,label,{signed=false}={}) {
+ if(typeof value!=='number'||!Number.isFinite(value)||Math.abs(value)>1e9||(!signed&&value<0))
+  throw new RangeError(label+': ungültiger Monatswert.');
+ return Math.round(value*100);
+}
+function optionMoney(value,label) {
+ if(value===null)return null;
+ return moneyCents(value,label,{signed:true,limit:10000});
+}
+function optionalHours(value,label) {
+ if(value===null)return null;
+ if(!Number.isInteger(value)||value<1||value>32)throw new RangeError(label+': 1 bis 32 Wochenstunden erforderlich.');
+ return value;
+}
+function boundedInt(value,label,min,max) {
+ if(!Number.isInteger(value)||value<min||value>max)throw new RangeError(label+': Zahl zwischen '+min+' und '+max+' erforderlich.');
+ return value;
+}
+function euros(cents){return Math.round(cents)/100;}
+function projectWhatIf({
+ rows,horizon,childcareStartLm=0,baseExpenses=null,
+ validationStatus='NICHT_UNTERSTUETZT',assumptions={}
+}={}) {
+ if(!Array.isArray(rows)||rows.length<1||rows.length>36)throw new RangeError('Monatsdaten fehlen oder liegen außerhalb von LM 1–36.');
+ boundedInt(horizon,'Vergleichshorizont',1,rows.length);
+ boundedInt(childcareStartLm,'Kita-Start',0,36);
+ if(!assumptions||typeof assumptions!=='object'||Array.isArray(assumptions))throw new TypeError('Szenarioannahmen müssen ein Objekt sein.');
+ const expensesKnown=baseExpenses!==null;
+ const oldExpenses=expensesKnown?moneyCents(baseExpenses,'Bisherige Haushaltsausgaben',{limit:100000}):null;
+ const delay=boundedInt(assumptions.delayMonths??0,'Kita-Verschiebung',0,6);
+ const wageBand=boundedInt(assumptions.wageDownsidePercent??0,'Netto-Risikoband',0,30);
+ const changeExpenses=moneyCents(assumptions.expensesDelta??0,'Haushaltskostenänderung',{signed:true,limit:10000});
+ if(expensesKnown&&oldExpenses+changeExpenses<0)throw new RangeError('Alternative Haushaltsausgaben dürfen nicht negativ werden.');
+ const fatherHours=optionalHours(assumptions.fatherHours??null,'Teilzeitstunden Elternteil 1');
+ const motherHours=optionalHours(assumptions.motherHours??null,'Teilzeitstunden Elternteil 2');
+ const fatherDelta=optionMoney(assumptions.fatherNetDelta??null,'Nettoänderung Elternteil 1');
+ const motherDelta=optionMoney(assumptions.motherNetDelta??null,'Nettoänderung Elternteil 2');
+ const lostWage=assumptions.bridgeWageLoss??null;
+ const bridgeCost=assumptions.bridgeCareCost??null;
+ if(lostWage!==null)moneyCents(lostWage,'Erwerbsnetto-Ausfall',{limit:10000});
+ if(bridgeCost!==null)moneyCents(bridgeCost,'Ersatzbetreuung',{limit:10000});
+ if(typeof (assumptions.waiveFees??false)!=='boolean')throw new TypeError('Kita-Gebührenausfall muss ausdrücklich an- oder abgewählt sein.');
+ if(delay>0&&childcareStartLm===0)throw new RangeError('Ohne geplanten Kita-Start kann die Verschiebung nicht berechnet werden.');
+ const original=buildFamilyView({rows,horizon,childcareStartLm,expensesKnown,validationStatus});
+ const relevantRows=rows.slice(0,horizon);
+ const fMonths=relevantRows.filter(r=>PART_TIME.has(r.f));
+ const mMonths=relevantRows.filter(r=>PART_TIME.has(r.m));
+ if((fatherHours!==null||fatherDelta!==null)&&!fMonths.length)throw new RangeError('Elternteil 1 hat in diesem Zeitraum keine Teilzeitmonate.');
+ if((motherHours!==null||motherDelta!==null)&&!mMonths.length)throw new RangeError('Elternteil 2 hat in diesem Zeitraum keine Teilzeitmonate.');
+ const changedFather=fatherHours!==null&&fMonths.some(r=>r.hf!==fatherHours);
+ const changedMother=motherHours!==null&&mMonths.some(r=>r.hm!==motherHours);
+ const missing=[];
+ if(changedFather&&fatherDelta===null)missing.push('Nettoänderung für die neuen Teilzeitstunden von Elternteil 1');
+ if(changedMother&&motherDelta===null)missing.push('Nettoänderung für die neuen Teilzeitstunden von Elternteil 2');
+ if(delay>0&&lostWage===null)missing.push('Netto-Ausfall je Verzögerungsmonat (auch 0 ist eine Annahme)');
+ if(delay>0&&bridgeCost===null)missing.push('Ersatzbetreuungskosten je Verzögerungsmonat (auch 0 ist eine Annahme)');
+ const moneyComplete=missing.length===0;
+ const careResult=delay>0?projectDelayedCareScenario({
+  rows:relevantRows,startLm:childcareStartLm,delayMonths:delay,
+  monthlyIncomeReduction:lostWage??0,monthlyExtraCare:bridgeCost??0,
+  waiveOriginalFees:assumptions.waiveFees??false,expensesKnown
+ }):null;
+ const affected=new Map((careResult?.months||[]).map(r=>[r.lm,r]));
+ let changeCount=0;
+ const altRows=relevantRows.map(row=>{
+  const r={...row};
+  if(fatherHours!==null&&PART_TIME.has(r.f))r.hf=fatherHours;
+  if(motherHours!==null&&PART_TIME.has(r.m))r.hm=motherHours;
+  const oldNet=sourceCents(r.income,'Basiseinnahmen');
+  const oldWage=sourceCents(r.totalWage,'Basiseinkommen aus Erwerb');
+  const oldChildcare=sourceCents(r.childcare,'Kita-Kosten');
+  const mat=sourceCents(r.maternityBenefits??0,'Pauschale Mutterschaftsleistung');
+  if(mat>oldWage)throw new RangeError('Mutterschaftsleistung über dem Basislohn.');
+  const oldDad=sourceCents(r.fi??0,'Erwerbsnetto Elternteil 1');
+  const oldMum=sourceCents(r.mi??0,'Erwerbsnetto Elternteil 2');
+  if(Math.abs(oldDad+oldMum-oldWage)>1)throw new RangeError('Basislohn-Summen sind widersprüchlich.');
+  const fatherLoss=Math.round(oldDad*wageBand/100);
+  const motherLoss=Math.round((oldMum-mat)*wageBand/100);
+  const downside=fatherLoss+motherLoss;
+  const changeF=PART_TIME.has(r.f)?fatherDelta??0:0;
+  const changeM=PART_TIME.has(r.m)?motherDelta??0:0;
+  if(moneyComplete&&(oldDad-fatherLoss+changeF<0||
+     oldMum-mat-motherLoss+changeM<0))
+   throw new RangeError('Angenommener Netto-Ausfall würde ein individuelles Erwerbsnetto unter 0 € senken.');
+  const delayed=affected.get(r.lm);
+  const delayedIncome=delayed?moneyCents(delayed.incomeReduced,'Verzögerter Einkommensausfall'):0;
+  const delayedFeeWaiver=delayed?moneyCents(delayed.feesWaived,'Angenommener Beitragsausfall'):0;
+  const delayedCare=delayed?moneyCents(delayed.extraCare,'Zusätzliche Ersatzbetreuung'):0;
+  // The numerical wage source is unchanged on benefits and maternity components.
+  const newWage=oldWage-downside+changeF+changeM-delayedIncome;
+  const newIncome=oldNet-downside+changeF+changeM-delayedIncome;
+  const newChildcare=oldChildcare-delayedFeeWaiver+delayedCare;
+  if(moneyComplete&&(newWage<0||newIncome<0||newChildcare<0))
+   throw new RangeError('Angenommener Netto-Ausfall übersteigt die verfügbaren Erwerbseinnahmen oder Kita-Kosten.');
+  // Preserve unaffected source rows exactly; the existing planner interpolates
+  // some hourly net incomes at subcent precision. Rounding a neutral scenario
+  // must never create a spurious difference or fictitious changed life month.
+  const incomeShift=-downside+changeF+changeM-delayedIncome;
+  const careShift=-delayedFeeWaiver+delayedCare;
+  if(incomeShift!==0){r.totalWage=row.totalWage+euros(incomeShift);r.income=row.income+euros(incomeShift);}
+  if(careShift!==0)r.childcare=row.childcare+euros(careShift);
+  if(expensesKnown){
+   const oldRest=sourceCents(row.cashAfter,'Bisheriger Rest',{signed:true});
+   if(Math.abs(oldRest-(oldNet-oldChildcare-oldExpenses))>2)
+    throw new RangeError('Monatsrest und eingetragene Haushaltsausgaben widersprechen sich.');
+   const budgetShift=incomeShift-careShift-changeExpenses;
+   if(budgetShift!==0)r.cashAfter=row.cashAfter+euros(budgetShift);
+  }
+  if(r.hf!==row.hf||r.hm!==row.hm||incomeShift!==0||careShift!==0||changeExpenses!==0)
+   changeCount++;
+  return r;
+ });
+ const delayedStart=childcareStartLm?childcareStartLm+delay:0;
+ const altCareStart=delayedStart>36?0:delayedStart;
+ const alternative=buildFamilyView({
+  rows:altRows,horizon,childcareStartLm:altCareStart,
+  expensesKnown:moneyComplete&&expensesKnown,validationStatus
+ });
+ const budgetComparable=moneyComplete&&expensesKnown;
+ const notes=[
+  'Ausschließlich hypothetische Szenariorechnung. Keine neue Elterngeld-/Elternzeitberechnung, kein bestätigter Kita-Platz und kein Bank-Zahlungsplan.',
+  'Mutterschutz-Tagesgrenzen, Arbeitszeit-/Elterngeld-Folgen und Rechtsstand 2027 bleiben fachlich ungeprüft.',
+  ...(delay>0?['Eine verspätete Kita-Aufnahme ändert angenommene Beiträge nur, wenn der Gebührenwegfall ausdrücklich aktiviert ist.']:[]),
+  ...(changedFather||changedMother||fatherDelta!==null||motherDelta!==null||wageBand>0?
+    ['Abweichende Teilzeitstunden, Nettolohn und Risikoband können Leistungsansprüche verändern; Elterngeldbeträge bleiben hier bewusst unverändert.']:[]),
+  ...(!expensesKnown?['Haushaltsausgaben fehlen: Kein belastbarer Rest und keine Rücklage bestimmbar.']:[]),
+  ...(careResult?.outsideHorizonMonths?['Ein Teil der angenommenen Kita-Verschiebung liegt außerhalb des betrachteten Zeithorizonts.']:[])
+ ];
+ return {kind:'EXPLICIT_NONBINDING_COUNTERFACTUAL',bankReceiptsPredicted:false,
+  benefitsRecalculated:false,legalStatusUnchanged:true,modelUnmodified:true,
+  horizon,delayMonths:delay,baselineCareStartLm:childcareStartLm,assumedCareStartLm:delayedStart,
+  moneyComplete,budgetComparable,missing,notes,changedMonths:changeCount,
+  baseline:original,alternative,monthly:alternative.months.map((m,i)=>({
+   lm:m.lm,baselineIncome:original.months[i].income,
+   alternativeIncome:moneyComplete?m.income:null,
+   baselineAvailable:original.months[i].available,
+   alternativeAvailable:budgetComparable?m.available:null,
+   baselineCare:original.months[i].care,alternativeCare:m.care,
+   firstHours:altRows[i].hf,secondHours:altRows[i].hm
+  })),
+  deltaTotalIncome:moneyComplete?euros(sourceCents(alternative.totalIncome,'Alternative Einnahmen')-sourceCents(original.totalIncome,'Basiseinnahmen')):null,
+  deltaTotalAvailable:budgetComparable?euros(sourceCents(alternative.totalAvailable,'Alternative Restsumme',{signed:true})-sourceCents(original.totalAvailable,'Basis-Restsumme',{signed:true})):null
+ };
+}
+module.exports={projectWhatIf};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* WhatIfScenarios_END */
 /* PlanComparison_START */
-const PlanComparison=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const PlanComparison=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 const {projectFamilyBudget}=require('./family-budget.cjs');
@@ -3289,7 +3595,7 @@ module.exports={comparePlans};
 return Object.freeze(module.exports);})(TimeAxes);
 /* PlanComparison_END */
 /* RuleValidator_START */
-const RuleValidator=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const RuleValidator=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 /** Pure fail-closed validation of the explicitly confirmed employee standard case.
@@ -3541,7 +3847,7 @@ module.exports={VALIDATION_STATUS,validatePlan};
 return Object.freeze(module.exports);})(TimeAxes);
 /* RuleValidator_END */
 /* ModelScope_START */
-const ModelScope=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const ModelScope=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 // Read-only interpretation of the EXISTING RuleValidator result. This module
@@ -3630,7 +3936,7 @@ module.exports={describeModelScope,STATES,MODE_EXPLANATIONS};
 return Object.freeze(module.exports);})(TimeAxes);
 /* ModelScope_END */
 /* ExportDisclosure_START */
-const ExportDisclosure=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const ExportDisclosure=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 // Export-only advisory. Never trust an imported copy as proof, never alter the
@@ -3695,7 +4001,7 @@ module.exports={buildExportDisclosure,csvAdvisoryFields,CSV_EXTRA_COLUMNS};
 return Object.freeze(module.exports);})(TimeAxes);
 /* ExportDisclosure_END */
 /* UnderstandingGuide_START */
-const UnderstandingGuide=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+const UnderstandingGuide=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
 
 // Synthetic educational scenarios. Never derives answers from a real family
@@ -4273,7 +4579,7 @@ function initNav(){
  for(const [id,who]of [['fatherStatus','f'],['motherStatus','m']])$(id).addEventListener('change',e=>{if(who==='m'&&s.month<=2)return;s.schedule[s.month-1][who]=e.target.value;s.model='custom';builderActive=false;builderNotices=[];renderAll();persist()});
  $('prevMonth').addEventListener('click',()=>{s.month=Math.max(1,s.month-1);renderAll();persist()});
  $('nextMonth').addEventListener('click',()=>{s.month=Math.min(N,s.month+1);renderAll();persist()});
- $('btnReset').addEventListener('click',()=>{if(!confirm('Alle Eingaben und Änderungen zurücksetzen?'))return;cancelGoalSearch();clearAllSpecialistInputErrors();clearResultOutdated('all');const storageDeleted=deleteLocalData();recordedOpeningReserve='';$('recordedOpeningReserve').value='';resetV313PaymentAssumptions();resetFinanceGuidance();resetV315Extras();resetUnderstandingGuide();s={...defaults,schedule:makeSchedule('father12')};goalStats=null;builderActive=false;builderNotices=[];renderAll();persist();QuickStartV38.onResetConfirmed();FamilyTimeCompareV42.onReset();showToast(storageDeleted?'Eingaben zurückgesetzt und Browserkopien gelöscht':'Eingaben zurückgesetzt. Browserkopien konnten NICHT sicher gelöscht werden.');});
+ $('btnReset').addEventListener('click',()=>{if(!confirm('Alle Eingaben und Änderungen zurücksetzen?'))return;cancelGoalSearch();clearAllSpecialistInputErrors();clearResultOutdated('all');const storageDeleted=deleteLocalData();recordedOpeningReserve='';$('recordedOpeningReserve').value='';resetV313PaymentAssumptions();resetFinanceGuidance();resetV315Extras();resetUnderstandingGuide();s={...defaults,schedule:makeSchedule('father12')};goalStats=null;builderActive=false;builderNotices=[];renderAll();persist();QuickStartV38.onResetConfirmed();FamilyTimeCompareV42.onReset();WhatIfV43.onReset();showToast(storageDeleted?'Eingaben zurückgesetzt und Browserkopien gelöscht':'Eingaben zurückgesetzt. Browserkopien konnten NICHT sicher gelöscht werden.');});
  $('btnCsv').addEventListener('click',downloadCsv);$('btnJson').addEventListener('click',downloadJson);$('importJson').addEventListener('change',importJson);
 }
 function download(content,name,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),800)}
@@ -5828,7 +6134,7 @@ function importJson(evt){
    recordedOpeningReserve='';$('recordedOpeningReserve').value='';
    resetV313PaymentAssumptions();resetFinanceGuidance();resetV315Extras();resetUnderstandingGuide();
    s=imported;builderActive=false;goalStats=null;
-   clearAllSpecialistInputErrors();clearResultOutdated('all');QuickStartV38.onImported();FamilyTimeCompareV42.onImported();renderAll();
+   clearAllSpecialistInputErrors();clearResultOutdated('all');QuickStartV38.onImported();FamilyTimeCompareV42.onImported();renderAll();WhatIfV43.onImported();
    importReport(storageDeleted?
     'Import erfolgreich. Temporäre Zahlungs-, Kita- und Risiko-Szenarien wurden zurückgesetzt. Vorherige Browserkopien gelöscht.':
     'Import erfolgreich, aber alte Browserkopien konnten nicht sicher gelöscht werden. Browserdaten manuell kontrollieren. Temporäre Szenarien wurden zurückgesetzt.');
@@ -6775,12 +7081,183 @@ const FamilyTimeCompareV42=(()=>{
 window.__familienzeitV42=FamilyTimeCompareV42;
 
 /* V42_RUNTIME_END */
+/* V43_RUNTIME_START */
+// Paket 2C: explicit hypothetical inputs, no persistence or changes to the active plan.
+const WhatIfV43=(()=>{
+ const root=()=>document.getElementById('v43WhatIf');
+ const el=id=>document.getElementById(id);
+ const esc43=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const euro43=value=>Number(value).toLocaleString('de-DE',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
+ const isKnown=()=>s.expenses!==''&&s.expenses!==null&&s.expenses!==undefined&&Number.isFinite(Number(s.expenses));
+ const selectedCareStart=()=>{
+  const v=Number(s.childcareStart)||0;
+  return Number.isInteger(v)&&v>=0&&v<=36?v:0;
+ };
+ const num=(id,optional=false)=>{
+  const input=el(id);
+  if(!input)return optional?null:0;
+  const raw=input.value.trim();
+  if(raw===''){
+   if(optional)return null;
+   throw new RangeError('Bitte im Feld „'+input.closest('label')?.textContent?.trim().slice(0,85)+'“ einen Wert eintragen (auch 0 ist möglich).');
+  }
+  if(!input.validity.valid||input.validity.badInput)throw new RangeError('Eingabebereich im Feld „'+input.closest('label')?.textContent?.trim().slice(0,85)+'“ beachten.');
+  const value=Number(raw);
+  if(!Number.isFinite(value))throw new RangeError('Nur endliche Zahlen als Szenarioannahmen eingeben.');
+  return value;
+ };
+ const hour=(id)=>num(id,true);
+ const assumptions=()=>({
+  delayMonths:num('v43Delay'),
+  bridgeWageLoss:num('v43BridgeWage',true),
+  bridgeCareCost:num('v43BridgeCare',true),
+  waiveFees:el('v43WaiveFees').checked,
+  fatherHours:hour('v43FatherHours'),
+  motherHours:hour('v43MotherHours'),
+  fatherNetDelta:num('v43FatherNet',true),
+  motherNetDelta:num('v43MotherNet',true),
+  expensesDelta:num('v43ExpensesDelta'),
+  wageDownsidePercent:num('v43WageRisk')
+ });
+ const status=(message)=>{if(el('v43Status'))el('v43Status').textContent=message;};
+ function context(){
+  if(!current?.rows)return null;
+  const horizon=Math.max(1,Math.min(36,Number(s.horizon)||24));
+  return {rows:current.rows,horizon,childcareStartLm:selectedCareStart(),baseExpenses:isKnown()?Number(s.expenses):null,
+   validationStatus:current.validation?.status||'NICHT_UNTERSTUETZT'};
+ }
+ function controlAvailability(){
+  const projection=context();if(!projection)return;
+  const parttime=new Set(['R','T','Q','K']);
+  const rows=projection.rows.slice(0,projection.horizon);
+  const hasFather=rows.some(r=>parttime.has(r.f));
+  const hasMother=rows.some(r=>parttime.has(r.m));
+  for(const id of ['v43FatherHours','v43FatherNet'])el(id).disabled=!hasFather;
+  for(const id of ['v43MotherHours','v43MotherNet'])el(id).disabled=!hasMother;
+  const hasCare=projection.childcareStartLm>0;
+  el('v43Delay').disabled=!hasCare;
+  const shift=Number(el('v43Delay').value)>0;
+  for(const id of ['v43BridgeWage','v43BridgeCare','v43WaiveFees'])
+   el(id).disabled=!hasCare||!shift;
+  el('v43CareHelp').textContent=hasCare?
+   'Der aktive Plan nimmt einen Kita-Start ab LM '+projection.childcareStartLm+' an. Eine Verschiebung ist keine Platzzusage oder automatische Erstattung von Beiträgen.':
+   'Im aktiven Plan ist noch kein Kita-Start eingetragen. Bitte erst in den Fachangaben den geplanten Kita-Lebensmonat festlegen; die Verschiebung ist bis dahin nicht anwendbar.';
+  el('v43WageRiskValue').textContent=el('v43WageRisk').value+' %';
+ }
+ const careLabel=care=>care==='planned-kita'?'Kita angenommen*':care==='parent-at-home'?'Elternteil zu Hause*':'Nicht zugeordnet';
+ const careStart=value=>value>0?'LM '+value:'Nicht angenommen';
+ const uncovered=value=>value===null?'Keine im Modell':'LM '+value;
+ const unknown='Nicht berechenbar';
+ function card(title,report,result,isAlternative){
+  const incomplete=isAlternative&&!result.moneyComplete;
+  const unavailable=isAlternative&&!result.budgetComparable;
+  const money=value=>value===null||value===undefined?unknown:euro43(value);
+  const row=(label,value)=>'<div><dt>'+esc43(label)+'</dt><dd>'+esc43(value)+'</dd></div>';
+  const careValue=isAlternative?report.childcareStartLm||result.assumedCareStartLm:result.baselineCareStartLm;
+  return '<article class="v43-panel'+(isAlternative?' v43-alt':'')+'"><h5>'+esc43(title)+'</h5>'+
+   '<p>'+(isAlternative?'Ausdrücklich angenommene Alternative, ohne rechtliche Neuberechnung.':'Unveränderte aktuell berechnete Werte.')+'</p>'+
+   '<dl>'+
+   row('Kita-Start im Modell',careStart(careValue))+
+   row('Erste nicht zugeordnete Betreuung',uncovered(report.firstUnattributed))+
+   row('Einnahmen vor Kosten / Zeitraum',incomplete?unknown:money(report.totalIncome))+
+   row('Niedrigster Rest nach bekannten Kosten',unavailable?unknown:money(report.lowestAvailable??report.minAvailable))+
+   row('Gesamtrest nach bekannten Kosten',unavailable?unknown:money(report.totalAvailable))+
+   row('Theoretische kumulierte Unterdeckung*',unavailable?unknown:money(report.requiredBuffer))+
+   row('Prüfstatus des Ausgangsplans',report.validationStatus+' – keine Bewilligung')+
+   '</dl></article>';
+ }
+ function details(result){
+  const rows=result.monthly;
+  const fmt=value=>value===null||value===undefined?unknown:euro43(value);
+  const contents=rows.map(m=>'<tr><th scope="row">LM '+m.lm+'</th>'+
+   '<td>'+esc43(careLabel(m.baselineCare))+'</td><td>'+esc43(careLabel(m.alternativeCare))+'</td>'+
+   '<td>'+esc43(fmt(m.baselineIncome))+'</td><td class="'+(m.alternativeIncome===null?'v43-unknown':'')+'">'+esc43(fmt(m.alternativeIncome))+'</td>'+
+   '<td>'+esc43(fmt(m.baselineAvailable))+'</td><td class="'+(m.alternativeAvailable===null?'v43-unknown':'')+'">'+esc43(fmt(m.alternativeAvailable))+'</td>'+
+   '<td>'+esc43(m.firstHours)+' / '+esc43(m.secondHours)+'</td></tr>').join('');
+  return '<details id="v43Detail"><summary>Monatlichen Vergleich für LM 1–'+result.horizon+' anzeigen</summary>'+
+   '<div class="v43-table-wrap" tabindex="0" aria-label="Monatlichen Szenariovergleich horizontal verschieben"><table>'+
+   '<caption>Ausgangsplan und hypothetische Alternative nach Lebensmonaten; Geldbeträge sind keine Auszahlungstermine.</caption>'+
+   '<thead><tr><th scope="col">LM</th><th scope="col">Betreuung bisher</th><th scope="col">Betreuung hypothetisch</th>'+
+   '<th scope="col">Einnahmen bisher</th><th scope="col">Einnahmen hypothetisch</th>'+
+   '<th scope="col">Rest bisher</th><th scope="col">Rest hypothetisch</th><th scope="col">Stunden Eltern 1 / 2, hypothetisch</th></tr></thead>'+
+   '<tbody>'+contents+'</tbody></table></div></details>';
+ }
+ function resultMarkup(result){
+  const ok=result.moneyComplete;
+  const note=(result.missing.length?
+   '<div class="v43-issue" role="note"><strong>Für einen vollständigen finanziellen Vergleich fehlen diese ausdrücklich einzugebenden Annahmen:</strong><ul>'+
+   result.missing.map(item=>'<li>'+esc43(item)+'</li>').join('')+'</ul><p>Die Betreuungsannahmen bleiben sichtbar, unvollständige Alternativeinnahmen und Restbeträge werden aber nicht als 0 Euro dargestellt.</p></div>':'');
+  const delta=result.deltaTotalAvailable===null?'Gesamtbudget nicht vergleichbar':
+   (result.deltaTotalAvailable>0?'+':'')+euro43(result.deltaTotalAvailable)+' Gesamtrest-Differenz';
+  const inc=result.deltaTotalIncome===null?'Einnahmendifferenz nicht berechenbar':
+   (result.deltaTotalIncome>0?'+':'')+euro43(result.deltaTotalIncome)+' Einnahmendifferenz vor Kosten';
+  return '<h4>Unveränderter Plan und hypothetische Alternative</h4>'+
+   '<p>Zeitraum LM 1–'+result.horizon+'. Kita: '+esc43(careStart(result.baselineCareStartLm))+
+   ' → angenommen '+esc43(careStart(result.assumedCareStartLm))+
+   '. Finanzwirkungen der geänderten Teilzeitstunden werden nur bei ausdrücklichen Nettoannahmen ausgewiesen.</p>'+
+   note+
+   '<div class="v43-grid">'+card('Ausgangsplan',result.baseline,result,false)+
+   card('Was-wäre-wenn-Variante',result.alternative,result,true)+'</div>'+
+   '<div class="v43-delta"><strong>'+esc43(delta)+'</strong>'+
+   '<p>'+esc43(inc)+'. '+
+   (ok?'Manuell angenommene Veränderung in '+result.changedMonths+' Lebensmonaten.':'Keine vollständige monetäre Alternative.')+
+   ' Weder Anspruchsbeträge noch Zahlungstermine wurden neu berechnet.</p></div>'+
+   details(result)+
+   '<aside class="v43-notes"><strong>Unverbindliche Grenzen dieser Szenariorechnung</strong><ul>'+
+   result.notes.map(message=>'<li>'+esc43(message)+'</li>').join('')+
+   '</ul><p>*Unterdeckung: nur rechnerische laufende Monatsrestsummen, keine Bankkontostände oder Auszahlungstermine.</p></aside>';
+ }
+ function refresh(){
+  if(!root())return;
+  const wasOpen=!!el('v43Detail')?.open;
+  controlAvailability();
+  try{
+   const result=WhatIfScenarios.projectWhatIf({...context(),assumptions:assumptions()});
+   el('v43Result').innerHTML=resultMarkup(result);
+   if(el('v43Detail'))el('v43Detail').open=wasOpen;
+   status(result.missing.length?'Hypothetische Betreuung sichtbar; '+result.missing.length+' monetäre Annahmen fehlen.':
+    result.budgetComparable?'Szenario nur als rechnerische Variante aktualisiert. Aktiver Plan unverändert.':
+    'Szenario aktualisiert. Ohne vollständige Kostenangaben ist kein verfügbarer Rest berechenbar.');
+  }catch(error){
+   el('v43Result').innerHTML='<div class="v43-issue" role="alert"><strong>Szenario nicht berechenbar.</strong><p>'+esc43(String(error?.message||error).slice(0,220))+'</p>'+
+   '<p>Bitte die gekennzeichneten Eingabebereiche prüfen. Der aktive Plan wurde nicht verändert.</p></div>';
+   status('Szenario ungültig; der aktive Plan bleibt unverändert.');
+  }
+ }
+ function reset(message){
+  const ids=['v43BridgeWage','v43BridgeCare','v43FatherHours','v43FatherNet','v43MotherHours','v43MotherNet'];
+  for(const id of ids)el(id).value='';
+  el('v43Delay').value='0';el('v43WaiveFees').checked=false;
+  el('v43ExpensesDelta').value='0';el('v43WageRisk').value='0';
+  refresh();
+  if(message)status(message);
+ }
+ function mount(){
+  if(!root())return;
+  root().addEventListener('input',event=>{
+   if(event.target.matches('input,select'))refresh();
+  });
+  root().addEventListener('change',event=>{
+   if(event.target.matches('input,select'))refresh();
+  });
+  el('v43Reset').addEventListener('click',()=>reset('Nur die hypothetischen Annahmen zurückgesetzt; der Familienplan ist unverändert.'));
+ }
+ const oldRender=renderAll;
+ renderAll=function(...args){const outcome=oldRender(...args);refresh();return outcome;};
+ return {mount,refresh,reset,onReset:()=>reset('Plan zurückgesetzt – nur die hypothetischen Annahmen verworfen.'),
+  onImported:()=>reset('Plan importiert – hypothetische Annahmen verworfen.'),
+  state:()=>({assumptions:assumptions(),persisted:false,appliedToPlan:false})};
+})();
+window.__whatIfV43=WhatIfV43;
+
+/* V43_RUNTIME_END */
 restore();initNav();listenInputs();listenAdvanced();listenTimeAxes();listenFinanceGuidance();listenV315Extras();listenV316Joint();listenIncomeGuide();listenUnderstandingGuide();
 $('standardCaseConfirmed').value=s.standardCaseConfirmed===true?'yes':s.standardCaseConfirmed===false?'no':'';
 $('standardCaseConfirmed').addEventListener('change',e=>{s.standardCaseConfirmed=e.target.value==='yes'?true:e.target.value==='no'?false:null;renderAll();persist()});
 $('localSave').checked=s.storageConsent===true;$('localSave').addEventListener('change',e=>{s.storageConsent=e.target.checked;if(s.storageConsent)persist();else deleteLocalData()});$('deleteLocal').addEventListener('click',deleteLocalData);
 QuickStartV38.mount();
 FamilyTimeCompareV42.mount();
+WhatIfV43.mount();
 renderAll();
 window.__elternzeitTest={getState:()=>clone(s),sanitizeImport,deleteLocalData,evaluate:()=>evaluate(s.schedule),modelPlan:id=>evaluate(makeSchedule(id)),chooseModel,showSlide,changeValue:(key,value)=>{s[key]=value;renderAll();persist()},applyBuilder,applyExample,builderSchedule,basis,plus,age,ageSpan,dateFor,ptNet,SCENARIOS,STAT,s};
 })();

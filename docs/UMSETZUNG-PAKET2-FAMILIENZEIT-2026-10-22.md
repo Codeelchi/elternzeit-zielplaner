@@ -60,7 +60,7 @@ Die tatsächliche erfolgreiche CI und der PR-/Merge-Commit müssen nach der absc
 
 ## Nicht umgesetzt / nachfolgende Pakete
 
-- **2C – Was-wäre-wenn-Regler und selektive Variantenübernahme** bleiben geplant. Das vorhandene, ausdrücklich hypothetische Kita-/Finanzszenario wurde nicht verändert und nicht mit dem neuen Snapshot-Vergleich vermischt. Vor einer Übernahmefunktion sind ein separater Antrag, neue Grenztests und Auswirkungen auf Zeitachsen, Leistungshöhe und Persistenz erforderlich.
+- **2C – Was-wäre-wenn-Regler** sind inzwischen im gesonderten [technischen Review-Branch dokumentiert](UMSETZUNG-PAKET2C-WAS-WAERE-WENN-2026-10-22.md): manuelle Kita-/Netto-/Ausgaben-/Risikoband-Annahmen ohne Rechts-Neuberechnung oder Planübernahme. Eine **selektive Variantenübernahme und dauerhafte Speicherung** sind bewusst weiter nicht vorgesehen; sie erfordern separate Fach-/Sicherheits-/Schema-Abnahme.
 - **Paket 3** bleibt geplant: kompakter Druck-/PDF-Bericht, lokale Aufgabenübersicht, echte unmoderierte/moderierte Nutzer- und manuelle Screenreader-Tests.
 
 **Unveränderte externe Sperren:** Mutterschutz 4/5-Resttage, unabhängige vollständige 10 Paar-/Familienfälle, Rechtsstand 2027, Elterngeld-Netto, echte Nutzertests und die rechtlichen, Datenschutz- sowie Betreiberfreigaben. Kein amtliches Produkt und keine öffentliche Release-Entscheidung durch diese UI-Erweiterung.

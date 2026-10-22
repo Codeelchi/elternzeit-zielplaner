@@ -1,0 +1,69 @@
+<section id="v43WhatIf" class="v43-what-if" aria-labelledby="v43Title">
+ <header class="v43-head">
+  <div><span class="eyebrow">Paket 2C · hypothetische Szenarien</span>
+   <h3 id="v43Title">Was wäre, wenn sich eure Planung ändert?</h3>
+   <p>Vergleiche den aktuellen Plan mit <strong>einer unverbindlichen Alternative</strong>. Es ändern sich hier ausschließlich eure Szenarioannahmen – niemals der aktive Plan, das Elterngeld, die Buchungen oder die Speicherentscheidung.</p>
+  </div>
+  <span class="v43-chip">Nur im Browser-Tab · kein Antrag</span>
+ </header>
+ <div class="v43-form" role="group" aria-label="Was-wäre-wenn-Annahmen">
+  <fieldset class="v43-group">
+   <legend>1 · Kita später als geplant</legend>
+   <p id="v43CareHelp">Die Verschiebung wirkt nur, wenn im aktiven Plan bereits ein Kita-Start eingetragen ist. Kita-Zusage und Gebührenwegfall werden nicht vorausgesetzt.</p>
+   <label for="v43Delay">Kita-Start um Lebensmonate verschieben
+    <select id="v43Delay" aria-describedby="v43CareHelp">
+     <option value="0">Keine Verschiebung</option>
+     <option value="1">1 Lebensmonat</option>
+     <option value="2">2 Lebensmonate</option>
+     <option value="3">3 Lebensmonate</option>
+     <option value="4">4 Lebensmonate</option>
+     <option value="5">5 Lebensmonate</option>
+     <option value="6">6 Lebensmonate</option>
+    </select>
+   </label>
+   <div class="v43-split">
+    <label for="v43BridgeWage">Monatlicher Erwerbsnetto-Ausfall nur während der Verzögerung (€)
+     <input id="v43BridgeWage" type="number" inputmode="decimal" min="0" max="10000" step="0.01" placeholder="Auch 0 ausdrücklich eingeben">
+    </label>
+    <label for="v43BridgeCare">Zusätzliche Überbrückungsbetreuung nur während der Verzögerung (€/LM)
+     <input id="v43BridgeCare" type="number" inputmode="decimal" min="0" max="10000" step="0.01" placeholder="Auch 0 ausdrücklich eingeben">
+    </label>
+   </div>
+   <label class="v43-check"><input id="v43WaiveFees" type="checkbox"> Angenommener Wegfall der ursprünglich geplanten Kita-Beiträge in den Verzögerungsmonaten (nur wenn ausdrücklich gewählt)</label>
+  </fieldset>
+  <fieldset class="v43-group">
+   <legend>2 · Teilzeit anders verteilen</legend>
+   <p>Die neuen Stunden gelten <strong>nur für bestehende Teilzeit-Monate</strong>, nicht für Vollzeit oder Elternzeit ohne Arbeit. Ohne ausdrücklich eingegebene Nettoänderung ist ein belastbarer finanzieller Vergleich <strong>nicht berechenbar</strong>. Elterngeld und Stunden-Gültigkeit werden nicht neu bewilligt.</p>
+   <div class="v43-split">
+    <label for="v43FatherHours">Teilzeit Elternteil 1: angenommene Wochenstunden (1–32)
+     <input id="v43FatherHours" type="number" inputmode="numeric" min="1" max="32" step="1" placeholder="Keine Änderung">
+    </label>
+    <label for="v43FatherNet">Elternteil 1: Änderung des Monatsnettos in bestehenden Teilzeit-LM (€)
+     <input id="v43FatherNet" type="number" inputmode="decimal" min="-10000" max="10000" step="0.01" placeholder="Plus oder Minus; auch 0">
+    </label>
+    <label for="v43MotherHours">Teilzeit Elternteil 2: angenommene Wochenstunden (1–32)
+     <input id="v43MotherHours" type="number" inputmode="numeric" min="1" max="32" step="1" placeholder="Keine Änderung">
+    </label>
+    <label for="v43MotherNet">Elternteil 2: Änderung des Monatsnettos in bestehenden Teilzeit-LM (€)
+     <input id="v43MotherNet" type="number" inputmode="decimal" min="-10000" max="10000" step="0.01" placeholder="Plus oder Minus; auch 0">
+    </label>
+   </div>
+  </fieldset>
+  <fieldset class="v43-group">
+   <legend>3 · Ausgaben und Einkommensrisiko</legend>
+   <div class="v43-split">
+    <label for="v43ExpensesDelta">Monatliche Änderung der Haushaltsausgaben (€/LM)
+     <input id="v43ExpensesDelta" type="number" inputmode="decimal" min="-10000" max="10000" step="0.01" value="0">
+    </label>
+    <label for="v43WageRisk">Vorsichtiges Nettolohn-Risikoband (nur Erwerbsnetto): <output id="v43WageRiskValue" for="v43WageRisk">0 %</output>
+     <input id="v43WageRisk" type="range" min="0" max="30" step="5" value="0">
+    </label>
+   </div>
+   <p>Das Risikoband mindert lediglich das angenommene Erwerbsnetto – <strong>nicht</strong> Mutterschaftsleistungen oder Elterngeld. Etwaige Folgewirkungen auf den Elterngeldanspruch bleiben ungeprüft.</p>
+  </fieldset>
+ </div>
+ <div class="v43-actions"><button id="v43Reset" type="button" class="navbtn alt">Nur diese Annahmen zurücksetzen</button></div>
+ <p id="v43Status" class="v43-status" role="status" aria-live="polite" aria-atomic="true"></p>
+ <div id="v43Result" class="v43-result" aria-live="off"></div>
+ <p class="v43-footnote">Ausgabe ist eine <strong>rechnerische Was-wäre-wenn-Differenz</strong>, keine amtliche Berechnung, Kita-Platzzusage, Liquiditätsprognose oder global optimierte Empfehlung. Alle P0-Fach- und Release-Sperren bleiben bestehen.</p>
+</section>

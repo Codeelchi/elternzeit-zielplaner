@@ -24,7 +24,7 @@ Eltern sollen mit fiktiven oder bewusst selbst eingegebenen Angaben verstehen k�
 
 ## Paket 2 – Interaktiver Zeitstrahl und Was-wäre-wenn-Vergleich
 
-**Status 22.10.2026: Paket 2A (zugänglicher Monatszeitstrahl) und 2B (bis zu drei flüchtige Varianten) im Review-Branch implementiert, CI und Merge noch offen. Paket 2C bleibt geplant.** Die technischen Grenzen und Tests beschreibt [Umsetzung Paket 2](UMSETZUNG-PAKET2-FAMILIENZEIT-2026-10-22.md). Ursprung: Paket 1 und bestehende `TimeAxes`-/Budgetmodulen.
+**Status 22.10.2026: Paket 2A (zugänglicher Monatszeitstrahl) und 2B (bis zu drei flüchtige Varianten) im Review-Branch implementiert, CI und Merge noch offen. Paket 2C wird im eigenen Review-Branch technisch umgesetzt; GitHub-PR/CI vor Integration notwendig.** Die technischen Grenzen und Tests beschreibt [Umsetzung Paket 2](UMSETZUNG-PAKET2-FAMILIENZEIT-2026-10-22.md). Ursprung: Paket 1 und bestehende `TimeAxes`-/Budgetmodulen.
 
 ### 2A. Gemeinsamer Familienzeitstrahl (erste Monatsversion technisch umgesetzt)
 
@@ -42,11 +42,11 @@ Eltern sollen mit fiktiven oder bewusst selbst eingegebenen Angaben verstehen k�
 
 **Ausbaugrenzen von 2A/2B:** Die erste Ansicht zeigt vorhandene Status- und Geldwerte je Lebensmonat, aber noch keine juristisch geprüfte Zuordnung sämtlicher Elternzeitabschnitte oder echte wöchentliche Betreuungsabdeckung. Die Begriffe Kita angenommen / nicht zugeordnet sind ausdrücklich keine Platzzusage bzw. amtliche Betreuungslücke. Die automatisierten A11y-Tests ersetzen keine manuelle Screenreader-Abnahme. Weitere fachlich abgenommene Übergangs-/Grenzfälle bleiben offen.
 
-### 2C. Was-wäre-wenn-Regler (nach 2A/2B)
+### 2C. Was-wäre-wenn-Regler (technisch im Review-Branch umgesetzt)
 
 - Parameter ausschließlich als **ausdrücklich hypothetische** Alternative: Kita-Start um 0–6 Monate verschieben, Teilzeitstunden, Ausgaben und vorsichtige Einkommensbandbreiten. Vorhandene Regeln/Modelle wiederverwenden statt neue Leistungshöhen zu erfinden.
 - Side-by-side Ausgangsplan und Alternative mit klarer Beschriftung und eventuell veralteter Berechnung. Keine heimliche Änderung von Monatsplan, bestätigten Buchungen oder Speicherzustimmung.
-- **Abnahme:** gleiche Eingaben erzeugen deterministische Ergebnisse; Grenzwerte, negative/fehlende Ausgaben, Abbruch und Rückkehr sind abgedeckt. „Beste gefundene Variante“ statt „garantiertes Optimum“.
+- **Abnahme:** deterministische Grenztests für 0–6 Monate, bekannte/fehlende Ausgaben, Cent-Werte und Teilzeit-Netto; DOM-/Chromium-Nachweise für Import, Reset, Tastatur, 320–1280 px und Nichtpersistenz. Die neue Ansicht zeigt **keine Optimierungs- oder Übernahmeempfehlung**. [Implementierung und Grenzen](UMSETZUNG-PAKET2C-WAS-WAERE-WENN-2026-10-22.md).
 
 **Sicherheitsgrenzen:** 2027-Szenarien als unverbindlich, 4/5-Mutterschutztage und Netto-Fachfragen weiterhin offen; keine Ergebnisfreigabe durch Rendering.
 
@@ -78,7 +78,7 @@ Eltern sollen mit fiktiven oder bewusst selbst eingegebenen Angaben verstehen k�
 ## Reihenfolge und Definition of Done
 
 1. **Paket 1:** UI/Navigation/Testschutz/README im PR überprüfen, Node- und Chromium-CI grün; kein automatisches Pages-Deployment.
-2. **Paket 2A → 2B → 2C:** zuerst verständliche Zeitachse, danach sichere Varianten-Snapshots, anschließend hypothetische Interaktionen. Jede Phase eigener PR mit Fachgrenzen und Regression.
+2. **Paket 2A → 2B → 2C:** 2A/2B sind seit PR #39 auf Main; 2C ist als eigenständiger, nicht rechtlich bindender Review-Branch implementiert. Vor der Integration commitgebundene CI und separater Merge.
 3. **Paket 3A → 3B → 3C:** Bericht, lokale Aufgabenübersicht, echte Nutzer- und externe Fachabnahmen.
 
 **Nicht automatisch durch diese Roadmap geschlossen:** P0-Mutterschutz-Frist-/Resttagekonflikt, 10/10 unabhängige vollständige Familienfälle, ungeprüfter Elterngeld-Netto-/2027-Rechtsstand, manuelle Screenreader- und Datenschutznachweise sowie endgültiger Betreiberentscheid.

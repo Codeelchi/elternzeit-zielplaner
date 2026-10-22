@@ -52,23 +52,23 @@ Eltern sollen mit fiktiven oder bewusst selbst eingegebenen Angaben verstehen k�
 
 ## Paket 3 – Bericht, Aufgaben und echte Nutzerabnahme
 
-**Status: geplant; noch nicht implementiert.** Für belastbare Berichte ist die Datenqualität aus Paket 1 erforderlich; die grafische Timeline ist optional, aber hilfreich.
+**Status 22.10.2026: 3A (zwei A4-Druckseiten) und 3B (quellenbasierte Sitzungsaufgaben) sind im eigenen Review-Branch technisch umgesetzt. 3C (echte Nutzer- und manuelle Screenreader-Abnahme) ist nur als [Studienprotokoll](PAKET3C-NUTZER-A11Y-ABNAHME-2026-10-22.md) vorbereitet – noch nicht durchgeführt.** [Umsetzungsbericht Paket 3](UMSETZUNG-PAKET3-DRUCK-AUFGABEN-2026-10-22.md). Alle externen Freigaben bleiben gesperrt.
 
-### 3A. Kompakte druck-/PDF-fähige Planübersicht
+### 3A. Kompakte druck-/PDF-fähige Planübersicht (technisch im Review umgesetzt)
 
 - **Ein bis zwei druckbare A4-Seiten**, keine 16-Fachansichten-Druckkopie: Familienzeit, gekennzeichnete Einnahmen-/Kostenannahmen, erste Lücke, relevante Unsicherheiten und nächste Prüfaufgaben.
 - Kopfzeile enthält „Fiktives Beispiel“ oder „Eigener ungeprüfter Entwurf“, Berechnungsstand und **keine** amtliche Bewilligungswirkung. Fehlende Werte ausdrücklich leer/nicht berechenbar.
 - Rein lokal per Browser-Druck/PDF; keine serverseitige PDF-Verarbeitung und keine automatische Übertragung sensibler Daten.
-- **Abnahme:** visuelle Print-Tests A4/2 Seiten, lesbare Schwarzweißausgabe, semantische Überschriften, kein abgeschnittener Text und keine Bestätigungs-/Buchungsfiktion.
+- **Technische Abnahme:** Echte Chromium-PDF-Testausgaben sind auf genau 2 A4-Hochformatseiten bei 24 und 36 LM geprüft; semantische HTML-Vorschau, Textwarnungen und unbekannte Beträge vorhanden. **Noch offen:** unabhängige visuelle Drucker-/Schwarzweiß-/Screenreader-Abnahme aus 3C, keine amtliche Bestätigung.
 
-### 3B. Persönliche, aber lokal bleibende Aufgabenübersicht
+### 3B. Persönliche, aber lokal bleibende Aufgabenübersicht (technisch im Review umgesetzt)
 
 - Aus bestehendem Antrags-/Fristenmodul nur **quellengeprüfte und im unterstützten Fall passende** Aufgaben ableiten: vor Geburt, nach Geburt, Kita-/Betreuungsübergang, Rückkehr zur Arbeit.
 - „Offen“, „persönlich erledigt“ und „durch Regelprüfung noch ungeklärt“ trennen. Kein voreiliges „amtlich erledigt“; Fristen mit Ursprungsquelle, Datenannahmen und Änderungswarnung.
 - Abweichende und unklare Fälle benötigen Nichtunterstützt-Hinweis statt erfundener Pflicht oder Frist.
-- **Abnahme:** datierte synthetische Grenzfälle, falsche/fehlende Geburtsdaten, Reset/Import, lokale Speicherentscheidung und keine Hintergrundbenachrichtigung ohne gesonderte Zustimmung.
+- **Technische Abnahme:** reine Datums-/Quellen-/Aufgabenstatusprüfungen, HTML-/Chromium-Sync, Tastaturfokus, Reset/Import und flüchtiger Speicher. Der neue Kurzüberblick benutzt ausschließlich bestehende Aufgaben und Fristen; **keine** neuen, ungesicherten Pflichten zur Rückkehr in den Beruf. Manuelle Nutzerprüfung weiterhin offen.
 
-### 3C. Nutzertest, manuelle Accessibility und Abnahme
+### 3C. Nutzertest, manuelle Accessibility und Abnahme (Studienplan vorbereitet; Durchführung offen)
 
 - Moderierte Aufgaben mit **ausschließlich synthetischen Daten**: erstes Beispiel verstehen, zwei Varianten vergleichen, „Einnahmen“ von „frei verfügbarem Rest“ unterscheiden, Rechtsstatus und fehlende Angaben erklären, Plan drucken.
 - Auch Testpersonen ohne Finanz-/Elterngeld-Vorkenntnisse, Mobilgeräte sowie Screenreader/Tastatur erfassen. Fehler, Verständnisprobleme, Abbrüche und Bearbeitungszeit dokumentieren; persönliche Familien- oder Gesundheitsdaten nicht erfassen.
@@ -79,6 +79,6 @@ Eltern sollen mit fiktiven oder bewusst selbst eingegebenen Angaben verstehen k�
 
 1. **Paket 1:** UI/Navigation/Testschutz/README im PR überprüfen, Node- und Chromium-CI grün; kein automatisches Pages-Deployment.
 2. **Paket 2A → 2B → 2C:** 2A/2B sind seit PR #39 auf Main; 2C ist als eigenständiger, nicht rechtlich bindender Review-Branch implementiert. Vor der Integration commitgebundene CI und separater Merge.
-3. **Paket 3A → 3B → 3C:** Bericht, lokale Aufgabenübersicht, echte Nutzer- und externe Fachabnahmen.
+3. **Paket 3A/3B → 3C:** A4-Bericht und lokale Aufgabenübersicht im separaten Review-Branch; 3C als Studienplan vorbereitet, noch **0 echte Nutzer- und Screenreader-Durchführungen**, unabhängige P0-Fach- und externe Betreiberfreigaben fehlen.
 
 **Nicht automatisch durch diese Roadmap geschlossen:** P0-Mutterschutz-Frist-/Resttagekonflikt, 10/10 unabhängige vollständige Familienfälle, ungeprüfter Elterngeld-Netto-/2027-Rechtsstand, manuelle Screenreader- und Datenschutznachweise sowie endgültiger Betreiberentscheid.

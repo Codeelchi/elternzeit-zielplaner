@@ -12,7 +12,11 @@ const inputs=[
  {start:'/* V42_RUNTIME_START */',end:'/* V42_RUNTIME_END */',src:'src/v42-familienzeit.js'},
  {start:'/* V43_STYLES_START */',end:'/* V43_STYLES_END */',src:'src/v43-what-if.css'},
  {start:'<!-- V43_MARKUP_START -->',end:'<!-- V43_MARKUP_END -->',src:'src/v43-what-if.html'},
- {start:'/* V43_RUNTIME_START */',end:'/* V43_RUNTIME_END */',src:'src/v43-what-if.js'}
+ {start:'/* V43_RUNTIME_START */',end:'/* V43_RUNTIME_END */',src:'src/v43-what-if.js'},
+ {start:'/* V44_STYLES_START */',end:'/* V44_STYLES_END */',src:'src/v44-panel.css'},
+ {start:'<!-- V44_MARKUP_START -->',end:'<!-- V44_MARKUP_END -->',src:'src/v44-panel.html'},
+ {start:'<!-- V44_ENTRY_START -->',end:'<!-- V44_ENTRY_END -->',src:'src/v44-entry.html'},
+ {start:'/* V44_RUNTIME_START */',end:'/* V44_RUNTIME_END */',src:'src/v44-panel.js'}
 ];
 let html=readFileSync(htmlPath,'utf8');
 for(const item of inputs){

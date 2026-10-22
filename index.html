@@ -296,17 +296,15 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  body.v38-lite .footer-nav .navbtn{font-size:.875rem}
 }
 
-/* The detail-mode switch must be reachable on every slide. */
-.privacy-strip #v41ModeToggle{
- display:inline-flex;align-items:center;min-height:42px;margin:0 0 8px;border:1px solid #9ebdb3;border-radius:8px;
- background:#f1f7f4;color:#17594f;font-weight:750;font-size:.8125rem;
- line-height:1.35;padding:8px 12px;text-decoration:none;
-}
-.privacy-strip #v41ModeToggle[aria-pressed="true"]{
- border-color:#3a8c78;background:#e6f4ed;
-}
-.privacy-strip #v41ModeToggle:focus-visible{
- outline:3px solid #974500;outline-offset:2px;
+/* Globally reachable specialist toggle without moving the mobile first CTA below the fold. */
+.top-actions #v41ModeToggle{min-height:44px}
+.top-actions #v41ModeToggle[aria-pressed="true"]{border-color:#89bcb1;background:#225a59}
+.top-actions #v41ModeToggle:focus-visible{outline:3px solid #e9bb64;outline-offset:2px}
+
+/* Keep the primary example CTA comfortably inside a 320x740 first viewport. */
+@media(max-width:360px){
+ body.v38-lite #v38QuickStart .v38-entry-actions{margin-top:8px}
+ body.v38-lite #v38QuickStart .v38-intro h2{margin:6px 0 4px}
 }
 
 /* V38_STYLES_END */
@@ -375,6 +373,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
   <div class="brand"><span class="brand-symbol"></span> FAMILIENFINANZEN <small>/ lokal & privat</small></div>
   <button type="button" id="v39MobileMenu" aria-controls="topActions" aria-expanded="false" aria-label="Weitere Optionen öffnen">Weitere Optionen</button>
  <div class="top-actions" id="topActions">
+    <button type="button" class="action" id="v41ModeToggle" aria-pressed="false">Fachansichten einblenden</button>
     <a href="start.html" target="_blank" rel="noopener noreferrer" title="Infoseite in neuem Tab öffnen – euer Plan bleibt hier" class="action" style="text-decoration:none">Familienstart &amp; Beratung (neuer Tab)</a>
     <button type="button" class="action" id="btnReset" title="Ausgangswerte wiederherstellen">Zurücksetzen</button>
     <button type="button" class="action" id="btnCsv" title="Monatsdaten als CSV exportieren">CSV</button>
@@ -383,7 +382,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
     <button type="button" class="action" id="btnFullscreen" title="Vollbildansicht">Vollbild</button>
   </div>
  </header>
- <div class="privacy-strip"><div class="v39-privacy-summary">Lokal und privat · kein Konto. <button id="v39PrivacyToggle" type="button" aria-expanded="false" aria-controls="v39PrivacyDetail">Datenschutz & Speichern</button></div><button id="v41ModeToggle" type="button" aria-pressed="false">Fachansichten einblenden</button><div id="v39PrivacyDetail">Ohne Konto, ohne Telemetrie. Berechnung auf diesem Gerät. Lokales Speichern ist optional und im Browser unverschlüsselt; auf gemeinsam genutzten Geräten ausgeschaltet lassen. Exportierte Dateien enthalten eure Finanzdaten. <label><input id="localSave" type="checkbox"> Automatisch auf diesem Gerät speichern</label> <button type="button" id="deleteLocal">Browserkopie löschen</button></div><p id="privacyStorageStatus" class="privacy-storage-status" role="status" aria-live="polite" hidden></p></div><nav class="section-nav noprint" id="sectionNav" aria-label="Präsentationsnavigation"></nav>
+ <div class="privacy-strip"><div class="v39-privacy-summary">Lokal und privat · kein Konto. <button id="v39PrivacyToggle" type="button" aria-expanded="false" aria-controls="v39PrivacyDetail">Datenschutz & Speichern</button></div><div id="v39PrivacyDetail">Ohne Konto, ohne Telemetrie. Berechnung auf diesem Gerät. Lokales Speichern ist optional und im Browser unverschlüsselt; auf gemeinsam genutzten Geräten ausgeschaltet lassen. Exportierte Dateien enthalten eure Finanzdaten. <label><input id="localSave" type="checkbox"> Automatisch auf diesem Gerät speichern</label> <button type="button" id="deleteLocal">Browserkopie löschen</button></div><p id="privacyStorageStatus" class="privacy-storage-status" role="status" aria-live="polite" hidden></p></div><nav class="section-nav noprint" id="sectionNav" aria-label="Präsentationsnavigation"></nav>
  <div class="live-strip noprint" aria-live="polite">
    <div class="live-item"><span>Kindesalter im gewählten Monat</span><strong id="liveAge">0–1 Monat</strong></div>
    <div class="live-item"><span>Lebensmonat / Zeitraum</span><strong id="liveMonth">LM 3</strong></div>
@@ -6338,7 +6337,7 @@ const QuickStartV38=(()=>{
   for(const [id,delta] of [['next',1],['previous',-1]])
    node(id)?.addEventListener('click',event=>simpleStep(delta,event),true);
   for(const id of ['v38Advanced','v41ModeToggle'])
-   node(id)?.addEventListener('click',()=>{expert=!expert;refresh();});
+   node(id)?.addEventListener('click',()=>{expert=!expert;refresh();if(id==='v41ModeToggle')closeMobile();});
   node('v38PersonalForm')?.addEventListener('submit',personalSubmit);
   node('v311GoalsForm')?.querySelectorAll('input,select').forEach(input=>
    input.addEventListener('input',()=>{goalFormDirty=true;clearGoalInputError();}));

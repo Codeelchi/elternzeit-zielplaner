@@ -82,7 +82,14 @@ test('simple decision cards remain readable with 200 percent root text size on m
  await page.locator('[data-v38-template=long18]').click();
  await page.evaluate(()=>{document.documentElement.style.fontSize='200%';});
  await expect(page.locator('.v41-overview')).toBeVisible();
+ await page.locator('#v39MobileMenu').click();
  await expect(page.locator('#v41ModeToggle')).toBeVisible();
+ await page.locator('#v41ModeToggle').click();
+ await expect(page.locator('#v39MobileMenu')).toHaveAttribute('aria-expanded','false');
+ await expect(page.locator('#sectionNav button:not([hidden])')).toHaveCount(16);
+ await page.locator('#v39MobileMenu').click();
+ await page.locator('#v41ModeToggle').click();
+ await expect(page.locator('#v39MobileMenu')).toHaveAttribute('aria-expanded','false');
  const metrics=await page.evaluate(()=>{
   const summary=document.querySelector('#v38Summary');
   const cards=[...document.querySelectorAll('[data-v41-metric]')];

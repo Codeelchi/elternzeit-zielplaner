@@ -591,7 +591,7 @@ const QuickStartV38=(()=>{
   for(const [id,delta] of [['next',1],['previous',-1]])
    node(id)?.addEventListener('click',event=>simpleStep(delta,event),true);
   for(const id of ['v38Advanced','v41ModeToggle'])
-   node(id)?.addEventListener('click',()=>{expert=!expert;refresh();});
+   node(id)?.addEventListener('click',()=>{expert=!expert;refresh();if(id==='v41ModeToggle')closeMobile();});
   node('v38PersonalForm')?.addEventListener('submit',personalSubmit);
   node('v311GoalsForm')?.querySelectorAll('input,select').forEach(input=>
    input.addEventListener('input',()=>{goalFormDirty=true;clearGoalInputError();}));

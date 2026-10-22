@@ -231,15 +231,13 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  body.v38-lite .footer-nav .navbtn{font-size:.875rem}
 }
 
-/* The detail-mode switch must be reachable on every slide. */
-.privacy-strip #v41ModeToggle{
- display:inline-flex;align-items:center;min-height:42px;margin:0 0 8px;border:1px solid #9ebdb3;border-radius:8px;
- background:#f1f7f4;color:#17594f;font-weight:750;font-size:.8125rem;
- line-height:1.35;padding:8px 12px;text-decoration:none;
-}
-.privacy-strip #v41ModeToggle[aria-pressed="true"]{
- border-color:#3a8c78;background:#e6f4ed;
-}
-.privacy-strip #v41ModeToggle:focus-visible{
- outline:3px solid #974500;outline-offset:2px;
+/* Globally reachable specialist toggle without moving the mobile first CTA below the fold. */
+.top-actions #v41ModeToggle{min-height:44px}
+.top-actions #v41ModeToggle[aria-pressed="true"]{border-color:#89bcb1;background:#225a59}
+.top-actions #v41ModeToggle:focus-visible{outline:3px solid #e9bb64;outline-offset:2px}
+
+/* Keep the primary example CTA comfortably inside a 320x740 first viewport. */
+@media(max-width:360px){
+ body.v38-lite #v38QuickStart .v38-entry-actions{margin-top:8px}
+ body.v38-lite #v38QuickStart .v38-intro h2{margin:6px 0 4px}
 }

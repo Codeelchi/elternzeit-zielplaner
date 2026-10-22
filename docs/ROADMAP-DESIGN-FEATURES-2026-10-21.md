@@ -10,7 +10,7 @@ Eltern sollen mit fiktiven oder bewusst selbst eingegebenen Angaben verstehen k�
 
 ## Paket 1 – Design, Navigation und Verständlichkeit
 
-**Status: technisch auf dem Entwicklungsbranch umgesetzt, vor dem Merge CI/Review abnehmen.** Dieses Paket ist von den folgenden Ausbaustufen unabhängig.
+**Status: technisch umgesetzt in PR #38; vollständige commitgebundene CI und Merge-Review sind die technischen Abnahmekriterien. Öffentliche Produktfreigabe bleibt separat gesperrt.** Dieses Paket ist von den folgenden Ausbaustufen unabhängig.
 
 | Baustein | Konkrete Änderung | Technische Abnahme |
 | --- | --- | --- |

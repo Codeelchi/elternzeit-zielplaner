@@ -11,3 +11,6 @@ test-results/
 qa/browser-artifacts/
 
 dist/
+
+# Generated synthetic reviewer kits only; do not accidentally commit real study notes.
+.local-review/

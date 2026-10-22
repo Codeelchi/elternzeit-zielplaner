@@ -308,6 +308,77 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 }
 
 /* V38_STYLES_END */
+/* V42_STYLES_START */
+/* Paket 2: model-only family time track and ephemeral comparisons. */
+.v42-family{margin:22px 0 30px;padding:clamp(14px,2vw,24px);border-radius:16px;border:1px solid #b8d2c9;background:#fff;color:#24453d;overflow-wrap:anywhere;max-width:100%}
+.v42-family .v42-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:8px}
+.v42-family h3{font-size:clamp(1.2rem,2vw,1.55rem);line-height:1.32;margin:3px 0 8px;color:#143b35}
+.v42-family h4{font-size:1.1rem;line-height:1.3;margin:0 0 8px;color:#143b35}
+.v42-family p{font-size:.875rem;line-height:1.55;color:#3a5e54;margin:0 0 9px}
+.v42-family .v42-chip{flex-shrink:0;white-space:nowrap;padding:6px 10px;border-radius:25px;background:#e6f2ed;border:1px solid #b6d5c7;font-size:.75rem;font-weight:700;color:#1b5146}
+.v42-family .v42-help{font-size:.8rem;margin-top:10px}
+.v42-family .v42-scroll{width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid #c8d9d2;border-radius:12px;scrollbar-width:thin}
+.v42-family .v42-scroll:focus-visible{outline:3px solid #ad6214;outline-offset:3px}
+.v42-family .v42-track{border-spacing:0;border-collapse:separate;table-layout:fixed;min-width:max-content;width:max-content;font-size:.8rem;color:#28453c}
+.v42-family .v42-track caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.v42-family .v42-track th,.v42-family .v42-track td{box-sizing:border-box;border:0;border-bottom:1px solid #dde8e2;border-right:1px solid #e1ebe7;vertical-align:middle;text-align:center;min-width:54px;max-width:54px;width:54px;padding:7px 2px}
+.v42-family .v42-track thead th{background:#eef6f2;padding:6px 1px;font-weight:700}
+.v42-family .v42-track .v42-rowhead{position:sticky;left:0;z-index:2;width:140px;min-width:140px;max-width:140px;padding:8px 9px;text-align:left;background:#f5f9f7;box-shadow:2px 0 0 #bed3c7;line-height:1.35;white-space:normal}
+.v42-family .v42-track thead .v42-rowhead{z-index:3;background:#e7f3ec}
+.v42-family .v42-track button[data-v42-month]{border:1px solid transparent;background:transparent;color:#245549;font-weight:800;min-height:40px;min-width:40px;cursor:pointer;border-radius:7px}
+.v42-family .v42-track button[data-v42-month][aria-pressed="true"]{background:#164e43;border-color:#164e43;color:#fff}
+.v42-family .v42-track button[data-v42-month]:focus-visible{outline:3px solid #ab5b12;outline-offset:1px}
+.v42-family .v42-cell{display:block;padding:7px 2px;border-radius:5px;font-size:.72rem;font-weight:720;line-height:1.3;white-space:normal;word-break:normal;min-height:34px}
+.v42-family .v42-status-home,.v42-family .v42-care-parent{background:#d9eee4;color:#1d5144}
+.v42-family .v42-status-work,.v42-family .v42-care-open{background:#f3e6d1;color:#6a4a21}
+.v42-family .v42-status-part{background:#e3eef5;color:#28546f}
+.v42-family .v42-care-kita{background:#e3edf5;color:#244e69}
+.v42-family .v42-status-ms{background:#e3e1f0;color:#503d70}
+.v42-family .v42-track td.v42-selected{border-bottom:3px solid #135744}
+.v42-family .v42-track td.v42-money{font-size:.72rem;line-height:1.2;font-variant-numeric:tabular-nums;color:#28473c;white-space:normal}
+.v42-family .v42-track .v42-unknown{font-weight:700;color:#6f4c22}
+.v42-family .v42-month-detail{padding:15px;border:1px solid #bfd9cf;border-left:4px solid #25735f;background:#f5faf7;border-radius:11px;margin:15px 0}
+.v42-family .v42-month-detail h4{margin:0 0 7px}
+.v42-family .v42-month-detail dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0 8px}
+.v42-family .v42-month-detail dt{font-size:.75rem;line-height:1.4;color:#476b60}
+.v42-family .v42-month-detail dd{font-size:.95rem;line-height:1.4;margin:3px 0 0;font-weight:750;color:#21473b;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.v42-family .v42-month-detail p{margin-top:8px}
+.v42-family .v42-compare{padding-top:20px;border-top:1px solid #d3e3da}
+.v42-family .v42-compare-title{display:flex;gap:12px;justify-content:space-between}
+.v42-family .v42-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:12px 0}
+.v42-family .v42-controls label{flex:1 1 200px;max-width:360px;font-size:.85rem;font-weight:700;color:#345b51}
+.v42-family .v42-controls input{width:100%;box-sizing:border-box;display:block;margin-top:5px;padding:10px 12px;border-radius:8px;border:1px solid #a4bcb0;font-size:1rem;color:#173d32;background:#fff}
+.v42-family .v42-controls button{min-height:44px;white-space:normal}
+.v42-family .v42-controls button:disabled{opacity:.5;cursor:not-allowed}
+.v42-family button:focus-visible,.v42-family input:focus-visible{outline:3px solid #ab5b12;outline-offset:3px}
+.v42-family .v42-feedback:not(:empty){padding:9px 12px;border-radius:8px;border-left:3px solid #ad6c22;background:#fff7ec;font-size:.83rem;line-height:1.5;margin:10px 0}
+.v42-family .v42-saved{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:12px 0;padding:0;list-style:none}
+.v42-family .v42-saved li{display:flex;align-items:center;gap:8px;max-width:100%;background:#f2f7f5;border:1px solid #d2e3da;border-radius:9px;padding:6px 8px;font-size:.8rem;overflow-wrap:anywhere}
+.v42-family .v42-saved li span{overflow-wrap:anywhere}
+.v42-family .v42-saved button{min-width:44px;min-height:38px;padding:5px 10px;border:1px solid #afc7bd;border-radius:7px;background:#fff;font-weight:750;color:#245547}
+.v42-family .v42-compare-scroll{overflow:auto;max-width:100%;border:1px solid #cbddd4;border-radius:10px}
+.v42-family .v42-comparison table{border-collapse:collapse;width:100%;min-width:780px;font-size:.8rem}
+.v42-family .v42-comparison th,.v42-family .v42-comparison td{padding:10px;border:1px solid #e2ebe6;text-align:left;vertical-align:top;font-variant-numeric:tabular-nums}
+.v42-family .v42-comparison thead th{background:#eaf5ee;color:#21483d}
+.v42-family .v42-comparison tbody th{background:#f5faf6;font-weight:750}
+.v42-family .v42-comparison td.v42-cannot{background:#fff8ec;color:#6a4b2d;font-weight:700}
+.v42-family .v42-comparison small{display:block;color:#476b60;font-size:.73rem;line-height:1.4;margin-top:5px}
+.v42-family .v42-compare-note{font-size:.8rem;margin:10px 0}
+@media(max-width:860px){
+ .v42-family .v42-head{display:block}
+ .v42-family .v42-chip{display:inline-block;margin-bottom:10px}
+ .v42-family .v42-track th,.v42-family .v42-track td{min-width:53px;max-width:53px;width:53px}
+ .v42-family .v42-track .v42-rowhead{min-width:115px;max-width:115px;width:115px}
+}
+@media(max-width:480px){
+ .v42-family{margin:14px 0 20px;padding:10px}
+ .v42-family .v42-month-detail dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .v42-family .v42-controls label{max-width:none;flex:1 1 100%}
+ .v42-family .v42-controls button{flex:1 1 135px}
+}
+@media print{.v42-family .v42-controls,.v42-family .v42-saved{display:none}.v42-family .v42-scroll,.v42-family .v42-compare-scroll{overflow:visible}}
+
+/* V42_STYLES_END */
 
 /* V3.17: descriptive scope gate, deliberately never a positive release badge. */
 .v317-scope{border:1px solid #b8cec9;background:#f6f9f7;border-radius:12px;padding:14px 17px;margin:12px 0 18px;overflow-wrap:anywhere}
@@ -726,6 +797,39 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
    <span class="eyebrow">05 / Modelleinnahmen</span><h2>Welche Einnahmen sind je Lebensmonat modelliert?</h2>
    <p class="subtitle">Der Verlauf zeigt Gehälter, modelliertes Elterngeld und Kindergeld je Lebensmonat vor Haushalts- und Kita-Kosten – keine datierten Zahlungseingänge oder Liquidität. Sonderzahlungen sind in den Summen und Tooltips enthalten, nicht in den gestapelten Balken. Ein Klick auf eine Säule zeigt den entsprechenden Monat.</p>
    <div class="quick-toggle" style="margin-top:12px"><button data-horizon="18">18 LM · 1½ Jahre</button><button data-horizon="24" class="active">24 LM · 2 Jahre</button><button data-horizon="32">32 LM · 2 J. 8 M.</button><button data-horizon="36">36 LM · 3 Jahre</button></div>
+   <!-- V42_MARKUP_START -->
+<section id="v42FamilyPlanner" class="v42-family" aria-labelledby="v42Title">
+ <header class="v42-head">
+  <div>
+   <span class="eyebrow">Familienzeit · Monatsübersicht</span>
+   <h3 id="v42Title">Beide Eltern, Betreuung und Finanzen auf einem Zeitstrahl</h3>
+   <p id="v42Intro">Alle Angaben sind Modellannahmen. Ein freier Elternteil ist keine stundenweise Betreuungszusage; ein geplanter Kita-Start ist keine Platzzusage. Monatsbeträge sind keine Bankeingänge.</p>
+  </div>
+  <p class="v42-chip">Nur in diesem Browser-Tab</p>
+ </header>
+ <p class="v42-help" id="v42TimelineHelp">Ein Lebensmonat lässt sich über die Spaltenüberschrift auswählen. Mit den Pfeiltasten kannst du zum nächsten oder vorherigen Lebensmonat wechseln. Die Tabelle ist auch ohne Farben lesbar.</p>
+ <div class="v42-scroll" tabindex="0" aria-label="Zeitleiste horizontal verschieben">
+  <div id="v42Timeline" aria-live="off"></div>
+ </div>
+ <div id="v42MonthDetail" class="v42-month-detail" aria-live="polite"></div>
+ <section id="v42Compare" class="v42-compare" aria-labelledby="v42CompareTitle">
+  <div class="v42-compare-title">
+   <div><h4 id="v42CompareTitle">Varianten direkt vergleichen</h4>
+    <p>Merke bis zu drei Momentaufnahmen des Plans. Sie bleiben ausschließlich bis zum Schließen oder Neuladen dieses Browser-Tabs erhalten. Keine Speicherung, kein Export, keine Änderung am aktiven Plan.</p>
+   </div>
+  </div>
+  <div class="v42-controls">
+   <label for="v42VariantName">Optionale Bezeichnung
+    <input id="v42VariantName" type="text" maxlength="40" autocomplete="off" placeholder="z. B. späterer Kita-Start">
+   </label>
+   <button type="button" class="navbtn" id="v42Save">Aktuelle Variante merken</button>
+   <button type="button" class="navbtn alt" id="v42Clear" disabled>Vergleich leeren</button>
+  </div>
+  <div id="v42Feedback" class="v42-feedback" role="status" aria-live="polite"></div>
+  <div id="v42Comparison" class="v42-comparison"></div>
+ </section>
+</section>
+<!-- V42_MARKUP_END -->
    <div class="chart-zone">
     <div class="chart-card"><div class="inline-pair"><h3>Modelleinnahmen vor Haushalts- und Kita-Kosten / Lebensmonat</h3><span class="source-foot">Vollzeit-Referenz gestrichelt</span></div><div id="incomeChart" aria-label="Monatliche Einkommensbalken"></div><div class="legend" style="margin:0"><span><i class="dot" style="background:#456f8b"></i>Gehalt / Mutterschutz</span><span><i class="dot" style="background:#008e81"></i>Elterngeld</span><span><i class="dot" style="background:#e59a56"></i>Kindergeld</span></div></div>
     <div class="overview-side">
@@ -3029,6 +3133,77 @@ module.exports={estimateCologneFee,TABLE,LIMITS,SOURCE,CHECKED,EFFECTIVE_FROM};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* CologneFees_END */
+/* FamilyOverview_START */
+const FamilyOverview=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
+'use strict';
+
+// Presentation-only projection of the EXISTING evaluated life-month rows.
+// No entitlement, weekday care, real cash receipts or other business rules here.
+const FULL_HOME=new Set(['B','P','U','MS']);
+const PART_TIME=new Set(['R','T','Q','K']);
+const LABELS=Object.freeze({
+ W:'Erwerbsarbeit',MS:'Mutterschutz (pauschal)',B:'Basiselterngeld ohne Arbeit',
+ R:'Basiselterngeld mit Teilzeit',P:'ElterngeldPlus ohne Arbeit',
+ T:'ElterngeldPlus mit Teilzeit',Q:'Teilzeit ohne Elterngeld',
+ K:'Partnerschaftsbonus mit Teilzeit',U:'Elternzeit ohne Elterngeld'
+});
+const MAX_MONTHS=36;
+function decimal(value,label) {
+ if(typeof value!=='number'||!Number.isFinite(value)||Math.abs(value)>1e9)
+  throw new RangeError(label+': endlicher, begrenzter Monatswert erforderlich.');
+ return value;
+}
+function integer(value,label,min,max) {
+ if(!Number.isInteger(value)||value<min||value>max)throw new RangeError(label+': ungültiger Lebensmonat.');
+ return value;
+}
+function parentStatus(code,hours) {
+ if(!Object.hasOwn(LABELS,code))throw new RangeError('Nicht unterstützter Monatscode.');
+ if(typeof hours!=='number'||!Number.isFinite(hours)||hours<0||hours>168)throw new RangeError('Ungültige Wochenstunden.');
+ const availability=FULL_HOME.has(code)&&hours===0?'at-home':PART_TIME.has(code)||hours>0?'work-or-part-time':'working';
+ return {code,label:LABELS[code],hours,availability};
+}
+/**
+ * care: only explicit assumptions can count as documented in this model.
+ * 'open' is a missing model attribution, NOT proof of an uncovered real care hour.
+ */
+function buildFamilyView({rows,horizon,childcareStartLm=0,expensesKnown=false,validationStatus='NICHT_UNTERSTUETZT'}={}) {
+ if(!Array.isArray(rows)||rows.length<1||rows.length>MAX_MONTHS)throw new RangeError('Lebensmonatsdaten fehlen oder sind unvollständig.');
+ integer(horizon,'Vergleichszeitraum',1,rows.length);
+ if(childcareStartLm!==0)integer(childcareStartLm,'Geplanter Kita-Start',1,MAX_MONTHS);
+ if(typeof expensesKnown!=='boolean')throw new TypeError('Kostenbekanntheit muss eindeutig sein.');
+ if(typeof validationStatus!=='string'||validationStatus.length>80)throw new TypeError('Ungültiger Prüfstatus.');
+ const months=rows.slice(0,horizon).map((r,i)=>{
+  if(!r||r.lm!==i+1)throw new RangeError('Lebensmonate müssen lückenlos ab 1 vorliegen.');
+  const first=parentStatus(r.f,r.hf),second=parentStatus(r.m,r.hm);
+  const income=decimal(r.income,'Einnahmen'),wage=decimal(r.totalWage,'Arbeitsnetto'),
+    benefit=decimal(r.totalEg,'Elterngeld'),childcare=decimal(r.childcare,'Kita-Kosten'),
+    kind=decimal(r.kind,'Kindergeld');
+  const available=expensesKnown?decimal(r.cashAfter,'Rest nach Kosten'):null;
+  const care=childcareStartLm>0&&r.lm>=childcareStartLm?'planned-kita':
+   first.availability==='at-home'||second.availability==='at-home'?'parent-at-home':'not-documented';
+  return {lm:r.lm,first,second,care,income,wage,benefit,childcare,kind,available};
+ });
+ const totalIncome=months.reduce((a,r)=>a+r.income,0);
+ const firstUnattributed=months.find(x=>x.care==='not-documented')?.lm??null;
+ const homeMonths={first:months.filter(x=>x.first.availability==='at-home').length,
+  second:months.filter(x=>x.second.availability==='at-home').length};
+ let minAvailable=null,totalAvailable=null,requiredBuffer=null;
+ if(expensesKnown){
+  minAvailable=Math.min(...months.map(x=>x.available));
+  totalAvailable=months.reduce((a,r)=>a+r.available,0);
+  let running=0,minRunning=0;
+  for(const m of months){running+=m.available;minRunning=Math.min(minRunning,running);}
+  // Model-only cumulative monthly deficit, not a timing-aware bank liquidity reserve.
+  requiredBuffer=Math.max(0,-minRunning);
+ }
+ return {horizon,months,expensesKnown,validationStatus,firstUnattributed,homeMonths,
+  totalIncome,minAvailable,totalAvailable,requiredBuffer,childcareStartLm};
+}
+module.exports={buildFamilyView,LABELS};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* FamilyOverview_END */
 /* PlanComparison_START */
 const PlanComparison=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;throw Error('Unknown bundled dependency');};
 'use strict';
@@ -4098,7 +4273,7 @@ function initNav(){
  for(const [id,who]of [['fatherStatus','f'],['motherStatus','m']])$(id).addEventListener('change',e=>{if(who==='m'&&s.month<=2)return;s.schedule[s.month-1][who]=e.target.value;s.model='custom';builderActive=false;builderNotices=[];renderAll();persist()});
  $('prevMonth').addEventListener('click',()=>{s.month=Math.max(1,s.month-1);renderAll();persist()});
  $('nextMonth').addEventListener('click',()=>{s.month=Math.min(N,s.month+1);renderAll();persist()});
- $('btnReset').addEventListener('click',()=>{if(!confirm('Alle Eingaben und Änderungen zurücksetzen?'))return;cancelGoalSearch();clearAllSpecialistInputErrors();clearResultOutdated('all');const storageDeleted=deleteLocalData();recordedOpeningReserve='';$('recordedOpeningReserve').value='';resetV313PaymentAssumptions();resetFinanceGuidance();resetV315Extras();resetUnderstandingGuide();s={...defaults,schedule:makeSchedule('father12')};goalStats=null;builderActive=false;builderNotices=[];renderAll();persist();QuickStartV38.onResetConfirmed();showToast(storageDeleted?'Eingaben zurückgesetzt und Browserkopien gelöscht':'Eingaben zurückgesetzt. Browserkopien konnten NICHT sicher gelöscht werden.');});
+ $('btnReset').addEventListener('click',()=>{if(!confirm('Alle Eingaben und Änderungen zurücksetzen?'))return;cancelGoalSearch();clearAllSpecialistInputErrors();clearResultOutdated('all');const storageDeleted=deleteLocalData();recordedOpeningReserve='';$('recordedOpeningReserve').value='';resetV313PaymentAssumptions();resetFinanceGuidance();resetV315Extras();resetUnderstandingGuide();s={...defaults,schedule:makeSchedule('father12')};goalStats=null;builderActive=false;builderNotices=[];renderAll();persist();QuickStartV38.onResetConfirmed();FamilyTimeCompareV42.onReset();showToast(storageDeleted?'Eingaben zurückgesetzt und Browserkopien gelöscht':'Eingaben zurückgesetzt. Browserkopien konnten NICHT sicher gelöscht werden.');});
  $('btnCsv').addEventListener('click',downloadCsv);$('btnJson').addEventListener('click',downloadJson);$('importJson').addEventListener('change',importJson);
 }
 function download(content,name,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),800)}
@@ -5653,7 +5828,7 @@ function importJson(evt){
    recordedOpeningReserve='';$('recordedOpeningReserve').value='';
    resetV313PaymentAssumptions();resetFinanceGuidance();resetV315Extras();resetUnderstandingGuide();
    s=imported;builderActive=false;goalStats=null;
-   clearAllSpecialistInputErrors();clearResultOutdated('all');QuickStartV38.onImported();renderAll();
+   clearAllSpecialistInputErrors();clearResultOutdated('all');QuickStartV38.onImported();FamilyTimeCompareV42.onImported();renderAll();
    importReport(storageDeleted?
     'Import erfolgreich. Temporäre Zahlungs-, Kita- und Risiko-Szenarien wurden zurückgesetzt. Vorherige Browserkopien gelöscht.':
     'Import erfolgreich, aber alte Browserkopien konnten nicht sicher gelöscht werden. Browserdaten manuell kontrollieren. Temporäre Szenarien wurden zurückgesetzt.');
@@ -6413,11 +6588,199 @@ chooseModel=function(...args){const r=v38OriginalChooseModel(...args);QuickStart
 window.__elternzeitV38=QuickStartV38;
 
 /* V38_RUNTIME_END */
+/* V42_RUNTIME_START */
+// Paket 2: view-only family timeline and a maximum of three volatile comparisons.
+// Financial plan data, stored JSON, localStorage and ledger stay unchanged; selecting a month only updates s.month.
+const FamilyTimeCompareV42=(()=>{
+ let saved=[],sequence=0;
+ const root=()=>document.getElementById('v42FamilyPlanner');
+ const el=id=>document.getElementById(id);
+ const esc42=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const eur42=value=>Number(value).toLocaleString('de-DE',{style:'currency',currency:'EUR'});
+ const costsKnown=()=>s.expenses!==''&&s.expenses!==undefined&&s.expenses!==null&&Number.isFinite(Number(s.expenses));
+ const plannedStart=()=>{
+  if(s.childcareStart===undefined||s.childcareStart===null||s.childcareStart==='')return 0;
+  const raw=Number(s.childcareStart);
+  if(!Number.isInteger(raw)||raw<0||raw>36)throw new RangeError('Unzulässiger geplanter Kita-Lebensmonat.');
+  return raw;
+ };
+ function projectedRows(rows){
+  return rows.map(r=>({lm:r.lm,f:r.f,m:r.m,hf:r.hf,hm:r.hm,
+   totalWage:r.totalWage,totalEg:r.totalEg,kind:r.kind,
+   income:r.income,childcare:r.childcare,cashAfter:r.cashAfter}));
+ }
+ function createProjection(){
+  if(!current||!Array.isArray(current.rows))throw new Error('Aktuelle Monatsdaten fehlen.');
+  return {date:s.date,rows:projectedRows(current.rows),expensesKnown:costsKnown(),
+   childcareStartLm:plannedStart(),validationStatus:current.validation?.status||'NICHT_UNTERSTUETZT'};
+ }
+ const configuredHorizon=()=>Math.max(1,Math.min(36,Number(s.horizon)||24));
+ const view=(projection,horizon)=>FamilyOverview.buildFamilyView({
+  rows:projection.rows,horizon,childcareStartLm:projection.childcareStartLm,
+  expensesKnown:projection.expensesKnown,validationStatus:projection.validationStatus
+ });
+ function fingerprint(projection){return JSON.stringify(projection);}
+ function careLabel(care){
+  return care==='planned-kita'?'Kita angenommen*':care==='parent-at-home'?'Elternteil zu Hause*':'Nicht zugeordnet';
+ }
+ function cellFor(parent){
+  const availability=parent.availability;
+  const label=parent.code==='MS'?'Mutterschutz':availability==='at-home'?'Zu Hause':availability==='work-or-part-time'?'Teilzeit':'Arbeit';
+  const cls=parent.code==='MS'?'v42-status-ms':availability==='at-home'?'v42-status-home':availability==='work-or-part-time'?'v42-status-part':'v42-status-work';
+  return {label,cls};
+ }
+ function trackMarkup(months,selected){
+  const colHeader=months.map(r=>'<th scope="col"><button type="button" data-v42-month="'+r.lm+'" aria-pressed="'+String(r.lm===selected)+'" aria-label="Lebensmonat '+r.lm+' · '+esc42(dateFor(r.lm))+' auswählen" title="Lebensmonat '+r.lm+' auswählen">'+r.lm+'</button></th>').join('');
+  const cell=(row,code,label,cls)=>'<td class="'+(row.lm===selected?'v42-selected':'')+'"><span class="v42-cell '+cls+'" title="'+esc42(label)+'">'+esc42(code)+'</span></td>';
+  const parentRow=(which,label)=>'<tr><th scope="row" class="v42-rowhead">'+label+'</th>'+
+   months.map(r=>{const v=r[which],c=cellFor(v);return cell(r,c.label,v.label,c.cls);}).join('')+'</tr>';
+  const careRow='<tr><th scope="row" class="v42-rowhead">Betreuung laut Modell</th>'+
+   months.map(r=>cell(r,r.care==='planned-kita'?'Kita*':r.care==='parent-at-home'?'Zuhause*':'Offen',
+    careLabel(r.care),r.care==='planned-kita'?'v42-care-kita':r.care==='parent-at-home'?'v42-care-parent':'v42-care-open')).join('')+'</tr>';
+  const monetaryRow=(label,key,unknown=false)=>'<tr><th scope="row" class="v42-rowhead">'+label+'</th>'+
+   months.map(r=>'<td class="v42-money '+(r.lm===selected?'v42-selected':'')+' '+(unknown&&!Number.isFinite(r[key])?'v42-unknown':'')+'">'+
+   (r[key]===null?'Unbekannt':esc42(eur42(r[key])))+'</td>').join('')+'</tr>';
+  return '<table class="v42-track"><caption>Modellierte Lebensmonate 1 bis '+months.length+
+   ' mit Elternstatus, Betreuungsannahmen und monatlichen Beträgen. Durch die Spaltenüberschriften navigieren.</caption>'+
+   '<thead><tr><th scope="col" class="v42-rowhead">Lebensmonat</th>'+colHeader+'</tr></thead><tbody>'+
+   parentRow('first','Elternteil 1')+parentRow('second','Elternteil 2')+careRow+
+   monetaryRow('Einnahmen vor Kosten', 'income')+
+   monetaryRow('Rest nach angegebenen Kosten', 'available',true)+
+   '</tbody></table>';
+ }
+ function detailMarkup(month){
+  const unknown=month.available===null;
+  return '<h4>LM '+month.lm+' · Kindesalter '+esc42(ageSpan(month.lm))+'</h4>'+
+   '<p><strong>Zeitraum:</strong> '+esc42(dateFor(month.lm))+'</p>'+
+   '<p><strong>Elternteil 1:</strong> '+esc42(month.first.label)+' ('+month.first.hours+' Wochenstunden im Modell). '+
+   '<strong>Elternteil 2:</strong> '+esc42(month.second.label)+' ('+month.second.hours+' Wochenstunden im Modell).</p>'+
+   '<p><strong>Betreuung:</strong> '+esc42(careLabel(month.care))+'. Eine Wochenstundenabdeckung oder tatsächliche Platzzusage ist dadurch nicht bestätigt.</p>'+
+   '<dl><div><dt>Einnahmen vor Kosten</dt><dd>'+esc42(eur42(month.income))+'</dd></div>'+
+    '<div><dt>Modellierte Kita-Kosten</dt><dd>'+esc42(eur42(month.childcare))+'</dd></div>'+
+    '<div><dt>Rest nach eingegebenen Kosten</dt><dd>'+(unknown?'Nicht berechenbar':esc42(eur42(month.available)))+'</dd></div></dl>'+
+   '<p>'+ (unknown?'Haushaltsausgaben fehlen; weder ein positiver Rest noch ein Rücklagenbedarf lässt sich seriös nennen.':
+      'Weitere unbekannte Kosten und tatsächliche Zahlungstermine sind nicht modelliert.')+
+     ' Die Leistungsbeträge sind vorläufige Modellwerte, keine amtlich bewilligten Zahlungen.</p>';
+ }
+ function comparisonMarkup(active,projection,period){
+  const items=[{id:0,name:'Aktueller Plan',projection,view:active,active:true},
+   ...saved.map(slot=>({id:slot.id,name:slot.name,projection:slot.projection,view:view(slot.projection,period),active:false}))];
+  const isDifferent=items.slice(1).some(item=>item.projection.date!==projection.date);
+  const rows=items.map(item=>{
+   const v=item.view;
+   const costs=v.expensesKnown;
+   const status=esc42(v.validationStatus);
+   const unassigned=v.firstUnattributed===null?'Keine im betrachteten Modell':('LM '+v.firstUnattributed);
+   const match=!item.active&&fingerprint(item.projection)===fingerprint(projection);
+   return '<tr><th scope="row">'+esc42(item.name)+
+    '<small>'+(item.active?'Aktive Berechnung':match?'Identische Modellzahlen zum aktiven Plan':'Gespeicherte Momentaufnahme')+
+    ' · Geburtsdatum '+esc42(item.projection.date)+'</small></th>'+
+    '<td>'+esc42(eur42(v.totalIncome))+'</td>'+
+    '<td class="'+(costs?'':'v42-cannot')+'">'+(costs?esc42(eur42(v.minAvailable)):'Nicht vergleichbar')+'</td>'+
+    '<td class="'+(costs?'':'v42-cannot')+'">'+(costs?esc42(eur42(v.totalAvailable)):'Nicht vergleichbar')+'</td>'+
+    '<td class="'+(costs?'':'v42-cannot')+'">'+(costs?esc42(eur42(v.requiredBuffer)):'Nicht berechenbar')+'</td>'+
+    '<td>'+esc42(unassigned)+'</td>'+
+    '<td>'+v.homeMonths.first+' / '+v.homeMonths.second+'</td>'+
+    '<td>'+status+'<small>Kein Bewilligungsnachweis</small></td></tr>';
+  }).join('');
+  return '<p class="v42-compare-note">Gleicher Vergleichszeitraum: LM 1–'+period+
+   '. Aktueller Plan plus maximal drei unveränderliche Momentaufnahmen. Alle Einnahmen vor Kosten, keine sicheren Zahlungszeitpunkte.'+
+   (isDifferent?' <strong>Achtung: Gespeicherte Varianten verwenden unterschiedliche Geburtsdaten.</strong>':'')+'</p>'+
+   (saved.length?'<ul class="v42-saved" aria-label="Gemerkte Varianten">'+saved.map(slot=>
+      '<li><span>'+esc42(slot.name)+'</span><button type="button" data-v42-remove="'+slot.id+'" aria-label="'+esc42(slot.name)+' entfernen">Entfernen</button></li>').join('')+'</ul>':'<p>Keine weiteren Varianten gemerkt. Wähle ein Modell, merke es und ändere anschließend den aktiven Plan.</p>')+
+   '<div class="v42-compare-scroll" tabindex="0" aria-label="Vergleichstabelle horizontal verschieben"><table>'+
+   '<caption>Modellvergleich im selben Lebensmonats-Zeitraum; Tabellenwerte sind keine bestätigten Ansprüche oder Kontoauszüge.</caption>'+
+   '<thead><tr><th scope="col">Plan</th><th scope="col">Einnahmen vor Kosten, gesamt</th>'+
+   '<th scope="col">Niedrigster Rest je LM</th><th scope="col">Rest gesamt</th>'+
+   '<th scope="col">Kumulierte Modellunterdeckung*</th><th scope="col">Betreuung nicht zugeordnet</th>'+
+   '<th scope="col">Zuhause LM, Eltern 1 / 2</th><th scope="col">Prüfstatus</th></tr></thead>'+
+   '<tbody>'+rows+'</tbody></table></div>'+
+   '<p class="v42-compare-note">*Nur bei bekannten Haushaltsausgaben: theoretischer höchster negativer Zwischensaldo einer laufenden Lebensmonats-Summe ab 0 €. Keine Bankliquidität, keine tatsächlichen Auszahlungstermine. „Nicht zugeordnet“ bedeutet keine bestätigte Betreuung im Modell, nicht nachweislich fehlende Betreuung. Eine Kita-Annahme beweist keinen Platz.</p>';
+ }
+ function refresh(){
+  const container=root();if(!container)return;
+  const focused=container.contains(document.activeElement)&&document.activeElement?.hasAttribute('data-v42-month')?
+    Number(document.activeElement.dataset.v42Month):null;
+  try{
+   const projection=createProjection(),period=configuredHorizon(),currentView=view(projection,period);
+   const month=Math.max(1,Math.min(period,Number(s.month)||1));
+   el('v42Timeline').innerHTML=trackMarkup(currentView.months,month);
+   el('v42MonthDetail').innerHTML=detailMarkup(currentView.months[month-1]);
+   el('v42Comparison').innerHTML=comparisonMarkup(currentView,projection,period);
+   el('v42Save').disabled=saved.length>=3;
+   el('v42Clear').disabled=saved.length===0;
+   if(focused!==null)container.querySelector('[data-v42-month="'+focused+'"]')?.focus({preventScroll:true});
+  }catch(error){
+   el('v42Timeline').textContent='Die Monatsübersicht kann mit diesen Eingaben nicht sicher angezeigt werden.';
+   el('v42MonthDetail').textContent='';
+   el('v42Comparison').textContent='';
+   el('v42Feedback').textContent='Ansicht nicht berechenbar: '+String(error.message||error).slice(0,150);
+   el('v42Save').disabled=true;
+  }
+ }
+ function feedback(message){el('v42Feedback').textContent=message;}
+ function save(){
+  if(saved.length>=3){feedback('Maximal drei gemerkte Varianten. Bitte zuerst eine entfernen.');return;}
+  try{
+   const p=createProjection(),key=fingerprint(p);
+   if(saved.some(item=>item.key===key)){feedback('Dieser Modellstand ist bereits in der Vergleichsliste. Ändere zuerst den aktiven Plan.');return;}
+   const label=String(el('v42VariantName')?.value||'').trim().slice(0,40);
+   const id=++sequence;
+   saved.push({id,name:label||'Variante '+id,key,projection:JSON.parse(JSON.stringify(p))});
+   el('v42VariantName').value='';
+   refresh();feedback('Variante gemerkt. Der aktive Plan blieb unverändert; beim Neuladen wird die Liste gelöscht.');
+  }catch(e){feedback('Variante konnte nicht übernommen werden: '+String(e.message||e).slice(0,130));}
+ }
+ function clear(reason){
+  saved=[];sequence=0;
+  refresh();
+  feedback(reason||'Alle gemerkten Varianten wurden verworfen. Der aktive Plan blieb unverändert.');
+ }
+ function click(event){
+  const button=event.target.closest('button');if(!button||!root().contains(button))return;
+  if(button.id==='v42Save'){save();return;}
+  if(button.id==='v42Clear'){clear();return;}
+  if(button.hasAttribute('data-v42-remove')){
+   const id=Number(button.dataset.v42Remove);
+   saved=saved.filter(slot=>slot.id!==id);refresh();feedback('Gemerkte Variante entfernt. Aktiver Plan unverändert.');return;
+  }
+  if(button.hasAttribute('data-v42-month')){
+   const lm=Number(button.dataset.v42Month);
+   if(!Number.isInteger(lm)||lm<1||lm>configuredHorizon())return;
+   s.month=lm;
+   renderAll(); // Existing month detail, chart and time axes follow this model-only selection.
+   root().querySelector('[data-v42-month="'+lm+'"]')?.focus({preventScroll:true});
+  }
+ }
+ function keydown(event){
+  const button=event.target.closest('button[data-v42-month]');
+  if(!button||!root().contains(button)||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+  event.preventDefault();
+  const now=Number(button.dataset.v42Month),last=configuredHorizon();
+  const target=event.key==='Home'?1:event.key==='End'?last:
+   Math.max(1,Math.min(last,now+(event.key==='ArrowRight'?1:-1)));
+  root().querySelector('[data-v42-month="'+target+'"]')?.click();
+ }
+ function mount(){
+  const container=root();if(!container)return;
+  container.addEventListener('click',click);
+  container.addEventListener('keydown',keydown);
+ }
+ const priorRenderAll=renderAll;
+ renderAll=function(...args){const result=priorRenderAll(...args);refresh();return result;};
+ return {mount,refresh,save,onReset:()=>clear('Zurückgesetzt: temporäre Varianten wurden gelöscht.'),
+  onImported:()=>clear('Importiert: bisherige temporäre Varianten wurden verworfen.'),
+  state:()=>({count:saved.length,labels:saved.map(slot=>slot.name),persisted:false})};
+})();
+window.__familienzeitV42=FamilyTimeCompareV42;
+
+/* V42_RUNTIME_END */
 restore();initNav();listenInputs();listenAdvanced();listenTimeAxes();listenFinanceGuidance();listenV315Extras();listenV316Joint();listenIncomeGuide();listenUnderstandingGuide();
 $('standardCaseConfirmed').value=s.standardCaseConfirmed===true?'yes':s.standardCaseConfirmed===false?'no':'';
 $('standardCaseConfirmed').addEventListener('change',e=>{s.standardCaseConfirmed=e.target.value==='yes'?true:e.target.value==='no'?false:null;renderAll();persist()});
 $('localSave').checked=s.storageConsent===true;$('localSave').addEventListener('change',e=>{s.storageConsent=e.target.checked;if(s.storageConsent)persist();else deleteLocalData()});$('deleteLocal').addEventListener('click',deleteLocalData);
 QuickStartV38.mount();
+FamilyTimeCompareV42.mount();
 renderAll();
 window.__elternzeitTest={getState:()=>clone(s),sanitizeImport,deleteLocalData,evaluate:()=>evaluate(s.schedule),modelPlan:id=>evaluate(makeSchedule(id)),chooseModel,showSlide,changeValue:(key,value)=>{s[key]=value;renderAll();persist()},applyBuilder,applyExample,builderSchedule,basis,plus,age,ageSpan,dateFor,ptNet,SCENARIOS,STAT,s};
 })();

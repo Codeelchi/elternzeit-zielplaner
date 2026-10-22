@@ -9,7 +9,10 @@ const inputs=[
  {start:'/* V38_RUNTIME_START */',end:'/* V38_RUNTIME_END */',src:'src/v38-quickstart.js'},
  {start:'/* V42_STYLES_START */',end:'/* V42_STYLES_END */',src:'src/v42-familienzeit.css'},
  {start:'<!-- V42_MARKUP_START -->',end:'<!-- V42_MARKUP_END -->',src:'src/v42-familienzeit.html'},
- {start:'/* V42_RUNTIME_START */',end:'/* V42_RUNTIME_END */',src:'src/v42-familienzeit.js'}
+ {start:'/* V42_RUNTIME_START */',end:'/* V42_RUNTIME_END */',src:'src/v42-familienzeit.js'},
+ {start:'/* V43_STYLES_START */',end:'/* V43_STYLES_END */',src:'src/v43-what-if.css'},
+ {start:'<!-- V43_MARKUP_START -->',end:'<!-- V43_MARKUP_END -->',src:'src/v43-what-if.html'},
+ {start:'/* V43_RUNTIME_START */',end:'/* V43_RUNTIME_END */',src:'src/v43-what-if.js'}
 ];
 let html=readFileSync(htmlPath,'utf8');
 for(const item of inputs){

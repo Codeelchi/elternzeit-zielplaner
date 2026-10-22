@@ -174,3 +174,14 @@ test('what-if controls and snapshots remain ephemeral after reload, no hidden sc
  expect(await page.evaluate(()=>window.__whatIfV43.state())).toMatchObject({persisted:false,appliedToPlan:false});
  expect(await page.evaluate(()=>window.__familienzeitV42.state().count)).toBe(0);
 });
+
+test('original cashflow chart stays before the new hypothetical controls',async({page})=>{
+ await open(page);
+ const order=await page.evaluate(()=>{
+  const slide=document.getElementById('slide-5');
+  return [...slide.children].map(element=>element.id||element.className||element.tagName);
+ });
+ expect(order.indexOf('chart-zone')).toBeGreaterThan(order.indexOf('v42FamilyPlanner'));
+ expect(order.indexOf('v43WhatIf')).toBeGreaterThan(order.indexOf('chart-zone'));
+ expect(order.indexOf('v43WhatIf')).toBeGreaterThan(order.indexOf('spendingAlert'));
+});

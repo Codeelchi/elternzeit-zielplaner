@@ -897,6 +897,16 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  </section>
 </section>
 <!-- V42_MARKUP_END -->
+
+   <div class="chart-zone">
+    <div class="chart-card"><div class="inline-pair"><h3>Modelleinnahmen vor Haushalts- und Kita-Kosten / Lebensmonat</h3><span class="source-foot">Vollzeit-Referenz gestrichelt</span></div><div id="incomeChart" aria-label="Monatliche Einkommensbalken"></div><div class="legend" style="margin:0"><span><i class="dot" style="background:#456f8b"></i>Gehalt / Mutterschutz</span><span><i class="dot" style="background:#008e81"></i>Elterngeld</span><span><i class="dot" style="background:#e59a56"></i>Kindergeld</span></div></div>
+    <div class="overview-side">
+      <div class="card dark"><div class="kicker">Einnahmen vor Haushalts- und Kita-Kosten / <span id="periodLabel">24</span> Lebensmonate</div><div class="metric" id="incomeTotal">0 &euro;</div><div class="detail">Vergleichsbetrag bei durchgehender Vollzeit: <strong id="fullBaseline">0 &euro;</strong></div></div>
+      <div class="card"><div class="kicker">Niedrigste Einnahmen vor Haushalts- und Kita-Kosten / LM im gewählten Zeitraum</div><div class="metric" id="incomeLow">0 &euro;</div><div class="detail" id="incomeLowInfo">Auswertung des gewählen Zeitraums</div></div>
+      <div class="card"><div class="kicker">Einnahmendifferenz vor Haushalts- und Kita-Kosten zur Vollzeit im gewählten LM-Zeitraum</div><div class="metric" id="incomeDiff">0 &euro;</div><div class="detail">Mehr Familienzeit bedeutet normalerweise weniger Gehalt.</div></div>
+    </div>
+   </div>
+   <div id="spendingAlert" style="margin-top:12px"></div>
 <!-- V43_MARKUP_START -->
 <section id="v43WhatIf" class="v43-what-if" aria-labelledby="v43Title">
  <header class="v43-head">
@@ -968,15 +978,6 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  <p class="v43-footnote">Ausgabe ist eine <strong>rechnerische Was-wäre-wenn-Differenz</strong>, keine amtliche Berechnung, Kita-Platzzusage, Liquiditätsprognose oder global optimierte Empfehlung. Alle P0-Fach- und Release-Sperren bleiben bestehen.</p>
 </section>
 <!-- V43_MARKUP_END -->
-   <div class="chart-zone">
-    <div class="chart-card"><div class="inline-pair"><h3>Modelleinnahmen vor Haushalts- und Kita-Kosten / Lebensmonat</h3><span class="source-foot">Vollzeit-Referenz gestrichelt</span></div><div id="incomeChart" aria-label="Monatliche Einkommensbalken"></div><div class="legend" style="margin:0"><span><i class="dot" style="background:#456f8b"></i>Gehalt / Mutterschutz</span><span><i class="dot" style="background:#008e81"></i>Elterngeld</span><span><i class="dot" style="background:#e59a56"></i>Kindergeld</span></div></div>
-    <div class="overview-side">
-      <div class="card dark"><div class="kicker">Einnahmen vor Haushalts- und Kita-Kosten / <span id="periodLabel">24</span> Lebensmonate</div><div class="metric" id="incomeTotal">0 &euro;</div><div class="detail">Vergleichsbetrag bei durchgehender Vollzeit: <strong id="fullBaseline">0 &euro;</strong></div></div>
-      <div class="card"><div class="kicker">Niedrigste Einnahmen vor Haushalts- und Kita-Kosten / LM im gewählten Zeitraum</div><div class="metric" id="incomeLow">0 &euro;</div><div class="detail" id="incomeLowInfo">Auswertung des gewählen Zeitraums</div></div>
-      <div class="card"><div class="kicker">Einnahmendifferenz vor Haushalts- und Kita-Kosten zur Vollzeit im gewählten LM-Zeitraum</div><div class="metric" id="incomeDiff">0 &euro;</div><div class="detail">Mehr Familienzeit bedeutet normalerweise weniger Gehalt.</div></div>
-    </div>
-   </div>
-   <div id="spendingAlert" style="margin-top:12px"></div>
   </section>
   <section class="slide" data-title="Monatsdetail" id="slide-6">
    <span class="eyebrow">06 / Monatsanalyse</span><h2>Ein Monat, voll aufgeschlüsselt.</h2>

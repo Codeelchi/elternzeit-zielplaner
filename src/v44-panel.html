@@ -1,0 +1,32 @@
+<section id="v44TaskHub" class="v44-task-hub" aria-labelledby="v44TaskTitle">
+ <button id="v44BackResults" class="v44-back-link" type="button">← Zurück zu „Plan prüfen“</button>
+ <header class="v44-head">
+  <div><span class="eyebrow">Paket 3B · lokale Planungshilfe</span>
+   <h3 id="v44TaskTitle">Meine nächsten Schritte – mit Quellen und eigenem Bearbeitungsstand</h3>
+   <p>Die Termine stammen aus der bestehenden quellenbasierten Antragscheckliste. Ein selbst gesetztes „erledigt“ ist <strong>keine Bestätigung durch Arbeitgeber, Jugendamt oder Elterngeldstelle</strong>. Alle Markierungen bleiben nur in dieser Browsersitzung.</p>
+  </div>
+ </header>
+ <p id="v44TaskOverview" class="v44-overview" aria-live="polite"></p>
+ <div class="v44-filters" role="group" aria-label="Aufgaben nach eigenem Bearbeitungsstand filtern">
+  <button type="button" data-v44-filter="open" aria-pressed="true">Offen</button>
+  <button type="button" data-v44-filter="ready" aria-pressed="false">Vorbereitet</button>
+  <button type="button" data-v44-filter="done" aria-pressed="false">Selbst erledigt</button>
+  <button type="button" data-v44-filter="all" aria-pressed="false">Alle</button>
+ </div>
+ <div id="v44TaskList" class="v44-task-list"></div>
+ <p id="v44TaskFeedback" class="v44-feedback" role="status" aria-live="polite"></p>
+ <p class="v44-note">Die vollständige Antragscheckliste darunter enthält alle Hinweise, Nachweise und den separaten ICS-Export. Für die Rückkehr zur Arbeit gibt es in dieser Kurzansicht <strong>keine künstlich erzeugte rechtliche Frist</strong>; eine individuelle Absprache mit dem Arbeitgeber bleibt eine persönliche Planungssache.</p>
+</section>
+
+<section id="v44ReportHub" class="v44-report-hub" aria-labelledby="v44ReportTitle">
+ <span class="eyebrow">Paket 3A · lokaler Druckbericht</span>
+ <h3 id="v44ReportTitle">Familienplan kompakt drucken oder als PDF speichern</h3>
+ <p>Ein maximal zweiseitiger <strong>A4-Ausdruck</strong> fasst die Modellannahmen, Einnahmen vor Kosten, gegebenenfalls den Rest nach Kosten, Betreuungsfragen und bis zu sechs ungeklärte Aufgaben zusammen. Dies ist kein behördlicher Antrag und kein geprüfter Elterngeldbescheid.</p>
+ <p class="v44-note">Der Ausdruck kann private Familien- und Einkommensangaben enthalten. Beim Drucken prüfst du selbst den Ziel-Drucker oder wählst „Als PDF speichern“. Der Rechner sendet dafür keine Daten an einen Server.</p>
+ <div class="v44-report-buttons">
+  <button id="v44Preview" class="navbtn alt" type="button" aria-expanded="false" aria-controls="v44ReportPreview">Aktuellen Bericht ansehen</button>
+  <button id="v44Print" class="navbtn" type="button">Nur diese zwei A4-Seiten drucken / PDF speichern</button>
+ </div>
+ <div id="v44ReportFeedback" class="v44-feedback" role="status" aria-live="polite"></div>
+ <div id="v44ReportPreview" hidden aria-label="Vorschau des aktuell berechneten Berichts"></div>
+</section>

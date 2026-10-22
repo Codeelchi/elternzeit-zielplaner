@@ -446,6 +446,110 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 .v43-what-if .v43-status{font-size:.82rem;font-weight:700;color:#275c49;min-height:1.2rem;margin:10px 0}
 
 /* V43_STYLES_END */
+/* V44_STYLES_START */
+/* Paket 3: source-grounded, session-only task summary + intentionally 2-page print overlay. */
+.v44-task-hub,.v44-report-hub{margin:18px 0;padding:clamp(14px,2vw,22px);border:1px solid #b9d5c9;border-radius:14px;background:#fff;color:#24473c;overflow-wrap:anywhere}
+.v44-task-hub h3,.v44-report-hub h3{font-size:clamp(1.1rem,2vw,1.4rem);line-height:1.35;margin:7px 0 9px;color:#1c4a3c}
+.v44-task-hub p,.v44-report-hub p{font-size:.88rem;line-height:1.55;color:#3f5e55;margin:6px 0 11px}
+.v44-task-hub .v44-overview{font-weight:700;margin:12px 0;background:#eaf6ef;border-left:3px solid #27765b;border-radius:7px;padding:10px 13px}
+.v44-filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 17px}
+.v44-filters button{background:#f2f7f4;color:#295e4b;border:1px solid #b5d4c3;border-radius:9px;font-size:.84rem;font-weight:750;padding:10px 13px;min-height:44px}
+.v44-filters button[aria-pressed=true]{background:#205746;border-color:#205746;color:#fff}
+.v44-task-hub :is(button,select,a):focus-visible,.v44-report-hub button:focus-visible{outline:3px solid #ad641a;outline-offset:3px}
+.v44-task-list{display:grid;gap:12px}
+.v44-task-list article{background:#f8fbf8;border:1px solid #d7e5dd;border-radius:10px;padding:14px;break-inside:avoid}
+.v44-task-list article h4{font-size:1rem;line-height:1.4;color:#154d3d;margin:0 0 6px}
+.v44-task-list article p{font-size:.82rem}
+.v44-task-list .v44-task-meta{font-size:.78rem;color:#4f685b;margin:5px 0 9px}
+.v44-task-list .v44-task-meta strong{color:#345d4f}
+.v44-task-list .v44-task-source{font-size:.78rem}
+.v44-task-list label{display:block;font-size:.8rem;font-weight:730;line-height:1.45;margin-top:10px;color:#315948}
+.v44-task-list select{display:block;margin-top:5px;max-width:100%;min-height:44px;padding:9px 10px;border:1px solid #a5c3b1;border-radius:8px;background:#fff;font-size:.88rem;color:#1d4939}
+.v44-task-list section>h4{font-size:.9rem;margin:6px 0 0;color:#426858}
+.v44-task-list .v44-task-group{display:grid;gap:10px}
+.v44-task-list .v44-empty{padding:14px;background:#f3f7f4;border-radius:10px}
+.v44-task-hub .v44-note,.v44-report-hub .v44-note{font-size:.78rem;color:#5b634f;margin:11px 0}
+.v44-feedback:not(:empty){margin:10px 0;padding:10px 12px;border-left:3px solid #21765e;background:#f1f8f4;border-radius:7px;font-size:.82rem;line-height:1.4}
+.v44-report-hub{border-color:#bed2e0}
+.v44-report-buttons{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:13px 0}
+.v44-report-buttons button{min-height:44px;white-space:normal}
+#v44ReportPreview{margin-top:16px;border-top:1px solid #dde9e2;padding-top:16px;max-width:100%}
+.v44-report-screen-page{background:white;color:#21392e;border:1px solid #b9cfc0;border-radius:10px;padding:clamp(12px,2vw,25px);margin-bottom:13px;box-shadow:0 4px 20px #1a403016;max-width:100%;overflow-wrap:anywhere}
+.v44-report-screen-page h2{font-size:1.35rem!important;letter-spacing:normal;line-height:1.3;margin:8px 0}
+.v44-report-screen-page h3{font-size:1rem;letter-spacing:normal;margin:14px 0 8px}
+.v44-report-screen-page .v44-doc-meta{font-size:.77rem;line-height:1.55;color:#4b6359}
+.v44-report-screen-page .v44-headline{font-size:.78rem;display:inline-block;letter-spacing:.08em;text-transform:uppercase;font-weight:850;color:#17654c}
+.v44-report-screen-page .v44-print-tile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}
+.v44-report-screen-page .v44-print-tile{background:#eff6f1;border:1px solid #dae7df;border-radius:8px;padding:10px}
+.v44-report-screen-page .v44-print-tile small{display:block;font-size:.76rem;color:#47675b;line-height:1.35}
+.v44-report-screen-page .v44-print-tile strong{display:block;font-size:1.02rem;line-height:1.3;margin-top:4px;color:#124b3c}
+.v44-report-screen-page .v44-table-wrap{max-width:100%;overflow-x:auto}
+.v44-report-screen-page table{border-collapse:collapse;min-width:450px;width:100%;font-size:.77rem}
+.v44-report-screen-page th,.v44-report-screen-page td{text-align:left;vertical-align:top;border-bottom:1px solid #dbe6de;padding:8px 5px;overflow-wrap:anywhere}
+.v44-report-screen-page th{background:#edf5ef;color:#315c48;font-weight:800}
+.v44-report-screen-page .v44-warning-list{font-size:.76rem;line-height:1.48;color:#5b563e;padding-left:20px}
+.v44-report-screen-page .v44-warning-list li{margin:4px 0}
+.v44-report-screen-page .v44-print-task{border-bottom:1px solid #d6e1d9;padding:9px 0;break-inside:avoid}
+.v44-report-screen-page .v44-print-task strong{display:block;font-size:.89rem;color:#174839;line-height:1.35}
+.v44-report-screen-page .v44-print-task p{margin:4px 0;font-size:.75rem}
+.v44-report-screen-page .v44-print-task a{word-break:break-all;font-size:.7rem}
+.v44-report-screen-page .v44-footnote{margin:9px 0 0;font-size:.75rem;color:#5b5b4d}
+.v44-print-sheet{display:none}
+@media(max-width:520px){
+ .v44-task-hub,.v44-report-hub{padding:11px}
+ .v44-report-buttons button{width:100%}
+ .v44-report-screen-page .v44-print-tile-grid{grid-template-columns:1fr}
+ .v44-filters button{flex:1 1 112px}
+}
+/* Existing app print CSS normally prints all slides. ONLY when the report button
+   is used do we make the dedicated, source-grounded two-page A4 document visible. */
+@media print{
+ @page v44Report {size:A4 portrait;margin:10mm}
+ body.v44-print-active{background:#fff!important;color:#111!important;font-family:Arial,"Segoe UI",sans-serif!important}
+ body.v44-print-active .app-shell,
+ body.v44-print-active .toast{display:none!important}
+ body.v44-print-active #v44PrintSheet{display:block!important;position:static!important;max-width:none!important}
+ body.v44-print-active #v44PrintSheet .v44-report-screen-page{
+  page:v44Report;
+  display:block;box-sizing:border-box;border:0!important;box-shadow:none!important;
+  border-radius:0!important;padding:2mm 1mm 0;margin:0;width:100%;max-width:100%;
+  font-size:9pt!important;line-height:1.32;background:#fff!important;color:#151515!important;
+  break-inside:avoid;page-break-inside:avoid;overflow:visible
+ }
+ body.v44-print-active #v44PrintSheet .v44-report-screen-page:not(:last-child){
+  break-after:page;page-break-after:always
+ }
+ body.v44-print-active #v44PrintSheet .v44-report-screen-page h2{font-size:16pt!important;line-height:1.25;margin:5pt 0 8pt}
+ body.v44-print-active #v44PrintSheet .v44-report-screen-page h3{font-size:10pt!important;margin:9pt 0 4pt}
+ body.v44-print-active #v44PrintSheet .v44-report-screen-page p{font-size:8pt!important;margin:4pt 0 6pt;line-height:1.35}
+ body.v44-print-active #v44PrintSheet .v44-print-tile-grid{gap:5pt;margin:8pt 0}
+ body.v44-print-active #v44PrintSheet .v44-print-tile{padding:7pt;border-color:#aaa;break-inside:avoid}
+ body.v44-print-active #v44PrintSheet .v44-print-tile small{font-size:7.5pt!important}
+ body.v44-print-active #v44PrintSheet .v44-print-tile strong{font-size:10.5pt!important}
+ body.v44-print-active #v44PrintSheet table{min-width:0!important;font-size:8pt}
+ body.v44-print-active #v44PrintSheet th,
+ body.v44-print-active #v44PrintSheet td{padding:5pt 3pt;line-height:1.23}
+ body.v44-print-active #v44PrintSheet .v44-warning-list{font-size:7.5pt;line-height:1.35;margin:4pt 0}
+ body.v44-print-active #v44PrintSheet .v44-print-task{padding:5pt 0}
+ body.v44-print-active #v44PrintSheet .v44-print-task strong{font-size:9pt!important}
+ body.v44-print-active #v44PrintSheet .v44-print-task p{font-size:7.5pt!important;margin:2pt 0}
+ body.v44-print-active #v44PrintSheet .v44-print-task a{font-size:7pt!important}
+}
+
+.v44-result-entry{display:flex;align-items:center;justify-content:space-between;gap:14px;
+ margin:17px 0;padding:16px 18px;border:1px solid #b3d6c1;background:#f1f9f4;border-radius:13px;
+ color:#204b3b;overflow-wrap:anywhere}
+.v44-result-entry h3{font-size:1.13rem;margin:9px 0 5px;color:#18513e}
+.v44-result-entry p{font-size:.86rem;line-height:1.48;margin:0}
+.v44-result-entry button{min-height:44px;flex-shrink:0;white-space:normal}
+.v44-back-link{border:0;background:transparent;color:#19624c;padding:8px 3px;font-size:.85rem;
+ font-weight:800;text-decoration:underline;min-height:44px}
+.v44-back-link:focus-visible,.v44-result-entry button:focus-visible{outline:3px solid #ae641a;outline-offset:3px}
+@media(max-width:620px){.v44-result-entry{display:block;padding:12px}
+ .v44-result-entry button{display:block;margin-top:12px;width:100%}}
+@media print{.v44-result-entry,.v44-back-link{display:none!important}}
+
+/* V44_STYLES_END */
 
 /* V3.17: descriptive scope gate, deliberately never a positive release badge. */
 .v317-scope{border:1px solid #b8cec9;background:#f6f9f7;border-radius:12px;padding:14px 17px;margin:12px 0 18px;overflow-wrap:anywhere}
@@ -1027,6 +1131,40 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
   <section class="slide" data-title="Naechste Schritte" id="slide-9">
    <span class="eyebrow">09 / Umsetzung</span><h2>Von der Idee zum Antrag.</h2>
    <p class="subtitle">Eure datierte Checkliste richtet sich nach dem Geburtstag, dem errechneten Termin und euren Elternzeitabschnitten. Die Angaben unterstützen die Vorbereitung; Anträge stellt ihr bei den zuständigen Stellen.</p>
+<!-- V44_MARKUP_START -->
+<section id="v44TaskHub" class="v44-task-hub" aria-labelledby="v44TaskTitle">
+ <button id="v44BackResults" class="v44-back-link" type="button">← Zurück zu „Plan prüfen“</button>
+ <header class="v44-head">
+  <div><span class="eyebrow">Paket 3B · lokale Planungshilfe</span>
+   <h3 id="v44TaskTitle">Meine nächsten Schritte – mit Quellen und eigenem Bearbeitungsstand</h3>
+   <p>Die Termine stammen aus der bestehenden quellenbasierten Antragscheckliste. Ein selbst gesetztes „erledigt“ ist <strong>keine Bestätigung durch Arbeitgeber, Jugendamt oder Elterngeldstelle</strong>. Alle Markierungen bleiben nur in dieser Browsersitzung.</p>
+  </div>
+ </header>
+ <p id="v44TaskOverview" class="v44-overview" aria-live="polite"></p>
+ <div class="v44-filters" role="group" aria-label="Aufgaben nach eigenem Bearbeitungsstand filtern">
+  <button type="button" data-v44-filter="open" aria-pressed="true">Offen</button>
+  <button type="button" data-v44-filter="ready" aria-pressed="false">Vorbereitet</button>
+  <button type="button" data-v44-filter="done" aria-pressed="false">Selbst erledigt</button>
+  <button type="button" data-v44-filter="all" aria-pressed="false">Alle</button>
+ </div>
+ <div id="v44TaskList" class="v44-task-list"></div>
+ <p id="v44TaskFeedback" class="v44-feedback" role="status" aria-live="polite"></p>
+ <p class="v44-note">Die vollständige Antragscheckliste darunter enthält alle Hinweise, Nachweise und den separaten ICS-Export. Für die Rückkehr zur Arbeit gibt es in dieser Kurzansicht <strong>keine künstlich erzeugte rechtliche Frist</strong>; eine individuelle Absprache mit dem Arbeitgeber bleibt eine persönliche Planungssache.</p>
+</section>
+
+<section id="v44ReportHub" class="v44-report-hub" aria-labelledby="v44ReportTitle">
+ <span class="eyebrow">Paket 3A · lokaler Druckbericht</span>
+ <h3 id="v44ReportTitle">Familienplan kompakt drucken oder als PDF speichern</h3>
+ <p>Ein maximal zweiseitiger <strong>A4-Ausdruck</strong> fasst die Modellannahmen, Einnahmen vor Kosten, gegebenenfalls den Rest nach Kosten, Betreuungsfragen und bis zu sechs ungeklärte Aufgaben zusammen. Dies ist kein behördlicher Antrag und kein geprüfter Elterngeldbescheid.</p>
+ <p class="v44-note">Der Ausdruck kann private Familien- und Einkommensangaben enthalten. Beim Drucken prüfst du selbst den Ziel-Drucker oder wählst „Als PDF speichern“. Der Rechner sendet dafür keine Daten an einen Server.</p>
+ <div class="v44-report-buttons">
+  <button id="v44Preview" class="navbtn alt" type="button" aria-expanded="false" aria-controls="v44ReportPreview">Aktuellen Bericht ansehen</button>
+  <button id="v44Print" class="navbtn" type="button">Nur diese zwei A4-Seiten drucken / PDF speichern</button>
+ </div>
+ <div id="v44ReportFeedback" class="v44-feedback" role="status" aria-live="polite"></div>
+ <div id="v44ReportPreview" hidden aria-label="Vorschau des aktuell berechneten Berichts"></div>
+</section>
+<!-- V44_MARKUP_END -->
    <div id="applicationChecklist" aria-live="polite"></div><div class="card" style="margin:12px 0"><button type="button" id="v313DownloadIcs" class="navbtn">Vorläufige Fristen als Kalenderdatei (.ics) herunterladen</button><p class="input-caption">Die Kalendereinträge sind nur Prüfaufgaben, keine verbindliche behördliche Fristbestätigung. Prüft vor einer Benachrichtigung die zutreffende Regel, Rechtskohorte und Zuständigkeit. Es findet kein automatischer Kalenderzugriff statt.</p></div><div class="steps">
     <div class="step"><strong>Vor der Geburt</strong><p>Gehaltsabrechnungen, voraussichtliches Elterngeld-Netto, passende Steuer- und Versicherungsangaben, Teilzeitmöglichkeiten und Familienbudget prüfen.</p></div>
     <div class="step"><strong>Mindestens 7 Wochen vorher</strong><p>Elternzeit beim Arbeitgeber in Textform anmelden. Bei Start ab Geburt zählt der errechnete Entbindungstermin.</p></div>
@@ -1057,6 +1195,15 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
     <p id="v317ScopeResultDetail"></p>
     <p class="v317-details">Auch ein plausibles Modell ist kein unabhängiger Bescheid oder amtlich geprüfter Auszahlungsbetrag.</p>
    </div>
+   <!-- V44_ENTRY_START -->
+<section id="v44ResultEntry" class="v44-result-entry" aria-labelledby="v44ResultEntryTitle">
+ <div><span class="eyebrow">Nächster Schritt · Paket 3</span>
+  <h3 id="v44ResultEntryTitle">Vom Ergebnis zu deinen Aufgaben</h3>
+  <p>Öffne die lokale Checkliste mit Quellen und eigenem Bearbeitungsstand oder erstelle die kompakte zweiseitige Druck-/PDF-Übersicht. Der Familienplan wird dabei nicht geändert.</p>
+ </div>
+ <button id="v44OpenActions" class="navbtn" type="button">Aufgaben und Druckansicht öffnen →</button>
+</section>
+<!-- V44_ENTRY_END -->
    <details id="v317ExportNotice" class="v317-export">
     <summary>Was steht in JSON- und CSV-Exporten?</summary>
     <p class="v317-export-main" id="v317ExportStatus">Der Export enthält Modellwerte, keine amtlich bestätigten Auszahlungen.</p>
@@ -1249,6 +1396,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  <footer class="footer-nav noprint"><button class="navbtn alt" id="previous">&larr; Zurück</button><div style="display:flex;align-items:center;gap:15px"><span class="counter" id="counter">1 / 10</span><div class="progress"><span id="progress"></span></div></div><button class="navbtn" id="next">Weiter &rarr;</button></footer>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="v44PrintSheet" class="v44-print-sheet" aria-hidden="true"></div>
 <script>
 /* TIME_AXES_MODULE_START */
 const TimeAxes = (()=>{const module={exports:{}};
@@ -3511,6 +3659,122 @@ module.exports={projectWhatIf};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* WhatIfScenarios_END */
+/* PlanReportV44_START */
+const PlanReportV44=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
+'use strict';
+
+// Presentation-only, privacy-preserving print/task projection using the already
+// evaluated monthly model and the existing source-dated application guide.
+// No entitlement, due-date, calendar, banking, or official-decision rules here.
+const {buildFamilyView}=require('./family-overview.cjs');
+
+const TASK_STATES=new Set(['open','ready','done']);
+const MAX_PRINT_TASKS=6;
+function date(value,label) {
+ if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))
+  throw new RangeError(label+': Datum YYYY-MM-DD erforderlich.');
+ const parsed=new Date(value+'T00:00:00Z');
+ if(!Number.isFinite(parsed.getTime())||parsed.toISOString().slice(0,10)!==value)
+  throw new RangeError(label+': kein gültiges Datum.');
+ return value;
+}
+function finiteAmount(value,label){
+ if(typeof value!=='number'||!Number.isFinite(value)||value<0||value>1e9)
+  throw new RangeError(label+': gültiger Betrag erforderlich.');
+ return value;
+}
+function taskGroup(task,birthDate){
+ if(/^nrw-childcare-/.test(task.id))return 'Betreuung und Kita';
+ if(/^leave-/.test(task.id)&&task.dueDate&&task.dueDate<birthDate)return 'Vor der Geburt';
+ return 'Nach der Geburt / laufende Anträge';
+}
+function prepareTasks(guide,taskStatuses={}) {
+ if(!guide||!Array.isArray(guide.tasks)||guide.tasks.length>80)throw new TypeError('Amtlich hergeleitete Checklistenaufgaben fehlen.');
+ date(guide.birthDate,'Geburtsdatum der Checkliste');
+ date(guide.verifiedAt,'Prüfstand der Checkliste');
+ if(!taskStatuses||typeof taskStatuses!=='object'||Array.isArray(taskStatuses))
+  throw new TypeError('Aufgabenstatus muss ein Objekt sein.');
+ const seen=new Set();
+ const tasks=guide.tasks.map((task,i)=>{
+  if(!task||typeof task.id!=='string'||!/^[a-z0-9-]{2,90}$/.test(task.id)||seen.has(task.id))
+   throw new RangeError('Ungültige oder doppelte Aufgabenkennung.');
+  seen.add(task.id);
+  if(typeof task.title!=='string'||!task.title.trim()||task.title.length>180)throw new RangeError('Aufgabentitel fehlt oder ist zu lang.');
+  if(!task.source||typeof task.source.label!=='string'||typeof task.source.url!=='string'||
+     !/^https:\/\/[^\s/]+(?:\/[^\s]*)?$/.test(task.source.url))
+   throw new RangeError('Aufgabe ohne nachprüfbare HTTPS-Quelle.');
+  if(task.dueDate!==null&&task.dueDate!==undefined)date(task.dueDate,'Aufgabendatum');
+  const status=taskStatuses[task.id]??'open';
+  if(!TASK_STATES.has(status))throw new RangeError('Ungültiger Aufgabenstatus.');
+  return {
+   id:task.id,title:task.title,dueDate:task.dueDate??null,status,
+   source:{label:task.source.label,url:task.source.url,verifiedAt:task.source.verifiedAt??guide.verifiedAt},
+   documents:Array.isArray(task.documents)?task.documents.filter(x=>typeof x==='string').slice(0,5):[],
+   group:taskGroup(task,guide.birthDate),
+   legalStatus:task.legal_status??null,ordinal:i,
+   note:'Eigene Planungshilfe; Termin und rechtliche Anwendbarkeit persönlich prüfen'
+  };
+ });
+ // Existing guide is already dated/sorted. Group and display without inventing
+ // "today"/overdue judgments or any obligation not stated in that guide.
+ return {
+  birthDate:guide.birthDate,verifiedAt:guide.verifiedAt,
+  needsRecheck:!!guide.legalCoverage?.futureBirthRequiresRecheck,
+  authority:guide.authority?.name||null,warnings:[...(guide.warnings||[])],
+  counts:{total:tasks.length,open:tasks.filter(t=>t.status==='open').length,
+   ready:tasks.filter(t=>t.status==='ready').length,done:tasks.filter(t=>t.status==='done').length},
+  tasks
+ };
+}
+function makePrintSummary({
+ rows,horizon,birthDate,modelLabel='Ungeprüfter Modellplan',
+ childcareStartLm=0,expenses=null,validationStatus='NICHT_UNTERSTUETZT',
+ guide=null,taskStatuses={},example=false
+}={}){
+ date(birthDate,'Geburtsdatum');
+ if(typeof modelLabel!=='string'||modelLabel.length>120)throw new RangeError('Ungültige Modellbezeichnung.');
+ if(typeof example!=='boolean')throw new TypeError('Beispielstatus ungültig.');
+ const known=expenses!==null;
+ if(known)finiteAmount(expenses,'Haushaltsausgaben');
+ const family=buildFamilyView({rows,horizon,childcareStartLm,expensesKnown:known,validationStatus});
+ let taskView=null,taskError=null;
+ if(guide!==null){
+  try {
+   if(guide.birthDate!==birthDate)throw new RangeError('Abweichendes Geburtsdatum der Checkliste.');
+   taskView=prepareTasks(guide,taskStatuses);
+  } catch(error){taskError='Quellen-Checkliste für diesen Entwurf nicht belastbar: '+error.message;}
+ }else taskError='Quellen-Checkliste für diese Eingaben nicht verfügbar. Termine nicht ableitbar.';
+ const bins=[];
+ for(let from=1;from<=horizon;from+=6){
+  const entries=family.months.slice(from-1,Math.min(from+5,horizon));
+  const income=entries.reduce((a,x)=>a+x.income,0);
+  const rest=known?entries.reduce((a,x)=>a+x.available,0):null;
+  bins.push({from,to:entries.at(-1).lm,income,rest,
+   firstHome:entries.filter(x=>x.first.availability==='at-home').length,
+   secondHome:entries.filter(x=>x.second.availability==='at-home').length,
+   careFirstMissing:entries.find(x=>x.care==='not-documented')?.lm??null});
+ }
+ const priorityTasks=taskView?.tasks.filter(t=>t.status!=='done')||[];
+ const printableTasks=priorityTasks.slice(0,MAX_PRINT_TASKS);
+ const restTaskCount=priorityTasks.length-printableTasks.length;
+ return {
+  type:example?'Fiktives Testbeispiel':'Eigener ungeprüfter Entwurf',birthDate,modelLabel,
+  horizon,expensesKnown:known,expenses,validationStatus,
+  family,bins,taskView,taskError,printableTasks,restTaskCount,
+  checklistVerifiedAt:taskView?.verifiedAt??null,
+  warnings:[
+   'Dieser Ausdruck ist eine unverbindliche lokale Modellübersicht; keine amtliche Berechnung, kein Bewilligungsbescheid und kein Zahlungsnachweis.',
+   'Einnahmen sind geschätzte Lebensmonatsbeträge VOR Haushalts- und Kita-Kosten; Restsummen nur bei ausdrücklich angegebenen Haushaltsausgaben.',
+   'Die Kita-Zuordnung ist eine Annahme, keine Platzzusage. Vollständige Betreuungsstunden, rechtliche Elternzeittage und Zahlungstermine werden hier nicht bestätigt.',
+   'Für 2027, Sonderfälle und offene Mutterschutz-Teilmonatsfragen sind aktuelle Fachquellen und eine unabhängige Prüfung erforderlich.',
+   'Datierte Aufgaben basieren ausschließlich auf der vorhandenen Quellen-Checkliste. Selbst erledigt bedeutet nicht behördlich bestätigt.'
+  ]
+ };
+}
+module.exports={prepareTasks,makePrintSummary,MAX_PRINT_TASKS};
+
+return Object.freeze(module.exports);})(TimeAxes);
+/* PlanReportV44_END */
 /* PlanComparison_START */
 const PlanComparison=((bundledTimeAxes)=>{const module={exports:{}};const require=(id)=>{if(id==='./time-axes.cjs')return bundledTimeAxes;if(id==='./family-budget.cjs')return FamilyBudget;if(id==='./kibiz-cohorts.cjs')return KibizCohorts;if(id==='./settling-in.cjs')return SettlingIn;if(id==='./money.cjs')return Money;if(id==='./care-impact.cjs')return CareImpact;if(id==='./family-overview.cjs')return FamilyOverview;throw Error('Unknown bundled dependency');};
 'use strict';
@@ -7252,6 +7516,224 @@ const WhatIfV43=(()=>{
 window.__whatIfV43=WhatIfV43;
 
 /* V43_RUNTIME_END */
+/* V44_RUNTIME_START */
+// Paket 3: same ApplicationGuide + session-only checklist statuses, A4 print opt-in.
+// Nothing in this component updates the underlying financial/legal plan or storage.
+const PlanActionsV44=(()=>{
+ let filter='open';
+ let activeReport=null;
+ const byId=id=>document.getElementById(id);
+ const root=()=>byId('v44TaskHub');
+ const esc44=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const eur44=value=>Number(value).toLocaleString('de-DE',{style:'currency',currency:'EUR'});
+ const date44=value=>value?TimeAxes.formatDateDE(value):'Kein verbindlicher Tag angegeben';
+ const taskStatus={open:'Noch offen',ready:'Unterlagen vorbereitet',done:'Selbst als erledigt markiert – nicht amtlich bestätigt'};
+ const currentGuide=()=>applicationGuideForState();
+ function currentTaskStatuses(guide){
+  const out=Object.create(null);
+  for(const t of guide.tasks)out[t.id]=v315TaskStates.get(v315TaskStatusKey(t))||'open';
+  return out;
+ }
+ function taskProjection(){
+  const guide=currentGuide();
+  const data=PlanReportV44.prepareTasks(guide,currentTaskStatuses(guide));
+  return {guide,data};
+ }
+ function taskMarkup(group,items){
+  return '<section class="v44-task-group" aria-label="'+esc44(group)+'">'+
+   '<h4>'+esc44(group)+'</h4>'+
+   items.map(t=>{
+    const idx=t.ordinal,opts=Object.entries(taskStatus).map(([key,label])=>
+     '<option value="'+key+'"'+(t.status===key?' selected':'')+'>'+esc44(label)+'</option>').join('');
+    return '<article data-v44-task="'+esc44(t.id)+'"><h4>'+esc44(t.title)+'</h4>'+
+     '<p class="v44-task-meta"><strong>'+esc44(date44(t.dueDate))+'</strong> · '+esc44(t.group)+
+     (t.legalStatus?' · Individuelle rechtliche Anwendbarkeit prüfen':'')+'</p>'+
+     '<p class="v44-task-source">Quelle (Stand '+esc44(t.source.verifiedAt)+'): '+
+     '<a href="'+esc44(t.source.url)+'" target="_blank" rel="noopener noreferrer">'+esc44(t.source.label)+'</a></p>'+
+     (t.documents.length?'<p class="v44-task-meta">Unterlagen: '+esc44(t.documents.slice(0,2).join(' · '))+
+      (t.documents.length>2?' …':'')+'</p>':'')+
+     '<label for="v44Task'+idx+'">Mein Bearbeitungsstand – nur in dieser Sitzung'+
+      '<select id="v44Task'+idx+'" data-v44-task-id="'+esc44(t.id)+'">'+opts+
+     '</select></label></article>';
+   }).join('')+'</section>';
+ }
+ function refreshTasks(){
+  if(!root())return;
+  const focused=document.activeElement?.dataset?.v44TaskId??null;
+  for(const button of root().querySelectorAll('[data-v44-filter]'))
+   button.setAttribute('aria-pressed',String(button.dataset.v44Filter===filter));
+  try {
+   const {data}=taskProjection();
+   byId('v44TaskOverview').textContent=data.counts.open+' offen · '+data.counts.ready+
+    ' vorbereitet · '+data.counts.done+' selbst erledigt · '+data.counts.total+
+    ' quellenbasierte Aufgaben. Quellenstand '+date44(data.verifiedAt)+'.'+
+    (data.needsRecheck?' Geburt nach Quellenstand: Rechtslage und lokale Verfahren erneut prüfen.':'');
+   const visible=data.tasks.filter(t=>filter==='all'||t.status===filter);
+   const groups=['Vor der Geburt','Nach der Geburt / laufende Anträge','Betreuung und Kita'];
+   byId('v44TaskList').innerHTML=visible.length?
+    groups.map(group=>{const groupTasks=visible.filter(t=>t.group===group);return groupTasks.length?taskMarkup(group,groupTasks):'';}).join(''):
+    '<p class="v44-empty">Keine Aufgaben mit diesem persönlichen Bearbeitungsstand. In „Alle“ sind sämtliche quellenbasierten Aufgaben sichtbar.</p>';
+   if(focused!==null){
+    const preferred=[...root().querySelectorAll('[data-v44-task-id]')].find(control=>control.dataset.v44TaskId===focused);
+    const fallback=root().querySelector('select[data-v44-task-id]')||
+      root().querySelector('[data-v44-filter][aria-pressed="true"]');
+    (preferred||fallback)?.focus({preventScroll:true});
+   }
+  } catch(error){
+   byId('v44TaskOverview').textContent='Keine verlässlich ableitbare Aufgabenliste für diesen Entwurf.';
+   byId('v44TaskList').textContent='Bitte Geburtsdatum, Rechtsstand, Region und Elternzeitabschnitte in der vollständigen Checkliste prüfen.';
+  }
+ }
+ function expenses(){
+  if(s.expenses===''||s.expenses===null||s.expenses===undefined)return null;
+  const n=Number(s.expenses);
+  return Number.isFinite(n)?n:null;
+ }
+ function projection(){
+  let guide=null,statuses={};
+  try{guide=currentGuide();statuses=currentTaskStatuses(guide);}catch{}
+  return PlanReportV44.makePrintSummary({
+   rows:current.rows,horizon:Math.max(1,Math.min(36,Number(s.horizon)||24)),
+   birthDate:s.date,modelLabel:'Aktueller Lebensmonatsplan',
+   childcareStartLm:Number(s.childcareStart)||0,
+   expenses:expenses(),validationStatus:current.validation?.status||'NICHT_UNTERSTUETZT',
+   guide,taskStatuses:statuses,example:PUBLIC_TEST_PREVIEW
+  });
+ }
+ function numberOrUnknown(value){return value===null||value===undefined?'Nicht berechenbar':eur44(value);}
+ function tableRows(report){
+  return report.bins.map(b=>'<tr><th scope="row">LM '+b.from+'–'+b.to+'</th>'+
+   '<td>'+esc44(eur44(b.income))+'</td>'+
+   '<td>'+esc44(numberOrUnknown(b.rest))+'</td>'+
+   '<td>'+b.firstHome+' / '+b.secondHome+'</td></tr>').join('');
+ }
+ function firstPage(r){
+  const numberOrDash=x=>x===null?'Nicht zugeordnet im Modell':'LM '+x;
+  return '<article class="v44-report-screen-page" data-v44-page="1">'+
+   '<span class="v44-headline">Lokaler Familienplan · Modellübersicht</span>'+
+   '<h2>Familienzeit und Budget im Überblick</h2>'+
+   '<p class="v44-doc-meta"><strong>'+esc44(r.type)+'</strong> · Geburtsdatum '+esc44(date44(r.birthDate))+
+   ' · Lebensmonate 1–'+r.horizon+' · Modell: '+esc44(r.modelLabel)+
+   ' · Prüfstatus: '+esc44(r.validationStatus)+' (keine Bewilligung)</p>'+
+   '<div class="v44-print-tile-grid">'+
+    '<div class="v44-print-tile"><small>Einnahmen VOR Haushalts- und Kita-Kosten / Zeitraum</small><strong>'+esc44(eur44(r.family.totalIncome))+'</strong></div>'+
+    '<div class="v44-print-tile"><small>Rest NACH eingegebenen Kosten / Zeitraum</small><strong>'+esc44(numberOrUnknown(r.family.totalAvailable))+'</strong></div>'+
+    '<div class="v44-print-tile"><small>Vollständige Zuhause-Monate im Modell, Elternteil 1 / 2</small><strong>'+r.family.homeMonths.first+' / '+r.family.homeMonths.second+' LM</strong></div>'+
+    '<div class="v44-print-tile"><small>Erste Betreuung ohne ausdrückliche Zuordnung</small><strong>'+
+     esc44(r.family.firstUnattributed===null?'Keine im Modell':'LM '+r.family.firstUnattributed)+'</strong></div>'+
+   '</div>'+
+   '<p>Geplanter Kita-Start: <strong>'+esc44(r.family.childcareStartLm>0?'ab LM '+r.family.childcareStartLm:'Nicht angegeben')+'</strong>. '+
+   (r.expensesKnown?'Angegebene Haushaltsausgaben je LM: <strong>'+esc44(eur44(r.expenses))+'</strong>.':
+    '<strong>Haushaltsausgaben unbekannt – weder Gesamtrest noch Rücklagenbedarf zuverlässig berechenbar.</strong>')+'</p>'+
+   '<h3>Zusammenfassung nach sechs Lebensmonaten</h3>'+
+   '<div class="v44-table-wrap" tabindex="0" role="region" aria-label="Sechsmonats-Budgetübersicht horizontal verschieben"><table><caption>Bereits modellierte Einnahmen und optionaler Rest in Blöcken von sechs Lebensmonaten. Keine Bankauszahlungsdaten.</caption>'+
+    '<thead><tr><th scope="col">Zeitraum</th><th scope="col">Einnahmen vor Kosten</th><th scope="col">Rest nach Kosten</th>'+
+     '<th scope="col">Volle Zuhause-LM 1 / 2</th></tr></thead>'+
+    '<tbody>'+tableRows(r)+'</tbody></table></div>'+
+   '<h3>Was diese Zusammenfassung nicht belegt</h3>'+
+   '<ul class="v44-warning-list">'+r.warnings.slice(0,4).map(w=>'<li>'+esc44(w)+'</li>').join('')+'</ul>'+
+   '<p class="v44-footnote">Nur lokal erzeugt und bewusst ausdruckbar. Die modellierte Kita-Zuordnung bestätigt keine Wochenstunden oder Platzvergabe.</p></article>';
+ }
+ function secondPage(r){
+  const guides=r.taskView;
+  const sourceState=guides?'Quellenstand '+date44(guides.verifiedAt)+
+    ' · '+(guides.authority||'Örtliche Zuständigkeit vorab klären'):'Keine validierte Aufgabenquelle für den Entwurf.';
+  const tasks=r.printableTasks.length?r.printableTasks.map(t=>
+   '<div class="v44-print-task"><strong>'+esc44(t.title)+'</strong>'+
+    '<p>Termin: <strong>'+esc44(date44(t.dueDate))+'</strong> · '+esc44(taskStatus[t.status])+'</p>'+
+    '<p>Quelle: <a href="'+esc44(t.source.url)+'" target="_blank" rel="noopener noreferrer">'+esc44(t.source.label)+'</a> ('+esc44(t.source.verifiedAt)+')</p>'+
+    '</div>').join(''):'<p>Keine als offen oder vorbereitet markierten Aufgaben aus der aktuellen Quellen-Checkliste.</p>';
+  return '<article class="v44-report-screen-page" data-v44-page="2">'+
+   '<span class="v44-headline">Lokale Familienplanung · Aufgaben und Quellen</span>'+
+   '<h2>Offene Schritte und Nachweise</h2>'+
+   '<p class="v44-doc-meta">'+esc44(r.type)+' · '+esc44(sourceState)+'</p>'+
+   '<p>Bearbeitungsstände gelten nur für diese Sitzung. „Erledigt“ heißt lediglich selbst markiert, nicht behördlich bestätigt.</p>'+
+   (r.taskError?'<p class="v44-footnote"><strong>'+esc44(r.taskError)+'</strong></p>':'')+
+   (guides?.needsRecheck?'<p class="v44-footnote"><strong>Warnung:</strong> Geburtsdatum nach dem Quellenprüfstand. Rechtsstand, Termine und örtliche Verfahren vor Abgabe erneut offiziell kontrollieren.</p>':'')+
+   '<h3>Die nächsten maximal sechs nicht selbst erledigten Schritte</h3>'+tasks+
+   (r.restTaskCount?'<p><strong>Weitere '+r.restTaskCount+' Aufgaben</strong> in der vollständigen lokalen Checkliste. Vor dem Handeln dort alle Quellen und Unterlagen prüfen.</p>':'')+
+   '<h3>Offene fachliche Fragen und Verantwortung</h3>'+
+   '<ul class="v44-warning-list"><li>4/5-Mutterschutztage und individueller Elterngeld-Netto-Anspruch wurden hier nicht geprüft.</li>'+
+   '<li>2027-Regelungsstände und individuelle Elternzeit-/Betreuungsbedingungen amtlich gegenprüfen.</li>'+
+   '<li>Es liegen keine unabhängigen Freigaben für produktive Rechts-/Finanzberatung vor.</li></ul>'+
+   '<p class="v44-footnote">Quelle: bestehende Antragscheckliste des Rechners; keine automatisch gestellte Eingabe oder verschickter Antrag. Bei Nachfragen an die Fachstelle die tatsächlichen individuellen Dokumente separat bereithalten.</p></article>';
+ }
+ function reportHtml(r){return firstPage(r)+secondPage(r);}
+ function preview(){
+  try{
+   const report=projection();activeReport=report;
+   const html=reportHtml(report);
+   byId('v44ReportPreview').innerHTML=html;
+   byId('v44ReportPreview').hidden=false;
+   byId('v44Preview').setAttribute('aria-expanded','true');
+   byId('v44ReportFeedback').textContent='Bericht mit zwei Abschnitten aus dem aktuellen Plan erstellt. Prüfe die Angaben vor dem Drucken.';
+   return html;
+  }catch(error){
+   byId('v44ReportFeedback').textContent='Bericht nicht berechenbar: '+String(error?.message||error).slice(0,160)+'. Vorhandener Plan bleibt unverändert.';
+   return null;
+  }
+ }
+ function printReport(){
+  const html=preview();if(html===null)return;
+  byId('v44PrintSheet').innerHTML=html;
+  document.body.classList.add('v44-print-active');
+  byId('v44ReportFeedback').textContent='Druckansicht aktiviert. Im Browserdialog den gewünschten Drucker oder „Als PDF speichern“ auswählen. Die zwei Seiten enthalten private Modellangaben.';
+  try{window.print();}catch(e){document.body.classList.remove('v44-print-active');byId('v44ReportFeedback').textContent='Browser-Druck nicht verfügbar; der Bericht bleibt als Textvorschau sichtbar.';}
+ }
+ function afterprint(){
+  document.body.classList.remove('v44-print-active');
+  byId('v44PrintSheet').textContent='';
+ }
+ function mount(){
+  if(!root())return;
+  root().addEventListener('click',event=>{
+   const button=event.target.closest('button[data-v44-filter]');
+   if(!button)return;
+   const next=button.dataset.v44Filter;
+   if(!['all','open','ready','done'].includes(next))return;
+   filter=next;refreshTasks();
+  });
+  root().addEventListener('change',event=>{
+   const control=event.target.closest('select[data-v44-task-id]');if(!control)return;
+   const status=control.value;
+   if(!['open','ready','done'].includes(status))return;
+   let guide;
+   try{guide=currentGuide();}catch{return;}
+   const match=guide.tasks.find(t=>t.id===control.dataset.v44TaskId);
+   if(!match)return;
+   v315TaskStates.set(v315TaskStatusKey(match),status);
+   renderApplicationGuide();
+   byId('v44TaskFeedback').textContent='Eigener Bearbeitungsstand aktualisiert. Keine Behörde wurde informiert und keine Daten gespeichert.';
+  });
+  const resultsIndex=[...document.querySelectorAll('.slide')].findIndex(slide=>slide.id==='slide-10');
+  const actionsIndex=[...document.querySelectorAll('.slide')].findIndex(slide=>slide.id==='slide-9');
+  byId('v44OpenActions').addEventListener('click',()=>{if(actionsIndex>=0)showSlide(actionsIndex);});
+  byId('v44BackResults').addEventListener('click',()=>{if(resultsIndex>=0)showSlide(resultsIndex);});
+  byId('v44Preview').addEventListener('click',()=>{
+   if(!byId('v44ReportPreview').hidden){
+    byId('v44ReportPreview').hidden=true;
+    byId('v44Preview').setAttribute('aria-expanded','false');
+    byId('v44ReportFeedback').textContent='Vorschau geschlossen.';
+   }else preview();
+  });
+  byId('v44Print').addEventListener('click',printReport);
+  window.addEventListener('afterprint',afterprint);
+ }
+ // Original checklist and compact cards share the exact same in-memory status map.
+ // The existing checklist handler calls renderApplicationGuide after each edit.
+ const oldGuide=renderApplicationGuide;
+ renderApplicationGuide=function(...args){
+  const result=oldGuide(...args);refreshTasks();
+  if(byId('v44ReportPreview')&&!byId('v44ReportPreview').hidden)preview();
+  return result;
+ };
+ return {mount,refreshTasks,preview,printReport,afterprint,
+  state:()=>({filter,printed:document.body.classList.contains('v44-print-active'),persisted:false,
+   statusOf:id=>{try{const guide=currentGuide();const task=guide.tasks.find(t=>t.id===id);return task?v315TaskStates.get(v315TaskStatusKey(task))||'open':null;}catch{return null;}}})};
+})();
+window.__planActionsV44=PlanActionsV44;
+
+/* V44_RUNTIME_END */
 restore();initNav();listenInputs();listenAdvanced();listenTimeAxes();listenFinanceGuidance();listenV315Extras();listenV316Joint();listenIncomeGuide();listenUnderstandingGuide();
 $('standardCaseConfirmed').value=s.standardCaseConfirmed===true?'yes':s.standardCaseConfirmed===false?'no':'';
 $('standardCaseConfirmed').addEventListener('change',e=>{s.standardCaseConfirmed=e.target.value==='yes'?true:e.target.value==='no'?false:null;renderAll();persist()});
@@ -7259,6 +7741,7 @@ $('localSave').checked=s.storageConsent===true;$('localSave').addEventListener('
 QuickStartV38.mount();
 FamilyTimeCompareV42.mount();
 WhatIfV43.mount();
+PlanActionsV44.mount();
 renderAll();
 window.__elternzeitTest={getState:()=>clone(s),sanitizeImport,deleteLocalData,evaluate:()=>evaluate(s.schedule),modelPlan:id=>evaluate(makeSchedule(id)),chooseModel,showSlide,changeValue:(key,value)=>{s[key]=value;renderAll();persist()},applyBuilder,applyExample,builderSchedule,basis,plus,age,ageSpan,dateFor,ptNet,SCENARIOS,STAT,s};
 })();

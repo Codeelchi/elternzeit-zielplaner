@@ -10,11 +10,15 @@
 
 ## Dokumentation und Übergabe
 
+- [Paket 3A/3B: lokaler A4-Druckbericht und synchronisierte Aufgabenliste](docs/UMSETZUNG-PAKET3-DRUCK-AUFGABEN-2026-10-22.md): maximal zwei Druckseiten ohne Server, bestehende Fristen und Sitzungsstatus wiederverwendet; keine amtliche Bewilligung.
+
+- [Paket 3C: vorbereiteter Nutzertest- und manueller Accessibility-Plan](docs/PAKET3C-NUTZER-A11Y-ABNAHME-2026-10-22.md): synthetische Aufgaben, NVDA/VoiceOver- und Druckprüfung. **Noch keine echten Testpersonen oder unabhängigen Freigaben.**
+
 - [Paket 2C: hypothetischer Was-wäre-wenn-Vergleich](docs/UMSETZUNG-PAKET2C-WAS-WAERE-WENN-2026-10-22.md): Kita-Verzögerung, explizite Teilzeit-/Netto-Annahmen, Haushaltskosten und Lohn-Risikoband – ausschließlich flüchtig und ohne neue Elterngeldberechnung.
 
 - [Paket 2: Familienzeitstrahl und flüchtiger Variantenvergleich](docs/UMSETZUNG-PAKET2-FAMILIENZEIT-2026-10-22.md): Eltern-/Betreuungs- und Finanzannahmen je Lebensmonat, bis zu drei nicht persistierte Vergleiche; keine neue Leistungsermittlung oder 2027-Freigabe.
 
-- [Designpaket 1 und Roadmap der Folgepakete 2/3](docs/ROADMAP-DESIGN-FEATURES-2026-10-21.md): fortlaufende Sechs-Schritte-Navigation, vier zentrale Ergebnisfragen und sichtbare Datenqualität; Zeitstrahl und Variantenvergleich sind umgesetzt, die hypothetischen Regler im eigenen Review; Druckbericht, Aufgaben und Nutzerabnahme bleiben geplant. Keine neuen rechtlichen Leistungsberechnungen oder Freigaben.
+- [Designpaket 1 und Roadmap der Folgepakete 2/3](docs/ROADMAP-DESIGN-FEATURES-2026-10-21.md): fortlaufende Sechs-Schritte-Navigation, vier zentrale Ergebnisfragen und sichtbare Datenqualität; Zeitstrahl, Variantenvergleich und Was-wäre-wenn sind auf Main integriert; Druckbericht und Aufgaben technisch in Paket 3 umgesetzt, echte Nutzer-/Fachabnahme weiter offen. Keine neuen rechtlichen Leistungsberechnungen oder Freigaben.
 
 - [Amtliche Komponentenreferenzen A02–A04 und A06 – Umsetzung und Grenzen](docs/UMSETZUNG-AMTLICHE-KOMPONENTENREFERENZEN-2026-10-21.md): zusätzliche Zwischenwert-/Deckelungs- und Lebensmonatsregressionen auf Grundlage des [Quellenberichts vom 21.10.2026](docs/TESTDATEN-QUELLEN-2026-10-21.md); keine neuen unabhängigen Vollfamilienfälle oder externe Fachfreigabe.
 

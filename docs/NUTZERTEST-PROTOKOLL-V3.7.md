@@ -1,5 +1,7 @@
 # Formativer Nutzertest – vorbereitet, noch nicht durchgeführt
 
+**Fortschreibung 22.10.2026:** Der neue [Paket-3C-Testplan](PAKET3C-NUTZER-A11Y-ABNAHME-2026-10-22.md) ergänzt A4-Bericht, gemeinsame Aufgabenstatusansicht und manuelle Screenreader-Abnahme. Auch damit sind weiterhin **keine realen Nutzerprüfungen durchgeführt**.
+
 Stand: 15.10.2026, V3.7.0. **Dieses Dokument enthält keine erzielten Nutzerergebnisse.** Automatisierte Browsertests und Coding-Agenten ersetzen keine repräsentativen Eltern oder unabhängigen Fachprüfer. Es wurden keine Testpersonen angeschrieben und keine echten Haushaltsdaten erhoben.
 
 ## Ziel und Durchführung

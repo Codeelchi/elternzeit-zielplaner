@@ -1,0 +1,101 @@
+/* Paket 3: source-grounded, session-only task summary + intentionally 2-page print overlay. */
+.v44-task-hub,.v44-report-hub{margin:18px 0;padding:clamp(14px,2vw,22px);border:1px solid #b9d5c9;border-radius:14px;background:#fff;color:#24473c;overflow-wrap:anywhere}
+.v44-task-hub h3,.v44-report-hub h3{font-size:clamp(1.1rem,2vw,1.4rem);line-height:1.35;margin:7px 0 9px;color:#1c4a3c}
+.v44-task-hub p,.v44-report-hub p{font-size:.88rem;line-height:1.55;color:#3f5e55;margin:6px 0 11px}
+.v44-task-hub .v44-overview{font-weight:700;margin:12px 0;background:#eaf6ef;border-left:3px solid #27765b;border-radius:7px;padding:10px 13px}
+.v44-filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 17px}
+.v44-filters button{background:#f2f7f4;color:#295e4b;border:1px solid #b5d4c3;border-radius:9px;font-size:.84rem;font-weight:750;padding:10px 13px;min-height:44px}
+.v44-filters button[aria-pressed=true]{background:#205746;border-color:#205746;color:#fff}
+.v44-task-hub :is(button,select,a):focus-visible,.v44-report-hub button:focus-visible{outline:3px solid #ad641a;outline-offset:3px}
+.v44-task-list{display:grid;gap:12px}
+.v44-task-list article{background:#f8fbf8;border:1px solid #d7e5dd;border-radius:10px;padding:14px;break-inside:avoid}
+.v44-task-list article h4{font-size:1rem;line-height:1.4;color:#154d3d;margin:0 0 6px}
+.v44-task-list article p{font-size:.82rem}
+.v44-task-list .v44-task-meta{font-size:.78rem;color:#4f685b;margin:5px 0 9px}
+.v44-task-list .v44-task-meta strong{color:#345d4f}
+.v44-task-list .v44-task-source{font-size:.78rem}
+.v44-task-list label{display:block;font-size:.8rem;font-weight:730;line-height:1.45;margin-top:10px;color:#315948}
+.v44-task-list select{display:block;margin-top:5px;max-width:100%;min-height:44px;padding:9px 10px;border:1px solid #a5c3b1;border-radius:8px;background:#fff;font-size:.88rem;color:#1d4939}
+.v44-task-list section>h4{font-size:.9rem;margin:6px 0 0;color:#426858}
+.v44-task-list .v44-task-group{display:grid;gap:10px}
+.v44-task-list .v44-empty{padding:14px;background:#f3f7f4;border-radius:10px}
+.v44-task-hub .v44-note,.v44-report-hub .v44-note{font-size:.78rem;color:#5b634f;margin:11px 0}
+.v44-feedback:not(:empty){margin:10px 0;padding:10px 12px;border-left:3px solid #21765e;background:#f1f8f4;border-radius:7px;font-size:.82rem;line-height:1.4}
+.v44-report-hub{border-color:#bed2e0}
+.v44-report-buttons{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:13px 0}
+.v44-report-buttons button{min-height:44px;white-space:normal}
+#v44ReportPreview{margin-top:16px;border-top:1px solid #dde9e2;padding-top:16px;max-width:100%}
+.v44-report-screen-page{background:white;color:#21392e;border:1px solid #b9cfc0;border-radius:10px;padding:clamp(12px,2vw,25px);margin-bottom:13px;box-shadow:0 4px 20px #1a403016;max-width:100%;overflow-wrap:anywhere}
+.v44-report-screen-page h2{font-size:1.35rem!important;letter-spacing:normal;line-height:1.3;margin:8px 0}
+.v44-report-screen-page h3{font-size:1rem;letter-spacing:normal;margin:14px 0 8px}
+.v44-report-screen-page .v44-doc-meta{font-size:.77rem;line-height:1.55;color:#4b6359}
+.v44-report-screen-page .v44-headline{font-size:.78rem;display:inline-block;letter-spacing:.08em;text-transform:uppercase;font-weight:850;color:#17654c}
+.v44-report-screen-page .v44-print-tile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}
+.v44-report-screen-page .v44-print-tile{background:#eff6f1;border:1px solid #dae7df;border-radius:8px;padding:10px}
+.v44-report-screen-page .v44-print-tile small{display:block;font-size:.76rem;color:#47675b;line-height:1.35}
+.v44-report-screen-page .v44-print-tile strong{display:block;font-size:1.02rem;line-height:1.3;margin-top:4px;color:#124b3c}
+.v44-report-screen-page .v44-table-wrap{max-width:100%;overflow-x:auto}
+.v44-report-screen-page table{border-collapse:collapse;min-width:450px;width:100%;font-size:.77rem}
+.v44-report-screen-page th,.v44-report-screen-page td{text-align:left;vertical-align:top;border-bottom:1px solid #dbe6de;padding:8px 5px;overflow-wrap:anywhere}
+.v44-report-screen-page th{background:#edf5ef;color:#315c48;font-weight:800}
+.v44-report-screen-page .v44-warning-list{font-size:.76rem;line-height:1.48;color:#5b563e;padding-left:20px}
+.v44-report-screen-page .v44-warning-list li{margin:4px 0}
+.v44-report-screen-page .v44-print-task{border-bottom:1px solid #d6e1d9;padding:9px 0;break-inside:avoid}
+.v44-report-screen-page .v44-print-task strong{display:block;font-size:.89rem;color:#174839;line-height:1.35}
+.v44-report-screen-page .v44-print-task p{margin:4px 0;font-size:.75rem}
+.v44-report-screen-page .v44-print-task a{word-break:break-all;font-size:.7rem}
+.v44-report-screen-page .v44-footnote{margin:9px 0 0;font-size:.75rem;color:#5b5b4d}
+.v44-print-sheet{display:none}
+@media(max-width:520px){
+ .v44-task-hub,.v44-report-hub{padding:11px}
+ .v44-report-buttons button{width:100%}
+ .v44-report-screen-page .v44-print-tile-grid{grid-template-columns:1fr}
+ .v44-filters button{flex:1 1 112px}
+}
+/* Existing app print CSS normally prints all slides. ONLY when the report button
+   is used do we make the dedicated, source-grounded two-page A4 document visible. */
+@media print{
+ @page v44Report {size:A4 portrait;margin:10mm}
+ body.v44-print-active{background:#fff!important;color:#111!important;font-family:Arial,"Segoe UI",sans-serif!important}
+ body.v44-print-active .app-shell,
+ body.v44-print-active .toast{display:none!important}
+ body.v44-print-active #v44PrintSheet{display:block!important;position:static!important;max-width:none!important}
+ body.v44-print-active #v44PrintSheet .v44-report-screen-page{
+  page:v44Report;
+  display:block;box-sizing:border-box;border:0!important;box-shadow:none!important;
+  border-radius:0!important;padding:2mm 1mm 0;margin:0;width:100%;max-width:100%;
+  font-size:9pt!important;line-height:1.32;background:#fff!important;color:#151515!important;
+  break-inside:avoid;page-break-inside:avoid;overflow:visible
+ }
+ body.v44-print-active #v44PrintSheet .v44-report-screen-page:not(:last-child){
+  break-after:page;page-break-after:always
+ }
+ body.v44-print-active #v44PrintSheet .v44-report-screen-page h2{font-size:16pt!important;line-height:1.25;margin:5pt 0 8pt}
+ body.v44-print-active #v44PrintSheet .v44-report-screen-page h3{font-size:10pt!important;margin:9pt 0 4pt}
+ body.v44-print-active #v44PrintSheet .v44-report-screen-page p{font-size:8pt!important;margin:4pt 0 6pt;line-height:1.35}
+ body.v44-print-active #v44PrintSheet .v44-print-tile-grid{gap:5pt;margin:8pt 0}
+ body.v44-print-active #v44PrintSheet .v44-print-tile{padding:7pt;border-color:#aaa;break-inside:avoid}
+ body.v44-print-active #v44PrintSheet .v44-print-tile small{font-size:7.5pt!important}
+ body.v44-print-active #v44PrintSheet .v44-print-tile strong{font-size:10.5pt!important}
+ body.v44-print-active #v44PrintSheet table{min-width:0!important;font-size:8pt}
+ body.v44-print-active #v44PrintSheet th,
+ body.v44-print-active #v44PrintSheet td{padding:5pt 3pt;line-height:1.23}
+ body.v44-print-active #v44PrintSheet .v44-warning-list{font-size:7.5pt;line-height:1.35;margin:4pt 0}
+ body.v44-print-active #v44PrintSheet .v44-print-task{padding:5pt 0}
+ body.v44-print-active #v44PrintSheet .v44-print-task strong{font-size:9pt!important}
+ body.v44-print-active #v44PrintSheet .v44-print-task p{font-size:7.5pt!important;margin:2pt 0}
+ body.v44-print-active #v44PrintSheet .v44-print-task a{font-size:7pt!important}
+}
+
+.v44-result-entry{display:flex;align-items:center;justify-content:space-between;gap:14px;
+ margin:17px 0;padding:16px 18px;border:1px solid #b3d6c1;background:#f1f9f4;border-radius:13px;
+ color:#204b3b;overflow-wrap:anywhere}
+.v44-result-entry h3{font-size:1.13rem;margin:9px 0 5px;color:#18513e}
+.v44-result-entry p{font-size:.86rem;line-height:1.48;margin:0}
+.v44-result-entry button{min-height:44px;flex-shrink:0;white-space:normal}
+.v44-back-link{border:0;background:transparent;color:#19624c;padding:8px 3px;font-size:.85rem;
+ font-weight:800;text-decoration:underline;min-height:44px}
+.v44-back-link:focus-visible,.v44-result-entry button:focus-visible{outline:3px solid #ae641a;outline-offset:3px}
+@media(max-width:620px){.v44-result-entry{display:block;padding:12px}
+ .v44-result-entry button{display:block;margin-top:12px;width:100%}}
+@media print{.v44-result-entry,.v44-back-link{display:none!important}}

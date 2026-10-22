@@ -1,6 +1,6 @@
 # Fachstand 22.10.2026 – Mutterschutz-Tagesgrenze und externe Prüfungen
 
-**Status:** Literatur- und Konsistenzrecherche, **keine unabhängige Rechts-/Leistungsfreigabe**. Der öffentliche Rechner bleibt **NO-GO**. Diese Notiz enthält ausschließlich synthetische Datumsbeispiele.
+**Status:** Literatur- und Konsistenzrecherche auf den Quellenstand **22.10.2026** begrenzt, **keine unabhängige Rechts-/Leistungsfreigabe**. Der öffentliche Rechner bleibt **NO-GO**. Diese Notiz enthält ausschließlich synthetische Datumsbeispiele.
 
 ## Präziser Stand des 4/5-Resttage-Konflikts
 

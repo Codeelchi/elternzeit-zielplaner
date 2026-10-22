@@ -131,7 +131,7 @@ function buildReviewKit({preparedAt,commit,indexHtml,sourceContents,caseRequests
  '- Das Familienportal nennt für dasselbe Geburtsdatum als Ende der Mutterschaftsleistungen den **14. Juli** und erhält für **15. bis 19. Juli = fünf Tage**.',
  '- `§ 24i Abs. 3 SGB V` bezieht die Mutterschaftsgeldzahlung auf die Schutzfrist und zusätzlich den Entbindungstag. Beschäftigungsverbot, Mutterschaftsgeld und taggenaue BEEG-Anrechnung daher getrennt prüfen.',
  '',
- '## Originalquellen, live erneut recherchiert am '+preparedAt,
+ '## Originalquellen: dokumentierter Abruf 22.10.2026; bei späterem Review erneut prüfen',
  '',
  '- [Bundesfamilienportal: tageweise Elterngeld-Anrechnung]('+SOURCE_URLS.federalExample+') – fünf Tage.',
  '- [NRW KomNet 4244: Fristberechnung nach §§ 187/188 BGB]('+SOURCE_URLS.NRW+') – Ereignistag wird nicht als Beginn gezählt.',

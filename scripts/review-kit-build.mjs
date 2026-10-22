@@ -33,7 +33,7 @@ const sourceFiles=['src/understanding-guide.cjs','data/independent-case-requests
  'data/maternity-delta-evidence-2026-10-17.json','docs/PAKET3C-NUTZER-A11Y-ABNAHME-2026-10-22.md'];
 const sourceContents=Object.fromEntries(sourceFiles.map(name=>[name,read(name)]));
 const commit=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
-const preparedAt='2026-10-22'; // Source review reference date. Not a claim of test execution.
+const preparedAt=new Date().toISOString().slice(0,10); // Actual generation date; sources checked separately.
 const bundle=buildReviewKit({preparedAt,commit,
  indexHtml:read('index.html'),sourceContents,
  caseRequests:JSON.parse(sourceContents['data/independent-case-requests-2026-10-17.json']),

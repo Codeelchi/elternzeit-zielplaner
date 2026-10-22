@@ -127,6 +127,14 @@ test('incomplete, modified or pre-approved requests and review questions fail cl
   assert.throws(()=>buildReviewKit(args),TypeError);
  }
 });
+test('generating the kit later must not falsely claim that sources were checked on the later date',()=>{
+ const args=inputs();args.preparedAt='2028-02-01';
+ const kit=buildReviewKit(args);
+ assert.equal(kit.manifest.preparedAt,'2028-02-01');
+ const dossier=kit.files['01-MUTTERSCHUTZ-FACHANFRAGE.md'];
+ assert.match(dossier,/dokumentierter Abruf 22\.10\.2026/);
+ assert.doesNotMatch(dossier,/live erneut recherchiert am 2028/);
+});
 test('CLI no-write preflight passes and does not require accessing a browser or an account',()=>{
  const result=execFileSync(process.execPath,['scripts/review-kit-build.mjs','--check'],{
   cwd:new URL('..',import.meta.url),encoding:'utf8'

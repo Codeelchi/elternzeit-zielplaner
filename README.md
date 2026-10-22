@@ -6,9 +6,13 @@
 
 **Verbindlicher Einstieg:** [Aktueller Projektstatus, offene P0-Gates, Tests und GitHub-Pages-Abgleich](docs/STATUS-TECHNISCH-2026-10-19.md). Offlinefähiger **Familien-Szenario- und Budgetplaner**, **kein amtlicher Elterngeldrechner**. Öffentlicher **Produktrelease weiterhin NO-GO** (4/5 Mutterschutztage ungeklärt, 0/10 unabhängige Referenzfamilien, 0 echte Nutzertests, Rechts-/Datenschutz-/Betreiberfreigaben fehlen). Die **GitHub-Pages-Testvorschau** wurde am 19.10.2026 manuell und erfolgreich auf den damaligen Main-Stand bec8bf0a9ce73d86b165694fa6150dd290d4c5da aktualisiert ([Deploy-Lauf 39208423971](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39208423971)); weitere PR-Änderungen werden **nicht** automatisch auf Pages veröffentlicht. Nur fiktive Testwerte verwenden.
 
+**Technische Fortsetzung 22.10.2026:** [PR #41](https://github.com/Codeelchi/elternzeit-zielplaner/pull/41) ist mit **589/589 Node- und 168/168 Chromium-Tests** auf `main` integriert; Paket 3A/B (lokale A4-Zweiseiten-Ausgabe, Aufgabenübersicht) ist technisch geprüft. Paket 3C bleibt **0 echte Testpersonen / 0 manuelle Screenreaderprüfungen**. Der nun vorbereitete lokale Prüfkoffer ist nur ein **externer Review-Handoff** und hebt keine Release-Gates auf.
+
 **Update 21.10.2026:** [PR #36](https://github.com/Codeelchi/elternzeit-zielplaner/pull/36) hat offizielle Nachgeburtslinks und die unveränderte Recherche zu Testdatenquellen nach `main` übernommen. Die unten verlinkten zusätzlichen A02–A04-/A06-Tests prüfen ausschließlich amtlich veröffentlichte **Komponentenbeispiele** (plus fachlich markierte synthetische Kalenderjahre). Sie sind keine amtliche Gesamtrechnung, keine neue rechtliche Freigabe und kein bestandener Referenzfamilien-Abgleich.
 
 ## Dokumentation und Übergabe
+
+- [Externer Prüfkoffer für Paket 3C und Fachfälle](docs/FACHQUELLEN-MUTTERSCHUTZ-2026-10-22.md): neue Quellen zur 4/5-Tage-Frage, vorbereitete Anfrage an Fachstellen und ein lokal erzeugbarer, SHA-256-gebundener synthetischer Testkoffer ohne behauptete Freigaben. Erstellen mit `npm run review:kit:write`, Integrität mit `npm run review:kit:verify` prüfen. Das Ergebnis unter `.local-review/` ist bewusst nicht versioniert.
 
 - [Paket 3A/3B: lokaler A4-Druckbericht und synchronisierte Aufgabenliste](docs/UMSETZUNG-PAKET3-DRUCK-AUFGABEN-2026-10-22.md): maximal zwei Druckseiten ohne Server, bestehende Fristen und Sitzungsstatus wiederverwendet; keine amtliche Bewilligung.
 

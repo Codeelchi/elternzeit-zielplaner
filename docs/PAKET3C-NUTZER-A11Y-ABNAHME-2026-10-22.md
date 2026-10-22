@@ -4,6 +4,8 @@
 
 **Zu prüfender Release-Kandidat:** Commit und `index.html`-Hash unmittelbar vor der menschlichen Abnahme eintragen. Für jeden neuen Commit relevante Fälle wiederholen. Historischer Vorläufer: [formativer Nutzertest V3.7 – nur vorbereitet](NUTZERTEST-PROTOKOLL-V3.7.md).
 
+**Reviewer-Handoff neu:** `npm run review:kit:check` prüft die Vorlagen ohne Dateiausgabe, `npm run review:kit:write` erzeugt lokal unter `.local-review/paket3c-20261022/` einen synthetischen, am genauen Git-Commit und HTML-SHA-256 gebundenen Prüfkoffer; `npm run review:kit:verify` verifiziert seine Dateihashes. Es werden **keine** realen Testbeobachtungen erhoben oder bestehende Freigabe-Gates geändert. Quellenlage siehe [Mutterschutz-Fachdossier](FACHQUELLEN-MUTTERSCHUTZ-2026-10-22.md).
+
 ## Prüfziel, Testpersonen und Datenschutz
 
 Erkennen echte Personen ohne Elterngeld-, Finanz- oder Softwarefachwissen, was der Planer **weiß, annimmt und nicht bestätigt**? Können sie ihre Zeit- und Geldplanung nachvollziehbar ändern, eine Hypothese als solche verstehen, eine Aufgabe persönlich markieren und eine reine **zweiseitige A4-PDF** erzeugen?

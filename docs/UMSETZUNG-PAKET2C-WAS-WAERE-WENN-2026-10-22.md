@@ -56,7 +56,7 @@ npm test
 npm run release:check  # weiterhin erwarteter NO-GO, kein Release-Bypass
 ```
 
-Commitgebundene GitHub-CI, PR-Nummer, gesamter Browser-/Node-Nachweis und Merge werden erst nach tatsächlich bestandenem CI-Abschluss ergänzt. Kein automatisches GitHub-Pages-Deployment.
+Das Browser-CI-Job-Limit wurde wegen der erweiterten Matrix von 15 auf 20 Minuten erhöht. Der PR-39-Vorgänger mit 136 Fällen benötigte rund 14 Minuten Joblaufzeit; die zusätzlichen Paket-2C-Fälle sollen nicht zufällig an einem Workflow-Zeitlimit scheitern. **Alle Browsertests und Gates bleiben unverändert aktiv.**\n\nCommitgebundene GitHub-CI, PR-Nummer, gesamter Browser-/Node-Nachweis und Merge werden erst nach tatsächlich bestandenem CI-Abschluss ergänzt. Kein automatisches GitHub-Pages-Deployment.
 
 ## Noch offen
 

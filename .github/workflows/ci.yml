@@ -26,7 +26,7 @@ jobs:
 
   browser:
     runs-on: ubuntu-latest
-    timeout-minutes: 15 # Browser matrix runs separately from Node tests
+    timeout-minutes: 20 # Expanded browser matrix: 152+ cases; preserve all gates without flaky job-timeout
     steps:
       - uses: actions/checkout@v4
       - name: Use Node 22

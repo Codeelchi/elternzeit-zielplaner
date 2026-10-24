@@ -10,7 +10,7 @@ const REQUIRED_GATE_FIELDS=[
 const HEX=/^[a-f0-9]{64}$/;
 function assessReleaseReadiness({
  gates,references,packageVersion,files,independentReview,usabilityReview,
- maternityReview,operatorEvidence
+ maternityReview,operatorEvidence,directFileProof
 }={}){
  const failures=[];
  function block(message){failures.push(message);}
@@ -26,8 +26,13 @@ function assessReleaseReadiness({
  if(!files||!HEX.test(files.indexSha256)||!HEX.test(files.startSha256)||
     typeof gates.directFileEvidence!=='string'||
     !gates.directFileEvidence.includes(files.indexSha256)||
-    !gates.directFileEvidence.includes(files.startSha256))
-  block('Direkte Browser-Freigabe: HTML-SHA256-Nachweis ist veraltet oder fehlt');
+    !gates.directFileEvidence.includes(files.startSha256)||
+    !directFileProof||directFileProof.status!=='VALID_SOURCE_PINNED_AUTOMATED_PROOF_ONLY'||
+    directFileProof.indexSha256!==files.indexSha256||
+    directFileProof.startSha256!==files.startSha256||
+    directFileProof.cases!==4||directFileProof.independentApproval!==false||
+    directFileProof.publicReleaseApproved!==false)
+  block('Direkte Browser-Freigabe: aktueller file://-Chromium-SHA256-Nachweis fehlt, ist veraltet oder unprüfbar');
  // Treat 10 synthetic prepared cases as INDEPENDENT only after the underlying
  // evidence validator actually supports and confirms true third-party reviews.
  if(!independentReview||independentReview.independentlyApproved!==10||

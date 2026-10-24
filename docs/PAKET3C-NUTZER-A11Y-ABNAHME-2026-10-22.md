@@ -6,6 +6,8 @@
 
 **Reviewer-Handoff neu:** `npm run review:kit:check` prüft die Vorlagen ohne Dateiausgabe, `npm run review:kit:write` erzeugt lokal unter `.local-review/paket3c-20261022/` einen synthetischen, am genauen Git-Commit und HTML-SHA-256 gebundenen Prüfkoffer; `npm run review:kit:verify` verifiziert seine Dateihashes. Es werden **keine** realen Testbeobachtungen erhoben oder bestehende Freigabe-Gates geändert. Quellenlage siehe [Mutterschutz-Fachdossier](FACHQUELLEN-MUTTERSCHUTZ-2026-10-22.md).
 
+**Technische Ergänzung vom 24.10.2026:** [Der neue, source-gepinnte Chromium-Offlinetest](DIREKTDATEI-CHROMIUM-NACHWEIS-2026-10-24.md) liefert vier zusätzliche automatische \`file://\`-Prüfungen. Er bestätigt **keine einzige echte moderierte Sitzung und keinen manuellen Screenreader-Test**; das folgende menschliche Abnahmeprotokoll bleibt vollständig offen.
+
 ## Prüfziel, Testpersonen und Datenschutz
 
 Erkennen echte Personen ohne Elterngeld-, Finanz- oder Softwarefachwissen, was der Planer **weiß, annimmt und nicht bestätigt**? Können sie ihre Zeit- und Geldplanung nachvollziehbar ändern, eine Hypothese als solche verstehen, eine Aufgabe persönlich markieren und eine reine **zweiseitige A4-PDF** erzeugen?

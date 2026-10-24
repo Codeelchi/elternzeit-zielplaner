@@ -8,9 +8,13 @@
 
 **Technische Fortsetzung 22.10.2026:** [PR #41](https://github.com/Codeelchi/elternzeit-zielplaner/pull/41) ist mit **589/589 Node- und 168/168 Chromium-Tests** auf `main` integriert; Paket 3A/B (lokale A4-Zweiseiten-Ausgabe, Aufgabenübersicht) ist technisch geprüft. Paket 3C bleibt **0 echte Testpersonen / 0 manuelle Screenreaderprüfungen**. Der nun vorbereitete lokale Prüfkoffer ist nur ein **externer Review-Handoff** und hebt keine Release-Gates auf.
 
+**Technischer Direktdatei-Abgleich 24.10.2026:** Die historische Browser-SHA-Abweichung wurde mit aktuellem \`file://\`-Chromium-Nachweis überprüft und der technische Release-Evidence-Bezug erneuert, **ohne** externe P0-Gates freizugeben. Die verpflichtenden GitHub-Tests bleiben unverändert; fehlgeschlagene Browserläufe behalten ihren Fehlerstatus. [Prüfanweisung und SHA-Werte](docs/DIREKTDATEI-CHROMIUM-NACHWEIS-2026-10-24.md).
+
 **Update 21.10.2026:** [PR #36](https://github.com/Codeelchi/elternzeit-zielplaner/pull/36) hat offizielle Nachgeburtslinks und die unveränderte Recherche zu Testdatenquellen nach `main` übernommen. Die unten verlinkten zusätzlichen A02–A04-/A06-Tests prüfen ausschließlich amtlich veröffentlichte **Komponentenbeispiele** (plus fachlich markierte synthetische Kalenderjahre). Sie sind keine amtliche Gesamtrechnung, keine neue rechtliche Freigabe und kein bestandener Referenzfamilien-Abgleich.
 
 ## Dokumentation und Übergabe
+
+- [Aktueller \`file://\`-Chromium-Nachweis](docs/DIREKTDATEI-CHROMIUM-NACHWEIS-2026-10-24.md): vier reproduzierbare Offline-Browserfälle, zwei A4-Druckseiten, quellgebundene SHA-256-Hashes und Negativtests gegen veraltete Belege. \`npm run direct-file:proof:check\` prüft den eingecheckten Testbeleg; \`npm run direct-file:proof:write\` führt die Browserprüfung wirklich neu aus. **Kein** manueller Screenreader-/Rechtsreview und keine Produktfreigabe.
 
 - [Externer Prüfkoffer für Paket 3C und Fachfälle](docs/FACHQUELLEN-MUTTERSCHUTZ-2026-10-22.md): neue Quellen zur 4/5-Tage-Frage, vorbereitete Anfrage an Fachstellen und ein lokal erzeugbarer, SHA-256-gebundener synthetischer Testkoffer ohne behauptete Freigaben. Erstellen mit `npm run review:kit:write`, Integrität mit `npm run review:kit:verify` prüfen. Das Ergebnis unter `.local-review/` ist bewusst nicht versioniert.
 

@@ -9,6 +9,7 @@ const {assessReleaseReadiness,REQUIRED_GATE_FIELDS}=require('../src/release-read
 const {validateReviewEvidence}=require('../src/independent-review-evidence.cjs');
 const {validateUsabilityEvidence}=require('../src/usability-evidence.cjs');
 const {getUnderstandingTasks}=require('../src/understanding-guide.cjs');
+const {validateDirectFileProof,FILES}=require('../src/direct-file-proof.cjs');
 const root=new URL('../',import.meta.url);
 function raw(path){return readFileSync(new URL(path,root));}
 function json(path){return JSON.parse(raw(path).toString('utf8'));}
@@ -29,10 +30,15 @@ const usabilityReview=validateUsabilityEvidence({
 });
 const files={indexSha256:sha(raw('index.html')),startSha256:sha(raw('start.html'))};
 const packageVersion=json('package.json').version;
+const directFileProof=validateDirectFileProof({
+ proof:json('qa/direct-file-proof-current.json'),
+ contents:Object.fromEntries(FILES.map(file=>[file,raw(file)])),
+ appVersion:packageVersion
+});
 function evaluate(overrides={}){
  return assessReleaseReadiness({
   gates,references,packageVersion,files,independentReview,usabilityReview,
-  maternityReview,operatorEvidence:null,...overrides
+  maternityReview,operatorEvidence:null,directFileProof,...overrides
  });
 }
 test('real release evidence is fail-closed and lists each unreviewed P0',()=>{
@@ -46,8 +52,9 @@ test('real release evidence is fail-closed and lists each unreviewed P0',()=>{
  for(const expected of [
   'independentCalculationReview','legalReview','privacyReview','userTesting',
   '10/10','Nutzer- und manuelle Screenreader','4/5-Tage',
-  'Betreiberentscheid','Browser-Freigabe'
+  'Betreiberentscheid'
  ])assert.match(issues,new RegExp(expected));
+ assert.doesNotMatch(issues,/Direkte Browser-Freigabe/);
  assert.equal(independentReview.independentlyApproved,0);
  assert.equal(usabilityReview.participantsObserved,0);
 });
@@ -70,7 +77,8 @@ test('even fake numeric review counters cannot replace an operator attestation o
  for(const name of REQUIRED_GATE_FIELDS)flags[name]='approved';
  const result=evaluate({
   gates:flags,references:{...references,publicReleaseGatePassed:true},
-  independentReview:fakeFamily,usabilityReview:fakeUsers,maternityReview:fakeMaternity
+  independentReview:fakeFamily,usabilityReview:fakeUsers,maternityReview:fakeMaternity,
+  directFileProof:{...directFileProof,indexSha256:'f'.repeat(64)}
  });
  assert.equal(result.allowed,false);
  assert.ok(result.failures.some(x=>x.includes('Betreiberentscheid')));
@@ -83,7 +91,13 @@ test('version mismatch, missing inputs and obsolete browser evidence cannot look
  const empty=assessReleaseReadiness();
  assert.deepEqual(empty,{allowed:false,failures:['Release-Metadaten fehlen.']});
  assert.equal(gates.directFileBrowserReview,'approved');
- assert.ok(!gates.directFileEvidence.includes(files.indexSha256));
+ assert.ok(gates.directFileEvidence.includes(files.indexSha256));
+ assert.ok(gates.directFileEvidence.includes(files.startSha256));
+ const missingProof=evaluate({directFileProof:null});
+ assert.ok(missingProof.failures.some(x=>x.includes('Browser-Freigabe')));
+ const historical=evaluate({gates:{...gates,directFileEvidence:'Historic, stale hashes'}});
+ assert.ok(historical.failures.some(x=>x.includes('Browser-Freigabe')));
+ assert.ok(!evaluate().allowed);
 });
 test('the actual release-check command remains blocked without operator and independent evidence',()=>{
  const result=spawnSync(process.execPath,['scripts/release-check.mjs'],{
@@ -92,6 +106,6 @@ test('the actual release-check command remains blocked without operator and inde
  assert.equal(result.status,1,result.stderr);
  assert.match(result.stderr,/Öffentlicher Release gesperrt/);
  assert.match(result.stderr,/10\/10 vollständige unabhängige/);
- assert.match(result.stderr,/Browser-Freigabe/);
+ assert.doesNotMatch(result.stderr,/Browser-Freigabe/);
  assert.match(result.stderr,/Betreiberentscheid/);
 });

@@ -1,0 +1,45 @@
+{
+  "format": "direct-file-offline-technical-proof-v1",
+  "status": "AUTOMATED_ONLY_NOT_INDEPENDENT",
+  "generatedAt": "2026-10-24T13:40:12.928Z",
+  "appVersion": "3.10.0",
+  "sourceSha256": {
+    "index.html": "b6dbe2e7ba6ce85849aa85aaaffc51433e337a96454489262c8defebcbe8f29b",
+    "start.html": "d78367896ea4560cd74ed7052f2b239cbf78be510bfdcb50d65bb8f495016207",
+    "tests/e2e/current-direct-file.spec.mjs": "1a457d3f57006470074365948f65533b17c7967f9a0401c3f092f5419691ed29",
+    "playwright.direct-file.config.mjs": "7b30c154a12ec2758ec0a0b4dbae487df20d9aaa4aec7b4fd737dc30b3b9bdb5",
+    "scripts/direct-file-proof.mjs": "8af2990b1cba8e64eca78af7199d58bf6a1b7a6ea9c7695cda5797cb6d5545dc",
+    "src/direct-file-proof.cjs": "1d798f52fa3dfb6f18947382b4c551e87c3ca6b561a8e86b808308cce7cff929",
+    "package-lock.json": "5ae361538846f2791ca9382d316bd80b3df730c41d2524d2c76f9d181784f512"
+  },
+  "technicalPass": true,
+  "tests": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "titles": [
+      "fresh actual index.html and start.html load over file:// with all network unavailable, keyboard and accessible portal",
+      "direct-file six-step results reach source-linked task hub, two-page A4 print and return without internet",
+      "direct-file safe JSON export/import, storage refusal, 2027 caution and restart without network",
+      "direct-file is actual local content for both independent entry points, not the historical QA snapshot"
+    ],
+    "durationMs": 27485
+  },
+  "constraints": {
+    "pageProtocol": "file:",
+    "blockHttpAndWebSocket": true,
+    "browserOfflineMode": true,
+    "automatedAxeScans": 2,
+    "pageNetworkAttempts": 0,
+    "a4PagesGenerated": 2,
+    "manualATReviewCompleted": false,
+    "externalAuthorityApproved": false
+  },
+  "humanScreenreaderReviews": 0,
+  "independentLegalReviews": 0,
+  "independentPrivacyReviews": 0,
+  "publicReleaseApproved": false,
+  "note": "Self-reported from executable automated Chromium tests; HTML and test-source hashes only. No external reviewer identity, signatures, full-screenreader review, legal approval or public release."
+}

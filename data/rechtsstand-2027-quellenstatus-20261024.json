@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-24",
+  "coverage": "research_only_not_model_rules",
+  "standardBirths2027LegallyVerified": false,
+  "automaticBenefitAmountUpdatesAllowed": false,
+  "fullLegalReviewApproved": false,
+  "publicReleaseApproved": false,
+  "evidence": [
+    {
+      "id": "beeg-2f-2027-crossreference",
+      "category": "promulgated_future_effective",
+      "title": "Bereits verkündete 2027er BEEG-Änderung – § 2f Abs. 2 Satz 3",
+      "effectiveFrom": "2027-01-01",
+      "enactedAt": "2025-12-22",
+      "promulgatedAt": "2025-12-23",
+      "gazette": "BGBl. 2025 I Nr. 355, Art. 18",
+      "provision": "BEEG § 2f Absatz 2 Satz 3",
+      "change": {
+        "before": "SGB III § 344 Absatz 4",
+        "after": "SGB III § 344 Absatz 3",
+        "kind": "renumbered_cross_reference"
+      },
+      "amountChangeApproved": false,
+      "sources": [
+        "https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/05_Normen_und_Vertraege/02_A-B/BEEG/0002f/0002f_2025_05_01.html",
+        "https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/05_Normen_und_Vertraege/02_A-B/BEEG/0002f/0002f_2027_01_01.html",
+        "https://www.bmas.de/DE/Service/Gesetze-und-Gesetzesvorhaben/sozialgesetzbuch-6-anpassungsgesetz.html"
+      ],
+      "note": "Gesetzlich vorgesehener künftiger Verweiswechsel, keine Bestätigung eines 2027er Elterngeld-Netto-Modells, keine geänderte Ersatzrate oder Bemessung ohne fachliche Bewertung."
+    },
+    {
+      "id": "beeg-175000-current-2026",
+      "category": "current_law_not_2027_signoff",
+      "title": "175.000 Euro zu versteuerndes Einkommen – geltende Anspruchsgrenze",
+      "effectiveFrom": "2025-04-01",
+      "observedLimitEuro": 175000,
+      "comparison": "strictly_greater_than",
+      "sources": [
+        "https://www.gesetze-im-internet.de/beeg/__1.html",
+        "https://familienportal.de/familienportal/familienleistungen/elterngeld/faq/was-aendert-sich-fuer-geburten-ab-1-april-2024-beim-elterngeld-237122"
+      ],
+      "note": "Gegenwärtige Gesetzesfassung zum Prüftag. Eine Zukunftsprognose 2027 bleibt ohne Bestätigung der bei Geburt maßgeblichen Rechtslage und weiterer Spezialregeln unverbindlich."
+    },
+    {
+      "id": "elterngeld-2027-reform-discussion",
+      "category": "policy_proposal_not_enacted",
+      "title": "Diskutierte größere Reform zu Bezugsdauer und Mindest-/Höchstbeträgen",
+      "legalEffectiveFrom": null,
+      "proposalReported": {
+        "basisMonthsTogether": 12,
+        "reservedMonthsPerParent": 3,
+        "minimumMonthlyEuro": 330,
+        "maximumMonthlyEuro": 1900
+      },
+      "parametersMayBeUsedInModel": false,
+      "statusAsOf": "2026-10-24",
+      "sources": [
+        "https://www.bundesregierung.de/breg-de/aktuelles/regierungspressekonferenz-vom-7-juli-2026-2446104",
+        "https://www.tagesschau.de/inland/prien-elterngeld-kuerzung-100.html",
+        "https://www.bundesregierung.de/breg-de/service/newsletter-und-abos/bulletin/bmbfsfj-haushaltsgesetz-2027-2452382"
+      ],
+      "note": "Regierungsressortabstimmung und politische Nachberatung statt veröffentlichtem Inkrafttretensgesetz. Keine automatische Umstellung auf 12 Monate oder 330/1900 Euro."
+    }
+  ]
+}

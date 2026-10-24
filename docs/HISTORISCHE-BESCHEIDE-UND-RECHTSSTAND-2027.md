@@ -2,6 +2,8 @@
 
 **Prüfdatum:** 15.10.2026 · **Entwicklungsfassung:** V3.6.0 · **MVP-Status:** interner Prüfstand, öffentliche Freigabe gesperrt.
 
+**Quellen-Nachtrag vom 24.10.2026:** [BEEG 2027: verkündete §-2f-Verweisänderung gegenüber nicht beschlossener Elterngeldreform](RECHTSSTAND-BEEG-2027-2026-10-24.md). Das ergänzende Dossier trennt den gesetzlich vorgesehenen Verweiswechsel zum 01.01.2027 von diskutierten Betrags- und Bezugsmonatsänderungen. **Keine** fachliche Freigabe der 2027-Geburtskohorte oder automatische Anpassung des Rechners.
+
 ## Was aus echten Bescheiden ableitbar ist
 
 Die amtlich veröffentlichte Rechtsprechung enthält **echte Bewilligungsbescheide**, Änderungsbescheide und teilweise gerichtliche Probeberechnungen. Es liegen **keine vollständigen Original-Lohnabrechnungen, Steuerdaten, Sozialversicherungsberechnungen oder anonymisierten Bescheid-PDFs** vor. Deshalb sind diese Fälle historisches *Beweismaterial zur fachlichen Fehlererkennung*, aber **keine vollständigen End-to-End-Referenzen** für unsere 2026-/2027-Rechenengine.

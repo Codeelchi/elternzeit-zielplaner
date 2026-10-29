@@ -1,6 +1,6 @@
 # Offline-Browsernachweis – historischer Lauf und Erneuerung
 
-**Erneuerung 29.10.2026:** Der Nutzer führte `npm run direct-file:proof:write` auf Windows aus; der aktualisierte [Nachweis](../qa/direct-file-proof-current.json) dokumentiert 4/4 bestandene automatische Fälle, zwei A4-Seiten und keine Netzwerkzugriffe. Der aktuelle `index.html`-Hash lautet `ed138762489a55f6c7850f00171ebd38ca5bb63c93b41d0a8dbf42b12852faac`. Die folgenden Hashangaben beschreiben den historischen Lauf vom 24.10.; weder der neue noch der alte Lauf ersetzt eine externe Fach- oder Nutzerabnahme. Die neuen separaten KI- und Mobilansicht-Browserfälle gehören nicht zu diesen vier Nachweisfällen.
+**Lauf 29.10.2026:** Der Nutzer führte `npm run direct-file:proof:write` nach der Mobilkorrektur auf Windows aus; der [Nachweis](../qa/direct-file-proof-current.json) dokumentiert 4/4 bestandene automatische Fälle, zwei A4-Seiten und keine Netzwerkzugriffe für den `index.html`-Hash `52b672a827ee41d18d2e7fa77deb22c1879b1966231fc85fc9b40f81aeacf413`. Die folgenden Hashangaben beschreiben den historischen Lauf vom 24.10.; keiner der Läufe ersetzt eine externe Fach- oder Nutzerabnahme. Die neuen separaten KI- und Mobilansicht-Browserfälle gehören nicht zu diesen vier Nachweisfällen.
 
 **Einordnung:** Technischer, automatisch erzeugter `file://`-Nachweis für Rechner- und Infoseite. **Keine** unabhängige Accessibility-Begutachtung, keine Fach-/Rechtsprüfung, keine Benutzerstudie und **keine Produktfreigabe**.
 

@@ -1,6 +1,6 @@
 # Verifizierter Projektstatus – 19. Oktober 2026
 
-**Arbeitsstand 29.10.2026:** KI-gestützter Schnellstart durch kopierbaren Prompt und validierte, ausdrücklich bestätigte Formularübernahme; Monatsnavigation und Variantenkarten für schmale Bildschirme. Aktueller Arbeitsstand `index.html` SHA-256 `ed138762489a55f6c7850f00171ebd38ca5bb63c93b41d0a8dbf42b12852faac`. Der direkte Chromium-Nachweis wurde am 29.10. für diesen Stand erneuert: **4/4 automatisierte Fälle**, zwei A4-Seiten und keine HTTP(S)-Browseranfragen. Der unten dokumentierte Beleg vom 24.10. gehört zum historischen HTML-Hash. Keine Änderung an unabhängigen Fach-, Nutzer-, Datenschutz- oder Betreiberfreigaben; Release **NO-GO**. Details: [KI-Einstieg](KI-EINSTIEG.md).
+**Arbeitsstand 29.10.2026:** KI-gestützter Schnellstart durch kopierbaren Prompt und validierte, ausdrücklich bestätigte Formularübernahme; Monatsnavigation und Variantenkarten für schmale Bildschirme. Aktueller Arbeitsstand `index.html` SHA-256 `52b672a827ee41d18d2e7fa77deb22c1879b1966231fc85fc9b40f81aeacf413`. Der direkte Chromium-Nachweis wurde nach der Mobilkorrektur für diesen Stand erneuert: **4/4 automatisierte Fälle**, zwei A4-Seiten und keine HTTP(S)-Browseranfragen. Der unten dokumentierte Beleg vom 24.10. gehört zu einem älteren Hash. Keine Änderung an unabhängigen Fach-, Nutzer-, Datenschutz- oder Betreiberfreigaben; Release **NO-GO**. Details: [KI-Einstieg](KI-EINSTIEG.md).
 
 **Produktstatus: TECHNISCH PRÜFBAR · ÖFFENTLICHER PRODUKTRELEASE: NO-GO.**
 

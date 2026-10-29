@@ -1,4 +1,12 @@
 /* V3.8: standalone quickstart layer, no remote styles/assets. */
+/* Warm, calm visual treatment; spacing and the mobile entry hierarchy stay intact. */
+#v38QuickStart{background:linear-gradient(145deg,#f6f7ee 0%,#edf5ee 58%,#fbf6ed 100%);border-color:#d6e2d3;box-shadow:0 16px 40px rgba(47,69,51,.07)}
+#v38QuickStart .v38-orientation{background:linear-gradient(155deg,#f9efe0,#e9f2e7);border-color:#d9e2d2}
+#v38QuickStart .v38-template{border-color:#d9e3d8;box-shadow:0 8px 22px rgba(42,64,48,.045)}
+#v38QuickStart .v38-template:hover{box-shadow:0 12px 26px rgba(42,64,48,.1)}
+#v38QuickStart .v38-template[aria-pressed="true"]{background:#eef7eb;border-color:#326f57}
+#v38QuickStart .v38-summary{box-shadow:0 12px 28px rgba(42,64,48,.045)}
+#v38QuickStart .v38-selection-art{border-radius:12px;aspect-ratio:3/2;object-fit:cover}
 .v38-shell{background:linear-gradient(145deg,#effaf5,#f5faf9 75%);border:1px solid #c6e4d8;border-radius:17px;padding:clamp(15px,2.8vw,27px);box-shadow:0 10px 30px rgba(13,63,54,.045);margin:0 0 20px}
 .v38-intro h2{font-size:clamp(23px,3vw,32px);letter-spacing:-.04em;margin:13px 0 8px}
 .v38-intro>p{font-size:14px;line-height:1.55;color:var(--ink2);max-width:760px;margin:0 0 10px}

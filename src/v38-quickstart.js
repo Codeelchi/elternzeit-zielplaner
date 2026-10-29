@@ -31,6 +31,8 @@ const QuickStartV38=(()=>{
   document.body.classList.toggle('v38-lite',!expert);
   document.body.classList.toggle('v38-expert',expert);
   document.body.classList.toggle('v38-pristine',mode==='idle');
+  const wishContext=node('v42EntryContext');
+  if(wishContext)wishContext.textContent=PUBLIC_TEST_PREVIEW?'Öffentliche Testvorschau: ausschließlich fiktive Angaben verwenden. Eure Wünsche bleiben getrennt vom aktuellen Testplan.':mode==='idle'?'Ihr seht zunächst einen fiktiven Beispielplan. Wünsche bleiben getrennt; persönliche Zahlen könnt ihr im Schnellstart ergänzen.':mode==='example'?'Ihr seht einen fiktiven Beispielplan. Wünsche bleiben getrennt und ändern ihn nicht.':'Der Wunschkalender vergleicht eure Eingaben mit Vorlagen; euer aktueller Plan bleibt zunächst unverändert.';
   const slides=[...document.querySelectorAll('.slide')],indices=visibleSlideIndices();
   for(const btn of node('sectionNav')?.querySelectorAll('[data-slide]')||[]){
    const i=Number(btn.dataset.slide),order=indices.indexOf(i),extra=!expert&&!navCore.has(slides[i]?.id);
@@ -595,6 +597,12 @@ const QuickStartV38=(()=>{
    showSlide(idx);
    const heading=node('slide-region')?.querySelector('h2');
    if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}
+  });
+  node('v42OpenFromStart')?.addEventListener('click',()=>{
+   const index=[...document.querySelectorAll('.slide')].findIndex(x=>x.id==='slide-5');
+   if(index<0)return;
+   showSlide(index);
+   const heading=node('v42WishTitle');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});heading.scrollIntoView?.({behavior:'smooth',block:'start'});}
   });
   node('v311GoalJump')?.addEventListener('click',()=>{
    node('v311Goals')?.scrollIntoView?.({behavior:'smooth',block:'start'});node('v311Priority')?.focus();

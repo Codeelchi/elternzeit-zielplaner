@@ -45,7 +45,8 @@ test('Ohne JavaScript sind alle Tipps und Rechnerangebote zugänglich',()=>{
 
 test('Infoportal lädt keine fremden Ressourcen und sammelt keine Formulardaten',()=>{
  const {document}=portal().window;
- assert.equal(document.querySelectorAll('script[src],link[rel="stylesheet"],iframe,img[src],form,input,textarea').length,0);
+ assert.equal(document.querySelectorAll('script[src],link[rel="stylesheet"],iframe,form,input,textarea').length,0);
+ for(const image of document.querySelectorAll('img[src]'))assert.match(image.getAttribute('src'),/^data:image\/(?:webp|png|jpeg);base64,/);
  assert.doesNotMatch(source,/\b(?:fetch|XMLHttpRequest|localStorage|sessionStorage|sendBeacon)\b/);
  assert.doesNotMatch(source,/url\s*\(/i);
  const authorities=new Set(['www.familienplanung.de','www.gesund-ins-leben.de','familienportal.de','www.elternsein.info','www.kindergesundheit-info.de','www.familienportal.nrw','www.stadt-koeln.de','www.hilfetelefon-schwangere.de']);

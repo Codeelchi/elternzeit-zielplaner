@@ -21,6 +21,24 @@
  <div id="v42MonthDetail" class="v42-month-detail" aria-live="polite"></div>
  </div>
  </div>
+ <section class="v42-wishes" aria-labelledby="v42WishTitle">
+  <div class="v42-wish-heading"><span class="v42-wish-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 10h18m-13 4h3m3 0h3m-9 3h3"/></svg></span><div><h4 id="v42WishTitle">Euer Wunschkalender</h4><p>Legt für jeden Lebensmonat fest, wie ihr arbeiten und euer Kind betreuen möchtet. Die Wünsche bleiben bis zum Neuladen in diesem Tab und ändern den aktiven Plan nicht.</p></div></div>
+  <p id="v42EntryContext" class="v42-entry-context">Eure Wünsche sind eine separate Planung und verändern den aktuellen Plan zunächst nicht.</p>
+  <div class="v42-wish-legend" aria-label="Wunschbereiche"><span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7M5 10v10h14V10M10 20v-6h4v6"/></svg> Zuhause</span><span><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5h8v2M3 12h18"/></svg> Arbeit</span><span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 20s-7-4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5-7 9-7 9Z"/></svg> Betreuung</span></div>
+  <div id="v42WishGrid" class="v42-wish-grid" role="group" aria-label="Lebensmonat für Wünsche auswählen"></div>
+  <div class="v42-wish-form">
+   <label for="v42WishMonth">Lebensmonat<select id="v42WishMonth"></select></label>
+   <p id="v42WishDate" class="v42-wish-date"></p>
+   <label for="v42WishFirst">Elternteil 1<select id="v42WishFirst"><option value="">Noch offen</option><option value="home">Zu Hause / keine Arbeit</option><option value="part">Teilzeit</option><option value="full">Vollzeit</option></select></label>
+   <label for="v42WishSecond">Elternteil 2 · gebärender Elternteil<select id="v42WishSecond"><option value="">Noch offen</option><option value="home">Zu Hause / keine Arbeit</option><option value="part">Teilzeit</option><option value="full">Vollzeit</option></select></label>
+   <label for="v42WishCare">Betreuung des Kindes<select id="v42WishCare"><option value="">Noch offen</option><option value="parents">Elternbetreuung angenommen</option><option value="kita">Kita / Tagespflege angenommen</option></select></label>
+   <label for="v42WishKitaStart">Kita-Beginn für diesen Vergleich<select id="v42WishKitaStart"></select></label>
+   <label for="v42WishObjective">Bei gleicher Übereinstimmung bevorzugen<select id="v42WishObjective"><option value="match">Keine finanzielle Gewichtung</option><option value="total">Höherer gesamter Modellrest</option><option value="floor">Höherer niedrigster Monatsrest</option></select></label>
+  </div>
+  <p>„Zu Hause“ bedeutet hier nur keine modellierte Erwerbsarbeit. Mutterschutz gilt weiterhin gesondert. Kita-Wünsche prüfen die Annahme eines durchgehenden Starts; eine Platzzusage oder stundenweise Deckung ist das nicht. Der Kita-Beginn hier gilt nur für diesen Vergleich und ändert nicht das Budget oder die Kita-Einstellung des aktiven Plans. Die Wünsche sind keine Elterngeld-Auswahl.</p>
+  <div class="v42-wish-actions"><button type="button" class="navbtn" id="v42FindMatches">Passende Modelle vergleichen</button><button type="button" class="navbtn alt" id="v42ClearWishes">Wünsche leeren</button></div>
+  <div id="v42WishResult" class="v42-wish-result" role="status" aria-live="polite"></div>
+ </section>
  <section id="v42Compare" class="v42-compare" aria-labelledby="v42CompareTitle">
   <div class="v42-compare-title">
    <div><h4 id="v42CompareTitle">Varianten direkt vergleichen</h4>

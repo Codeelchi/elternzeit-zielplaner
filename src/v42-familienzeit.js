@@ -2,6 +2,7 @@
 // Financial plan data, stored JSON, localStorage and ledger stay unchanged; selecting a month only updates s.month.
 const FamilyTimeCompareV42=(()=>{
  let saved=[],sequence=0;
+ let wishes=Array.from({length:36},()=>({first:'',second:'',care:''})),wishMonth=1,wishKitaStart=null,wishObjective='match',wishFingerprint='',wishCandidates=[];
  const root=()=>document.getElementById('v42FamilyPlanner');
  const el=id=>document.getElementById(id);
  const esc42=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -31,6 +32,47 @@ const FamilyTimeCompareV42=(()=>{
  function fingerprint(projection){return JSON.stringify(projection);}
  function careLabel(care){
   return care==='planned-kita'?'Kita angenommen*':care==='parent-at-home'?'Elternteil zu Hause*':'Nicht zugeordnet';
+ }
+ function wishKey(){return JSON.stringify([goalInputsFingerprint(),wishes,wishKitaStart,wishObjective]);}
+ function invalidateWishes(){wishFingerprint='';wishCandidates=[];if(el('v42WishResult'))el('v42WishResult').textContent='Wünsche oder Eingaben geändert. Bitte erneut vergleichen.';}
+ function renderWishes(){
+  const select=el('v42WishMonth');if(!select)return;
+  if(!select.options.length)select.innerHTML=Array.from({length:36},(_,i)=>'<option value="'+(i+1)+'">Lebensmonat '+(i+1)+'</option>').join('');
+  const kitaSelect=el('v42WishKitaStart');
+  if(!kitaSelect.options.length)kitaSelect.innerHTML='<option value="0">Kein Start angenommen</option>'+Array.from({length:36},(_,i)=>'<option value="'+(i+1)+'">Ab Lebensmonat '+(i+1)+'</option>').join('');
+  kitaSelect.value=String(wishKitaStart===null?plannedStart():wishKitaStart);
+  el('v42WishObjective').value=wishObjective;
+  select.value=String(wishMonth);el('v42WishDate').textContent=dateFor(wishMonth);
+  const wish=wishes[wishMonth-1];
+  for(const [id,key] of [['v42WishFirst','first'],['v42WishSecond','second'],['v42WishCare','care']])el(id).value=wish[key];
+  el('v42WishGrid').innerHTML=[0,1,2].map(year=>'<section class="v42-wish-year" data-v42-wish-year="'+(year+1)+'"><h5>'+ (year+1)+'. Lebensjahr</h5><div class="v42-year-months">'+wishes.slice(year*12,year*12+12).map((w,j)=>{const i=year*12+j;return '<button type="button" data-v42-wish-month="'+(i+1)+'" data-filled="'+String(Object.values(w).some(Boolean))+'" aria-pressed="'+String(wishMonth===i+1)+'" aria-label="Lebensmonat '+(i+1)+' · '+esc42(dateFor(i+1))+(Object.values(w).some(Boolean)?' · Wünsche gesetzt':' · noch offen')+'">'+(i+1)+'</button>';}).join('')+'</div></section>').join('');
+  if(wishFingerprint&&wishFingerprint!==wishKey())invalidateWishes();
+ }
+ function wantedWork(code){return code==='W'?'full':['R','T','Q','K'].includes(code)?'part':'home';}
+ function findWishMatches(){
+  const wanted=wishes.reduce((n,w)=>n+Object.values(w).filter(Boolean).length,0);
+  if(!wanted){el('v42WishResult').textContent='Bitte zuerst mindestens einen Wunsch für einen Lebensmonat eintragen.';return;}
+  const start=wishKitaStart===null?plannedStart():wishKitaStart,items=[];
+  const financeAvailable=costsKnown()&&start===plannedStart();
+  for(const model of SCENARIOS){
+   const calc=evaluate(makeSchedule(model.id));
+   if(!calc.valid&&!calc.forecastPlanningReady)continue;
+   let matched=0;const differences=[];
+   wishes.forEach((w,i)=>{
+    const row=calc.rows[i];if(!row)return;
+    for(const [key,actual,label] of [['first',wantedWork(row.f),'Elternteil 1'],['second',wantedWork(row.m),'Elternteil 2']])
+     if(w[key]){if(w[key]===actual)matched++;else differences.push('LM '+(i+1)+' '+label);}
+    if(w.care){const actual=w.care==='kita'?start>0&&i+1>=start:wantedWork(row.f)==='home'||wantedWork(row.m)==='home';if(actual)matched++;else differences.push('LM '+(i+1)+' Betreuung');}
+   });
+   const budget=financeAvailable?(wishObjective==='floor'?calc.netLow(configuredHorizon()):calc.sum(configuredHorizon(),'cashAfter')):null;
+   items.push({id:model.id,name:model.name,matched,differences,forecast:!calc.valid,budget});
+  }
+  items.sort((a,b)=>b.matched-a.matched||(wishObjective!=='match'&&financeAvailable?b.budget-a.budget:0)||a.name.localeCompare(b.name,'de'));
+  wishCandidates=items.slice(0,3);wishFingerprint=wishKey();
+  const finance=wishObjective==='match'?'Bei Gleichstand alphabetisch; kein Finanzoptimum.':financeAvailable?'Bei gleicher Übereinstimmung zählt der '+(wishObjective==='floor'?'niedrigste monatliche':'gesamte')+' Rest nach Kosten über '+configuredHorizon()+' Lebensmonate; nur eingegebene Kosten und Modellannahmen.':'Finanzvergleich nicht möglich: Haushaltskosten müssen bekannt sein und der Kita-Beginn muss dem aktiven Plan entsprechen. Bei Gleichstand alphabetisch.';
+  const context='Verglichen werden '+SCENARIOS.length+' vorhandene Vorlagen nach Übereinstimmung mit '+wanted+' Angaben; keine vollständige Suche und kein amtlicher Anspruch. Kita-Annahme nur für diesen Vergleich: '+(start?'ab LM '+start:'kein Start eingetragen')+'. Sie wird nicht in den aktiven Plan übernommen. Zusätzliche Betreuungszeiten, Kosten und Verfügbarkeit sind nicht geprüft. '+finance;
+  if(!items.length){el('v42WishResult').textContent=context+' Kein Modell kann mit den aktuellen Angaben automatisch eingeordnet werden. Bitte Eingaben und Regelprüfung prüfen.';return;}
+  el('v42WishResult').innerHTML='<p>'+esc42(context)+'</p>'+wishCandidates.map(item=>'<article><h5>'+esc42(item.name)+'</h5><p>'+item.matched+' von '+wanted+' Angaben passend'+(item.forecast?' · unverbindliche Prognose':' · technische Plausibilität, keine Bewilligung')+'. '+(item.differences.length?'Abweichungen: '+esc42(item.differences.slice(0,8).join(', '))+(item.differences.length>8?' und weitere':''):'Alle eingetragenen Wünsche passen zur Vorlage.')+(wishObjective!=='match'&&financeAvailable?' Modellierter '+(wishObjective==='floor'?'niedrigster Monatsrest':'Rest gesamt')+': '+esc42(eur42(item.budget))+'.':'')+'</p><button type="button" class="navbtn alt" data-v42-apply-match="'+esc42(item.id)+'">Vorlage übernehmen …</button></article>').join('');
  }
  function cellFor(parent){
   const availability=parent.availability;
@@ -131,6 +173,7 @@ const FamilyTimeCompareV42=(()=>{
    el('v42PreviousMonth').disabled=month===1;
    el('v42NextMonth').disabled=month===period;
    el('v42Comparison').innerHTML=comparisonMarkup(currentView,projection,period);
+   renderWishes();
    el('v42Save').disabled=saved.length>=3;
    el('v42Clear').disabled=saved.length===0;
    if(focused!==null)container.querySelector('[data-v42-month="'+focused+'"]')?.focus({preventScroll:true});
@@ -162,6 +205,15 @@ const FamilyTimeCompareV42=(()=>{
  }
  function click(event){
   const button=event.target.closest('button');if(!button||!root().contains(button))return;
+  if(button.hasAttribute('data-v42-wish-month')){wishMonth=Number(button.dataset.v42WishMonth);renderWishes();el('v42WishGrid').querySelector('[data-v42-wish-month="'+wishMonth+'"]')?.focus();return;}
+  if(button.id==='v42FindMatches'){findWishMatches();return;}
+  if(button.id==='v42ClearWishes'){wishes=Array.from({length:36},()=>({first:'',second:'',care:''}));invalidateWishes();renderWishes();return;}
+  if(button.hasAttribute('data-v42-apply-match')){
+   const id=button.dataset.v42ApplyMatch;
+   if(!wishFingerprint||wishFingerprint!==wishKey()||!wishCandidates.some(x=>x.id===id)){invalidateWishes();return;}
+   if(!confirm('Diese Vorlage ersetzt eure aktuelle Monatsaufteilung und eigene Arbeits- und Leistungsachsen. Eure Wünsche und die Kita-Annahme bleiben unverändert. Fortfahren?'))return;
+   chooseModel(id);invalidateWishes();return;
+  }
   if(button.id==='v42PreviousMonth'||button.id==='v42NextMonth'){
    const target=Math.max(1,Math.min(configuredHorizon(),Number(s.month)+(button.id==='v42NextMonth'?1:-1)));
    s.month=target;renderAll();return;
@@ -193,11 +245,15 @@ const FamilyTimeCompareV42=(()=>{
   const container=root();if(!container)return;
   container.addEventListener('click',click);
   container.addEventListener('keydown',keydown);
+  el('v42WishMonth').addEventListener('change',event=>{wishMonth=Number(event.target.value);renderWishes();});
+  el('v42WishKitaStart').addEventListener('change',event=>{wishKitaStart=Number(event.target.value);invalidateWishes();renderWishes();});
+  el('v42WishObjective').addEventListener('change',event=>{wishObjective=event.target.value;invalidateWishes();renderWishes();});
+  for(const [id,key] of [['v42WishFirst','first'],['v42WishSecond','second'],['v42WishCare','care']])el(id).addEventListener('change',event=>{wishes[wishMonth-1][key]=event.target.value;invalidateWishes();renderWishes();});
  }
  const priorRenderAll=renderAll;
  renderAll=function(...args){const result=priorRenderAll(...args);refresh();return result;};
- return {mount,refresh,save,onReset:()=>clear('Zurückgesetzt: temporäre Varianten wurden gelöscht.'),
-  onImported:()=>clear('Importiert: bisherige temporäre Varianten wurden verworfen.'),
+ return {mount,refresh,save,onReset:()=>{wishes=Array.from({length:36},()=>({first:'',second:'',care:''}));wishMonth=1;wishKitaStart=null;wishObjective='match';invalidateWishes();clear('Zurückgesetzt: temporäre Varianten wurden gelöscht.');},
+  onImported:()=>{wishes=Array.from({length:36},()=>({first:'',second:'',care:''}));wishMonth=1;wishKitaStart=null;wishObjective='match';invalidateWishes();clear('Importiert: bisherige temporäre Varianten wurden verworfen.');},
   state:()=>({count:saved.length,labels:saved.map(slot=>slot.name),persisted:false})};
 })();
 window.__familienzeitV42=FamilyTimeCompareV42;

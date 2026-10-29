@@ -51,6 +51,9 @@ test('synthetic-only direction is visible in input, result, cashflow, task and e
  const {out}=buildPagesPreview();
  const html=readFileSync(path.join(out,'index.html'),'utf8');
  assert.match(html,/Mit fiktiven Zahlen testen/);
+ assert.match(html,/Für diese öffentliche Testvorschau und den KI-Assistenten ausschließlich frei erfundene Daten verwenden/);
+ assert.match(html,/Frage niemals nach echten persönlichen Daten/);
+ assert.doesNotMatch(html,/Gebt persönliche Finanz- oder Familiendaten nur weiter/);
  assert.match(html,/Fiktive Testwerte eingeben – nur fünf Angaben/);
  assert.match(html,/Mit fiktiven Zahlen weiter testen/);
  assert.match(html,/Fiktive Zahlungseingänge \(Testmodus\)/);

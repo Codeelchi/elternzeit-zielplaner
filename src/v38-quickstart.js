@@ -553,6 +553,33 @@ const QuickStartV38=(()=>{
  }
  function mount(){
   if(!node('v38QuickStart'))return;
+  let kiChecked=null;
+  const kiInput=node('kiInput'),kiApply=node('kiApply'),kiStatus=node('kiStatus');
+  kiInput?.addEventListener('input',()=>{kiChecked=null;kiApply.disabled=true;kiStatus.textContent='Vorschlag verändert – bitte erneut prüfen.';});
+  node('kiPreview')?.addEventListener('click',()=>{
+   kiChecked=null;kiApply.disabled=true;
+   try{
+    if(kiInput.value.length>10000)throw Error('Vorschlag ist zu lang.');
+    const data=JSON.parse(kiInput.value),keys=['format','geburt','netto1','netto2','betreuung','ausgaben'];
+    if(!data||typeof data!=='object'||Array.isArray(data)||data.format!=='elternzeit-ki-einstieg-v1'||Object.keys(data).some(k=>!keys.includes(k)))throw Error('Unbekanntes Format oder unbekannte Felder.');
+    const fields=[];
+    if(data.geburt!=null){if(typeof data.geburt!=='string')throw Error('Geburtstermin ist ungültig.');TimeAxes.lifeMonths(data.geburt,1);fields.push(['v38Birth',data.geburt,'Geburtstermin']);}
+    for(const [key,id,label] of [['netto1','v38NetF','Netto Elternteil 1'],['netto2','v38NetM','Netto Elternteil 2'],['ausgaben','v38Expenses','Haushaltsausgaben']]){
+     if(data[key]!=null){if(typeof data[key]!=='number'||!Number.isFinite(data[key])||data[key]<0||data[key]>100000)throw Error(label+': gültigen Betrag von 0 bis 100.000 angeben.');fields.push([id,String(data[key]),label]);}
+    }
+    if(data.betreuung!=null){if(![14,18,24,30,36].includes(data.betreuung))throw Error('Betreuungsdauer ist ungültig.');fields.push(['v38Goal',String(data.betreuung),'Betreuung bis Monate']);}
+    if(!fields.length)throw Error('Keine konkreten Angaben enthalten.');
+    kiChecked={source:kiInput.value,fields};kiApply.disabled=false;
+    kiStatus.textContent='Zur Übernahme vorgeschlagen: '+fields.map(([,value,label])=>label+': '+value).join(' · ')+'. Andere Felder bleiben unverändert.';
+   }catch(error){kiStatus.textContent='Vorschlag nicht übernommen: '+(error instanceof SyntaxError?'Bitte gültiges JSON einfügen.':error.message);}
+  });
+  kiApply?.addEventListener('click',()=>{
+   if(!kiChecked||kiChecked.source!==kiInput.value)return;
+   node('v38Personal').open=true;
+   for(const [id,value] of kiChecked.fields){const field=node(id);field.value=value;field.dispatchEvent(new Event('input',{bubbles:true}));}
+   kiChecked=null;kiApply.disabled=true;kiStatus.textContent='Angaben in die Eingabefelder übernommen. Bitte prüfen und selbst berechnen.';
+   node('v38Birth')?.focus();
+  });
   if(s.storageConsent){mode='restored';selected=Object.keys(templates).find(id=>templates[id].model===s.model)||'';}
   node('v38Templates').querySelectorAll('button[data-v38-template]').forEach(b=>b.addEventListener('click',()=>loadTemplate(b.dataset.v38Template)));
   node('v38PersonalForm')?.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',()=>{

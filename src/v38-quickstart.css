@@ -241,3 +241,5 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  body.v38-lite #v38QuickStart .v38-entry-actions{margin-top:8px}
  body.v38-lite #v38QuickStart .v38-intro h2{margin:6px 0 4px}
 }
+ .ki-assistant{margin:20px 0;padding:18px;border:1px solid #c6dcd1;border-radius:14px;background:#f6faf8;line-height:1.55;color:#284a40}
+ .ki-assistant summary{cursor:pointer;font-weight:750;font-size:1rem}.ki-assistant label{display:block;font-weight:700;margin:14px 0 6px}.ki-assistant textarea{width:100%;padding:10px;border:1px solid #9ebbb0;border-radius:8px;font:inherit;resize:vertical}.ki-prompt{white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;padding:12px;background:white;border:1px solid #d4e5dc;border-radius:8px;font:inherit;font-size:.875rem}.ki-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.ki-actions button:disabled{opacity:.5;cursor:not-allowed}

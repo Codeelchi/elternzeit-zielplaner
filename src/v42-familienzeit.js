@@ -92,12 +92,24 @@ const FamilyTimeCompareV42=(()=>{
     '<td>'+v.homeMonths.first+' / '+v.homeMonths.second+'</td>'+
     '<td>'+status+'<small>Kein Bewilligungsnachweis</small></td></tr>';
   }).join('');
+  const cards=items.map(item=>{
+   const v=item.view,costs=v.expensesKnown;
+   const pairs=[['Einnahmen vor Kosten, gesamt',eur42(v.totalIncome)],
+    ['Niedrigster Rest je LM',costs?eur42(v.minAvailable):'Nicht vergleichbar'],
+    ['Rest gesamt',costs?eur42(v.totalAvailable):'Nicht vergleichbar'],
+    ['Kumulierte Modellunterdeckung',costs?eur42(v.requiredBuffer):'Nicht berechenbar'],
+    ['Betreuung nicht zugeordnet',v.firstUnattributed===null?'Keine im betrachteten Modell':'LM '+v.firstUnattributed],
+    ['Zuhause LM, Eltern 1 / 2',v.homeMonths.first+' / '+v.homeMonths.second],
+    ['Prüfstatus',v.validationStatus+' · Kein Bewilligungsnachweis']];
+   return '<article class="v42-compare-card"><h5>'+esc42(item.name)+'</h5><p>Geburtsdatum '+esc42(item.projection.date)+'</p><dl>'+
+    pairs.map(([label,value])=>'<div><dt>'+esc42(label)+'</dt><dd>'+esc42(value)+'</dd></div>').join('')+'</dl></article>';
+  }).join('');
   return '<p class="v42-compare-note">Gleicher Vergleichszeitraum: LM 1–'+period+
    '. Aktueller Plan plus maximal drei unveränderliche Momentaufnahmen. Alle Einnahmen vor Kosten, keine sicheren Zahlungszeitpunkte.'+
    (isDifferent?' <strong>Achtung: Gespeicherte Varianten verwenden unterschiedliche Geburtsdaten.</strong>':'')+'</p>'+
    (saved.length?'<ul class="v42-saved" aria-label="Gemerkte Varianten">'+saved.map(slot=>
       '<li><span>'+esc42(slot.name)+'</span><button type="button" data-v42-remove="'+slot.id+'" aria-label="'+esc42(slot.name)+' entfernen">Entfernen</button></li>').join('')+'</ul>':'<p>Keine weiteren Varianten gemerkt. Wähle ein Modell, merke es und ändere anschließend den aktiven Plan.</p>')+
-   '<div class="v42-compare-scroll" tabindex="0" aria-label="Vergleichstabelle horizontal verschieben"><table>'+
+   '<div class="v42-compare-cards">'+cards+'</div><div class="v42-compare-scroll" tabindex="0" aria-label="Vergleichstabelle horizontal verschieben"><table>'+
    '<caption>Modellvergleich im selben Lebensmonats-Zeitraum; Tabellenwerte sind keine bestätigten Ansprüche oder Kontoauszüge.</caption>'+
    '<thead><tr><th scope="col">Plan</th><th scope="col">Einnahmen vor Kosten, gesamt</th>'+
    '<th scope="col">Niedrigster Rest je LM</th><th scope="col">Rest gesamt</th>'+
@@ -115,6 +127,9 @@ const FamilyTimeCompareV42=(()=>{
    const month=Math.max(1,Math.min(period,Number(s.month)||1));
    el('v42Timeline').innerHTML=trackMarkup(currentView.months,month);
    el('v42MonthDetail').innerHTML=detailMarkup(currentView.months[month-1]);
+   el('v42MonthPosition').textContent='Lebensmonat '+month+' von '+period;
+   el('v42PreviousMonth').disabled=month===1;
+   el('v42NextMonth').disabled=month===period;
    el('v42Comparison').innerHTML=comparisonMarkup(currentView,projection,period);
    el('v42Save').disabled=saved.length>=3;
    el('v42Clear').disabled=saved.length===0;
@@ -147,6 +162,10 @@ const FamilyTimeCompareV42=(()=>{
  }
  function click(event){
   const button=event.target.closest('button');if(!button||!root().contains(button))return;
+  if(button.id==='v42PreviousMonth'||button.id==='v42NextMonth'){
+   const target=Math.max(1,Math.min(configuredHorizon(),Number(s.month)+(button.id==='v42NextMonth'?1:-1)));
+   s.month=target;renderAll();return;
+  }
   if(button.id==='v42Save'){save();return;}
   if(button.id==='v42Clear'){clear();return;}
   if(button.hasAttribute('data-v42-remove')){

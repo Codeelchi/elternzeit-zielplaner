@@ -11,6 +11,34 @@ function setup(){
  return {dom,doc:dom.window.document,ui:dom.window.__elternzeitTest,v42:dom.window.__familienzeitV42,errors};
 }
 const text=(d,sel)=>d.querySelector(sel)?.textContent||'';
+
+test('month card controls navigate the shared timeline within its boundaries without changing the plan',()=>{
+ const t=setup(),d=t.doc;
+ const before=JSON.parse(JSON.stringify(t.ui.getState()));
+ assert.match(text(d,'#v42MonthPosition'),/3.*24/);
+ d.getElementById('v42NextMonth').click();
+ assert.equal(t.ui.getState().month,4);
+ assert.match(text(d,'#v42MonthDetail h4'),/LM 4/);
+ const after=JSON.parse(JSON.stringify(t.ui.getState()));
+ delete before.month;delete after.month;
+ assert.deepEqual(after,before);
+ d.querySelector('[data-v42-month="1"]').click();
+ assert.equal(d.getElementById('v42PreviousMonth').disabled,true);
+ d.querySelector('[data-v42-month="24"]').click();
+ assert.equal(d.getElementById('v42NextMonth').disabled,true);
+ assert.deepEqual(t.errors,[]);t.dom.window.close();
+});
+test('comparison cards present the same assumptions and metrics for current and saved plans',()=>{
+ const t=setup(),d=t.doc;
+ d.getElementById('v42VariantName').value='Familienzeit';d.getElementById('v42Save').click();
+ const cards=d.querySelectorAll('.v42-compare-card');
+ assert.equal(cards.length,2);
+ assert.match(cards[0].textContent,/Aktueller Plan/);
+ assert.match(cards[1].textContent,/Familienzeit/);
+ for(const card of cards){assert.match(card.textContent,/Einnahmen vor Kosten/);assert.match(card.textContent,/Nicht vergleichbar/);assert.match(card.textContent,/Kein Bewilligungsnachweis/);}
+ assert.match(d.querySelector('.v42-compare-note').textContent,/LM 1–24/);
+ t.dom.window.close();
+});
 test('timeline uses the real evaluated income, status and missing cost semantics for the selected LM',()=>{
  const t=setup(),d=t.doc,rows=t.ui.evaluate().rows;
  assert.equal(d.querySelectorAll('#v42Timeline button[data-v42-month]').length,24);

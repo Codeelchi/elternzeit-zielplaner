@@ -306,10 +306,14 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  body.v38-lite #v38QuickStart .v38-entry-actions{margin-top:8px}
  body.v38-lite #v38QuickStart .v38-intro h2{margin:6px 0 4px}
 }
+ .ki-assistant{margin:20px 0;padding:18px;border:1px solid #c6dcd1;border-radius:14px;background:#f6faf8;line-height:1.55;color:#284a40}
+ .ki-assistant summary{cursor:pointer;font-weight:750;font-size:1rem}.ki-assistant label{display:block;font-weight:700;margin:14px 0 6px}.ki-assistant textarea{width:100%;padding:10px;border:1px solid #9ebbb0;border-radius:8px;font:inherit;resize:vertical}.ki-prompt{white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;padding:12px;background:white;border:1px solid #d4e5dc;border-radius:8px;font:inherit;font-size:.875rem}.ki-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.ki-actions button:disabled{opacity:.5;cursor:not-allowed}
 
 /* V38_STYLES_END */
 /* V42_STYLES_START */
 /* Paket 2: model-only family time track and ephemeral comparisons. */
+.v42-month-layout{display:flex;flex-direction:column}.v42-month-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:14px 0 0}.v42-month-controls span{font-weight:750;color:#245549;font-size:.875rem}.v42-month-controls button:disabled{opacity:.5;cursor:not-allowed}@media(max-width:720px){.v42-month-layout .v42-card-area{order:0}.v42-month-layout .v42-scroll{order:1}.v42-month-controls button{flex:1;min-width:130px}.v42-month-controls span{order:-1;width:100%}}
+.v42-compare-cards{display:none}.v42-compare-card{padding:14px;border:1px solid #c8d9d2;border-radius:12px;background:#fff}.v42-compare-card h5{margin:0 0 5px;font-size:1rem;color:#143b35}.v42-compare-card dl{margin:0}.v42-compare-card dl div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid #e1ebe7}.v42-compare-card dt{font-size:.8rem}.v42-compare-card dd{margin:0;text-align:right;font-size:.8rem;font-weight:700;overflow-wrap:anywhere}@media(max-width:720px){.v42-family .v42-compare-cards{display:grid;gap:10px}.v42-family .v42-compare-scroll{display:none}}
 .v42-family{margin:22px 0 30px;padding:clamp(14px,2vw,24px);border-radius:16px;border:1px solid #b8d2c9;background:#fff;color:#24453d;overflow-wrap:anywhere;max-width:100%}
 .v42-family .v42-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:8px}
 .v42-family h3{font-size:clamp(1.2rem,2vw,1.55rem);line-height:1.32;margin:3px 0 8px;color:#143b35}
@@ -675,8 +679,8 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
     <path d="M17 75h18m29 0h18m29 0h18m29 0h18m29 0h18"/>
   </g>
 </svg>
-  <p>Erst erkunden. Dann anpassen.</p>
-  <ol class="v38-entry-steps"><li>Beispiel ansehen</li><li>Werte anpassen</li><li>Plan prüfen</li></ol>
+  <p>Ein erster Überblick in drei Schritten.</p>
+  <ol class="v38-entry-steps"><li>Beispiel oder eigene Angaben wählen</li><li>Annahmen und Aufteilung prüfen</li><li>Ergebnis und nächste Schritte ansehen</li></ol>
  </aside>
  </div>
  <h3 class="v38-templates-heading">Welches Beispiel möchtet ihr ansehen?</h3>
@@ -688,6 +692,17 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
   <button type="button" class="v38-template" data-v38-template="return" aria-pressed="false"><strong>Früher zurück in den Beruf</strong><span>Frühere Rückkehr, aber möglicher Betreuungsbedarf.</span><small>Beispiel ansehen →</small></button>
  </div>
  <p class="v38-caption">Alle Vorlagen sind unverbindlich. Elterngeld-Netto und genaue Auszahlungstermine werden nicht automatisch aus dem Lohnabrechnungsnetto ermittelt. Für Geburten 2027 bleibt der Rechtsstand ungeprüft.</p>
+ <details class="ki-assistant" id="kiAssistant">
+  <summary>Mit ChatGPT oder einem KI-Assistenten vorbereiten</summary>
+  <p>Ein KI-Assistent kann euch beim Sammeln der fünf Schnellstartangaben helfen. Er ist nicht mit diesem Rechner verbunden und berechnet keinen Anspruch. Gebt persönliche Finanz- oder Familiendaten nur weiter, wenn ihr das beim gewählten Dienst möchtet; zum Ausprobieren genügen fiktive Werte.</p>
+  <p>Kopiert diese Anweisung in euren Assistenten und fügt anschließend seine JSON-Antwort hier ein. Unbekannte Angaben bleiben leer; 0 bedeutet ausdrücklich null Euro.</p>
+  <pre class="ki-prompt">Hilf mir, Angaben für den Elternzeit-Zielplaner zu sammeln. Frage nacheinander nach Geburtstermin (JJJJ-MM-TT), monatlichem Auszahlungsnetto von Elternteil 1 und 2, gewünschter Betreuung bis 14, 18, 24, 30 oder 36 Monate und optionalen monatlichen Haushaltsausgaben. Erkläre, dass Auszahlungsnetto nicht das amtliche Elterngeld-Netto ist. Erfinde keine Werte, berechne keinen Anspruch und verwende null für unbekannte Angaben. Gib nach meiner Bestätigung ausschließlich ein JSON-Objekt aus: {"format":"elternzeit-ki-einstieg-v1","geburt":null,"netto1":null,"netto2":null,"betreuung":null,"ausgaben":null}. Zahlen als Zahlen ohne Währung oder Tausenderzeichen.</pre>
+  <label for="kiInput">JSON-Vorschlag des Assistenten</label>
+  <textarea id="kiInput" rows="6" maxlength="10000" spellcheck="false" placeholder="JSON hier einfügen"></textarea>
+  <div class="ki-actions"><button type="button" id="kiPreview" class="navbtn alt">Vorschlag prüfen</button><button type="button" id="kiApply" class="navbtn" disabled>Geprüfte Angaben in Eingabefelder übernehmen</button></div>
+  <p id="kiStatus" role="status" aria-live="polite">Noch kein Vorschlag geprüft.</p>
+  <p>Die Übernahme ersetzt nur angegebene Schnellstartfelder. Sie startet keine Berechnung und speichert nichts zusätzlich. Prüft alle Felder und startet die Berechnung anschließend selbst.</p>
+ </details>
  <div class="v38-actions">
   <button type="button" id="v311GoalJump" class="navbtn alt">Ziele statt Vorlage festlegen</button>
   <button type="button" id="v315CareJump" class="navbtn alt">Kita-Eingewöhnung planen</button>
@@ -705,8 +720,9 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
     <path d="m73 33 6 6M56 50l6 6"/>
   </g>
 </svg>
+   <p class="v38-caption">Elternteil 2 ist in diesem Modell der gebärende Elternteil; dessen Mutterschutz wird gesondert berücksichtigt. Elternteil 1 bezeichnet den anderen Elternteil.</p>
    <div class="v38-form-grid">
-    <label for="v38Birth">Geburtstermin<input id="v38Birth" type="date" required></label>
+    <label for="v38Birth">Geburtstermin oder tatsächlicher Geburtstag<input id="v38Birth" type="date" required></label>
     <label for="v38NetF">Auszahlungsnetto Elternteil 1 (€)<input id="v38NetF" type="number" min="0" max="100000" step="0.01" required></label>
     <label for="v38NetM">Auszahlungsnetto Elternteil 2 (€)<input id="v38NetM" type="number" min="0" max="100000" step="0.01" required></label>
     <label for="v38Goal">Betreuung bis Kind ... Monate alt ist<select id="v38Goal"><option value="14">14 Monate</option><option value="18">18 Monate</option><option value="24">24 Monate</option><option value="30">30 Monate</option><option value="36">36 Monate</option></select></label>
@@ -901,7 +917,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
         <div class="form-group"><label for="benefitMother">Elterngeldmodell</label><select id="benefitMother" data-build="benefitMother"><option value="B">Basiselterngeld</option><option value="P">ElterngeldPlus</option><option value="M">Mix: zuerst Basis, dann Plus</option><option value="N">Kein Elterngeld</option></select></div>
         <div class="form-group"><label for="basisFirstMother">Basis-Monate bei Mix</label><input id="basisFirstMother" data-build="basisFirstMother" type="number" min="0" max="12" step="1"></div>
         <div class="form-group"><label for="partAfterMother">Teilzeit nach so vielen Elternzeitmonaten</label><select id="partAfterMother" data-build="partAfterMother"></select></div>
-        <div class="form-group"><label for="builderHoursMother">Wochenstunden deiner Frau</label><input id="builderHoursMother" data-field="hoursMother" type="number" min="0" max="40" step="1"><input aria-label="Teilzeitstunden deiner Frau einstellen" class="hour-range" data-field="hoursMother" type="range" min="0" max="32" step="1"></div>
+        <div class="form-group"><label for="builderHoursMother">Wochenstunden Elternteil 2 (gebärender Elternteil)</label><input id="builderHoursMother" data-field="hoursMother" type="number" min="0" max="40" step="1"><input aria-label="Teilzeitstunden von Elternteil 2 einstellen" class="hour-range" data-field="hoursMother" type="range" min="0" max="32" step="1"></div>
       </div>
       <div class="parent-summary" id="motherBuilderSummary"></div>
     </article>
@@ -978,11 +994,20 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
   </div>
   <p class="v42-chip">Nur in diesem Browser-Tab</p>
  </header>
- <p class="v42-help" id="v42TimelineHelp">Ein Lebensmonat lässt sich über die Spaltenüberschrift auswählen. Mit den Pfeiltasten kannst du zum nächsten oder vorherigen Lebensmonat wechseln. Die Tabelle ist auch ohne Farben lesbar.</p>
+ <p class="v42-help" id="v42TimelineHelp">Wählt einen Lebensmonat mit den Monatstasten oder über die Spaltenüberschrift der Tabelle. In der Tabelle sind auch die Pfeiltasten nutzbar. Alle Angaben sind ohne Farben lesbar.</p>
+ <div class="v42-month-layout">
  <div class="v42-scroll" tabindex="0" aria-label="Zeitleiste horizontal verschieben">
   <div id="v42Timeline" aria-live="off"></div>
  </div>
+ <div class="v42-card-area">
+ <div class="v42-month-controls" aria-label="Lebensmonat auswählen">
+  <button type="button" class="navbtn alt" id="v42PreviousMonth">← Vorheriger Monat</button>
+  <span id="v42MonthPosition" aria-live="polite"></span>
+  <button type="button" class="navbtn alt" id="v42NextMonth">Nächster Monat →</button>
+ </div>
  <div id="v42MonthDetail" class="v42-month-detail" aria-live="polite"></div>
+ </div>
+ </div>
  <section id="v42Compare" class="v42-compare" aria-labelledby="v42CompareTitle">
   <div class="v42-compare-title">
    <div><h4 id="v42CompareTitle">Varianten direkt vergleichen</h4>
@@ -1000,6 +1025,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
   <div id="v42Comparison" class="v42-comparison"></div>
  </section>
 </section>
+
 <!-- V42_MARKUP_END -->
 
    <div class="chart-zone">
@@ -7045,6 +7071,33 @@ const QuickStartV38=(()=>{
  }
  function mount(){
   if(!node('v38QuickStart'))return;
+  let kiChecked=null;
+  const kiInput=node('kiInput'),kiApply=node('kiApply'),kiStatus=node('kiStatus');
+  kiInput?.addEventListener('input',()=>{kiChecked=null;kiApply.disabled=true;kiStatus.textContent='Vorschlag verändert – bitte erneut prüfen.';});
+  node('kiPreview')?.addEventListener('click',()=>{
+   kiChecked=null;kiApply.disabled=true;
+   try{
+    if(kiInput.value.length>10000)throw Error('Vorschlag ist zu lang.');
+    const data=JSON.parse(kiInput.value),keys=['format','geburt','netto1','netto2','betreuung','ausgaben'];
+    if(!data||typeof data!=='object'||Array.isArray(data)||data.format!=='elternzeit-ki-einstieg-v1'||Object.keys(data).some(k=>!keys.includes(k)))throw Error('Unbekanntes Format oder unbekannte Felder.');
+    const fields=[];
+    if(data.geburt!=null){if(typeof data.geburt!=='string')throw Error('Geburtstermin ist ungültig.');TimeAxes.lifeMonths(data.geburt,1);fields.push(['v38Birth',data.geburt,'Geburtstermin']);}
+    for(const [key,id,label] of [['netto1','v38NetF','Netto Elternteil 1'],['netto2','v38NetM','Netto Elternteil 2'],['ausgaben','v38Expenses','Haushaltsausgaben']]){
+     if(data[key]!=null){if(typeof data[key]!=='number'||!Number.isFinite(data[key])||data[key]<0||data[key]>100000)throw Error(label+': gültigen Betrag von 0 bis 100.000 angeben.');fields.push([id,String(data[key]),label]);}
+    }
+    if(data.betreuung!=null){if(![14,18,24,30,36].includes(data.betreuung))throw Error('Betreuungsdauer ist ungültig.');fields.push(['v38Goal',String(data.betreuung),'Betreuung bis Monate']);}
+    if(!fields.length)throw Error('Keine konkreten Angaben enthalten.');
+    kiChecked={source:kiInput.value,fields};kiApply.disabled=false;
+    kiStatus.textContent='Zur Übernahme vorgeschlagen: '+fields.map(([,value,label])=>label+': '+value).join(' · ')+'. Andere Felder bleiben unverändert.';
+   }catch(error){kiStatus.textContent='Vorschlag nicht übernommen: '+(error instanceof SyntaxError?'Bitte gültiges JSON einfügen.':error.message);}
+  });
+  kiApply?.addEventListener('click',()=>{
+   if(!kiChecked||kiChecked.source!==kiInput.value)return;
+   node('v38Personal').open=true;
+   for(const [id,value] of kiChecked.fields){const field=node(id);field.value=value;field.dispatchEvent(new Event('input',{bubbles:true}));}
+   kiChecked=null;kiApply.disabled=true;kiStatus.textContent='Angaben in die Eingabefelder übernommen. Bitte prüfen und selbst berechnen.';
+   node('v38Birth')?.focus();
+  });
   if(s.storageConsent){mode='restored';selected=Object.keys(templates).find(id=>templates[id].model===s.model)||'';}
   node('v38Templates').querySelectorAll('button[data-v38-template]').forEach(b=>b.addEventListener('click',()=>loadTemplate(b.dataset.v38Template)));
   node('v38PersonalForm')?.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',()=>{
@@ -7254,12 +7307,24 @@ const FamilyTimeCompareV42=(()=>{
     '<td>'+v.homeMonths.first+' / '+v.homeMonths.second+'</td>'+
     '<td>'+status+'<small>Kein Bewilligungsnachweis</small></td></tr>';
   }).join('');
+  const cards=items.map(item=>{
+   const v=item.view,costs=v.expensesKnown;
+   const pairs=[['Einnahmen vor Kosten, gesamt',eur42(v.totalIncome)],
+    ['Niedrigster Rest je LM',costs?eur42(v.minAvailable):'Nicht vergleichbar'],
+    ['Rest gesamt',costs?eur42(v.totalAvailable):'Nicht vergleichbar'],
+    ['Kumulierte Modellunterdeckung',costs?eur42(v.requiredBuffer):'Nicht berechenbar'],
+    ['Betreuung nicht zugeordnet',v.firstUnattributed===null?'Keine im betrachteten Modell':'LM '+v.firstUnattributed],
+    ['Zuhause LM, Eltern 1 / 2',v.homeMonths.first+' / '+v.homeMonths.second],
+    ['Prüfstatus',v.validationStatus+' · Kein Bewilligungsnachweis']];
+   return '<article class="v42-compare-card"><h5>'+esc42(item.name)+'</h5><p>Geburtsdatum '+esc42(item.projection.date)+'</p><dl>'+
+    pairs.map(([label,value])=>'<div><dt>'+esc42(label)+'</dt><dd>'+esc42(value)+'</dd></div>').join('')+'</dl></article>';
+  }).join('');
   return '<p class="v42-compare-note">Gleicher Vergleichszeitraum: LM 1–'+period+
    '. Aktueller Plan plus maximal drei unveränderliche Momentaufnahmen. Alle Einnahmen vor Kosten, keine sicheren Zahlungszeitpunkte.'+
    (isDifferent?' <strong>Achtung: Gespeicherte Varianten verwenden unterschiedliche Geburtsdaten.</strong>':'')+'</p>'+
    (saved.length?'<ul class="v42-saved" aria-label="Gemerkte Varianten">'+saved.map(slot=>
       '<li><span>'+esc42(slot.name)+'</span><button type="button" data-v42-remove="'+slot.id+'" aria-label="'+esc42(slot.name)+' entfernen">Entfernen</button></li>').join('')+'</ul>':'<p>Keine weiteren Varianten gemerkt. Wähle ein Modell, merke es und ändere anschließend den aktiven Plan.</p>')+
-   '<div class="v42-compare-scroll" tabindex="0" aria-label="Vergleichstabelle horizontal verschieben"><table>'+
+   '<div class="v42-compare-cards">'+cards+'</div><div class="v42-compare-scroll" tabindex="0" aria-label="Vergleichstabelle horizontal verschieben"><table>'+
    '<caption>Modellvergleich im selben Lebensmonats-Zeitraum; Tabellenwerte sind keine bestätigten Ansprüche oder Kontoauszüge.</caption>'+
    '<thead><tr><th scope="col">Plan</th><th scope="col">Einnahmen vor Kosten, gesamt</th>'+
    '<th scope="col">Niedrigster Rest je LM</th><th scope="col">Rest gesamt</th>'+
@@ -7277,6 +7342,9 @@ const FamilyTimeCompareV42=(()=>{
    const month=Math.max(1,Math.min(period,Number(s.month)||1));
    el('v42Timeline').innerHTML=trackMarkup(currentView.months,month);
    el('v42MonthDetail').innerHTML=detailMarkup(currentView.months[month-1]);
+   el('v42MonthPosition').textContent='Lebensmonat '+month+' von '+period;
+   el('v42PreviousMonth').disabled=month===1;
+   el('v42NextMonth').disabled=month===period;
    el('v42Comparison').innerHTML=comparisonMarkup(currentView,projection,period);
    el('v42Save').disabled=saved.length>=3;
    el('v42Clear').disabled=saved.length===0;
@@ -7309,6 +7377,10 @@ const FamilyTimeCompareV42=(()=>{
  }
  function click(event){
   const button=event.target.closest('button');if(!button||!root().contains(button))return;
+  if(button.id==='v42PreviousMonth'||button.id==='v42NextMonth'){
+   const target=Math.max(1,Math.min(configuredHorizon(),Number(s.month)+(button.id==='v42NextMonth'?1:-1)));
+   s.month=target;renderAll();return;
+  }
   if(button.id==='v42Save'){save();return;}
   if(button.id==='v42Clear'){clear();return;}
   if(button.hasAttribute('data-v42-remove')){

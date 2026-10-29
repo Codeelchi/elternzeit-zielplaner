@@ -6,7 +6,7 @@
 
 **Wunschkalender:** Für 36 Lebensmonate mit Kalenderdaten lassen sich Arbeitswünsche beider Eltern und Betreuungsvorstellungen erfassen und mit vorhandenen Vorlagen vergleichen. [Bedienung und Grenzen](docs/WUNSCHKALENDER.md). Die Wünsche bleiben im Tab; es wird kein amtlicher oder global optimaler Anspruch behauptet. Produktrelease weiterhin **NO-GO**.
 
-**Gestaltungskandidat:** Freundliche Familien- und Planungsgrafiken sind direkt in die beiden Offline-Seiten eingebettet; die WebP-Quellen liegen unter `assets/`. Nach Änderungen an den Bildern `node scripts/embed-family-art.mjs` und anschließend `npm run quickstart:sync` ausführen. Der direkte Browsernachweis wurde nach dem späteren Wunschkalender aktualisiert. Produktfreigabe weiterhin **NO-GO**.
+**Gestaltung:** Freundliche Familien- und Planungsgrafiken sind direkt in die beiden Offline-Seiten eingebettet; die WebP-Quellen liegen unter `assets/`. Nach Änderungen an den Bildern `node scripts/embed-family-art.mjs` und anschließend `npm run quickstart:sync` ausführen. Der direkte Browsernachweis wurde nach dem späteren Wunschkalender aktualisiert. Produktfreigabe weiterhin **NO-GO**.
 
 **Arbeitsstand 29.10.2026:** Der Schnellstart bietet eine freiwillige KI-Ausfüllhilfe mit lokaler Vorschau und manueller Übernahme; ein externer Assistent erhält Daten nur durch ausdrückliches Kopieren. Die Familienzeitansicht ergänzt Monatsnavigation und einen kompakten Variantenvergleich. Der [KI-Leitfaden](docs/KI-EINSTIEG.md) beschreibt Format und Datenschutzgrenzen. Der direkte Chromium-Nachweis wurde nach der Mobilkorrektur mit **4/4 automatisierten Fällen** erneuert. Öffentlicher Produktrelease bleibt **NO-GO**.
 

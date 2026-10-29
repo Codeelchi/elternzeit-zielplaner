@@ -43,7 +43,7 @@
 .v44-report-screen-page .v44-print-task{border-bottom:1px solid #d6e1d9;padding:9px 0;break-inside:avoid}
 .v44-report-screen-page .v44-print-task strong{display:block;font-size:.89rem;color:#174839;line-height:1.35}
 .v44-report-screen-page .v44-print-task p{margin:4px 0;font-size:.75rem}
-.v44-report-screen-page .v44-print-task a{word-break:break-all;font-size:.7rem}
+.v44-report-screen-page .v44-print-task a{word-break:break-all;font-size:.75rem}
 .v44-report-screen-page .v44-footnote{margin:9px 0 0;font-size:.75rem;color:#5b5b4d}
 .v44-print-sheet{display:none}
 @media(max-width:520px){
@@ -99,3 +99,16 @@
 @media(max-width:620px){.v44-result-entry{display:block;padding:12px}
  .v44-result-entry button{display:block;margin-top:12px;width:100%}}
 @media print{.v44-result-entry,.v44-back-link{display:none!important}}
+
+/* UX polish: focus, error/empty states, touch targets. Presentation only. */
+.v44-task-hub :is(h3,h2)[tabindex="-1"]:focus,#v44ReportPreview h2[tabindex="-1"]:focus,.v44-report-hub h3:focus{outline:3px solid #ad641a;outline-offset:4px}
+.v44-filters button:focus-visible,.v44-report-buttons button:focus-visible{outline:3px solid #ad641a;outline-offset:3px}
+.v44-filters button[aria-pressed=true]::before{content:"\2713\00a0"}
+.v44-filters button{min-width:44px}
+.v44-task-list .v44-empty{border:1px dashed #8fb3a0;color:#2f5546;font-size:.9rem;line-height:1.55;text-align:center}
+.v44-feedback:not(:empty){border-left-width:4px;font-size:.875rem;line-height:1.5}
+.v44-task-list article p,.v44-task-list .v44-task-meta,.v44-task-list .v44-task-source,.v44-task-list label{min-width:0;overflow-wrap:anywhere}
+.v44-task-list select{width:100%}
+@media(max-width:520px){.v44-report-screen-page table{min-width:0}.v44-report-screen-page .v44-table-wrap{overflow-x:auto}.v44-back-link{display:inline-flex;align-items:center}}
+@media(prefers-reduced-motion:reduce){.v44-task-hub *,.v44-report-hub *{scroll-behavior:auto;transition:none!important}}
+@media print{.v44-filters button[aria-pressed=true]::before{content:none}}

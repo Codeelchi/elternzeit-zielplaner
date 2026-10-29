@@ -253,3 +253,31 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  .ki-assistant summary{cursor:pointer;font-weight:750;font-size:1rem}.ki-assistant label{display:block;font-weight:700;margin:14px 0 6px}.ki-assistant textarea{width:100%;padding:10px;border:1px solid #9ebbb0;border-radius:8px;font:inherit;resize:vertical}.ki-prompt{white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;padding:12px;background:white;border:1px solid #d4e5dc;border-radius:8px;font:inherit;font-size:.875rem}.ki-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.ki-actions button:disabled{opacity:.5;cursor:not-allowed}
 
 .v38-hints{margin:10px 0}.v38-hints ul{margin:6px 0 0;padding-left:18px}.v38-hints p{margin:0}
+
+/* UX polish: step guidance, error/empty states, touch targets, 12px floor, 320px safety. */
+#v38QuickStart .v38-entry-steps li{min-height:44px}
+#v38QuickStart .v38-template{min-height:48px;touch-action:manipulation}
+#v38QuickStart .v38-template[aria-pressed="true"]::after{display:inline-flex;align-items:center;min-height:24px}
+#v38QuickStart .v38-error:not(:empty){padding:10px 12px;border:1px solid #b44535;border-left-width:5px;border-radius:8px;background:#fff3f1;color:#7a2a20;font-size:.875rem;line-height:1.5}
+#v38QuickStart .v38-error:not(:empty)::before{content:"Bitte prüfen: ";font-weight:800}
+#v38QuickStart .v38-summary:focus-within{outline:0}
+#v38QuickStart .v38-summary h3[tabindex="-1"]:focus{outline:3px solid #974500;outline-offset:4px}
+#v38QuickStart .v38-kpi span,#v38QuickStart .v38-kpi small,.v38-template span,.v38-template small,.v38-caption,.v38-error,.v38-notice,#v38CostBanner{font-size:max(12px,.75rem)}
+#v38QuickStart .v38-hints:not([hidden]){font-size:.875rem;line-height:1.5;padding:10px 12px}
+#v38QuickStart :is(input,select,textarea,button,summary,a){min-height:44px}
+#v38QuickStart input[type="checkbox"],#v38QuickStart input[type="radio"]{min-height:0}
+#v38QuickStart .v38-personal>summary{display:flex;align-items:center}
+#v38QuickStart .v38-form-grid input:focus-visible,#v38QuickStart .v38-form-grid select:focus-visible,#v38QuickStart .ki-assistant textarea:focus-visible{outline:3px solid #974500;outline-offset:2px}
+#v38QuickStart .v38-form-grid [aria-invalid="true"]{border-width:2px}
+#v38QuickStart .v38-summary:empty::before{content:"Noch kein Ergebnis. Wählt ein Beispiel oder gebt eigene Werte ein.";display:block;padding:12px;color:#38584f}
+#v38QuickStart .v38-summary table,#v38QuickStart .v38-summary pre{max-width:100%}
+#v38QuickStart .v38-summary .v38-table-wrap,#v38QuickStart .v38-summary [role="region"]{max-width:100%;overflow-x:auto}
+#v38QuickStart img,#v38QuickStart svg{max-width:100%;height:auto}
+@media(max-width:360px){
+ #v38QuickStart{padding:14px 12px}
+ #v38QuickStart .v38-personal,.v38-advice,.v38-import-panel{padding:12px}
+ #v38QuickStart .v38-intro h2{font-size:1.5rem}
+ .v38-footer-actions button,.v38-actions button{width:100%}
+ body.v38-lite .footer-nav .navbtn{padding-inline:10px}
+}
+@media(prefers-reduced-motion:reduce){#v38QuickStart *{scroll-behavior:auto;transition:none!important}}

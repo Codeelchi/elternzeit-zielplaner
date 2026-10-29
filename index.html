@@ -319,6 +319,34 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 
 .v38-hints{margin:10px 0}.v38-hints ul{margin:6px 0 0;padding-left:18px}.v38-hints p{margin:0}
 
+/* UX polish: step guidance, error/empty states, touch targets, 12px floor, 320px safety. */
+#v38QuickStart .v38-entry-steps li{min-height:44px}
+#v38QuickStart .v38-template{min-height:48px;touch-action:manipulation}
+#v38QuickStart .v38-template[aria-pressed="true"]::after{display:inline-flex;align-items:center;min-height:24px}
+#v38QuickStart .v38-error:not(:empty){padding:10px 12px;border:1px solid #b44535;border-left-width:5px;border-radius:8px;background:#fff3f1;color:#7a2a20;font-size:.875rem;line-height:1.5}
+#v38QuickStart .v38-error:not(:empty)::before{content:"Bitte prüfen: ";font-weight:800}
+#v38QuickStart .v38-summary:focus-within{outline:0}
+#v38QuickStart .v38-summary h3[tabindex="-1"]:focus{outline:3px solid #974500;outline-offset:4px}
+#v38QuickStart .v38-kpi span,#v38QuickStart .v38-kpi small,.v38-template span,.v38-template small,.v38-caption,.v38-error,.v38-notice,#v38CostBanner{font-size:max(12px,.75rem)}
+#v38QuickStart .v38-hints:not([hidden]){font-size:.875rem;line-height:1.5;padding:10px 12px}
+#v38QuickStart :is(input,select,textarea,button,summary,a){min-height:44px}
+#v38QuickStart input[type="checkbox"],#v38QuickStart input[type="radio"]{min-height:0}
+#v38QuickStart .v38-personal>summary{display:flex;align-items:center}
+#v38QuickStart .v38-form-grid input:focus-visible,#v38QuickStart .v38-form-grid select:focus-visible,#v38QuickStart .ki-assistant textarea:focus-visible{outline:3px solid #974500;outline-offset:2px}
+#v38QuickStart .v38-form-grid [aria-invalid="true"]{border-width:2px}
+#v38QuickStart .v38-summary:empty::before{content:"Noch kein Ergebnis. Wählt ein Beispiel oder gebt eigene Werte ein.";display:block;padding:12px;color:#38584f}
+#v38QuickStart .v38-summary table,#v38QuickStart .v38-summary pre{max-width:100%}
+#v38QuickStart .v38-summary .v38-table-wrap,#v38QuickStart .v38-summary [role="region"]{max-width:100%;overflow-x:auto}
+#v38QuickStart img,#v38QuickStart svg{max-width:100%;height:auto}
+@media(max-width:360px){
+ #v38QuickStart{padding:14px 12px}
+ #v38QuickStart .v38-personal,.v38-advice,.v38-import-panel{padding:12px}
+ #v38QuickStart .v38-intro h2{font-size:1.5rem}
+ .v38-footer-actions button,.v38-actions button{width:100%}
+ body.v38-lite .footer-nav .navbtn{padding-inline:10px}
+}
+@media(prefers-reduced-motion:reduce){#v38QuickStart *{scroll-behavior:auto;transition:none!important}}
+
 /* V38_STYLES_END */
 /* V42_STYLES_START */
 /* Paket 2: model-only family time track and ephemeral comparisons. */
@@ -509,7 +537,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 .v44-report-screen-page .v44-print-task{border-bottom:1px solid #d6e1d9;padding:9px 0;break-inside:avoid}
 .v44-report-screen-page .v44-print-task strong{display:block;font-size:.89rem;color:#174839;line-height:1.35}
 .v44-report-screen-page .v44-print-task p{margin:4px 0;font-size:.75rem}
-.v44-report-screen-page .v44-print-task a{word-break:break-all;font-size:.7rem}
+.v44-report-screen-page .v44-print-task a{word-break:break-all;font-size:.75rem}
 .v44-report-screen-page .v44-footnote{margin:9px 0 0;font-size:.75rem;color:#5b5b4d}
 .v44-print-sheet{display:none}
 @media(max-width:520px){
@@ -565,6 +593,19 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 @media(max-width:620px){.v44-result-entry{display:block;padding:12px}
  .v44-result-entry button{display:block;margin-top:12px;width:100%}}
 @media print{.v44-result-entry,.v44-back-link{display:none!important}}
+
+/* UX polish: focus, error/empty states, touch targets. Presentation only. */
+.v44-task-hub :is(h3,h2)[tabindex="-1"]:focus,#v44ReportPreview h2[tabindex="-1"]:focus,.v44-report-hub h3:focus{outline:3px solid #ad641a;outline-offset:4px}
+.v44-filters button:focus-visible,.v44-report-buttons button:focus-visible{outline:3px solid #ad641a;outline-offset:3px}
+.v44-filters button[aria-pressed=true]::before{content:"\2713\00a0"}
+.v44-filters button{min-width:44px}
+.v44-task-list .v44-empty{border:1px dashed #8fb3a0;color:#2f5546;font-size:.9rem;line-height:1.55;text-align:center}
+.v44-feedback:not(:empty){border-left-width:4px;font-size:.875rem;line-height:1.5}
+.v44-task-list article p,.v44-task-list .v44-task-meta,.v44-task-list .v44-task-source,.v44-task-list label{min-width:0;overflow-wrap:anywhere}
+.v44-task-list select{width:100%}
+@media(max-width:520px){.v44-report-screen-page table{min-width:0}.v44-report-screen-page .v44-table-wrap{overflow-x:auto}.v44-back-link{display:inline-flex;align-items:center}}
+@media(prefers-reduced-motion:reduce){.v44-task-hub *,.v44-report-hub *{scroll-behavior:auto;transition:none!important}}
+@media print{.v44-filters button[aria-pressed=true]::before{content:none}}
 
 /* V44_STYLES_END */
 
@@ -7946,14 +7987,17 @@ const PlanActionsV44=(()=>{
   });
   const resultsIndex=[...document.querySelectorAll('.slide')].findIndex(slide=>slide.id==='slide-10');
   const actionsIndex=[...document.querySelectorAll('.slide')].findIndex(slide=>slide.id==='slide-9');
-  byId('v44OpenActions').addEventListener('click',()=>{if(actionsIndex>=0)showSlide(actionsIndex);});
-  byId('v44BackResults').addEventListener('click',()=>{if(resultsIndex>=0)showSlide(resultsIndex);});
+  const focusHeading=id=>{const h=byId(id);if(h){h.tabIndex=-1;h.focus({preventScroll:true});}};
+  byId('v44OpenActions').addEventListener('click',()=>{if(actionsIndex>=0){showSlide(actionsIndex);focusHeading('v44TaskTitle');}});
+  byId('v44BackResults').addEventListener('click',()=>{if(resultsIndex>=0){showSlide(resultsIndex);const h=document.querySelector('#slide-10 h2');if(h){h.tabIndex=-1;h.focus({preventScroll:true});}}});
   byId('v44Preview').addEventListener('click',()=>{
    if(!byId('v44ReportPreview').hidden){
     byId('v44ReportPreview').hidden=true;
     byId('v44Preview').setAttribute('aria-expanded','false');
     byId('v44ReportFeedback').textContent='Vorschau geschlossen.';
-   }else preview();
+   }else{
+    if(preview()!==null){const h=byId('v44ReportPreview').querySelector('h2');if(h){h.tabIndex=-1;h.focus({preventScroll:true});}}
+   }
   });
   byId('v44Print').addEventListener('click',printReport);
   window.addEventListener('afterprint',afterprint);

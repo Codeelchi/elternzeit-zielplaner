@@ -1,5 +1,7 @@
 # Verifizierter Projektstatus – 19. Oktober 2026
 
+**Arbeitsstand 29.10.2026:** KI-gestützter Schnellstart durch kopierbaren Prompt und validierte, ausdrücklich bestätigte Formularübernahme; Monatsnavigation und Variantenkarten für schmale Bildschirme. Aktueller Arbeitsstand `index.html` SHA-256 `ed138762489a55f6c7850f00171ebd38ca5bb63c93b41d0a8dbf42b12852faac`. Der direkte Chromium-Nachweis wurde am 29.10. für diesen Stand erneuert: **4/4 automatisierte Fälle**, zwei A4-Seiten und keine HTTP(S)-Browseranfragen. Der unten dokumentierte Beleg vom 24.10. gehört zum historischen HTML-Hash. Keine Änderung an unabhängigen Fach-, Nutzer-, Datenschutz- oder Betreiberfreigaben; Release **NO-GO**. Details: [KI-Einstieg](KI-EINSTIEG.md).
+
 **Produktstatus: TECHNISCH PRÜFBAR · ÖFFENTLICHER PRODUKTRELEASE: NO-GO.**
 
 Diese Seite ist der **aktuelle Einstieg** für Entwicklung, Fachreview und Betreiberentscheid. Frühere V3.17-, V3.18-, V3.19- und V3.20-Berichte dokumentieren **historische Ausbaustufen**, nicht den gegenwärtigen Branch- oder Freigabestatus. Ein erfolgreiches GitHub Pages **Test-Deployment** darf nicht mit einer Produktfreigabe verwechselt werden.

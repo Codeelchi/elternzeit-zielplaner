@@ -7,11 +7,20 @@
   </div>
   <p class="v42-chip">Nur in diesem Browser-Tab</p>
  </header>
- <p class="v42-help" id="v42TimelineHelp">Ein Lebensmonat lässt sich über die Spaltenüberschrift auswählen. Mit den Pfeiltasten kannst du zum nächsten oder vorherigen Lebensmonat wechseln. Die Tabelle ist auch ohne Farben lesbar.</p>
+ <p class="v42-help" id="v42TimelineHelp">Wählt einen Lebensmonat mit den Monatstasten oder über die Spaltenüberschrift der Tabelle. In der Tabelle sind auch die Pfeiltasten nutzbar. Alle Angaben sind ohne Farben lesbar.</p>
+ <div class="v42-month-layout">
  <div class="v42-scroll" tabindex="0" aria-label="Zeitleiste horizontal verschieben">
   <div id="v42Timeline" aria-live="off"></div>
  </div>
+ <div class="v42-card-area">
+ <div class="v42-month-controls" aria-label="Lebensmonat auswählen">
+  <button type="button" class="navbtn alt" id="v42PreviousMonth">← Vorheriger Monat</button>
+  <span id="v42MonthPosition" aria-live="polite"></span>
+  <button type="button" class="navbtn alt" id="v42NextMonth">Nächster Monat →</button>
+ </div>
  <div id="v42MonthDetail" class="v42-month-detail" aria-live="polite"></div>
+ </div>
+ </div>
  <section id="v42Compare" class="v42-compare" aria-labelledby="v42CompareTitle">
   <div class="v42-compare-title">
    <div><h4 id="v42CompareTitle">Varianten direkt vergleichen</h4>

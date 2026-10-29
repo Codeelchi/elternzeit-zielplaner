@@ -20,8 +20,10 @@ if(mode==='--check'){
  console.log('Direktdatei-Chromium-Nachweis: '+outcome.cases+' automatisierte Fälle, HTML-Quellenhashes aktuell. Keine unabhängige Freigabe.');
  process.exit(0);
 }
-const runner=join(root,'node_modules/.bin/playwright');
-const run=spawnSync(runner,['test','--config=playwright.direct-file.config.mjs',
+// Invoke the JavaScript CLI through Node: .bin/playwright is a shell shim and
+// cannot be spawned directly by Windows without a shell.
+const runner=join(root,'node_modules/@playwright/test/cli.js');
+const run=spawnSync(process.execPath,[runner,'test','--config=playwright.direct-file.config.mjs',
  '--reporter=json'],{
   cwd:root,encoding:'utf8',timeout:210000,maxBuffer:10*1024*1024,
   env:{...process.env,PLAYWRIGHT_PORT:'18932'}

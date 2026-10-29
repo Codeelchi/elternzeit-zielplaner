@@ -88,6 +88,10 @@ function enrichPlanner(html,packageVersion,ruleDate){
   'id="bankAdd" style="margin-top:12px">Testbuchung erfassen</button>',
   'recorded payments action');
  for(const [original,synthetic,label] of [
+  ['Gebt persönliche Finanz- oder Familiendaten nur weiter, wenn ihr das beim gewählten Dienst möchtet; zum Ausprobieren genügen fiktive Werte.',
+   'Für diese öffentliche Testvorschau und den KI-Assistenten ausschließlich frei erfundene Daten verwenden.', 'ai privacy test data'],
+  ['Hilf mir, Angaben für den Elternzeit-Zielplaner zu sammeln.',
+   'Hilf mir, ausschließlich fiktive Testangaben für den Elternzeit-Zielplaner zu sammeln. Frage niemals nach echten persönlichen Daten.', 'ai prompt test data'],
   ['Die Beispiele sind vollständig fiktiv; eigene Angaben sind erst im zweiten Schritt nötig.',
    'Alle Beispiele sind erfunden. Verwendet auch beim Anpassen ausschließlich neue, frei erfundene Testwerte.','preview intro'],
   ['Wählt zuerst ein Beispiel oder gebt eigene Zahlen ein.',

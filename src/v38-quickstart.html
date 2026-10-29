@@ -2,8 +2,8 @@
  <div class="v38-entry-grid">
  <div class="v38-intro">
   <span class="eyebrow">Schnellstart · Version 3.10</span>
-  <h2>Familienzeit verstehen – mit einem Beispiel beginnen.</h2>
-  <p>Wählt eine Vorlage und seht direkt den 36-Monatsplan mit Einnahmen und Betreuung. Die Beispiele sind vollständig fiktiv; eigene Angaben sind erst im zweiten Schritt nötig.</p>
+  <h2>Euren Familienplan Schritt für Schritt entdecken.</h2>
+  <p>Startet mit einem Beispiel oder gebt eure eigenen Annahmen ein. Die Beispiele sind vollständig fiktiv; eigene Angaben sind erst im zweiten Schritt nötig. Anschließend seht ihr den Zeitplan, mögliche Betreuungslücken und geschätzte Einnahmen.</p>
   <div class="v38-entry-actions">
    <a id="v38ExampleJump" class="v38-primary-entry" href="#v38Templates">Beispiel ansehen <span aria-hidden="true">↓</span></a>
   <button type="button" id="v38EditOwn" class="navbtn">Mit eigenen Zahlen planen</button>
@@ -23,8 +23,8 @@
     <path d="M17 75h18m29 0h18m29 0h18m29 0h18m29 0h18"/>
   </g>
 </svg>
-  <p>Erst erkunden. Dann anpassen.</p>
-  <ol class="v38-entry-steps"><li>Beispiel ansehen</li><li>Werte anpassen</li><li>Plan prüfen</li></ol>
+  <p>Ein erster Überblick in drei Schritten.</p>
+  <ol class="v38-entry-steps"><li>Beispiel oder eigene Angaben wählen</li><li>Annahmen und Aufteilung prüfen</li><li>Ergebnis und nächste Schritte ansehen</li></ol>
  </aside>
  </div>
  <h3 class="v38-templates-heading">Welches Beispiel möchtet ihr ansehen?</h3>
@@ -36,6 +36,17 @@
   <button type="button" class="v38-template" data-v38-template="return" aria-pressed="false"><strong>Früher zurück in den Beruf</strong><span>Frühere Rückkehr, aber möglicher Betreuungsbedarf.</span><small>Beispiel ansehen →</small></button>
  </div>
  <p class="v38-caption">Alle Vorlagen sind unverbindlich. Elterngeld-Netto und genaue Auszahlungstermine werden nicht automatisch aus dem Lohnabrechnungsnetto ermittelt. Für Geburten 2027 bleibt der Rechtsstand ungeprüft.</p>
+ <details class="ki-assistant" id="kiAssistant">
+  <summary>Mit ChatGPT oder einem KI-Assistenten vorbereiten</summary>
+  <p>Ein KI-Assistent kann euch beim Sammeln der fünf Schnellstartangaben helfen. Er ist nicht mit diesem Rechner verbunden und berechnet keinen Anspruch. Gebt persönliche Finanz- oder Familiendaten nur weiter, wenn ihr das beim gewählten Dienst möchtet; zum Ausprobieren genügen fiktive Werte.</p>
+  <p>Kopiert diese Anweisung in euren Assistenten und fügt anschließend seine JSON-Antwort hier ein. Unbekannte Angaben bleiben leer; 0 bedeutet ausdrücklich null Euro.</p>
+  <pre class="ki-prompt">Hilf mir, Angaben für den Elternzeit-Zielplaner zu sammeln. Frage nacheinander nach Geburtstermin (JJJJ-MM-TT), monatlichem Auszahlungsnetto von Elternteil 1 und 2, gewünschter Betreuung bis 14, 18, 24, 30 oder 36 Monate und optionalen monatlichen Haushaltsausgaben. Erkläre, dass Auszahlungsnetto nicht das amtliche Elterngeld-Netto ist. Erfinde keine Werte, berechne keinen Anspruch und verwende null für unbekannte Angaben. Gib nach meiner Bestätigung ausschließlich ein JSON-Objekt aus: {"format":"elternzeit-ki-einstieg-v1","geburt":null,"netto1":null,"netto2":null,"betreuung":null,"ausgaben":null}. Zahlen als Zahlen ohne Währung oder Tausenderzeichen.</pre>
+  <label for="kiInput">JSON-Vorschlag des Assistenten</label>
+  <textarea id="kiInput" rows="6" maxlength="10000" spellcheck="false" placeholder="JSON hier einfügen"></textarea>
+  <div class="ki-actions"><button type="button" id="kiPreview" class="navbtn alt">Vorschlag prüfen</button><button type="button" id="kiApply" class="navbtn" disabled>Geprüfte Angaben in Eingabefelder übernehmen</button></div>
+  <p id="kiStatus" role="status" aria-live="polite">Noch kein Vorschlag geprüft.</p>
+  <p>Die Übernahme ersetzt nur angegebene Schnellstartfelder. Sie startet keine Berechnung und speichert nichts zusätzlich. Prüft alle Felder und startet die Berechnung anschließend selbst.</p>
+ </details>
  <div class="v38-actions">
   <button type="button" id="v311GoalJump" class="navbtn alt">Ziele statt Vorlage festlegen</button>
   <button type="button" id="v315CareJump" class="navbtn alt">Kita-Eingewöhnung planen</button>
@@ -53,8 +64,9 @@
     <path d="m73 33 6 6M56 50l6 6"/>
   </g>
 </svg>
+   <p class="v38-caption">Elternteil 2 ist in diesem Modell der gebärende Elternteil; dessen Mutterschutz wird gesondert berücksichtigt. Elternteil 1 bezeichnet den anderen Elternteil.</p>
    <div class="v38-form-grid">
-    <label for="v38Birth">Geburtstermin<input id="v38Birth" type="date" required></label>
+    <label for="v38Birth">Geburtstermin oder tatsächlicher Geburtstag<input id="v38Birth" type="date" required></label>
     <label for="v38NetF">Auszahlungsnetto Elternteil 1 (€)<input id="v38NetF" type="number" min="0" max="100000" step="0.01" required></label>
     <label for="v38NetM">Auszahlungsnetto Elternteil 2 (€)<input id="v38NetM" type="number" min="0" max="100000" step="0.01" required></label>
     <label for="v38Goal">Betreuung bis Kind ... Monate alt ist<select id="v38Goal"><option value="14">14 Monate</option><option value="18">18 Monate</option><option value="24">24 Monate</option><option value="30">30 Monate</option><option value="36">36 Monate</option></select></label>

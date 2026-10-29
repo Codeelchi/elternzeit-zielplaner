@@ -1,6 +1,8 @@
-# Aktueller Offline-Browsernachweis – 24. Oktober 2026
+# Offline-Browsernachweis – historischer Lauf und Erneuerung
 
-**Einordnung:** Technischer, automatisch erzeugter `file://`-Nachweis für die aktuelle Rechner- und Infoseite. **Keine** unabhängige Accessibility-Begutachtung, keine Fach-/Rechtsprüfung, keine Benutzerstudie und **keine Produktfreigabe**.
+**Erneuerung 29.10.2026:** Der Nutzer führte `npm run direct-file:proof:write` auf Windows aus; der aktualisierte [Nachweis](../qa/direct-file-proof-current.json) dokumentiert 4/4 bestandene automatische Fälle, zwei A4-Seiten und keine Netzwerkzugriffe. Der aktuelle `index.html`-Hash lautet `ed138762489a55f6c7850f00171ebd38ca5bb63c93b41d0a8dbf42b12852faac`. Die folgenden Hashangaben beschreiben den historischen Lauf vom 24.10.; weder der neue noch der alte Lauf ersetzt eine externe Fach- oder Nutzerabnahme. Die neuen separaten KI- und Mobilansicht-Browserfälle gehören nicht zu diesen vier Nachweisfällen.
+
+**Einordnung:** Technischer, automatisch erzeugter `file://`-Nachweis für Rechner- und Infoseite. **Keine** unabhängige Accessibility-Begutachtung, keine Fach-/Rechtsprüfung, keine Benutzerstudie und **keine Produktfreigabe**.
 
 ## Abgenommene technische Funktion
 
@@ -11,7 +13,7 @@ Der im Repository eingecheckte [strukturierte Nachweis](../qa/direct-file-proof-
 3. Synthetischer JSON-Export/-Import; Speicher-Opt-in bleibt aus, lokale Daten werden nicht automatisch dauerhaft gespeichert; die 2027-Kohorte wird als nicht unterstützt angezeigt.
 4. Beide Offline-Einstiege bleiben unabhängig von alten, separat archivierten Screenshots oder Belegen erreichbar.
 
-**Geprüfter Softwareinhalt (nicht automatisch die nachfolgenden Git-Commit-Metadaten):**
+**Historischer Softwareinhalt vom 24.10. (nicht der aktuelle Rechner-Hash):**
 
 - `index.html` SHA-256: `b6dbe2e7ba6ce85849aa85aaaffc51433e337a96454489262c8defebcbe8f29b`
 - `start.html` SHA-256: `d78367896ea4560cd74ed7052f2b239cbf78be510bfdcb50d65bb8f495016207`

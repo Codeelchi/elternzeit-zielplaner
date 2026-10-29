@@ -317,6 +317,8 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  .ki-assistant{margin:20px 0;padding:18px;border:1px solid #c6dcd1;border-radius:14px;background:#f6faf8;line-height:1.55;color:#284a40}
  .ki-assistant summary{cursor:pointer;font-weight:750;font-size:1rem}.ki-assistant label{display:block;font-weight:700;margin:14px 0 6px}.ki-assistant textarea{width:100%;padding:10px;border:1px solid #9ebbb0;border-radius:8px;font:inherit;resize:vertical}.ki-prompt{white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;padding:12px;background:white;border:1px solid #d4e5dc;border-radius:8px;font:inherit;font-size:.875rem}.ki-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.ki-actions button:disabled{opacity:.5;cursor:not-allowed}
 
+.v38-hints{margin:10px 0}.v38-hints ul{margin:6px 0 0;padding-left:18px}.v38-hints p{margin:0}
+
 /* V38_STYLES_END */
 /* V42_STYLES_START */
 /* Paket 2: model-only family time track and ephemeral comparisons. */
@@ -735,6 +737,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
     <label for="v38Goal">Betreuung bis Kind ... Monate alt ist<select id="v38Goal"><option value="14">14 Monate</option><option value="18">18 Monate</option><option value="24">24 Monate</option><option value="30">30 Monate</option><option value="36">36 Monate</option></select></label>
     <label for="v38Expenses">Haushaltsausgaben / Monat (optional)<input id="v38Expenses" type="number" min="0" max="100000" step="0.01" placeholder="Noch unbekannt"></label>
    </div>
+   <div id="v38InputHints" class="note warn v38-hints" role="status" aria-live="polite" hidden></div>
    <p class="v38-caption">Für den ersten Vergleich wird das Elterngeld-Netto <strong>vereinfacht</strong> mit dem Auszahlungsnetto gleichgesetzt. Das ist keine amtliche Netto-Ermittlung. Weitere Angaben und eine separate Prüfung sind später erforderlich.</p>
    <details class="v310-netto-help"><summary>Welches Netto ist gemeint?</summary>
     <dl><dt>Auszahlungsnetto</dt><dd>Der gewöhnliche monatliche Betrag auf eurer Gehaltsabrechnung. Er beschreibt euer laufendes Arbeitseinkommen.</dd><dt>Elterngeld-Netto</dt><dd>Eine amtlich pauschalierte Rechengröße aus berücksichtigungsfähigem Einkommen und pauschalen Abzügen. Sie kann vom Auszahlungsnetto abweichen.</dd></dl>
@@ -7243,6 +7246,53 @@ showSlide=function(...args){const r=v38OriginalShowSlide(...args);QuickStartV38.
 const v38OriginalChooseModel=chooseModel;
 chooseModel=function(...args){const r=v38OriginalChooseModel(...args);QuickStartV38.onModelChanged(args[0]);return r;};
 window.__elternzeitV38=QuickStartV38;
+/* Rein informative Plausibilitätshinweise: blockieren oder verändern nichts. */
+const InputHintsV38=(()=>{
+ const MAX_NET=20000,MAX_EXP_FACTOR=3;
+ const num=v=>{const r=String(v??'').trim().replace(',','.');if(r==='')return null;const n=Number(r);return Number.isFinite(n)?n:null;};
+ const eur=n=>n.toLocaleString('de-DE')+' €';
+ function hints({birth='',netF='',netM='',expenses=''}={},today=new Date()){
+  const out=[],f=num(netF),m=num(netM),e=num(expenses);
+  for(const [label,v] of [['Elternteil 1',f],['Elternteil 2',m]]){
+   if(v===null)continue;
+   if(v<0)out.push('Auszahlungsnetto '+label+': Ein negativer Betrag ist ungewöhnlich. Gemeint ist der monatliche Betrag auf der Gehaltsabrechnung.');
+   else if(v>MAX_NET)out.push('Auszahlungsnetto '+label+': '+eur(v)+' pro Monat ist sehr hoch. Bitte prüfen, ob ein Jahresbetrag oder Brutto statt Netto eingetragen wurde.');
+   else if(v>0&&v<100)out.push('Auszahlungsnetto '+label+': '+eur(v)+' pro Monat ist sehr niedrig. Bitte prüfen, ob ein Monatsbetrag gemeint ist.');
+  }
+  if(e!==null){
+   if(e<0)out.push('Haushaltsausgaben: Ein negativer Betrag ist ungewöhnlich.');
+   else if(e>MAX_NET*2)out.push('Haushaltsausgaben: '+eur(e)+' pro Monat ist sehr hoch. Bitte prüfen, ob ein Jahresbetrag eingetragen wurde.');
+   else if(f!==null&&m!==null&&f>=0&&m>=0&&f+m>0&&e>(f+m)*MAX_EXP_FACTOR)out.push('Haushaltsausgaben liegen deutlich über dem Dreifachen beider Nettobeträge. Bitte auf Monatswerte prüfen.');
+  }
+  if(/^\d{4}-\d{2}-\d{2}$/.test(birth)){
+   const d=new Date(birth+'T00:00:00Z');
+   if(!Number.isNaN(d.getTime())){
+    const t=Date.UTC(today.getFullYear(),today.getMonth(),today.getDate()),days=(d.getTime()-t)/864e5;
+    if(days<-365*3)out.push('Geburtsdatum: Das Datum liegt mehr als drei Jahre zurück. Bitte das Jahr prüfen.');
+    else if(days>365*2)out.push('Geburtstermin: Das Datum liegt mehr als zwei Jahre in der Zukunft. Bitte das Jahr prüfen.');
+   }
+  }
+  return out;
+ }
+ function render(){
+  const box=document.getElementById('v38InputHints');if(!box)return [];
+  const val=id=>document.getElementById(id)?.value??'';
+  const list=hints({birth:val('v38Birth'),netF:val('v38NetF'),netM:val('v38NetM'),expenses:val('v38Expenses')});
+  box.textContent='';
+  if(list.length){
+   const p=document.createElement('p'),ul=document.createElement('ul');
+   p.textContent='Zur Kontrolle (nur ein Hinweis, eure Eingaben bleiben unverändert):';
+   for(const x of list){const li=document.createElement('li');li.textContent=x;ul.appendChild(li);}
+   box.append(p,ul);
+  }
+  box.hidden=!list.length;
+  return list;
+ }
+ const form=document.getElementById('v38PersonalForm');
+ form?.querySelectorAll('input').forEach(i=>i.addEventListener('input',render));
+ return {hints,render};
+})();
+window.__elternzeitInputHints=InputHintsV38;
 
 /* V38_RUNTIME_END */
 /* V42_RUNTIME_START */

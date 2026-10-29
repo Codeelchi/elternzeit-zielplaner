@@ -628,9 +628,27 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 .section-nav{background:#fdfcf8;border-color:#dbe6da}.section-nav button.active{background:#e7f1e5;color:#185746}
 .footer-nav{background:#fdfcf8;border-color:#dbe6da}.live-strip{border-color:#d8e7d8}
 @media(prefers-reduced-motion:reduce){.slide{animation:none}}
+/* V3.21 Bedienung: lesbarere Mindestschrift, feste Navigation, klarere Zustände. */
+.skip-link{position:absolute;left:12px;top:-60px;z-index:100;background:#12343a;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:750}.skip-link:focus{top:10px}
+.detail,.input-caption,.status-sub,.footnote,.source-foot,.model-sub,.step p,.callout-list p,.small-pill .label,.form-group label,.chip,.eyebrow,.card .kicker,.status-title,.compare-table td,.link-list a,.link-list span,.action,.section-nav button,.navbtn,.counter,.quick-toggle button{font-size:max(12px,1em)}
+.detail,.input-caption,.status-sub,.footnote,.source-foot,.step p,.callout-list p{line-height:1.6}
+.section-nav{position:sticky;top:0;z-index:20;box-shadow:0 2px 10px rgba(36,66,48,.07)}
+.footer-nav{position:sticky;bottom:0;z-index:20;box-shadow:0 -2px 10px rgba(36,66,48,.07)}
+.section-nav button,.navbtn,.action,.quick-toggle button,.model-card{transition:background .15s,border-color .15s,color .15s,box-shadow .15s}
+.section-nav button:hover:not(.active){background:#eef4ec}
+.navbtn:active,.action:active,.quick-toggle button:active{transform:translateY(1px)}
+.form-group input:hover,.form-group select:hover{border-color:#7fb3a6}
+.form-group input:focus-visible,.form-group select:focus-visible{border-color:#006e64;box-shadow:0 0 0 3px rgba(0,110,100,.18)}
+.form-group input:invalid:not(:placeholder-shown){border-color:#b3422f}
+.model-card.selected{box-shadow:0 0 0 3px rgba(0,142,129,.15)}
+.card{transition:box-shadow .15s}
+.toast{max-width:min(92vw,520px);text-align:center}
+@media(max-width:720px){body{font-size:16px}.slide{padding:24px 16px 32px}.app-shell{padding:0 8px;margin:8px auto}.grid.two,.grid.three,.grid.four,.input-grid,.editbar,.split-main,.chart-zone,.steps,.model-grid,.link-list,.hero{grid-template-columns:1fr}.hero-right{display:none}.form-group input,.form-group select{height:46px;font-size:16px}.progress{width:90px}}
+@media print{.section-nav,.footer-nav{position:static;box-shadow:none}.skip-link{display:none}}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#stage">Zum Inhalt springen</a>
 <div class="app-shell" id="app">
  <header class="topbar noprint">
   <div class="brand"><span class="brand-symbol"></span> FAMILIENFINANZEN <small>/ lokal & privat</small></div>
@@ -654,7 +672,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  </div>
  <div id="globalPlanStatus" class="note warn" aria-live="polite" style="border-radius:0;padding:12px 23px"></div>
  <div id="v38CostBanner" role="status" class="noprint" hidden></div>
- <main class="stage" id="stage">
+ <main class="stage" id="stage" tabindex="-1">
   <section class="slide active" data-title="Überblick" id="slide-1">
    <details class="v317-scope" id="v317Scope">
     <summary><span id="v317ScopeHeading">Passt euer Fall zum Modell?</span> <strong id="v317ScopeStatus" role="status">Modellstatus wird geprüft.</strong></summary>

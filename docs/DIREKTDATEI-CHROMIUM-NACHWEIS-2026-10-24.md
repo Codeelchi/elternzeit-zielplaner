@@ -15,7 +15,7 @@ Der im Repository eingecheckte [strukturierte Nachweis](../qa/direct-file-proof-
 
 **Historischer Softwareinhalt vom 24.10. (nicht der aktuelle Rechner-Hash):**
 
-- `index.html` SHA-256: `584e8298b58e4ab0ec04d842bcaf10f085168912fc0231460dac02db6254851c`
+- `index.html` SHA-256: `07e5b0258140331a2b79be12386ba183c2747eed6cf3dfec30ebe3be3028c0b1`
 - `start.html` SHA-256: `f4ff8839b86bf87c6af2305009abd4fa1812828cd80b2e152f3739cb5efd026f`
 - Browsernachweis, Testskript, Browserkonfiguration, Runner, Validator und Lockfile sind jeweils durch SHA-256 in `qa/direct-file-proof-current.json` gebunden.
 

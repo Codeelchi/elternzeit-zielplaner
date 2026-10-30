@@ -750,6 +750,16 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 details>summary{cursor:pointer;border-radius:6px}details>summary:hover{color:#006e64}
 .small-pill{transition:border-color .15s}.small-pill:hover{border-color:#6fc3b0}
 @media(max-width:720px){.eyebrow{letter-spacing:.04em;font-size:12px}#v38EntryGuidance{margin-top:14px}}
+/* V3.23 Feinschliff: Ankersprünge unter fester Navigation, Auswahl-Rückmeldung, kontrastreiche Darstellung. */
+html{scroll-padding-top:84px;scroll-padding-bottom:84px}
+::selection{background:#bfe6da;color:#12343a}
+#v38QuickStart .v38-template{cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s}
+#v38QuickStart .v38-template:hover{transform:translateY(-2px);border-color:#006e64}
+#v38QuickStart .v38-template:active{transform:none}
+#v38QuickStart .v38-template[aria-pressed="true"]{border-color:#006e64;box-shadow:0 0 0 3px rgba(0,110,100,.18)}
+@media(prefers-contrast:more){.card,.chart-card,.model-card,.small-pill,#v38QuickStart .v38-template{border-color:#12343a}.detail,.input-caption,.footnote,.source-foot{color:#12343a}}
+@media(prefers-reduced-motion:reduce){#v38QuickStart .v38-template:hover{transform:none}}
+@media(forced-colors:active){.status-cell,.model-card.selected,#v38QuickStart .v38-template[aria-pressed="true"]{outline:2px solid CanvasText}}
 </style>
 </head>
 <body>

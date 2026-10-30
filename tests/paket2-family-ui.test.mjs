@@ -137,3 +137,20 @@ test('comparison horizon is always the active shared timeframe and reveals unsup
  assert.deepEqual(t.errors,[]);
  t.dom.window.close();
 });
+
+test('timeline filter, summary and keyboard helpers stay view-only',()=>{
+ const t=setup(),d=t.doc;
+ assert.equal(t.v42.nextMonthForKey(5,'Home',24),1);
+ assert.equal(t.v42.nextMonthForKey(5,'End',24),24);
+ assert.equal(t.v42.nextMonthForKey(1,'ArrowLeft',24),1);
+ assert.equal(t.v42.nextMonthForKey(24,'ArrowRight',24),24);
+ const before=JSON.stringify(t.ui.getState());
+ d.querySelector('[data-v42-filter="income"]').click();
+ assert.equal(d.querySelector('[data-v42-filter="income"]').getAttribute('aria-pressed'),'true');
+ assert.equal(d.querySelector('[data-v42-filter="all"]').getAttribute('aria-pressed'),'false');
+ assert.equal(d.getElementById('v42Timeline').dataset.filter,'income');
+ assert.equal(d.querySelectorAll('#v42Timeline tbody tr').length,5);
+ assert.match(text(d,'#v42FilterSummary'),/Einnahmen vor Kosten/);
+ assert.equal(JSON.stringify(t.ui.getState()),before);
+ assert.deepEqual(t.errors,[]);t.dom.window.close();
+});

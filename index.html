@@ -452,6 +452,14 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 @media(forced-colors:active){.v42-family .v42-cell{border-color:CanvasText}.v42-family button:focus-visible{outline:3px solid Highlight}}
 @media(prefers-reduced-motion:reduce){.v42-family *{transition:none!important;scroll-behavior:auto!important}}
 
+.v42-family .v42-filter{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 6px}
+.v42-family .v42-filter button{min-height:44px;min-width:44px;font-size:.75rem;white-space:normal}
+.v42-family .v42-filter button[aria-pressed="true"]{background:#164e43;border-color:#164e43;color:#fff;font-weight:800}
+.v42-family .v42-filter-summary{font-size:.75rem;margin:4px 0 10px;overflow-wrap:anywhere}
+.v42-family #v42Timeline[data-filter="care"] tr[data-v42-group="income"],.v42-family #v42Timeline[data-filter="income"] tr[data-v42-group="care"]{display:none}
+.v42-family .v42-track button[data-v42-month]{min-height:44px;min-width:44px}
+@media (max-width:480px){.v42-family .v42-filter button{flex:1 1 100%}}
+
 /* V42_STYLES_END */
 /* V43_STYLES_START */
 /* Paket 2C: bounded hypothetical controls and non-certifying comparison. */
@@ -659,6 +667,10 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 @media(prefers-reduced-motion:reduce){.v44-task-hub *,.v44-report-hub *{scroll-behavior:auto;transition:none!important}}
 @media print{.v44-filters button[aria-pressed=true]::before{content:none}}
 
+/* Plain-text share buttons */
+#v44CopyText,#v44SaveText{min-height:44px;min-width:44px;font-size:12px}
+@media print{#v44CopyText,#v44SaveText{display:none!important}}
+
 /* V44_STYLES_END */
 
 /* V3.17: descriptive scope gate, deliberately never a positive release badge. */
@@ -750,6 +762,16 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 details>summary{cursor:pointer;border-radius:6px}details>summary:hover{color:#006e64}
 .small-pill{transition:border-color .15s}.small-pill:hover{border-color:#6fc3b0}
 @media(max-width:720px){.eyebrow{letter-spacing:.04em;font-size:12px}#v38EntryGuidance{margin-top:14px}}
+/* V3.23 Feinschliff: Ankersprünge unter fester Navigation, Auswahl-Rückmeldung, kontrastreiche Darstellung. */
+html{scroll-padding-top:84px;scroll-padding-bottom:84px}
+::selection{background:#bfe6da;color:#12343a}
+#v38QuickStart .v38-template{cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s}
+#v38QuickStart .v38-template:hover{transform:translateY(-2px);border-color:#006e64}
+#v38QuickStart .v38-template:active{transform:none}
+#v38QuickStart .v38-template[aria-pressed="true"]{border-color:#006e64;box-shadow:0 0 0 3px rgba(0,110,100,.18)}
+@media(prefers-contrast:more){.card,.chart-card,.model-card,.small-pill,#v38QuickStart .v38-template{border-color:#12343a}.detail,.input-caption,.footnote,.source-foot{color:#12343a}}
+@media(prefers-reduced-motion:reduce){#v38QuickStart .v38-template:hover{transform:none}}
+@media(forced-colors:active){.status-cell,.model-card.selected,#v38QuickStart .v38-template[aria-pressed="true"]{outline:2px solid CanvasText}}
 </style>
 </head>
 <body>
@@ -1126,6 +1148,12 @@ details>summary{cursor:pointer;border-radius:6px}details>summary:hover{color:#00
   <p class="v42-chip">Nur in diesem Browser-Tab</p>
  </header>
  <p class="v42-help" id="v42TimelineHelp">Wählt einen Lebensmonat mit den Monatstasten oder über die Spaltenüberschrift der Tabelle. In der Tabelle sind auch die Pfeiltasten nutzbar. Alle Angaben sind ohne Farben lesbar.</p>
+ <div class="v42-filter" role="group" aria-label="Zeitstrahl filtern">
+  <button type="button" class="navbtn alt" data-v42-filter="all" aria-pressed="true">Alles</button>
+  <button type="button" class="navbtn alt" data-v42-filter="care" aria-pressed="false">Nur Betreuung</button>
+  <button type="button" class="navbtn alt" data-v42-filter="income" aria-pressed="false">Nur Einkommen</button>
+ </div>
+ <p id="v42FilterSummary" class="v42-filter-summary" aria-live="polite"></p>
  <div class="v42-month-layout">
  <div class="v42-scroll" tabindex="0" aria-label="Zeitleiste horizontal verschieben">
   <div id="v42Timeline" aria-live="off"></div>
@@ -1336,6 +1364,11 @@ details>summary{cursor:pointer;border-radius:6px}details>summary:hover{color:#00
   <button id="v44Preview" class="navbtn alt" type="button" aria-expanded="false" aria-controls="v44ReportPreview">Aktuellen Bericht ansehen</button>
   <button id="v44Print" class="navbtn" type="button">Nur diese zwei A4-Seiten drucken / PDF speichern</button>
  </div>
+ <div class="v44-report-buttons" role="group" aria-label="Zusammenfassung als Klartext teilen">
+  <button id="v44CopyText" class="navbtn alt" type="button">Zusammenfassung kopieren</button>
+  <button id="v44SaveText" class="navbtn alt" type="button">Als Textdatei speichern</button>
+ </div>
+ <p class="v44-note">Klartext „Planungsstand, keine amtliche Bewilligung“ – nur lokal, ohne Netzwerk und ohne Speicherung.</p>
  <div id="v44ReportFeedback" class="v44-feedback" role="status" aria-live="polite"></div>
  <div id="v44ReportPreview" hidden aria-label="Vorschau des aktuell berechneten Berichts"></div>
 </section>
@@ -3946,7 +3979,36 @@ function makePrintSummary({
   ]
  };
 }
-module.exports={prepareTasks,makePrintSummary,MAX_PRINT_TASKS};
+function plainText(report){
+ // Pure text projection of an already built makePrintSummary result. No new rules or amounts.
+ if(!report||!report.family||!Array.isArray(report.bins))throw new TypeError('Berichtsdaten fehlen.');
+ const eur=v=>Number(v).toLocaleString('de-DE',{style:'currency',currency:'EUR'});
+ const dmy=v=>v?v.slice(8,10)+'.'+v.slice(5,7)+'.'+v.slice(0,4):'kein verbindlicher Tag angegeben';
+ const label={open:'noch offen',ready:'Unterlagen vorbereitet',done:'selbst erledigt (nicht amtlich bestätigt)'};
+ const f=report.family;
+ const out=['PLANUNGSSTAND, KEINE AMTLICHE BEWILLIGUNG','Familienplan – Zusammenfassung ('+report.type+')','',
+  'Geburtsdatum: '+dmy(report.birthDate),'Lebensmonate: 1–'+report.horizon,'Modell: '+report.modelLabel,
+  'Prüfstatus: '+report.validationStatus+' (keine Bewilligung)','','LEBENSMONATE (Blöcke von sechs Monaten)'];
+ for(const b of report.bins)
+  out.push('- LM '+b.from+'–'+b.to+': Einnahmen vor Kosten '+eur(b.income)+'; Rest nach Kosten '+
+   (b.rest===null?'nicht berechenbar':eur(b.rest))+'; volle Zuhause-Monate Elternteil 1 / 2: '+b.firstHome+' / '+b.secondHome);
+ out.push('Summe Einnahmen vor Kosten: '+eur(f.totalIncome));
+ out.push('Summe Rest nach Kosten: '+(f.totalAvailable===null||f.totalAvailable===undefined?'nicht berechenbar':eur(f.totalAvailable)));
+ out.push('Haushaltsausgaben je LM: '+(report.expensesKnown?eur(report.expenses):'unbekannt'));
+ out.push('','BETREUUNG','Geplanter Kita-Start: '+(f.childcareStartLm>0?'ab LM '+f.childcareStartLm:'nicht angegeben'),
+  'Erste Betreuung ohne ausdrückliche Zuordnung: '+(f.firstUnattributed===null?'keine im Modell':'LM '+f.firstUnattributed),
+  'Die Kita-Zuordnung ist eine Annahme, keine Platzzusage.','','FRISTEN UND AUFGABEN (Status nur aus dieser Sitzung)');
+ if(report.taskView){
+  const c=report.taskView.counts;
+  out.push('Quellenstand: '+dmy(report.taskView.verifiedAt)+'; '+c.open+' offen, '+c.ready+' vorbereitet, '+c.done+' selbst erledigt, '+c.total+' gesamt');
+  if(report.taskView.needsRecheck)out.push('Achtung: Geburt nach Quellenstand – Rechtslage und Verfahren erneut prüfen.');
+  for(const t of report.taskView.tasks)out.push('- '+dmy(t.dueDate)+' | '+t.title+' | '+label[t.status]);
+ }else out.push(report.taskError||'Keine Aufgabenquelle verfügbar.');
+ out.push('','HINWEIS','Planungsstand, keine amtliche Bewilligung. Kein Elterngeldbescheid, keine Rechtsberatung, kein Zahlungsnachweis.',
+  'Erledigt heißt nur selbst markiert. Enthält private Angaben – bewusst weitergeben.');
+ return out.join('\n')+'\n';
+}
+module.exports={prepareTasks,makePrintSummary,plainText,MAX_PRINT_TASKS};
 
 return Object.freeze(module.exports);})(TimeAxes);
 /* PlanReportV44_END */
@@ -7449,6 +7511,19 @@ const FamilyTimeCompareV42=(()=>{
   expensesKnown:projection.expensesKnown,validationStatus:projection.validationStatus
  });
  function fingerprint(projection){return JSON.stringify(projection);}
+ let timelineFilter='all';
+ const FILTERS=['all','care','income'];
+ function nextMonthForKey(now,key,last){
+  const n=Number(now)||1;
+  return key==='Home'?1:key==='End'?last:Math.max(1,Math.min(last,n+(key==='ArrowRight'?1:key==='ArrowLeft'?-1:0)));
+ }
+ function filterSummary(month,filter,period){
+  const care=careLabel(month.care),money=month.available===null?'Rest nach Kosten nicht berechenbar':'Rest nach Kosten '+eur42(month.available);
+  const head='Lebensmonat '+month.lm+' von '+period+' gewählt. ';
+  if(filter==='care')return head+'Betreuung: '+care+'. Elternteil 1: '+month.first.label+', Elternteil 2: '+month.second.label+'.';
+  if(filter==='income')return head+'Einnahmen vor Kosten '+eur42(month.income)+'; '+money+'.';
+  return head+'Betreuung: '+care+'; Einnahmen vor Kosten '+eur42(month.income)+'.';
+ }
  function careLabel(care){
   return care==='planned-kita'?'Kita angenommen*':care==='parent-at-home'?'Elternteil zu Hause*':'Nicht zugeordnet';
  }
@@ -7502,12 +7577,12 @@ const FamilyTimeCompareV42=(()=>{
  function trackMarkup(months,selected){
   const colHeader=months.map(r=>'<th scope="col"><button type="button" data-v42-month="'+r.lm+'" aria-pressed="'+String(r.lm===selected)+'" aria-label="Lebensmonat '+r.lm+' · '+esc42(dateFor(r.lm))+' auswählen" title="Lebensmonat '+r.lm+' auswählen">'+r.lm+'</button></th>').join('');
   const cell=(row,code,label,cls)=>'<td class="'+(row.lm===selected?'v42-selected':'')+'"><span class="v42-cell '+cls+'" title="'+esc42(label)+'">'+esc42(code)+'</span></td>';
-  const parentRow=(which,label)=>'<tr><th scope="row" class="v42-rowhead">'+label+'</th>'+
+  const parentRow=(which,label)=>'<tr data-v42-group="care"><th scope="row" class="v42-rowhead">'+label+'</th>'+
    months.map(r=>{const v=r[which],c=cellFor(v);return cell(r,c.label,v.label,c.cls);}).join('')+'</tr>';
-  const careRow='<tr><th scope="row" class="v42-rowhead">Betreuung laut Modell</th>'+
+  const careRow='<tr data-v42-group="care"><th scope="row" class="v42-rowhead">Betreuung laut Modell</th>'+
    months.map(r=>cell(r,r.care==='planned-kita'?'Kita*':r.care==='parent-at-home'?'Zuhause*':'Offen',
     careLabel(r.care),r.care==='planned-kita'?'v42-care-kita':r.care==='parent-at-home'?'v42-care-parent':'v42-care-open')).join('')+'</tr>';
-  const monetaryRow=(label,key,unknown=false)=>'<tr><th scope="row" class="v42-rowhead">'+label+'</th>'+
+  const monetaryRow=(label,key,unknown=false)=>'<tr data-v42-group="income"><th scope="row" class="v42-rowhead">'+label+'</th>'+
    months.map(r=>'<td class="v42-money '+(r.lm===selected?'v42-selected':'')+' '+(unknown&&!Number.isFinite(r[key])?'v42-unknown':'')+'">'+
    (r[key]===null?'Unbekannt':esc42(eur42(r[key])))+'</td>').join('')+'</tr>';
   return '<table class="v42-track"><caption>Modellierte Lebensmonate 1 bis '+months.length+
@@ -7588,6 +7663,9 @@ const FamilyTimeCompareV42=(()=>{
    const month=Math.max(1,Math.min(period,Number(s.month)||1));
    el('v42Timeline').innerHTML=trackMarkup(currentView.months,month);
    el('v42MonthDetail').innerHTML=detailMarkup(currentView.months[month-1]);
+   el('v42Timeline').dataset.filter=timelineFilter;
+   el('v42FilterSummary').textContent=filterSummary(currentView.months[month-1],timelineFilter,period);
+   for(const b of container.querySelectorAll('[data-v42-filter]'))b.setAttribute('aria-pressed',String(b.dataset.v42Filter===timelineFilter));
    el('v42MonthPosition').textContent='Lebensmonat '+month+' von '+period;
    el('v42PreviousMonth').disabled=month===1;
    el('v42NextMonth').disabled=month===period;
@@ -7624,6 +7702,7 @@ const FamilyTimeCompareV42=(()=>{
  }
  function click(event){
   const button=event.target.closest('button');if(!button||!root().contains(button))return;
+  if(button.hasAttribute('data-v42-filter')){const f=button.dataset.v42Filter;if(FILTERS.includes(f)){timelineFilter=f;refresh();root().querySelector('[data-v42-filter="'+f+'"]')?.focus({preventScroll:true});}return;}
   if(button.hasAttribute('data-v42-wish-month')){wishMonth=Number(button.dataset.v42WishMonth);renderWishes();el('v42WishGrid').querySelector('[data-v42-wish-month="'+wishMonth+'"]')?.focus();return;}
   if(button.id==='v42FindMatches'){findWishMatches();return;}
   if(button.id==='v42ClearWishes'){wishes=Array.from({length:36},()=>({first:'',second:'',care:''}));invalidateWishes();renderWishes();return;}
@@ -7656,8 +7735,7 @@ const FamilyTimeCompareV42=(()=>{
   if(!button||!root().contains(button)||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
   event.preventDefault();
   const now=Number(button.dataset.v42Month),last=configuredHorizon();
-  const target=event.key==='Home'?1:event.key==='End'?last:
-   Math.max(1,Math.min(last,now+(event.key==='ArrowRight'?1:-1)));
+  const target=nextMonthForKey(now,event.key,last);
   root().querySelector('[data-v42-month="'+target+'"]')?.click();
  }
  function mount(){
@@ -7671,7 +7749,7 @@ const FamilyTimeCompareV42=(()=>{
  }
  const priorRenderAll=renderAll;
  renderAll=function(...args){const result=priorRenderAll(...args);refresh();return result;};
- return {mount,refresh,save,onReset:()=>{wishes=Array.from({length:36},()=>({first:'',second:'',care:''}));wishMonth=1;wishKitaStart=null;wishObjective='match';invalidateWishes();clear('Zurückgesetzt: temporäre Varianten wurden gelöscht.');},
+ return {mount,refresh,save,nextMonthForKey,filterSummary,onReset:()=>{wishes=Array.from({length:36},()=>({first:'',second:'',care:''}));wishMonth=1;wishKitaStart=null;wishObjective='match';invalidateWishes();clear('Zurückgesetzt: temporäre Varianten wurden gelöscht.');},
   onImported:()=>{wishes=Array.from({length:36},()=>({first:'',second:'',care:''}));wishMonth=1;wishKitaStart=null;wishObjective='match';invalidateWishes();clear('Importiert: bisherige temporäre Varianten wurden verworfen.');},
   state:()=>({count:saved.length,labels:saved.map(slot=>slot.name),persisted:false})};
 })();
@@ -8012,6 +8090,36 @@ const PlanActionsV44=(()=>{
   byId('v44ReportFeedback').textContent='Druckansicht aktiviert. Im Browserdialog den gewünschten Drucker oder „Als PDF speichern“ auswählen. Die zwei Seiten enthalten private Modellangaben.';
   try{window.print();}catch(e){document.body.classList.remove('v44-print-active');byId('v44ReportFeedback').textContent='Browser-Druck nicht verfügbar; der Bericht bleibt als Textvorschau sichtbar.';}
  }
+ function summaryText(){return PlanReportV44.plainText(projection());}
+ function setShareStatus(msg){byId('v44ReportFeedback').textContent=msg;}
+ async function copySummary(){
+  let text;
+  try{text=summaryText();}catch(error){setShareStatus('Zusammenfassung nicht berechenbar: '+String(error?.message||error).slice(0,160));return false;}
+  try{
+   if(!navigator.clipboard?.writeText)throw new Error('no clipboard');
+   await navigator.clipboard.writeText(text);
+  }catch{
+   const area=document.createElement('textarea');
+   area.value=text;area.setAttribute('readonly','');area.setAttribute('aria-label','Zusammenfassung als Text');
+   area.style.cssText='position:fixed;left:0;top:0;width:1px;height:1px;opacity:0';
+   document.body.appendChild(area);area.select();
+   let ok=false;try{ok=document.execCommand('copy');}catch{}
+   area.remove();
+   if(!ok){setShareStatus('Kopieren nicht möglich. Bitte „Als Textdatei speichern“ verwenden.');return false;}
+  }
+  setShareStatus('Zusammenfassung kopiert');return true;
+ }
+ function saveSummary(){
+  let text;
+  try{text=summaryText();}catch(error){setShareStatus('Zusammenfassung nicht berechenbar: '+String(error?.message||error).slice(0,160));return false;}
+  try{
+   const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));
+   const a=document.createElement('a');a.href=url;a.download='familienplan-zusammenfassung.txt';
+   document.body.appendChild(a);a.click();a.remove();
+   setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }catch{setShareStatus('Textdatei konnte nicht erzeugt werden.');return false;}
+  setShareStatus('Textdatei „familienplan-zusammenfassung.txt“ gespeichert (Planungsstand, keine amtliche Bewilligung).');return true;
+ }
  function afterprint(){
   document.body.classList.remove('v44-print-active');
   byId('v44PrintSheet').textContent='';
@@ -8052,6 +8160,8 @@ const PlanActionsV44=(()=>{
    }
   });
   byId('v44Print').addEventListener('click',printReport);
+  byId('v44CopyText').addEventListener('click',copySummary);
+  byId('v44SaveText').addEventListener('click',saveSummary);
   window.addEventListener('afterprint',afterprint);
  }
  // Original checklist and compact cards share the exact same in-memory status map.
@@ -8062,7 +8172,7 @@ const PlanActionsV44=(()=>{
   if(byId('v44ReportPreview')&&!byId('v44ReportPreview').hidden)preview();
   return result;
  };
- return {mount,refreshTasks,preview,printReport,afterprint,
+ return {mount,refreshTasks,preview,printReport,afterprint,summaryText,copySummary,saveSummary,
   state:()=>({filter,printed:document.body.classList.contains('v44-print-active'),persisted:false,
    statusOf:id=>{try{const guide=currentGuide();const task=guide.tasks.find(t=>t.id===id);return task?v315TaskStates.get(v315TaskStatusKey(task))||'open':null;}catch{return null;}}})};
 })();

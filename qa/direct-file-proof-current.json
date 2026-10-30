@@ -1,11 +1,11 @@
 {
   "format": "direct-file-offline-technical-proof-v1",
   "status": "AUTOMATED_ONLY_NOT_INDEPENDENT",
-  "generatedAt": "2026-10-29T23:26:43.645Z",
+  "generatedAt": "2026-10-30T23:11:41.086Z",
   "appVersion": "3.10.0",
   "sourceSha256": {
-    "index.html": "584e8298b58e4ab0ec04d842bcaf10f085168912fc0231460dac02db6254851c",
-    "start.html": "f4ff8839b86bf87c6af2305009abd4fa1812828cd80b2e152f3739cb5efd026f",
+    "index.html": "3c1ccf313491a4842fa0b664a50022af1ceddadcc8dd3e32d16380e4fb8a394a",
+    "start.html": "25e8ed019a46ae684c2c6813a1c9c5047bc9d945c2e095ac49a4b421f04224ee",
     "tests/e2e/current-direct-file.spec.mjs": "1a457d3f57006470074365948f65533b17c7967f9a0401c3f092f5419691ed29",
     "playwright.direct-file.config.mjs": "7b30c154a12ec2758ec0a0b4dbae487df20d9aaa4aec7b4fd737dc30b3b9bdb5",
     "scripts/direct-file-proof.mjs": "dfb83181428f1c60e95e87ebfc4ad9e699ad59074430642f936c650b73e9337d",
@@ -25,7 +25,7 @@
       "direct-file safe JSON export/import, storage refusal, 2027 caution and restart without network",
       "direct-file is actual local content for both independent entry points, not the historical QA snapshot"
     ],
-    "durationMs": 19742
+    "durationMs": 11746
   },
   "constraints": {
     "pageProtocol": "file:",

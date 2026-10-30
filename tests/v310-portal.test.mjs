@@ -45,7 +45,8 @@ test('Ohne JavaScript sind alle Tipps und Rechnerangebote zugänglich',()=>{
 
 test('Infoportal lädt keine fremden Ressourcen und sammelt keine Formulardaten',()=>{
  const {document}=portal().window;
- assert.equal(document.querySelectorAll('script[src],link[rel="stylesheet"],iframe,form,input,textarea').length,0);
+ assert.equal(document.querySelectorAll('script[src],link[rel="stylesheet"],iframe,form,input:not([type="search"]),textarea').length,0);
+ assert.equal(document.querySelectorAll('input').length,1);
  for(const image of document.querySelectorAll('img[src]'))assert.match(image.getAttribute('src'),/^data:image\/(?:webp|png|jpeg);base64,/);
  assert.doesNotMatch(source,/\b(?:fetch|XMLHttpRequest|localStorage|sessionStorage|sendBeacon)\b/);
  assert.doesNotMatch(source,/url\s*\(/i);

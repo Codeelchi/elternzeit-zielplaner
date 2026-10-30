@@ -30,6 +30,19 @@ const FamilyTimeCompareV42=(()=>{
   expensesKnown:projection.expensesKnown,validationStatus:projection.validationStatus
  });
  function fingerprint(projection){return JSON.stringify(projection);}
+ let timelineFilter='all';
+ const FILTERS=['all','care','income'];
+ function nextMonthForKey(now,key,last){
+  const n=Number(now)||1;
+  return key==='Home'?1:key==='End'?last:Math.max(1,Math.min(last,n+(key==='ArrowRight'?1:key==='ArrowLeft'?-1:0)));
+ }
+ function filterSummary(month,filter,period){
+  const care=careLabel(month.care),money=month.available===null?'Rest nach Kosten nicht berechenbar':'Rest nach Kosten '+eur42(month.available);
+  const head='Lebensmonat '+month.lm+' von '+period+' gewählt. ';
+  if(filter==='care')return head+'Betreuung: '+care+'. Elternteil 1: '+month.first.label+', Elternteil 2: '+month.second.label+'.';
+  if(filter==='income')return head+'Einnahmen vor Kosten '+eur42(month.income)+'; '+money+'.';
+  return head+'Betreuung: '+care+'; Einnahmen vor Kosten '+eur42(month.income)+'.';
+ }
  function careLabel(care){
   return care==='planned-kita'?'Kita angenommen*':care==='parent-at-home'?'Elternteil zu Hause*':'Nicht zugeordnet';
  }
@@ -83,12 +96,12 @@ const FamilyTimeCompareV42=(()=>{
  function trackMarkup(months,selected){
   const colHeader=months.map(r=>'<th scope="col"><button type="button" data-v42-month="'+r.lm+'" aria-pressed="'+String(r.lm===selected)+'" aria-label="Lebensmonat '+r.lm+' · '+esc42(dateFor(r.lm))+' auswählen" title="Lebensmonat '+r.lm+' auswählen">'+r.lm+'</button></th>').join('');
   const cell=(row,code,label,cls)=>'<td class="'+(row.lm===selected?'v42-selected':'')+'"><span class="v42-cell '+cls+'" title="'+esc42(label)+'">'+esc42(code)+'</span></td>';
-  const parentRow=(which,label)=>'<tr><th scope="row" class="v42-rowhead">'+label+'</th>'+
+  const parentRow=(which,label)=>'<tr data-v42-group="care"><th scope="row" class="v42-rowhead">'+label+'</th>'+
    months.map(r=>{const v=r[which],c=cellFor(v);return cell(r,c.label,v.label,c.cls);}).join('')+'</tr>';
-  const careRow='<tr><th scope="row" class="v42-rowhead">Betreuung laut Modell</th>'+
+  const careRow='<tr data-v42-group="care"><th scope="row" class="v42-rowhead">Betreuung laut Modell</th>'+
    months.map(r=>cell(r,r.care==='planned-kita'?'Kita*':r.care==='parent-at-home'?'Zuhause*':'Offen',
     careLabel(r.care),r.care==='planned-kita'?'v42-care-kita':r.care==='parent-at-home'?'v42-care-parent':'v42-care-open')).join('')+'</tr>';
-  const monetaryRow=(label,key,unknown=false)=>'<tr><th scope="row" class="v42-rowhead">'+label+'</th>'+
+  const monetaryRow=(label,key,unknown=false)=>'<tr data-v42-group="income"><th scope="row" class="v42-rowhead">'+label+'</th>'+
    months.map(r=>'<td class="v42-money '+(r.lm===selected?'v42-selected':'')+' '+(unknown&&!Number.isFinite(r[key])?'v42-unknown':'')+'">'+
    (r[key]===null?'Unbekannt':esc42(eur42(r[key])))+'</td>').join('')+'</tr>';
   return '<table class="v42-track"><caption>Modellierte Lebensmonate 1 bis '+months.length+
@@ -169,6 +182,9 @@ const FamilyTimeCompareV42=(()=>{
    const month=Math.max(1,Math.min(period,Number(s.month)||1));
    el('v42Timeline').innerHTML=trackMarkup(currentView.months,month);
    el('v42MonthDetail').innerHTML=detailMarkup(currentView.months[month-1]);
+   el('v42Timeline').dataset.filter=timelineFilter;
+   el('v42FilterSummary').textContent=filterSummary(currentView.months[month-1],timelineFilter,period);
+   for(const b of container.querySelectorAll('[data-v42-filter]'))b.setAttribute('aria-pressed',String(b.dataset.v42Filter===timelineFilter));
    el('v42MonthPosition').textContent='Lebensmonat '+month+' von '+period;
    el('v42PreviousMonth').disabled=month===1;
    el('v42NextMonth').disabled=month===period;
@@ -205,6 +221,7 @@ const FamilyTimeCompareV42=(()=>{
  }
  function click(event){
   const button=event.target.closest('button');if(!button||!root().contains(button))return;
+  if(button.hasAttribute('data-v42-filter')){const f=button.dataset.v42Filter;if(FILTERS.includes(f)){timelineFilter=f;refresh();root().querySelector('[data-v42-filter="'+f+'"]')?.focus({preventScroll:true});}return;}
   if(button.hasAttribute('data-v42-wish-month')){wishMonth=Number(button.dataset.v42WishMonth);renderWishes();el('v42WishGrid').querySelector('[data-v42-wish-month="'+wishMonth+'"]')?.focus();return;}
   if(button.id==='v42FindMatches'){findWishMatches();return;}
   if(button.id==='v42ClearWishes'){wishes=Array.from({length:36},()=>({first:'',second:'',care:''}));invalidateWishes();renderWishes();return;}
@@ -237,8 +254,7 @@ const FamilyTimeCompareV42=(()=>{
   if(!button||!root().contains(button)||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
   event.preventDefault();
   const now=Number(button.dataset.v42Month),last=configuredHorizon();
-  const target=event.key==='Home'?1:event.key==='End'?last:
-   Math.max(1,Math.min(last,now+(event.key==='ArrowRight'?1:-1)));
+  const target=nextMonthForKey(now,event.key,last);
   root().querySelector('[data-v42-month="'+target+'"]')?.click();
  }
  function mount(){
@@ -252,7 +268,7 @@ const FamilyTimeCompareV42=(()=>{
  }
  const priorRenderAll=renderAll;
  renderAll=function(...args){const result=priorRenderAll(...args);refresh();return result;};
- return {mount,refresh,save,onReset:()=>{wishes=Array.from({length:36},()=>({first:'',second:'',care:''}));wishMonth=1;wishKitaStart=null;wishObjective='match';invalidateWishes();clear('Zurückgesetzt: temporäre Varianten wurden gelöscht.');},
+ return {mount,refresh,save,nextMonthForKey,filterSummary,onReset:()=>{wishes=Array.from({length:36},()=>({first:'',second:'',care:''}));wishMonth=1;wishKitaStart=null;wishObjective='match';invalidateWishes();clear('Zurückgesetzt: temporäre Varianten wurden gelöscht.');},
   onImported:()=>{wishes=Array.from({length:36},()=>({first:'',second:'',care:''}));wishMonth=1;wishKitaStart=null;wishObjective='match';invalidateWishes();clear('Importiert: bisherige temporäre Varianten wurden verworfen.');},
   state:()=>({count:saved.length,labels:saved.map(slot=>slot.name),persisted:false})};
 })();

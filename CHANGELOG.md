@@ -1,5 +1,29 @@
 # Änderungen
 
+Aktueller Status (Release weiterhin NO-GO): [Technischer Projektstatus](docs/STATUS-TECHNISCH-2026-10-19.md).
+
+## Aus der README verschobene Statusblöcke (Stand 29.10.2026, unverändert übernommen)
+
+**Rechnergestaltung und Wunschkalender:** Der Wunschkalender ist direkt vom Rechner-Einstieg erreichbar und seine Monate sind nach Lebensjahren gruppiert. Rechner und Familienstart verwenden eine gemeinsame warme Gestaltung. Der Direktdatei-Nachweis und fünf separate Kalender-Browserfälle wurden erfolgreich ausgeführt; Produktrelease bleibt **NO-GO**.
+
+**Wunschkalender:** Für 36 Lebensmonate mit Kalenderdaten lassen sich Arbeitswünsche beider Eltern und Betreuungsvorstellungen erfassen und mit vorhandenen Vorlagen vergleichen. [Bedienung und Grenzen](docs/WUNSCHKALENDER.md). Die Wünsche bleiben im Tab; es wird kein amtlicher oder global optimaler Anspruch behauptet. Produktrelease weiterhin **NO-GO**.
+
+**Gestaltung:** Freundliche Familien- und Planungsgrafiken sind direkt in die beiden Offline-Seiten eingebettet; die WebP-Quellen liegen unter `assets/`. Nach Änderungen an den Bildern `node scripts/embed-family-art.mjs` und anschließend `npm run quickstart:sync` ausführen. Der direkte Browsernachweis wurde nach dem späteren Wunschkalender aktualisiert. Produktfreigabe weiterhin **NO-GO**.
+
+**Arbeitsstand 29.10.2026:** Der Schnellstart bietet eine freiwillige KI-Ausfüllhilfe mit lokaler Vorschau und manueller Übernahme; ein externer Assistent erhält Daten nur durch ausdrückliches Kopieren. Die Familienzeitansicht ergänzt Monatsnavigation und einen kompakten Variantenvergleich. Der [KI-Leitfaden](docs/KI-EINSTIEG.md) beschreibt Format und Datenschutzgrenzen. Der direkte Chromium-Nachweis wurde nach der Mobilkorrektur mit **4/4 automatisierten Fällen** erneuert. Öffentlicher Produktrelease bleibt **NO-GO**.
+
+**Historischer technischer Prüfstand (19.10.2026):** Die bisherige Funktionsentwicklung einschließlich V3.17–V3.20 und P1/P2 aus PR #21–#30 ist auf \`main\` integriert. Letzter geprüfter Funktions-Main vor dieser Doku-Aktualisierung: \`3c837cbf47fe818a94157202a2b5699d7e697212\`, [CI erfolgreich](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39162208549); zuletzt reproduziert: **512/512 Node-/DOM- und 93/93 Chromium-Tests**. Paketversion **3.10.0**, JSON-Schema **1**.
+
+**Nachprüfung vom 19.10.2026:** Frisches npm ci und **518/518 Node-/DOM-Tests** einschließlich sechs neuer Dokumentations-Negativtests erfolgreich. Das ist eine technische Prüfung und keine unabhängige Fach- oder Nutzerabnahme.
+
+**Verbindlicher Einstieg:** [Aktueller Projektstatus, offene P0-Gates, Tests und GitHub-Pages-Abgleich](docs/STATUS-TECHNISCH-2026-10-19.md). Offlinefähiger **Familien-Szenario- und Budgetplaner**, **kein amtlicher Elterngeldrechner**. Öffentlicher **Produktrelease weiterhin NO-GO** (4/5 Mutterschutztage ungeklärt, 0/10 unabhängige Referenzfamilien, 0 echte Nutzertests, Rechts-/Datenschutz-/Betreiberfreigaben fehlen). Die **GitHub-Pages-Testvorschau** wurde am 19.10.2026 manuell und erfolgreich auf den damaligen Main-Stand bec8bf0a9ce73d86b165694fa6150dd290d4c5da aktualisiert ([Deploy-Lauf 39208423971](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39208423971)); weitere PR-Änderungen werden **nicht** automatisch auf Pages veröffentlicht. Nur fiktive Testwerte verwenden.
+
+**Technische Fortsetzung 22.10.2026:** [PR #41](https://github.com/Codeelchi/elternzeit-zielplaner/pull/41) ist mit **589/589 Node- und 168/168 Chromium-Tests** auf `main` integriert; Paket 3A/B (lokale A4-Zweiseiten-Ausgabe, Aufgabenübersicht) ist technisch geprüft. Paket 3C bleibt **0 echte Testpersonen / 0 manuelle Screenreaderprüfungen**. Der nun vorbereitete lokale Prüfkoffer ist nur ein **externer Review-Handoff** und hebt keine Release-Gates auf.
+
+**Technischer Direktdatei-Abgleich 24.10.2026:** Die historische Browser-SHA-Abweichung wurde mit aktuellem \`file://\`-Chromium-Nachweis überprüft und der technische Release-Evidence-Bezug erneuert, **ohne** externe P0-Gates freizugeben. Die verpflichtenden GitHub-Tests bleiben unverändert; fehlgeschlagene Browserläufe behalten ihren Fehlerstatus. [Prüfanweisung und SHA-Werte](docs/DIREKTDATEI-CHROMIUM-NACHWEIS-2026-10-24.md).
+
+**Update 21.10.2026:** [PR #36](https://github.com/Codeelchi/elternzeit-zielplaner/pull/36) hat offizielle Nachgeburtslinks und die unveränderte Recherche zu Testdatenquellen nach `main` übernommen. Die unten verlinkten zusätzlichen A02–A04-/A06-Tests prüfen ausschließlich amtlich veröffentlichte **Komponentenbeispiele** (plus fachlich markierte synthetische Kalenderjahre). Sie sind keine amtliche Gesamtrechnung, keine neue rechtliche Freigabe und kein bestandener Referenzfamilien-Abgleich.
+
 ## 19.10.2026 – integrierter technischer Stand und nachweisbare Dokumentationsprüfung
 
 - V3.17–V3.20 sowie UX-/Import-/Zielsuche-Änderungen aus PR #21–#30 sind vollständig auf main. Letzter geprüfter Software-Merge: 3c837cbf47fe818a94157202a2b5699d7e697212 ([CI erfolgreich](https://github.com/Codeelchi/elternzeit-zielplaner/actions/runs/39162208549)); zuletzt **512/512 Node-/DOM- und 93/93 Chromium-Tests**.

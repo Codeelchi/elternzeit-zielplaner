@@ -29,7 +29,7 @@
 .v43-result .v43-panel.v43-alt{background:#f1f8f4;border-color:#a8d1bf}
 .v43-result dl{margin:10px 0 0;display:grid;gap:10px}
 .v43-result dl>div{border-top:1px solid #e0ebe5;padding-top:9px}
-.v43-result dt{font-size:.79rem;line-height:1.45;color:#3f6155}
+.v43-result dt{font-size:.75rem;line-height:1.45;color:#3f6155}
 .v43-result dd{margin:3px 0 0;font-size:.97rem;font-weight:800;line-height:1.4;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .v43-result .v43-delta{padding:12px 14px;background:#eaf5ee;border:1px solid #bee0c9;border-radius:9px;margin:15px 0;color:#1d5140}
 .v43-result .v43-delta strong{font-size:1.06rem;display:block}
@@ -38,7 +38,7 @@
 .v43-result .v43-issue ul{margin:4px 0;padding-left:20px}
 .v43-result .v43-issue li{margin:6px 0;font-size:.83rem;line-height:1.45}
 .v43-result .v43-table-wrap{max-width:100%;overflow-x:auto;border:1px solid #cadfd1;border-radius:8px;margin:12px 0}
-.v43-result table{border-collapse:collapse;width:100%;min-width:610px;font-size:.79rem}
+.v43-result table{border-collapse:collapse;width:100%;min-width:610px;font-size:.75rem}
 .v43-result th,.v43-result td{border:1px solid #deebe2;padding:9px 10px;text-align:left;vertical-align:top}
 .v43-result thead th{background:#e3f2e9;color:#164738}
 .v43-result td{font-variant-numeric:tabular-nums}
@@ -62,3 +62,26 @@
 @media print{.v43-what-if .v43-form,.v43-what-if .v43-actions{display:none}}
 
 .v43-what-if .v43-status{font-size:.82rem;font-weight:700;color:#275c49;min-height:1.2rem;margin:10px 0}
+
+/* UX: Hierarchie, Fokus, Leerzustand, 320px */
+.v43-what-if select:focus-visible,.v43-what-if summary:focus-visible,.v43-what-if .v43-table-wrap:focus-visible,.v43-what-if button:focus-visible{outline:3px solid #ae6418;outline-offset:3px}
+.v43-group input[type=range]:focus-visible{outline:3px solid #ae6418;outline-offset:4px}
+.v43-what-if summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:750;color:#175345}
+.v43-group legend{font-size:1.02rem}
+.v43-group input[aria-invalid=true]{background:#fff6f2}
+.v43-group input:disabled+*,.v43-group label:has(:disabled){opacity:.75}
+.v43-result .v43-delta{border-left:6px solid #2e7a63;margin:16px 0}
+.v43-result .v43-delta strong{font-size:1.2rem}
+.v43-result .v43-panel.v43-alt{border-width:2px;border-style:dashed}
+.v43-result .v43-unknown::before{content:'? ';font-weight:800}
+.v43-result:empty::before{content:'Noch kein Vergleich. Sobald die Annahmen berechenbar sind, erscheinen hier der unveränderte Plan und die Alternative nebeneinander.';display:block;padding:10px 12px;color:#3d5a52;font-size:.8125rem;line-height:1.5}
+.v43-what-if .v43-status:empty::before{content:'Änderungen an den Annahmen aktualisieren den Vergleich sofort.';color:#476b60;font-weight:500;font-size:.75rem}
+.v43-what-if .v43-actions button{padding-inline:16px}
+@media(max-width:380px){
+ .v43-what-if{padding:8px}
+ .v43-group{padding:9px}
+ .v43-result table{min-width:560px}
+ .v43-what-if .v43-chip{white-space:normal}
+}
+@media(forced-colors:active){.v43-result .v43-panel.v43-alt{border-color:CanvasText}}
+@media(prefers-reduced-motion:reduce){.v43-what-if *{transition:none!important}}

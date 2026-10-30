@@ -317,6 +317,36 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  .ki-assistant{margin:20px 0;padding:18px;border:1px solid #c6dcd1;border-radius:14px;background:#f6faf8;line-height:1.55;color:#284a40}
  .ki-assistant summary{cursor:pointer;font-weight:750;font-size:1rem}.ki-assistant label{display:block;font-weight:700;margin:14px 0 6px}.ki-assistant textarea{width:100%;padding:10px;border:1px solid #9ebbb0;border-radius:8px;font:inherit;resize:vertical}.ki-prompt{white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;padding:12px;background:white;border:1px solid #d4e5dc;border-radius:8px;font:inherit;font-size:.875rem}.ki-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.ki-actions button:disabled{opacity:.5;cursor:not-allowed}
 
+.v38-hints{margin:10px 0}.v38-hints ul{margin:6px 0 0;padding-left:18px}.v38-hints p{margin:0}
+
+/* UX polish: step guidance, error/empty states, touch targets, 12px floor, 320px safety. */
+#v38QuickStart .v38-entry-steps li{min-height:44px}
+#v38QuickStart .v38-template{min-height:48px;touch-action:manipulation}
+#v38QuickStart .v38-template[aria-pressed="true"]::after{display:inline-flex;align-items:center;min-height:24px}
+#v38QuickStart .v38-error:not(:empty){padding:10px 12px;border:1px solid #b44535;border-left-width:5px;border-radius:8px;background:#fff3f1;color:#7a2a20;font-size:.875rem;line-height:1.5}
+#v38QuickStart .v38-error:not(:empty)::before{content:"Bitte prüfen: ";font-weight:800}
+#v38QuickStart .v38-summary:focus-within{outline:0}
+#v38QuickStart .v38-summary h3[tabindex="-1"]:focus{outline:3px solid #974500;outline-offset:4px}
+#v38QuickStart .v38-kpi span,#v38QuickStart .v38-kpi small,.v38-template span,.v38-template small,.v38-caption,.v38-error,.v38-notice,#v38CostBanner{font-size:max(12px,.75rem)}
+#v38QuickStart .v38-hints:not([hidden]){font-size:.875rem;line-height:1.5;padding:10px 12px}
+#v38QuickStart :is(input,select,textarea,button,summary,a){min-height:44px}
+#v38QuickStart input[type="checkbox"],#v38QuickStart input[type="radio"]{min-height:0}
+#v38QuickStart .v38-personal>summary{display:flex;align-items:center}
+#v38QuickStart .v38-form-grid input:focus-visible,#v38QuickStart .v38-form-grid select:focus-visible,#v38QuickStart .ki-assistant textarea:focus-visible{outline:3px solid #974500;outline-offset:2px}
+#v38QuickStart .v38-form-grid [aria-invalid="true"]{border-width:2px}
+#v38QuickStart .v38-summary:empty::before{content:"Noch kein Ergebnis. Wählt ein Beispiel oder gebt eigene Werte ein.";display:block;padding:12px;color:#38584f}
+#v38QuickStart .v38-summary table,#v38QuickStart .v38-summary pre{max-width:100%}
+#v38QuickStart .v38-summary .v38-table-wrap,#v38QuickStart .v38-summary [role="region"]{max-width:100%;overflow-x:auto}
+#v38QuickStart img,#v38QuickStart svg{max-width:100%;height:auto}
+@media(max-width:360px){
+ #v38QuickStart{padding:14px 12px}
+ #v38QuickStart .v38-personal,.v38-advice,.v38-import-panel{padding:12px}
+ #v38QuickStart .v38-intro h2{font-size:1.5rem}
+ .v38-footer-actions button,.v38-actions button{width:100%}
+ body.v38-lite .footer-nav .navbtn{padding-inline:10px}
+}
+@media(prefers-reduced-motion:reduce){#v38QuickStart *{scroll-behavior:auto;transition:none!important}}
+
 /* V38_STYLES_END */
 /* V42_STYLES_START */
 /* Paket 2: model-only family time track and ephemeral comparisons. */
@@ -336,21 +366,21 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 .v42-family .v42-scroll:focus-visible{outline:3px solid #ad6214;outline-offset:3px}
 .v42-family .v42-track{border-spacing:0;border-collapse:separate;table-layout:fixed;min-width:max-content;width:max-content;font-size:.8rem;color:#28453c}
 .v42-family .v42-track caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-.v42-family .v42-track th,.v42-family .v42-track td{box-sizing:border-box;border:0;border-bottom:1px solid #dde8e2;border-right:1px solid #e1ebe7;vertical-align:middle;text-align:center;min-width:54px;max-width:54px;width:54px;padding:7px 2px}
+.v42-family .v42-track th,.v42-family .v42-track td{box-sizing:border-box;border:0;border-bottom:1px solid #dde8e2;border-right:1px solid #e1ebe7;vertical-align:middle;text-align:center;min-width:58px;max-width:58px;width:58px;padding:7px 2px}
 .v42-family .v42-track thead th{background:#eef6f2;padding:6px 1px;font-weight:700}
 .v42-family .v42-track .v42-rowhead{position:sticky;left:0;z-index:2;width:140px;min-width:140px;max-width:140px;padding:8px 9px;text-align:left;background:#f5f9f7;box-shadow:2px 0 0 #bed3c7;line-height:1.35;white-space:normal}
 .v42-family .v42-track thead .v42-rowhead{z-index:3;background:#e7f3ec}
 .v42-family .v42-track button[data-v42-month]{border:1px solid transparent;background:transparent;color:#245549;font-weight:800;min-height:40px;min-width:40px;cursor:pointer;border-radius:7px}
 .v42-family .v42-track button[data-v42-month][aria-pressed="true"]{background:#164e43;border-color:#164e43;color:#fff}
 .v42-family .v42-track button[data-v42-month]:focus-visible{outline:3px solid #ab5b12;outline-offset:1px}
-.v42-family .v42-cell{display:block;padding:7px 2px;border-radius:5px;font-size:.72rem;font-weight:720;line-height:1.3;white-space:normal;word-break:normal;min-height:34px}
-.v42-family .v42-status-home,.v42-family .v42-care-parent{background:#d9eee4;color:#1d5144}
-.v42-family .v42-status-work,.v42-family .v42-care-open{background:#f3e6d1;color:#6a4a21}
-.v42-family .v42-status-part{background:#e3eef5;color:#28546f}
-.v42-family .v42-care-kita{background:#e3edf5;color:#244e69}
-.v42-family .v42-status-ms{background:#e3e1f0;color:#503d70}
-.v42-family .v42-track td.v42-selected{border-bottom:3px solid #135744}
-.v42-family .v42-track td.v42-money{font-size:.72rem;line-height:1.2;font-variant-numeric:tabular-nums;color:#28473c;white-space:normal}
+.v42-family .v42-cell{display:block;padding:7px 2px;border-radius:5px;font-size:.75rem;font-weight:720;line-height:1.3;white-space:normal;word-break:normal;min-height:34px}
+.v42-family .v42-cell{border:2px solid transparent}.v42-family .v42-status-home,.v42-family .v42-care-parent{background:#d9eee4;color:#1d5144;border-color:#2e7a63;border-style:solid}
+.v42-family .v42-status-work{background:#f3e6d1;color:#5f4119;border-color:#9a6a2c;border-style:dotted}.v42-family .v42-care-open{background:#f3e6d1;color:#5f4119;border-color:#9a6a2c;border-style:dashed}
+.v42-family .v42-status-part{background:repeating-linear-gradient(135deg,#e3eef5 0 6px,#d3e4ef 6px 9px);color:#1f4a66;border-color:#3d7aa3;border-style:solid}
+.v42-family .v42-care-kita{background:repeating-linear-gradient(45deg,#e3edf5 0 6px,#cfe0ee 6px 9px);color:#1f4a66;border-color:#3d7aa3;border-style:double}
+.v42-family .v42-status-ms{background:repeating-linear-gradient(0deg,#e3e1f0 0 5px,#d2cee8 5px 7px);color:#43325f;border-color:#6a55a0;border-style:double}
+.v42-family .v42-track td.v42-selected{border-bottom:3px solid #135744;background:#eaf5ef}
+.v42-family .v42-track td.v42-money{font-size:.75rem;line-height:1.2;font-variant-numeric:tabular-nums;color:#28473c;white-space:normal}
 .v42-family .v42-track .v42-unknown{font-weight:700;color:#6f4c22}
 .v42-family .v42-month-detail{padding:15px;border:1px solid #bfd9cf;border-left:4px solid #25735f;background:#f5faf7;border-radius:11px;margin:15px 0}
 .v42-family .v42-month-detail h4{margin:0 0 7px}
@@ -377,12 +407,12 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 .v42-family .v42-comparison thead th{background:#eaf5ee;color:#21483d}
 .v42-family .v42-comparison tbody th{background:#f5faf6;font-weight:750}
 .v42-family .v42-comparison td.v42-cannot{background:#fff8ec;color:#6a4b2d;font-weight:700}
-.v42-family .v42-comparison small{display:block;color:#476b60;font-size:.73rem;line-height:1.4;margin-top:5px}
+.v42-family .v42-comparison small{display:block;color:#476b60;font-size:.75rem;line-height:1.4;margin-top:5px}
 .v42-family .v42-compare-note{font-size:.8rem;margin:10px 0}
 @media(max-width:860px){
  .v42-family .v42-head{display:block}
  .v42-family .v42-chip{display:inline-block;margin-bottom:10px}
- .v42-family .v42-track th,.v42-family .v42-track td{min-width:53px;max-width:53px;width:53px}
+ .v42-family .v42-track th,.v42-family .v42-track td{min-width:58px;max-width:58px;width:58px}
  .v42-family .v42-track .v42-rowhead{min-width:115px;max-width:115px;width:115px}
 }
 @media(max-width:480px){
@@ -392,6 +422,35 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  .v42-family .v42-controls button{flex:1 1 135px}
 }
 @media print{.v42-family .v42-controls,.v42-family .v42-saved{display:none}.v42-family .v42-scroll,.v42-family .v42-compare-scroll{overflow:visible}}
+
+/* UX: Fokus, Hierarchie, Leerzustände, schmale Viewports */
+.v42-family select:focus-visible,.v42-family textarea:focus-visible,.v42-family .v42-compare-scroll:focus-visible,.v42-family [tabindex]:focus-visible{outline:3px solid #ab5b12;outline-offset:3px}
+.v42-family .v42-track button[data-v42-month]:focus-visible{outline-offset:-2px;box-shadow:0 0 0 2px #fff}
+.v42-family .v42-track button[data-v42-month]:hover{background:#e3f1ea}
+.v42-family .v42-track button[data-v42-month][aria-pressed="true"]:hover{background:#164e43}
+.v42-family .v42-month-detail{border-left-width:6px;background:#f0f8f4}
+.v42-family .v42-month-detail h4{font-size:1.2rem}
+.v42-family .v42-compare,.v42-family .v42-wishes{margin-top:26px}
+.v42-family .v42-compare h4,.v42-family .v42-wishes h4{font-size:1.2rem;padding-bottom:4px}
+.v42-family .v42-comparison tbody tr:first-child th,.v42-family .v42-comparison tbody tr:first-child td{background:#f1f9f4;font-weight:700}
+.v42-family .v42-comparison tbody th{position:sticky;left:0;z-index:1}
+.v42-family .v42-wish-grid button{min-width:44px}
+.v42-family .v42-wish-grid button:focus-visible,.v42-family .v42-wish-form select:focus-visible{outline:3px solid #ab5b12;outline-offset:2px}
+.v42-family .v42-wish-grid button[data-filled=true]{border-style:solid;border-width:2px;border-color:#bb662e}
+.v42-wish-result:empty::before{content:'Noch kein Vergleich. Trage oben mindestens einen Wunsch ein und wähle „Passende Modelle vergleichen“.';display:block;padding:10px 12px;border:1px dashed #9db9ab;border-radius:8px;color:#3a5e54;font-size:.8125rem;line-height:1.5}
+.v42-family .v42-feedback:empty::before{content:'Hier erscheinen Hinweise zu gemerkten Varianten.';color:#476b60;font-size:.75rem}
+.v42-family .v42-compare-card dt,.v42-family .v42-compare-card dd{font-size:.8125rem}
+.v42-family .v42-help{font-size:.8125rem}
+@media(max-width:480px){
+ .v42-family .v42-wish-form{grid-template-columns:minmax(0,1fr)}
+ .v42-family .v42-wish-grid{grid-template-columns:minmax(0,1fr)}
+ .v42-family .v42-wish-actions button,.v42-family .v42-controls button{flex:1 1 100%}
+ .v42-family .v42-saved li{flex-wrap:wrap}
+ .v42-family .v42-month-detail dl{grid-template-columns:minmax(0,1fr)}
+ .v42-wishes{padding:12px}
+}
+@media(forced-colors:active){.v42-family .v42-cell{border-color:CanvasText}.v42-family button:focus-visible{outline:3px solid Highlight}}
+@media(prefers-reduced-motion:reduce){.v42-family *{transition:none!important;scroll-behavior:auto!important}}
 
 /* V42_STYLES_END */
 /* V43_STYLES_START */
@@ -426,7 +485,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 .v43-result .v43-panel.v43-alt{background:#f1f8f4;border-color:#a8d1bf}
 .v43-result dl{margin:10px 0 0;display:grid;gap:10px}
 .v43-result dl>div{border-top:1px solid #e0ebe5;padding-top:9px}
-.v43-result dt{font-size:.79rem;line-height:1.45;color:#3f6155}
+.v43-result dt{font-size:.75rem;line-height:1.45;color:#3f6155}
 .v43-result dd{margin:3px 0 0;font-size:.97rem;font-weight:800;line-height:1.4;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .v43-result .v43-delta{padding:12px 14px;background:#eaf5ee;border:1px solid #bee0c9;border-radius:9px;margin:15px 0;color:#1d5140}
 .v43-result .v43-delta strong{font-size:1.06rem;display:block}
@@ -435,7 +494,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 .v43-result .v43-issue ul{margin:4px 0;padding-left:20px}
 .v43-result .v43-issue li{margin:6px 0;font-size:.83rem;line-height:1.45}
 .v43-result .v43-table-wrap{max-width:100%;overflow-x:auto;border:1px solid #cadfd1;border-radius:8px;margin:12px 0}
-.v43-result table{border-collapse:collapse;width:100%;min-width:610px;font-size:.79rem}
+.v43-result table{border-collapse:collapse;width:100%;min-width:610px;font-size:.75rem}
 .v43-result th,.v43-result td{border:1px solid #deebe2;padding:9px 10px;text-align:left;vertical-align:top}
 .v43-result thead th{background:#e3f2e9;color:#164738}
 .v43-result td{font-variant-numeric:tabular-nums}
@@ -459,6 +518,29 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 @media print{.v43-what-if .v43-form,.v43-what-if .v43-actions{display:none}}
 
 .v43-what-if .v43-status{font-size:.82rem;font-weight:700;color:#275c49;min-height:1.2rem;margin:10px 0}
+
+/* UX: Hierarchie, Fokus, Leerzustand, 320px */
+.v43-what-if select:focus-visible,.v43-what-if summary:focus-visible,.v43-what-if .v43-table-wrap:focus-visible,.v43-what-if button:focus-visible{outline:3px solid #ae6418;outline-offset:3px}
+.v43-group input[type=range]:focus-visible{outline:3px solid #ae6418;outline-offset:4px}
+.v43-what-if summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:750;color:#175345}
+.v43-group legend{font-size:1.02rem}
+.v43-group input[aria-invalid=true]{background:#fff6f2}
+.v43-group input:disabled+*,.v43-group label:has(:disabled){opacity:.75}
+.v43-result .v43-delta{border-left:6px solid #2e7a63;margin:16px 0}
+.v43-result .v43-delta strong{font-size:1.2rem}
+.v43-result .v43-panel.v43-alt{border-width:2px;border-style:dashed}
+.v43-result .v43-unknown::before{content:'? ';font-weight:800}
+.v43-result:empty::before{content:'Noch kein Vergleich. Sobald die Annahmen berechenbar sind, erscheinen hier der unveränderte Plan und die Alternative nebeneinander.';display:block;padding:10px 12px;color:#3d5a52;font-size:.8125rem;line-height:1.5}
+.v43-what-if .v43-status:empty::before{content:'Änderungen an den Annahmen aktualisieren den Vergleich sofort.';color:#476b60;font-weight:500;font-size:.75rem}
+.v43-what-if .v43-actions button{padding-inline:16px}
+@media(max-width:380px){
+ .v43-what-if{padding:8px}
+ .v43-group{padding:9px}
+ .v43-result table{min-width:560px}
+ .v43-what-if .v43-chip{white-space:normal}
+}
+@media(forced-colors:active){.v43-result .v43-panel.v43-alt{border-color:CanvasText}}
+@media(prefers-reduced-motion:reduce){.v43-what-if *{transition:none!important}}
 
 /* V43_STYLES_END */
 /* V44_STYLES_START */
@@ -507,7 +589,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 .v44-report-screen-page .v44-print-task{border-bottom:1px solid #d6e1d9;padding:9px 0;break-inside:avoid}
 .v44-report-screen-page .v44-print-task strong{display:block;font-size:.89rem;color:#174839;line-height:1.35}
 .v44-report-screen-page .v44-print-task p{margin:4px 0;font-size:.75rem}
-.v44-report-screen-page .v44-print-task a{word-break:break-all;font-size:.7rem}
+.v44-report-screen-page .v44-print-task a{word-break:break-all;font-size:.75rem}
 .v44-report-screen-page .v44-footnote{margin:9px 0 0;font-size:.75rem;color:#5b5b4d}
 .v44-print-sheet{display:none}
 @media(max-width:520px){
@@ -563,6 +645,19 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 @media(max-width:620px){.v44-result-entry{display:block;padding:12px}
  .v44-result-entry button{display:block;margin-top:12px;width:100%}}
 @media print{.v44-result-entry,.v44-back-link{display:none!important}}
+
+/* UX polish: focus, error/empty states, touch targets. Presentation only. */
+.v44-task-hub :is(h3,h2)[tabindex="-1"]:focus,#v44ReportPreview h2[tabindex="-1"]:focus,.v44-report-hub h3:focus{outline:3px solid #ad641a;outline-offset:4px}
+.v44-filters button:focus-visible,.v44-report-buttons button:focus-visible{outline:3px solid #ad641a;outline-offset:3px}
+.v44-filters button[aria-pressed=true]::before{content:"\2713\00a0"}
+.v44-filters button{min-width:44px}
+.v44-task-list .v44-empty{border:1px dashed #8fb3a0;color:#2f5546;font-size:.9rem;line-height:1.55;text-align:center}
+.v44-feedback:not(:empty){border-left-width:4px;font-size:.875rem;line-height:1.5}
+.v44-task-list article p,.v44-task-list .v44-task-meta,.v44-task-list .v44-task-source,.v44-task-list label{min-width:0;overflow-wrap:anywhere}
+.v44-task-list select{width:100%}
+@media(max-width:520px){.v44-report-screen-page table{min-width:0}.v44-report-screen-page .v44-table-wrap{overflow-x:auto}.v44-back-link{display:inline-flex;align-items:center}}
+@media(prefers-reduced-motion:reduce){.v44-task-hub *,.v44-report-hub *{scroll-behavior:auto;transition:none!important}}
+@media print{.v44-filters button[aria-pressed=true]::before{content:none}}
 
 /* V44_STYLES_END */
 
@@ -628,9 +723,37 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
 .section-nav{background:#fdfcf8;border-color:#dbe6da}.section-nav button.active{background:#e7f1e5;color:#185746}
 .footer-nav{background:#fdfcf8;border-color:#dbe6da}.live-strip{border-color:#d8e7d8}
 @media(prefers-reduced-motion:reduce){.slide{animation:none}}
+/* V3.21 Bedienung: lesbarere Mindestschrift, feste Navigation, klarere Zustände. */
+.skip-link{position:absolute;left:12px;top:-60px;z-index:100;background:#12343a;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:750}.skip-link:focus{top:10px}
+.detail,.input-caption,.status-sub,.footnote,.source-foot,.model-sub,.step p,.callout-list p,.small-pill .label,.form-group label,.chip,.eyebrow,.card .kicker,.status-title,.compare-table td,.link-list a,.link-list span,.action,.section-nav button,.navbtn,.counter,.quick-toggle button{font-size:max(12px,1em)}
+.detail,.input-caption,.status-sub,.footnote,.source-foot,.step p,.callout-list p{line-height:1.6}
+.section-nav{position:sticky;top:0;z-index:20;box-shadow:0 2px 10px rgba(36,66,48,.07)}
+.footer-nav{position:sticky;bottom:0;z-index:20;box-shadow:0 -2px 10px rgba(36,66,48,.07)}
+.section-nav button,.navbtn,.action,.quick-toggle button,.model-card{transition:background .15s,border-color .15s,color .15s,box-shadow .15s}
+.section-nav button:hover:not(.active){background:#eef4ec}
+.navbtn:active,.action:active,.quick-toggle button:active{transform:translateY(1px)}
+.form-group input:hover,.form-group select:hover{border-color:#7fb3a6}
+.form-group input:focus-visible,.form-group select:focus-visible{border-color:#006e64;box-shadow:0 0 0 3px rgba(0,110,100,.18)}
+.form-group input:invalid:not(:placeholder-shown){border-color:#b3422f}
+.model-card.selected{box-shadow:0 0 0 3px rgba(0,142,129,.15)}
+.card{transition:box-shadow .15s}
+.toast{max-width:min(92vw,520px);text-align:center}
+@media(max-width:720px){body{font-size:16px}.grid.two,.grid.three,.grid.four,.input-grid,.editbar,.split-main,.chart-zone,.model-grid,.link-list,.hero{grid-template-columns:1fr}.hero-right{display:none}.form-group input,.form-group select{height:46px;font-size:16px}.progress{width:90px}}
+@media print{.section-nav,.footer-nav{position:static;box-shadow:none}.skip-link{display:none}}
+/* V3.22 Nutzererfahrung: ruhigerer Einstieg, mehr Platz für den Inhalt. */
+#v38EntryGuidance{margin-top:18px;max-width:62ch}
+.privacy-strip{padding:8px 20px;font-size:12px;line-height:1.5}.privacy-strip label{margin:0 10px 0 0}
+.top-actions .action{padding:7px 11px;border-color:rgba(255,255,255,.18);font-weight:650}
+.top-actions .action:focus-visible{outline:3px solid #8ad8c7;outline-offset:2px}
+.eyebrow{max-width:100%;overflow-wrap:anywhere}
+.card:focus-within{box-shadow:0 9px 24px rgba(36,66,48,.09)}
+details>summary{cursor:pointer;border-radius:6px}details>summary:hover{color:#006e64}
+.small-pill{transition:border-color .15s}.small-pill:hover{border-color:#6fc3b0}
+@media(max-width:720px){.eyebrow{letter-spacing:.04em;font-size:12px}#v38EntryGuidance{margin-top:14px}}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#stage">Zum Inhalt springen</a>
 <div class="app-shell" id="app">
  <header class="topbar noprint">
   <div class="brand"><span class="brand-symbol"></span> FAMILIENFINANZEN <small>/ lokal & privat</small></div>
@@ -654,7 +777,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
  </div>
  <div id="globalPlanStatus" class="note warn" aria-live="polite" style="border-radius:0;padding:12px 23px"></div>
  <div id="v38CostBanner" role="status" class="noprint" hidden></div>
- <main class="stage" id="stage">
+ <main class="stage" id="stage" tabindex="-1">
   <section class="slide active" data-title="Überblick" id="slide-1">
    <details class="v317-scope" id="v317Scope">
     <summary><span id="v317ScopeHeading">Passt euer Fall zum Modell?</span> <strong id="v317ScopeStatus" role="status">Modellstatus wird geprüft.</strong></summary>
@@ -735,6 +858,7 @@ body.v38-lite .footer-nav .counter{font-size:.875rem;font-variant-numeric:tabula
     <label for="v38Goal">Betreuung bis Kind ... Monate alt ist<select id="v38Goal"><option value="14">14 Monate</option><option value="18">18 Monate</option><option value="24">24 Monate</option><option value="30">30 Monate</option><option value="36">36 Monate</option></select></label>
     <label for="v38Expenses">Haushaltsausgaben / Monat (optional)<input id="v38Expenses" type="number" min="0" max="100000" step="0.01" placeholder="Noch unbekannt"></label>
    </div>
+   <div id="v38InputHints" class="note warn v38-hints" role="status" aria-live="polite" hidden></div>
    <p class="v38-caption">Für den ersten Vergleich wird das Elterngeld-Netto <strong>vereinfacht</strong> mit dem Auszahlungsnetto gleichgesetzt. Das ist keine amtliche Netto-Ermittlung. Weitere Angaben und eine separate Prüfung sind später erforderlich.</p>
    <details class="v310-netto-help"><summary>Welches Netto ist gemeint?</summary>
     <dl><dt>Auszahlungsnetto</dt><dd>Der gewöhnliche monatliche Betrag auf eurer Gehaltsabrechnung. Er beschreibt euer laufendes Arbeitseinkommen.</dd><dt>Elterngeld-Netto</dt><dd>Eine amtlich pauschalierte Rechengröße aus berücksichtigungsfähigem Einkommen und pauschalen Abzügen. Sie kann vom Auszahlungsnetto abweichen.</dd></dl>
@@ -7243,6 +7367,53 @@ showSlide=function(...args){const r=v38OriginalShowSlide(...args);QuickStartV38.
 const v38OriginalChooseModel=chooseModel;
 chooseModel=function(...args){const r=v38OriginalChooseModel(...args);QuickStartV38.onModelChanged(args[0]);return r;};
 window.__elternzeitV38=QuickStartV38;
+/* Rein informative Plausibilitätshinweise: blockieren oder verändern nichts. */
+const InputHintsV38=(()=>{
+ const MAX_NET=20000,MAX_EXP_FACTOR=3;
+ const num=v=>{const r=String(v??'').trim().replace(',','.');if(r==='')return null;const n=Number(r);return Number.isFinite(n)?n:null;};
+ const eur=n=>n.toLocaleString('de-DE')+' €';
+ function hints({birth='',netF='',netM='',expenses=''}={},today=new Date()){
+  const out=[],f=num(netF),m=num(netM),e=num(expenses);
+  for(const [label,v] of [['Elternteil 1',f],['Elternteil 2',m]]){
+   if(v===null)continue;
+   if(v<0)out.push('Auszahlungsnetto '+label+': Ein negativer Betrag ist ungewöhnlich. Gemeint ist der monatliche Betrag auf der Gehaltsabrechnung.');
+   else if(v>MAX_NET)out.push('Auszahlungsnetto '+label+': '+eur(v)+' pro Monat ist sehr hoch. Bitte prüfen, ob ein Jahresbetrag oder Brutto statt Netto eingetragen wurde.');
+   else if(v>0&&v<100)out.push('Auszahlungsnetto '+label+': '+eur(v)+' pro Monat ist sehr niedrig. Bitte prüfen, ob ein Monatsbetrag gemeint ist.');
+  }
+  if(e!==null){
+   if(e<0)out.push('Haushaltsausgaben: Ein negativer Betrag ist ungewöhnlich.');
+   else if(e>MAX_NET*2)out.push('Haushaltsausgaben: '+eur(e)+' pro Monat ist sehr hoch. Bitte prüfen, ob ein Jahresbetrag eingetragen wurde.');
+   else if(f!==null&&m!==null&&f>=0&&m>=0&&f+m>0&&e>(f+m)*MAX_EXP_FACTOR)out.push('Haushaltsausgaben liegen deutlich über dem Dreifachen beider Nettobeträge. Bitte auf Monatswerte prüfen.');
+  }
+  if(/^\d{4}-\d{2}-\d{2}$/.test(birth)){
+   const d=new Date(birth+'T00:00:00Z');
+   if(!Number.isNaN(d.getTime())){
+    const t=Date.UTC(today.getFullYear(),today.getMonth(),today.getDate()),days=(d.getTime()-t)/864e5;
+    if(days<-365*3)out.push('Geburtsdatum: Das Datum liegt mehr als drei Jahre zurück. Bitte das Jahr prüfen.');
+    else if(days>365*2)out.push('Geburtstermin: Das Datum liegt mehr als zwei Jahre in der Zukunft. Bitte das Jahr prüfen.');
+   }
+  }
+  return out;
+ }
+ function render(){
+  const box=document.getElementById('v38InputHints');if(!box)return [];
+  const val=id=>document.getElementById(id)?.value??'';
+  const list=hints({birth:val('v38Birth'),netF:val('v38NetF'),netM:val('v38NetM'),expenses:val('v38Expenses')});
+  box.textContent='';
+  if(list.length){
+   const p=document.createElement('p'),ul=document.createElement('ul');
+   p.textContent='Zur Kontrolle (nur ein Hinweis, eure Eingaben bleiben unverändert):';
+   for(const x of list){const li=document.createElement('li');li.textContent=x;ul.appendChild(li);}
+   box.append(p,ul);
+  }
+  box.hidden=!list.length;
+  return list;
+ }
+ const form=document.getElementById('v38PersonalForm');
+ form?.querySelectorAll('input').forEach(i=>i.addEventListener('input',render));
+ return {hints,render};
+})();
+window.__elternzeitInputHints=InputHintsV38;
 
 /* V38_RUNTIME_END */
 /* V42_RUNTIME_START */
@@ -7868,14 +8039,17 @@ const PlanActionsV44=(()=>{
   });
   const resultsIndex=[...document.querySelectorAll('.slide')].findIndex(slide=>slide.id==='slide-10');
   const actionsIndex=[...document.querySelectorAll('.slide')].findIndex(slide=>slide.id==='slide-9');
-  byId('v44OpenActions').addEventListener('click',()=>{if(actionsIndex>=0)showSlide(actionsIndex);});
-  byId('v44BackResults').addEventListener('click',()=>{if(resultsIndex>=0)showSlide(resultsIndex);});
+  const focusHeading=id=>{const h=byId(id);if(h){h.tabIndex=-1;h.focus({preventScroll:true});}};
+  byId('v44OpenActions').addEventListener('click',()=>{if(actionsIndex>=0){showSlide(actionsIndex);focusHeading('v44TaskTitle');}});
+  byId('v44BackResults').addEventListener('click',()=>{if(resultsIndex>=0){showSlide(resultsIndex);const h=document.querySelector('#slide-10 h2');if(h){h.tabIndex=-1;h.focus({preventScroll:true});}}});
   byId('v44Preview').addEventListener('click',()=>{
    if(!byId('v44ReportPreview').hidden){
     byId('v44ReportPreview').hidden=true;
     byId('v44Preview').setAttribute('aria-expanded','false');
     byId('v44ReportFeedback').textContent='Vorschau geschlossen.';
-   }else preview();
+   }else{
+    if(preview()!==null){const h=byId('v44ReportPreview').querySelector('h2');if(h){h.tabIndex=-1;h.focus({preventScroll:true});}}
+   }
   });
   byId('v44Print').addEventListener('click',printReport);
   window.addEventListener('afterprint',afterprint);

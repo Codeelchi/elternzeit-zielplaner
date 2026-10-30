@@ -700,3 +700,50 @@ showSlide=function(...args){const r=v38OriginalShowSlide(...args);QuickStartV38.
 const v38OriginalChooseModel=chooseModel;
 chooseModel=function(...args){const r=v38OriginalChooseModel(...args);QuickStartV38.onModelChanged(args[0]);return r;};
 window.__elternzeitV38=QuickStartV38;
+/* Rein informative Plausibilitätshinweise: blockieren oder verändern nichts. */
+const InputHintsV38=(()=>{
+ const MAX_NET=20000,MAX_EXP_FACTOR=3;
+ const num=v=>{const r=String(v??'').trim().replace(',','.');if(r==='')return null;const n=Number(r);return Number.isFinite(n)?n:null;};
+ const eur=n=>n.toLocaleString('de-DE')+' €';
+ function hints({birth='',netF='',netM='',expenses=''}={},today=new Date()){
+  const out=[],f=num(netF),m=num(netM),e=num(expenses);
+  for(const [label,v] of [['Elternteil 1',f],['Elternteil 2',m]]){
+   if(v===null)continue;
+   if(v<0)out.push('Auszahlungsnetto '+label+': Ein negativer Betrag ist ungewöhnlich. Gemeint ist der monatliche Betrag auf der Gehaltsabrechnung.');
+   else if(v>MAX_NET)out.push('Auszahlungsnetto '+label+': '+eur(v)+' pro Monat ist sehr hoch. Bitte prüfen, ob ein Jahresbetrag oder Brutto statt Netto eingetragen wurde.');
+   else if(v>0&&v<100)out.push('Auszahlungsnetto '+label+': '+eur(v)+' pro Monat ist sehr niedrig. Bitte prüfen, ob ein Monatsbetrag gemeint ist.');
+  }
+  if(e!==null){
+   if(e<0)out.push('Haushaltsausgaben: Ein negativer Betrag ist ungewöhnlich.');
+   else if(e>MAX_NET*2)out.push('Haushaltsausgaben: '+eur(e)+' pro Monat ist sehr hoch. Bitte prüfen, ob ein Jahresbetrag eingetragen wurde.');
+   else if(f!==null&&m!==null&&f>=0&&m>=0&&f+m>0&&e>(f+m)*MAX_EXP_FACTOR)out.push('Haushaltsausgaben liegen deutlich über dem Dreifachen beider Nettobeträge. Bitte auf Monatswerte prüfen.');
+  }
+  if(/^\d{4}-\d{2}-\d{2}$/.test(birth)){
+   const d=new Date(birth+'T00:00:00Z');
+   if(!Number.isNaN(d.getTime())){
+    const t=Date.UTC(today.getFullYear(),today.getMonth(),today.getDate()),days=(d.getTime()-t)/864e5;
+    if(days<-365*3)out.push('Geburtsdatum: Das Datum liegt mehr als drei Jahre zurück. Bitte das Jahr prüfen.');
+    else if(days>365*2)out.push('Geburtstermin: Das Datum liegt mehr als zwei Jahre in der Zukunft. Bitte das Jahr prüfen.');
+   }
+  }
+  return out;
+ }
+ function render(){
+  const box=document.getElementById('v38InputHints');if(!box)return [];
+  const val=id=>document.getElementById(id)?.value??'';
+  const list=hints({birth:val('v38Birth'),netF:val('v38NetF'),netM:val('v38NetM'),expenses:val('v38Expenses')});
+  box.textContent='';
+  if(list.length){
+   const p=document.createElement('p'),ul=document.createElement('ul');
+   p.textContent='Zur Kontrolle (nur ein Hinweis, eure Eingaben bleiben unverändert):';
+   for(const x of list){const li=document.createElement('li');li.textContent=x;ul.appendChild(li);}
+   box.append(p,ul);
+  }
+  box.hidden=!list.length;
+  return list;
+ }
+ const form=document.getElementById('v38PersonalForm');
+ form?.querySelectorAll('input').forEach(i=>i.addEventListener('input',render));
+ return {hints,render};
+})();
+window.__elternzeitInputHints=InputHintsV38;

@@ -15,8 +15,8 @@ Der im Repository eingecheckte [strukturierte Nachweis](../qa/direct-file-proof-
 
 **Historischer Softwareinhalt vom 24.10. (nicht der aktuelle Rechner-Hash):**
 
-- `index.html` SHA-256: `b6dbe2e7ba6ce85849aa85aaaffc51433e337a96454489262c8defebcbe8f29b`
-- `start.html` SHA-256: `d78367896ea4560cd74ed7052f2b239cbf78be510bfdcb50d65bb8f495016207`
+- `index.html` SHA-256: `584e8298b58e4ab0ec04d842bcaf10f085168912fc0231460dac02db6254851c`
+- `start.html` SHA-256: `f4ff8839b86bf87c6af2305009abd4fa1812828cd80b2e152f3739cb5efd026f`
 - Browsernachweis, Testskript, Browserkonfiguration, Runner, Validator und Lockfile sind jeweils durch SHA-256 in `qa/direct-file-proof-current.json` gebunden.
 
 Dieser Beleg ist **eine maschinell erzeugte Eigenauskunft des ausführbaren Testskripts**. Ein SHA-256-Hash belegt Dateigleichheit bei einer späteren Prüfung, aber **nicht** die Echtheit eines externen Reviewers. Die GitHub-CI führt alle direkten Datei-Browserfälle bei jeder PR zusätzlich neu aus.

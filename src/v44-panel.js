@@ -161,6 +161,36 @@ const PlanActionsV44=(()=>{
   byId('v44ReportFeedback').textContent='Druckansicht aktiviert. Im Browserdialog den gewünschten Drucker oder „Als PDF speichern“ auswählen. Die zwei Seiten enthalten private Modellangaben.';
   try{window.print();}catch(e){document.body.classList.remove('v44-print-active');byId('v44ReportFeedback').textContent='Browser-Druck nicht verfügbar; der Bericht bleibt als Textvorschau sichtbar.';}
  }
+ function summaryText(){return PlanReportV44.plainText(projection());}
+ function setShareStatus(msg){byId('v44ReportFeedback').textContent=msg;}
+ async function copySummary(){
+  let text;
+  try{text=summaryText();}catch(error){setShareStatus('Zusammenfassung nicht berechenbar: '+String(error?.message||error).slice(0,160));return false;}
+  try{
+   if(!navigator.clipboard?.writeText)throw new Error('no clipboard');
+   await navigator.clipboard.writeText(text);
+  }catch{
+   const area=document.createElement('textarea');
+   area.value=text;area.setAttribute('readonly','');area.setAttribute('aria-label','Zusammenfassung als Text');
+   area.style.cssText='position:fixed;left:0;top:0;width:1px;height:1px;opacity:0';
+   document.body.appendChild(area);area.select();
+   let ok=false;try{ok=document.execCommand('copy');}catch{}
+   area.remove();
+   if(!ok){setShareStatus('Kopieren nicht möglich. Bitte „Als Textdatei speichern“ verwenden.');return false;}
+  }
+  setShareStatus('Zusammenfassung kopiert');return true;
+ }
+ function saveSummary(){
+  let text;
+  try{text=summaryText();}catch(error){setShareStatus('Zusammenfassung nicht berechenbar: '+String(error?.message||error).slice(0,160));return false;}
+  try{
+   const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));
+   const a=document.createElement('a');a.href=url;a.download='familienplan-zusammenfassung.txt';
+   document.body.appendChild(a);a.click();a.remove();
+   setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }catch{setShareStatus('Textdatei konnte nicht erzeugt werden.');return false;}
+  setShareStatus('Textdatei „familienplan-zusammenfassung.txt“ gespeichert (Planungsstand, keine amtliche Bewilligung).');return true;
+ }
  function afterprint(){
   document.body.classList.remove('v44-print-active');
   byId('v44PrintSheet').textContent='';
@@ -201,6 +231,8 @@ const PlanActionsV44=(()=>{
    }
   });
   byId('v44Print').addEventListener('click',printReport);
+  byId('v44CopyText').addEventListener('click',copySummary);
+  byId('v44SaveText').addEventListener('click',saveSummary);
   window.addEventListener('afterprint',afterprint);
  }
  // Original checklist and compact cards share the exact same in-memory status map.
@@ -211,7 +243,7 @@ const PlanActionsV44=(()=>{
   if(byId('v44ReportPreview')&&!byId('v44ReportPreview').hidden)preview();
   return result;
  };
- return {mount,refreshTasks,preview,printReport,afterprint,
+ return {mount,refreshTasks,preview,printReport,afterprint,summaryText,copySummary,saveSummary,
   state:()=>({filter,printed:document.body.classList.contains('v44-print-active'),persisted:false,
    statusOf:id=>{try{const guide=currentGuide();const task=guide.tasks.find(t=>t.id===id);return task?v315TaskStates.get(v315TaskStatusKey(task))||'open':null;}catch{return null;}}})};
 })();

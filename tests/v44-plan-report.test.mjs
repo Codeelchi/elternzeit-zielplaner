@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
-const {makePrintSummary,prepareTasks,MAX_PRINT_TASKS}=require('../src/v44-plan-report.cjs');
+const {makePrintSummary,prepareTasks,plainText,MAX_PRINT_TASKS}=require('../src/v44-plan-report.cjs');
 const {buildApplicationGuide}=require('../src/application-guide.cjs');
 
 function rows(n=36){
@@ -127,4 +127,17 @@ test('tampered task links, invalid source dates and unsupported status are rejec
  assert.throws(()=>makePrintSummary(input({birthDate:'2026-02-30'})),/kein gültiges Datum/);
  assert.throws(()=>makePrintSummary(input({horizon:37})),/Vergleichszeitraum/);
  assert.throws(()=>makePrintSummary(input({expenses:-1})),/Haushaltsausgaben/);
+});
+
+test('plainText: kompakter Klartext mit Hinweis, Lebensmonaten, Betreuung und Aufgaben',()=>{
+ const g=guide();
+ const t=plainText(makePrintSummary(input({taskStatuses:{[g.tasks[0].id]:'done'}})));
+ assert.match(t,/^PLANUNGSSTAND, KEINE AMTLICHE BEWILLIGUNG/);
+ assert.match(t,/LM 1–6:/);assert.match(t,/ab LM 19/);
+ assert.match(t,/selbst erledigt \(nicht amtlich bestätigt\)/);
+ assert.match(t,/Planungsstand, keine amtliche Bewilligung\./);
+ assert.doesNotMatch(t,/https?:/);
+ const unknown=plainText(makePrintSummary(input({expenses:null,guide:null})));
+ assert.match(unknown,/unbekannt/);assert.match(unknown,/nicht berechenbar/);
+ assert.throws(()=>plainText(null),TypeError);
 });

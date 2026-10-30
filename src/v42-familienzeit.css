@@ -100,3 +100,11 @@
 }
 @media(forced-colors:active){.v42-family .v42-cell{border-color:CanvasText}.v42-family button:focus-visible{outline:3px solid Highlight}}
 @media(prefers-reduced-motion:reduce){.v42-family *{transition:none!important;scroll-behavior:auto!important}}
+
+.v42-family .v42-filter{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 6px}
+.v42-family .v42-filter button{min-height:44px;min-width:44px;font-size:.75rem;white-space:normal}
+.v42-family .v42-filter button[aria-pressed="true"]{background:#164e43;border-color:#164e43;color:#fff;font-weight:800}
+.v42-family .v42-filter-summary{font-size:.75rem;margin:4px 0 10px;overflow-wrap:anywhere}
+.v42-family #v42Timeline[data-filter="care"] tr[data-v42-group="income"],.v42-family #v42Timeline[data-filter="income"] tr[data-v42-group="care"]{display:none}
+.v42-family .v42-track button[data-v42-month]{min-height:44px;min-width:44px}
+@media (max-width:480px){.v42-family .v42-filter button{flex:1 1 100%}}

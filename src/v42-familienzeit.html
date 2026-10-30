@@ -8,6 +8,12 @@
   <p class="v42-chip">Nur in diesem Browser-Tab</p>
  </header>
  <p class="v42-help" id="v42TimelineHelp">Wählt einen Lebensmonat mit den Monatstasten oder über die Spaltenüberschrift der Tabelle. In der Tabelle sind auch die Pfeiltasten nutzbar. Alle Angaben sind ohne Farben lesbar.</p>
+ <div class="v42-filter" role="group" aria-label="Zeitstrahl filtern">
+  <button type="button" class="navbtn alt" data-v42-filter="all" aria-pressed="true">Alles</button>
+  <button type="button" class="navbtn alt" data-v42-filter="care" aria-pressed="false">Nur Betreuung</button>
+  <button type="button" class="navbtn alt" data-v42-filter="income" aria-pressed="false">Nur Einkommen</button>
+ </div>
+ <p id="v42FilterSummary" class="v42-filter-summary" aria-live="polite"></p>
  <div class="v42-month-layout">
  <div class="v42-scroll" tabindex="0" aria-label="Zeitleiste horizontal verschieben">
   <div id="v42Timeline" aria-live="off"></div>

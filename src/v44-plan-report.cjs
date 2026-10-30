@@ -108,4 +108,33 @@ function makePrintSummary({
   ]
  };
 }
-module.exports={prepareTasks,makePrintSummary,MAX_PRINT_TASKS};
+function plainText(report){
+ // Pure text projection of an already built makePrintSummary result. No new rules or amounts.
+ if(!report||!report.family||!Array.isArray(report.bins))throw new TypeError('Berichtsdaten fehlen.');
+ const eur=v=>Number(v).toLocaleString('de-DE',{style:'currency',currency:'EUR'});
+ const dmy=v=>v?v.slice(8,10)+'.'+v.slice(5,7)+'.'+v.slice(0,4):'kein verbindlicher Tag angegeben';
+ const label={open:'noch offen',ready:'Unterlagen vorbereitet',done:'selbst erledigt (nicht amtlich bestätigt)'};
+ const f=report.family;
+ const out=['PLANUNGSSTAND, KEINE AMTLICHE BEWILLIGUNG','Familienplan – Zusammenfassung ('+report.type+')','',
+  'Geburtsdatum: '+dmy(report.birthDate),'Lebensmonate: 1–'+report.horizon,'Modell: '+report.modelLabel,
+  'Prüfstatus: '+report.validationStatus+' (keine Bewilligung)','','LEBENSMONATE (Blöcke von sechs Monaten)'];
+ for(const b of report.bins)
+  out.push('- LM '+b.from+'–'+b.to+': Einnahmen vor Kosten '+eur(b.income)+'; Rest nach Kosten '+
+   (b.rest===null?'nicht berechenbar':eur(b.rest))+'; volle Zuhause-Monate Elternteil 1 / 2: '+b.firstHome+' / '+b.secondHome);
+ out.push('Summe Einnahmen vor Kosten: '+eur(f.totalIncome));
+ out.push('Summe Rest nach Kosten: '+(f.totalAvailable===null||f.totalAvailable===undefined?'nicht berechenbar':eur(f.totalAvailable)));
+ out.push('Haushaltsausgaben je LM: '+(report.expensesKnown?eur(report.expenses):'unbekannt'));
+ out.push('','BETREUUNG','Geplanter Kita-Start: '+(f.childcareStartLm>0?'ab LM '+f.childcareStartLm:'nicht angegeben'),
+  'Erste Betreuung ohne ausdrückliche Zuordnung: '+(f.firstUnattributed===null?'keine im Modell':'LM '+f.firstUnattributed),
+  'Die Kita-Zuordnung ist eine Annahme, keine Platzzusage.','','FRISTEN UND AUFGABEN (Status nur aus dieser Sitzung)');
+ if(report.taskView){
+  const c=report.taskView.counts;
+  out.push('Quellenstand: '+dmy(report.taskView.verifiedAt)+'; '+c.open+' offen, '+c.ready+' vorbereitet, '+c.done+' selbst erledigt, '+c.total+' gesamt');
+  if(report.taskView.needsRecheck)out.push('Achtung: Geburt nach Quellenstand – Rechtslage und Verfahren erneut prüfen.');
+  for(const t of report.taskView.tasks)out.push('- '+dmy(t.dueDate)+' | '+t.title+' | '+label[t.status]);
+ }else out.push(report.taskError||'Keine Aufgabenquelle verfügbar.');
+ out.push('','HINWEIS','Planungsstand, keine amtliche Bewilligung. Kein Elterngeldbescheid, keine Rechtsberatung, kein Zahlungsnachweis.',
+  'Erledigt heißt nur selbst markiert. Enthält private Angaben – bewusst weitergeben.');
+ return out.join('\n')+'\n';
+}
+module.exports={prepareTasks,makePrintSummary,plainText,MAX_PRINT_TASKS};
